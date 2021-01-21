@@ -7,7 +7,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/UNCG-CSE/COVID-Team-5/">
+  <a href="https://github.com/JoshuaCrotts/CSC-490-Capstone-Project">
     <img src="https://www.kopykitab.com/blog/wp-content/uploads/2018/11/comp.-sci.png" alt="💻 Logo">
   </a>
 
