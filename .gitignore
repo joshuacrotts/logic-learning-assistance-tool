@@ -36,3 +36,4 @@ hs_err_pid*
 .settings/
 .settings
 .settings/*
+*.iml
