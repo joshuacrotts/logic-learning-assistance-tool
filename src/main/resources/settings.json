@@ -1,0 +1,17 @@
+{
+  "theme": {
+    "applied": "dark.css",
+    "allThemes": [
+      "default.css",
+      "dark.css"
+    ]
+  },
+  "language": {
+    "applied": "French",
+    "allLanguages": [
+      "Arabic",
+      "English",
+      "French"
+    ]
+  }
+}
