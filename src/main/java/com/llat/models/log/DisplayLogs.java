@@ -17,7 +17,7 @@ public class DisplayLogs {
 
     public static void subState(String _subStateMessage, Boolean onProgress) {
         if (onProgress) {
-            System.out.println("\t" + ConsoleColors.PURPLE + "[Proses]" + " - " + ConsoleColors.RESET + _subStateMessage);
+            System.out.println("\t" + ConsoleColors.PURPLE + "[Process]" + " - " + ConsoleColors.RESET + _subStateMessage);
         } else {
             System.out.println("\t" + ConsoleColors.WHITE + "[Done]" + " - " + ConsoleColors.RESET + _subStateMessage);
         }

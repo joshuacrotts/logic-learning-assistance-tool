@@ -117,7 +117,7 @@
                         <Pane fx:id="midle_pane_two" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
                         <Pane fx:id="midle_pane_three" prefHeight="48.0" prefWidth="600.0" GridPane.rowIndex="2">
                             <children>
-                                <TextField layoutX="6.0" layoutY="5.0" prefHeight="54.0" prefWidth="497.0">
+                                <TextField fx:id="userInput" layoutX="6.0" layoutY="5.0" prefHeight="54.0" prefWidth="497.0">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
