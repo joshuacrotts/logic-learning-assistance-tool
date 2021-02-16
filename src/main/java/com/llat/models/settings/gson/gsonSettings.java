@@ -29,6 +29,7 @@ public class gsonSettings implements SettingsInterface {
 
     @Override
     public SettingsObject getData() {
+        Gson gson = new Gson();
         String jsonString = readJsonFile(SETTINGS_JSON);
         SettingsObject setting = gson.fromJson(jsonString, SettingsObject.class);
         return setting;

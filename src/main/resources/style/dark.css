@@ -1,0 +1,41 @@
+#left_pane_one, #left_pane_two, #left_pane_three,
+#right_pane_one, #right_pane_two, #right_pane_three,
+#midle_left_pane_one, #midle_midle_pane_one, #midle_right_pane_one,
+#midle_pane_three, midle_pane_two, midle_pane_three {
+    -fx-background-color: #282C34;
+    -fx-border-color: #6E6E6E;
+}
+
+/*#midle_pane_two {*/
+/*    -fx-background-color: #21252B;*/
+/*}*/
+
+/*#modal_math_label, #predicate_label, #propositional_label, #rules_axiorns_label {*/
+/*    -fx-text-fill: #C1616A;*/
+/*}*/
+
+/*#solve_button {*/
+/*    -fx-background-color: #353B45;*/
+/*    -fx-text-fill: white;*/
+/*}*/
+
+/*#solve_button:pressed {*/
+/*    -fx-background-color: white;*/
+/*    -fx-text-fill: #353B45;*/
+/*}*/
+
+/*#propositionalMenuButton, #modalMathMenuButton, #predicateMenuButton {*/
+/*    -fx-background-color: #353B45;*/
+/*    -fx-text-fill: white;*/
+
+/*}*/
+
+/*#predicateMenuButton:focused {*/
+/*    -fx-background-color: white;*/
+
+/*}*/
+
+/*#predicateMenuButton:focused .text-field {*/
+/*    -fx-background-color: blue;*/
+
+/*}*/

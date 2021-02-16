@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static com.llat.models.log.DisplayLogs.*;
 
@@ -65,7 +66,7 @@ public class Frame {
 
     public Frame(Stage _primaryStage, String _fileName) {
         state("Running " + _fileName + " view");
-        scene = new Scene(loadFXML(FXML_PATH + _fileName));
+        scene = new Scene(Objects.requireNonNull(loadFXML(FXML_PATH + _fileName)));
         loadTheme();
         _primaryStage.setScene(scene);
         _primaryStage.show();
