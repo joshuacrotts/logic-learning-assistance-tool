@@ -1,6 +1,6 @@
 {
   "theme": {
-    "applied": "default.css",
+    "applied": "dark.css",
     "allThemes": [
       "default.css",
       "dark.css"

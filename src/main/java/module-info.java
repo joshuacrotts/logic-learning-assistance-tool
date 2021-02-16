@@ -1,4 +1,5 @@
 module org.LLAT {
+    opens com.llat.models.settings; //this is a fucking bitch!
     requires javafx.controls;
     requires javafx.fxml;
     requires json.simple;

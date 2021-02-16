@@ -13,6 +13,7 @@ public class gsonSettings implements SettingsInterface {
 
 
     public static final String SETTINGS_JSON = "settings.json";
+        public static final String PERSON_JSON = "person.json";
     public static Gson gson = new Gson();
 
     @Override
@@ -34,7 +35,6 @@ public class gsonSettings implements SettingsInterface {
         SettingsObject setting = gson.fromJson(jsonString, SettingsObject.class);
         return setting;
     }
-
     /*
     This method is reading a giving file name that is stored in the `resources` folder and return it as
     a string.
