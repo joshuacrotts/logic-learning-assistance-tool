@@ -1,4 +1,4 @@
-package com.llat.input;
+package com.llat.models.input;
 
 
 import com.llat.LLATBaseListener;

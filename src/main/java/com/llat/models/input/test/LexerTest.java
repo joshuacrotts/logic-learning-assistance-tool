@@ -1,4 +1,4 @@
-package com.llat.input.test;
+package com.llat.models.input.test;
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
