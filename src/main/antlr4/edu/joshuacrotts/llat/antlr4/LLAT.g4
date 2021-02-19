@@ -1,11 +1,6 @@
 grammar LLAT;
 
-//=========== Lexeme patterns and tokens start here ==============
-
-// Put your lexical analyzer rules here - the following rule is just
-// so that there is some lexer rule in the initial grammar (otherwise
-// ANTLR won't make a Lexer class)
-
+//=========== Lexeme patterns and tokens. ==============
 
 /* Miscellaneous and skippable lexemes. */
 WHITESPACE              : [ \r\n\t]+                               -> skip ;
@@ -23,16 +18,37 @@ fragment CARRIAGE_RET   : '\r'                                             ;
 fragment TAB            : '\t'                                             ;
 fragment NULL_CHAR      : '\\0'                                            ;
 fragment ESCAPED_CHAR   : ('\\' .)                                         ;
-fragment ANYCHAR_MOD    : (.+?) ; // Requires at least ONE character, whether it's special or not. If it's an empty char, that's the parser's problem.
+
+/* Other symbols. */
+OPEN_PAREN : '(';
+CLOSE_PAREN: ')';
+
+
+
+/* Binary operators. */
+AND     : '&'   ;
+OR      : '|'   ;
+IMP     : '->'  ;
+BICOND  : '<->' ;
+NEG     : '~'   ;
 
 /* Atoms. */
 ATOM: UPPER_CASE_LTR;
 
-/* Binary operators. */
-AND: '&';
-OR: '|';
-IMP: '->';
-BICOND: '<->';
-TOKEN: 'ttt';
+//=========== Parser rules. ==============
 
-program: .;
+atom: ATOM;
+
+wff: atom
+    | negRule
+    | OPEN_PAREN wff CLOSE_PAREN
+    | andRule
+    | orRule
+    | impRule
+    | bicondRule;
+
+negRule: NEG wff;
+andRule: OPEN_PAREN wff AND wff CLOSE_PAREN;
+orRule : OPEN_PAREN wff OR wff CLOSE_PAREN;
+impRule: OPEN_PAREN wff IMP wff CLOSE_PAREN;
+bicondRule: OPEN_PAREN wff BICOND wff CLOSE_PAREN;
