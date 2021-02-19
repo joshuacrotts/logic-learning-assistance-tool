@@ -59,7 +59,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.1</version>
                 <configuration>
-                    <mainClass>com.llat.main.MainApp</mainClass>
+                    <mainClass>com.llat.main.App</mainClass>
                 </configuration>
             </plugin>
             <plugin>
