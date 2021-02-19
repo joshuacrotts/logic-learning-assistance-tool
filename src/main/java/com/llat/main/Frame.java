@@ -14,12 +14,40 @@ import java.util.Objects;
 
 import static com.llat.models.log.DisplayLogs.*;
 
+/**
+ *
+ */
 public class Frame {
 
-    private static Scene scene;
+    /**
+     *
+     */
     private final static String FXML_PATH = "/fxml/";
-    final String os = System.getProperty("os.name");
 
+    /**
+     *
+     */
+    private static Scene scene;
+
+    /**
+     *
+     */
+    private final String os = System.getProperty("os.name");
+
+    public Frame(Stage _primaryStage, String _fileName) {
+        state("Running " + _fileName + " view");
+        scene = new Scene(Objects.requireNonNull(loadFXML(FXML_PATH + _fileName)));
+        loadTheme();
+        _primaryStage.setScene(scene);
+        _primaryStage.show();
+
+    }
+
+    /**
+     *
+     * @param fxml
+     * @return
+     */
     private Parent loadFXML(String fxml) {
         subState("Loading FXML static file", true);
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
@@ -32,6 +60,9 @@ public class Frame {
         }
     }
 
+    /**
+     *
+     */
     private void loadTheme() {
         //Get the theme that been saved from setting file
         String theme = "";
@@ -53,6 +84,9 @@ public class Frame {
         }
     }
 
+    /**
+     *
+     */
     private void menubar() {
         MenuBar menuBar = new MenuBar();
         menuBar.useSystemMenuBarProperty().set(true);
@@ -61,15 +95,6 @@ public class Frame {
         menu.getItems().add(item);
         menuBar.getMenus().add(menu);
 //        scene(new Pane(menuBar));
-
-    }
-
-    public Frame(Stage _primaryStage, String _fileName) {
-        state("Running " + _fileName + " view");
-        scene = new Scene(Objects.requireNonNull(loadFXML(FXML_PATH + _fileName)));
-        loadTheme();
-        _primaryStage.setScene(scene);
-        _primaryStage.show();
 
     }
 }

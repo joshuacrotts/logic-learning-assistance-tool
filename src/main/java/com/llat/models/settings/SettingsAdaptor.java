@@ -1,9 +1,11 @@
 package com.llat.models.settings;
 
-import com.llat.models.settings.gson.gsonSettings;
+import com.llat.models.settings.gson.GsonSettings;
 
 public class SettingsAdaptor implements SettingsInterface {
-    public SettingsInterface settings = new gsonSettings();
+
+    /** */
+    public SettingsInterface settings = new GsonSettings();
 
     @Override
     public void update(SettingsObject settingsObject) {

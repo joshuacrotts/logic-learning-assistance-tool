@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import static com.llat.models.log.DisplayLogs.note;
 
 public class MainController implements Initializable {
+
     @FXML
     private MenuBar menuBar;
 

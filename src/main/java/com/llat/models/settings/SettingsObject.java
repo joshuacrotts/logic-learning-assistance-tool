@@ -2,7 +2,11 @@ package com.llat.models.settings;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class SettingsObject {
+
     //    public String test;
     private Language language;
     private Theme theme;
@@ -28,6 +32,9 @@ public class SettingsObject {
         this.theme = theme;
     }
 
+    /**
+     *
+     */
     public class Theme {
         private String applied;
         private List<String> allThemes;
@@ -49,6 +56,9 @@ public class SettingsObject {
         }
     }
 
+    /**
+     *
+     */
     public class Language {
         private String applied;
         private List<String> allLanguages;
@@ -74,6 +84,4 @@ public class SettingsObject {
             this.allLanguages = allLanguages;
         }
     }
-
-
 }

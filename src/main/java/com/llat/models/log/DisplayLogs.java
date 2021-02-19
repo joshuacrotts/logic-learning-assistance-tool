@@ -1,7 +1,8 @@
 package com.llat.models.log;
 
 public class DisplayLogs {
-    private int subCounter = 0;
+
+    private final int subCounter = 0;
 
     public static void error(String _message) {
         System.out.println(ConsoleColors.RED + "[ERROR]" + " - " + ConsoleColors.RESET + _message);
@@ -34,8 +35,6 @@ public class DisplayLogs {
             note(_stateMessage);
         }
     }
-
-
 }
 
 class ConsoleColors {
