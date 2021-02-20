@@ -1,10 +1,6 @@
 package com.llat.input;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -16,7 +12,12 @@ import org.antlr.v4.runtime.Recognizer;
  * chains (or both). All it does is keep track of whether an error was detected,
  * so after parsing you can call sawError() to see if there was a problem.
  *
+ * For LLAT, we can use this in the front-end for displaying error messages.
+ * Simply call LLATErrorListener.getErrorIterator() and
+ * LLATErrorListener.getWarningIterator() to get an Iterator object for them.
+ *
  * @author Joshua Crotts
+ * @modified 2/20/2021
  */
 public class LLATErrorListener extends BaseErrorListener {
 
@@ -72,7 +73,7 @@ public class LLATErrorListener extends BaseErrorListener {
      * specified by the ParserRuleContext.
      *
      * @param ctx
-     * @param errorMsg
+     * @param warningMsg
      *
      * @return void.
      */
@@ -142,6 +143,26 @@ public class LLATErrorListener extends BaseErrorListener {
      */
     public static boolean sawWarning() {
         return gotWarning;
+    }
+
+    /**
+     * Returns an Iterator object for the errors generated during
+     * parsing and semantic analysis.
+     *
+     * @return Iterator<Message> object.
+     */
+    public static Iterator<Message> getErrorIterator() {
+        return errors.iterator();
+    }
+
+    /**
+     * Returns an Iterator object for the warnings generated during
+     * parsing and semantic analysis.
+     *
+     * @return Iterator<Message> object.
+     */
+    public static Iterator<Message> getWarningIterator() {
+        return warnings.iterator();
     }
 
     /**

@@ -20,9 +20,12 @@ import java.nio.file.NoSuchFileException;
  * Linux system.
  *
  * @author Steve Tate (srtate@uncg.edu)
+ * @modified Joshua Crotts
+ * @date 2/20/2021
  */
 
 public class LexerTest {
+
     /**
      * Produces a "portable" string representation of the token and position.
      * This is necessary due to differences between Windows and Linux/Unix

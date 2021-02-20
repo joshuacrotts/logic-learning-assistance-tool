@@ -8,7 +8,13 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import java.util.Stack;
 
 /**
+ * LLATParserListener is the connector that defines the syntax and,
+ * more importantly, the semantic analysis - how errors are defined
+ * and reported. Each method inherited from LLATBaseListener comes
+ * from the grammar LLAT.g4 file and correspond to parser rules.
  *
+ * @author Joshua Crotts
+ * @date 2/20/2021
  */
 public class LLATParserListener extends LLATBaseListener {
 
@@ -77,8 +83,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterAndRule(LLATParser.AndRuleContext ctx) {
-//        System.out.println(ctx.OPEN_PAREN() == null);
-//        System.out.println(ctx.CLOSE_PAREN() == null);
         if (ctx.OPEN_PAREN() == null) {
             LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in AND operator.");
         }
@@ -158,7 +162,7 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     public WffTree getSyntaxTree() {
-        return this.wffTree;
+        return LLATErrorListener.sawError() ? null : this.wffTree;
     }
 
     /**

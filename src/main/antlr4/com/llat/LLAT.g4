@@ -35,6 +35,8 @@ ATOM: UPPER_CASE_LTR;
 
 //=========== Parser rules. ==============
 
+program: wff EOF;
+
 atom: ATOM;
 
 wff: atom

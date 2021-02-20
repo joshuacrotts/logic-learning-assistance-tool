@@ -20,18 +20,19 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  * for input. Otherwise, input is taken from standard input. More importantly,
  * the parseFromFile and parseFromStdin methods are public static methods and
  * can be called from automated tests. They return the
- * edu.joshuacrotts.littlec.LCListener object that was used in parsing, giving
+ * LLATParserListener object that was used in parsing, giving
  * access to both the final syntax tree and the final symbol table.
  *
  * @author Steve Tate (srtate@uncg.edu)
+ * @modified Joshua Crotts
+ * @date 2/20/2021
  */
 public class ParserTest {
 
     /**
-     * Runs the parser and syntax tree
-     * constructor for the provided input stream. The returned object can be used to
-     * access the syntax tree and the symbol table for either futher processing or
-     * for checking results in automated tests.
+     * Runs the parser and syntax tree constructor for the provided input stream.
+     * The returned object can be used to access the syntax tree and the symbol table
+     * for either futher processing or for checking results in automated tests.
      *
      * @param input an initialized CharStream
      */
@@ -49,7 +50,7 @@ public class ParserTest {
         LLATParser parser = new LLATParser(tokens);
         parser.removeErrorListeners();
         parser.addErrorListener(errorListener);
-        ParseTree tree = parser.wff();
+        ParseTree tree = parser.program();
 
         // Now do the parsing, and walk the parse tree with our listeners
         ParseTreeWalker walker = new ParseTreeWalker();
@@ -106,9 +107,18 @@ public class ParserTest {
             parser = parseFromStdin();
         }
 
+        // For now, the errors are just printed in the tester class - if
+        // JUnit is integrated, these should be removed so they align with
+        // the tests.
+        LLATErrorListener.printErrors();
+        LLATErrorListener.printWarnings();
+
         WffTree result = null;
         if (parser != null) {
             result = parser.getSyntaxTree();
+        }
+
+        if (result != null) {
             result.printSyntaxTree();
         }
     }
