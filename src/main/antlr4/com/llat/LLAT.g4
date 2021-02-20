@@ -23,14 +23,12 @@ fragment ESCAPED_CHAR   : ('\\' .)                                         ;
 OPEN_PAREN : '(';
 CLOSE_PAREN: ')';
 
-
-
-/* Binary operators. */
-AND     : '&'   ;
-OR      : '|'   ;
-IMP     : '->'  ;
-BICOND  : '<->' ;
-NEG     : '~'   ;
+/* Binary and unary operators for propositional logic. */
+AND     : '&' | '∧'  ;
+OR      : '|' | '∨' | '+' | '||'  ;
+IMP     : '->' | '→' | '⇒' | '⊃'  ;
+BICOND  : '<->' | '⇔' | '≡' | '↔' ;
+NEG     : '~' | '¬' | '!'  ;
 
 /* Atoms. */
 ATOM: UPPER_CASE_LTR;
