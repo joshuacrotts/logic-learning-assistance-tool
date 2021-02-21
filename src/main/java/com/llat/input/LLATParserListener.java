@@ -55,10 +55,10 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void enterWff(LLATParser.WffContext ctx) {
+    public void enterPropWff(LLATParser.PropWffContext ctx) {
         // If a wff is defined then we're using the recursive
         // definition and it MUST have balanced parentheses.
-        if (ctx.wff() != null) {
+        if (ctx.propWff() != null) {
             if (ctx.OPEN_PAREN() == null) {
                 LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in wff definition.");
             }
@@ -70,25 +70,25 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void enterNegRule(LLATParser.NegRuleContext ctx) {
+    public void enterPropNegRule(LLATParser.PropNegRuleContext ctx) {
         NegNode negNode = new NegNode();
         this.treeRoots.push(this.wffTree);
         this.wffTree = negNode;
     }
 
     @Override
-    public void exitNegRule(LLATParser.NegRuleContext ctx) {
+    public void exitPropNegRule(LLATParser.PropNegRuleContext ctx) {
         this.popTreeRoot();
     }
 
     @Override
-    public void enterAndRule(LLATParser.AndRuleContext ctx) {
+    public void enterPropAndRule(LLATParser.PropAndRuleContext ctx) {
         if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in AND operator.");
+            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional AND operator.");
         }
 
         if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in AND operator.");
+            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional AND operator.");
         }
 
         AndNode andNode = new AndNode();
@@ -97,18 +97,18 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void exitAndRule(LLATParser.AndRuleContext ctx) {
+    public void exitPropAndRule(LLATParser.PropAndRuleContext ctx) {
         this.popTreeRoot();
     }
 
     @Override
-    public void enterOrRule(LLATParser.OrRuleContext ctx) {
+    public void enterPropOrRule(LLATParser.PropOrRuleContext ctx) {
         if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in OR operator.");
+            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional OR operator.");
         }
 
         if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in OR operator.");
+            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional OR operator.");
         }
 
         OrNode orNode = new OrNode();
@@ -117,18 +117,18 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void exitOrRule(LLATParser.OrRuleContext ctx) {
+    public void exitPropOrRule(LLATParser.PropOrRuleContext ctx) {
         this.popTreeRoot();
     }
 
     @Override
-    public void enterImpRule(LLATParser.ImpRuleContext ctx) {
+    public void enterPropImpRule(LLATParser.PropImpRuleContext ctx) {
         if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in IMPLICATION operator.");
+            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional IMPLICATION operator.");
         }
 
         if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in IMPLICATION operator.");
+            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional IMPLICATION operator.");
         }
 
         ImpNode impNode = new ImpNode();
@@ -137,18 +137,18 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void exitImpRule(LLATParser.ImpRuleContext ctx) {
+    public void exitPropImpRule(LLATParser.PropImpRuleContext ctx) {
         this.popTreeRoot();
     }
 
     @Override
-    public void enterBicondRule(LLATParser.BicondRuleContext ctx) {
+    public void enterPropBicondRule(LLATParser.PropBicondRuleContext ctx) {
         if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in BICONDITIONAL operator.");
+            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional BICONDITIONAL operator.");
         }
 
         if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in BICONDITIONAL operator.");
+            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional BICONDITIONAL operator.");
         }
 
         BicondNode bicondNode = new BicondNode();
@@ -157,8 +157,84 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void exitBicondRule(LLATParser.BicondRuleContext ctx) {
+    public void exitPropBicondRule(LLATParser.PropBicondRuleContext ctx) {
         this.popTreeRoot();
+    }
+
+//========================== PREDICATE LOGIC LISTENERS =============================//
+
+
+    @Override
+    public void enterPredicate(LLATParser.PredicateContext ctx) {
+    }
+
+    @Override
+    public void exitPredicate(LLATParser.PredicateContext ctx) {
+
+    }
+
+    @Override
+    public void enterConstant(LLATParser.ConstantContext ctx) {
+    }
+
+    @Override
+    public void exitConstant(LLATParser.ConstantContext ctx) {
+    }
+
+    @Override
+    public void enterVariable(LLATParser.VariableContext ctx) {
+    }
+
+    @Override
+    public void exitVariable(LLATParser.VariableContext ctx) {
+    }
+
+    @Override
+    public void enterPredWff(LLATParser.PredWffContext ctx) {
+    }
+
+    @Override
+    public void exitPredWff(LLATParser.PredWffContext ctx) {
+    }
+
+    @Override
+    public void enterPredNegRule(LLATParser.PredNegRuleContext ctx) {
+    }
+
+    @Override
+    public void exitPredNegRule(LLATParser.PredNegRuleContext ctx) {
+    }
+
+    @Override
+    public void enterPredAndRule(LLATParser.PredAndRuleContext ctx) {
+    }
+
+    @Override
+    public void exitPredAndRule(LLATParser.PredAndRuleContext ctx) {
+    }
+
+    @Override
+    public void enterPredOrRule(LLATParser.PredOrRuleContext ctx) {
+    }
+
+    @Override
+    public void exitPredOrRule(LLATParser.PredOrRuleContext ctx) {
+    }
+
+    @Override
+    public void enterPredImpRule(LLATParser.PredImpRuleContext ctx) {
+    }
+
+    @Override
+    public void exitPredImpRule(LLATParser.PredImpRuleContext ctx) {
+    }
+
+    @Override
+    public void enterPredBicondRule(LLATParser.PredBicondRuleContext ctx) {
+    }
+
+    @Override
+    public void exitPredBicondRule(LLATParser.PredBicondRuleContext ctx) {
     }
 
     public WffTree getSyntaxTree() {

@@ -33,22 +33,59 @@ NEG     : '~' | '¬' | '!'  ;
 /* Atoms. */
 ATOM: UPPER_CASE_LTR;
 
+/* Constants. */
+CONSTANT: [a-t];
+
+/* Variables. */
+VARIABLE: [u-z];
+
+/* Quantifiers. */
+EXISTENTIAL: '∃';
+UNIVERSAL: '∀';
+
 //=========== Parser rules. ==============
 
-program: wff EOF;
+program: predWff | propWff;
 
+/* Propositional Logic Rules. */
 atom: ATOM;
 
-wff: atom
-    | negRule
-    | OPEN_PAREN wff CLOSE_PAREN
-    | andRule
-    | orRule
-    | impRule
-    | bicondRule;
+propWff: atom
+    | propNegRule
+    | OPEN_PAREN propWff CLOSE_PAREN
+    | propAndRule
+    | propOrRule
+    | propImpRule
+    | propBicondRule;
 
-negRule: NEG wff;
-andRule: OPEN_PAREN wff AND wff CLOSE_PAREN;
-orRule : OPEN_PAREN wff OR wff CLOSE_PAREN;
-impRule: OPEN_PAREN wff IMP wff CLOSE_PAREN;
-bicondRule: OPEN_PAREN wff BICOND wff CLOSE_PAREN;
+propNegRule: NEG propWff;
+propAndRule: OPEN_PAREN propWff AND propWff CLOSE_PAREN;
+propOrRule : OPEN_PAREN propWff OR propWff CLOSE_PAREN;
+propImpRule: OPEN_PAREN propWff IMP propWff CLOSE_PAREN;
+propBicondRule: OPEN_PAREN propWff BICOND propWff CLOSE_PAREN;
+
+/* Predicate Logic Rules. */
+constant: CONSTANT;
+variable: VARIABLE;
+universal: ('(' UNIVERSAL variable ')') | ('(' variable ')');
+existential: '(' (EXISTENTIAL variable) ')';
+
+predicate: ATOM(constant|variable)+;
+
+predWff:
+      constant
+    | variable
+    | predicate
+    | quantifier* predNegRule
+    | quantifier* OPEN_PAREN predWff CLOSE_PAREN
+    | quantifier* predAndRule
+    | quantifier* predOrRule
+    | quantifier* predImpRule
+    | quantifier* predBicondRule;
+
+quantifier: NEG? (existential | universal);
+predNegRule: NEG predWff;
+predAndRule: OPEN_PAREN predWff AND predWff CLOSE_PAREN;
+predOrRule : OPEN_PAREN predWff OR predWff CLOSE_PAREN;
+predImpRule: OPEN_PAREN predWff IMP predWff CLOSE_PAREN;
+predBicondRule: OPEN_PAREN predWff BICOND predWff CLOSE_PAREN;
