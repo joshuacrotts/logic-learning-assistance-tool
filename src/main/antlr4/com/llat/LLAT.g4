@@ -29,6 +29,7 @@ OR      : '|' | '∨' | '+' | '||'  ;
 IMP     : '->' | '→' | '⇒' | '⊃'  ;
 BICOND  : '<->' | '⇔' | '≡' | '↔' ;
 NEG     : '~' | '¬' | '!'  ;
+IDENTITY: '=';
 
 /* Atoms. */
 ATOM: UPPER_CASE_LTR;
@@ -73,19 +74,19 @@ existential: '(' (EXISTENTIAL variable) ')';
 predicate: ATOM(constant|variable)+;
 
 predWff:
-      constant
-    | variable
     | predicate
     | quantifier* predNegRule
     | quantifier* OPEN_PAREN predWff CLOSE_PAREN
     | quantifier* predAndRule
     | quantifier* predOrRule
     | quantifier* predImpRule
-    | quantifier* predBicondRule;
+    | quantifier* predBicondRule
+    | quantifier* predIdentityRule;
 
-quantifier: NEG? (existential | universal);
+quantifier: NEG? (existential | universal); // Bug still exists that ~(x) is marked as prednegrule.
 predNegRule: NEG predWff;
 predAndRule: OPEN_PAREN predWff AND predWff CLOSE_PAREN;
 predOrRule : OPEN_PAREN predWff OR predWff CLOSE_PAREN;
 predImpRule: OPEN_PAREN predWff IMP predWff CLOSE_PAREN;
 predBicondRule: OPEN_PAREN predWff BICOND predWff CLOSE_PAREN;
+predIdentityRule: (constant|variable) IDENTITY (constant|variable);
