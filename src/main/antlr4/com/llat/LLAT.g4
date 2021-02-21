@@ -75,8 +75,8 @@ predicate: ATOM(constant|variable)+;
 
 predWff:
     | predicate
-    | quantifier* predNegRule
     | quantifier* OPEN_PAREN predWff CLOSE_PAREN
+    | quantifier* predNegRule
     | quantifier* predAndRule
     | quantifier* predOrRule
     | quantifier* predImpRule
