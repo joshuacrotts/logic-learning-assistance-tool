@@ -3,19 +3,19 @@ package com.llat.input.treenode;
 /**
  *
  */
-public class VariableNode extends WffTree {
+public class ExistentialQuantifierNode extends WffTree {
 
     /**
      *
      */
     private final String VARIABLE_SYMBOL;
 
-    public VariableNode(String _variableSymbol, WffTree _left, WffTree _right) {
-        super(NodeType.VARIABLE, _left, _right);
+    public ExistentialQuantifierNode(String _variableSymbol, WffTree _left, WffTree _right) {
+        super(NodeType.EXISTENTIAL, _left, _right);
         this.VARIABLE_SYMBOL = _variableSymbol;
     }
 
-    public VariableNode(String _variableSymbol) {
+    public ExistentialQuantifierNode(String _variableSymbol) {
         this(_variableSymbol, null, null);
     }
 

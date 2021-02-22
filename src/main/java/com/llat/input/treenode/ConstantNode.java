@@ -23,6 +23,6 @@ public class ConstantNode extends WffTree {
 
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() + ": " + this.CONSTANT_SYMBOL;
     }
 }

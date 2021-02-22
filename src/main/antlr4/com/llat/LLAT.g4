@@ -70,7 +70,7 @@ variable: VARIABLE;
 universal: ('(' UNIVERSAL variable ')') | ('(' variable ')');
 existential: '(' (EXISTENTIAL variable) ')';
 
-predicate: ATOM(constant|variable)+;
+predicate: atom(constant|variable)+;
 
 predWff:
     | predicate
