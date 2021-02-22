@@ -98,6 +98,20 @@ public class WffTree {
         return this.NODE_TYPE == NodeType.BICOND;
     }
 
+    public boolean isQuantifier() { return this.NODE_TYPE == NodeType.EXISTENTIAL || this.NODE_TYPE == NodeType.UNIVERSAL;}
+
+    public boolean isPredicate() {
+        return this.NODE_TYPE == NodeType.PREDICATE;
+    }
+
+    public boolean isConstant() {
+        return this.NODE_TYPE == NodeType.CONSTANT;
+    }
+
+    public boolean isVariable() {
+        return this.NODE_TYPE == NodeType.VARIABLE;
+    }
+
     public NodeType getNodeType() {
         return this.NODE_TYPE;
     }

@@ -72,17 +72,16 @@ existential: '(' (EXISTENTIAL variable) ')';
 
 predicate: atom(constant|variable)+;
 
-predWff:
-    | predicate
-    | quantifier* predicate
-    | quantifier* predNegRule
-    | quantifier* predAndRule
-    | quantifier* predOrRule
-    | quantifier* predImpRule
-    | quantifier* predBicondRule
-    | quantifier* predIdentityRule;
+predWff: predicate
+    | (quantifier predWff)
+    | predNegRule
+    | predAndRule
+    | predOrRule
+    | predImpRule
+    | predBicondRule
+    | predIdentityRule;
 
-quantifier: NEG? (existential | universal); // Bug still exists that ~(x) is marked as prednegrule.
+quantifier: NEG? (existential | universal);
 predNegRule: NEG predWff;
 predAndRule: OPEN_PAREN predWff AND predWff CLOSE_PAREN;
 predOrRule : OPEN_PAREN predWff OR predWff CLOSE_PAREN;

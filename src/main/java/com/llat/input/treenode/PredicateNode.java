@@ -19,8 +19,9 @@ public class PredicateNode extends WffTree {
         this.PARAMS = _params;
 
         for (WffTree tree : this.PARAMS) {
-            if (tree != null)
+            if (tree != null) {
                 super.addChild(tree);
+            }
         }
     }
 
