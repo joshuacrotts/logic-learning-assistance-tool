@@ -53,7 +53,6 @@ atom: ATOM;
 
 propWff: atom
     | propNegRule
-    | OPEN_PAREN propWff CLOSE_PAREN
     | propAndRule
     | propOrRule
     | propImpRule
@@ -75,7 +74,7 @@ predicate: ATOM(constant|variable)+;
 
 predWff:
     | predicate
-    | quantifier* OPEN_PAREN predWff CLOSE_PAREN
+    | quantifier* predicate
     | quantifier* predNegRule
     | quantifier* predAndRule
     | quantifier* predOrRule
