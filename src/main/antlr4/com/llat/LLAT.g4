@@ -22,6 +22,8 @@ fragment ESCAPED_CHAR   : ('\\' .)                                         ;
 /* Other symbols. */
 OPEN_PAREN : '(';
 CLOSE_PAREN: ')';
+COMMA      : ',';
+SEMICOLON  : ';';
 
 /* Binary and unary operators for propositional logic. */
 AND     : '&' | '∧'  ;
@@ -44,9 +46,12 @@ VARIABLE: [u-z];
 EXISTENTIAL: '∃';
 UNIVERSAL: '∀';
 
+/* Conclusion Indicator Symbols. */
+THEREFORE: '⊢' | '∴' | '=>';
+
 //=========== Parser rules. ==============
 
-program: predWff | propWff;
+program: predProof | propProof | predWff | propWff;
 
 /* Propositional Logic Rules. */
 atom: ATOM;
@@ -67,14 +72,14 @@ propBicondRule: OPEN_PAREN propWff BICOND propWff CLOSE_PAREN;
 /* Predicate Logic Rules. */
 constant: CONSTANT;
 variable: VARIABLE;
-universal: ('(' UNIVERSAL variable ')') | ('(' variable ')');
-existential: '(' (EXISTENTIAL variable) ')';
+universal: (OPEN_PAREN UNIVERSAL variable CLOSE_PAREN) | (OPEN_PAREN variable CLOSE_PAREN);
+existential: OPEN_PAREN EXISTENTIAL variable CLOSE_PAREN;
 
 predicate: atom(constant|variable)+;
 
 predWff: predicate
-    | (quantifier predWff)
     | predNegRule
+    | (quantifier predWff)
     | predAndRule
     | predOrRule
     | predImpRule
@@ -88,3 +93,14 @@ predOrRule : OPEN_PAREN predWff OR predWff CLOSE_PAREN;
 predImpRule: OPEN_PAREN predWff IMP predWff CLOSE_PAREN;
 predBicondRule: OPEN_PAREN predWff BICOND predWff CLOSE_PAREN;
 predIdentityRule: (constant|variable) IDENTITY (constant|variable);
+
+/* Proof rules. */
+/* Proof for predicate logic. */
+predPremise: ((predWff (COMMA|SEMICOLON)) | predWff);
+predConclusion: predWff;
+predProof: predPremise+ THEREFORE predConclusion;
+
+/* Proof for propositional logic. */
+propPremise: ((propWff (COMMA|SEMICOLON)) | propWff);
+propConclusion: propWff;
+propProof: propPremise+ THEREFORE propConclusion;

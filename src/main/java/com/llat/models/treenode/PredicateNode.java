@@ -1,4 +1,4 @@
-package com.llat.input.treenode;
+package com.llat.models.treenode;
 
 import java.util.LinkedList;
 
@@ -7,14 +7,14 @@ import java.util.LinkedList;
  */
 public class PredicateNode extends WffTree {
 
-    /** */
+    /** Symbol to define the predicate letter. */
     private final String PREDICATE_LETTER;
 
-    /** */
+    /** WffTree children for this predicate node - each child should be a constant or variable node. */
     private final LinkedList<WffTree> PARAMS;
 
-    public PredicateNode(String _predicateLetter, LinkedList<WffTree> _params, WffTree _left, WffTree _right) {
-        super(NodeType.PREDICATE, _left, _right);
+    public PredicateNode(String _predicateLetter, LinkedList<WffTree> _params) {
+        super(NodeType.PREDICATE);
         this.PREDICATE_LETTER = _predicateLetter;
         this.PARAMS = _params;
 
@@ -25,16 +25,16 @@ public class PredicateNode extends WffTree {
         }
     }
 
-    public PredicateNode(String _predicateLetter, LinkedList<WffTree> _params) {
-        this(_predicateLetter, _params, null, null);
-    }
-
     public String getPredicateLetter() {
         return this.PREDICATE_LETTER;
     }
 
     public LinkedList<WffTree> getParameters() {
         return this.PARAMS;
+    }
+
+    public int getArity() {
+        return this.PARAMS.size();
     }
 
     @Override

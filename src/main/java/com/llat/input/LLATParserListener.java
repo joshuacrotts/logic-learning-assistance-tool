@@ -2,8 +2,7 @@ package com.llat.input;
 
 import com.llat.LLATBaseListener;
 import com.llat.LLATParser;
-import com.llat.input.treenode.*;
-import org.antlr.v4.runtime.tree.ParseTree;
+import com.llat.models.treenode.*;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.LinkedList;
@@ -57,6 +56,10 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
+    public void enterPropWff(LLATParser.PropWffContext ctx) {
+    }
+
+    @Override
     public void exitPropWff(LLATParser.PropWffContext ctx) {
         if (ctx.atom() != null) {
             this.wffTree.addChild(this.PARSE_TREE.get(ctx.atom()));
@@ -65,7 +68,8 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPropNegRule(LLATParser.PropNegRuleContext ctx) {
-        NegNode negNode = new NegNode();
+        String symbol = ctx.getText();
+        NegNode negNode = new NegNode(symbol);
         this.treeRoots.push(this.wffTree);
         this.wffTree = negNode;
     }
@@ -85,7 +89,7 @@ public class LLATParserListener extends LLATBaseListener {
             LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional AND operator.");
         }
 
-        AndNode andNode = new AndNode();
+        AndNode andNode = new AndNode(ctx.AND().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = andNode;
     }
@@ -105,7 +109,7 @@ public class LLATParserListener extends LLATBaseListener {
             LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional OR operator.");
         }
 
-        OrNode orNode = new OrNode();
+        OrNode orNode = new OrNode(ctx.OR().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = orNode;
     }
@@ -125,7 +129,7 @@ public class LLATParserListener extends LLATBaseListener {
             LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional IMPLICATION operator.");
         }
 
-        ImpNode impNode = new ImpNode();
+        ImpNode impNode = new ImpNode(ctx.IMP().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = impNode;
     }
@@ -145,7 +149,7 @@ public class LLATParserListener extends LLATBaseListener {
             LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional BICONDITIONAL operator.");
         }
 
-        BicondNode bicondNode = new BicondNode();
+        BicondNode bicondNode = new BicondNode(ctx.BICOND().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = bicondNode;
     }
@@ -157,14 +161,13 @@ public class LLATParserListener extends LLATBaseListener {
 
 //========================== PREDICATE LOGIC LISTENERS =============================//
 
-
     @Override
     public void enterPredicate(LLATParser.PredicateContext ctx) {
     }
 
     @Override
     public void exitPredicate(LLATParser.PredicateContext ctx) {
-        WffTree atomNode = PARSE_TREE.get(ctx.atom());
+        AtomNode atomNode = (AtomNode) PARSE_TREE.get(ctx.atom());
 
         // Loop through the children and add them to the list.
         // Each parameter is either a constant or variable.
@@ -214,7 +217,12 @@ public class LLATParserListener extends LLATBaseListener {
             return;
         }
 
-        UniversalQuantifierNode universalNode = new UniversalQuantifierNode(variableNode.getVariableSymbol());
+        String symbol = "("
+                        + (ctx.UNIVERSAL() != null ? ctx.UNIVERSAL().getText() : "")
+                        + (ctx.variable().getText())
+                        + ")";
+        UniversalQuantifierNode universalNode = new UniversalQuantifierNode(symbol,
+                                                                            variableNode.getSymbol());
         this.wffTree.addChild(universalNode);
     }
 
@@ -233,7 +241,12 @@ public class LLATParserListener extends LLATBaseListener {
             return;
         }
 
-        ExistentialQuantifierNode existentialNode = new ExistentialQuantifierNode(variableNode.getVariableSymbol());
+        String symbol = "("
+                        + ctx.EXISTENTIAL().getText()
+                        + ctx.variable().getText()
+                        + ")";
+        ExistentialQuantifierNode existentialNode = new ExistentialQuantifierNode(symbol,
+                                                                                    variableNode.getSymbol());
         this.wffTree.addChild(existentialNode);
     }
 
@@ -247,7 +260,7 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPredNegRule(LLATParser.PredNegRuleContext ctx) {
-        NegNode negNode = new NegNode();
+        NegNode negNode = new NegNode(ctx.NEG().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = negNode;
     }
@@ -267,7 +280,7 @@ public class LLATParserListener extends LLATBaseListener {
             LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional AND operator.");
         }
 
-        AndNode andNode = new AndNode();
+        AndNode andNode = new AndNode(ctx.AND().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = andNode;
     }
@@ -287,7 +300,7 @@ public class LLATParserListener extends LLATBaseListener {
             LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional OR operator.");
         }
 
-        OrNode orNode = new OrNode();
+        OrNode orNode = new OrNode(ctx.OR().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = orNode;
     }
@@ -307,7 +320,7 @@ public class LLATParserListener extends LLATBaseListener {
             LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in predicate IMPLICATION operator.");
         }
 
-        ImpNode impNode = new ImpNode();
+        ImpNode impNode = new ImpNode(ctx.IMP().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = impNode;
     }
@@ -327,7 +340,7 @@ public class LLATParserListener extends LLATBaseListener {
             LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in predicate BICONDITIONAL operator.");
         }
 
-        BicondNode bicondNode = new BicondNode();
+        BicondNode bicondNode = new BicondNode(ctx.BICOND().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = bicondNode;
     }
@@ -335,6 +348,15 @@ public class LLATParserListener extends LLATBaseListener {
     @Override
     public void exitPredBicondRule(LLATParser.PredBicondRuleContext ctx) {
         this.popTreeRoot();
+    }
+
+    @Override
+    public void exitPredIdentityRule(LLATParser.PredIdentityRuleContext ctx) {
+        IdentityNode identityNode = new IdentityNode();
+        identityNode.addChild(this.PARSE_TREE.get(ctx.getChild(0)));
+        identityNode.addChild(this.PARSE_TREE.get(ctx.getChild(2)));
+
+        this.wffTree.addChild(identityNode);
     }
 
     public WffTree getSyntaxTree() {
