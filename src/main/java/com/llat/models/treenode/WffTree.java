@@ -1,4 +1,4 @@
-package com.llat.input.treenode;
+package com.llat.models.treenode;
 
 import java.util.LinkedList;
 
@@ -16,27 +16,25 @@ public class WffTree {
     /**
      *
      */
+    private final String SYMBOL;
+
+    /**
+     *
+     */
     private final LinkedList<WffTree> children;
 
-    public WffTree(NodeType _nodeType, WffTree _left, WffTree _right) {
+    public WffTree(String _symbol, NodeType _nodeType) {
+        this.SYMBOL = _symbol;
         this.NODE_TYPE = _nodeType;
         this.children = new LinkedList<>();
-
-        if (_left != null) {
-            this.children.add(_left);
-        }
-
-        if (_right != null) {
-            this.children.add(_right);
-        }
     }
 
     public WffTree(NodeType _nodeType) {
-        this(_nodeType, null, null);
+        this(null, _nodeType);
     }
 
     public WffTree() {
-        this(NodeType.ROOT, null, null);
+        this(null, NodeType.ROOT);
     }
 
     public void printSyntaxTree() {
@@ -50,6 +48,7 @@ public class WffTree {
      *
      * @param indent current indentation level
      * @return a string representation of this syntax tree node (and its descendants)
+     * @author Steve Tate
      */
     private StringBuilder printSyntaxTreeHelper(int indent) {
         StringBuilder sb = new StringBuilder();
@@ -74,12 +73,32 @@ public class WffTree {
         return sb;
     }
 
+    public WffTree getChild(int i) {
+        try {
+            return this.children.get(i);
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
+    }
+
+    public int getChildrenSize() {
+        return this.children.size();
+    }
+
+    public void addChild(WffTree _node) {
+        this.children.add(_node);
+    }
+
     public boolean isRoot() {
         return this.NODE_TYPE == NodeType.ROOT;
     }
 
     public boolean isAtom() {
         return this.NODE_TYPE == NodeType.ATOM;
+    }
+
+    public boolean isNegation() {
+        return this.NODE_TYPE == NodeType.NEG;
     }
 
     public boolean isAnd() {
@@ -98,7 +117,13 @@ public class WffTree {
         return this.NODE_TYPE == NodeType.BICOND;
     }
 
+    public boolean isIdentity() { return this.NODE_TYPE == NodeType.IDENTITY; };
+
     public boolean isQuantifier() { return this.NODE_TYPE == NodeType.EXISTENTIAL || this.NODE_TYPE == NodeType.UNIVERSAL;}
+
+    public boolean isBinaryOp() {
+        return this.isAnd() || this.isOr() || this.isImp() || this.isBicond() || this.isIdentity();
+    }
 
     public boolean isPredicate() {
         return this.NODE_TYPE == NodeType.PREDICATE;
@@ -120,8 +145,8 @@ public class WffTree {
         return this.children;
     }
 
-    public void addChild(WffTree _node) {
-        this.children.add(_node);
+    public String getSymbol() {
+        return this.SYMBOL;
     }
 
     @Override

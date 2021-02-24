@@ -1,4 +1,4 @@
-package com.llat.input.treenode;
+package com.llat.models.treenode;
 
 /**
  *
@@ -6,7 +6,7 @@ package com.llat.input.treenode;
 public class AtomNode extends WffTree {
 
     /**
-     *
+     * Symbol to define the proposition/atom.
      */
     private final String ATOM_SYMBOL;
 
