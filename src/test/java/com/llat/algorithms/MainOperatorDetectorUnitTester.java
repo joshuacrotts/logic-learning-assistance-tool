@@ -1,6 +1,7 @@
-package com.llat.input.test;
+package com.llat.algorithms;
 
 import com.llat.input.LLATParserListener;
+import com.llat.input.tests.ParserTest;
 import com.llat.models.treenode.WffTree;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
@@ -14,17 +15,9 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Testing file for the parser. This tester is designed to run test cases
- * that are located in the "tests" subdirectory of the main project directory.
- * Valid LittleC programs (which should parse and produce a syntax tree) are
- * tested by method goodFileTest(), and invalid LittleC program (which should
- * produce null for the syntax tree, indicating an error) are tested by method
- * badFileInput(). See those methods for more information.
- */
-public class MainOperatorUnitTester {
+public class MainOperatorDetectorUnitTester {
 
     /**
      * Helper function to count number of newlines in a string
@@ -43,9 +36,9 @@ public class MainOperatorUnitTester {
 
     /**
      * Compares to byte array token by token, where a "token" is either a
-     * C-style identifier, a number, or an individual character. All whitespace
-     * is skipped over and not used for the comparison, so the outputs can
-     * be formatted/spaced entirely differently.
+     * individual character. All whitespace is skipped over and not used
+     * for the comparison, so the outputs can be formatted/spaced entirely
+     * differently.
      *
      * @param got the bytes printed out by the program under test
      * @param expect the expected output
@@ -96,8 +89,8 @@ public class MainOperatorUnitTester {
     }
 
     /**
-     * The testing engine for a valid LittleC program (which should parse and
-     * produce a LCSyntaxTree). Both the input LittleC program and the expected
+     * The testing engine for a valid LLAT well-formed formula (which should parse and
+     * produce a WffTree object). Both the input wff and the expected
      * syntax tree output file must be provided as files with ".in" and ".out"
      * extensions, respectively. Runs input file through the
      * ParserTest.parseFromFile() method, gets the syntax tree and calls the
@@ -109,8 +102,8 @@ public class MainOperatorUnitTester {
      *                 extensions.
      */
     private static void goodFileTest(String testName) {
-        String inName = "tests/" + testName + ".in";
-        String expName = "tests/" + testName + ".out";
+        String inName = "tests/mainoperator/" + testName + ".in";
+        String expName = "tests/mainoperator/" + testName + ".out";
 
         PrintStream origOut = System.out;
         PrintStream origErr = System.err;
@@ -121,7 +114,7 @@ public class MainOperatorUnitTester {
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file "+inName);
         WffTree syntaxTree = parser.getSyntaxTree();
-        syntaxTree.printSyntaxTree();
+        System.out.println(MainOperatorDetector.get(syntaxTree).getSymbol());
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();
@@ -132,40 +125,132 @@ public class MainOperatorUnitTester {
         } catch (IOException e) {
             throw new AssertionFailedError("Missing expected output file " + expName);
         }
+
         compare(actual, expected);
     }
 
-    /**
-     * The testing engine for a invalid LittleC program (the error should be
-     * detected, resulting in null being returned for the syntax tree. Any
-     * non-null result means the error was missed, so the test fails. Since
-     * there is not supposed to be any output, only the input file (with
-     * extension ".in") is required.
-     *
-     * @param testName the base name of the test case; files are stored in the
-     *                 tests project directory, with an ".in" extensions.
-     */
-    private static void errorFileTest(String testName) {
-        String inName = "tests/" + testName + ".in";
-
-        PrintStream origOut = System.out;
-        PrintStream origErr = System.err;
-        ByteArrayOutputStream captureOut = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(captureOut));
-        System.setErr(new PrintStream(captureOut));
-        LLATParserListener parser = ParserTest.parseFromFile(inName);
-        if (parser == null)
-            return;
-
-        WffTree result = parser.getSyntaxTree();
-        System.setErr(origErr);
-        System.setOut(origOut);
-        if (result != null)
-            throw new AssertionFailedError("Did not catch the error in input "+inName);
+    @Test
+    public void test001() {
+        goodFileTest("test001");
     }
 
     @Test
-    public void testOne() {
-        goodFileTest("test001");
+    public void test002() {
+        goodFileTest("test002");
+    }
+
+    @Test
+    public void test003() {
+        goodFileTest("test003");
+    }
+
+    @Test
+    public void test004() {
+        goodFileTest("test004");
+    }
+
+    @Test
+    public void test005() {
+        goodFileTest("test005");
+    }
+
+    @Test
+    public void test006() {
+        goodFileTest("test006");
+    }
+
+    @Test
+    public void test007() {
+        goodFileTest("test007");
+    }
+
+    @Test
+    public void test008() {
+        goodFileTest("test008");
+    }
+
+    @Test
+    public void test009() {
+        goodFileTest("test009");
+    }
+
+    @Test
+    public void test010() {
+        goodFileTest("test010");
+    }
+
+    @Test
+    public void test011() {
+        goodFileTest("test011");
+    }
+
+    @Test
+    public void test012() {
+        goodFileTest("test012");
+    }
+
+    @Test
+    public void test013() {
+        goodFileTest("test013");
+    }
+
+    @Test
+    public void test014() {
+        goodFileTest("test014");
+    }
+
+    @Test
+    public void test015() {
+        goodFileTest("test015");
+    }
+
+    @Test
+    public void test016() {
+        goodFileTest("test016");
+    }
+
+    @Test
+    public void test017() {
+        goodFileTest("test017");
+    }
+
+    @Test
+    public void test018() {
+        goodFileTest("test018");
+    }
+
+    @Test
+    public void test019() {
+        goodFileTest("test019");
+    }
+
+    @Test
+    public void test020() {
+        goodFileTest("test020");
+    }
+
+    @Test
+    public void test021() {
+        goodFileTest("test021");
+    }
+
+    @Test
+    public void test022() {
+        goodFileTest("test022");
+    }
+
+    @Test
+    public void test023() {
+        goodFileTest("test023");
+    }
+
+    @Test
+    public void test024() {
+        goodFileTest("test024");
+    }
+
+    @Test
+    public void test025() {
+        goodFileTest("test025");
     }
 }

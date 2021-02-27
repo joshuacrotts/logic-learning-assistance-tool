@@ -1,0 +1,16 @@
+ROOT (
+    AND (
+        IMP (
+            ATOM: P,
+            ATOM: Q
+        ),
+        IMP (
+            NEG (
+                ATOM: C
+            ),
+            NEG (
+                ATOM: D
+            )
+        )
+    )
+)

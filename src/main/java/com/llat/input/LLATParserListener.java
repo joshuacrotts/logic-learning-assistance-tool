@@ -68,7 +68,7 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPropNegRule(LLATParser.PropNegRuleContext ctx) {
-        String symbol = ctx.getText();
+        String symbol = ctx.NEG().getText();
         NegNode negNode = new NegNode(symbol);
         this.treeRoots.push(this.wffTree);
         this.wffTree = negNode;
