@@ -97,31 +97,31 @@ public class ParserTest {
      *
      * @param argv command line arguments
      */
-    public static void main(String[] argv) {
-        LLATParserListener parser;
-        if (argv.length > 1) {
-            System.err.println("Can provide at most one command line argument (an input filename)");
-            return;
-        } else if (argv.length == 1) {
-            parser = parseFromFile(argv[0]);
-        } else {
-            parser = parseFromStdin();
-        }
-
-        // For now, the errors are just printed in the tester class - if
-        // JUnit is integrated, these should be removed so they align with
-        // the tests.
-        LLATErrorListener.printErrors();
-        LLATErrorListener.printWarnings();
-
-        WffTree result = null;
-        if (parser != null) {
-            result = parser.getSyntaxTree();
-        }
-
-        if (result != null) {
-            result.printSyntaxTree();
-            System.out.println(MainOperatorDetector.get(result).getSymbol());
-        }
-    }
+//    public static void main(String[] argv) {
+//        LLATParserListener parser;
+//        if (argv.length > 1) {
+//            System.err.println("Can provide at most one command line argument (an input filename)");
+//            return;
+//        } else if (argv.length == 1) {
+//            parser = parseFromFile(argv[0]);
+//        } else {
+//            parser = parseFromStdin();
+//        }
+//
+//        // For now, the errors are just printed in the tester class - if
+//        // JUnit is integrated, these should be removed so they align with
+//        // the tests.
+//        LLATErrorListener.printErrors();
+//        LLATErrorListener.printWarnings();
+//
+//        WffTree result = null;
+//        if (parser != null) {
+//            result = parser.getSyntaxTree();
+//        }
+//
+//        if (result != null) {
+//            result.printSyntaxTree();
+//            System.out.println(MainOperatorDetector.get(result).getSymbol());
+//        }
+//    }
 }
