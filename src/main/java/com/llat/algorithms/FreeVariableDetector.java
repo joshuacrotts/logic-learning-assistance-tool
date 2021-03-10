@@ -4,14 +4,13 @@ import com.llat.models.treenode.QuantifierNode;
 import com.llat.models.treenode.VariableNode;
 import com.llat.models.treenode.WffTree;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 
 public final class FreeVariableDetector {
 
     public static LinkedList<WffTree> get(WffTree tree) {
-        HashSet<WffTree> S = new HashSet<>();
-        LinkedList<WffTree> L = new LinkedList<>();
+        LinkedHashSet<WffTree> S = new LinkedHashSet<>();
+        Stack<WffTree> L = new Stack<>();
         free(tree, S, L);
         return new LinkedList<>(S);
     }
@@ -22,12 +21,10 @@ public final class FreeVariableDetector {
      * @param S
      * @param L
      */
-    private static void free(WffTree T, HashSet<WffTree> S, LinkedList<WffTree> L) {
-        WffTree quantifierNode = null;
+    private static void free(WffTree T, LinkedHashSet<WffTree> S, Stack<WffTree> L) {
         // Quantifiers are always the left-most child in a tree if they exist.
         if (T.isQuantifier()) {
-            L.add(T);
-            quantifierNode = T;
+            L.push(T);
         } else if (T.isVariable()) {
             // Once we find a variable, we need to check and make sure NO quantifier binds it.
             VariableNode tv = (VariableNode) T;
@@ -45,17 +42,12 @@ public final class FreeVariableDetector {
             }
         }
 
-        // If there are multiple children in this tree, call bound
-        // on all of them in BFS fashion. Once this is done, we need
-        // to remove the quantifier since it'll no longer be in scope.
-        if (T.getChildrenSize() > 1) {
-            for (WffTree c : T.getChildren()) {
-                free(c, S, L);
-            }
+        for (WffTree ch : T.getChildren()) {
+            free(ch, S, L);
+        }
 
-            if (quantifierNode != null) {
-                L.remove(quantifierNode);
-            }
+        if (T.isQuantifier()) {
+            L.pop();
         }
     }
 }

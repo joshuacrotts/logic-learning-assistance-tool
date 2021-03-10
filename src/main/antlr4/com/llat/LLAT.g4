@@ -79,14 +79,14 @@ predicate: atom(constant|variable)+;
 
 predWff: predicate
     | predNegRule
-    | (quantifier predWff)
+    | predQuantifier
     | predAndRule
     | predOrRule
     | predImpRule
     | predBicondRule
     | predIdentityRule;
 
-quantifier: NEG? (existential | universal);
+predQuantifier: NEG? (existential | universal) predWff;
 predNegRule: NEG predWff;
 predAndRule: OPEN_PAREN predWff AND predWff CLOSE_PAREN;
 predOrRule : OPEN_PAREN predWff OR predWff CLOSE_PAREN;

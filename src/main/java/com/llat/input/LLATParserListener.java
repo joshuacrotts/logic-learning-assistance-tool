@@ -202,8 +202,13 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void enterUniversal(LLATParser.UniversalContext ctx) {
+    public void enterPredQuantifier(LLATParser.PredQuantifierContext ctx) {
 
+    }
+
+    @Override
+    public void exitPredQuantifier(LLATParser.PredQuantifierContext ctx) {
+        this.popTreeRoot();
     }
 
     @Override
@@ -221,9 +226,10 @@ public class LLATParserListener extends LLATBaseListener {
                         + (ctx.UNIVERSAL() != null ? ctx.UNIVERSAL().getText() : "")
                         + (ctx.variable().getText())
                         + ")";
-        UniversalQuantifierNode universalNode = new UniversalQuantifierNode(symbol,
-                                                                            variableNode.getSymbol());
-        this.wffTree.addChild(universalNode);
+
+        UniversalQuantifierNode uqn = new UniversalQuantifierNode(symbol, variableNode.getSymbol());
+        this.treeRoots.push(wffTree);
+        this.wffTree = uqn;
     }
 
     @Override
@@ -245,17 +251,10 @@ public class LLATParserListener extends LLATBaseListener {
                         + ctx.EXISTENTIAL().getText()
                         + ctx.variable().getText()
                         + ")";
-        ExistentialQuantifierNode existentialNode = new ExistentialQuantifierNode(symbol,
-                                                                                    variableNode.getSymbol());
-        this.wffTree.addChild(existentialNode);
-    }
 
-    @Override
-    public void enterPredWff(LLATParser.PredWffContext ctx) {
-    }
-
-    @Override
-    public void exitPredWff(LLATParser.PredWffContext ctx) {
+        ExistentialQuantifierNode uqn = new ExistentialQuantifierNode(symbol, variableNode.getSymbol());
+        this.treeRoots.push(wffTree);
+        this.wffTree = uqn;
     }
 
     @Override

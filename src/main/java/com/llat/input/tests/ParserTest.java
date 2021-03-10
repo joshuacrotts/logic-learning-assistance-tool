@@ -6,6 +6,7 @@ import java.nio.file.NoSuchFileException;
 import com.llat.LLATLexer;
 import com.llat.LLATParser;
 import com.llat.algorithms.BoundVariableDetector;
+import com.llat.algorithms.FreeVariableDetector;
 import com.llat.algorithms.MainOperatorDetector;
 import com.llat.input.LLATErrorListener;
 import com.llat.input.LLATParserListener;
@@ -123,8 +124,8 @@ public class ParserTest {
         if (result != null) {
             result.printSyntaxTree();
             System.out.println("Main operator: " + MainOperatorDetector.get(result));
-            System.out.print("Bound variables: ");
-            BoundVariableDetector.get(result);
+            System.out.println("Bound variables: " + BoundVariableDetector.get(result));
+            System.out.println("Free variables: " + FreeVariableDetector.get(result));
         }
     }
 }

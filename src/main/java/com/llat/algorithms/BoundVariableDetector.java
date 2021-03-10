@@ -3,13 +3,15 @@ package com.llat.algorithms;
 import com.llat.models.treenode.*;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Stack;
 
 public final class BoundVariableDetector {
 
     public static LinkedList<WffTree> get(WffTree tree) {
-        HashSet<WffTree> S = new HashSet<>();
-        LinkedList<WffTree> L = new LinkedList<>();
+        LinkedHashSet<WffTree> S = new LinkedHashSet<>();
+        Stack<WffTree> L = new Stack<>();
         bound(tree, S, L);
         return new LinkedList<>(S);
     }
@@ -20,12 +22,10 @@ public final class BoundVariableDetector {
      * @param S
      * @param L
      */
-    private static void bound(WffTree T, HashSet<WffTree> S, LinkedList<WffTree> L) {
-        WffTree quantifierNode = null;
+    private static void bound(WffTree T, LinkedHashSet<WffTree> S, Stack<WffTree> L) {
         // Quantifiers are always the left-most child in a tree if they exist.
         if (T.isQuantifier()) {
-            L.add(T);
-            quantifierNode = T;
+            L.push(T);
         } else if (T.isVariable()) {
             // Once we find a variable, we need to check and see if we have a quantifier
             // that binds it.
@@ -39,17 +39,12 @@ public final class BoundVariableDetector {
             }
         }
 
-        // If there are multiple children in this tree, call bound
-        // on all of them in BFS fashion. Once this is done, we need
-        // to remove the quantifier since it'll no longer be in scope.
-        if (T.getChildrenSize() > 1) {
-            for (WffTree c : T.getChildren()) {
-                bound(c, S, L);
-            }
+        for (WffTree ch : T.getChildren()) {
+            bound(ch, S, L);
+        }
 
-            if (quantifierNode != null) {
-                L.remove(quantifierNode);
-            }
+        if (T.isQuantifier()) {
+            L.pop();
         }
     }
 }

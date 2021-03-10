@@ -16,15 +16,20 @@ public class WffTree {
     /**
      *
      */
-    private final String SYMBOL;
+    private final LinkedList<WffTree> children;
 
     /**
      *
      */
-    private final LinkedList<WffTree> children;
+    private String symbol;
+
+    /**
+     *
+     */
+    private int flags;
 
     public WffTree(String _symbol, NodeType _nodeType) {
-        this.SYMBOL = _symbol;
+        this.symbol = _symbol;
         this.NODE_TYPE = _nodeType;
         this.children = new LinkedList<>();
     }
@@ -146,7 +151,19 @@ public class WffTree {
     }
 
     public String getSymbol() {
-        return this.SYMBOL;
+        return this.symbol;
+    }
+
+    public void setSymbol(String _s) {
+        this.symbol = _s;
+    }
+
+    public void setFlags(int _flag) {
+        this.flags |= _flag;
+    }
+
+    public int getFlags() {
+        return this.flags;
     }
 
     @Override
