@@ -1,4 +1,4 @@
-package com.llat.input.test;
+package com.llat.input.tests;
 
 import com.llat.LLATLexer;
 import org.antlr.v4.runtime.*;

@@ -51,7 +51,7 @@ THEREFORE: '⊢' | '∴' | '=>';
 
 //=========== Parser rules. ==============
 
-program: predProof | propProof | predWff | propWff;
+program: (predProof EOF) | (propProof EOF) | (predWff EOF) | (propWff EOF);
 
 /* Propositional Logic Rules. */
 atom: ATOM;

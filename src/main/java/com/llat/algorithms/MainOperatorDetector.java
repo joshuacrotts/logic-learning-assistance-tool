@@ -16,11 +16,11 @@ public final class MainOperatorDetector {
      * @param WffTree tree structure.
      * @return String symbol of main operator.
      */
-    public static String get(WffTree tree) {
+    public static WffTree get(WffTree tree) {
         if (tree.isRoot()) {
             return get(tree.getChild(0));
         } else if (tree.isBinaryOp() || tree.isQuantifier() || tree.isNegation()) {
-            return tree.getSymbol();
+            return tree;
         }
 
         return null;
