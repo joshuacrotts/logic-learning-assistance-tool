@@ -2,13 +2,17 @@ package com.llat.algorithms;
 
 import com.llat.models.treenode.*;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Stack;
 
 public final class BoundVariableDetector {
 
+    /**
+     *
+     * @param tree
+     * @return
+     */
     public static LinkedList<WffTree> get(WffTree tree) {
         LinkedHashSet<WffTree> S = new LinkedHashSet<>();
         Stack<WffTree> L = new Stack<>();

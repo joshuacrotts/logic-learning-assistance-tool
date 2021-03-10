@@ -4,10 +4,17 @@ import com.llat.models.treenode.QuantifierNode;
 import com.llat.models.treenode.VariableNode;
 import com.llat.models.treenode.WffTree;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Stack;
 
 public final class FreeVariableDetector {
 
+    /**
+     *
+     * @param tree
+     * @return
+     */
     public static LinkedList<WffTree> get(WffTree tree) {
         LinkedHashSet<WffTree> S = new LinkedHashSet<>();
         Stack<WffTree> L = new Stack<>();

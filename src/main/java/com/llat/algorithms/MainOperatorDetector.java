@@ -3,7 +3,7 @@ package com.llat.algorithms;
 import com.llat.models.treenode.WffTree;
 
 /**
- * This class defins the algorithm for detecting the main operator of a propositional logic
+ * This class defines the algorithm for detecting the main operator of a propositional logic
  * or predicate logic sentence/well-formed formula. It's an extremely simple algorithm, and
  * is almost always going to run in constant time, no matter how big or complicated the
  * expression is thanks to the way the tree is configured.
