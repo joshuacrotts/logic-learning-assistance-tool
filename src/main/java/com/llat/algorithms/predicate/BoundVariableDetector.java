@@ -1,4 +1,4 @@
-package com.llat.algorithms;
+package com.llat.algorithms.predicate;
 
 import com.llat.models.treenode.*;
 
@@ -10,13 +10,21 @@ public final class BoundVariableDetector {
 
     /**
      *
-     * @param tree
+     */
+    private WffTree wffTree;
+
+    public BoundVariableDetector(WffTree _wffTree) {
+        this.wffTree = _wffTree;
+    }
+
+    /**
+     *
      * @return
      */
-    public static LinkedList<WffTree> get(WffTree tree) {
+    public LinkedList<WffTree> get() {
         LinkedHashSet<WffTree> S = new LinkedHashSet<>();
         Stack<WffTree> L = new Stack<>();
-        bound(tree, S, L);
+        this.bound(this.wffTree, S, L);
         return new LinkedList<>(S);
     }
 
@@ -26,7 +34,7 @@ public final class BoundVariableDetector {
      * @param S
      * @param L
      */
-    private static void bound(WffTree T, LinkedHashSet<WffTree> S, Stack<WffTree> L) {
+    private void bound(WffTree T, LinkedHashSet<WffTree> S, Stack<WffTree> L) {
         // Quantifiers are always the left-most child in a tree if they exist.
         if (T.isQuantifier()) {
             L.push(T);

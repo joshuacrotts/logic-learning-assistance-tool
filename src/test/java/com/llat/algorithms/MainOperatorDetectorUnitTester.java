@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MainOperatorDetectorUnitTester {
 
+    private static MainOperatorDetector mainOperatorDetector;
+
     /**
      * Helper function to count number of newlines in a string
      * @param s the string
@@ -114,7 +116,8 @@ public class MainOperatorDetectorUnitTester {
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file "+inName);
         WffTree syntaxTree = parser.getSyntaxTree();
-        System.out.println(MainOperatorDetector.get(syntaxTree).getSymbol());
+        mainOperatorDetector = new MainOperatorDetector(syntaxTree);
+        System.out.println(mainOperatorDetector.get().getSymbol());
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();

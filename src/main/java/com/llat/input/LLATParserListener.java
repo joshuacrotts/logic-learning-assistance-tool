@@ -50,6 +50,16 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
+    public void enterPropositionalWff(LLATParser.PropositionalWffContext ctx) {
+        if (this.wffTree.isPredicateWff()) {
+            LLATErrorListener.syntaxError(ctx, "Wff cannot be both propositional and predicate.");
+            return;
+        }
+
+        this.wffTree.setFlags(NodeFlag.PROPOSITIONAL);
+    }
+
+    @Override
     public void enterAtom(LLATParser.AtomContext ctx) {
         WffTree atomNode = new AtomNode(ctx.ATOM().getText());
         this.PARSE_TREE.put(ctx, atomNode);
@@ -160,6 +170,16 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
 //========================== PREDICATE LOGIC LISTENERS =============================//
+
+    @Override
+    public void enterPredicateWff(LLATParser.PredicateWffContext ctx) {
+        if (this.wffTree.isPropositionalWff()) {
+            LLATErrorListener.syntaxError(ctx, "Wff cannot be both predicate and propositional.");
+            return;
+        }
+
+        this.wffTree.setFlags(NodeFlag.PREDICATE);
+    }
 
     @Override
     public void enterPredicate(LLATParser.PredicateContext ctx) {

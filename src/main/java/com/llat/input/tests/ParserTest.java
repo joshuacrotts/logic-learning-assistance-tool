@@ -6,6 +6,8 @@ import java.nio.file.NoSuchFileException;
 import com.llat.LLATLexer;
 import com.llat.LLATParser;
 import com.llat.algorithms.*;
+import com.llat.algorithms.predicate.*;
+import com.llat.algorithms.propositional.TruthTableGenerator;
 import com.llat.input.LLATErrorListener;
 import com.llat.input.LLATParserListener;
 import com.llat.models.treenode.WffTree;
@@ -121,14 +123,14 @@ public class ParserTest {
 
         if (result != null) {
             result.printSyntaxTree();
-            System.out.println("Main operator: " + MainOperatorDetector.get(result));
-            System.out.println("Bound variables: " + BoundVariableDetector.get(result));
-            System.out.println("Free variables: " + FreeVariableDetector.get(result));
-            System.out.println("Open sentence: " + OpenSentenceDetector.get(result));
-            System.out.println("Closed sentence: " + ClosedSentenceDetector.get(result));
-            System.out.println("Ground sentence: " + GroundSentenceDetector.get(result));
+            System.out.println("Main operator: " + new MainOperatorDetector(result).get());
+            System.out.println("Bound variables: " + new BoundVariableDetector(result).get());
+            System.out.println("Free variables: " + new FreeVariableDetector(result).get());
+            System.out.println("Open sentence: " + new OpenSentenceDeterminer(result).get());
+            System.out.println("Closed sentence: " + new ClosedSentenceDeterminer(result).get());
+            System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
             System.out.println("Truth Table: ");
-            TruthTableGenerator.get(result);
+            new TruthTableGenerator(result).get();
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.llat.algorithms;
+package com.llat.algorithms.predicate;
 
 import com.llat.models.treenode.WffTree;
 
@@ -8,16 +8,24 @@ import java.util.Queue;
 /**
  *
  */
-public class GroundSentenceDetector {
+public class GroundSentenceDeterminer {
 
     /**
      *
-     * @param tree
+     */
+    private WffTree wffTree;
+
+    public GroundSentenceDeterminer(WffTree _wffTree) {
+        this.wffTree = _wffTree;
+    }
+
+    /**
+     *
      * @return
      */
-    public static boolean get(WffTree tree) {
+    public boolean get() {
         Queue<WffTree> queue = new LinkedList<>();
-        queue.add(tree);
+        queue.add(this.wffTree);
 
         while (!queue.isEmpty()) {
             WffTree t = queue.poll();

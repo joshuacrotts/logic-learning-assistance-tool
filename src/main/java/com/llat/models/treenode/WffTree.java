@@ -152,6 +152,14 @@ public class WffTree {
         return this.NODE_TYPE;
     }
 
+    public boolean isPropositionalWff() {
+        return (this.flags & NodeFlag.PROPOSITIONAL) != 0;
+    }
+
+    public boolean isPredicateWff() {
+        return (this.flags & NodeFlag.PREDICATE) != 0;
+    }
+
     public LinkedList<WffTree> getChildren() {
         return this.children;
     }

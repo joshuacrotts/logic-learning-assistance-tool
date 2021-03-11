@@ -51,10 +51,13 @@ THEREFORE: '⊢' | '∴' | '=>';
 
 //=========== Parser rules. ==============
 
-program: (predProof EOF) | (propProof EOF) | (predWff EOF) | (propWff EOF);
+program: (predProof EOF) | (propProof EOF) | (predicateWff) | (propositionalWff);
 
 /* Propositional Logic Rules. */
 atom: ATOM;
+
+/* Starting rule. */
+propositionalWff: propWff EOF;
 
 propWff: atom
     | propNegRule
@@ -74,8 +77,10 @@ constant: CONSTANT;
 variable: VARIABLE;
 universal: (OPEN_PAREN UNIVERSAL variable CLOSE_PAREN) | (OPEN_PAREN variable CLOSE_PAREN);
 existential: OPEN_PAREN EXISTENTIAL variable CLOSE_PAREN;
-
 predicate: atom(constant|variable)+;
+
+/* Starting rule. */
+predicateWff: predWff EOF;
 
 predWff: predicate
     | predNegRule

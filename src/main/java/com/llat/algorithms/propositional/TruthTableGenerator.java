@@ -1,4 +1,4 @@
-package com.llat.algorithms;
+package com.llat.algorithms.propositional;
 
 import com.llat.models.treenode.AtomNode;
 import com.llat.models.treenode.NegNode;
@@ -14,22 +14,35 @@ public final class TruthTableGenerator {
     /**
      *
      */
-    private static HashMap<String, Integer> truthPattern;
+    private WffTree wffTree;
 
     /**
      *
      */
-    private static Stack<WffTree> operands;
+    private HashMap<String, Integer> truthPattern;
 
     /**
      *
      */
-    private static int size;
+    private Stack<WffTree> operands;
 
     /**
      *
      */
-    private static int rows;
+    private int size;
+
+    /**
+     *
+     */
+    private int rows;
+
+    public TruthTableGenerator(WffTree _wffTree) {
+        this.wffTree = _wffTree;
+        this.operands = new Stack<>();
+        this.truthPattern = new HashMap<>();
+        this.size = getAtomCount(this.wffTree);
+        this.rows = (int) Math.pow(2, this.size);
+    }
 
     /**
      * Builds the truth table for the supplied tree. Each node
@@ -40,16 +53,10 @@ public final class TruthTableGenerator {
      * To get just the truth table values for the entire tree,
      * call getTruthValues() on the main operator. This process can
      * also be done on each subtree for easy printing.
-     *
-     * @param tree - root of WffTree.
      */
-    public static void get(WffTree tree) {
-        operands = new Stack<>();
-        truthPattern = new HashMap<>();
-        size = getAtomCount(tree);
-        rows = (int) Math.pow(2, size);
-        buildTable(tree);
-        print(tree);
+    public void get() {
+        this.buildTable(this.wffTree);
+        this.print(this.wffTree);
     }
 
     /**
@@ -57,7 +64,7 @@ public final class TruthTableGenerator {
      *
      * @param tree - root of WffTree to print.
      */
-    private static void print(WffTree tree) {
+    private void print(WffTree tree) {
         for (WffTree ch : tree.getChildren()) {
             System.out.println(ch + ": " + ch.getTruthValues());
             print(ch);
@@ -73,12 +80,12 @@ public final class TruthTableGenerator {
      *
      * @param tree - root of WffTree.
      */
-    private static void buildTable(WffTree tree) {
+    private void buildTable(WffTree tree) {
         for (int i = 0; i < tree.getChildrenSize(); i++) {
             WffTree child = tree.getChild(i);
-            buildTable(child);
+            this.buildTable(child);
         }
-        processNode(tree);
+        this.processNode(tree);
     }
 
     /**
@@ -99,26 +106,26 @@ public final class TruthTableGenerator {
      *
      * @param tree - WffTree node.
      */
-    private static void processNode(WffTree tree) {
+    private void processNode(WffTree tree) {
         if (tree.isAtom()) {
             AtomNode atom = (AtomNode) tree;
-            if (!truthPattern.containsKey(atom.getSymbol())) {
-                int pattern = (int) Math.pow(2, truthPattern.size());
-                truthPattern.put(atom.getSymbol(), pattern);
+            if (!this.truthPattern.containsKey(atom.getSymbol())) {
+                int pattern = (int) Math.pow(2, this.truthPattern.size());
+                this.truthPattern.put(atom.getSymbol(), pattern);
             }
 
             initializeAtomTruthValues((AtomNode) tree);
         } else if (tree.isNegation()) {
-            WffTree operand = operands.pop();
+            WffTree operand = this.operands.pop();
             populateNodeTruthValues(operand, null, tree);
         } else if (!tree.isRoot()) {
-            WffTree operand1 = operands.pop();
-            WffTree operand2 = operands.pop();
+            WffTree operand1 = this.operands.pop();
+            WffTree operand2 = this.operands.pop();
             populateNodeTruthValues(operand1, operand2, tree);
         }
 
         if (!tree.isRoot()) {
-            operands.add(tree);
+            this.operands.add(tree);
         }
     }
 
@@ -131,10 +138,10 @@ public final class TruthTableGenerator {
      *
      * @param tree - AtomNode that we are initializing truth values for.
      */
-    private static void initializeAtomTruthValues(AtomNode tree) {
+    private void initializeAtomTruthValues(AtomNode tree) {
         boolean value = true;
-        int pattern = truthPattern.get(tree.getSymbol());
-        for (int i = 1; i <= rows; i++) {
+        int pattern = this.truthPattern.get(tree.getSymbol());
+        for (int i = 1; i <= this.rows; i++) {
             tree.getTruthValues().add(value);
             if (i % pattern == 0) {
                 value = !value;
@@ -155,21 +162,21 @@ public final class TruthTableGenerator {
      * @param operand2 - second wff - can be null.
      * @param op - operator to perform - if operand2 == null, this is a NegNode.
      */
-    private static void populateNodeTruthValues(WffTree operand1, WffTree operand2, WffTree op) {
+    private void populateNodeTruthValues(WffTree operand1, WffTree operand2, WffTree op) {
         // If the second operand is null, this has to be a negation op.
         if (operand2 == null) {
             if (!(op instanceof NegNode)) {
                 throw new IllegalArgumentException("operand2 is null, so op must be a negation node.");
             }
             // Iterate through and flip all the boolean values.
-            for (int i = 0; i < rows; i++) {
+            for (int i = 0; i < this.rows; i++) {
                 boolean op1Bool = operand1.getTruthValues().get(i);
                 op.setTruthValue(!op1Bool, i);
             }
         } else {
             // Otherwise, get the two operands and perform the corresponding
             // logical operator.
-            for (int i = 0; i < rows; i++) {
+            for (int i = 0; i < this.rows; i++) {
                 boolean op1Bool = operand1.getTruthValues().get(i);
                 boolean op2Bool = operand2.getTruthValues().get(i);
 

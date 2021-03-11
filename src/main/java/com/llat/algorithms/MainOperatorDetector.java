@@ -11,16 +11,34 @@ import com.llat.models.treenode.WffTree;
 public final class MainOperatorDetector {
 
     /**
+     *
+     */
+    private WffTree wffTree;
+
+    public MainOperatorDetector(WffTree _wffTree) {
+        this.wffTree = _wffTree;
+    }
+
+    /**
      * Returns the main operator of a supplied WffTree.
      *
-     * @param WffTree tree structure.
      * @return String symbol of main operator.
      */
-    public static WffTree get(WffTree tree) {
-        if (tree.isRoot()) {
-            return get(tree.getChild(0));
-        } else if (tree.isBinaryOp() || tree.isQuantifier() || tree.isNegation()) {
-            return tree;
+    public WffTree get() {
+        return getMainOpHelper(this.wffTree);
+    }
+
+    /**
+     * Recursive helper function.
+     *
+     * @param _tree
+     * @return
+     */
+    private WffTree getMainOpHelper(WffTree _tree) {
+        if (_tree.isRoot()) {
+            return getMainOpHelper(_tree.getChild(0));
+        } else if (_tree.isBinaryOp() || _tree.isQuantifier() || _tree.isNegation()) {
+            return _tree;
         }
 
         return null;
