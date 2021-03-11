@@ -21,6 +21,11 @@ public class WffTree {
     /**
      *
      */
+    private final LinkedList<Boolean> truthValues;
+
+    /**
+     *
+     */
     private String symbol;
 
     /**
@@ -32,6 +37,7 @@ public class WffTree {
         this.symbol = _symbol;
         this.NODE_TYPE = _nodeType;
         this.children = new LinkedList<>();
+        this.truthValues = new LinkedList<>();
     }
 
     public WffTree(NodeType _nodeType) {
@@ -148,6 +154,18 @@ public class WffTree {
 
     public LinkedList<WffTree> getChildren() {
         return this.children;
+    }
+
+    public LinkedList<Boolean> getTruthValues() {
+        return this.truthValues;
+    }
+
+    public void setTruthValue(boolean _b, int i) {
+        if (i >= this.truthValues.size()) {
+            this.truthValues.add(i, _b);
+        } else {
+            this.truthValues.set(i, _b);
+        }
     }
 
     public String getSymbol() {

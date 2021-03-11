@@ -127,6 +127,8 @@ public class ParserTest {
             System.out.println("Open sentence: " + OpenSentenceDetector.get(result));
             System.out.println("Closed sentence: " + ClosedSentenceDetector.get(result));
             System.out.println("Ground sentence: " + GroundSentenceDetector.get(result));
+            System.out.println("Truth Table: ");
+            TruthTableGenerator.get(result);
         }
     }
 }
