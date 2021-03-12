@@ -118,10 +118,9 @@ public class LexerTest {
      * @param argv command line arguments
      */
     public static void main(String[] argv) {
-        if (argv.length > 1) {
-            System.err.println("Can provide at most one command line argument (an input filename)");
-        } else if (argv.length == 1) {
-            lexFromFile(argv[0]);
+        if (argv.length > 0) {
+            System.err.println("...terminal arguments not supported.");
+            return;
         } else {
             lexFromStdin();
         }

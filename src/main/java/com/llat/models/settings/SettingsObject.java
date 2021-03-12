@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class SettingsObject {
 
-    //    public String test;
     private Language language;
     private Theme theme;
 

@@ -12,6 +12,10 @@ import java.util.*;
 public final class TruthTableGenerator {
 
     /**
+     */
+    private static final int MAX_ATOMS = 14;
+
+    /**
      *
      */
     private WffTree wffTree;
@@ -55,19 +59,29 @@ public final class TruthTableGenerator {
      * also be done on each subtree for easy printing.
      */
     public void get() {
+        if (this.size > MAX_ATOMS) {
+            System.out.println("This formula is too complex to build a truth table for.");
+            return;
+        }
         this.buildTable(this.wffTree);
-        this.print(this.wffTree);
     }
 
     /**
      * Prints out the truth values for a WffTree in pre-order fashion.
-     *
-     * @param tree - root of WffTree to print.
      */
-    private void print(WffTree tree) {
+    public void print() {
+        printHelper(this.wffTree);
+    }
+
+    /**
+     * Recursive printing helper function.
+     *
+     * @param tree
+     */
+    private void printHelper(WffTree tree) {
         for (WffTree ch : tree.getChildren()) {
             System.out.println(ch + ": " + ch.getTruthValues());
-            print(ch);
+            printHelper(ch);
         }
     }
 
@@ -200,7 +214,7 @@ public final class TruthTableGenerator {
      * @param tree - propositional logic wff root.
      * @return number of unique atoms found.
      */
-    private static int getAtomCount(WffTree tree) {
+    private int getAtomCount(WffTree tree) {
         Queue<WffTree> q = new LinkedList<>();
         HashSet<String> atoms = new HashSet<>();
         q.add(tree);

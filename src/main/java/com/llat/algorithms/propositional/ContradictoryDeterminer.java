@@ -1,5 +1,6 @@
 package com.llat.algorithms.propositional;
 
+import com.llat.algorithms.MainOperatorDetector;
 import com.llat.models.treenode.WffTree;
 
 public class ContradictoryDeterminer {
@@ -10,6 +11,9 @@ public class ContradictoryDeterminer {
     private WffTree wffTree;
 
     public ContradictoryDeterminer(WffTree _wffTree) {
+        if (_wffTree.isPredicateWff()) {
+            throw new IllegalArgumentException("WffTree must be a propositional formula to use this algorithm.");
+        }
         this.wffTree = _wffTree;
     }
 
@@ -18,6 +22,20 @@ public class ContradictoryDeterminer {
      * @return
      */
     public boolean get() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // If we haven't generated the truth table, go ahead and do it.
+        if (this.wffTree.getTruthValues().isEmpty()) {
+            TruthTableGenerator gen = new TruthTableGenerator(this.wffTree);
+            gen.get();
+        }
+
+        WffTree mainOp = new MainOperatorDetector(this.wffTree).get();
+
+        for (Boolean b : mainOp.getTruthValues()) {
+            if (b) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

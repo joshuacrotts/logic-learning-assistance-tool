@@ -7,8 +7,12 @@ import com.llat.LLATLexer;
 import com.llat.LLATParser;
 import com.llat.algorithms.*;
 import com.llat.algorithms.predicate.*;
+import com.llat.algorithms.propositional.ContingencyDeterminer;
+import com.llat.algorithms.propositional.ContradictoryDeterminer;
+import com.llat.algorithms.propositional.TautologyDeterminer;
 import com.llat.algorithms.propositional.TruthTableGenerator;
 import com.llat.input.LLATErrorListener;
+import com.llat.input.LLATErrorStrategy;
 import com.llat.input.LLATParserListener;
 import com.llat.models.treenode.WffTree;
 import org.antlr.v4.runtime.CharStream;
@@ -43,6 +47,7 @@ public class ParserTest {
         // "input" is the character-by-character input - connect to lexer
         LLATLexer lexer = new LLATLexer(input);
         LLATErrorListener errorListener = new LLATErrorListener();
+        LLATErrorStrategy errorStrategy = new LLATErrorStrategy();
         lexer.removeErrorListeners();
         lexer.addErrorListener(errorListener);
 
@@ -52,6 +57,7 @@ public class ParserTest {
         // Connect parser to token stream
         LLATParser parser = new LLATParser(tokens);
         parser.removeErrorListeners();
+        parser.setErrorHandler(errorStrategy);
         parser.addErrorListener(errorListener);
         ParseTree tree = parser.program();
 
@@ -101,11 +107,9 @@ public class ParserTest {
      */
     public static void main(String[] argv) {
         LLATParserListener parser;
-        if (argv.length > 1) {
-            System.err.println("Can provide at most one command line argument (an input filename)");
+        if (argv.length > 0) {
+            System.err.println("...terminal arguments not supported.");
             return;
-        } else if (argv.length == 1) {
-            parser = parseFromFile(argv[0]);
         } else {
             parser = parseFromStdin();
         }
@@ -124,13 +128,21 @@ public class ParserTest {
         if (result != null) {
             result.printSyntaxTree();
             System.out.println("Main operator: " + new MainOperatorDetector(result).get());
-            System.out.println("Bound variables: " + new BoundVariableDetector(result).get());
-            System.out.println("Free variables: " + new FreeVariableDetector(result).get());
-            System.out.println("Open sentence: " + new OpenSentenceDeterminer(result).get());
-            System.out.println("Closed sentence: " + new ClosedSentenceDeterminer(result).get());
-            System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
-            System.out.println("Truth Table: ");
-            new TruthTableGenerator(result).get();
+            if (result.isPredicateWff()) {
+                System.out.println("Bound variables: " + new BoundVariableDetector(result).get());
+                System.out.println("Free variables: " + new FreeVariableDetector(result).get());
+                System.out.println("Open sentence: " + new OpenSentenceDeterminer(result).get());
+                System.out.println("Closed sentence: " + new ClosedSentenceDeterminer(result).get());
+                System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
+            } else {
+                System.out.println("Truth Table: ");
+                TruthTableGenerator ttg = new TruthTableGenerator(result);
+                ttg.get();
+                ttg.print();
+                System.out.println("Tautology: " + new TautologyDeterminer(result).get());
+                System.out.println("Contradiction: " + new ContradictoryDeterminer(result).get());
+                System.out.println("Contingency: " + new ContingencyDeterminer(result).get());
+            }
         }
     }
 }
