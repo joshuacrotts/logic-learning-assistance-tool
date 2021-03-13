@@ -2,6 +2,7 @@ package com.llat.algorithms;
 
 import com.llat.models.treenode.WffTree;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -25,9 +26,7 @@ public final class TruthTreeGenerator {
      */
     public TruthTree get() {
         TruthTree ttn = new TruthTree(this.tree.getChild(0));
-        PriorityQueue<TruthTree> queue = new PriorityQueue<>();
-        LinkedList<TruthTree> leaves = new LinkedList<>();
-        buildTreeHelper(ttn, queue, leaves);
+        buildTreeHelper(ttn);
         return ttn;
     }
 
@@ -42,11 +41,21 @@ public final class TruthTreeGenerator {
     /**
      *
      * @param _node
-     * @param queue
-     * @param leaves
      */
-    private void buildTreeHelper(TruthTree _node, PriorityQueue<TruthTree> queue, LinkedList<TruthTree> leaves) {
+    private void buildTreeHelper(TruthTree _node) {
+        LinkedList<TruthTree> leaves = new LinkedList<>();
+        PriorityQueue<TruthTree> queue = new PriorityQueue<>();
+        queue.add(_node);
 
+        while (!queue.isEmpty()) {
+            TruthTree tree = queue.poll();
+
+            //
+            // ...
+            //
+
+            leaves = this.getLeaves(queue);
+        }
     }
 
     /**
@@ -72,6 +81,25 @@ public final class TruthTreeGenerator {
 
     /**
      *
+     * @param queue
+     * @return
+     */
+    private LinkedList<TruthTree> getLeaves(PriorityQueue<TruthTree> queue) {
+        LinkedList<TruthTree> leaves = new LinkedList<>();
+        Iterator<TruthTree> it = queue.iterator();
+
+        while (it.hasNext()) {
+            TruthTree tt = it.next();
+            if (tt.isLeafNode()) {
+                leaves.add(tt);
+            }
+        }
+
+        return leaves;
+    }
+
+    /**
+     *
      */
     private class TruthTree implements Comparable<TruthTree> {
 
@@ -83,9 +111,42 @@ public final class TruthTreeGenerator {
             this.node = _node;
         }
 
+        /**
+         *
+         * @param _node
+         */
+        public void stack(WffTree _node) {
+            this.left = new TruthTree(_node);
+        }
+
+        /**
+         *
+         * @param _left
+         * @param _right
+         */
+        public void branch(WffTree _left, WffTree _right) {
+            this.left = new TruthTree(_left);
+            this.right = new TruthTree(_right);
+        }
+
         @Override
         public int compareTo(TruthTree o) {
-            return 0;
+            if (this.node.isNegation()) {
+                return 3;
+            } else if (this.node.isAnd()) {
+                return 2;
+            } else if (this.node.isOr()) {
+                return 1;
+            } else if (this.node.isImp()) {
+                return 0;
+            } else if (this.node.isBicond()) {
+                return -1;
+            }
+            return -2;
+        }
+
+        public boolean isLeafNode() {
+            return this.left == null && this.right == null;
         }
 
         @Override
