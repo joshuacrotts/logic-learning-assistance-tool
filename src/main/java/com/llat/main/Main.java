@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import sample.controller.Controller;
+import com.llat.main.controller.Controller;
 public class Main extends Application {
 
     @Override

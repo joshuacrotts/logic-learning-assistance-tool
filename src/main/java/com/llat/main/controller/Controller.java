@@ -1,13 +1,9 @@
-package sample.controller;
+package com.llat.main.controller;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import sample.view.MainApplicationView;
+import  com.llat.main.view.MainApplicationView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
