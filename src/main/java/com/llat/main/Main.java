@@ -1,4 +1,4 @@
-package sample;
+package com.llat.main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

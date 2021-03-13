@@ -1,7 +1,7 @@
 package com.llat.models.settings.gson;
 
 import com.google.gson.Gson;
-import com.llat.main.App;
+import com.llat.main.Main;
 import com.llat.models.settings.SettingsInterface;
 import com.llat.models.settings.SettingsObject;
 
@@ -29,7 +29,7 @@ public class GsonSettings implements SettingsInterface {
 
     @Override
     public void update(SettingsObject settingsObject) {
-        String filePath = App.class.getResource("/" + SETTINGS_JSON).getPath();
+        String filePath = Main.class.getResource("/" + SETTINGS_JSON).getPath();
         try {
             Writer writer = new FileWriter(filePath);
             gson.toJson(settingsObject, writer);
@@ -54,7 +54,7 @@ public class GsonSettings implements SettingsInterface {
     public static String readJsonFile(String _fileName) {
         String result = "";
         try {
-            String var = App.class.getResource("/" + _fileName).getPath();
+            String var = Main.class.getResource("/" + _fileName).getPath();
             BufferedReader br = new BufferedReader(new FileReader(var));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
