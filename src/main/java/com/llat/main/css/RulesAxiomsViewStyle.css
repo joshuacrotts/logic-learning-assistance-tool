@@ -1,0 +1,10 @@
+.label {
+    -fx-font-weight: bold;
+    -fx-font-size: 2em;
+    -fx-underline: true;
+    -fx-padding: 10;
+}
+
+#parentPane {
+    -fx-background-color: gray;
+}
