@@ -1,8 +1,8 @@
 package com.llat.main.view;
 
 import com.llat.main.tools.ResourceManager;
-import com.llat.main.tools.ViewAssets;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -11,11 +11,8 @@ import javafx.scene.layout.GridPane;
 import com.llat.main.controller.Controller;
 import com.llat.main.tools.NodeManager;
 import javafx.scene.layout.VBox;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class SymbolInputView {
     LinkedHashMap<String, String> propositionalLogicSymbols = new LinkedHashMap<String, String>() {
@@ -38,56 +35,49 @@ public class SymbolInputView {
     };
 
     private Controller controller;
-    private AnchorPane parentPane = new AnchorPane();
+    private AnchorPane parentPane;
+    private VBox parentVBox;
+    // Propositional logic attributes
+    private VBox propositionalLogicVBox;
+    private Label propositionalLogicLabel = NodeManager.createLabel("propositionalLogicLabel", "Propositional Logic", ResourceManager.getSymbolInputViewCSS());
+    private GridPane propositionalLogicGrid;
+    private ArrayList<Node> propositionalLogicButtons = new ArrayList<Node>();
+    private Separator propositionalLogicSeparator;
+    // Predicate logic attributes
+    private VBox predicateLogicVBox;
+    private Label predicateLogicLabel = NodeManager.createLabel("predicateLogicLabel", "Predicate Logic", ResourceManager.getSymbolInputViewCSS());
+    private GridPane predicateLogicGrid;
+    private ArrayList<Node> predicateLogicButtons = new ArrayList<Node>();
 
-
-
-    private VBox parentVBox = new VBox();
-
-    private VBox propositionalLogicVBox = new VBox();
-    private Label propositionalLogicLabel = new Label("Propositional Logic");
-    private GridPane propositionalLogicGrid = new GridPane();
-    private ArrayList<Button> propositionalLogicButtons = new ArrayList<Button>();
-    private Separator propositionalLogicSeparator = new Separator();
-
-    private VBox predicateLogicVBox = new VBox();
-    private Label predicateLogicLabel = new Label("Predicate Logic");
-    private GridPane predicateLogicGrid = new GridPane();
-    private ArrayList<Button> predicateLogicButtons = new ArrayList<>();
     public SymbolInputView(Controller _controller) {
         this.controller = _controller;
 
         ArrayList<String> rowCountArray = new ArrayList<>();
         propositionalLogicSymbols.forEach((buttonId, buttonText) -> {
-            Button curButton = NodeManager.createGridButton(buttonId, buttonText,propositionalLogicButtons.size() % 4, rowCountArray.size(), ResourceManager.getSymbolInputButtonCSS());
-            propositionalLogicGrid.getChildren().add(curButton);
+            Button curButton = NodeManager.createGridButton(buttonId, buttonText,propositionalLogicButtons.size() % 4, rowCountArray.size(), ResourceManager.getSymbolInputViewCSS());
             propositionalLogicButtons.add(curButton);
             if (propositionalLogicButtons.size() % 4 == 0) { rowCountArray.add(""); }
-
         });
+        this.propositionalLogicGrid = NodeManager.createGridPane("propositionalLogicGrid", propositionalLogicButtons, ResourceManager.getSymbolInputViewCSS());
 
         rowCountArray.clear();
         predicateLogicSymbols.forEach((buttonId, buttonText) -> {
-            Button curButton = NodeManager.createGridButton(buttonId, buttonText, predicateLogicButtons.size() % 4, rowCountArray.size(), ResourceManager.getSymbolInputButtonCSS());
-            predicateLogicGrid.getChildren().add(curButton);
+            Button curButton = NodeManager.createGridButton(buttonId, buttonText, predicateLogicButtons.size() % 4, rowCountArray.size(), ResourceManager.getSymbolInputViewCSS());
             predicateLogicButtons.add(curButton);
             if (predicateLogicButtons.size() % 4 == 0) { rowCountArray.add(""); }
         });
+        this.predicateLogicGrid = NodeManager.createGridPane("predicateLogicGrid", predicateLogicButtons, ResourceManager.getSymbolInputViewCSS());
 
-        propositionalLogicVBox.getChildren().add(propositionalLogicLabel);
-        propositionalLogicVBox.getChildren().add(propositionalLogicGrid);
-        propositionalLogicSeparator.setOrientation(Orientation.HORIZONTAL);
-        propositionalLogicVBox.getChildren().add(propositionalLogicSeparator);
-
-        predicateLogicVBox.getChildren().add(predicateLogicLabel);
-        predicateLogicVBox.getChildren().add(predicateLogicGrid);
-
-        parentVBox.getChildren().add(propositionalLogicVBox);
-        parentVBox.getChildren().add(predicateLogicVBox);
-        this.parentPane.getChildren().add(parentVBox);
+        // Adding the propositional logic label and grid w/ buttons to their vbox.
+        this.propositionalLogicSeparator = NodeManager.createSeparator("propositionalLogicSeparator", Orientation.HORIZONTAL, ResourceManager.getSymbolInputViewCSS());
+        this.propositionalLogicVBox = NodeManager.createVBox("propositionalLogicVBox", 250, new ArrayList<Node>(){{add(propositionalLogicLabel); add(propositionalLogicGrid); add(propositionalLogicSeparator);}}, ResourceManager.getSymbolInputViewCSS());
+        // Adding the predicate logic label and grid w/ buttons to their VBox.
+        this.predicateLogicVBox = NodeManager.createVBox("predicateLogicVBox", 250, new ArrayList<Node>(){{add(predicateLogicLabel); add(predicateLogicGrid);}}, ResourceManager.getSymbolInputViewCSS());
+        // Adding propositional and predicate logic VBox to the parent Anchor Pane.
+        this.parentVBox = NodeManager.createVBox("parentVBox", 250, new ArrayList<Node>(){{add(propositionalLogicVBox); add(predicateLogicVBox);}}, ResourceManager.getSymbolInputViewCSS());
+        this.parentPane = NodeManager.createAnchorPane("parentPane", new ArrayList<Node>(){{add(parentVBox);}}, ResourceManager.getSymbolInputViewCSS());
     }
 
-    public AnchorPane getParentPane() {
-        return this.parentPane;
-    }
+    public AnchorPane getParentPane() { return this.parentPane; }
+
 }

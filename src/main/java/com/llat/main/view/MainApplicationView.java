@@ -7,14 +7,16 @@ import  com.llat.main.controller.Controller;
 public class MainApplicationView {
     private Controller controller;
     private BorderPane parentPane = new BorderPane();
-    private SymbolInputView symbolInputview;
+    private SymbolInputView symbolInputview = new SymbolInputView(this.controller);
+    private RulesAxiomsView rulesAxiomsView = new RulesAxiomsView(this.controller);
+    private FormulaInputView formulaInputView = new FormulaInputView(this.controller);
 
     public MainApplicationView (Controller _controller) {
         this.controller = _controller;
-        this.symbolInputview = new SymbolInputView(this.controller);
         this.parentPane.setLeft(this.symbolInputview.getParentPane());
-        this.parentPane.setMinHeight(720);
-        this.parentPane.setMinWidth(1280);
+        this.parentPane.setRight(this.rulesAxiomsView.getParentPane());
+        this.parentPane.setBottom(this.formulaInputView.getParentPane());
+        this.parentPane.setCenter(new AnchorPane());
     }
 
     public Pane getParentPane() {

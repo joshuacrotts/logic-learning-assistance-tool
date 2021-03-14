@@ -15,9 +15,11 @@ public class Main extends Application {
     }
     public void setStageSettings(Stage _stage) {
         _stage.setScene(new Scene(new Pane()));
-        _stage.setTitle("Hello World");
+        _stage.setTitle("Logic Learning Assistance Tool");
         _stage.setFullScreen(true);
-        _stage.setResizable(false);
+        _stage.setMinHeight(720);
+        _stage.setMinWidth(1280);
+        //_stage.setResizable(false);
     }
 
     public static void main(String[] args) {

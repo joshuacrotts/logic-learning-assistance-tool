@@ -5,7 +5,41 @@
     -fx-font-size: 2em;
     -fx-min-width: 50;
     -fx-min-height: 50;
+    -fx-background-color: white;
+    -fx-border-color: silver;
+    -fx-background-insets: 0;
 }
-.grid {
-    -fx-padding: 5em;
+.button:hover {
+        -fx-background-color: silver;
+}
+.button:pressed {
+        -fx-background-color: #add8e6;
+}
+
+.button:focused {
+    -fx-background-insets: 0;
+}
+#propositionalLogicLabel {
+}
+
+.label {
+    -fx-font-weight: bold;
+    -fx-font-size: 2em;
+    -fx-underline: true;
+    -fx-padding: 10;
+}
+
+#propositionalLogicSeparator {
+}
+
+#propositionalLogicGrid {
+    -fx-alignment: center;
+}
+
+#predicateLogicGrid {
+    -fx-alignment: center;
+}
+
+#parentPane {
+    -fx-background-color: gray;
 }
