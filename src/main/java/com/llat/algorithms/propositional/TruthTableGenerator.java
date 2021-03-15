@@ -124,7 +124,8 @@ public final class TruthTableGenerator {
         if (tree.isAtom()) {
             AtomNode atom = (AtomNode) tree;
             if (!this.truthPattern.containsKey(atom.getSymbol())) {
-                int pattern = (int) Math.pow(2, this.truthPattern.size());
+                // We need to go from largest to smallest.
+                int pattern = (int) Math.pow(2, this.size - this.truthPattern.size() - 1);
                 this.truthPattern.put(atom.getSymbol(), pattern);
             }
 
