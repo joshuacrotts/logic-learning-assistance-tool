@@ -136,7 +136,8 @@ public final class TruthTableGenerator {
         } else if (!tree.isRoot()) {
             WffTree operand1 = this.operands.pop();
             WffTree operand2 = this.operands.pop();
-            populateNodeTruthValues(operand1, operand2, tree);
+            // Push them backwards.
+            populateNodeTruthValues(operand2, operand1, tree);
         }
 
         if (!tree.isRoot()) {
@@ -194,7 +195,6 @@ public final class TruthTableGenerator {
             for (int i = 0; i < this.rows; i++) {
                 boolean op1Bool = operand1.getTruthValues().get(i);
                 boolean op2Bool = operand2.getTruthValues().get(i);
-
                 if (op.isAnd()) {
                     op.setTruthValue(logicalAnd(op1Bool, op2Bool), i);
                 } else if (op.isOr()) {
