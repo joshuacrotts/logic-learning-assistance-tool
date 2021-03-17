@@ -127,6 +127,8 @@ public class ParserTest {
 
         if (result != null) {
             result.printSyntaxTree();
+            System.out.println("truth tree: ");
+            new TruthTreeGenerator(result).get();
             System.out.println("Main operator: " + new MainOperatorDetector(result).get());
             if (result.isPredicateWff()) {
                 System.out.println("Bound variables: " + new BoundVariableDetector(result).get());
