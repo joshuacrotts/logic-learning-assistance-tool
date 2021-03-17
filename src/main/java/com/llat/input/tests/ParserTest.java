@@ -7,10 +7,7 @@ import com.llat.LLATLexer;
 import com.llat.LLATParser;
 import com.llat.algorithms.*;
 import com.llat.algorithms.predicate.*;
-import com.llat.algorithms.propositional.ContingencyDeterminer;
-import com.llat.algorithms.propositional.ContradictoryDeterminer;
-import com.llat.algorithms.propositional.TautologyDeterminer;
-import com.llat.algorithms.propositional.TruthTableGenerator;
+import com.llat.algorithms.propositional.*;
 import com.llat.input.LLATErrorListener;
 import com.llat.input.LLATErrorStrategy;
 import com.llat.input.LLATParserListener;
@@ -127,9 +124,6 @@ public class ParserTest {
 
         if (result != null) {
             result.printSyntaxTree();
-            System.out.println(result.getStringRep());
-            System.out.println("Truth Tree: ");
-            new TruthTreeGenerator(result).get();
             System.out.println("Main operator: " + new MainOperatorDetector(result).get());
             if (result.isPredicateWff()) {
                 System.out.println("Bound variables: " + new BoundVariableDetector(result).get());
@@ -145,6 +139,8 @@ public class ParserTest {
                 System.out.println("Tautology: " + new TautologyDeterminer(result).get());
                 System.out.println("Contradiction: " + new ContradictoryDeterminer(result).get());
                 System.out.println("Contingency: " + new ContingencyDeterminer(result).get());
+                System.out.println("Truth Tree: ");
+                new PropositionalTruthTreeGenerator(result).get();
             }
         }
     }
