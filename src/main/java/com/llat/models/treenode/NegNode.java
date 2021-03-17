@@ -5,7 +5,23 @@ package com.llat.models.treenode;
  */
 public class NegNode extends WffTree {
 
+    /**
+     * Uses the tilde (~) as the default symbol if none is provided.
+     * This should, ideally, only happen in internal algorithms.
+     */
+    private static final String DEFAULT_SYMBOL = "~";
+
     public NegNode(String _symbol) {
         super(_symbol, NodeType.NEG);
+    }
+
+    public NegNode() {
+        this(DEFAULT_SYMBOL);
+    }
+
+    @Override
+    public String getStringRep() {
+        WffTree ch1 = this.getChild(0);
+        return this.getSymbol() + ch1.getStringRep();
     }
 }

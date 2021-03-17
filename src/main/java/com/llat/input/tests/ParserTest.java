@@ -127,7 +127,8 @@ public class ParserTest {
 
         if (result != null) {
             result.printSyntaxTree();
-            System.out.println("truth tree: ");
+            System.out.println(result.getStringRep());
+            System.out.println("Truth Tree: ");
             new TruthTreeGenerator(result).get();
             System.out.println("Main operator: " + new MainOperatorDetector(result).get());
             if (result.isPredicateWff()) {

@@ -1,12 +1,9 @@
 package com.llat.algorithms;
 
 import com.llat.models.treenode.*;
-import org.antlr.v4.runtime.tree.Tree;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  *
@@ -29,26 +26,61 @@ public final class TruthTreeGenerator {
     public TruthTree get() {
         TruthTree ttn = new TruthTree(this.tree.getChild(0));
         this.buildTreeHelper(ttn);
-        this.print(ttn,0);
+        System.out.println(print(ttn));
         return ttn;
     }
 
     /**
-     *
-     * @param _tree
+     * https://www.baeldung.com/java-print-binary-tree-diagram
+     * @param root
      */
-    public void print(TruthTree _tree, int x) {
-        if (_tree == null) {
-            return;
+    public String print(TruthTree root) {
+        if (root == null) {
+            return "";
         }
 
-        for (int i = 0; i < x; i++) {
-            System.out.print("\t");
-        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(root);
 
-        System.out.println(_tree);
-        print(_tree.getLeft(), x + 2);
-        print(_tree.getRight(), x + 2);
+        String pointerRight = "└──";
+        String pointerLeft = (root.getRight() != null) ? "├──" : "└──";
+
+        printHelper(sb, "", pointerLeft, root.getLeft(), root.getRight() != null);
+        printHelper(sb, "", pointerRight, root.getRight(), false);
+
+        return sb.toString();
+    }
+
+    /**
+     * https://www.baeldung.com/java-print-binary-tree-diagram
+     * @param sb
+     * @param padding
+     * @param pointer
+     * @param node
+     * @param hasRightSibling
+     */
+    private void printHelper(StringBuilder sb, String padding, String pointer, TruthTree node,
+                              boolean hasRightSibling) {
+        if (node != null) {
+            sb.append("\n");
+            sb.append(padding);
+            sb.append(pointer);
+            sb.append(node);
+
+            StringBuilder paddingBuilder = new StringBuilder(padding);
+            if (hasRightSibling) {
+                paddingBuilder.append("│  ");
+            } else {
+                paddingBuilder.append("   ");
+            }
+
+            String paddingForBoth = paddingBuilder.toString();
+            String pointerRight = "└──";
+            String pointerLeft = (node.getRight() != null) ? "├──" : "└──";
+
+            printHelper(sb, paddingForBoth, pointerLeft, node.getLeft(), node.getRight() != null);
+            printHelper(sb, paddingForBoth, pointerRight, node.getRight(), false);
+        }
     }
 
     /**
@@ -61,12 +93,14 @@ public final class TruthTreeGenerator {
         queue.add(_node);
 
         while (!queue.isEmpty()) {
-            leaves = this.getLeaves(queue);
+            System.out.println("Heap:");
+            for (TruthTree tt : queue) {
+                System.out.println(tt);
+            }
             TruthTree tree = queue.poll();
+            leaves = this.getLeaves(tree);
+            // If the node is not a simple negation (~A), negate it.
             if (tree.getWff().isNegation() && !tree.getWff().getChild(0).isAtom()) {
-                // Do something if the tree has a negation and it's not a
-                // simple neg (~A)
-                // Flip everything
                 distributeNegation(tree, leaves, queue);
             } else if (tree.getWff().isAtom()) {
                 // Do nothing...
@@ -116,9 +150,9 @@ public final class TruthTreeGenerator {
      *
      */
     private void branchImplication(TruthTree imp, LinkedList<TruthTree> leaves, PriorityQueue<TruthTree> q) {
-        NegNode neg = new NegNode("~");
+        // Create a new node to negate the lhs and branch.
+        NegNode neg = new NegNode();
         neg.addChild(imp.getWff().getChild(0));
-
         TruthTree l = new TruthTree(neg);
         TruthTree r = new TruthTree(imp.getWff().getChild(1));
 
@@ -162,39 +196,97 @@ public final class TruthTreeGenerator {
      * @param neg - negation node itself.
      */
     private void distributeNegation(TruthTree neg, LinkedList<TruthTree> leaves, PriorityQueue<TruthTree> q) {
-        // ~(A -> B) = ~~A & ~B
-        // ~(A & B) = (~A V ~B)
-        // ~(A V B) = (~A & ~B)
-        // ~~A = A
-        WffTree child = neg.getWff();
+        WffTree child = neg.getWff().getChild(0);
+        WffTree negatedAtom;
+        // Double negations are simple - just remove the negations altogether.
         if (child.isNegation()) {
-            TruthTree doubleNeg = new TruthTree(child.getChild(0).getChild(0));
-            neg.addCenter(doubleNeg);
-            q.add(doubleNeg);
+            // Add to all leaves in this tree.
+            TruthTree doubleNeg = new TruthTree(child.getChild(0));
+            for (TruthTree l : leaves) {
+                l.addCenter(doubleNeg);
+                q.add(l);
+            }
+        } else {
+            // | turns to &, & turns to |, -> turns to ~A & B...
+            negatedAtom = this.getNegatedNode(child);
+            // Create the negation nodes for the children.
+            NegNode n1 = new NegNode("~");
+            NegNode n2 = new NegNode("~");
+            NegNode n3 = new NegNode("~");
+
+            // Add the two wffs that are going to be flipped to the negations.
+            n2.addChild(child.getChild(1));
+            // If we're negating an implication, it stacks a double negated A and ~B.
+            if (child.isImp()) {
+                n3.addChild(child.getChild(0));
+                n1.addChild(n3);
+            } else {
+                n1.addChild(child.getChild(0));
+            }
+
+            negatedAtom.addChild(n1);
+            negatedAtom.addChild(n2);
+            TruthTree negatedTruthTree = new TruthTree(negatedAtom);
+            for (TruthTree l : leaves) {
+                l.addCenter(negatedTruthTree);
+                q.add(l);
+            }
+//            neg.addCenter(negatedTruthTree);
+//            // TODO fix biconditional
+//            q.add(negatedTruthTree);
         }
     }
 
     /**
      *
-     * @param queue
+     * @param truthTree
      * @return
      */
-    private LinkedList<TruthTree> getLeaves(PriorityQueue<TruthTree> queue) {
+    private LinkedList<TruthTree> getLeaves(TruthTree truthTree) {
         LinkedList<TruthTree> leaves = new LinkedList<>();
-
-        for (TruthTree tt : queue) {
-            if (tt.isLeafNode()) {
-                leaves.add(tt);
-            }
-        }
-
+        this.getLeavesHelper(truthTree, leaves);
         return leaves;
     }
 
     /**
      *
+     * @param truthTree
+     * @param leaves
+     * @return
      */
-    private class TruthTree implements Comparable<TruthTree> {
+    private void getLeavesHelper(TruthTree truthTree, LinkedList<TruthTree> leaves) {
+        // If both left and right nodes are null then it's a leaf by def.
+        if (truthTree.getLeft() == null && truthTree.getRight() == null) {
+            leaves.add(truthTree);
+        }
+
+        if (truthTree.getLeft() != null)
+            getLeavesHelper(truthTree.getLeft(), leaves);
+
+        if (truthTree.getRight() != null)
+            getLeavesHelper(truthTree.getRight(), leaves);
+    }
+
+    /**
+     * Returns the negated version of the provided tree type.
+     *
+     * @param tree
+     * @return
+     */
+    private WffTree getNegatedNode(WffTree tree) {
+        if (tree.isOr() || tree.isImp()) {
+            return new AndNode("&");
+        } else if (tree.isAnd()) {
+            return new OrNode("|");
+        }
+
+        throw new IllegalArgumentException("Cannot negated node of type " + tree);
+    }
+
+    /**
+     *
+     */
+    private static class TruthTree implements Comparable<TruthTree> {
 
         /** */
         private WffTree node;
@@ -206,46 +298,31 @@ public final class TruthTreeGenerator {
         private TruthTree right;
 
         /** */
-        private int value = -1;
+        private int value;
 
         public TruthTree(WffTree _node) {
             // This is kind of ugly, I know...
             this.node = _node;
-            if (_node.isNegation()) {
-                this.value = 5;
+            if (_node.isAtom()) {
+                this.value = 0;
+            } else if (_node.isNegation()) {
+                this.value = 1;
             } else if (_node.isAnd()) {
-                this.value = 4;
+                this.value = 2;
             } else if (_node.isOr()) {
                 this.value = 3;
             } else if (_node.isImp()) {
-                this.value = 2;
+                this.value = 4;
             } else if (_node.isBicond()) {
-                this.value = 1;
+                this.value = 5;
             } else {
-                this.value = 0;
+                this.value = 6;
             }
         }
 
-//        /**
-//         *
-//         * @param _node
-//         */
-//        public void stack(WffTree _node) {
-//            this.left = new TruthTree(_node);
-//        }
-//
-//        /**
-//         *
-//         * @param _left
-//         * @param _right
-//         */
-//        public void branch(WffTree _left, WffTree _right) {
-//            this.left = new TruthTree(_left);
-//            this.right = new TruthTree(_right);
-//        }
-
         @Override
         public int compareTo(TruthTree o) {
+            System.out.printf("Comparing %d to %d\n",this.value, o.value );
             return this.value - o.value;
         }
 
@@ -271,7 +348,6 @@ public final class TruthTreeGenerator {
             }
 
             this.left = _c;
-            this.right = null;
         }
 
         public TruthTree getLeft() {
@@ -292,9 +368,7 @@ public final class TruthTreeGenerator {
 
         @Override
         public String toString() {
-            // Temporary...
-            this.node.printSyntaxTree();
-            return "";
+            return this.getWff().getStringRep();
         }
     }
 }

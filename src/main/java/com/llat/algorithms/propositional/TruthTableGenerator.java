@@ -115,7 +115,7 @@ public final class TruthTableGenerator {
      * stack), and apply the negation to it.
      *
      * If the node passed is a binary operator, we pop two operands currently
-     * on the stack (the invariatn holds that there are at least two WffTrees on
+     * on the stack (the invariant holds that there are at least two WffTrees on
      * the stack), and apply the operator to them.
      *
      * @param tree - WffTree node.

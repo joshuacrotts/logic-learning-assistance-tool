@@ -48,6 +48,9 @@ public class WffTree {
         this(null, NodeType.ROOT);
     }
 
+    /**
+     * Recursively prints the syntax tree.
+     */
     public void printSyntaxTree() {
         System.out.println(this.printSyntaxTreeHelper(0));
     }
@@ -63,11 +66,9 @@ public class WffTree {
      */
     private StringBuilder printSyntaxTreeHelper(int indent) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < indent; i++) {
-            sb.append(" ");
-        }
-
+        sb.append(" ".repeat(Math.max(0, indent)));
         sb.append(this.toString());
+
         if (!this.children.isEmpty()) {
             sb.append(" (\n");
             boolean isFirstChild = true;
@@ -84,6 +85,13 @@ public class WffTree {
         return sb;
     }
 
+    /**
+     * Returns the i-th child in the list of children.
+     *
+     * @param i - index of child to return.
+     * @return WffTree child that is desired.
+     * @throws IndexOutOfBoundsException if i is out of bounds of the list.
+     */
     public WffTree getChild(int i) {
         try {
             return this.children.get(i);
@@ -190,6 +198,14 @@ public class WffTree {
 
     public int getFlags() {
         return this.flags;
+    }
+
+    public String getStringRep() {
+        StringBuilder str = new StringBuilder();
+        for (WffTree ch : this.getChildren()) {
+            str.append(ch.getStringRep());
+        }
+        return str.toString();
     }
 
     @Override

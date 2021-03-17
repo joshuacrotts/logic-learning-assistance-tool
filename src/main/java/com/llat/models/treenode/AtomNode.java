@@ -20,6 +20,11 @@ public class AtomNode extends WffTree {
     }
 
     @Override
+    public String getStringRep() {
+        return this.getSymbol();
+    }
+
+    @Override
     public String toString() {
         return super.toString() + ": " + this.ATOM_SYMBOL;
     }
