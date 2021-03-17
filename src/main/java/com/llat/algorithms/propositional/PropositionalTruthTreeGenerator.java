@@ -98,15 +98,10 @@ public final class PropositionalTruthTreeGenerator {
         queue.add(_node);
 
         while (!queue.isEmpty()) {
-            System.out.println("Heap: ");
-            for (TruthTree t : queue) {
-                System.out.println(t);
-            }
             TruthTree tree = queue.poll();
             leaves = this.getLeaves(tree);
 
             if (tree.getWff().isNegation() && tree.getWff().getChild(0).isBicond()) {
-                System.out.println("DOnt tell me1");
                 // We handle negations differently since they're harder.
                 branchNegationBiconditional(tree, queue);
             } else if (tree.getWff().isNegation() && !tree.getWff().getChild(0).isAtom()) {
@@ -115,16 +110,12 @@ public final class PropositionalTruthTreeGenerator {
             } else if (tree.getWff().isAtom()) {
                 // Do nothing...
             } else if (tree.getWff().isAnd()) {
-                System.out.println("DOnt tell me3");
                 stackConjunction(tree, queue);
             } else if (tree.getWff().isOr()) {
-                System.out.println("DOnt tell me4");
                 branchDisjunction(tree, leaves, queue);
             } else if (tree.getWff().isImp()) {
-                System.out.println("DOnt tell me5");
                 branchImplication(tree, leaves, queue);
             } else if (tree.getWff().isBicond()) {
-                System.out.println("DOnt tell me6");
                 branchBiconditional(tree, leaves, queue);
             }
         }
@@ -311,7 +302,6 @@ public final class PropositionalTruthTreeGenerator {
         if (child.isNegation()) {
             // Add to all leaves in this tree.
             enqueuedTTNode = new TruthTree(child.getChild(0));
-            System.out.println("Double negation!" + enqueuedTTNode.getWff().getStringRep());
         } else {
             negatedAtom = this.getNegatedNode(child);
 
