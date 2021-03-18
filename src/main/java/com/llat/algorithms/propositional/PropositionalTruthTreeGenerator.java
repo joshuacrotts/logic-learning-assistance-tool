@@ -273,10 +273,6 @@ public final class PropositionalTruthTreeGenerator {
         _negRoot.getRight().addCenter(new TruthTree(neg2));
 
         // Add them to the queue.
-        System.out.println(_negRoot.getLeft());
-        System.out.println(_negRoot.getLeft().getCenter());
-        System.out.println(_negRoot.getRight());
-        System.out.println(_negRoot.getRight().getCenter());
         _queue.add(_negRoot.getLeft());
         _queue.add(_negRoot.getLeft().getCenter());
         _queue.add(_negRoot.getRight());
