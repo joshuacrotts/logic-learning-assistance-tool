@@ -89,6 +89,7 @@ public final class PropositionalTruthTreeGenerator {
     }
 
     /**
+     * TODO document
      *
      * @param _node
      */
@@ -110,7 +111,7 @@ public final class PropositionalTruthTreeGenerator {
             } else if (tree.getWff().isAtom()) {
                 // Do nothing...
             } else if (tree.getWff().isAnd()) {
-                stackConjunction(tree, queue);
+                stackConjunction(tree, leaves, queue);
             } else if (tree.getWff().isOr()) {
                 branchDisjunction(tree, leaves, queue);
             } else if (tree.getWff().isImp()) {
@@ -129,20 +130,24 @@ public final class PropositionalTruthTreeGenerator {
      * A
      * B
      *
-     * is the resulting stack.
+     * is the resulting stack. All stacks should be added to the leaves.
      *
      * @param _conj - Conjunction node.
+     * @param _leaves - list of leaves.
      * @param _queue - priority queue of nodes left to process.
      */
-    private void stackConjunction(TruthTree _conj, PriorityQueue<TruthTree> _queue) {
+    private void stackConjunction(TruthTree _conj, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_conj.getWff() instanceof AndNode)) {
             throw new IllegalArgumentException("Error: conjunction expects conjunction node but got " + _conj.getClass());
         }
 
-        _conj.addCenter(new TruthTree(_conj.getWff().getChild(0)));
-        _conj.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1)));
-        _queue.add(_conj.getCenter());
-        _queue.add(_conj.getCenter().getCenter());
+        // We need to stack on the leaf ONLY.
+        for (TruthTree leaf : _leaves) {
+            leaf.addCenter(new TruthTree(_conj.getWff().getChild(0)));
+            leaf.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1)));
+            _queue.add(leaf.getCenter());
+            _queue.add(leaf.getCenter().getCenter());
+        }
     }
 
     /**
@@ -246,32 +251,36 @@ public final class PropositionalTruthTreeGenerator {
      * The negation is applied such that it branches, with the lhs containing
      * ~A, B stacked, and the rhs contains ~B, A.
      *
-     * @param _bicond - TruthTree node such that its WffTree instance is a BicondNode.
+     * @param _negRoot - TruthTree node such that its WffTree instance is a negated node and its child is a bicond.
      * @param _queue - Priority queue to add the four constructed children to.
      */
-    private void branchNegationBiconditional(TruthTree _bicond, PriorityQueue<TruthTree> _queue) {
-        if (!(_bicond.getWff().getChild(0) instanceof BicondNode)) {
-            throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _bicond.getClass());
+    private void branchNegationBiconditional(TruthTree _negRoot, PriorityQueue<TruthTree> _queue) {
+        if (!(_negRoot.getWff().getChild(0) instanceof BicondNode)) {
+            throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _negRoot.getClass());
         }
 
-        WffTree w = _bicond.getWff().getChild(0);
+        WffTree w = _negRoot.getWff().getChild(0);
         // Left subtree.
-        _bicond.addLeft(new TruthTree(w.getChild(0)));
+        _negRoot.addLeft(new TruthTree(w.getChild(0)));
         NegNode neg = new NegNode();
         neg.addChild(w.getChild(1));
-        _bicond.getLeft().addCenter(new TruthTree(neg));
+        _negRoot.getLeft().addCenter(new TruthTree(neg));
 
         // Right subtree.
-        _bicond.addRight(new TruthTree(w.getChild(1)));
+        _negRoot.addRight(new TruthTree(w.getChild(1)));
         NegNode neg2 = new NegNode();
         neg2.addChild(w.getChild(0));
-        _bicond.getRight().addCenter(new TruthTree(neg2));
+        _negRoot.getRight().addCenter(new TruthTree(neg2));
 
         // Add them to the queue.
-        _queue.add(_bicond.getLeft());
-        _queue.add(_bicond.getLeft().getCenter());
-        _queue.add(_bicond.getRight());
-        _queue.add(_bicond.getRight().getCenter());
+        System.out.println(_negRoot.getLeft());
+        System.out.println(_negRoot.getLeft().getCenter());
+        System.out.println(_negRoot.getRight());
+        System.out.println(_negRoot.getRight().getCenter());
+        _queue.add(_negRoot.getLeft());
+        _queue.add(_negRoot.getLeft().getCenter());
+        _queue.add(_negRoot.getRight());
+        _queue.add(_negRoot.getRight().getCenter());
     }
 
     /**
