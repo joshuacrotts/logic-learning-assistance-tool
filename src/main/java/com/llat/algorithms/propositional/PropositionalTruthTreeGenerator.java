@@ -1,6 +1,7 @@
 package com.llat.algorithms.propositional;
 
 import com.llat.models.treenode.*;
+import org.antlr.v4.runtime.tree.Tree;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -223,25 +224,26 @@ public final class PropositionalTruthTreeGenerator {
         }
 
         WffTree bicondNode = _bicond.getWff();
+        for (TruthTree leaf : _leaves) {
+            // Left subtree.
+            leaf.addLeft(new TruthTree(bicondNode.getChild(0)));
+            leaf.getLeft().addCenter(new TruthTree(bicondNode.getChild(1)));
 
-        // Left subtree.
-        _bicond.addLeft(new TruthTree(bicondNode.getChild(0)));
-        _bicond.getLeft().addCenter(new TruthTree(bicondNode.getChild(1)));
+            // Right subtree.
+            NegNode neg1 = new NegNode();
+            neg1.addChild(bicondNode.getChild(0));
+            leaf.addRight(new TruthTree(neg1));
 
-        // Right subtree.
-        NegNode neg1 = new NegNode();
-        neg1.addChild(bicondNode.getChild(0));
-        _bicond.addRight(new TruthTree(neg1));
+            NegNode neg2 = new NegNode();
+            neg2.addChild(bicondNode.getChild(1));
+            leaf.getRight().addCenter(new TruthTree(neg2));
 
-        NegNode neg2 = new NegNode();
-        neg2.addChild(bicondNode.getChild(1));
-        _bicond.getRight().addCenter(new TruthTree(neg2));
-
-        // Add them to the queue.
-        _queue.add(_bicond.getLeft());
-        _queue.add(_bicond.getLeft().getCenter());
-        _queue.add(_bicond.getRight());
-        _queue.add(_bicond.getRight().getCenter());
+            // Add them to the queue.
+            _queue.add(leaf.getLeft());
+            _queue.add(leaf.getLeft().getCenter());
+            _queue.add(leaf.getRight());
+            _queue.add(leaf.getRight().getCenter());
+        }
     }
 
     /**
