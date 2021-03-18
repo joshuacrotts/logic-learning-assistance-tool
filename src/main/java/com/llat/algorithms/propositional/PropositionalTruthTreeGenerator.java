@@ -105,7 +105,7 @@ public final class PropositionalTruthTreeGenerator {
 
             if (tree.getWff().isNegation() && tree.getWff().getChild(0).isBicond()) {
                 // We handle negations differently since they're harder.
-                branchNegationBiconditional(tree, queue);
+                branchNegationBiconditional(tree, leaves, queue);
             } else if (tree.getWff().isNegation() && !tree.getWff().getChild(0).isAtom()) {
                 // If the node is not a simple negation (~A), negate it.
                 distributeNegation(tree, leaves, queue);
@@ -215,7 +215,7 @@ public final class PropositionalTruthTreeGenerator {
      * A, B stacked, and the rhs contains ~A, ~B.
      *
      * @param _bicond - TruthTree node such that its WffTree instance is a BicondNode.
-     * @param _leaves -
+     * @param _leaves - list of leaf nodes.
      * @param _queue - Priority queue to add the four constructed children to.
      */
     private void branchBiconditional(TruthTree _bicond, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
@@ -223,6 +223,7 @@ public final class PropositionalTruthTreeGenerator {
             throw new IllegalArgumentException("Error: branch biconditional expects biconditional node but got " + _bicond.getClass());
         }
 
+        // TODO optimize this to not include de'morgans laws.
         WffTree bicondNode = _bicond.getWff();
         for (TruthTree leaf : _leaves) {
             // Left subtree.
@@ -254,31 +255,35 @@ public final class PropositionalTruthTreeGenerator {
      * ~A, B stacked, and the rhs contains ~B, A.
      *
      * @param _negRoot - TruthTree node such that its WffTree instance is a negated node and its child is a bicond.
+     * @param _leaves - list of leaf nodes.
      * @param _queue - Priority queue to add the four constructed children to.
      */
-    private void branchNegationBiconditional(TruthTree _negRoot, PriorityQueue<TruthTree> _queue) {
+    private void branchNegationBiconditional(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_negRoot.getWff().getChild(0) instanceof BicondNode)) {
             throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _negRoot.getClass());
         }
 
-        WffTree w = _negRoot.getWff().getChild(0);
-        // Left subtree.
-        _negRoot.addLeft(new TruthTree(w.getChild(0)));
-        NegNode neg = new NegNode();
-        neg.addChild(w.getChild(1));
-        _negRoot.getLeft().addCenter(new TruthTree(neg));
+        // TODO optimize this to remove demorgan's law rules
+        WffTree bicondNode = _negRoot.getWff().getChild(0);
+        for (TruthTree leaf : _leaves) {
+            // Left subtree.
+            leaf.addLeft(new TruthTree(bicondNode.getChild(0)));
+            NegNode neg = new NegNode();
+            neg.addChild(bicondNode.getChild(1));
+            leaf.getLeft().addCenter(new TruthTree(neg));
 
-        // Right subtree.
-        _negRoot.addRight(new TruthTree(w.getChild(1)));
-        NegNode neg2 = new NegNode();
-        neg2.addChild(w.getChild(0));
-        _negRoot.getRight().addCenter(new TruthTree(neg2));
+            // Right subtree.
+            leaf.addRight(new TruthTree(bicondNode.getChild(1)));
+            NegNode neg2 = new NegNode();
+            neg2.addChild(bicondNode.getChild(0));
+            leaf.getRight().addCenter(new TruthTree(neg2));
 
-        // Add them to the queue.
-        _queue.add(_negRoot.getLeft());
-        _queue.add(_negRoot.getLeft().getCenter());
-        _queue.add(_negRoot.getRight());
-        _queue.add(_negRoot.getRight().getCenter());
+            // Add them to the queue.
+            _queue.add(leaf.getLeft());
+            _queue.add(leaf.getLeft().getCenter());
+            _queue.add(leaf.getRight());
+            _queue.add(leaf.getRight().getCenter());
+        }
     }
 
     /**
@@ -309,6 +314,14 @@ public final class PropositionalTruthTreeGenerator {
         if (child.isNegation()) {
             // Add to all leaves in this tree.
             enqueuedTTNode = new TruthTree(child.getChild(0));
+
+            // Now apply the new rule to every branch in this subTT.
+            for (TruthTree leaf : _leaves) {
+                leaf.addCenter(enqueuedTTNode);
+                if (!enqueuedTTNode.getWff().isAtom()) {
+                    _queue.add(enqueuedTTNode);
+                }
+            }
         } else {
             negatedAtom = this.getNegatedNode(child);
 
@@ -330,13 +343,13 @@ public final class PropositionalTruthTreeGenerator {
             negatedAtom.addChild(n1);
             negatedAtom.addChild(n2);
             enqueuedTTNode = new TruthTree(negatedAtom);
-        }
 
-        // Now apply the new rule to every branch in this subTT.
-        for (TruthTree leaf : _leaves) {
-            leaf.addCenter(enqueuedTTNode);
-            if (!enqueuedTTNode.getWff().isAtom()) {
-                _queue.add(enqueuedTTNode);
+            // Call the respective branch/stack function.
+            // Removes De'Morgan's laws.
+            if (child.isAnd()) {
+                this.branchDisjunction(enqueuedTTNode, _leaves, _queue);
+            } else {
+                this.stackConjunction(enqueuedTTNode, _leaves, _queue);
             }
         }
     }
