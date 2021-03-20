@@ -28,7 +28,6 @@ public final class PropositionalTruthTreeGenerator {
         TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
         this.buildTreeHelper(ttn);
         System.out.println(print(ttn));
-        this.printPaths(ttn);
         return ttn;
     }
 
