@@ -120,6 +120,26 @@ public class WffTree {
         return this.NODE_TYPE == NodeType.NEG;
     }
 
+    public boolean isDoubleNegation() {
+        return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
+                this.getChild(0).NODE_TYPE == NodeType.NEG;
+    }
+
+    public boolean isNegImp() {
+        return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
+                this.getChild(0).NODE_TYPE == NodeType.IMP;
+    }
+
+    public boolean isNegAnd() {
+        return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
+                this.getChild(0).NODE_TYPE == NodeType.AND;
+    }
+
+    public boolean isNegOr() {
+        return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
+                this.getChild(0).NODE_TYPE == NodeType.OR;
+    }
+
     public boolean isAnd() {
         return this.NODE_TYPE == NodeType.AND;
     }
