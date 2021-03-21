@@ -8,7 +8,9 @@ module LLAT {
     opens com.llat.models.settings; //this is a fucking bitch!
     opens com.llat.models.uidescription;
     opens com.llat.models.gson;
+    opens com.llat.tools;
+    opens com.llat.controller;
 
-    opens com.llat.controller to javafx.fxml;
+    //opens com.llat.controller to javafx.fxml;
     exports com.llat.main;
 }
