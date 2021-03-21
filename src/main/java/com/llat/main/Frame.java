@@ -1,6 +1,6 @@
 package com.llat.main;
 
-import com.llat.models.theme.Theme;
+//import com.llat.models.theme.Theme;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -68,7 +68,7 @@ public class Frame {
         String theme = "";
         try {
             subState("Loading CSS static file", true);
-            theme = Theme.getTheme();
+//            theme = Theme.getTheme();
             subState("Loading CSS static file", false);
         } catch (Exception e) {
             error(e.getMessage());

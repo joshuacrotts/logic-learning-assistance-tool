@@ -1,19 +1,27 @@
 package com.llat.models.settings;
 
-import com.llat.models.settings.gson.GsonSettings;
+import com.llat.models.Gson.GsonIO;
+import com.llat.models.Gson.GsonObject;
 
 public class SettingsAdaptor implements SettingsInterface {
 
+    private final String jsonFileName = "settings.json";
+
+    private Object SettingsObject;
+
     /** */
-    public SettingsInterface settings = new GsonSettings();
+    SettingsInterface settings = (SettingsInterface) new GsonIO(jsonFileName,SettingsObject ,SettingsObject.class);
+
 
     @Override
-    public void update(SettingsObject settingsObject) {
-        settings.update(settingsObject);
+    public void update(Object _obj, String _jsonFilePath) {
+        settings.update(_obj, _jsonFilePath);
     }
-
+    public void update(Object _obj) {
+        settings.update(_obj, jsonFileName);
+    }
     @Override
-    public SettingsObject getData() {
+    public GsonObject getData() {
         return settings.getData();
     }
 }
