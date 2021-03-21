@@ -1,0 +1,168 @@
+{
+  "implication": {
+    "symbol": {
+      "applied": "⇒",
+      "allSymbols": [
+        "⇒",
+        "→",
+        "⊃",
+        "->"
+      ]
+    },
+    "description": "This is the impliation button",
+    "axioms": {
+      "explanation": "A ⇒ B is false when A is true and B is false but true otherwise.",
+      "example": "(A ⇒ B)"
+    },
+    "tooltip": "implication",
+    "readAs": "implies; if ... then"
+  },
+  "equivalence": {
+    "symbol": {
+      "applied": "⇔",
+      "allSymbols": [
+        "⇔",
+        "≡",
+        "↔",
+        "<->"
+      ]
+    },
+    "description": "This is the equivalence button",
+    "axioms": {
+      "explanation": "A ⇔ B is true only if both A and B are false, or both A and B are ture.",
+      "example": "(A ⇔ B)"
+    },
+    "tooltip": "equivalence",
+    "readAs": "if and only if; iff; means the same as"
+  },
+  "negation": {
+    "symbol": {
+      "applied": "¬",
+      "allSymbols": [
+        "¬",
+        "˜",
+        "!"
+      ]
+    },
+    "description": "This is the negation button",
+    "axioms": {
+      "explanation": "The statement ¬A is true if and only if A is false.",
+      "example": "(¬(¬A) ⇔  A)"
+    },
+    "tooltip": "negation",
+    "readAs": "not"
+  },
+  "conjunction": {
+    "symbol": {
+      "applied": "∧",
+      "allSymbols": [
+        "∧",
+        "^",
+        "·",
+        "&"
+      ]
+    },
+    "description": "This is the conjunction button.",
+    "axioms": {
+      "explanation": "The statement A ∧ B is true if A and B are both true; otherwise, it is false.",
+      "example": "(A ∧ B)"
+    },
+    "tooltip": "conjunction",
+    "readAs": "and"
+  },
+  "disjunction": {
+    "symbol": {
+      "applied": "∨",
+      "allSymbols": [
+        "∨",
+        "∥",
+        "|"
+      ]
+    },
+    "description": "This is the disjunction button.",
+    "axioms": {
+      "explanation": "The statement A ∨ B is true if A or B (or both) are true; if both are false, the statement is false.",
+      "example": "(A ∨ B)"
+    },
+    "tooltip": "conjunction",
+    "readAs": "or"
+  },
+  "exclusiveDisjunction": {
+    "symbol": {
+      "applied": "⊕",
+      "allSymbols": [
+        "⊕",
+        "⊻",
+        "≢"
+      ]
+    },
+    "description": "This is the disjunction button.",
+    "axioms": {
+      "explanation": "The statement A ⊕ B is true when either A or B, but not both, are true. A ⊻ B means the same.",
+      "example": "(¬A) ⊕ A"
+    },
+    "tooltip": "exclusive disjunction",
+    "readAs": "xor; either ... or"
+  },
+  "turnstile": {
+    "symbol": {
+      "applied": "⊢",
+      "allSymbols": [
+        "⊢"
+      ]
+    },
+    "description": "This is the turnstile button.",
+    "axioms": {
+      "explanation": "x ⊢ y means x proves (syntactically entails) y.",
+      "example": "(A → B) ⊢ (¬B → ¬A)"
+    },
+    "tooltip": "turnstile",
+    "readAs": "proves"
+  },
+  "doubleTurnstile": {
+    "symbol": {
+      "applied": "⊨",
+      "allSymbols": [
+        "⊨"
+      ]
+    },
+    "description": "This is the turnstile button.",
+    "axioms": {
+      "explanation": "x ⊨ y means x models (semantically entails) y",
+      "example": "(A → B) ⊨ (¬B → ¬A)"
+    },
+    "tooltip": "double turnstile",
+    "readAs": "models"
+  },
+  "universal": {
+    "symbol": {
+      "applied": "∀",
+      "allSymbols": [
+        "∀",
+        "()"
+      ]
+    },
+    "description": "This is the universal quantification button.",
+    "axioms": {
+      "explanation": "∀ x: P(x) or (x) P(x) means P(x) is true for all x.",
+      "example": "(∀x)P(x)"
+    },
+    "tooltip": "universal quantification",
+    "readAs": "for all; for any; for each"
+  },
+  "existential": {
+    "symbol": {
+      "applied": "∃",
+      "allSymbols": [
+        "∃"
+      ]
+    },
+    "description": "This is the universal quantification button.",
+    "axioms": {
+      "explanation": "∃ x: P(x) means there is at least one x such that P(x) is true.",
+      "example": "(∃x)Px"
+    },
+    "tooltip": "universal quantification",
+    "readAs": "there exists"
+  }
+}

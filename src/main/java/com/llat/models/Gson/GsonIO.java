@@ -1,50 +1,54 @@
-package com.llat.models.settings.gson;
+package com.llat.models.Gson;
 
 import com.google.gson.Gson;
 import com.llat.main.App;
+import com.llat.models.UIDescription.UIDescriptionInterface;
+import com.llat.models.UIDescription.UIDescriptionObject;
 import com.llat.models.settings.SettingsInterface;
 import com.llat.models.settings.SettingsObject;
 
 import java.io.*;
+import java.lang.reflect.Type;
 
 /**
  *
  */
-public class GsonSettings implements SettingsInterface {
+public class GsonIO implements UIDescriptionInterface, SettingsInterface {
 
     /**
      *
      */
-    public static final String SETTINGS_JSON = "settings.json";
+    public String json;
+    public Object obj;
+    public Type aClass;
 
-    /**
-     *
-     */
-    public static final String PERSON_JSON = "person.json";
-
-    /**
-     *
-     */
     public static Gson gson = new Gson();
 
+    public GsonIO(String _jsonFileName, Object _obj, Type _objectClass){
+        this.json = _jsonFileName;
+        this.obj = _obj;
+        this.aClass = _objectClass;
+    }
+
     @Override
-    public void update(SettingsObject settingsObject) {
-        String filePath = App.class.getResource("/" + SETTINGS_JSON).getPath();
+    public void update(Object _obj, String _jsonFilePath) {
+        String filePath = App.class.getResource("/" + _jsonFilePath).getPath();
         try {
             Writer writer = new FileWriter(filePath);
-            gson.toJson(settingsObject, writer);
+            gson.toJson(_obj, writer);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     @Override
-    public SettingsObject getData() {
-        Gson gson = new Gson();
-        String jsonString = readJsonFile(SETTINGS_JSON);
-        SettingsObject setting = gson.fromJson(jsonString, SettingsObject.class);
-        return setting;
+    public GsonObject getData() {
+        String jsonString = readJsonFile(json);
+        Object x = gson.fromJson(jsonString, aClass);
+        GsonObject<Object> gobj= new GsonObject<>(x);
+        return gobj;
     }
 
     /**
