@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  *
  */
-public class WffTree {
+public class WffTree implements Copyable {
 
     /**
      * Defines the type of node that we're using. There should be only one
@@ -48,11 +48,31 @@ public class WffTree {
         this(null, NodeType.ROOT);
     }
 
+    @Override
+    public WffTree copy() {
+        WffTree t = new WffTree(this.symbol, this.NODE_TYPE);
+        this.copyHelper(this, t);
+        return t;
+    }
+
+
     /**
      * Recursively prints the syntax tree.
      */
     public void printSyntaxTree() {
         System.out.println(this.printSyntaxTreeHelper(0));
+    }
+
+    /**
+     * TODO Document
+     *
+     * @param _root
+     * @param _newTree
+     */
+    private void copyHelper(WffTree _root, WffTree _newTree) {
+        for (WffTree ch : _root.children) {
+            _newTree.addChild(ch.copy());
+        }
     }
 
     /**
@@ -108,6 +128,10 @@ public class WffTree {
         this.children.add(_node);
     }
 
+    public void setChild(int _index, WffTree _node) {
+        this.children.set(_index, _node);
+    }
+
     public boolean isRoot() {
         return this.NODE_TYPE == NodeType.ROOT;
     }
@@ -156,9 +180,21 @@ public class WffTree {
         return this.NODE_TYPE == NodeType.BICOND;
     }
 
-    public boolean isIdentity() { return this.NODE_TYPE == NodeType.IDENTITY; };
+    public boolean isIdentity() {
+        return this.NODE_TYPE == NodeType.IDENTITY;
+    }
 
-    public boolean isQuantifier() { return this.NODE_TYPE == NodeType.EXISTENTIAL || this.NODE_TYPE == NodeType.UNIVERSAL;}
+    public boolean isQuantifier() {
+        return this.NODE_TYPE == NodeType.EXISTENTIAL || this.NODE_TYPE == NodeType.UNIVERSAL;
+    }
+
+    public boolean isExistential() {
+        return this.NODE_TYPE == NodeType.EXISTENTIAL;
+    }
+
+    public boolean isUniversal() {
+        return this.NODE_TYPE == NodeType.UNIVERSAL;
+    }
 
     public boolean isBinaryOp() {
         return this.isAnd() || this.isOr() || this.isImp() || this.isBicond() || this.isIdentity();
@@ -212,12 +248,12 @@ public class WffTree {
         this.symbol = _s;
     }
 
-    public void setFlags(int _flag) {
-        this.flags |= _flag;
-    }
-
     public int getFlags() {
         return this.flags;
+    }
+
+    public void setFlags(int _flag) {
+        this.flags |= _flag;
     }
 
     public String getStringRep() {

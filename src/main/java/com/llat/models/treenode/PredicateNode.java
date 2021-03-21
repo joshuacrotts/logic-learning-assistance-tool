@@ -7,10 +7,14 @@ import java.util.LinkedList;
  */
 public class PredicateNode extends WffTree {
 
-    /** Symbol to define the predicate letter. */
+    /**
+     * Symbol to define the predicate letter.
+     */
     private final String PREDICATE_LETTER;
 
-    /** WffTree children for this predicate node - each child should be a constant or variable node. */
+    /**
+     * WffTree children for this predicate node - each child should be a constant or variable node.
+     */
     private final LinkedList<WffTree> PARAMS;
 
     public PredicateNode(String _predicateLetter, LinkedList<WffTree> _params) {
@@ -24,6 +28,28 @@ public class PredicateNode extends WffTree {
             }
         }
     }
+
+    public PredicateNode(String _predicateLetter) {
+        super(NodeType.PREDICATE);
+        this.PREDICATE_LETTER = _predicateLetter;
+        this.PARAMS = new LinkedList<>();
+    }
+
+    @Override
+    public WffTree copy() {
+        PredicateNode predicateCopy = new PredicateNode(this.PREDICATE_LETTER);
+        for (WffTree ch : this.getChildren()) {
+            predicateCopy.addChild(ch.copy());
+        }
+
+        return predicateCopy;
+    }
+
+    @Override
+    public String getStringRep() {
+        return this.PREDICATE_LETTER + this.getChild(0).getStringRep();
+    }
+
 
     public String getPredicateLetter() {
         return this.PREDICATE_LETTER;

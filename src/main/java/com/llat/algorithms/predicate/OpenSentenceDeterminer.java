@@ -18,7 +18,6 @@ public class OpenSentenceDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean get() {

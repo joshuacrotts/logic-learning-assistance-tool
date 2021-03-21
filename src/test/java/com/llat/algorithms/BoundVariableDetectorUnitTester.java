@@ -24,13 +24,14 @@ public class BoundVariableDetectorUnitTester {
 
     /**
      * Helper function to count number of newlines in a string
+     *
      * @param s the string
      * @return the number of newlines
      */
     private static int countNLs(String s) {
         if (s == null) return 0;
         int count = 0;
-        for (int i=0; i<s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '\n')
                 count++;
         }
@@ -43,7 +44,7 @@ public class BoundVariableDetectorUnitTester {
      * for the comparison, so the outputs can be formatted/spaced entirely
      * differently.
      *
-     * @param got the bytes printed out by the program under test
+     * @param got    the bytes printed out by the program under test
      * @param expect the expected output
      */
     private static void compare(byte[] got, byte[] expect) {
@@ -76,13 +77,13 @@ public class BoundVariableDetectorUnitTester {
                     }
                 } else {
                     result = "Produced output ended too early - expected \""
-                            +expToken+"\" (line "+expLine+")";
+                            + expToken + "\" (line " + expLine + ")";
                     done = true;
                 }
             } else {
                 if (gotToken != null) {
-                    result = "Got extra output: unexpected \""+gotToken
-                            +"\" (line "+gotLine+")";
+                    result = "Got extra output: unexpected \"" + gotToken
+                            + "\" (line " + gotLine + ")";
                 }
                 done = true;
             }
@@ -115,7 +116,7 @@ public class BoundVariableDetectorUnitTester {
         System.setErr(new PrintStream(captureOut));
         LLATParserListener parser = ParserTest.parseFromFile(inName);
         if (parser == null)
-            throw new AssertionFailedError("Failed reading test input file "+inName);
+            throw new AssertionFailedError("Failed reading test input file " + inName);
         WffTree syntaxTree = parser.getSyntaxTree();
         boundVariableDetector = new BoundVariableDetector(syntaxTree);
         System.out.println(boundVariableDetector.get());

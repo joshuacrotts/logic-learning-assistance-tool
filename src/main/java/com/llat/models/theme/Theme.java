@@ -1,7 +1,6 @@
 package com.llat.models.theme;
 
 import com.llat.models.settings.SettingsAdaptor;
-import com.llat.models.settings.SettingsObject;
 
 /**
  *
@@ -14,7 +13,6 @@ public class Theme {
     private static final String STYLE_PATH = "/style/";
 
     /**
-     *
      * @return
      */
     public static String getTheme() {

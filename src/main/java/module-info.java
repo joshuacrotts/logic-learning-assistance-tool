@@ -2,7 +2,7 @@ module LLAT {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
-	requires org.antlr.antlr4.runtime;
+    requires org.antlr.antlr4.runtime;
     requires com.google.gson;
 
     opens com.llat.models.settings; //this is a fucking bitch!

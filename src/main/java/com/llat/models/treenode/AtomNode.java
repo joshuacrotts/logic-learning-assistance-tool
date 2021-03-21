@@ -15,6 +15,11 @@ public class AtomNode extends WffTree {
         this.ATOM_SYMBOL = _symbol;
     }
 
+    @Override
+    public WffTree copy() {
+        return new AtomNode(ATOM_SYMBOL);
+    }
+
     public String getSymbol() {
         return this.ATOM_SYMBOL;
     }

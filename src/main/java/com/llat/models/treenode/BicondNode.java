@@ -21,6 +21,15 @@ public class BicondNode extends WffTree {
     }
 
     @Override
+    public WffTree copy() {
+        BicondNode or = new BicondNode(this.getSymbol());
+        for (WffTree ch : this.getChildren()) {
+            or.addChild(ch.copy());
+        }
+        return or;
+    }
+
+    @Override
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
         WffTree ch2 = this.getChild(1);

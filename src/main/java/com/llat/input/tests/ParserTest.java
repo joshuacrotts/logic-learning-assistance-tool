@@ -1,11 +1,10 @@
 package com.llat.input.tests;
 
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
-
 import com.llat.LLATLexer;
 import com.llat.LLATParser;
-import com.llat.algorithms.*;
+import com.llat.algorithms.predicate.ClosedSentenceDeterminer;
+import com.llat.algorithms.MainOperatorDetector;
+import com.llat.algorithms.predicate.OpenSentenceDeterminer;
 import com.llat.algorithms.predicate.*;
 import com.llat.algorithms.propositional.*;
 import com.llat.input.LLATErrorListener;
@@ -17,6 +16,9 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 
 /**
  * Basic parser tester. Has a main() so can be run from the command line, with
@@ -131,6 +133,8 @@ public class ParserTest {
                 System.out.println("Open sentence: " + new OpenSentenceDeterminer(result).get());
                 System.out.println("Closed sentence: " + new ClosedSentenceDeterminer(result).get());
                 System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
+                System.out.println("Truth Tree: ");
+                new PredicateTruthTreeGenerator(result).get();
             } else {
                 System.out.println("Truth Table: ");
                 TruthTableGenerator ttg = new TruthTableGenerator(result);

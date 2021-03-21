@@ -1,5 +1,7 @@
 package com.llat.algorithms.predicate;
 
+import com.llat.algorithms.predicate.FreeVariableDetector;
+import com.llat.algorithms.predicate.GroundSentenceDeterminer;
 import com.llat.models.treenode.WffTree;
 
 /**
@@ -17,7 +19,6 @@ public class ClosedSentenceDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean get() {

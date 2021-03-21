@@ -44,7 +44,6 @@ public class Frame {
     }
 
     /**
-     *
      * @param fxml
      * @return
      */

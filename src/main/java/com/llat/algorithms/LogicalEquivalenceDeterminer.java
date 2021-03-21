@@ -24,7 +24,6 @@ public class LogicalEquivalenceDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean get() {

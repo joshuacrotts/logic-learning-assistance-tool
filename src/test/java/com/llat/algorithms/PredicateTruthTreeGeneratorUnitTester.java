@@ -1,5 +1,6 @@
 package com.llat.algorithms;
 
+import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
 import com.llat.models.treenode.WffTree;
@@ -15,11 +16,11 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class MainOperatorDetectorUnitTester {
+public class PredicateTruthTreeGeneratorUnitTester {
 
-    private static MainOperatorDetector mainOperatorDetector;
+    private static PredicateTruthTreeGenerator truthTreeGenerator;
 
     /**
      * Helper function to count number of newlines in a string
@@ -105,8 +106,8 @@ public class MainOperatorDetectorUnitTester {
      *                 extensions.
      */
     private static void goodFileTest(String testName) {
-        String inName = "tests/mainoperator/" + testName + ".in";
-        String expName = "tests/mainoperator/" + testName + ".out";
+        String inName = "tests/predicatetree/" + testName + ".in";
+        String expName = "tests/predicatetree/" + testName + ".out";
 
         PrintStream origOut = System.out;
         PrintStream origErr = System.err;
@@ -117,8 +118,8 @@ public class MainOperatorDetectorUnitTester {
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file " + inName);
         WffTree syntaxTree = parser.getSyntaxTree();
-        mainOperatorDetector = new MainOperatorDetector(syntaxTree);
-        System.out.println(mainOperatorDetector.get().getSymbol());
+        truthTreeGenerator = new PredicateTruthTreeGenerator(syntaxTree);
+        truthTreeGenerator.get();
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();
@@ -129,7 +130,6 @@ public class MainOperatorDetectorUnitTester {
         } catch (IOException e) {
             throw new AssertionFailedError("Missing expected output file " + expName);
         }
-
         compare(actual, expected);
     }
 
@@ -161,100 +161,5 @@ public class MainOperatorDetectorUnitTester {
     @Test
     public void test006() {
         goodFileTest("test006");
-    }
-
-    @Test
-    public void test007() {
-        goodFileTest("test007");
-    }
-
-    @Test
-    public void test008() {
-        goodFileTest("test008");
-    }
-
-    @Test
-    public void test009() {
-        goodFileTest("test009");
-    }
-
-    @Test
-    public void test010() {
-        goodFileTest("test010");
-    }
-
-    @Test
-    public void test011() {
-        goodFileTest("test011");
-    }
-
-    @Test
-    public void test012() {
-        goodFileTest("test012");
-    }
-
-    @Test
-    public void test013() {
-        goodFileTest("test013");
-    }
-
-    @Test
-    public void test014() {
-        goodFileTest("test014");
-    }
-
-    @Test
-    public void test015() {
-        goodFileTest("test015");
-    }
-
-    @Test
-    public void test016() {
-        goodFileTest("test016");
-    }
-
-    @Test
-    public void test017() {
-        goodFileTest("test017");
-    }
-
-    @Test
-    public void test018() {
-        goodFileTest("test018");
-    }
-
-    @Test
-    public void test019() {
-        goodFileTest("test019");
-    }
-
-    @Test
-    public void test020() {
-        goodFileTest("test020");
-    }
-
-    @Test
-    public void test021() {
-        goodFileTest("test021");
-    }
-
-    @Test
-    public void test022() {
-        goodFileTest("test022");
-    }
-
-    @Test
-    public void test023() {
-        goodFileTest("test023");
-    }
-
-    @Test
-    public void test024() {
-        goodFileTest("test024");
-    }
-
-    @Test
-    public void test025() {
-        goodFileTest("test025");
     }
 }

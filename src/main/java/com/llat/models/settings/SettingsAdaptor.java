@@ -4,7 +4,9 @@ import com.llat.models.settings.gson.GsonSettings;
 
 public class SettingsAdaptor implements SettingsInterface {
 
-    /** */
+    /**
+     *
+     */
     public SettingsInterface settings = new GsonSettings();
 
     @Override

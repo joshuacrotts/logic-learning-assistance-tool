@@ -20,6 +20,15 @@ public class OrNode extends WffTree {
     }
 
     @Override
+    public WffTree copy() {
+        OrNode or = new OrNode(this.getSymbol());
+        for (WffTree ch : this.getChildren()) {
+            or.addChild(ch.copy());
+        }
+        return or;
+    }
+
+    @Override
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
         WffTree ch2 = this.getChild(1);

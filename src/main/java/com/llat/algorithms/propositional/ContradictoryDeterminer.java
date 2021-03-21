@@ -18,7 +18,6 @@ public class ContradictoryDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean get() {

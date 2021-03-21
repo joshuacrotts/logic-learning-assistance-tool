@@ -10,8 +10,7 @@ public class AndNode extends WffTree {
 
     /**
      * Uses the ampersand (&) as the default symbol if none is provided.
-     * This should, ideally,
-     * only happen in internal algorithms.
+     * This should, ideally, only happen in internal algorithms.
      */
     private static final String DEFAULT_SYMBOL = "&";
 
@@ -21,6 +20,15 @@ public class AndNode extends WffTree {
 
     public AndNode() {
         this(DEFAULT_SYMBOL);
+    }
+
+    @Override
+    public WffTree copy() {
+        AndNode or = new AndNode(this.getSymbol());
+        for (WffTree ch : this.getChildren()) {
+            or.addChild(ch.copy());
+        }
+        return or;
     }
 
     @Override

@@ -27,26 +27,6 @@ public class GsonSettings implements SettingsInterface {
      */
     public static Gson gson = new Gson();
 
-    @Override
-    public void update(SettingsObject settingsObject) {
-        String filePath = App.class.getResource("/" + SETTINGS_JSON).getPath();
-        try {
-            Writer writer = new FileWriter(filePath);
-            gson.toJson(settingsObject, writer);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public SettingsObject getData() {
-        Gson gson = new Gson();
-        String jsonString = readJsonFile(SETTINGS_JSON);
-        SettingsObject setting = gson.fromJson(jsonString, SettingsObject.class);
-        return setting;
-    }
-
     /**
      * This method is reading a giving file name that is stored in the `resources` folder and return it as
      * a string.
@@ -67,6 +47,26 @@ public class GsonSettings implements SettingsInterface {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public void update(SettingsObject settingsObject) {
+        String filePath = App.class.getResource("/" + SETTINGS_JSON).getPath();
+        try {
+            Writer writer = new FileWriter(filePath);
+            gson.toJson(settingsObject, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public SettingsObject getData() {
+        Gson gson = new Gson();
+        String jsonString = readJsonFile(SETTINGS_JSON);
+        SettingsObject setting = gson.fromJson(jsonString, SettingsObject.class);
+        return setting;
     }
 
 }
