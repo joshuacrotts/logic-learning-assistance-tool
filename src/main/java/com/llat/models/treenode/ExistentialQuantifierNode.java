@@ -5,7 +5,9 @@ package com.llat.models.treenode;
  */
 public class ExistentialQuantifierNode extends QuantifierNode {
 
-    /** */
+    /**
+     *
+     */
     private static final String DEFAULT_SYMBOL = "∃";
 
     public ExistentialQuantifierNode(String _symbol, String _variableSymbol) {
@@ -14,6 +16,10 @@ public class ExistentialQuantifierNode extends QuantifierNode {
 
     public ExistentialQuantifierNode(String _variableSymbol) {
         super("(" + DEFAULT_SYMBOL + _variableSymbol + ")", _variableSymbol, NodeType.EXISTENTIAL);
+    }
+
+    public ExistentialQuantifierNode() {
+        this(null, null);
     }
 
     @Override
@@ -29,10 +35,6 @@ public class ExistentialQuantifierNode extends QuantifierNode {
     @Override
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
-        return this.getSymbol() +  ch1.getStringRep();
-    }
-
-    public ExistentialQuantifierNode() {
-        this(null, null);
+        return this.getSymbol() + ch1.getStringRep();
     }
 }

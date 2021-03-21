@@ -1,6 +1,5 @@
 package com.llat.algorithms;
 
-import com.llat.algorithms.predicate.BoundVariableDetector;
 import com.llat.algorithms.predicate.FreeVariableDetector;
 import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
@@ -17,7 +16,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FreeVariableDetectorUnitTester {
 

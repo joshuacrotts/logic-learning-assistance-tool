@@ -2,9 +2,7 @@ package com.llat.input.tests;
 
 import com.llat.LLATLexer;
 import com.llat.LLATParser;
-import com.llat.algorithms.predicate.ClosedSentenceDeterminer;
 import com.llat.algorithms.MainOperatorDetector;
-import com.llat.algorithms.predicate.OpenSentenceDeterminer;
 import com.llat.algorithms.predicate.*;
 import com.llat.algorithms.propositional.*;
 import com.llat.input.LLATErrorListener;

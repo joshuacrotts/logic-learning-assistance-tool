@@ -13,6 +13,10 @@ public class UniversalQuantifierNode extends QuantifierNode {
         super("(" + _variableSymbol + ")", _variableSymbol, NodeType.UNIVERSAL);
     }
 
+    public UniversalQuantifierNode() {
+        this(null, null);
+    }
+
     @Override
     public WffTree copy() {
         UniversalQuantifierNode universalCopy = new UniversalQuantifierNode(this.getSymbol(), this.getVariableSymbol());
@@ -27,9 +31,5 @@ public class UniversalQuantifierNode extends QuantifierNode {
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
         return this.getSymbol() + ch1.getStringRep();
-    }
-
-    public UniversalQuantifierNode() {
-        this(null, null);
     }
 }

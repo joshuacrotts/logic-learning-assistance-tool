@@ -1,12 +1,8 @@
-package com.llat.models.settings;
+package com.llat.models.uidescription;
 
 import com.llat.models.gson.GsonObject;
 
-/**
- *
- */
-public interface SettingsInterface {
-
+public interface UIDescriptionInterface {
 
     void update(Object _obj, String _jsonFilePath);
 

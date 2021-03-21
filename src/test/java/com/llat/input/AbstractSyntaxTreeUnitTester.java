@@ -1,6 +1,5 @@
 package com.llat.input;
 
-import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
 import com.llat.models.treenode.WffTree;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class AbstractSyntaxTreeUnitTester {
 

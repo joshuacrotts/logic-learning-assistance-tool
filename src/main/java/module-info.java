@@ -6,6 +6,9 @@ module LLAT {
     requires com.google.gson;
 
     opens com.llat.models.settings; //this is a fucking bitch!
+    opens com.llat.models.uidescription;
+    opens com.llat.models.gson;
+
     opens com.llat.controller to javafx.fxml;
     exports com.llat.main;
 }

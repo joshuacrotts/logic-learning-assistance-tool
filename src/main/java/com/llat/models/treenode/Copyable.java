@@ -6,6 +6,7 @@ public interface Copyable {
      * Adds support for deep copying of a WffTree. Each node in the AST should override/implement this
      * method. The idea is to create a copy of the data, then deep copy all of that node's children,
      * where the base case is generally the atoms, constants, and predicates.
+     *
      * @return
      */
     public abstract WffTree copy();
