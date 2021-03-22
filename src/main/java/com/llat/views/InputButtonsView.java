@@ -15,31 +15,26 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class InputButtonsView {
-    LinkedHashMap<String, String> propositionalLogicSymbols = new LinkedHashMap<String, String>() {
-        {
-            put("andButton", "∧");
-            put("orButton", "∨");
-            put("negationButton", "¬");
-            put("xorButton", "^");
-            put("biconditionalButton", "⇔");
-            put("implicationButton", "⇒");
-            put("thereforeButton", "⊢");
-            put("modelButton", "|=");
-        }
-    };
-    LinkedHashMap<String, String> predicateLogicSymbols = new LinkedHashMap<String, String>() {
-        {
-            put("existentialQuantifierSymbol", "∃");
-            put("universalQuantifierSymbol", "∀");
-        }
-    };
 
     Controller controller;
     Stage stage;
     AnchorPane parentPane = new AnchorPane();
     VBox inputButtonVBox = new VBox();
     GridPane propositionalLogicPane = new GridPane();
+    /*
+    UIDescriptionObject obj = (UIDescriptionObject) (new UIDescriptionAdaptor()).getData().getObject();
+    Button conjunctionButton = new Button(this.obj.getConjunction().getSymbol().getApplied());
+    Button disjunctionButton = new Button(this.obj.getDisjunction().getSymbol().getApplied());
+    Button negationButton = new Button(this.obj.getNegation().getSymbol().getApplied());
+    Button exclusiveDisjunction = new Button(this.obj.getExclusiveDisjunction().getSymbol().getApplied());
+    Button equivalenceButton = new Button(this.obj.getEquivalence().getSymbol().getApplied());
+    Button implicationButton = new Button(this.obj.getImplication().getSymbol().getApplied());
+    Button turnstileButton = new Button(this.obj.getTurnstile().getSymbol().getApplied());
+    Button doubleTurnstile = new Button(this.obj.getDoubleTurnstile().getSymbol().getApplied());
+    ArrayList<Button> propositionalLogicButtons = new ArrayList<Button>() {{ add(conjunctionButton); add(disjunctionButton); add(negationButton); add(exclusiveDisjunction);
+                                                                             add(equivalenceButton); add(implicationButton); add(turnstileButton); add(doubleTurnstile); }};
 
+     */
     GridPane predicateLogicPane = new GridPane();
 
     public InputButtonsView (Controller _controller) {
@@ -53,17 +48,26 @@ public class InputButtonsView {
         // Setting Buttons propositionalLogicSymbols properties.
         UIDescriptionAdaptor buttonsInformation = new UIDescriptionAdaptor();
         UIDescriptionObject obj = (UIDescriptionObject) buttonsInformation.getData().getObject();
-        obj.getImplication().getSymbol().getApplied();
-
-        Button conjunctionButton = new Button(obj.getConjunction().getSymbol().getApplied());
-        Button disjunctionButton = new Button(obj.getDisjunction().getSymbol().getApplied());
-        Button negationButton = new Button(obj.getNegation().getSymbol().getApplied());
+        System.out.println(obj.getImplication().getSymbol().getApplied());
 
 
+        /*
+        int rowCount = 0;
+        int colCount = 0;
+        for (Button curButton : this.propositionalLogicButtons) {
+            curButton.setId("propositionalLogicButton");
+            GridPane.setRowIndex(curButton,rowCount / 4);
+            GridPane.setColumnIndex(curButton,rowCount % 4);
+            this.propositionalLogicPane.getChildren().add(curButton);
+        }
 
-
-
-
+        this.propositionalLogicButtons.forEach((curButton) -> {
+            curButton.setId("propositionalLogicButton");
+            GridPane.setRowIndex(curButton,rowCountArray.size());
+            GridPane.setColumnIndex(curButton,this.propositionalLogicPane.getChildren().size() % 4);
+            this.propositionalLogicPane.getChildren().add(curButton);
+            if (this.propositionalLogicPane.getChildren().size() % 4 == 0) { rowCountArray.add(""); }
+        });
         ArrayList<String> rowCountArray = new ArrayList<>();
         this.propositionalLogicSymbols.forEach((buttonId, buttonText) -> {
             Button curButton = new Button(buttonText);
@@ -72,7 +76,6 @@ public class InputButtonsView {
             GridPane.setColumnIndex(curButton,this.propositionalLogicPane.getChildren().size() % 4);
             this.propositionalLogicPane.getChildren().add(curButton);
             if (this.propositionalLogicPane.getChildren().size() % 4 == 0) { rowCountArray.add(""); }
-            /*
             this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
                 if(this.loginVBox.getHeight() > this.loginVBox.getWidth()) {
                     this.logoImage.setMinWidth(newVal.doubleValue() * .40);
@@ -84,8 +87,8 @@ public class InputButtonsView {
                 }
             });
             this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            }); */
-        });
+            });
+        });*/
         this.inputButtonVBox.getChildren().addAll(this.propositionalLogicPane, this.predicateLogicPane);
         this.inputButtonVBox.setId("test2");
         this.parentPane.getChildren().addAll(this.inputButtonVBox);

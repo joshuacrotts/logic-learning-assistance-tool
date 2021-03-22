@@ -36,6 +36,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
         String result = "";
         try {
             String var = App.class.getResource("/" + _fileName).getPath();
+            System.out.println(var);
             BufferedReader br = new BufferedReader(new FileReader(var));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
