@@ -5,10 +5,7 @@ import com.llat.models.uidescription.UIDescriptionAdaptor;
 import com.llat.models.uidescription.UIDescriptionObject;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -21,7 +18,6 @@ public class InputButtonsView {
     AnchorPane parentPane = new AnchorPane();
     VBox inputButtonVBox = new VBox();
     GridPane propositionalLogicPane = new GridPane();
-    /*
     UIDescriptionObject obj = (UIDescriptionObject) (new UIDescriptionAdaptor()).getData().getObject();
     Button conjunctionButton = new Button(this.obj.getConjunction().getSymbol().getApplied());
     Button disjunctionButton = new Button(this.obj.getDisjunction().getSymbol().getApplied());
@@ -33,8 +29,6 @@ public class InputButtonsView {
     Button doubleTurnstile = new Button(this.obj.getDoubleTurnstile().getSymbol().getApplied());
     ArrayList<Button> propositionalLogicButtons = new ArrayList<Button>() {{ add(conjunctionButton); add(disjunctionButton); add(negationButton); add(exclusiveDisjunction);
                                                                              add(equivalenceButton); add(implicationButton); add(turnstileButton); add(doubleTurnstile); }};
-
-     */
     GridPane predicateLogicPane = new GridPane();
 
     public InputButtonsView (Controller _controller) {
@@ -46,21 +40,21 @@ public class InputButtonsView {
         this.inputButtonVBox.setLayoutX(0);
         this.stage.heightProperty().addListener((obs, oldVal, newVal) -> { this.inputButtonVBox.setLayoutY((newVal.doubleValue() * .50) - this.inputButtonVBox.getMinHeight() / 2); });
         // Setting Buttons propositionalLogicSymbols properties.
-        UIDescriptionAdaptor buttonsInformation = new UIDescriptionAdaptor();
-        UIDescriptionObject obj = (UIDescriptionObject) buttonsInformation.getData().getObject();
-        System.out.println(obj.getImplication().getSymbol().getApplied());
 
 
-        /*
+
         int rowCount = 0;
-        int colCount = 0;
         for (Button curButton : this.propositionalLogicButtons) {
             curButton.setId("propositionalLogicButton");
             GridPane.setRowIndex(curButton,rowCount / 4);
             GridPane.setColumnIndex(curButton,rowCount % 4);
             this.propositionalLogicPane.getChildren().add(curButton);
+            rowCount++;
+            ColumnConstraints test1 = new ColumnConstraints();
+            test1.setPercentWidth(.10);
+            this.propositionalLogicPane.getColumnConstraints().add(test1);
         }
-
+       /*
         this.propositionalLogicButtons.forEach((curButton) -> {
             curButton.setId("propositionalLogicButton");
             GridPane.setRowIndex(curButton,rowCountArray.size());

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.llat.main.App;
 import com.llat.models.uidescription.UIDescriptionInterface;
 import com.llat.models.settings.SettingsInterface;
+import com.llat.tools.ViewManager;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -35,8 +36,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
     public static String readJsonFile(String _fileName) {
         String result = "";
         try {
-            String var = App.class.getResource("/" + _fileName).getPath();
-            System.out.println(var);
+            String var = App.class.getResource("/" + _fileName).getPath().replace("\\", "/").replaceAll("%20", " ");
             BufferedReader br = new BufferedReader(new FileReader(var));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
