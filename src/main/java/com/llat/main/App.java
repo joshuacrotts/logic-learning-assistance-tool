@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * JavaFX App
@@ -17,7 +18,7 @@ public class App extends Application {
     @Override
     public void start(Stage _stage) {
         this.setStageSettings(_stage);
-        (new Controller(_stage)).changeViewTo(ViewManager.LOGIN);
+        (new Controller(_stage)).changeViewTo(ViewManager.MAINAPPLICATION);
         _stage.show();
     }
     public void setStageSettings(Stage _stage) {

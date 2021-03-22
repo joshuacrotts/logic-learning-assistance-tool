@@ -60,3 +60,10 @@
 .button:focused {
     -fx-background-insets: 0;
 }
+
+#test1 {
+    -fx-background-color: red;
+}
+#test2 {
+    -fx-background-color: black;
+}

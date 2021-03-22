@@ -2,6 +2,7 @@ package com.llat.controller;
 
 import com.llat.tools.ViewManager;
 import com.llat.tools.ViewManager;
+import com.llat.views.ApplicationView;
 import com.llat.views.LoginView;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
@@ -22,10 +23,15 @@ public class Controller implements Initializable {
     private Pane getView(int _viewName) {
         Pane parentPane = new Pane();
         switch (_viewName) {
+            case ViewManager.MAINAPPLICATION: {
+                parentPane = (new ApplicationView(this).getParentPane());
+                break;
+            }
             case ViewManager.LOGIN:
                 parentPane = (new LoginView(this)).getParentPane();
                 break;
             default:
+                // Update this to error view.
                 parentPane = new Pane();
         };
         return parentPane;

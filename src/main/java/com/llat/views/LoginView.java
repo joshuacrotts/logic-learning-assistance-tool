@@ -86,7 +86,7 @@ public class LoginView {
         // Setting Button returnButton properties.
         this.returnButton.setId("returnButton");
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> { this.returnButton.setMinWidth(newVal.doubleValue() * .30); });
-        loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.emailInputLabel, this.emailField, this.belowEmailRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
+        this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.emailInputLabel, this.emailField, this.belowEmailRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
         // Setting AnchorPane parentPane properties.
         this.parentPane.setId("loginViewParentPane");
         this.parentPane.getChildren().addAll(this.loginVBox);
