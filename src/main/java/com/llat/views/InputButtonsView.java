@@ -3,6 +3,7 @@ package com.llat.views;
 import com.llat.controller.Controller;
 import com.llat.models.uidescription.UIDescriptionAdaptor;
 import com.llat.models.uidescription.UIDescriptionObject;
+import com.llat.tools.EventBus;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -24,22 +25,22 @@ public class InputButtonsView {
     Region abovePropositionalLogicLabel = new Region();
     Label propositionalLogicLabel = new Label("Propositional Logic");
     GridPane propositionalLogicPane = new GridPane();
-    Button conjunctionButton = new Button(this.obj.getConjunction().getSymbol().getApplied());
-    Button disjunctionButton = new Button(this.obj.getDisjunction().getSymbol().getApplied());
-    Button negationButton = new Button(this.obj.getNegation().getSymbol().getApplied());
-    Button exclusiveDisjunctionButton = new Button(this.obj.getExclusiveDisjunction().getSymbol().getApplied());
-    Button equivalenceButton = new Button(this.obj.getEquivalence().getSymbol().getApplied());
-    Button implicationButton = new Button(this.obj.getImplication().getSymbol().getApplied());
-    Button turnstileButton = new Button(this.obj.getTurnstile().getSymbol().getApplied());
-    Button doubleTurnstileButton = new Button(this.obj.getDoubleTurnstile().getSymbol().getApplied());
-    ArrayList <Button> propositionalLogicButtons = new ArrayList <Button>() {{ add(conjunctionButton); add(disjunctionButton); add(negationButton); add(exclusiveDisjunctionButton);
+    SymbolButton conjunctionButton = new SymbolButton(this.obj.getConjunction().getSymbol().getApplied());
+    SymbolButton disjunctionButton = new SymbolButton(this.obj.getDisjunction().getSymbol().getApplied());
+    SymbolButton negationButton = new SymbolButton(this.obj.getNegation().getSymbol().getApplied());
+    SymbolButton exclusiveDisjunctionButton = new SymbolButton(this.obj.getExclusiveDisjunction().getSymbol().getApplied());
+    SymbolButton equivalenceButton = new SymbolButton(this.obj.getEquivalence().getSymbol().getApplied());
+    SymbolButton implicationButton = new SymbolButton(this.obj.getImplication().getSymbol().getApplied());
+    SymbolButton turnstileButton = new SymbolButton(this.obj.getTurnstile().getSymbol().getApplied());
+    SymbolButton doubleTurnstileButton = new SymbolButton(this.obj.getDoubleTurnstile().getSymbol().getApplied());
+    ArrayList <SymbolButton> propositionalLogicButtons = new ArrayList <SymbolButton>() {{ add(conjunctionButton); add(disjunctionButton); add(negationButton); add(exclusiveDisjunctionButton);
                                                                              add(equivalenceButton); add(implicationButton); add(turnstileButton); add(doubleTurnstileButton); }};
     Region belowPropositionalLogicPane = new Region();
     Label predicateLogicLabel = new Label("Predicate Logic");
     GridPane predicateLogicPane = new GridPane();
-    Button existentialQuantifierButton = new Button(this.obj.getExistential().getSymbol().getApplied());
-    Button universalQuantifierButton = new Button(this.obj.getUniversal().getSymbol().getApplied());
-    ArrayList <Button> predicateLogicButtons = new ArrayList <Button> () {{ add(existentialQuantifierButton); add(universalQuantifierButton); }};
+    SymbolButton existentialQuantifierButton = new SymbolButton(this.obj.getExistential().getSymbol().getApplied());
+    SymbolButton universalQuantifierButton = new SymbolButton(this.obj.getUniversal().getSymbol().getApplied());
+    ArrayList <SymbolButton> predicateLogicButtons = new ArrayList <SymbolButton> () {{ add(existentialQuantifierButton); add(universalQuantifierButton); }};
 
     public InputButtonsView (Controller _controller) {
         this.controller = _controller;
@@ -69,11 +70,12 @@ public class InputButtonsView {
         this.propositionalLogicPane.setAlignment(Pos.TOP_CENTER);
         // Setting Buttons propositionalLogicButtons properties.
         int rowCount = 0;
-        for (Button curButton : this.propositionalLogicButtons) {
+        for (SymbolButton curButton : this.propositionalLogicButtons) {
             curButton.setId("propositionalLogicButton");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             GridPane.setRowIndex(curButton,rowCount / 4);
             GridPane.setColumnIndex(curButton,rowCount % 4);
+            this.controller.setSymbolInputButtonOnAction(curButton);
             this.propositionalLogicPane.getChildren().add(curButton);
             rowCount++;
         }
@@ -95,17 +97,15 @@ public class InputButtonsView {
         this.predicateLogicLabel.setId("predicateLogicLabel");
         // Setting Buttons predicateLogicButtons properties.
         rowCount = 0;
-        for (Button curButton : this.predicateLogicButtons) {
+        for (SymbolButton curButton : this.predicateLogicButtons) {
             curButton.setId("predicateLogicButton");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             GridPane.setRowIndex(curButton,rowCount / 4);
             GridPane.setColumnIndex(curButton,rowCount % 4);
+            this.controller.setSymbolInputButtonOnAction(curButton);
             this.predicateLogicPane.getChildren().add(curButton);
             rowCount++;
-            GridPane.setVgrow(curButton, Priority.ALWAYS);
-            GridPane.setHgrow(curButton, Priority.ALWAYS);
         }
-        // Adding children nodes to their parents nodes.
         this.inputButtonVBox.getChildren().addAll(this.abovePropositionalLogicLabel, this.propositionalLogicLabel, this.propositionalLogicPane, this.belowPropositionalLogicPane, this.predicateLogicLabel, this.predicateLogicPane);
         this.parentPane.getChildren().addAll(this.inputButtonVBox);
 

@@ -1,6 +1,7 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
+import com.llat.views.interpreters.FormulaInputInterpreter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 
 public class FormulaInputView {
     Controller controller;
+    FormulaInputInterpreter formulaInputInterpreter;
     Stage stage;
     AnchorPane parentPane = new AnchorPane();
     HBox formulaInputHBox = new HBox();
@@ -20,6 +22,7 @@ public class FormulaInputView {
     Button formulaInputButton = new Button("Solve");
     public FormulaInputView (Controller _controller) {
         this.controller = _controller;
+        this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);
         this.stage = _controller.getStage();
         // Setting HBox parentHBox settings.
         this.formulaInputHBox.setId("formulaInputHBox");
@@ -38,5 +41,6 @@ public class FormulaInputView {
         this.parentPane.getChildren().addAll(this.formulaInputHBox);
     }
 
+    public TextField getFormulaInputField () { return this.formulaInputField; }
     public Pane getParentPane() { return this.parentPane; }
 }
