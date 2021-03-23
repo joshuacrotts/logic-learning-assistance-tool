@@ -89,6 +89,7 @@ public class LoginView {
         this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.emailInputLabel, this.emailField, this.belowEmailRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
         // Setting AnchorPane parentPane properties.
         this.parentPane.setId("loginViewParentPane");
+        // Adding children nodes to their parents nodes.
         this.parentPane.getChildren().addAll(this.loginVBox);
     }
 

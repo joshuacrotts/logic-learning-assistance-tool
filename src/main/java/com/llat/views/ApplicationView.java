@@ -15,7 +15,7 @@ public class ApplicationView {
         parentPane.setLeft(new InputButtonsView(this.controller).getParentPane());
         parentPane.setCenter(new Pane());
         parentPane.setRight(new Pane());
-        parentPane.setBottom(new Pane());
+        parentPane.setBottom(new FormulaInputView(this.controller).getParentPane());
     }
 
     public Pane getParentPane () { return this.parentPane; }

@@ -17,6 +17,7 @@
     -fx-text-color: black;
     -fx-alignment: center;
     -fx-prompt-text-fill :black;
+    -fx-font-size: 2em;
 }
 
 .text-field:focused {
@@ -32,7 +33,7 @@
     -fx-border-color: rgba(0, 0, 0, 1);
 }
 
-#emailInputLabel, #passwordInputLabel {
+#emailInputLabel, #passwordInputLabel, #propositionalLogicLabel, #predicateLogicLabel {
     -fx-font-size: 2em;
     -fx-underline: true;
     -fx-font-weight: bold;
@@ -61,9 +62,10 @@
     -fx-background-insets: 0;
 }
 
-#test1 {
-    -fx-background-color: red;
+#inputButtonVBox {
+    -fx-background-color: silver;
 }
-#test2 {
-    -fx-background-color: black;
+
+#formulaInputHBox {
+    -fx-background-color: derive(black, 50%);
 }
