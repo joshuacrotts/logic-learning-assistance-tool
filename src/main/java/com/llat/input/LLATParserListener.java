@@ -91,14 +91,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPropAndRule(LLATParser.PropAndRuleContext ctx) {
-        if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional AND operator.");
-        }
-
-        if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional AND operator.");
-        }
-
         AndNode andNode = new AndNode(ctx.AND().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = andNode;
@@ -111,14 +103,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPropOrRule(LLATParser.PropOrRuleContext ctx) {
-        if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional OR operator.");
-        }
-
-        if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional OR operator.");
-        }
-
         OrNode orNode = new OrNode(ctx.OR().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = orNode;
@@ -131,14 +115,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPropImpRule(LLATParser.PropImpRuleContext ctx) {
-        if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional IMPLICATION operator.");
-        }
-
-        if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional IMPLICATION operator.");
-        }
-
         ImpNode impNode = new ImpNode(ctx.IMP().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = impNode;
@@ -151,14 +127,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPropBicondRule(LLATParser.PropBicondRuleContext ctx) {
-        if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional BICONDITIONAL operator.");
-        }
-
-        if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional BICONDITIONAL operator.");
-        }
-
         BicondNode bicondNode = new BicondNode(ctx.BICOND().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = bicondNode;
@@ -243,9 +211,9 @@ public class LLATParserListener extends LLATBaseListener {
         }
 
         String symbol = "("
-                        + (ctx.UNIVERSAL() != null ? ctx.UNIVERSAL().getText() : "")
-                        + (ctx.variable().getText())
-                        + ")";
+                + (ctx.UNIVERSAL() != null ? ctx.UNIVERSAL().getText() : "")
+                + (ctx.variable().getText())
+                + ")";
 
         UniversalQuantifierNode uqn = new UniversalQuantifierNode(symbol, variableNode.getSymbol());
         this.treeRoots.push(wffTree);
@@ -268,9 +236,9 @@ public class LLATParserListener extends LLATBaseListener {
         }
 
         String symbol = "("
-                        + ctx.EXISTENTIAL().getText()
-                        + ctx.variable().getText()
-                        + ")";
+                + ctx.EXISTENTIAL().getText()
+                + ctx.variable().getText()
+                + ")";
 
         ExistentialQuantifierNode uqn = new ExistentialQuantifierNode(symbol, variableNode.getSymbol());
         this.treeRoots.push(wffTree);
@@ -291,14 +259,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPredAndRule(LLATParser.PredAndRuleContext ctx) {
-        if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional AND operator.");
-        }
-
-        if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional AND operator.");
-        }
-
         AndNode andNode = new AndNode(ctx.AND().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = andNode;
@@ -311,14 +271,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPredOrRule(LLATParser.PredOrRuleContext ctx) {
-        if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in propositional OR operator.");
-        }
-
-        if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in propositional OR operator.");
-        }
-
         OrNode orNode = new OrNode(ctx.OR().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = orNode;
@@ -331,14 +283,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPredImpRule(LLATParser.PredImpRuleContext ctx) {
-        if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in predicate IMPLICATION operator.");
-        }
-
-        if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in predicate IMPLICATION operator.");
-        }
-
         ImpNode impNode = new ImpNode(ctx.IMP().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = impNode;
@@ -351,14 +295,6 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPredBicondRule(LLATParser.PredBicondRuleContext ctx) {
-        if (ctx.OPEN_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing opening parenthesis in predicate BICONDITIONAL operator.");
-        }
-
-        if (ctx.CLOSE_PAREN() == null) {
-            LLATErrorListener.syntaxError(ctx, "missing closing parenthesis in predicate BICONDITIONAL operator.");
-        }
-
         BicondNode bicondNode = new BicondNode(ctx.BICOND().getText());
         this.treeRoots.push(this.wffTree);
         this.wffTree = bicondNode;

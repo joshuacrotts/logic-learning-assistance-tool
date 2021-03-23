@@ -19,7 +19,6 @@ public class TautologyDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean get() {

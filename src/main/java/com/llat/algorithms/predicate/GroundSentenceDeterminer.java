@@ -20,7 +20,6 @@ public class GroundSentenceDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean get() {

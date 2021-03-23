@@ -1,0 +1,15 @@
+~(~(Ma & Kp) <-> (~Ma | Kp))
+├── ~(Ma & Kp)
+│  └── ~(~Ma | Kp)
+│     └── ~~Ma
+│        └── ~Kp
+│           └── Ma
+│              ├── ~Ma X
+│              └── ~Kp open
+└── (~Ma | Kp)
+   └── ~~(Ma & Kp)
+      └── (Ma & Kp)
+         └── Ma
+            └── Kp
+               ├── ~Ma X
+               └── Kp open

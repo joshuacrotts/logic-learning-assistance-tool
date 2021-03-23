@@ -10,6 +10,17 @@ public class ConstantNode extends WffTree {
     }
 
     @Override
+    public WffTree copy() {
+        ConstantNode or = new ConstantNode(this.getSymbol());
+        return or;
+    }
+
+    @Override
+    public String getStringRep() {
+        return this.getSymbol();
+    }
+
+    @Override
     public String toString() {
         return super.toString() + ": " + super.getSymbol();
     }

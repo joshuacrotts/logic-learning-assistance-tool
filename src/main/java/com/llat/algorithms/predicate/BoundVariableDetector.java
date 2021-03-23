@@ -1,6 +1,8 @@
 package com.llat.algorithms.predicate;
 
-import com.llat.models.treenode.*;
+import com.llat.models.treenode.QuantifierNode;
+import com.llat.models.treenode.VariableNode;
+import com.llat.models.treenode.WffTree;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -18,7 +20,6 @@ public final class BoundVariableDetector {
     }
 
     /**
-     *
      * @return
      */
     public LinkedList<WffTree> get() {
@@ -29,7 +30,6 @@ public final class BoundVariableDetector {
     }
 
     /**
-     *
      * @param T
      * @param S
      * @param L

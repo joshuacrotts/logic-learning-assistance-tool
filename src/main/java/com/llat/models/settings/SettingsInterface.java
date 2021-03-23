@@ -1,15 +1,14 @@
 package com.llat.models.settings;
 
+import com.llat.models.gson.GsonObject;
+
 /**
  *
  */
 public interface SettingsInterface {
 
-    /**
-     *
-     * @param settingsObject
-     */
-    void update(SettingsObject settingsObject);
 
-    SettingsObject getData();
+    void update(Object _obj, String _jsonFilePath);
+
+    GsonObject getData();
 }

@@ -1,0 +1,6 @@
+~(Us -> (Lo & Us))
+└── ~~Us
+   └── ~(Lo & Us)
+      └── Us
+         ├── ~Lo open
+         └── ~Us X

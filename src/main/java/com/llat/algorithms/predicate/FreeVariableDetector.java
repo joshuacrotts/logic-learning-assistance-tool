@@ -20,7 +20,6 @@ public final class FreeVariableDetector {
     }
 
     /**
-     *
      * @return
      */
     public LinkedList<WffTree> get() {
@@ -31,7 +30,6 @@ public final class FreeVariableDetector {
     }
 
     /**
-     *
      * @param T
      * @param S
      * @param L

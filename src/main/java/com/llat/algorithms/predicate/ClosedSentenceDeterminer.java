@@ -17,7 +17,6 @@ public class ClosedSentenceDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean get() {

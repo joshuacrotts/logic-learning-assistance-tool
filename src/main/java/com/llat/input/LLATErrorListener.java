@@ -1,17 +1,17 @@
 package com.llat.input;
 
-import java.util.*;
-
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
+import java.util.*;
+
 /**
  * This class can be added to either the lexer or the parser error reporting
  * chains (or both). All it does is keep track of whether an error was detected,
  * so after parsing you can call sawError() to see if there was a problem.
- *
+ * <p>
  * For LLAT, we can use this in the front-end for displaying error messages.
  * Simply call LLATErrorListener.getErrorIterator() and
  * LLATErrorListener.getWarningIterator() to get an Iterator object for them.
@@ -74,7 +74,6 @@ public class LLATErrorListener extends BaseErrorListener {
      *
      * @param ctx
      * @param warningMsg
-     *
      * @return void.
      */
     public static void syntaxWarning(ParserRuleContext ctx, String warningMsg) {
@@ -98,7 +97,6 @@ public class LLATErrorListener extends BaseErrorListener {
      * error.
      *
      * @param void.
-     *
      * @return void.
      */
     public static void printErrors() {
@@ -115,7 +113,6 @@ public class LLATErrorListener extends BaseErrorListener {
      * out.
      *
      * @param void.
-     *
      * @return void.
      */
     public static void printWarnings() {
@@ -190,7 +187,6 @@ public class LLATErrorListener extends BaseErrorListener {
     }
 
     /**
-     *
      * @author joshuacrotts
      */
     private static class Message {

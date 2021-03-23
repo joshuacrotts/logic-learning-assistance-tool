@@ -20,6 +20,15 @@ public class NegNode extends WffTree {
     }
 
     @Override
+    public WffTree copy() {
+        NegNode or = new NegNode(this.getSymbol());
+        for (WffTree ch : this.getChildren()) {
+            or.addChild(ch.copy());
+        }
+        return or;
+    }
+
+    @Override
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
         return this.getSymbol() + ch1.getStringRep();

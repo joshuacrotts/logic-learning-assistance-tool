@@ -25,7 +25,7 @@ public final class PropositionalTruthTreeGenerator {
      * @return
      */
     public TruthTree get() {
-        TruthTree ttn = new TruthTree(this.tree.getChild(0));
+        TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
         this.buildTreeHelper(ttn);
         System.out.println(print(ttn));
         return ttn;
@@ -33,8 +33,9 @@ public final class PropositionalTruthTreeGenerator {
 
     /**
      * TODO Document
-     *
+     * <p>
      * https://www.baeldung.com/java-print-binary-tree-diagram
+     *
      * @param root
      */
     public String print(TruthTree root) {
@@ -45,8 +46,8 @@ public final class PropositionalTruthTreeGenerator {
         StringBuilder sb = new StringBuilder();
         sb.append(root);
 
-        String pointerRight = "└──";
-        String pointerLeft = (root.getRight() != null) ? "├──" : "└──";
+        String pointerRight = "└── ";
+        String pointerLeft = (root.getRight() != null) ? "├── " : "└── ";
 
         printHelper(sb, "", pointerLeft, root.getLeft(), root.getRight() != null);
         printHelper(sb, "", pointerRight, root.getRight(), false);
@@ -56,8 +57,9 @@ public final class PropositionalTruthTreeGenerator {
 
     /**
      * TODO Document
-     *
+     * <p>
      * https://www.baeldung.com/java-print-binary-tree-diagram
+     *
      * @param sb
      * @param padding
      * @param pointer
@@ -65,7 +67,7 @@ public final class PropositionalTruthTreeGenerator {
      * @param hasRightSibling
      */
     private void printHelper(StringBuilder sb, String padding, String pointer, TruthTree node,
-                              boolean hasRightSibling) {
+                             boolean hasRightSibling) {
         if (node != null) {
             sb.append("\n");
             sb.append(padding);
@@ -80,8 +82,8 @@ public final class PropositionalTruthTreeGenerator {
             }
 
             String paddingForBoth = paddingBuilder.toString();
-            String pointerRight = "└──";
-            String pointerLeft = (node.getRight() != null) ? "├──" : "└──";
+            String pointerRight = "└── ";
+            String pointerLeft = (node.getRight() != null) ? "├── " : "└── ";
 
             printHelper(sb, paddingForBoth, pointerLeft, node.getLeft(), node.getRight() != null);
             printHelper(sb, paddingForBoth, pointerRight, node.getRight(), false);
@@ -89,9 +91,34 @@ public final class PropositionalTruthTreeGenerator {
     }
 
     /**
-     * TODO document
+     * @param _root
+     */
+    private void printPaths(TruthTree _root) {
+        LinkedList<TruthTree> leaves = this.getLeaves(_root);
+        System.out.println(leaves);
+        printPathsHelper(leaves);
+    }
+
+    /**
+     * @param _leaves
+     */
+    private void printPathsHelper(LinkedList<TruthTree> _leaves) {
+        for (TruthTree leaf : _leaves) {
+            System.out.println(leaf);
+            TruthTree l = leaf;
+            while (l != null) {
+                System.out.print(l + " -> ");
+                l = l.getParent();
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * Builds the propositional truth tree. A truth tree is characterized by
+     * branches and stacks. More information is presented in the documentation.
      *
-     * @param _node
+     * @param _node - TruthTree root.
      */
     private void buildTreeHelper(TruthTree _node) {
         LinkedList<TruthTree> leaves = new LinkedList<>();
@@ -103,38 +130,39 @@ public final class PropositionalTruthTreeGenerator {
             leaves = this.getLeaves(tree);
 
             if (tree.getWff().isNegation() && tree.getWff().getChild(0).isBicond()) {
-                // We handle negations differently since they're harder.
-                branchNegationBiconditional(tree, queue);
+                // We handle biconditional negations differently since they're harder.
+                this.branchNegationBiconditional(tree, leaves, queue);
             } else if (tree.getWff().isNegation() && !tree.getWff().getChild(0).isAtom()) {
                 // If the node is not a simple negation (~A), negate it.
-                distributeNegation(tree, leaves, queue);
-            } else if (tree.getWff().isAtom()) {
-                // Do nothing...
+                this.distributeNegation(tree, leaves, queue);
             } else if (tree.getWff().isAnd()) {
-                stackConjunction(tree, leaves, queue);
+                this.stackConjunction(tree, leaves, queue);
             } else if (tree.getWff().isOr()) {
-                branchDisjunction(tree, leaves, queue);
+                this.branchDisjunction(tree, leaves, queue);
             } else if (tree.getWff().isImp()) {
-                branchImplication(tree, leaves, queue);
+                this.branchImplication(tree, leaves, queue);
             } else if (tree.getWff().isBicond()) {
-                branchBiconditional(tree, leaves, queue);
+                this.branchBiconditional(tree, leaves, queue);
             }
+
+            leaves = this.getLeaves(_node);
+            this.computeClosedBranches(leaves);
         }
     }
 
     /**
      * Stacks a conjunction node. The stack works as follows:
-     *
+     * <p>
      * If we have (A & B), then
-     *
+     * <p>
      * A
      * B
-     *
+     * <p>
      * is the resulting stack. All stacks should be added to the leaves.
      *
-     * @param _conj - Conjunction node.
+     * @param _conj   - Conjunction node.
      * @param _leaves - list of leaves.
-     * @param _queue - priority queue of nodes left to process.
+     * @param _queue  - priority queue of nodes left to process.
      */
     private void stackConjunction(TruthTree _conj, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_conj.getWff() instanceof AndNode)) {
@@ -143,8 +171,8 @@ public final class PropositionalTruthTreeGenerator {
 
         // We need to stack on the leaf ONLY.
         for (TruthTree leaf : _leaves) {
-            leaf.addCenter(new TruthTree(_conj.getWff().getChild(0)));
-            leaf.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1)));
+            leaf.addCenter(new TruthTree(_conj.getWff().getChild(0), leaf));
+            leaf.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1), leaf.getCenter()));
             _queue.add(leaf.getCenter());
             _queue.add(leaf.getCenter().getCenter());
         }
@@ -152,25 +180,26 @@ public final class PropositionalTruthTreeGenerator {
 
     /**
      * Branches a disjunction node. The disjunction works as follows:
-     *
+     * <p>
      * If we have (A | B), then
-     *
+     * <p>
      * A OR B
-     *
+     * <p>
      * is the resulting branch. If there are multiple leaves in the current TruthTree
      * node, then this branch is applied to all of them.
      *
-     * @param _disj - Disjunction node.
+     * @param _disj   - Disjunction node.
      * @param _leaves - list of leaves.
-     * @param _queue - priority queue of nodes left to process.
+     * @param _queue  - priority queue of nodes left to process.
      */
     private void branchDisjunction(TruthTree _disj, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
-        TruthTree l = new TruthTree(_disj.getWff().getChild(0));
-        TruthTree r = new TruthTree(_disj.getWff().getChild(1));
+        if (!(_disj.getWff() instanceof OrNode)) {
+            throw new IllegalArgumentException("Error: disjunction expects disjunction node but got " + _disj.getClass());
+        }
 
         for (TruthTree leaf : _leaves) {
-            leaf.addLeft(l);
-            leaf.addRight(r);
+            leaf.addLeft(new TruthTree(_disj.getWff().getChild(0), leaf));
+            leaf.addRight(new TruthTree(_disj.getWff().getChild(1), leaf));
             _queue.add(leaf.getLeft());
             _queue.add(leaf.getRight());
         }
@@ -178,29 +207,28 @@ public final class PropositionalTruthTreeGenerator {
 
     /**
      * Branches an implication node in the truth tree.
-     *
+     * <p>
      * The implication branches as follows:
-     *
+     * <p>
      * If we have (A -> B), then
      * ~A OR B
-     *
+     * <p>
      * is the resulting branch. If there are multiple leaves in the current TruthTree
      * node, then this branch is applied to all of them.
      *
-     * @param _imp - Implication node.
+     * @param _imp    - Implication node.
      * @param _leaves - list of leaves.
-     * @param _queue - priority queue of nodes left to process.
+     * @param _queue  - priority queue of nodes left to process.
      */
     private void branchImplication(TruthTree _imp, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
-        // Create a new node to negate the lhs and branch.
-        NegNode neg = new NegNode();
-        neg.addChild(_imp.getWff().getChild(0));
-        TruthTree l = new TruthTree(neg);
-        TruthTree r = new TruthTree(_imp.getWff().getChild(1));
+        if (!(_imp.getWff() instanceof ImpNode)) {
+            throw new IllegalArgumentException("Error: implication expects implication node but got " + _imp.getClass());
+        }
 
         for (TruthTree leaf : _leaves) {
-            leaf.addLeft(l);
-            leaf.addRight(r);
+            // Create a new node to negate the lhs and branch.
+            leaf.addLeft(new TruthTree(this.getNegatedNode(_imp.getWff().getChild(0)), leaf));
+            leaf.addRight(new TruthTree(_imp.getWff().getChild(1), leaf));
             _queue.add(leaf.getLeft());
             _queue.add(leaf.getRight());
         }
@@ -209,13 +237,13 @@ public final class PropositionalTruthTreeGenerator {
     /**
      * Branches a biconditional node in the form of
      * (A <-> B)
-     *
+     * <p>
      * The negation is applied such that it branches, with the lhs containing
      * A, B stacked, and the rhs contains ~A, ~B.
      *
      * @param _bicond - TruthTree node such that its WffTree instance is a BicondNode.
-     * @param _leaves -
-     * @param _queue - Priority queue to add the four constructed children to.
+     * @param _leaves - list of leaf nodes.
+     * @param _queue  - Priority queue to add the four constructed children to.
      */
     private void branchBiconditional(TruthTree _bicond, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_bicond.getWff() instanceof BicondNode)) {
@@ -223,80 +251,75 @@ public final class PropositionalTruthTreeGenerator {
         }
 
         WffTree bicondNode = _bicond.getWff();
+        for (TruthTree leaf : _leaves) {
+            // Left subtree.
+            leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
+            leaf.getLeft().addCenter(new TruthTree(bicondNode.getChild(1), leaf.getLeft()));
 
-        // Left subtree.
-        _bicond.addLeft(new TruthTree(bicondNode.getChild(0)));
-        _bicond.getLeft().addCenter(new TruthTree(bicondNode.getChild(1)));
+            // Right subtree.
+            leaf.addRight(new TruthTree(this.getNegatedNode(bicondNode.getChild(0)), leaf));
+            leaf.getRight().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(1)), leaf.getRight()));
 
-        // Right subtree.
-        NegNode neg1 = new NegNode();
-        neg1.addChild(bicondNode.getChild(0));
-        _bicond.addRight(new TruthTree(neg1));
-
-        NegNode neg2 = new NegNode();
-        neg2.addChild(bicondNode.getChild(1));
-        _bicond.getRight().addCenter(new TruthTree(neg2));
-
-        // Add them to the queue.
-        _queue.add(_bicond.getLeft());
-        _queue.add(_bicond.getLeft().getCenter());
-        _queue.add(_bicond.getRight());
-        _queue.add(_bicond.getRight().getCenter());
+            // Add them to the queue.
+            _queue.add(leaf.getLeft());
+            _queue.add(leaf.getLeft().getCenter());
+            _queue.add(leaf.getRight());
+            _queue.add(leaf.getRight().getCenter());
+        }
     }
 
     /**
      * Distributes a negation to a biconditional node in the form of
      * ~(A <-> B)
-     *
+     * <p>
      * The negation is applied such that it branches, with the lhs containing
      * ~A, B stacked, and the rhs contains ~B, A.
      *
      * @param _negRoot - TruthTree node such that its WffTree instance is a negated node and its child is a bicond.
-     * @param _queue - Priority queue to add the four constructed children to.
+     * @param _leaves  - list of leaf nodes.
+     * @param _queue   - Priority queue to add the four constructed children to.
      */
-    private void branchNegationBiconditional(TruthTree _negRoot, PriorityQueue<TruthTree> _queue) {
+    private void branchNegationBiconditional(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_negRoot.getWff().getChild(0) instanceof BicondNode)) {
             throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _negRoot.getClass());
         }
 
-        WffTree w = _negRoot.getWff().getChild(0);
-        // Left subtree.
-        _negRoot.addLeft(new TruthTree(w.getChild(0)));
-        NegNode neg = new NegNode();
-        neg.addChild(w.getChild(1));
-        _negRoot.getLeft().addCenter(new TruthTree(neg));
+        WffTree bicondNode = _negRoot.getWff().getChild(0);
+        for (TruthTree leaf : _leaves) {
+            // Left subtree.
+            leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
+            leaf.getLeft().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(1)), leaf.getLeft()));
 
-        // Right subtree.
-        _negRoot.addRight(new TruthTree(w.getChild(1)));
-        NegNode neg2 = new NegNode();
-        neg2.addChild(w.getChild(0));
-        _negRoot.getRight().addCenter(new TruthTree(neg2));
+            // Right subtree.
+            leaf.addRight(new TruthTree(bicondNode.getChild(1), leaf));
+            leaf.getRight().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(0)), leaf.getRight()));
 
-        // Add them to the queue.
-        _queue.add(_negRoot.getLeft());
-        _queue.add(_negRoot.getLeft().getCenter());
-        _queue.add(_negRoot.getRight());
-        _queue.add(_negRoot.getRight().getCenter());
+            // Add them to the queue.
+            _queue.add(leaf.getLeft());
+            _queue.add(leaf.getLeft().getCenter());
+            _queue.add(leaf.getRight());
+            _queue.add(leaf.getRight().getCenter());
+        }
     }
 
     /**
      * Distributes a negation into the node.
-     *
+     * <p>
      * Negations are applied using De'Morgan's laws as follows:
      * ~(A | B) == (~A & ~B)
      * ~(A & B) == (~A | ~B)
      * ~(A -> B) == (~~A & ~B)
-     *
+     * <p>
      * Each of these equivalences on the rhs of the rule *is* applied when building
      * the tree. This means that there are some redundant steps added. These ought
      * be noted in the final version if time permits.
      *
      * @param _negRoot - negation node itself.
-     * @param _leaves - linked list of leave nodes for this current TruthTree node.
+     * @param _leaves  - linked list of leave nodes for this current TruthTree node.
      *                 This is computed before this method is called (and can
      *                 be abstracted to this method...)
-     * @param _queue - priority queue of nodes - each child created in this method
-     *                is added to this priority queue.
+     * @param _queue   - priority queue of nodes - each child created in this method
+     *                 is added to this priority queue.
      */
     private void distributeNegation(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         WffTree child = _negRoot.getWff().getChild(0);
@@ -306,9 +329,15 @@ public final class PropositionalTruthTreeGenerator {
         // Double negations are simple - just remove the negations altogether.
         if (child.isNegation()) {
             // Add to all leaves in this tree.
-            enqueuedTTNode = new TruthTree(child.getChild(0));
+            for (TruthTree leaf : _leaves) {
+                enqueuedTTNode = new TruthTree(child.getChild(0), leaf);
+                leaf.addCenter(enqueuedTTNode);
+                if (!enqueuedTTNode.getWff().isAtom()) {
+                    _queue.add(enqueuedTTNode);
+                }
+            }
         } else {
-            negatedAtom = this.getNegatedNode(child);
+            negatedAtom = this.getNegatedBinaryNode(child);
 
             // Create the negation nodes for the children.
             NegNode n1 = new NegNode();
@@ -327,14 +356,14 @@ public final class PropositionalTruthTreeGenerator {
             n2.addChild(child.getChild(1));
             negatedAtom.addChild(n1);
             negatedAtom.addChild(n2);
-            enqueuedTTNode = new TruthTree(negatedAtom);
-        }
+            enqueuedTTNode = new TruthTree(negatedAtom, _negRoot);
 
-        // Now apply the new rule to every branch in this subTT.
-        for (TruthTree leaf : _leaves) {
-            leaf.addCenter(enqueuedTTNode);
-            if (!enqueuedTTNode.getWff().isAtom()) {
-                _queue.add(enqueuedTTNode);
+            // Call the respective branch/stack function.
+            // Removes De'Morgan's laws.
+            if (child.isAnd()) {
+                this.branchDisjunction(enqueuedTTNode, _leaves, _queue);
+            } else {
+                this.stackConjunction(enqueuedTTNode, _leaves, _queue);
             }
         }
     }
@@ -346,7 +375,6 @@ public final class PropositionalTruthTreeGenerator {
      * nodes we have to add to when branching or stacking.
      *
      * @param _truthTree - TruthTree node to recursively search for leaves.
-     *
      * @return LinkedList<TruthTree> of leaf nodes.
      */
     private LinkedList<TruthTree> getLeaves(TruthTree _truthTree) {
@@ -356,11 +384,11 @@ public final class PropositionalTruthTreeGenerator {
     }
 
     /**
-     * TODO Document
+     * Recursive helper function for computing leaf nodes in a Truth Tree.
+     * Uses a pre-order traversal.
      *
-     * @param _truthTree
-     * @param _leaves
-     * @return
+     * @param _truthTree - TruthTree node to recursively search for leaves.
+     * @param _leaves    - linked list of leaf nodes to add to.
      */
     private void getLeavesHelper(TruthTree _truthTree, LinkedList<TruthTree> _leaves) {
         // If both left and right nodes are null then it's a leaf by def.
@@ -378,38 +406,113 @@ public final class PropositionalTruthTreeGenerator {
     }
 
     /**
-     * Returns the negated version of the provided tree type.
-     *
+     * Returns the negated version of the provided binary node WffTree type.
+     * <p>
      * The disjunction (OR) and implication operators return the ampersand (AND),
      * whereas the ampersand (AND) returns a disjunction (OR).
+     * <p>
+     * The difference between this and getNegatedNode(...) is that this node returns
+     * the corresponding subtype instead of a generic WffTree or NegNode. In other words,
+     * this method returns an AndNode or an OrNode.
      *
-     * @param tree - WffTree node to negate.
+     * @param _tree - WffTree node to negate.
      * @return WffTree node instance of the corresponding negative type.
      * @throws IllegalArgumentException if tree is not an OrNode, ImpNode, or AndNode.
      */
-    private WffTree getNegatedNode(WffTree tree) {
-        if (tree.isOr() || tree.isImp()) {
-            return new AndNode("&");
-        } else if (tree.isAnd()) {
-            return new OrNode("|");
+    private WffTree getNegatedBinaryNode(WffTree _tree) {
+        if (_tree.isOr() || _tree.isImp()) {
+            return new AndNode();
+        } else if (_tree.isAnd()) {
+            return new OrNode();
         }
 
-        throw new IllegalArgumentException("Cannot get negated node of type " + tree);
+        throw new IllegalArgumentException("Cannot get negated node of type " + _tree);
+    }
+
+    /**
+     * Computes the negated version of any arbitrary WffTree node. This performs
+     * a "simple negation" only, where simple is defined as follows:
+     * <p>
+     * If our input is a wff P, then we return ~P. Similarly,
+     * If our input is a wff ~P, then we return P.
+     *
+     * @param _wff - WffTree object to negate.
+     * @return negated version of WffTree.
+     */
+    private WffTree getFlippedNode(WffTree _wff) {
+        WffTree negWff;
+        if (_wff.isNegation()) {
+            negWff = _wff.getChild(0);
+        } else {
+            NegNode neg = new NegNode();
+            neg.addChild(_wff);
+            negWff = neg;
+        }
+
+        return negWff;
+    }
+
+    /**
+     * Computes the negated version of any arbitrary WffTree node. This performs
+     * a "raw negation" only, where raw is defined as follows:
+     * <p>
+     * If our input is a wff P, then we return ~P. Similarly,
+     * If our input is a wff ~P, then we return ~~P.
+     *
+     * @param _wff - WffTree object to negate.
+     * @return negated version of WffTree.
+     */
+    private WffTree getNegatedNode(WffTree _wff) {
+        WffTree negWff;
+        NegNode neg = new NegNode();
+        neg.addChild(_wff);
+        negWff = neg;
+
+        return negWff;
+    }
+
+    /**
+     * Computes the path from every leaf node to the root, looking for
+     * closed branches.
+     * <p>
+     * A branch is closed if and only if there exists a wff P such that
+     * ~P is an ancestor.
+     * <p>
+     * Only leaves may ever be closed.
+     *
+     * @param _leaves - list of leaves to check for closure.
+     */
+    private void computeClosedBranches(LinkedList<TruthTree> _leaves) {
+        for (TruthTree leaf : _leaves) {
+            // Only check to see if a branch is closed above if the current leaf
+            // is still open.
+            if (!leaf.isClosed()) {
+                TruthTree curr = leaf;
+                TruthTree negTT = new TruthTree(getFlippedNode(leaf.getWff()), null);
+                while (curr != null) {
+                    if (curr.equals(negTT)) {
+                        leaf.setClosed(true);
+                        break;
+                    }
+                    curr = curr.getParent();
+                }
+            }
+        }
     }
 
     /**
      * Static class for constructing a TruthTree.
-     *
+     * <p>
      * TruthTrees contain three instance objects: a WffTree node, which is its "value",
      * and two children (acting as a binary tree): a left and right pointer to TTs.
      * There is one extra integer, corresponding to a value. This value indicates the
      * precedence of the operator, in increasing order as follows:
-     *
+     * <p>
      * ATOM < NEG < AND < OR < IMP < BICOND < IDENTITY
-     *
+     * <p>
      * These nodes are stored in a minheap (priority queue), and are ordered such that
      * the truth tree operations are performed in the aforementioned order.
-     *
+     * <p>
      * A TruthTree can have either one or two children (same as a binary tree), with the
      * exception that a tree with only one child is a "stacked" subtree, and should be
      * referenced with getCenter() and addCenter(...) calls. So, nodes with two children
@@ -417,36 +520,73 @@ public final class PropositionalTruthTreeGenerator {
      */
     private static class TruthTree implements Comparable<TruthTree> {
 
-        /** WffTree "value" for the TruthTree. */
+        /**
+         * WffTree "value" for the TruthTree.
+         */
         private WffTree node;
 
-        /** Left pointer. */
+        /**
+         * Pointer to the parent node for reverse traversal.
+         */
+        private TruthTree parent;
+
+        /**
+         * Left pointer.
+         */
         private TruthTree left;
 
-        /** Right pointer. */
+        /**
+         * Right pointer.
+         */
         private TruthTree right;
 
-        /** Order of precedence for this node (as described above). */
+        /**
+         * Order of precedence for this node (as described above).
+         */
         private int value;
 
-        public TruthTree(WffTree _node) {
-            // This is kind of ugly, I know...
+        /**
+         *
+         */
+        private boolean closed;
+
+        public TruthTree(WffTree _node, TruthTree _parent) {
             this.node = _node;
+            this.parent = _parent;
+
+            // This is kind of ugly, I know...
             if (_node.isAtom()) {
                 this.value = 0;
-            } else if (_node.isNegation()) {
+            } else if (_node.isDoubleNegation()) {
+                // Double negations have to have a higher priority.
                 this.value = 1;
-            } else if (_node.isAnd()) {
+            } else if (_node.isNegation() && !_node.isNegAnd() && !_node.isNegImp() && !_node.isNegOr()) {
                 this.value = 2;
-            } else if (_node.isOr()) {
+            } else if (_node.isAnd()) {
                 this.value = 3;
-            } else if (_node.isImp()) {
+            } else if (_node.isNegOr() || _node.isNegImp()) {
                 this.value = 4;
-            } else if (_node.isBicond()) {
+            } else if (_node.isOr()) {
                 this.value = 5;
-            } else {
+            } else if (_node.isNegAnd()) {
                 this.value = 6;
+            } else if (_node.isImp()) {
+                this.value = 7;
+            } else if (_node.isBicond()) {
+                this.value = 8;
+            } else {
+                this.value = 9;
             }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this.getClass() != obj.getClass()) {
+                throw new ClassCastException("Cannot cast class of type " + obj.getClass() + " to type " + this.getClass());
+            }
+
+            TruthTree o = (TruthTree) obj;
+            return this.getWff().getStringRep().equals(o.getWff().getStringRep());
         }
 
         @Override
@@ -466,8 +606,16 @@ public final class PropositionalTruthTreeGenerator {
             this.left = _left;
         }
 
+        public TruthTree getLeft() {
+            return this.left;
+        }
+
         public void addRight(TruthTree _right) {
             this.right = _right;
+        }
+
+        public TruthTree getRight() {
+            return this.right;
         }
 
         public void addCenter(TruthTree _c) {
@@ -478,14 +626,6 @@ public final class PropositionalTruthTreeGenerator {
             this.left = _c;
         }
 
-        public TruthTree getLeft() {
-            return this.left;
-        }
-
-        public TruthTree getRight() {
-            return this.right;
-        }
-
         public TruthTree getCenter() {
             if (this.right != null) {
                 throw new IllegalCallerException("Cannot return center if right child is null.");
@@ -494,9 +634,25 @@ public final class PropositionalTruthTreeGenerator {
             return this.left;
         }
 
+        public boolean isClosed() {
+            return this.closed;
+        }
+
+        public void setClosed(boolean _closed) {
+            this.closed = _closed;
+        }
+
+        public TruthTree getParent() {
+            return this.parent;
+        }
+
         @Override
         public String toString() {
-            return this.getWff().getStringRep();
+            String leafSignal = "";
+            if (this.isLeafNode()) {
+                leafSignal = this.closed ? "X" : "\u2713";
+            }
+            return this.getWff().getStringRep() + " " + leafSignal;
         }
     }
 }

@@ -18,7 +18,6 @@ public class ContingencyDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean get() {
