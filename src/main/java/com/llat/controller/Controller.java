@@ -1,5 +1,6 @@
 package com.llat.controller;
 
+import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.tools.ViewManager;
@@ -7,8 +8,11 @@ import com.llat.tools.ViewManager;
 import com.llat.views.ApplicationView;
 import com.llat.views.LoginView;
 import com.llat.views.SymbolButton;
+import com.llat.views.events.FormulaInputEvent;
+import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolInputEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -17,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     private Stage stage;
-    private EventBus eventBus = new EventBus();
+    private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
     public Controller (Stage _stage) {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
@@ -48,10 +52,9 @@ public class Controller implements Initializable {
     }
 
     public void setSymbolInputButtonOnAction (SymbolButton _symbolButton) {
-        _symbolButton.setOnAction((event) -> { this.eventBus.throwEvent(new SymbolInputEvent(((SymbolButton)event.getSource()).getDefaultSymbol())); });
-    }
+        _symbolButton.setOnAction((event) -> { EventBus.throwEvent(new SymbolInputEvent(((SymbolButton)event.getSource()).getDefaultSymbol())); }); }
 
-    public void addListener (Listener _listener) { this.eventBus.addListener(_listener);}
+    public void setSolveButtonOnAction (Button _button) { _button.setOnAction((event) -> { EventBus.throwEvent(new SolveButtonEvent()); }); }
 
     public Stage getStage () { return this.stage; }
 

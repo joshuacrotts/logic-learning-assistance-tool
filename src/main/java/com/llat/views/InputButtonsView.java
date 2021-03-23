@@ -4,6 +4,7 @@ import com.llat.controller.Controller;
 import com.llat.models.uidescription.UIDescriptionAdaptor;
 import com.llat.models.uidescription.UIDescriptionObject;
 import com.llat.tools.EventBus;
+import com.llat.views.interpreters.InputButtonInterpreter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -41,6 +42,7 @@ public class InputButtonsView {
     SymbolButton existentialQuantifierButton = new SymbolButton(this.obj.getExistential().getSymbol().getApplied());
     SymbolButton universalQuantifierButton = new SymbolButton(this.obj.getUniversal().getSymbol().getApplied());
     ArrayList <SymbolButton> predicateLogicButtons = new ArrayList <SymbolButton> () {{ add(existentialQuantifierButton); add(universalQuantifierButton); }};
+    InputButtonInterpreter inputButtonInterpreter;
 
     public InputButtonsView (Controller _controller) {
         this.controller = _controller;
@@ -75,7 +77,6 @@ public class InputButtonsView {
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             GridPane.setRowIndex(curButton,rowCount / 4);
             GridPane.setColumnIndex(curButton,rowCount % 4);
-            this.controller.setSymbolInputButtonOnAction(curButton);
             this.propositionalLogicPane.getChildren().add(curButton);
             rowCount++;
         }
@@ -102,14 +103,17 @@ public class InputButtonsView {
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             GridPane.setRowIndex(curButton,rowCount / 4);
             GridPane.setColumnIndex(curButton,rowCount % 4);
-            this.controller.setSymbolInputButtonOnAction(curButton);
             this.predicateLogicPane.getChildren().add(curButton);
             rowCount++;
         }
         this.inputButtonVBox.getChildren().addAll(this.abovePropositionalLogicLabel, this.propositionalLogicLabel, this.propositionalLogicPane, this.belowPropositionalLogicPane, this.predicateLogicLabel, this.predicateLogicPane);
         this.parentPane.getChildren().addAll(this.inputButtonVBox);
-
+        this.inputButtonInterpreter = new InputButtonInterpreter(this.controller,this);
     }
+
+    public ArrayList<SymbolButton> getPropositionalLogicButtons () { return this.propositionalLogicButtons; }
+
+    public ArrayList<SymbolButton> getPredicateLogicButtons () { return this.predicateLogicButtons;}
 
     public Pane getParentPane() { return this.inputButtonVBox; }
 

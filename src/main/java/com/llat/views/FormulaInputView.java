@@ -22,7 +22,6 @@ public class FormulaInputView {
     Button formulaInputButton = new Button("Solve");
     public FormulaInputView (Controller _controller) {
         this.controller = _controller;
-        this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);
         this.stage = _controller.getStage();
         // Setting HBox parentHBox settings.
         this.formulaInputHBox.setId("formulaInputHBox");
@@ -39,8 +38,12 @@ public class FormulaInputView {
         // Adding children nodes to their parents nodes.
         this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton);
         this.parentPane.getChildren().addAll(this.formulaInputHBox);
+        this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);
     }
 
+    public Button getFormulaInputButton () { return this.formulaInputButton; }
     public TextField getFormulaInputField () { return this.formulaInputField; }
+
     public Pane getParentPane() { return this.parentPane; }
+
 }
