@@ -164,6 +164,11 @@ public final class PredicateTruthTreeGenerator {
             throw new IllegalArgumentException("Error: universal quantifier node expects universal node but got " + _universalTruthTree.getClass());
         }
 
+        // Add all possible constants to our list of them.
+        for (TruthTree leaf : _leaves) {
+            _universalTruthTree.getAvailableConstants().addAll(leaf.getAvailableConstants());
+        }
+
         // There must be at least one constant somewhere in the truth tree.
         // If not, then it's invalid...
         if (_universalTruthTree.getAvailableConstants().isEmpty()) {
