@@ -10,9 +10,11 @@ import com.llat.views.LoginView;
 import com.llat.views.SymbolButton;
 import com.llat.views.events.FormulaInputEvent;
 import com.llat.views.events.SolveButtonEvent;
+import com.llat.views.events.SymbolDescriptionEvent;
 import com.llat.views.events.SymbolInputEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -52,7 +54,11 @@ public class Controller implements Initializable {
     }
 
     public void setSymbolInputButtonOnAction (SymbolButton _symbolButton) {
-        _symbolButton.setOnAction((event) -> { EventBus.throwEvent(new SymbolInputEvent(((SymbolButton)event.getSource()).getDefaultSymbol())); }); }
+        _symbolButton.setOnMouseClicked((event) -> {
+            if (event.getButton() == MouseButton.PRIMARY)  EventBus.throwEvent(new SymbolInputEvent(((SymbolButton)event.getSource()).getDefaultSymbol()));
+            if (event.getButton() == MouseButton.SECONDARY) EventBus.throwEvent(new SymbolDescriptionEvent(((SymbolButton)event.getSource()).getDefaultSymbol()));
+        });
+    }
 
     public void setSolveButtonOnAction (Button _button) { _button.setOnAction((event) -> { EventBus.throwEvent(new SolveButtonEvent()); }); }
 

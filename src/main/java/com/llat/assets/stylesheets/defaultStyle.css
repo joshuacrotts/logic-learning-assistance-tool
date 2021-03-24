@@ -33,7 +33,7 @@
     -fx-border-color: rgba(0, 0, 0, 1);
 }
 
-#emailInputLabel, #passwordInputLabel, #propositionalLogicLabel, #predicateLogicLabel {
+.label {
     -fx-font-size: 2em;
     -fx-underline: true;
     -fx-font-weight: bold;
@@ -62,10 +62,23 @@
     -fx-background-insets: 0;
 }
 
-#inputButtonVBox {
+#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox {
     -fx-background-color: silver;
 }
 
 #formulaInputHBox {
     -fx-background-color: derive(black, 50%);
+}
+
+#rulesAxiomsScrollPane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+#rulesAxiomsScrollPane:focused {
+    -fx-background-insets: 0;
+}
+
+#rulesAxiomsScrollPane .corner {
+    -fx-background-insets: 0;
 }

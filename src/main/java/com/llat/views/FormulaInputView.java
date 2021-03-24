@@ -14,12 +14,12 @@ import javafx.stage.Stage;
 
 public class FormulaInputView {
     Controller controller;
-    FormulaInputInterpreter formulaInputInterpreter;
     Stage stage;
     AnchorPane parentPane = new AnchorPane();
     HBox formulaInputHBox = new HBox();
     TextField formulaInputField = new TextField();
     Button formulaInputButton = new Button("Solve");
+    FormulaInputInterpreter formulaInputInterpreter;
     public FormulaInputView (Controller _controller) {
         this.controller = _controller;
         this.stage = _controller.getStage();
@@ -38,6 +38,7 @@ public class FormulaInputView {
         // Adding children nodes to their parents nodes.
         this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton);
         this.parentPane.getChildren().addAll(this.formulaInputHBox);
+        // Creating interpreter to handle events and actions.
         this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);
     }
 
