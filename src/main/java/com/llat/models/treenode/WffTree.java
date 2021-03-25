@@ -1,5 +1,7 @@
 package com.llat.models.treenode;
 
+import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
+
 import java.util.LinkedList;
 
 /**
@@ -63,6 +65,35 @@ public class WffTree implements Copyable {
         System.out.println(this.printSyntaxTreeHelper(0));
     }
 
+    @Override
+    public boolean equals(Object _obj) {
+        WffTree o = (WffTree) _obj;
+        if (this.getStringRep().equals(o.getStringRep())) {
+            return true;
+        }
+
+        StringBuilder w1 = new StringBuilder(this.getStringRep());
+        StringBuilder w2 = new StringBuilder(o.getStringRep());
+
+        // Check to see if both are identity operators and if so, reverse them.
+        if (w1.compareTo(w2.reverse()) == 0 || w1.reverse().compareTo(w2.reverse()) == 0) {
+            return true;
+        } else {
+            // This is a bit ugly but hopefully it works...
+            // Check to see if either one has a negation.
+            // If the identity is of the form ~x=y, reverse it as y=x
+            if (this.isNegation() && this.getChild(0).isIdentity()) {
+                StringBuilder i1r = new StringBuilder(w1.substring(1)).reverse();
+                return i1r.compareTo(w2) == 0;
+            } else if (o.isNegation() && o.getChild(0).isIdentity()) {
+                StringBuilder i2r = new StringBuilder(w2.substring(1)).reverse();
+                return i2r.compareTo(w1) == 0;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * TODO Document
      *
@@ -118,6 +149,38 @@ public class WffTree implements Copyable {
         } catch (IndexOutOfBoundsException ex) {
             return null;
         }
+    }
+
+    /**
+     * A node P is closable if and only if it is one of the following types of wffs:
+     * ~P
+     * P
+     * I (where I is an arbitrary identity wff)
+     * ~I (same as above)
+     *
+     * All others MUST be processed before closing.
+     *
+     * @return true if the node is closable, false otherwise.
+     */
+    public boolean isClosable() {
+        // Nodes of type ~P are good.
+        if (this.isNegation() && this.getChild(0) != null && this.getChild(0).isPredicate())
+            return true;
+            // Nodes of type P are good.
+        else if (this.isPredicate()) {
+            return true;
+        }
+        // Nodes of type ~identity are good.
+        else if (this.isNegation() && this.getChild(0) != null && this.getChild(0).isIdentity()) {
+            return true;
+        }
+        // Nodes of type identity are good.
+        else if (this.isIdentity()) {
+            return true;
+        }
+
+        return false;
+
     }
 
     public int getChildrenSize() {

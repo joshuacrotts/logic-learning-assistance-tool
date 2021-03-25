@@ -1,0 +1,27 @@
+~(~(∃x)(Ka & Mx) ↔ (x)~(Ka & Mx))
+├── ~(∃x)(Ka & Mx)
+│  └── ~(x)~(Ka & Mx)
+│     └── (x)~(Ka & Mx)
+│        └── (∃x)~~(Ka & Mx)
+│           └── ~~(Ka & Mb)
+│              └── (Ka & Mb)
+│                 └── Ka
+│                    └── Mb
+│                       └── ~(Ka & Ma)
+│                          └── ~(Ka & Mb)
+│                             ├── ~Ka X
+│                             └── ~Ma
+│                                ├── ~Ka X
+│                                └── ~Mb X
+└── (x)~(Ka & Mx)
+   └── ~~(∃x)(Ka & Mx)
+      └── (∃x)(Ka & Mx)
+         └── (Ka & Mb)
+            └── Ka
+               └── Mb
+                  └── ~(Ka & Ma)
+                     └── ~(Ka & Mb)
+                        ├── ~Ka X
+                        └── ~Ma
+                           ├── ~Ka X
+                           └── ~Mb X

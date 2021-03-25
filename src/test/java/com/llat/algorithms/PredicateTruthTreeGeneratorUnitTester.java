@@ -172,4 +172,24 @@ public class PredicateTruthTreeGeneratorUnitTester {
     public void test008() {
         goodFileTest("test008");
     }
+
+    @Test
+    public void test009() {
+        goodFileTest("test009");
+    }
+
+    @Test
+    public void test010() {
+        goodFileTest("test010");
+    }
+
+    @Test
+    public void test011() {
+        goodFileTest("test011");
+    }
+
+    @Test
+    public void test012() {
+        goodFileTest("test012");
+    }
 }
