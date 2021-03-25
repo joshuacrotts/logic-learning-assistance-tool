@@ -163,13 +163,12 @@ public class WffTree implements Copyable {
      * @return true if the node is closable, false otherwise.
      */
     public boolean isClosable() {
-        // Nodes of type ~P are good.
-        if (this.isNegation() && this.getChild(0) != null && this.getChild(0).isPredicate())
-            return true;
-            // Nodes of type P are good.
-        else if (this.isPredicate()) {
+        if (this.isPredicate() || this.isAtom()) {
             return true;
         }
+        // Nodes of type ~P are good.
+        else if (this.isNegation() && this.getChild(0) != null && (this.getChild(0).isPredicate() || this.getChild(0).isAtom()))
+            return true;
         // Nodes of type ~identity are good.
         else if (this.isNegation() && this.getChild(0) != null && this.getChild(0).isIdentity()) {
             return true;
