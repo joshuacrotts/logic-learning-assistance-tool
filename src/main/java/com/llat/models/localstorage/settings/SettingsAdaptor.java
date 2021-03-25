@@ -1,7 +1,7 @@
-package com.llat.models.settings;
+package com.llat.models.localstorage.settings;
 
 import com.llat.models.gson.GsonIO;
-import com.llat.models.gson.GsonObject;
+import com.llat.models.localstorage.LocalStorage;
 
 public class SettingsAdaptor implements SettingsInterface {
 
@@ -25,7 +25,7 @@ public class SettingsAdaptor implements SettingsInterface {
     }
 
     @Override
-    public GsonObject getData() {
+    public LocalStorage getData() {
         return settings.getData();
     }
 }

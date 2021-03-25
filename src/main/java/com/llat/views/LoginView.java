@@ -81,9 +81,7 @@ public class LoginView {
         // Setting TextField emailField properties.
         this.emailField.setPromptText("Enter your email.");
         this.emailField.setFocusTraversable(false);
-        this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.emailField.setMaxWidth(newVal.doubleValue() * .50);
-        });
+        this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> { this.emailField.setMaxWidth(newVal.doubleValue() * .70); });
         // Setting Region belowEmailRegion properties.
         this.loginVBox.heightProperty().addListener(((obs, oldVal, newVal) -> {
             this.belowEmailRegion.setMinHeight(newVal.doubleValue() * .10);
@@ -93,9 +91,7 @@ public class LoginView {
         // Setting PasswordField passwordField properties.
         this.passwordField.setPromptText("Enter your password.");
         this.passwordField.setFocusTraversable(false);
-        this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.passwordField.setMaxWidth(newVal.doubleValue() * .50);
-        });
+        this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> { this.passwordField.setMaxWidth(newVal.doubleValue() * .70); });
         // Setting Region belowPasswordFieldRegion properties.
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.belowPasswordFieldRegion.setMinHeight(newVal.doubleValue() * .10);

@@ -1,5 +1,6 @@
 package com.llat.views;
 
+import com.llat.models.symbols.Symbol;
 import javafx.scene.control.Button;
 
 public class SymbolButton extends Button {
@@ -19,6 +20,10 @@ public class SymbolButton extends Button {
 
     public void setDefaultSymbol(String _defaultSymbol) {
         this.defaultSymbol = _defaultSymbol;
+    }
+
+    class information extends Symbol {
+
     }
 
 }

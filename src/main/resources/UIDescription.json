@@ -9,7 +9,7 @@
         "->"
       ]
     },
-    "description": "This is the impliation button",
+    "description": "This is the implication button",
     "axioms": {
       "explanation": "A ⇒ B is false when A is true and B is false but true otherwise.",
       "example": "(A ⇒ B)"
@@ -17,7 +17,7 @@
     "tooltip": "implication",
     "readAs": "implies; if ... then"
   },
-  "equivalence": {
+  "biconditional": {
     "symbol": {
       "applied": "⇔",
       "allSymbols": [
