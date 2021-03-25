@@ -2,12 +2,8 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.views.interpreters.RulesAxiomsInterpreter;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -40,13 +36,11 @@ public class RulesAxiomsView {
         // Setting ScrollPane parentPane properties.
         this.scrollPane.setId("rulesAxiomsScrollPane");
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.scrollPane.setMinWidth(newVal.doubleValue() * .20);
             this.scrollPane.setMaxWidth(newVal.doubleValue() * .20);
         });
         this.scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
         this.scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         this.scrollPane.fitToWidthProperty().set(true);
-        this.scrollPane.fitToHeightProperty().set(true);
         // Adding children nodes to their parents nodes.
         this.rulesAxiomsVBox.getChildren().addAll(this.aboveRulesAxiomsLabel, this.scrollPane);
         // Creating interpreter to handle events and actions.

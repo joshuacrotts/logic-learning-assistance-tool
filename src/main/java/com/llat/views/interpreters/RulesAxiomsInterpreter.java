@@ -7,6 +7,7 @@ import com.llat.tools.Listener;
 import com.llat.views.RulesAxiomsView;
 import com.llat.views.SymbolDescriptionView;
 import com.llat.views.events.SymbolDescriptionEvent;
+import javafx.scene.control.ScrollPane;
 
 public class RulesAxiomsInterpreter implements Listener {
     RulesAxiomsView rulesAxiomsView;
@@ -20,9 +21,7 @@ public class RulesAxiomsInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof SymbolDescriptionEvent) {
-            this.rulesAxiomsView.getScrollPane().setVisible(false);
             this.rulesAxiomsView.getScrollPane().setContent(new SymbolDescriptionView(((SymbolDescriptionEvent) _event).getSymbol()).getParentPane());
-            this.rulesAxiomsView.getScrollPane().setVisible(true);
         }
     }
 
