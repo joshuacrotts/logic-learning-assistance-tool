@@ -2,9 +2,8 @@ package com.llat.models.gson;
 
 import com.google.gson.Gson;
 import com.llat.main.App;
-import com.llat.models.uidescription.UIDescriptionInterface;
 import com.llat.models.settings.SettingsInterface;
-import com.llat.tools.ViewManager;
+import com.llat.models.uidescription.UIDescriptionInterface;
 
 import java.io.*;
 import java.lang.reflect.Type;

@@ -3,7 +3,6 @@ package com.llat.views;
 import com.llat.controller.Controller;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
 public class MenuBarView {
@@ -23,6 +22,8 @@ public class MenuBarView {
         this.menuBar.getMenus().addAll(this.fileMenu);
     }
 
-    public MenuBar getMenuBar () { return this.menuBar; }
+    public MenuBar getMenuBar() {
+        return this.menuBar;
+    }
 
 }

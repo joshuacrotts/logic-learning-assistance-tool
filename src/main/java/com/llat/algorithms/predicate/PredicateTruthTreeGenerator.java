@@ -1,5 +1,6 @@
 package com.llat.algorithms.predicate;
 
+import com.llat.algorithms.BaseTruthTreeGenerator;
 import com.llat.models.treenode.*;
 
 import java.security.InvalidParameterException;
@@ -11,15 +12,10 @@ import java.util.Set;
 /**
  * TODO Document
  */
-public final class PredicateTruthTreeGenerator {
-
-    /**
-     * TODO Document
-     */
-    private WffTree tree;
+public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
 
     public PredicateTruthTreeGenerator(WffTree _tree) {
-        this.tree = _tree;
+        super(_tree);
     }
 
     /**
@@ -100,14 +96,20 @@ public final class PredicateTruthTreeGenerator {
      * @param _node - TruthTree root.
      */
     private void buildTreeHelper(TruthTree _node) {
-        LinkedList<TruthTree> leaves = new LinkedList<>();
+        // Initialize the min-heap and linkedlist of leaves.
         PriorityQueue<TruthTree> queue = new PriorityQueue<>();
-        queue.add(_node);
+        LinkedList<TruthTree> leaves = new LinkedList<>();
 
+        // Add the root to these structures and compute all constants in the root.
+        leaves.add(_node);
+        queue.add(_node);
+        getAllConstants(leaves);
+
+        // Poll the heap and build the tree.
         while (!queue.isEmpty()) {
             TruthTree tree = queue.poll();
-            leaves = this.getLeaves(tree);
-
+            computeClosedBranches(leaves);
+            leaves = getLeaves(tree);
             if (tree.getWff().isNegation() && tree.getWff().getChild(0).isBicond()) {
                 // We handle biconditional negations differently since they're harder.
                 this.branchNegationBiconditional(tree, leaves, queue);
@@ -131,14 +133,15 @@ public final class PredicateTruthTreeGenerator {
                 this.branchBiconditional(tree, leaves, queue);
             }
 
-            leaves = this.getLeaves(_node);
-            this.getAllConstants(leaves);
-            this.computeClosedBranches(leaves);
+            leaves = getLeaves(_node);
         }
     }
 
     /**
-     * TODO Document and finish
+     * Computes existential decomposition on any arbitrary node in the tree.
+     *
+     * Existential decomposition is defined by the replacement of a variable
+     * with a constant not previously used in the tree.
      *
      * @param _existentialTruthTree - Existential node.
      * @param _leaves               - list of leaves.
@@ -149,13 +152,20 @@ public final class PredicateTruthTreeGenerator {
             throw new IllegalArgumentException("Error: existential quantifier node expects existential node but got " + _existentialTruthTree.getClass());
         }
 
-        _existentialTruthTree.addExistentialConstant(_existentialTruthTree, _leaves, _queue);
+        char variableToReplace = ((ExistentialQuantifierNode) _existentialTruthTree.getWff()).getVariableSymbol().charAt(0);
+        _existentialTruthTree.addExistentialConstant(_existentialTruthTree, _leaves, _queue, variableToReplace);
     }
 
     /**
-     * TODO Document and finish
+     * Computes universal decomposition on any arbitrary node in the tree.
      *
-     * @param _universalTruthTree - Existential node.
+     * Universal decomposition is defined by the replacement of a quantified
+     * variable in the tree by a constant PREVIOUSLY used in the tree.
+     *
+     * Note that this method of decomposition adds all instances of previous
+     * constants to the tree, which is inefficient and generally unnecessary.
+     *
+     * @param _universalTruthTree - Universal node.
      * @param _leaves             - list of leaves.
      * @param _queue              - priority queue of nodes left to process.
      */
@@ -175,7 +185,8 @@ public final class PredicateTruthTreeGenerator {
             throw new InvalidParameterException("Universal truth tree node should have at least one constant available, but none are listed.");
         }
 
-        _universalTruthTree.addUniversalConstant(_universalTruthTree, _leaves, _queue);
+        char variableToReplace = ((UniversalQuantifierNode) _universalTruthTree.getWff()).getVariableSymbol().charAt(0);
+        _universalTruthTree.addUniversalConstant(_universalTruthTree, _leaves, _queue, variableToReplace);
     }
 
     /**
@@ -199,10 +210,12 @@ public final class PredicateTruthTreeGenerator {
 
         // We need to stack on the leaf ONLY.
         for (TruthTree leaf : _leaves) {
-            leaf.addCenter(new TruthTree(_conj.getWff().getChild(0), leaf));
-            leaf.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1), leaf.getCenter()));
-            _queue.add(leaf.getCenter());
-            _queue.add(leaf.getCenter().getCenter());
+            if (!leaf.isClosed()) {
+                leaf.addCenter(new TruthTree(_conj.getWff().getChild(0), leaf));
+                leaf.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1), leaf.getCenter()));
+                _queue.add(leaf.getCenter());
+                _queue.add(leaf.getCenter().getCenter());
+            }
         }
     }
 
@@ -226,10 +239,12 @@ public final class PredicateTruthTreeGenerator {
         }
 
         for (TruthTree leaf : _leaves) {
-            leaf.addLeft(new TruthTree(_disj.getWff().getChild(0), leaf));
-            leaf.addRight(new TruthTree(_disj.getWff().getChild(1), leaf));
-            _queue.add(leaf.getLeft());
-            _queue.add(leaf.getRight());
+            if (!leaf.isClosed()) {
+                leaf.addLeft(new TruthTree(_disj.getWff().getChild(0), leaf));
+                leaf.addRight(new TruthTree(_disj.getWff().getChild(1), leaf));
+                _queue.add(leaf.getLeft());
+                _queue.add(leaf.getRight());
+            }
         }
     }
 
@@ -254,11 +269,13 @@ public final class PredicateTruthTreeGenerator {
         }
 
         for (TruthTree leaf : _leaves) {
-            // Create a new node to negate the lhs and branch.
-            leaf.addLeft(new TruthTree(this.getNegatedNode(_imp.getWff().getChild(0)), leaf));
-            leaf.addRight(new TruthTree(_imp.getWff().getChild(1), leaf));
-            _queue.add(leaf.getLeft());
-            _queue.add(leaf.getRight());
+            if (!leaf.isClosed()) {
+                // Create a new node to negate the lhs and branch.
+                leaf.addLeft(new TruthTree(this.getNegatedNode(_imp.getWff().getChild(0)), leaf));
+                leaf.addRight(new TruthTree(_imp.getWff().getChild(1), leaf));
+                _queue.add(leaf.getLeft());
+                _queue.add(leaf.getRight());
+            }
         }
     }
 
@@ -280,19 +297,21 @@ public final class PredicateTruthTreeGenerator {
 
         WffTree bicondNode = _bicond.getWff();
         for (TruthTree leaf : _leaves) {
-            // Left subtree.
-            leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
-            leaf.getLeft().addCenter(new TruthTree(bicondNode.getChild(1), leaf.getLeft()));
+            if (!leaf.isClosed()) {
+                // Left subtree.
+                leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
+                leaf.getLeft().addCenter(new TruthTree(bicondNode.getChild(1), leaf.getLeft()));
 
-            // Right subtree.
-            leaf.addRight(new TruthTree(this.getNegatedNode(bicondNode.getChild(0)), leaf));
-            leaf.getRight().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(1)), leaf.getRight()));
+                // Right subtree.
+                leaf.addRight(new TruthTree(this.getNegatedNode(bicondNode.getChild(0)), leaf));
+                leaf.getRight().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(1)), leaf.getRight()));
 
-            // Add them to the queue.
-            _queue.add(leaf.getLeft());
-            _queue.add(leaf.getLeft().getCenter());
-            _queue.add(leaf.getRight());
-            _queue.add(leaf.getRight().getCenter());
+                // Add them to the queue.
+                _queue.add(leaf.getLeft());
+                _queue.add(leaf.getLeft().getCenter());
+                _queue.add(leaf.getRight());
+                _queue.add(leaf.getRight().getCenter());
+            }
         }
     }
 
@@ -314,19 +333,21 @@ public final class PredicateTruthTreeGenerator {
 
         WffTree bicondNode = _negRoot.getWff().getChild(0);
         for (TruthTree leaf : _leaves) {
-            // Left subtree.
-            leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
-            leaf.getLeft().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(1)), leaf.getLeft()));
+            if (!leaf.isClosed()) {
+                // Left subtree.
+                leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
+                leaf.getLeft().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(1)), leaf.getLeft()));
 
-            // Right subtree.
-            leaf.addRight(new TruthTree(bicondNode.getChild(1), leaf));
-            leaf.getRight().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(0)), leaf.getRight()));
+                // Right subtree.
+                leaf.addRight(new TruthTree(bicondNode.getChild(1), leaf));
+                leaf.getRight().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(0)), leaf.getRight()));
 
-            // Add them to the queue.
-            _queue.add(leaf.getLeft());
-            _queue.add(leaf.getLeft().getCenter());
-            _queue.add(leaf.getRight());
-            _queue.add(leaf.getRight().getCenter());
+                // Add them to the queue.
+                _queue.add(leaf.getLeft());
+                _queue.add(leaf.getLeft().getCenter());
+                _queue.add(leaf.getRight());
+                _queue.add(leaf.getRight().getCenter());
+            }
         }
     }
 
@@ -397,7 +418,10 @@ public final class PredicateTruthTreeGenerator {
     }
 
     /**
-     * TODO Document
+     * Flips the quantifier with a negation in front as follows:
+     *
+     * ~(x)P = (Ex)~P
+     * ~(Ex)P = (x)~P
      *
      * @param _negRoot - negation node itself.
      * @param _leaves  - linked list of leave nodes for this current TruthTree node.
@@ -407,10 +431,12 @@ public final class PredicateTruthTreeGenerator {
      *                 is added to this priority queue.
      */
     private void distributeNegationQuantifier(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
-        WffTree negatedQuantifier = this.getFlippedNode(_negRoot.getWff().getChild(0));
+        WffTree negatedQuantifier = getFlippedNode(_negRoot.getWff().getChild(0));
         for (TruthTree tt : _leaves) {
-            tt.addCenter(new TruthTree(negatedQuantifier, tt));
-            _queue.add(tt.getCenter());
+            if (!tt.isClosed()) {
+                tt.addCenter(new TruthTree(negatedQuantifier, tt));
+                _queue.add(tt.getCenter());
+            }
         }
     }
 
@@ -423,9 +449,9 @@ public final class PredicateTruthTreeGenerator {
      * @param _truthTree - TruthTree node to recursively search for leaves.
      * @return LinkedList<TruthTree> of leaf nodes.
      */
-    private LinkedList<TruthTree> getLeaves(TruthTree _truthTree) {
+    private static LinkedList<TruthTree> getLeaves(TruthTree _truthTree) {
         LinkedList<TruthTree> leaves = new LinkedList<>();
-        this.getLeavesHelper(_truthTree, leaves);
+        getLeavesHelper(_truthTree, leaves);
         return leaves;
     }
 
@@ -436,7 +462,7 @@ public final class PredicateTruthTreeGenerator {
      * @param _truthTree - TruthTree node to recursively search for leaves.
      * @param _leaves    - linked list of leaf nodes to add to.
      */
-    private void getLeavesHelper(TruthTree _truthTree, LinkedList<TruthTree> _leaves) {
+    private static void getLeavesHelper(TruthTree _truthTree, LinkedList<TruthTree> _leaves) {
         // If both left and right nodes are null then it's a leaf by def.
         if (_truthTree.getLeft() == null && _truthTree.getRight() == null) {
             _leaves.add(_truthTree);
@@ -515,7 +541,7 @@ public final class PredicateTruthTreeGenerator {
      * @param _wff - WffTree object to negate.
      * @return negated version of WffTree.
      */
-    private WffTree getFlippedNode(WffTree _wff) {
+    private static WffTree getFlippedNode(WffTree _wff) {
         WffTree negWff;
         if (_wff.isNegation()) {
             negWff = _wff.getChild(0);
@@ -572,15 +598,16 @@ public final class PredicateTruthTreeGenerator {
      *
      * @param _leaves - list of leaves to check for closure.
      */
-    private void computeClosedBranches(LinkedList<TruthTree> _leaves) {
+    private static void computeClosedBranches(LinkedList<TruthTree> _leaves) {
         for (TruthTree leaf : _leaves) {
-            // Only check to see if a branch is closed above if the current leaf
-            // is still open.
+            // Only check to see if a branch is closed above if the current leaf is still open.
             if (!leaf.isClosed()) {
                 TruthTree curr = leaf;
                 TruthTree negTT = new TruthTree(getFlippedNode(leaf.getWff()), null);
                 while (curr != null) {
-                    if (curr.equals(negTT)) {
+                    if (curr.equals(negTT)
+                            && !curr.getWff().isDoubleNegation()
+                            && !negTT.getWff().isDoubleNegation()) {
                         leaf.setClosed(true);
                         break;
                     }
@@ -613,12 +640,18 @@ public final class PredicateTruthTreeGenerator {
         /**
          * WffTree "value" for the TruthTree.
          */
-        private WffTree node;
+        private final WffTree NODE;
 
         /**
          * Pointer to the parent node for reverse traversal.
          */
-        private TruthTree parent;
+        private final TruthTree PARENT;
+
+        /**
+         * Set of available constants allocated to this TruthTree as well as
+         * any parents above it.
+         */
+        private final Set<Character> AVAILABLE_CONSTANTS;
 
         /**
          * Left pointer.
@@ -631,54 +664,52 @@ public final class PredicateTruthTreeGenerator {
         private TruthTree right;
 
         /**
-         *
-         */
-        private Set<Character> availableConstants;
-
-        /**
          * Order of precedence for this node (as described above).
          */
-        private int value;
+        private final int VALUE;
 
         /**
-         *
+         * Flags for the Truth tree - determines the status (open/closed), and if
+         * it is an identity truth tree.
          */
-        private boolean closed;
+        private int flags;
 
         public TruthTree(WffTree _node, TruthTree _parent) {
-            this.node = _node;
-            this.parent = _parent;
-            this.availableConstants = new HashSet<>();
+            this.NODE = _node;
+            this.PARENT = _parent;
+            this.AVAILABLE_CONSTANTS = new HashSet<>();
+
+            // Compute the union of the constants from the parent.
             if (_parent != null) {
-                this.availableConstants.addAll(_parent.getAvailableConstants());
+                this.AVAILABLE_CONSTANTS.addAll(_parent.getAvailableConstants());
             }
 
             // This is kind of ugly, I know...
             if (_node.isAtom()) {
-                this.value = 0;
+                this.VALUE = 0;
             } else if (_node.isDoubleNegation()) {
                 // Double negations have to have a higher priority.
-                this.value = 3;
+                this.VALUE = 3;
             } else if (_node.isNegation() && !_node.isNegAnd() && !_node.isNegImp() && !_node.isNegOr()) {
-                this.value = 4;
+                this.VALUE = 4;
             } else if (_node.isExistential()) {
-                this.value = 1;
+                this.VALUE = 1;
             } else if (_node.isUniversal()) {
-                this.value = 12;
+                this.VALUE = 12;
             } else if (_node.isAnd()) {
-                this.value = 5;
+                this.VALUE = 5;
             } else if (_node.isNegOr() || _node.isNegImp()) {
-                this.value = 6;
+                this.VALUE = 6;
             } else if (_node.isOr()) {
-                this.value = 7;
+                this.VALUE = 7;
             } else if (_node.isNegAnd()) {
-                this.value = 8;
+                this.VALUE = 8;
             } else if (_node.isImp()) {
-                this.value = 9;
+                this.VALUE = 9;
             } else if (_node.isBicond()) {
-                this.value = 10;
+                this.VALUE = 10;
             } else {
-                this.value = 11;
+                this.VALUE = 11;
             }
         }
 
@@ -689,79 +720,98 @@ public final class PredicateTruthTreeGenerator {
             }
 
             TruthTree o = (TruthTree) obj;
+
+            // Different case for identity operator...
+            if (o.getWff().isIdentity() && this.getWff().isIdentity()) {
+                StringBuilder i1 = new StringBuilder(this.getWff().getStringRep());
+                StringBuilder i2 = new StringBuilder(o.getWff().getStringRep());
+                return i1.compareTo(i2) == 0 || i1.reverse().compareTo(i2) == 0
+                        || i1.compareTo(i2.reverse()) == 0;
+            }
+
             return this.getWff().getStringRep().equals(o.getWff().getStringRep());
         }
 
         @Override
         public int compareTo(TruthTree _o) {
-            return this.value - _o.value;
+            return this.VALUE - _o.VALUE;
         }
 
         /**
          * TODO Document
          *
          * @param _existentialTruthTree
+         * @param _variableToReplace
          * @param _leaves
          */
-        public void addExistentialConstant(TruthTree _existentialTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+        public void addExistentialConstant(TruthTree _existentialTruthTree, LinkedList<TruthTree> _leaves,
+                                           PriorityQueue<TruthTree> _queue, char _variableToReplace) {
+            // Find the next available constant to use.
             char constant = 'a';
-            for (Character cn : _existentialTruthTree.availableConstants) {
-                if (_existentialTruthTree.availableConstants.contains(cn)) {
-                    constant++;
-                } else {
-                    break;
+            while (_existentialTruthTree.AVAILABLE_CONSTANTS.contains(constant)) {
+                constant++;
+            }
+
+            // Replace all variables found with the constant.
+            for (TruthTree leaf : _leaves) {
+                if (!leaf.isClosed()) {
+                    WffTree _newRoot = _existentialTruthTree.getWff().getChild(0).copy();
+                    this.replaceVariable(_newRoot, _variableToReplace, constant);
+                    TruthTree truthTreeRoot = new TruthTree(_newRoot, leaf);
+                    leaf.addCenter(truthTreeRoot);
+                    truthTreeRoot.AVAILABLE_CONSTANTS.add(constant);
+                    _queue.add(leaf.getCenter());
                 }
             }
-            _existentialTruthTree.availableConstants.add(constant);
-            this.addExistentialConstantHelper(_existentialTruthTree, _leaves, _queue, constant);
-        }
-
-        /**
-         * TODO Document
-         *
-         * @param _existentialTruthTree
-         * @param _leaves
-         * @param constant
-         */
-        private void addExistentialConstantHelper(TruthTree _existentialTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue, char constant) {
-            for (TruthTree leaf : _leaves) {
-                WffTree _newRoot = _existentialTruthTree.getWff().getChild(0).copy();
-                this.replaceVariable(_newRoot, constant);
-                leaf.addCenter(new TruthTree(_newRoot, leaf));
-                _queue.add(leaf.getCenter());
-            }
         }
 
         /**
          *
-         * TODO we need a wa of distinguishing WHICH variables to replace - (x)(Ey)Pxy ONLY replaces the x
          * @param _universalTruthTree
          * @param _leaves
          */
-        private void addUniversalConstant(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+        private void addUniversalConstant(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves,
+                                          PriorityQueue<TruthTree> _queue, char _variableToReplace) {
             for (TruthTree leaf : _leaves) {
                 // Copy the old root, replace all variables with a constant, and add to the tree and queue.
-                WffTree _newRoot = _universalTruthTree.getWff().getChild(0).copy();
-                this.replaceVariable(_newRoot, _universalTruthTree.getAvailableConstants().iterator().next());
-                TruthTree _newRootTT = new TruthTree(_newRoot, leaf);
-                leaf.addCenter(_newRootTT);
-                _queue.add(_newRootTT);
+                TruthTree l = leaf;
+                for (char c : _universalTruthTree.AVAILABLE_CONSTANTS) {
+                    if (!l.isClosed()) {
+                        // Create a copy and replace the selected variable.
+                        WffTree _newRoot = _universalTruthTree.getWff().getChild(0).copy();
+                        this.replaceVariable(_newRoot, _variableToReplace, c);
+                        // Add to the tree and the queue.
+                        TruthTree _newRootTT = new TruthTree(_newRoot, leaf);
+                        l.addCenter(_newRootTT);
+                        _queue.add(_newRootTT);
+                        // Set the traversing child to the next node added, get the leaves of it
+                        // and then recursively close the branches if any contradictions are found.
+                        l = l.getCenter();
+                        LinkedList<TruthTree> ttl = getLeaves(_universalTruthTree);
+                        computeClosedBranches(ttl);
+                    }
+                }
             }
         }
 
         /**
-         * TODO Document
+         * Replaces a variable with a constant node in a WffTree. This is used when performing
+         * existential or universal decomposition.
          *
-         * @param _newRoot
-         * @param constant
+         * @param _newRoot - root of WffTree to modify.
+         * @param _variableToReplace - variable that we want to replace e.g. (x) = x
+         * @param _constant - constant to replace variable with.
          */
-        private void replaceVariable(WffTree _newRoot, char constant) {
+        private void replaceVariable(WffTree _newRoot, char _variableToReplace, char _constant) {
             for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
                 if (_newRoot.getChild(i).isVariable()) {
-                    _newRoot.setChild(i, new ConstantNode("" + constant));
-                    break;
+                    char v = _newRoot.getChild(i).getSymbol().charAt(0);
+                    if (v == _variableToReplace) {
+                        _newRoot.setChild(i, new ConstantNode("" + _constant));
+                        break;
+                    }
                 }
-                replaceVariable(_newRoot.getChild(i), constant);
+                replaceVariable(_newRoot.getChild(i), _variableToReplace, _constant);
             }
         }
 
@@ -770,7 +820,7 @@ public final class PredicateTruthTreeGenerator {
         }
 
         public WffTree getWff() {
-            return this.node;
+            return this.NODE;
         }
 
         public void addLeft(TruthTree _left) {
@@ -806,30 +856,30 @@ public final class PredicateTruthTreeGenerator {
         }
 
         public boolean isClosed() {
-            return this.closed;
+            return (this.flags & NodeFlag.CLOSED) != 0;
         }
 
         public void setClosed(boolean _closed) {
-            this.closed = _closed;
+            this.flags |= _closed ? NodeFlag.CLOSED : 0;
         }
 
         public TruthTree getParent() {
-            return this.parent;
+            return this.PARENT;
         }
 
         public void addConstant(char _ch) {
-            this.availableConstants.add(_ch);
+            this.AVAILABLE_CONSTANTS.add(_ch);
         }
 
         public Set<Character> getAvailableConstants() {
-            return this.availableConstants;
+            return this.AVAILABLE_CONSTANTS;
         }
 
         @Override
         public String toString() {
             String leafSignal = "";
             if (this.isLeafNode()) {
-                leafSignal = this.closed ? "X" : "open";
+                leafSignal = this.isClosed() ? "X" : "open";
             }
             return this.getWff().getStringRep() + " " + leafSignal;
         }

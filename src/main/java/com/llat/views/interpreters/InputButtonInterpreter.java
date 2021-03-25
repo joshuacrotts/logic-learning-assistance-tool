@@ -10,13 +10,17 @@ public class InputButtonInterpreter implements Listener {
     Controller controller;
     InputButtonsView inputButtonsView;
 
-    public InputButtonInterpreter (Controller _controller, InputButtonsView _inputButtonsView) {
+    public InputButtonInterpreter(Controller _controller, InputButtonsView _inputButtonsView) {
         this.controller = _controller;
         this.inputButtonsView = _inputButtonsView;
         EventBus.addListener(this);
         this.inputButtonsView.getPropositionalLogicButtons();
-        this.inputButtonsView.getPredicateLogicButtons().forEach((button) -> { this.controller.setSymbolInputButtonOnAction(button); });
-        this.inputButtonsView.getPropositionalLogicButtons().forEach((button) -> { this.controller.setSymbolInputButtonOnAction(button); });
+        this.inputButtonsView.getPredicateLogicButtons().forEach((button) -> {
+            this.controller.setSymbolInputButtonOnAction(button);
+        });
+        this.inputButtonsView.getPropositionalLogicButtons().forEach((button) -> {
+            this.controller.setSymbolInputButtonOnAction(button);
+        });
     }
 
     @Override
