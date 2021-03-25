@@ -3,16 +3,15 @@ package com.llat.views;
 import com.llat.controller.Controller;
 import com.llat.models.localstorage.uidescription.UIDescriptionAdaptor;
 import com.llat.models.localstorage.uidescription.UIDescriptionObject;
+
 import com.llat.views.interpreters.InputButtonInterpreter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 public class InputButtonsView {
-
     Controller controller;
     Stage stage;
     UIDescriptionObject obj = (UIDescriptionObject) new UIDescriptionAdaptor().getData();
@@ -47,8 +46,6 @@ public class InputButtonsView {
         this.inputButtonVBox.setSpacing(0);
         this.inputButtonVBox.setAlignment(Pos.TOP_CENTER);
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> { this.inputButtonVBox.setMinWidth(newVal.doubleValue() * .20); });
-        this.inputButtonVBox.setLayoutX(0);
-        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> { this.inputButtonVBox.setLayoutY((newVal.doubleValue() * .50) - this.inputButtonVBox.getMinHeight() / 2); });
         // Setting Region abovePropositionalLogicLabel settings.
         this.inputButtonVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.abovePropositionalLogicLabel.setMinHeight(newVal.doubleValue() * .03);
@@ -101,8 +98,9 @@ public class InputButtonsView {
             this.predicateLogicPane.getChildren().add(curButton);
             rowCount++;
         }
+        // Adding children nodes to their parents nodes.
         this.inputButtonVBox.getChildren().addAll(this.abovePropositionalLogicLabel, this.propositionalLogicLabel, this.propositionalLogicPane, this.belowPropositionalLogicPane, this.predicateLogicLabel, this.predicateLogicPane);
-        this.parentPane.getChildren().addAll(this.inputButtonVBox);
+        // Creating interpreter to handle events and actions.
         this.inputButtonInterpreter = new InputButtonInterpreter(this.controller,this);
     }
 

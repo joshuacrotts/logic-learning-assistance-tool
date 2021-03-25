@@ -118,9 +118,9 @@ public final class PredicateTruthTreeGenerator {
                 // If the node is not a simple negation (~A), negate it.
                 this.distributeNegationQuantifier(tree, leaves, queue);
             } else if (tree.getWff().isExistential()) {
-                this.stackExistential(tree, leaves, queue);
+                this.existentialDecomposition(tree, leaves, queue);
             } else if (tree.getWff().isUniversal()) {
-                this.stackUniversal(tree, leaves, queue);
+                this.universalDecomposition(tree, leaves, queue);
             } else if (tree.getWff().isAnd()) {
                 this.stackConjunction(tree, leaves, queue);
             } else if (tree.getWff().isOr()) {
@@ -144,7 +144,7 @@ public final class PredicateTruthTreeGenerator {
      * @param _leaves               - list of leaves.
      * @param _queue                - priority queue of nodes left to process.
      */
-    private void stackExistential(TruthTree _existentialTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    private void existentialDecomposition(TruthTree _existentialTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_existentialTruthTree.getWff() instanceof ExistentialQuantifierNode)) {
             throw new IllegalArgumentException("Error: existential quantifier node expects existential node but got " + _existentialTruthTree.getClass());
         }
@@ -159,7 +159,7 @@ public final class PredicateTruthTreeGenerator {
      * @param _leaves             - list of leaves.
      * @param _queue              - priority queue of nodes left to process.
      */
-    private void stackUniversal(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    private void universalDecomposition(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_universalTruthTree.getWff() instanceof UniversalQuantifierNode)) {
             throw new IllegalArgumentException("Error: universal quantifier node expects universal node but got " + _universalTruthTree.getClass());
         }
@@ -175,7 +175,7 @@ public final class PredicateTruthTreeGenerator {
             throw new InvalidParameterException("Universal truth tree node should have at least one constant available, but none are listed.");
         }
 
-        _universalTruthTree.addUniversalConstant(_universalTruthTree, _leaves);
+        _universalTruthTree.addUniversalConstant(_universalTruthTree, _leaves, _queue);
     }
 
     /**
@@ -733,14 +733,19 @@ public final class PredicateTruthTreeGenerator {
         }
 
         /**
+         *
+         * TODO we need a wa of distinguishing WHICH variables to replace - (x)(Ey)Pxy ONLY replaces the x
          * @param _universalTruthTree
          * @param _leaves
          */
-        private void addUniversalConstant(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves) {
+        private void addUniversalConstant(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
             for (TruthTree leaf : _leaves) {
+                // Copy the old root, replace all variables with a constant, and add to the tree and queue.
                 WffTree _newRoot = _universalTruthTree.getWff().getChild(0).copy();
                 this.replaceVariable(_newRoot, _universalTruthTree.getAvailableConstants().iterator().next());
-                leaf.addCenter(new TruthTree(_newRoot, leaf));
+                TruthTree _newRootTT = new TruthTree(_newRoot, leaf);
+                leaf.addCenter(_newRootTT);
+                _queue.add(_newRootTT);
             }
         }
 
