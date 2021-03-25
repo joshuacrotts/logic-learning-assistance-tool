@@ -55,7 +55,7 @@ public class Controller implements Initializable {
 
     public void setSymbolInputButtonOnAction (SymbolButton _symbolButton) {
         _symbolButton.setOnMouseClicked((event) -> {
-            if (event.getButton() == MouseButton.PRIMARY)  EventBus.throwEvent(new SymbolInputEvent(((SymbolButton)event.getSource()).getDefaultSymbol()));
+            if (event.getButton() == MouseButton.PRIMARY)  EventBus.throwEvent(new SymbolInputEvent(((SymbolButton)event.getSource()).getDefaultSymbol().getSymbol().getApplied()));
             if (event.getButton() == MouseButton.SECONDARY) EventBus.throwEvent(new SymbolDescriptionEvent(((SymbolButton)event.getSource()).getDefaultSymbol()));
         });
     }

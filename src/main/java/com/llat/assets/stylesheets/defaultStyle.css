@@ -71,8 +71,13 @@
 }
 
 #rulesAxiomsScrollPane {
+    -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-padding: 0;
+}
+
+#rulesAxiomsScrollPane > .viewport {
+   -fx-background-color: transparent;
 }
 
 #rulesAxiomsScrollPane:focused {
@@ -81,4 +86,36 @@
 
 #rulesAxiomsScrollPane .corner {
     -fx-background-insets: 0;
+}
+
+#rulesAxiomsText, #exampleText, #explanationText {
+    -fx-font-size: 2em;
+
+}
+
+#rulesAxiomsText {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-text-color: black;
+    -fx-opacity: 1;
+    -fx-font-size: 2em;
+}
+
+#rulesAxiomsText:focused {
+    -fx-background-insets: 0;
+}
+
+#rulesAxiomsText:disabled {
+    -fx-text-fill: black;
+    -fx-opacity: 1.0;
+}
+
+
+
+#rulesAxiomsText .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+#rulesAxiomsText .scroll-pane .content{
+    -fx-background-color: transparent;
 }

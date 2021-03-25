@@ -4,21 +4,17 @@ import com.llat.models.symbols.Symbol;
 import javafx.scene.control.Button;
 
 public class SymbolButton extends Button {
-    private String defaultSymbol = "";
+    private Symbol symbol;
 
     public SymbolButton() {}
 
-    public SymbolButton(String _defaultSymbol) {
-        super(_defaultSymbol);
-        this.defaultSymbol = _defaultSymbol;
+    public SymbolButton(Symbol _defaultSymbol) {
+        super(_defaultSymbol.getSymbol().getApplied());
+        this.symbol = _defaultSymbol;
     }
 
-    public void setDefaultSymbol (String _defaultSymbol) { this.defaultSymbol = _defaultSymbol; }
+    public void setDefaultSymbol (Symbol _defaultSymbol) { this.symbol = _defaultSymbol; }
 
-    public String getDefaultSymbol () { return this.defaultSymbol; }
-
-    class information extends Symbol {
-
-    }
+    public Symbol getDefaultSymbol () { return this.symbol; }
 
 }

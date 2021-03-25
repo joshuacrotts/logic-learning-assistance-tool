@@ -1,14 +1,15 @@
 package com.llat.views.events;
 
+import com.llat.models.symbols.Symbol;
 import com.llat.tools.Event;
 
 public class SymbolDescriptionEvent implements Event {
-    private String symbolInput;
+    private Symbol symbol;
 
-    public SymbolDescriptionEvent (String _symbolInput) { this.symbolInput = _symbolInput; }
+    public SymbolDescriptionEvent (Symbol _symbol) { this.symbol = _symbol; }
 
-    public void setSymbolInput (String _symbolInput) { this.symbolInput = _symbolInput; }
+    public void setSymbol (Symbol _symbolInput) { this.symbol = _symbolInput; }
 
-    public String getSymbolInput () { return this.symbolInput; }
+    public Symbol getSymbol () { return this.symbol; }
 
 }
