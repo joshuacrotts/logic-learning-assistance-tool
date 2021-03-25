@@ -3,7 +3,6 @@ package com.llat.views;
 import com.llat.controller.Controller;
 import com.llat.models.localstorage.uidescription.UIDescriptionAdaptor;
 import com.llat.models.localstorage.uidescription.UIDescriptionObject;
-
 import com.llat.views.interpreters.InputButtonInterpreter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -15,7 +14,6 @@ public class InputButtonsView {
     Controller controller;
     Stage stage;
     UIDescriptionObject obj = (UIDescriptionObject) new UIDescriptionAdaptor().getData();
-    AnchorPane parentPane = new AnchorPane();
     VBox inputButtonVBox = new VBox();
     Region abovePropositionalLogicLabel = new Region();
     Label propositionalLogicLabel = new Label("Propositional Logic");

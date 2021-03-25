@@ -2,13 +2,10 @@ package com.llat.controller;
 
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.tools.EventBus;
-import com.llat.tools.Listener;
-import com.llat.tools.ViewManager;
 import com.llat.tools.ViewManager;
 import com.llat.views.ApplicationView;
 import com.llat.views.LoginView;
 import com.llat.views.SymbolButton;
-import com.llat.views.events.FormulaInputEvent;
 import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolDescriptionEvent;
 import com.llat.views.events.SymbolInputEvent;
@@ -17,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 

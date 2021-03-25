@@ -3,7 +3,6 @@ package com.llat.views;
 import com.llat.controller.Controller;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 public class ApplicationView {
     Controller controller;

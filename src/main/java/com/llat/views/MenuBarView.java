@@ -3,7 +3,6 @@ package com.llat.views;
 import com.llat.controller.Controller;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
 public class MenuBarView {

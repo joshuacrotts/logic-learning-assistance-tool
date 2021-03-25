@@ -2,7 +2,6 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.views.interpreters.FormulaInputInterpreter;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
