@@ -47,7 +47,11 @@ public class PredicateNode extends WffTree {
 
     @Override
     public String getStringRep() {
-        return this.PREDICATE_LETTER + this.getChild(0).getStringRep();
+        StringBuilder sb = new StringBuilder(this.PREDICATE_LETTER);
+        for (WffTree ch : this.getChildren()) {
+            sb.append(ch.getStringRep());
+        }
+        return sb.toString();
     }
 
 

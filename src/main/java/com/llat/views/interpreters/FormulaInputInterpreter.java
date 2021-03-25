@@ -12,7 +12,8 @@ import com.llat.views.events.SymbolInputEvent;
 public class FormulaInputInterpreter implements Listener {
     Controller controller;
     private FormulaInputView formulaInputView;
-    public FormulaInputInterpreter (Controller _controller, FormulaInputView _formulaInputView) {
+
+    public FormulaInputInterpreter(Controller _controller, FormulaInputView _formulaInputView) {
         this.controller = _controller;
         this.formulaInputView = _formulaInputView;
         EventBus.addListener(this);
@@ -23,8 +24,7 @@ public class FormulaInputInterpreter implements Listener {
     public void catchEvent(Event _event) {
         if (_event instanceof SymbolInputEvent) {
             this.formulaInputView.getFormulaInputField().appendText(((SymbolInputEvent) _event).getSymbolInput());
-        }
-        else if (_event instanceof SolveButtonEvent) {
+        } else if (_event instanceof SolveButtonEvent) {
             EventBus.throwEvent(new FormulaInputEvent(this.formulaInputView.getFormulaInputField().getText()));
         }
     }

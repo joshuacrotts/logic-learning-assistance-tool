@@ -22,6 +22,8 @@ public class MenuBarView {
         this.menuBar.getMenus().addAll(this.fileMenu);
     }
 
-    public MenuBar getMenuBar () { return this.menuBar; }
+    public MenuBar getMenuBar() {
+        return this.menuBar;
+    }
 
 }

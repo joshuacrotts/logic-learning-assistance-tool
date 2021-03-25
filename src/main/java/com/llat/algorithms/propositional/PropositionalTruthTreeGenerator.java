@@ -1,5 +1,6 @@
 package com.llat.algorithms.propositional;
 
+import com.llat.algorithms.BaseTruthTreeGenerator;
 import com.llat.models.treenode.*;
 
 import java.util.LinkedList;
@@ -8,15 +9,10 @@ import java.util.PriorityQueue;
 /**
  * TODO Document
  */
-public final class PropositionalTruthTreeGenerator {
-
-    /**
-     * TODO Document
-     */
-    private WffTree tree;
+public final class PropositionalTruthTreeGenerator extends BaseTruthTreeGenerator {
 
     public PropositionalTruthTreeGenerator(WffTree _tree) {
-        this.tree = _tree;
+        super(_tree);
     }
 
     /**

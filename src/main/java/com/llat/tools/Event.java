@@ -1,3 +1,4 @@
 package com.llat.tools;
 
-public interface Event {}
+public interface Event {
+}

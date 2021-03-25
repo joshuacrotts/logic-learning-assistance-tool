@@ -30,6 +30,7 @@ public class App extends Application {
         (new Controller(_stage)).changeViewTo(ViewManager.MAINAPPLICATION);
         _stage.show();
     }
+
     public void setStageSettings(Stage _stage) {
         _stage.setScene(new Scene(new Pane()));
         _stage.setTitle("Logic Learning Assistance Tool");

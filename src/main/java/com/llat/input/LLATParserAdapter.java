@@ -16,7 +16,6 @@ public class LLATParserAdapter {
      * and wants to create an AST, whether it be stdin or JavaFX.
      *
      * @param _wff - String of wff characters.
-     *
      * @return WffTree representing abstract syntax tree.
      */
     public static WffTree getAbstractSyntaxTree(String _wff) {

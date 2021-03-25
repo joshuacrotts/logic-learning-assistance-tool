@@ -8,7 +8,7 @@ public class ApplicationView {
     Controller controller;
     BorderPane parentPane = new BorderPane();
 
-    public ApplicationView (Controller _controller) {
+    public ApplicationView(Controller _controller) {
         this.controller = _controller;
         parentPane.setTop(new MenuBarView(this.controller).getMenuBar());
         parentPane.setLeft(new InputButtonsView(this.controller).getParentPane());
@@ -17,6 +17,8 @@ public class ApplicationView {
         parentPane.setBottom(new FormulaInputView(this.controller).getParentPane());
     }
 
-    public Pane getParentPane () { return this.parentPane; }
+    public Pane getParentPane() {
+        return this.parentPane;
+    }
 
 }
