@@ -1,11 +1,13 @@
 package com.llat.main;
+
 import com.llat.controller.Controller;
+import com.llat.models.symbols.Symbol;
+import com.llat.models.symbols.Existential;
 import com.llat.tools.ViewManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * JavaFX App
@@ -13,7 +15,14 @@ import javafx.stage.StageStyle;
 public class App extends Application {
 
     public static void main(String[] args) {
+        Symbol x =  new Existential();
+
+//        app.test(x);
+
         launch(args);
+    }
+    public void test (Symbol _test) {
+
     }
     @Override
     public void start(Stage _stage) {

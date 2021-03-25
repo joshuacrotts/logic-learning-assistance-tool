@@ -2,9 +2,9 @@ package com.llat.models.gson;
 
 import com.google.gson.Gson;
 import com.llat.main.App;
-import com.llat.models.uidescription.UIDescriptionInterface;
-import com.llat.models.settings.SettingsInterface;
-import com.llat.tools.ViewManager;
+import com.llat.models.localstorage.LocalStorage;
+import com.llat.models.localstorage.settings.SettingsInterface;
+import com.llat.models.localstorage.uidescription.UIDescriptionInterface;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -64,10 +64,9 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
     }
 
     @Override
-    public GsonObject getData() {
+    public LocalStorage getData() {
         String jsonString = readJsonFile(json);
-        Object x = gson.fromJson(jsonString, aClass);
-        GsonObject<Object> gobj = new GsonObject<>(x);
-        return gobj;
+        LocalStorage x = gson.fromJson(jsonString, aClass);
+        return x;
     }
 }

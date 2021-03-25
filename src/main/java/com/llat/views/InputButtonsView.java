@@ -1,26 +1,21 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
-import com.llat.models.uidescription.UIDescriptionAdaptor;
-import com.llat.models.uidescription.UIDescriptionObject;
-import com.llat.tools.EventBus;
+import com.llat.models.localstorage.uidescription.UIDescriptionAdaptor;
+import com.llat.models.localstorage.uidescription.UIDescriptionObject;
 import com.llat.views.interpreters.InputButtonInterpreter;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 public class InputButtonsView {
 
     Controller controller;
     Stage stage;
-    UIDescriptionObject obj = (UIDescriptionObject) (new UIDescriptionAdaptor()).getData().getObject();
+    UIDescriptionObject obj = (UIDescriptionObject) new UIDescriptionAdaptor().getData();
     AnchorPane parentPane = new AnchorPane();
     VBox inputButtonVBox = new VBox();
     Region abovePropositionalLogicLabel = new Region();
@@ -30,7 +25,7 @@ public class InputButtonsView {
     SymbolButton disjunctionButton = new SymbolButton(this.obj.getDisjunction().getSymbol().getApplied());
     SymbolButton negationButton = new SymbolButton(this.obj.getNegation().getSymbol().getApplied());
     SymbolButton exclusiveDisjunctionButton = new SymbolButton(this.obj.getExclusiveDisjunction().getSymbol().getApplied());
-    SymbolButton equivalenceButton = new SymbolButton(this.obj.getEquivalence().getSymbol().getApplied());
+    SymbolButton equivalenceButton = new SymbolButton(this.obj.getBiconditional().getSymbol().getApplied());
     SymbolButton implicationButton = new SymbolButton(this.obj.getImplication().getSymbol().getApplied());
     SymbolButton turnstileButton = new SymbolButton(this.obj.getTurnstile().getSymbol().getApplied());
     SymbolButton doubleTurnstileButton = new SymbolButton(this.obj.getDoubleTurnstile().getSymbol().getApplied());

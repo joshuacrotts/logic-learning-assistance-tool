@@ -1,11 +1,13 @@
-package com.llat.models.settings;
+package com.llat.models.localstorage.settings;
+
+import com.llat.models.localstorage.LocalStorage;
 
 import java.util.List;
 
 /**
  *
  */
-public class SettingsObject {
+public class SettingsObject extends LocalStorage {
 
     //    public String test;
     private Language language;

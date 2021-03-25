@@ -1,7 +1,7 @@
-package com.llat.models.uidescription;
+package com.llat.models.localstorage.uidescription;
 
 import com.llat.models.gson.GsonIO;
-import com.llat.models.gson.GsonObject;
+import com.llat.models.localstorage.LocalStorage;
 
 public class UIDescriptionAdaptor implements UIDescriptionInterface {
 
@@ -20,7 +20,7 @@ public class UIDescriptionAdaptor implements UIDescriptionInterface {
     }
 
     @Override
-    public GsonObject getData() {
+    public LocalStorage getData() {
         return obj.getData();
     }
 }
