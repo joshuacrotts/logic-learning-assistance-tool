@@ -146,7 +146,6 @@ public abstract class BaseTruthTreeGenerator {
 
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
-                // Create a new node to negate the lhs and branch.
                 leaf.addLeft(new TruthTree(getNegatedNode(_imp.getWff().getChild(0)), leaf));
                 leaf.addRight(new TruthTree(_imp.getWff().getChild(1), leaf));
                 _queue.add(leaf.getLeft());
@@ -171,7 +170,7 @@ public abstract class BaseTruthTreeGenerator {
      */
     protected void branchExclusiveOr(TruthTree _xorRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_xorRoot.getWff() instanceof ExclusiveOrNode)) {
-            throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _xorRoot.getClass());
+            throw new IllegalArgumentException("Error: branch exclusive or expects exclusive or node but got " + _xorRoot.getClass());
         }
 
         WffTree xorNode = _xorRoot.getWff();
@@ -210,7 +209,7 @@ public abstract class BaseTruthTreeGenerator {
      */
     protected void branchNegationExclusiveOr(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_negRoot.getWff().getChild(0) instanceof ExclusiveOrNode)) {
-            throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _negRoot.getClass());
+            throw new IllegalArgumentException("Error: branch negation exclusive or expects exclusive or node but got " + _negRoot.getClass());
         }
 
         WffTree xorNode = _negRoot.getWff().getChild(0);
@@ -336,9 +335,7 @@ public abstract class BaseTruthTreeGenerator {
                 if (!leaf.isClosed()) {
                     enqueuedTTNode = new TruthTree(child.getChild(0), leaf);
                     leaf.addCenter(enqueuedTTNode);
-                    if (!enqueuedTTNode.getWff().isAtom()) {
-                        _queue.add(enqueuedTTNode);
-                    }
+                    _queue.add(enqueuedTTNode);
                 }
             }
         } else {
@@ -363,8 +360,7 @@ public abstract class BaseTruthTreeGenerator {
             negatedAtom.addChild(n2);
             enqueuedTTNode = new TruthTree(negatedAtom, _negRoot);
 
-            // Call the respective branch/stack function.
-            // Removes De'Morgan's laws.
+            // Call the respective branch/stack function. Removes De'Morgan's laws.
             if (child.isAnd()) {
                 this.branchDisjunction(enqueuedTTNode, _leaves, _queue);
             } else {

@@ -82,9 +82,11 @@ public class WffTree implements Copyable {
             // If the identity is of the form ~x=y, reverse it as ~y=x
             if (this.isNegation() && this.getChild(0).isIdentity()) {
                 StringBuilder i1r = new StringBuilder(w1.substring(1)).reverse();
+                i1r.insert(0, "~");
                 return i1r.compareTo(w2) == 0;
             } else if (o.isNegation() && o.getChild(0).isIdentity()) {
                 StringBuilder i2r = new StringBuilder(w2.substring(1)).reverse();
+                i2r.insert(0, "~");
                 return i2r.compareTo(w1) == 0;
             }
         }
@@ -181,6 +183,11 @@ public class WffTree implements Copyable {
     public boolean isNegExclusiveOr() {
         return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
                 this.getChild(0).NODE_TYPE == NodeType.XOR;
+    }
+
+    public boolean isNegIdentity() {
+        return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
+                this.getChild(0).NODE_TYPE == NodeType.IDENTITY;
     }
 
     public boolean isAnd() {
