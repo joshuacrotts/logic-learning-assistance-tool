@@ -62,6 +62,11 @@ public class PropositionalTruthTreeGeneratorUnitTester {
         goodFileTest("test008");
     }
 
+    @Test
+    public void test009() {
+        goodFileTest("test009");
+    }
+
     /**
      * Helper function to count number of newlines in a string
      *

@@ -343,7 +343,6 @@ public class TruthTree implements Comparable<TruthTree> {
                 char v = _newRoot.getChild(i).getSymbol().charAt(0);
                 if (v == _variableToReplace) {
                     _newRoot.setChild(i, new ConstantNode("" + _constant));
-                    break;
                 }
             }
             replaceSymbol(_newRoot.getChild(i), _variableToReplace, _constant);
