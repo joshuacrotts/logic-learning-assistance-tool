@@ -1,0 +1,10 @@
+~((n = o & Po) ↔ Pn)
+├── (n = o & Po)
+│  └── ~Pn
+│     └── n = o
+│        └── Po
+│           └── ~Po X
+└── Pn
+   └── ~(n = o & Po)
+      ├── ~n = o open
+      └── ~Po open

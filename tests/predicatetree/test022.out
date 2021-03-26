@@ -1,0 +1,8 @@
+~((∃y)(Lyo & y = f) → Lfo)
+└── ~~(∃y)(Lyo & y = f)
+   └── ~Lfo
+      └── (∃y)(Lyo & y = f)
+         └── (Lao & a = f)
+            └── Lao
+               └── a = f
+                  └── Lfo X
