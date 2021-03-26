@@ -22,6 +22,46 @@ public class PropositionalTruthTreeGeneratorUnitTester {
 
     private static PropositionalTruthTreeGenerator truthTreeGenerator;
 
+    @Test
+    public void test001() {
+        goodFileTest("test001");
+    }
+
+    @Test
+    public void test002() {
+        goodFileTest("test002");
+    }
+
+    @Test
+    public void test003() {
+        goodFileTest("test003");
+    }
+
+    @Test
+    public void test004() {
+        goodFileTest("test004");
+    }
+
+    @Test
+    public void test005() {
+        goodFileTest("test005");
+    }
+
+    @Test
+    public void test006() {
+        goodFileTest("test006");
+    }
+
+    @Test
+    public void test007() {
+        goodFileTest("test007");
+    }
+
+    @Test
+    public void test008() {
+        goodFileTest("test008");
+    }
+
     /**
      * Helper function to count number of newlines in a string
      *
@@ -131,35 +171,5 @@ public class PropositionalTruthTreeGeneratorUnitTester {
             throw new AssertionFailedError("Missing expected output file " + expName);
         }
         compare(actual, expected);
-    }
-
-    @Test
-    public void test001() {
-        goodFileTest("test001");
-    }
-
-    @Test
-    public void test002() {
-        goodFileTest("test002");
-    }
-
-    @Test
-    public void test003() {
-        goodFileTest("test003");
-    }
-
-    @Test
-    public void test004() {
-        goodFileTest("test004");
-    }
-
-    @Test
-    public void test005() {
-        goodFileTest("test005");
-    }
-
-    @Test
-    public void test006() {
-        goodFileTest("test006");
     }
 }

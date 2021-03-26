@@ -1,7 +1,6 @@
 package com.llat.algorithms;
 
 import com.llat.algorithms.models.TruthTree;
-import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.models.treenode.*;
 
 import java.util.LinkedList;
@@ -58,42 +57,6 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
-     * TODO Document
-     * <p>
-     * https://www.baeldung.com/java-print-binary-tree-diagram
-     *
-     * @param sb
-     * @param padding
-     * @param pointer
-     * @param node
-     * @param hasRightSibling
-     */
-    private void printHelper(StringBuilder sb, String padding, String pointer, TruthTree node,
-                             boolean hasRightSibling) {
-        if (node != null) {
-            sb.append("\n");
-            sb.append(padding);
-            sb.append(pointer);
-            sb.append(node);
-
-            StringBuilder paddingBuilder = new StringBuilder(padding);
-            if (hasRightSibling) {
-                paddingBuilder.append("│  ");
-            } else {
-                paddingBuilder.append("   ");
-            }
-
-            String paddingForBoth = paddingBuilder.toString();
-            String pointerRight = "└── ";
-            String pointerLeft = (node.getRight() != null) ? "├── " : "└── ";
-
-            printHelper(sb, paddingForBoth, pointerLeft, node.getLeft(), node.getRight() != null);
-            printHelper(sb, paddingForBoth, pointerRight, node.getRight(), false);
-        }
-    }
-
-    /**
-     *
      * @param _node
      */
     public abstract void buildTreeHelper(TruthTree _node);
@@ -121,6 +84,10 @@ public abstract class BaseTruthTreeGenerator {
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
                 leaf.addCenter(new TruthTree(_conj.getWff().getChild(0), leaf));
+
+                LinkedList<TruthTree> newLeaf = new LinkedList<>();
+                newLeaf.add(leaf.getCenter());
+
                 leaf.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1), leaf.getCenter()));
                 _queue.add(leaf.getCenter());
                 _queue.add(leaf.getCenter().getCenter());
@@ -180,10 +147,88 @@ public abstract class BaseTruthTreeGenerator {
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
                 // Create a new node to negate the lhs and branch.
-                leaf.addLeft(new TruthTree(this.getNegatedNode(_imp.getWff().getChild(0)), leaf));
+                leaf.addLeft(new TruthTree(getNegatedNode(_imp.getWff().getChild(0)), leaf));
                 leaf.addRight(new TruthTree(_imp.getWff().getChild(1), leaf));
                 _queue.add(leaf.getLeft());
                 _queue.add(leaf.getRight());
+            }
+        }
+    }
+
+    /**
+     * Branches an exclusive OR operator as follows:
+     * (A XOR B)
+     * <p>
+     * The negation is applied such that it branches, with the lhs containing
+     * ~A, B stacked, and the rhs contains ~B, A.
+     * </p>
+     * <p>
+     * This is identical to the negated biconditional operator.
+     *
+     * @param _xorRoot - TruthTree node such that its WffTree instance is an xor node.
+     * @param _leaves  - list of leaf nodes.
+     * @param _queue   - Priority queue to add the four constructed children to.
+     */
+    protected void branchExclusiveOr(TruthTree _xorRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+        if (!(_xorRoot.getWff() instanceof ExclusiveOrNode)) {
+            throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _xorRoot.getClass());
+        }
+
+        WffTree xorNode = _xorRoot.getWff();
+        for (TruthTree leaf : _leaves) {
+            if (!leaf.isClosed()) {
+                // Left subtree.
+                leaf.addLeft(new TruthTree(xorNode.getChild(0), leaf));
+                leaf.getLeft().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(1)), leaf.getLeft()));
+
+                // Right subtree.
+                leaf.addRight(new TruthTree(xorNode.getChild(1), leaf));
+                leaf.getRight().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(0)), leaf.getRight()));
+
+                // Add them to the queue.
+                _queue.add(leaf.getLeft());
+                _queue.add(leaf.getLeft().getCenter());
+                _queue.add(leaf.getRight());
+                _queue.add(leaf.getRight().getCenter());
+            }
+        }
+    }
+
+    /**
+     * Branches a negated exclusive OR operator as follows:
+     * ~(A XOR B)
+     * <p>
+     * The negation is applied such that it branches, with the lhs containing
+     * A, B stacked, and the rhs contains ~A, ~B.
+     * </p>
+     * <p>
+     * This is identical to the biconditional operator.
+     *
+     * @param _negRoot - TruthTree node such that its WffTree instance is a negated node and its child is a xor node..
+     * @param _leaves  - list of leaf nodes.
+     * @param _queue   - Priority queue to add the four constructed children to.
+     */
+    protected void branchNegationExclusiveOr(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+        if (!(_negRoot.getWff().getChild(0) instanceof ExclusiveOrNode)) {
+            throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _negRoot.getClass());
+        }
+
+        WffTree xorNode = _negRoot.getWff().getChild(0);
+        for (TruthTree leaf : _leaves) {
+            if (!leaf.isClosed()) {
+                // Left subtree.
+                leaf.addLeft(new TruthTree(xorNode.getChild(0), leaf));
+                leaf.getLeft().addCenter(new TruthTree(xorNode.getChild(1), leaf.getLeft()));
+
+                // Right subtree.
+                leaf.addRight(new TruthTree(getNegatedNode(xorNode.getChild(0)), leaf));
+                leaf.getRight().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(1)), leaf.getRight()));
+
+                // Add them to the queue.
+                _queue.add(leaf.getLeft());
+                _queue.add(leaf.getLeft().getCenter());
+                _queue.add(leaf.getRight());
+                _queue.add(leaf.getRight().getCenter());
             }
         }
     }
@@ -212,8 +257,8 @@ public abstract class BaseTruthTreeGenerator {
                 leaf.getLeft().addCenter(new TruthTree(bicondNode.getChild(1), leaf.getLeft()));
 
                 // Right subtree.
-                leaf.addRight(new TruthTree(this.getNegatedNode(bicondNode.getChild(0)), leaf));
-                leaf.getRight().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(1)), leaf.getRight()));
+                leaf.addRight(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf));
+                leaf.getRight().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(1)), leaf.getRight()));
 
                 // Add them to the queue.
                 _queue.add(leaf.getLeft());
@@ -245,11 +290,11 @@ public abstract class BaseTruthTreeGenerator {
             if (!leaf.isClosed()) {
                 // Left subtree.
                 leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
-                leaf.getLeft().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(1)), leaf.getLeft()));
+                leaf.getLeft().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(1)), leaf.getLeft()));
 
                 // Right subtree.
                 leaf.addRight(new TruthTree(bicondNode.getChild(1), leaf));
-                leaf.getRight().addCenter(new TruthTree(this.getNegatedNode(bicondNode.getChild(0)), leaf.getRight()));
+                leaf.getRight().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf.getRight()));
 
                 // Add them to the queue.
                 _queue.add(leaf.getLeft());
@@ -288,14 +333,16 @@ public abstract class BaseTruthTreeGenerator {
         if (child.isNegation()) {
             // Add to all leaves in this tree.
             for (TruthTree leaf : _leaves) {
-                enqueuedTTNode = new TruthTree(child.getChild(0), leaf);
-                leaf.addCenter(enqueuedTTNode);
-                if (!enqueuedTTNode.getWff().isAtom()) {
-                    _queue.add(enqueuedTTNode);
+                if (!leaf.isClosed()) {
+                    enqueuedTTNode = new TruthTree(child.getChild(0), leaf);
+                    leaf.addCenter(enqueuedTTNode);
+                    if (!enqueuedTTNode.getWff().isAtom()) {
+                        _queue.add(enqueuedTTNode);
+                    }
                 }
             }
         } else {
-            negatedAtom = this.getNegatedBinaryNode(child);
+            negatedAtom = getNegatedBinaryNode(child);
 
             // Create the negation nodes for the children.
             NegNode n1 = new NegNode();
@@ -342,6 +389,67 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
+     * Computes the path from every leaf node to the root, looking for
+     * closed branches.
+     * <p>
+     * A branch is closed if and only if there exists a wff P such that
+     * ~P is an ancestor.
+     * <p>
+     * Only leaves may ever be closed. This traversal goes up from all leaves
+     * and tries to find a closure. Closures only occur after a wff is completely
+     * developed (i.e., cannot close in the middle of a development), so if there
+     * exists a node that contradicts with something up the chain, we have to check
+     * it. Looks inefficient, but in practice checks very few nodes because of the
+     * flag.
+     * <p>
+     * The invariant is that if a leaf P has no contradictions (that is, no ancestor
+     * is ~P) when checked, then it will never contradict with an ancestor.
+     *
+     * @param _leaves - list of leaves to check for closure.
+     */
+    public static void computeClosedBranches(LinkedList<TruthTree> _leaves) {
+        for (TruthTree leaf : _leaves) {
+            if (!leaf.isClosed()) {
+                TruthTree currentLeaf = leaf;
+                // Optimization...
+                outer:
+                while (currentLeaf != null && (currentLeaf.getFlags() & NodeFlag.STOP_CLOSE_CHECK) == 0) {
+                    TruthTree parentToCheck = currentLeaf.getParent();
+                    while (parentToCheck != null) {
+                        if (currentLeaf.getWff().equals(getFlippedNode(parentToCheck.getWff()))
+                                && currentLeaf.getWff().isClosable()) {
+                            leaf.setClosed(true);
+                            break outer;
+                        }
+                        parentToCheck = parentToCheck.getParent();
+                    }
+                    currentLeaf = currentLeaf.getParent();
+                }
+            }
+            leaf.setFlags(NodeFlag.STOP_CLOSE_CHECK);
+        }
+    }
+
+    /**
+     * Computes the negated version of any arbitrary WffTree node. This performs
+     * a "raw negation" only, where raw is defined as follows:
+     * <p>
+     * If our input is a wff P, then we return ~P. Similarly,
+     * If our input is a wff ~P, then we return ~~P.
+     *
+     * @param _wff - WffTree object to negate.
+     * @return negated version of WffTree.
+     */
+    protected static WffTree getNegatedNode(WffTree _wff) {
+        WffTree negWff;
+        NegNode neg = new NegNode();
+        neg.addChild(_wff);
+        negWff = neg;
+
+        return negWff;
+    }
+
+    /**
      * Recursive helper function for computing leaf nodes in a Truth Tree.
      * Uses a pre-order traversal.
      *
@@ -362,7 +470,6 @@ public abstract class BaseTruthTreeGenerator {
             getLeavesHelper(_truthTree.getRight(), _leaves);
         }
     }
-
 
     /**
      * Returns the negated version of the provided binary node WffTree type.
@@ -426,53 +533,37 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
-     * Computes the negated version of any arbitrary WffTree node. This performs
-     * a "raw negation" only, where raw is defined as follows:
+     * TODO Document
      * <p>
-     * If our input is a wff P, then we return ~P. Similarly,
-     * If our input is a wff ~P, then we return ~~P.
+     * https://www.baeldung.com/java-print-binary-tree-diagram
      *
-     * @param _wff - WffTree object to negate.
-     * @return negated version of WffTree.
+     * @param sb
+     * @param padding
+     * @param pointer
+     * @param node
+     * @param hasRightSibling
      */
-    protected WffTree getNegatedNode(WffTree _wff) {
-        WffTree negWff;
-        NegNode neg = new NegNode();
-        neg.addChild(_wff);
-        negWff = neg;
+    private static void printHelper(StringBuilder sb, String padding, String pointer, TruthTree node,
+                                    boolean hasRightSibling) {
+        if (node != null) {
+            sb.append("\n");
+            sb.append(padding);
+            sb.append(pointer);
+            sb.append(node);
 
-        return negWff;
-    }
-
-
-
-    /**
-     * Computes the path from every leaf node to the root, looking for
-     * closed branches.
-     * <p>
-     * A branch is closed if and only if there exists a wff P such that
-     * ~P is an ancestor.
-     * <p>
-     * Only leaves may ever be closed.
-     *
-     * @param _leaves - list of leaves to check for closure.
-     */
-    public static void computeClosedBranches(LinkedList<TruthTree> _leaves) {
-        for (TruthTree leaf : _leaves) {
-            // Only check to see if a branch is closed above if the current leaf is still open.
-            if (!leaf.isClosed()) {
-                TruthTree curr = leaf;
-                TruthTree negTT = new TruthTree(getFlippedNode(leaf.getWff()), null);
-                while (curr != null) {
-                    if (curr.equals(negTT)
-                            && curr.getWff().isClosable()
-                            && leaf.getWff().isClosable()) {
-                        leaf.setClosed(true);
-                        break;
-                    }
-                    curr = curr.getParent();
-                }
+            StringBuilder paddingBuilder = new StringBuilder(padding);
+            if (hasRightSibling) {
+                paddingBuilder.append("│  ");
+            } else {
+                paddingBuilder.append("   ");
             }
+
+            String paddingForBoth = paddingBuilder.toString();
+            String pointerRight = "└── ";
+            String pointerLeft = (node.getRight() != null) ? "├── " : "└── ";
+
+            printHelper(sb, paddingForBoth, pointerLeft, node.getLeft(), node.getRight() != null);
+            printHelper(sb, paddingForBoth, pointerRight, node.getRight(), false);
         }
     }
 }

@@ -24,4 +24,9 @@ public class NodeFlag {
      *
      */
     public static final int CLOSED = 0x00010000;
+
+    /**
+     *
+     */
+    public static final int STOP_CLOSE_CHECK = 0x00100000;
 }

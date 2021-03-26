@@ -1,7 +1,5 @@
 package com.llat.models.treenode;
 
-import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
-
 import java.util.LinkedList;
 
 /**
@@ -81,7 +79,7 @@ public class WffTree implements Copyable {
         } else {
             // This is a bit ugly but hopefully it works...
             // Check to see if either one has a negation.
-            // If the identity is of the form ~x=y, reverse it as y=x
+            // If the identity is of the form ~x=y, reverse it as ~y=x
             if (this.isNegation() && this.getChild(0).isIdentity()) {
                 StringBuilder i1r = new StringBuilder(w1.substring(1)).reverse();
                 return i1r.compareTo(w2) == 0;
@@ -92,48 +90,6 @@ public class WffTree implements Copyable {
         }
 
         return false;
-    }
-
-    /**
-     * TODO Document
-     *
-     * @param _root
-     * @param _newTree
-     */
-    private void copyHelper(WffTree _root, WffTree _newTree) {
-        for (WffTree ch : _root.children) {
-            _newTree.addChild(ch.copy());
-        }
-    }
-
-    /**
-     * Recursive function to print a syntax tree. The current depth is passed
-     * as the "indent" parameter so that the output looks properly nested.
-     * Each recursive call for a child is indented by two additional spaces.
-     *
-     * @param indent current indentation level
-     * @return a string representation of this syntax tree node (and its descendants)
-     * @author Steve Tate
-     */
-    private StringBuilder printSyntaxTreeHelper(int indent) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" ".repeat(Math.max(0, indent)));
-        sb.append(this.toString());
-
-        if (!this.children.isEmpty()) {
-            sb.append(" (\n");
-            boolean isFirstChild = true;
-            for (WffTree child : this.children) {
-                if (!isFirstChild) {
-                    sb.append(",\n");
-                }
-                isFirstChild = false;
-                sb.append(child.printSyntaxTreeHelper(indent + 2));
-            }
-            sb.append(")");
-        }
-
-        return sb;
     }
 
     /**
@@ -157,7 +113,7 @@ public class WffTree implements Copyable {
      * P
      * I (where I is an arbitrary identity wff)
      * ~I (same as above)
-     *
+     * <p>
      * All others MUST be processed before closing.
      *
      * @return true if the node is closable, false otherwise.
@@ -169,16 +125,12 @@ public class WffTree implements Copyable {
         // Nodes of type ~P are good.
         else if (this.isNegation() && this.getChild(0) != null && (this.getChild(0).isPredicate() || this.getChild(0).isAtom()))
             return true;
-        // Nodes of type ~identity are good.
+            // Nodes of type ~identity are good.
         else if (this.isNegation() && this.getChild(0) != null && this.getChild(0).isIdentity()) {
             return true;
         }
         // Nodes of type identity are good.
-        else if (this.isIdentity()) {
-            return true;
-        }
-
-        return false;
+        else { return this.isIdentity(); }
 
     }
 
@@ -226,6 +178,11 @@ public class WffTree implements Copyable {
                 this.getChild(0).NODE_TYPE == NodeType.OR;
     }
 
+    public boolean isNegExclusiveOr() {
+        return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
+                this.getChild(0).NODE_TYPE == NodeType.XOR;
+    }
+
     public boolean isAnd() {
         return this.NODE_TYPE == NodeType.AND;
     }
@@ -240,6 +197,10 @@ public class WffTree implements Copyable {
 
     public boolean isBicond() {
         return this.NODE_TYPE == NodeType.BICOND;
+    }
+
+    public boolean isExclusiveOr() {
+        return this.NODE_TYPE == NodeType.XOR;
     }
 
     public boolean isIdentity() {
@@ -259,7 +220,7 @@ public class WffTree implements Copyable {
     }
 
     public boolean isBinaryOp() {
-        return this.isAnd() || this.isOr() || this.isImp() || this.isBicond() || this.isIdentity();
+        return this.isAnd() || this.isOr() || this.isImp() || this.isBicond() || this.isExclusiveOr() || this.isIdentity();
     }
 
     public boolean isPredicate() {
@@ -329,5 +290,47 @@ public class WffTree implements Copyable {
     @Override
     public String toString() {
         return this.NODE_TYPE.toString();
+    }
+
+    /**
+     * TODO Document
+     *
+     * @param _root
+     * @param _newTree
+     */
+    private void copyHelper(WffTree _root, WffTree _newTree) {
+        for (WffTree ch : _root.children) {
+            _newTree.addChild(ch.copy());
+        }
+    }
+
+    /**
+     * Recursive function to print a syntax tree. The current depth is passed
+     * as the "indent" parameter so that the output looks properly nested.
+     * Each recursive call for a child is indented by two additional spaces.
+     *
+     * @param indent current indentation level
+     * @return a string representation of this syntax tree node (and its descendants)
+     * @author Steve Tate
+     */
+    private StringBuilder printSyntaxTreeHelper(int indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" ".repeat(Math.max(0, indent)));
+        sb.append(this.toString());
+
+        if (!this.children.isEmpty()) {
+            sb.append(" (\n");
+            boolean isFirstChild = true;
+            for (WffTree child : this.children) {
+                if (!isFirstChild) {
+                    sb.append(",\n");
+                }
+                isFirstChild = false;
+                sb.append(child.printSyntaxTreeHelper(indent + 2));
+            }
+            sb.append(")");
+        }
+
+        return sb;
     }
 }

@@ -2,7 +2,10 @@ package com.llat.algorithms.predicate;
 
 import com.llat.algorithms.BaseTruthTreeGenerator;
 import com.llat.algorithms.models.TruthTree;
-import com.llat.models.treenode.*;
+import com.llat.models.treenode.ExistentialQuantifierNode;
+import com.llat.models.treenode.IdentityNode;
+import com.llat.models.treenode.UniversalQuantifierNode;
+import com.llat.models.treenode.WffTree;
 
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
@@ -38,8 +41,9 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
         while (!queue.isEmpty()) {
             TruthTree tree = queue.poll();
             WffTree curr = tree.getWff();
-            computeClosedBranches(leaves);
             leaves = getLeaves(tree);
+            computeClosedBranches(leaves);
+
             if (curr.isNegation() && curr.getChild(0).isBicond()) {
                 // We handle biconditional negations differently since they're harder.
                 this.branchNegationBiconditional(tree, leaves, queue);
@@ -64,14 +68,12 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
             } else if (curr.isBicond()) {
                 this.branchBiconditional(tree, leaves, queue);
             }
-
-            leaves = getLeaves(_node);
         }
     }
 
     /**
      * Computes existential decomposition on any arbitrary node in the tree.
-     *
+     * <p>
      * Existential decomposition is defined by the replacement of a variable
      * with a constant not previously used in the tree.
      *
@@ -84,16 +86,21 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
             throw new IllegalArgumentException("Error: existential quantifier node expects existential node but got " + _existentialTruthTree.getClass());
         }
 
+        // Add all possible constants to our list of them.
+        for (TruthTree leaf : _leaves) {
+            _existentialTruthTree.getAvailableConstants().addAll(leaf.getAvailableConstants());
+        }
+
         char variableToReplace = ((ExistentialQuantifierNode) _existentialTruthTree.getWff()).getVariableSymbol().charAt(0);
         _existentialTruthTree.addExistentialConstant(_existentialTruthTree, _leaves, _queue, variableToReplace);
     }
 
     /**
      * Computes universal decomposition on any arbitrary node in the tree.
-     *
+     * <p>
      * Universal decomposition is defined by the replacement of a quantified
      * variable in the tree by a constant PREVIOUSLY used in the tree.
-     *
+     * <p>
      * Note that this method of decomposition adds all instances of previous
      * constants to the tree, which is inefficient and generally unnecessary.
      *
@@ -111,17 +118,11 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
             _universalTruthTree.getAvailableConstants().addAll(leaf.getAvailableConstants());
         }
 
-        // There must be at least one constant somewhere in the truth tree. If not, then it's invalid...
-        if (_universalTruthTree.getAvailableConstants().isEmpty()) {
-            throw new InvalidParameterException("Universal truth tree node should have at least one constant available, but none are listed.");
-        }
-
         char variableToReplace = ((UniversalQuantifierNode) _universalTruthTree.getWff()).getVariableSymbol().charAt(0);
         _universalTruthTree.addUniversalConstant(_universalTruthTree, _leaves, _queue, variableToReplace);
     }
 
     /**
-     *
      * @param _identityTruthTree
      * @param _leaves
      * @param _queue
@@ -141,7 +142,7 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
 
     /**
      * Flips the quantifier with a negation in front as follows:
-     *
+     * <p>
      * ~(x)P = (Ex)~P
      * ~(Ex)P = (x)~P
      *

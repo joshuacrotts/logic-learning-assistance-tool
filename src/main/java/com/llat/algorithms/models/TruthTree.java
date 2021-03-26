@@ -5,13 +5,10 @@ import com.llat.models.treenode.ConstantNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.*;
 
 /**
- * Static class for constructing a TruthTree.
+ * Class for constructing a TruthTree.
  * <p>
  * TruthTrees contain three instance objects: a WffTree node, which is its "value",
  * and two children (acting as a binary tree): a left and right pointer to TTs.
@@ -30,8 +27,6 @@ import java.util.Set;
  */
 public class TruthTree implements Comparable<TruthTree> {
 
-    //private final BaseTruthTreeGenerator TRUTH_TREE;
-
     /**
      * WffTree "value" for the TruthTree.
      */
@@ -49,20 +44,25 @@ public class TruthTree implements Comparable<TruthTree> {
     private final Set<Character> AVAILABLE_CONSTANTS;
 
     /**
-     * Left pointer.
+     * Map of any available substitutions indicated by the identity operator.
+     * A substitution is defined by having two constants a, b where the node
+     * a = b exists. Then, for any occurrence of a in a closable node, we can
+     * substitute this for b, and vice versa.
      */
-    private TruthTree left;
-
-    /**
-     * Right pointer.
-     */
-    private TruthTree right;
+    private final Map<Character, Character> SUBSTITUTIONS;
 
     /**
      * Order of precedence for this node (as described above).
      */
     private final int VALUE;
-
+    /**
+     * Left pointer.
+     */
+    private TruthTree left;
+    /**
+     * Right pointer.
+     */
+    private TruthTree right;
     /**
      * Flags for the Truth tree - determines the status (open/closed), and if
      * it is an identity truth tree.
@@ -74,6 +74,7 @@ public class TruthTree implements Comparable<TruthTree> {
         this.NODE = _node;
         this.PARENT = _parent;
         this.AVAILABLE_CONSTANTS = new HashSet<>();
+        this.SUBSTITUTIONS = new HashMap<>();
 
         // Compute the union of the constants from the parent.
         if (_parent != null) {
@@ -161,6 +162,11 @@ public class TruthTree implements Comparable<TruthTree> {
      */
     public void addUniversalConstant(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves,
                                      PriorityQueue<TruthTree> _queue, char _variableToReplace) {
+        // Add a default constant if one is not available to the universal quantifier.
+        if (_universalTruthTree.AVAILABLE_CONSTANTS.isEmpty()) {
+            _universalTruthTree.addConstant('a');
+        }
+
         for (TruthTree leaf : _leaves) {
             // Copy the old root, replace all variables with a constant, and add to the tree and queue.
             TruthTree l = leaf;
@@ -196,34 +202,13 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _queue
      */
     public void addIdentityConstant(TruthTree _identityTruthTree, LinkedList<TruthTree> _leaves,
-                                     PriorityQueue<TruthTree> _queue) {
+                                    PriorityQueue<TruthTree> _queue) {
 //            WffTree w = _identityTruthTree.getWff();
 //
 //            for (TruthTree leaf : _leaves) {
 //                // Copy the old leaf and replace the constants.
 //                TruthTree  l = leaf;
 //            }
-    }
-
-    /**
-     * Replaces a variable with a constant node in a WffTree. This is used when performing
-     * existential or universal decomposition.
-     *
-     * @param _newRoot           - root of WffTree to modify.
-     * @param _variableToReplace - variable that we want to replace e.g. (x) = x
-     * @param _constant          - constant to replace variable with.
-     */
-    private void replaceVariable(WffTree _newRoot, char _variableToReplace, char _constant) {
-        for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
-            if (_newRoot.getChild(i).isVariable()) {
-                char v = _newRoot.getChild(i).getSymbol().charAt(0);
-                if (v == _variableToReplace) {
-                    _newRoot.setChild(i, new ConstantNode("" + _constant));
-                    break;
-                }
-            }
-            replaceVariable(_newRoot.getChild(i), _variableToReplace, _constant);
-        }
     }
 
     public boolean isLeafNode() {
@@ -282,6 +267,14 @@ public class TruthTree implements Comparable<TruthTree> {
         this.AVAILABLE_CONSTANTS.add(_ch);
     }
 
+    public int getFlags() {
+        return this.flags;
+    }
+
+    public void setFlags(int flag) {
+        this.flags |= flag;
+    }
+
     public Set<Character> getAvailableConstants() {
         return this.AVAILABLE_CONSTANTS;
     }
@@ -293,5 +286,26 @@ public class TruthTree implements Comparable<TruthTree> {
             leafSignal = this.isClosed() ? "X" : "open";
         }
         return this.getWff().getStringRep() + " " + leafSignal;
+    }
+
+    /**
+     * Replaces a variable with a constant node in a WffTree. This is used when performing
+     * existential or universal decomposition.
+     *
+     * @param _newRoot           - root of WffTree to modify.
+     * @param _variableToReplace - variable that we want to replace e.g. (x) = x
+     * @param _constant          - constant to replace variable with.
+     */
+    private void replaceVariable(WffTree _newRoot, char _variableToReplace, char _constant) {
+        for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
+            if (_newRoot.getChild(i).isVariable()) {
+                char v = _newRoot.getChild(i).getSymbol().charAt(0);
+                if (v == _variableToReplace) {
+                    _newRoot.setChild(i, new ConstantNode("" + _constant));
+                    break;
+                }
+            }
+            replaceVariable(_newRoot.getChild(i), _variableToReplace, _constant);
+        }
     }
 }

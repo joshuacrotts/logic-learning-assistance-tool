@@ -29,16 +29,14 @@ public class LLATParserListener extends LLATBaseListener {
      * LLATParser object brought from the ParserTest.
      */
     private final LLATParser LLAT_PARSER;
-
+    /**
+     * Stack to keep track of all in-progress subwffs.
+     */
+    private final Stack<WffTree> treeRoots;
     /**
      * Current root of the wff tree being constructed.
      */
     private WffTree wffTree;
-
-    /**
-     * Stack to keep track of all in-progress subwffs.
-     */
-    private Stack<WffTree> treeRoots;
 
     public LLATParserListener(LLATParser _llatParser) {
         super();
@@ -134,6 +132,18 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void exitPropBicondRule(LLATParser.PropBicondRuleContext ctx) {
+        this.popTreeRoot();
+    }
+
+    @Override
+    public void enterPropExclusiveOrRule(LLATParser.PropExclusiveOrRuleContext ctx) {
+        ExclusiveOrNode xorNode = new ExclusiveOrNode(ctx.XOR().getText());
+        this.treeRoots.push(this.wffTree);
+        this.wffTree = xorNode;
+    }
+
+    @Override
+    public void exitPropExclusiveOrRule(LLATParser.PropExclusiveOrRuleContext ctx) {
         this.popTreeRoot();
     }
 
@@ -302,6 +312,18 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void exitPredBicondRule(LLATParser.PredBicondRuleContext ctx) {
+        this.popTreeRoot();
+    }
+
+    @Override
+    public void enterPredExclusiveOrRule(LLATParser.PredExclusiveOrRuleContext ctx) {
+        ExclusiveOrNode xorNode = new ExclusiveOrNode(ctx.XOR().getText());
+        this.treeRoots.push(this.wffTree);
+        this.wffTree = xorNode;
+    }
+
+    @Override
+    public void exitPredExclusiveOrRule(LLATParser.PredExclusiveOrRuleContext ctx) {
         this.popTreeRoot();
     }
 
