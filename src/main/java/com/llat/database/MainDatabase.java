@@ -13,7 +13,7 @@ public class MainDatabase {
         MainDatabase db = new MainDatabase();
 //        UserObject x = db.getUser(2);
 //        System.out.println(x);
-        db.createUser("hello world!", "a", "123411111", "a");
+        db.UpdateLanguage(6, "Spanish");
 
     }
 
@@ -60,19 +60,50 @@ public class MainDatabase {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
             Statement stmt = connection.createStatement();
-            String excute = "INSERT INTO User (UserName, Password, LName, FName) VALUES (\'"+_userName+"\', \'"+_password+"\', \'"+_lastName+"\', \'"+_firstName+"\');";
-            stmt.executeUpdate(excute);
+            String execute = "INSERT INTO User (UserName, Password, LName, FName) VALUES (\'" + _userName + "\', \'" + _password + "\', \'" + _lastName + "\', \'" + _firstName + "\');";
+            stmt.executeUpdate(execute);
             ResultSet rs2 = stmt.executeQuery("select UserID from User where UserName = \'" + _userName + "\';");
             while (rs2.next()) {
                 id = rs2.getInt(1);
             }
-            stmt.executeUpdate("insert into Language (UserID, Language)  values (" + id + ", 'en');");
+            stmt.executeUpdate("insert into Language (UserID, Language)  values (" + id + ", 'En');");
 
-            stmt.executeUpdate("insert into Theme (UserID, Theme)  values (" + id + ", 'default');");
+            stmt.executeUpdate("insert into Theme (UserID, Theme)  values (" + id + ", 'Default');");
             connection.close();
+
+        } catch (ClassNotFoundException | SQLException  | NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void UpdateTheme(int id, String Theme) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            Statement stmt = connection.createStatement();
+            String execute = "UPDATE Theme SET Theme = \'" + Theme + "\' WHERE UserID = " + id + ";";
+            stmt.executeUpdate(execute);
+
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
-}
+
+
+        public void UpdateLanguage(int id, String Language){
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+                Statement stmt = connection.createStatement();
+                String execute = "UPDATE Language SET Language = \'" + Language + "\' WHERE UserID = " + id + ";";
+                stmt.executeUpdate(execute);
+
+
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
