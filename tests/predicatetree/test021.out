@@ -4,7 +4,7 @@
 │     └── n = o
 │        └── Po
 │           └── ~Po X
-└── Pn
-   └── ~(n = o & Po)
+└── ~(n = o & Po)
+   └── Pn
       ├── ~n = o open
       └── ~Po open

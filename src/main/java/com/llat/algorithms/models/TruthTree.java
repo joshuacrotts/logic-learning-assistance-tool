@@ -105,21 +105,23 @@ public class TruthTree implements Comparable<TruthTree> {
         } else if (_node.isExistential()) {
             this.VALUE = 1;
         } else if (_node.isUniversal()) {
-            this.VALUE = 12;
+            // Universal HAS to be the last operation - if not, then we run the risk of applying it before we
+            // have a constant available.
+            this.VALUE = 13;
         } else if (_node.isAnd()) {
-            this.VALUE = 5;
-        } else if (_node.isNegOr() || _node.isNegImp()) {
             this.VALUE = 6;
-        } else if (_node.isOr()) {
+        } else if (_node.isNegOr() || _node.isNegImp()) {
             this.VALUE = 7;
-        } else if (_node.isNegAnd()) {
+        } else if (_node.isOr()) {
             this.VALUE = 8;
-        } else if (_node.isImp()) {
+        } else if (_node.isNegAnd()) {
             this.VALUE = 9;
-        } else if (_node.isBicond()) {
+        } else if (_node.isImp()) {
             this.VALUE = 10;
-        } else {
+        } else if (_node.isBicond()) {
             this.VALUE = 11;
+        } else {
+            this.VALUE = 12;
         }
     }
 
@@ -163,22 +165,24 @@ public class TruthTree implements Comparable<TruthTree> {
 
         _sb.append("[");
         _sb.append(_tree.getWff().getTexCommand());
+
+        // If it's a rule we can apply infinitely many times, add the asterisk.
+        if (_tree.getWff().isUniversal()
+                || _tree.getWff().isIdentity()) {
+            _sb.append(", uni");
+        }
+
         // Left and rights will need to branch, whereas just a left
         // is a stack.
+        _sb.append("\n");
         if (_tree.getLeft() != null && _tree.getRight() != null) {
-            _sb.append("\n");
             getTexHelper(_tree.getLeft(), _sb);
             _sb.append("\n");
             getTexHelper(_tree.getRight(), _sb);
         } else if (_tree.getLeft() != null) {
-            // If it's (x) or =, we can apply it multiple times.
-            if (_tree.getLeft().getWff().isUniversal()
-                    || _tree.getLeft().getWff().isIdentity()) {
-                _sb.append(", uni");
-            }
             getTexHelper(_tree.getLeft(), _sb);
         }
-        _sb.append("\n");
+
         _sb.append("]");
     }
 

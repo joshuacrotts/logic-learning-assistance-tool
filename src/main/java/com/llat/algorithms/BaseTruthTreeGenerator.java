@@ -322,8 +322,8 @@ public abstract class BaseTruthTreeGenerator {
                 leaf.getLeft().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(1)), leaf.getLeft()));
 
                 // Right subtree.
-                leaf.addRight(new TruthTree(bicondNode.getChild(1), leaf));
-                leaf.getRight().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf.getRight()));
+                leaf.addRight(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf));
+                leaf.getRight().addCenter(new TruthTree(bicondNode.getChild(1), leaf));
 
                 // Add them to the queue.
                 _queue.add(leaf.getLeft());
