@@ -36,40 +36,76 @@
 \begin{forest}
 smullyan tableaux
 [\varlnot ((\varlnot (a \,\mathbb{=}\, d \lor (x)Lx) \lor \varlnot a \,\mathbb{=}\, d) \varliff \varlnot (\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx))
-[(\varlnot (a \,\mathbb{=}\, d \lor (x)Lx) \lor \varlnot a \,\mathbb{=}\, d)
-[\varlnot \varlnot (\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
-[(\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
-[\varlnot (a \,\mathbb{=}\, d \lor (x)Lx)
-[\varlnot a \,\mathbb{=}\, d
-[\varlnot (x)Lx
-[(\exists x)\varlnot Lx
-[\varlnot Lb
-[\varlnot a \,\mathbb{=}\, d, open]
-[\varlnot (x)Lx
-[(\exists x)\varlnot Lx
-[\varlnot Lc, open]]]]]]]]
-[\varlnot a \,\mathbb{=}\, d
-[\varlnot a \,\mathbb{=}\, d, open]
-[\varlnot (x)Lx
-[(\exists x)\varlnot Lx
-[\varlnot Lb, open]]]]]]]
-[\varlnot (\varlnot (a \,\mathbb{=}\, d \lor (x)Lx) \lor \varlnot a \,\mathbb{=}\, d)
-[\varlnot (\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
-[\varlnot \varlnot (a \,\mathbb{=}\, d \lor (x)Lx)
-[\varlnot \varlnot a \,\mathbb{=}\, d
-[(a \,\mathbb{=}\, d \lor (x)Lx)
-[a \,\mathbb{=}\, d, uni
-[\varlnot \varlnot a \,\mathbb{=}\, d
-[\varlnot \varlnot (x)Lx
-[a \,\mathbb{=}\, d, uni
-[(x)Lx, uni
-[a \,\mathbb{=}\, d, uni
-[La
-[Ld, open]]]
-[(x)Lx, uni
-[La
-[Ld
-[La
-[Ld, open]]]]]]]]]]]]]]]]
+	[(\varlnot (a \,\mathbb{=}\, d \lor (x)Lx) \lor \varlnot a \,\mathbb{=}\, d)
+		[\varlnot \varlnot (\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
+			[(\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
+				[\varlnot (a \,\mathbb{=}\, d \lor (x)Lx)
+					[\varlnot a \,\mathbb{=}\, d
+						[\varlnot (x)Lx
+							[(\exists x)\varlnot Lx
+								[\varlnot Lb
+									[\varlnot a \,\mathbb{=}\, d, open
+									]
+									[\varlnot (x)Lx
+										[(\exists x)\varlnot Lx
+											[\varlnot Lc, open
+											]
+										]
+									]
+								]
+							]
+						]
+					]
+				]
+				[\varlnot a \,\mathbb{=}\, d
+					[\varlnot a \,\mathbb{=}\, d, open
+					]
+					[\varlnot (x)Lx
+						[(\exists x)\varlnot Lx
+							[\varlnot Lb, open
+							]
+						]
+					]
+				]
+			]
+		]
+	]
+	[\varlnot (\varlnot (a \,\mathbb{=}\, d \lor (x)Lx) \lor \varlnot a \,\mathbb{=}\, d)
+		[\varlnot (\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
+			[\varlnot \varlnot (a \,\mathbb{=}\, d \lor (x)Lx)
+				[\varlnot \varlnot a \,\mathbb{=}\, d
+					[(a \,\mathbb{=}\, d \lor (x)Lx)
+						[a \,\mathbb{=}\, d, uni
+							[\varlnot \varlnot a \,\mathbb{=}\, d
+								[\varlnot \varlnot (x)Lx
+									[a \,\mathbb{=}\, d, uni
+										[(x)Lx, uni
+											[a \,\mathbb{=}\, d, uni
+												[La
+													[Ld, open
+													]
+												]
+											]
+											[(x)Lx, uni
+												[La
+													[Ld
+														[La
+															[Ld, open
+															]
+														]
+													]
+												]
+											]
+										]
+									]
+								]
+							]
+						]
+					]
+				]
+			]
+		]
+	]
+]
 \end{forest}
 \end{document}
