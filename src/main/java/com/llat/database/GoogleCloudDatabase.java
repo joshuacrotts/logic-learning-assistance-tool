@@ -146,6 +146,11 @@ public class GoogleCloudDatabase implements DatabaseInterface {
 
             }
 
+            if(user == null) {
+                return user;
+
+            }
+
             String sql2 = "SELECT UserID FROM User WHERE UserName = ?";
             PreparedStatement statement2 = connection.prepareStatement(sql2);
             statement2.setString(1, Username);
