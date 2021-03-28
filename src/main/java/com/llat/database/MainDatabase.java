@@ -11,9 +11,10 @@ public class MainDatabase {
 
     public static void main(String[] args) {
         MainDatabase db = new MainDatabase();
-//        UserObject x = db.getUser(2);
-//        System.out.println(x);
-        db.UpdateLanguage(6, "Spanish");
+/*        db.UpdateLanguage(6, "French");
+       UserObject x = db.getUser(6);
+        System.out.println(x);*/
+        db.createUser( "John2341","12345","John","Smith");
 
     }
 
@@ -60,20 +61,44 @@ public class MainDatabase {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
             Statement stmt = connection.createStatement();
-            String execute = "INSERT INTO User (UserName, Password, LName, FName) VALUES (\'" + _userName + "\', \'" + _password + "\', \'" + _lastName + "\', \'" + _firstName + "\');";
-            stmt.executeUpdate(execute);
-            ResultSet rs2 = stmt.executeQuery("select UserID from User where UserName = \'" + _userName + "\';");
+            String sql = "INSERT INTO User (UserName, Password, LName, FName) VALUES (?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1,_userName);
+            statement.setString(2,_password);
+            statement.setString(3,_lastName);
+            statement.setString(4,_firstName);
+            statement.executeUpdate();
+
+
+            String sql2 = "SELECT UserID FROM User WHERE UserName = ?";
+            PreparedStatement statement2 = connection.prepareStatement(sql2);
+            statement2.setString(1,_userName);
+            ResultSet rs2 = statement2.executeQuery();
+
             while (rs2.next()) {
                 id = rs2.getInt(1);
             }
-            stmt.executeUpdate("insert into Language (UserID, Language)  values (" + id + ", 'En');");
 
-            stmt.executeUpdate("insert into Theme (UserID, Theme)  values (" + id + ", 'Default');");
+            String Def_language = "INSERT INTO Language (UserID, Language)  VALUES ( ?, 'En')";
+            PreparedStatement statement3 = connection.prepareStatement(Def_language);
+            statement3.setInt(1,id);
+            statement3.executeUpdate();
+
+            String Def_Theme = "INSERT INTO Theme (UserID, Theme)  VALUES ( ?, 'Default')";
+            PreparedStatement statement4 = connection.prepareStatement(Def_Theme );
+            statement4.setInt(1,id);
+            statement4.executeUpdate();
+
+            System.out.println("Account Succesfully Created!");
             connection.close();
 
-        } catch (ClassNotFoundException | SQLException  | NullPointerException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            /*System.out.println("UserName Already Taken. Please Try New Username.");*/
         }
+          catch(NullPointerException e ){
+
+          }
     }
 
 
@@ -81,9 +106,12 @@ public class MainDatabase {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
-            Statement stmt = connection.createStatement();
-            String execute = "UPDATE Theme SET Theme = \'" + Theme + "\' WHERE UserID = " + id + ";";
-            stmt.executeUpdate(execute);
+            String sql = "UPDATE Theme SET Theme = ? WHERE UserID = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1,Theme);
+            statement.setInt(2,id);
+            statement.executeUpdate();
+            connection.close();
 
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -96,14 +124,43 @@ public class MainDatabase {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
-                Statement stmt = connection.createStatement();
-                String execute = "UPDATE Language SET Language = \'" + Language + "\' WHERE UserID = " + id + ";";
-                stmt.executeUpdate(execute);
+                String sql = "UPDATE Language SET Language = ?  WHERE UserID = ? ";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1,Language);
+                statement.setInt(2,id);
+                statement.executeUpdate();
+                connection.close();
 
 
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
+        }
+
+        public UserObject CheckLogin(String Username, String Password) throws SQLException, ClassNotFoundException{
+
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+                Statement stmt = connection.createStatement();
+                String sql = "SELECT * FROM User WHERE UserName = ? and Password = ?";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1,Username);
+                statement.setString(2,Password);
+
+                ResultSet result = statement.executeQuery();
+
+                UserObject user = null;
+
+/*                if(result.next()){
+                    user = new UserObject();
+                    user.setUserId(result.getInt("UserID"));
+                    user.setFname(result.getString("FName"));
+                    user.setUserName(Username);
+                }*/
+
+
+                connection.close();
+                return user;
         }
 
     }
