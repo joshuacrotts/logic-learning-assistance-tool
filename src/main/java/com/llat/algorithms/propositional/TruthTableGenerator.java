@@ -12,39 +12,40 @@ import java.util.*;
 public final class TruthTableGenerator {
 
     /**
-     *
+     * Maximum number of atoms that this algorithm can realistically handle before taking an eternity
+     * to generate the truth table.
      */
     private static final int MAX_ATOMS = 14;
 
     /**
-     *
+     * Root of WffTree to generate the truth table for.
      */
     private final WffTree wffTree;
 
     /**
-     *
+     * Alternating pattern of truth values for the atoms.
      */
-    private final HashMap<String, Integer> truthPattern;
+    private final LinkedHashMap<String, Integer> truthPattern;
 
     /**
-     *
+     * Stack of operands and operators to recursively evaluate when building the tree.
      */
     private final Stack<WffTree> operands;
 
     /**
-     *
+     * The number of atoms in this truth tree.
      */
     private final int size;
 
     /**
-     *
+     * The number of rows for this truth tree. Equal to 2^(size).
      */
     private final int rows;
 
     public TruthTableGenerator(WffTree _wffTree) {
         this.wffTree = _wffTree;
         this.operands = new Stack<>();
-        this.truthPattern = new HashMap<>();
+        this.truthPattern = new LinkedHashMap<>();
         this.size = getAtomCount(this.wffTree);
         this.rows = (int) Math.pow(2, this.size);
     }
@@ -71,19 +72,67 @@ public final class TruthTableGenerator {
      * Prints out the truth values for a WffTree in pre-order fashion.
      */
     public void print() {
-        printHelper(this.wffTree);
+        printHelper();
     }
 
     /**
-     * Recursive printing helper function.
+     * Performs an in-order traversal of the WffTree. We do this to get the respective truth values in the
+     * form used by PHI-310.
      *
-     * @param _tree
+     * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
+     *
+     * @return list of nodes in in-order.
      */
-    private void printHelper(WffTree _tree) {
-        for (WffTree ch : _tree.getChildren()) {
-            System.out.println(ch + ": " + ch.getTruthValues());
-            printHelper(ch);
+    public LinkedList<WffTree> inorder() {
+        LinkedList<WffTree> list = new LinkedList<>();
+        this.inorderHelper(this.wffTree.getChild(0), list);
+        return list;
+    }
+
+    /**
+     * Function to print out the truth tree in a "table" fashion in the console. This, however, does not print
+     * the atoms at the start of the truth table.
+     */
+    private void printHelper() {
+        LinkedList<WffTree> inorderTraversal = this.inorder();
+        int size = inorderTraversal.size();
+        int rows = inorderTraversal.get(0).getTruthValues().size();
+
+        System.out.printf("%3s", inorderTraversal.get(0).getSymbol());
+        // Print out the header rows.
+        for (int i = 1; i < size - 1; i++) {
+            System.out.printf("%8s", inorderTraversal.get(i).getSymbol());
         }
+        System.out.printf("%8s\n", inorderTraversal.get(size - 1).getSymbol());
+
+        // Go line by line and print the truth values of each node.
+        for (int t = 0; t < rows; t++) {
+            for (int i = 0; i < size - 1; i++) {
+                WffTree tree = inorderTraversal.get(i);
+                System.out.printf("%-5b | ", tree.getTruthValues().get(t));
+            }
+            System.out.printf("%-5b\n", inorderTraversal.get(size - 1).getTruthValues().get(t));
+        }
+    }
+
+    /**
+     * Performs a recursive in-order traversal on the WffTree.
+     *
+     * @param _tree - tree to search.
+     * @param _inorderList - list to continuously add to.
+     */
+    private void inorderHelper(WffTree _tree, LinkedList<WffTree> _inorderList) {
+        if (_tree == null) {
+            return;
+        }
+
+        int total = _tree.getChildrenSize();
+        for (int i = 0; i < total - 1; i++) {
+            inorderHelper(_tree.getChild(i), _inorderList);
+        }
+
+        _inorderList.add(_tree);
+        inorderHelper(_tree.getChild(total - 1), _inorderList);
     }
 
     /**

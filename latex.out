@@ -35,34 +35,24 @@
 \begin{document}
 \begin{forest}
 smullyan tableaux
-[\varlnot ((\varlnot (a \,\mathbb{=}\, d \lor (x)Lx) \lor \varlnot a \,\mathbb{=}\, d) \varliff \varlnot (\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx))
-	[(\varlnot (a \,\mathbb{=}\, d \lor (x)Lx) \lor \varlnot a \,\mathbb{=}\, d)
-		[\varlnot \varlnot (\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
-			[(\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
-				[\varlnot (a \,\mathbb{=}\, d \lor (x)Lx)
-					[\varlnot a \,\mathbb{=}\, d
-						[\varlnot (x)Lx
-							[(\exists x)\varlnot Lx
-								[\varlnot Lb
-									[\varlnot a \,\mathbb{=}\, d, open
-									]
-									[\varlnot (x)Lx
-										[(\exists x)\varlnot Lx
-											[\varlnot Lc, open
-											]
+[\varlnot ((\varlnot P \mathbin{\&} (\varlnot Q \to R)) \varliff \varlnot (P \lor (\varlnot Q \mathbin{\&} \varlnot R)))
+	[(\varlnot P \mathbin{\&} (\varlnot Q \to R))
+		[\varlnot \varlnot (P \lor (\varlnot Q \mathbin{\&} \varlnot R))
+			[(P \lor (\varlnot Q \mathbin{\&} \varlnot R))
+				[\varlnot P
+					[(\varlnot Q \to R)
+						[P, closed
+						]
+						[(\varlnot Q \mathbin{\&} \varlnot R)
+							[\varlnot Q
+								[\varlnot R
+									[\varlnot \varlnot Q
+										[Q, closed
 										]
 									]
+									[R, closed
+									]
 								]
-							]
-						]
-					]
-				]
-				[\varlnot a \,\mathbb{=}\, d
-					[\varlnot a \,\mathbb{=}\, d, open
-					]
-					[\varlnot (x)Lx
-						[(\exists x)\varlnot Lx
-							[\varlnot Lb, open
 							]
 						]
 					]
@@ -70,33 +60,23 @@ smullyan tableaux
 			]
 		]
 	]
-	[\varlnot (\varlnot (a \,\mathbb{=}\, d \lor (x)Lx) \lor \varlnot a \,\mathbb{=}\, d)
-		[\varlnot (\varlnot a \,\mathbb{=}\, d \lor \varlnot (x)Lx)
-			[\varlnot \varlnot (a \,\mathbb{=}\, d \lor (x)Lx)
-				[\varlnot \varlnot a \,\mathbb{=}\, d
-					[(a \,\mathbb{=}\, d \lor (x)Lx)
-						[a \,\mathbb{=}\, d, uni
-							[\varlnot \varlnot a \,\mathbb{=}\, d
-								[\varlnot \varlnot (x)Lx
-									[a \,\mathbb{=}\, d, uni
-										[(x)Lx, uni
-											[a \,\mathbb{=}\, d, uni
-												[La
-													[Ld, open
-													]
-												]
-											]
-											[(x)Lx, uni
-												[La
-													[Ld
-														[La
-															[Ld, open
-															]
-														]
-													]
-												]
-											]
-										]
+	[\varlnot (\varlnot P \mathbin{\&} (\varlnot Q \to R))
+		[\varlnot (P \lor (\varlnot Q \mathbin{\&} \varlnot R))
+			[\varlnot P
+				[\varlnot (\varlnot Q \mathbin{\&} \varlnot R)
+					[\varlnot \varlnot P
+						[P, closed
+						]
+					]
+					[\varlnot (\varlnot Q \to R)
+						[\varlnot Q
+							[\varlnot R
+								[\varlnot \varlnot Q
+									[Q, closed
+									]
+								]
+								[\varlnot \varlnot R
+									[R, closed
 									]
 								]
 							]

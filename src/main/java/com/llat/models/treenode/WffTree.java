@@ -3,6 +3,7 @@ package com.llat.models.treenode;
 import com.llat.tools.TexPrintable;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -56,7 +57,6 @@ public class WffTree implements Copyable, TexPrintable {
         this.copyHelper(this, t);
         return t;
     }
-
 
     /**
      * Recursively prints the syntax tree.
