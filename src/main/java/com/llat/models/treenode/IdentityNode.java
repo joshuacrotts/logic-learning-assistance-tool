@@ -5,8 +5,12 @@ package com.llat.models.treenode;
  */
 public class IdentityNode extends WffTree {
 
+    private static final String DEFAULT_SYMBOL = "=";
+
+    private static final String DEFAULT_TEX_SYMBOL = "\\,\\mathbb{=}\\,";
+
     public IdentityNode() {
-        super("=", NodeType.IDENTITY);
+        super(DEFAULT_SYMBOL, NodeType.IDENTITY);
     }
 
     @Override
@@ -21,6 +25,11 @@ public class IdentityNode extends WffTree {
     @Override
     public String getStringRep() {
         return this.getChild(0).getStringRep() + " " + this.getSymbol() + " " + this.getChild(1).getStringRep();
+    }
+
+    @Override
+    public String getTexCommand() {
+        return this.getChild(0).getStringRep() + " " + DEFAULT_TEX_SYMBOL + " " + this.getChild(1).getStringRep();
     }
 
 }

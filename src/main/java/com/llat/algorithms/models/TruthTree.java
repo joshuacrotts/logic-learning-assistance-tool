@@ -4,6 +4,7 @@ import com.llat.algorithms.BaseTruthTreeGenerator;
 import com.llat.models.treenode.ConstantNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
+import com.llat.tools.TexPrintable;
 
 import java.util.*;
 
@@ -139,6 +140,48 @@ public class TruthTree implements Comparable<TruthTree> {
         }
         return (this.VALUE - _o.VALUE);
     }
+
+    public String getTex() {
+        StringBuilder sb = new StringBuilder();
+        this.getTexHelper(this, sb);
+        return sb.toString();
+    }
+
+    /**
+     *
+     * @param _tree
+     * @param _sb
+     */
+    private void getTexHelper(TruthTree _tree, StringBuilder _sb) {
+        if (_tree.isLeafNode()) {
+            _sb.append("[");
+            _sb.append(_tree.getWff().getTexCommand());
+            _sb.append(", " + (_tree.isClosed() ? "closed" : "open"));
+            _sb.append("]");
+            return;
+        }
+
+        _sb.append("[");
+        _sb.append(_tree.getWff().getTexCommand());
+        // Left and rights will need to branch, whereas just a left
+        // is a stack.
+        if (_tree.getLeft() != null && _tree.getRight() != null) {
+            _sb.append("\n");
+            getTexHelper(_tree.getLeft(), _sb);
+            _sb.append("\n");
+            getTexHelper(_tree.getRight(), _sb);
+        } else if (_tree.getLeft() != null) {
+            // If it's (x) or =, we can apply it multiple times.
+            if (_tree.getLeft().getWff().isUniversal()
+                    || _tree.getLeft().getWff().isIdentity()) {
+                _sb.append(", uni");
+            }
+            getTexHelper(_tree.getLeft(), _sb);
+        }
+        _sb.append("\n");
+        _sb.append("]");
+    }
+
 
     /**
      * TODO Document

@@ -10,14 +10,19 @@ public class VariableNode extends WffTree {
     }
 
     @Override
+    public WffTree copy() {
+        VariableNode or = new VariableNode(this.getSymbol());
+        return or;
+    }
+
+    @Override
     public String getStringRep() {
         return this.getSymbol();
     }
 
     @Override
-    public WffTree copy() {
-        VariableNode or = new VariableNode(this.getSymbol());
-        return or;
+    public String getTexCommand() {
+        return this.getSymbol();
     }
 
     @Override

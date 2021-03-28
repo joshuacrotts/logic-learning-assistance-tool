@@ -54,6 +54,15 @@ public class PredicateNode extends WffTree {
         return sb.toString();
     }
 
+    @Override
+    public String getTexCommand() {
+        StringBuilder sb = new StringBuilder(this.PREDICATE_LETTER);
+        for (WffTree ch : this.getChildren()) {
+            sb.append(ch.getTexCommand());
+        }
+        return sb.toString();
+    }
+
 
     public String getPredicateLetter() {
         return this.PREDICATE_LETTER;

@@ -7,7 +7,6 @@ import com.llat.models.treenode.IdentityNode;
 import com.llat.models.treenode.UniversalQuantifierNode;
 import com.llat.models.treenode.WffTree;
 
-import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 

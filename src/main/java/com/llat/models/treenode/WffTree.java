@@ -1,11 +1,13 @@
 package com.llat.models.treenode;
 
+import com.llat.tools.TexPrintable;
+
 import java.util.LinkedList;
 
 /**
  *
  */
-public class WffTree implements Copyable {
+public class WffTree implements Copyable, TexPrintable {
 
     /**
      * Defines the type of node that we're using. There should be only one
@@ -290,6 +292,14 @@ public class WffTree implements Copyable {
         StringBuilder str = new StringBuilder();
         for (WffTree ch : this.getChildren()) {
             str.append(ch.getStringRep());
+        }
+        return str.toString();
+    }
+
+    public String getTexCommand() {
+        StringBuilder str = new StringBuilder();
+        for (WffTree ch : this.getChildren()) {
+            str.append(ch.getTexCommand());
         }
         return str.toString();
     }

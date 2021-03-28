@@ -5,6 +5,8 @@ package com.llat.models.treenode;
  */
 public class UniversalQuantifierNode extends QuantifierNode {
 
+    private static final String DEFAULT_TEX_LABEL = "uni";
+
     public UniversalQuantifierNode(String _symbol, String _variableSymbol) {
         super(_symbol, _variableSymbol, NodeType.UNIVERSAL);
     }
@@ -31,5 +33,11 @@ public class UniversalQuantifierNode extends QuantifierNode {
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
         return this.getSymbol() + ch1.getStringRep();
+    }
+
+    @Override
+    public String getTexCommand() {
+        WffTree ch1 = this.getChild(0);
+        return "(" + this.getVariableSymbol() + ")" + ch1.getTexCommand();
     }
 }
