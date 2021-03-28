@@ -145,7 +145,7 @@ public class TruthTree implements Comparable<TruthTree> {
 
     public String getTex() {
         StringBuilder sb = new StringBuilder();
-        this.getTexHelper(this, sb);
+        this.getTexHelper(this, sb, 0);
         return sb.toString();
     }
 
@@ -154,36 +154,36 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _tree
      * @param _sb
      */
-    private void getTexHelper(TruthTree _tree, StringBuilder _sb) {
-        if (_tree.isLeafNode()) {
-            _sb.append("[");
-            _sb.append(_tree.getWff().getTexCommand());
-            _sb.append(", " + (_tree.isClosed() ? "closed" : "open"));
-            _sb.append("]");
+    private void getTexHelper(TruthTree _tree, StringBuilder _sb, int indent) {
+        if (_tree == null) {
             return;
         }
 
+        _sb.append("\t".repeat(indent));
         _sb.append("[");
         _sb.append(_tree.getWff().getTexCommand());
 
         // If it's a rule we can apply infinitely many times, add the asterisk.
-        if (_tree.getWff().isUniversal()
-                || _tree.getWff().isIdentity()) {
+        if (_tree.getWff().isUniversal() || _tree.getWff().isIdentity()) {
             _sb.append(", uni");
         }
 
-        // Left and rights will need to branch, whereas just a left
-        // is a stack.
-        _sb.append("\n");
-        if (_tree.getLeft() != null && _tree.getRight() != null) {
-            getTexHelper(_tree.getLeft(), _sb);
+        if (_tree.isLeafNode()) {
+            _sb.append(", " + (_tree.isClosed() ? "closed" : "open"));
+        } else {
+            // Left and rights will need to branch, whereas just a left is a stack.
             _sb.append("\n");
-            getTexHelper(_tree.getRight(), _sb);
-        } else if (_tree.getLeft() != null) {
-            getTexHelper(_tree.getLeft(), _sb);
+            if (_tree.getLeft() != null && _tree.getRight() != null) {
+                getTexHelper(_tree.getLeft(), _sb, indent + 1);
+                _sb.append("\n");
+                getTexHelper(_tree.getRight(), _sb, indent + 1);
+            } else if (_tree.getLeft() != null) {
+                getTexHelper(_tree.getLeft(), _sb, indent + 1);
+            }
         }
 
-        _sb.append("]");
+        _sb.append("\n");
+        _sb.append("\t".repeat(indent) + "]");
     }
 
 
@@ -392,7 +392,7 @@ public class TruthTree implements Comparable<TruthTree> {
                     _newRoot.setChild(i, new ConstantNode("" + _constant));
                 }
             }
-            replaceSymbol(_newRoot.getChild(i), _variableToReplace, _constant);
+            this.replaceSymbol(_newRoot.getChild(i), _variableToReplace, _constant);
         }
     }
 }
