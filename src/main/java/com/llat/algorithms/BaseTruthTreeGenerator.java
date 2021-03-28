@@ -155,6 +155,36 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
+     * Stacks an implication node in the truth tree.
+     * <p>
+     * The negated implication stacks as follows:
+     * <p>
+     * If we have ~(A -> B), then
+     * A AND ~B
+     * <p>
+     * is the resulting branch. If there are multiple leaves in the current TruthTree
+     * node, then this branch is applied to all of them.
+     *
+     * @param _negRoot    - Implication node.
+     * @param _leaves - list of leaves.
+     * @param _queue  - priority queue of nodes left to process.
+     */
+    protected void stackNegationImplication(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+        if (!(_negRoot.getWff().getChild(0) instanceof ImpNode)) {
+            throw new IllegalArgumentException("Error: negated implication child expects implication node but got " + _negRoot.getClass());
+        }
+        WffTree impNode = _negRoot.getWff().getChild(0);
+        for (TruthTree leaf : _leaves) {
+            if (!leaf.isClosed()) {
+                leaf.addCenter(new TruthTree(impNode.getChild(0), leaf));
+                leaf.getCenter().addCenter(new TruthTree(getNegatedNode(impNode.getChild(1)), leaf.getCenter()));
+                _queue.add(leaf.getCenter());
+                _queue.add(leaf.getCenter().getCenter());
+            }
+        }
+    }
+
+    /**
      * Branches an exclusive OR operator as follows:
      * (A XOR B)
      * <p>
@@ -345,16 +375,7 @@ public abstract class BaseTruthTreeGenerator {
             NegNode n1 = new NegNode();
             NegNode n2 = new NegNode();
 
-            // Add the two wffs that are going to be flipped to the negations.
-            // If we're negating an implication, it stacks a double negated A and ~B.
-            if (child.isImp()) {
-                NegNode n3 = new NegNode();
-                n3.addChild(child.getChild(0));
-                n1.addChild(n3);
-            } else {
-                n1.addChild(child.getChild(0));
-            }
-
+            n1.addChild(child.getChild(0));
             n2.addChild(child.getChild(1));
             negatedAtom.addChild(n1);
             negatedAtom.addChild(n2);
@@ -482,7 +503,7 @@ public abstract class BaseTruthTreeGenerator {
      * @throws IllegalArgumentException if tree is not an OrNode, ImpNode, or AndNode.
      */
     protected static WffTree getNegatedBinaryNode(WffTree _tree) {
-        if (_tree.isOr() || _tree.isImp()) {
+        if (_tree.isOr()) {
             return new AndNode();
         } else if (_tree.isAnd()) {
             return new OrNode();

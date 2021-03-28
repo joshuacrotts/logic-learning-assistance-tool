@@ -42,7 +42,12 @@ public final class PropositionalTruthTreeGenerator extends BaseTruthTreeGenerato
             if (curr.isNegation() && curr.getChild(0).isBicond()) {
                 // We handle biconditional negations differently since they're harder.
                 this.branchNegationBiconditional(tree, leaves, queue);
-            } else if (curr.isNegation() && !curr.getChild(0).isAtom() && !curr.getChild(0).isExclusiveOr()) {
+            } else if (curr.isNegation() && curr.getChild(0).isImp()) {
+                // We handle a negated implication differently.
+                this.stackNegationImplication(tree, leaves, queue);
+            } else if (curr.isNegExclusiveOr()) {
+                this.branchNegationExclusiveOr(tree, leaves, queue);
+            } else if (curr.isNegation() && !curr.getChild(0).isAtom()) {
                 // If the node is not a simple negation (~A), negate it.
                 this.distributeNegation(tree, leaves, queue);
             } else if (curr.isAnd()) {
@@ -55,8 +60,6 @@ public final class PropositionalTruthTreeGenerator extends BaseTruthTreeGenerato
                 this.branchBiconditional(tree, leaves, queue);
             } else if (curr.isExclusiveOr()) {
                 this.branchExclusiveOr(tree, leaves, queue);
-            } else if (curr.isNegExclusiveOr()) {
-                this.branchNegationExclusiveOr(tree, leaves, queue);
             }
         }
     }

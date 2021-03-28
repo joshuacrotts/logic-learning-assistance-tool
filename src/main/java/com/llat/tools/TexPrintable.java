@@ -1,2 +1,7 @@
-package com.llat.tools;public class TexPrintable {
+package com.llat.tools;
+
+public interface TexPrintable {
+
+    public String getTexCommand();
+
 }
