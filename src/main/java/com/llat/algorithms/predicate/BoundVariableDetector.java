@@ -51,6 +51,7 @@ public final class BoundVariableDetector {
             }
         }
 
+        // Pre-order bind variables.
         for (WffTree ch : T.getChildren()) {
             bound(ch, S, L);
         }

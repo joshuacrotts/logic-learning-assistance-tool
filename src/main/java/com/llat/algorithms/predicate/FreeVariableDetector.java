@@ -55,6 +55,7 @@ public final class FreeVariableDetector {
             }
         }
 
+        // Pre-order search for free variables.
         for (WffTree ch : T.getChildren()) {
             free(ch, S, L);
         }
