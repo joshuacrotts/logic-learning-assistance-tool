@@ -136,7 +136,7 @@ public class ParserTest {
                 System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
                 System.out.println("Truth Tree: ");
                 TruthTree predTruthTree = new PredicateTruthTreeGenerator(result).get();
-                TexTreePrinter texTreePrinter = new TexTreePrinter(predTruthTree, "latex_tree.out");
+                TexTreePrinter texTreePrinter = new TexTreePrinter(predTruthTree, "latex_tree.tex");
                 texTreePrinter.outputToFile();
             } else {
                 System.out.println("Truth Table: ");
