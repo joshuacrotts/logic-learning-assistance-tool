@@ -23,10 +23,10 @@ public final class BoundVariableDetector {
      * @return
      */
     public LinkedList<WffTree> get() {
-        LinkedHashSet<WffTree> S = new LinkedHashSet<>();
+        LinkedList<WffTree> S = new LinkedList<>();
         Stack<WffTree> L = new Stack<>();
         this.bound(this.wffTree, S, L);
-        return new LinkedList<>(S);
+        return S;
     }
 
     /**
@@ -34,7 +34,7 @@ public final class BoundVariableDetector {
      * @param S
      * @param L
      */
-    private void bound(WffTree T, LinkedHashSet<WffTree> S, Stack<WffTree> L) {
+    private void bound(WffTree T, LinkedList<WffTree> S, Stack<WffTree> L) {
         // Quantifiers are always the left-most child in a tree if they exist.
         if (T.isQuantifier()) {
             L.push(T);

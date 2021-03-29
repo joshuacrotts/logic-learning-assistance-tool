@@ -35,14 +35,48 @@
 \begin{document}
 \begin{forest}
 smullyan tableaux
-[((A \to B) \mathbin{\&} \varlnot (A \lor B))
-	[(A \to B)
-		[\varlnot (A \lor B)
-			[\varlnot A
-				[\varlnot B
-					[\varlnot A, open
+[(((x)(Lax \lor Max) \varliff Lax) \mathbin{\&} (\varlnot Sax \to Lax))
+	[((x)(Lax \lor Max) \varliff Lax)
+		[(\varlnot Sax \to Lax)
+			[\varlnot \varlnot Sax
+				[Sax
+					[(x)(Lax \lor Max), uni
+						[Lax
+							[(Laa \lor Maa)
+								[Laa, open
+								]
+								[Maa, open
+								]
+							]
+						]
 					]
-					[B, closed
+					[\varlnot (x)(Lax \lor Max)
+						[\varlnot Lax
+							[(\exists x)\varlnot (Lax \lor Max)
+								[\varlnot (Lab \lor Mab)
+									[\varlnot Lab
+										[\varlnot Mab, open
+										]
+									]
+								]
+							]
+						]
+					]
+				]
+			]
+			[Lax
+				[(x)(Lax \lor Max), uni
+					[Lax
+						[(Laa \lor Maa)
+							[Laa, open
+							]
+							[Maa, open
+							]
+						]
+					]
+				]
+				[\varlnot (x)(Lax \lor Max)
+					[\varlnot Lax, closed
 					]
 				]
 			]
