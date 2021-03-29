@@ -112,3 +112,24 @@
     -fx-text-fill: black;
     -fx-opacity: 1.0;
 }
+
+#parseTreeVBox, #truthTreeVBox {
+    -fx-background-color: derive(black, 90%);
+}
+
+#treeNode {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+    -fx-font-size: 30pt;
+}
+
+#treeNode {
+    -fx-background-insets: 0;
+}
+
+#treeNode:disabled {
+    -fx-text-fill: black;
+    -fx-opacity: 1.0;
+}

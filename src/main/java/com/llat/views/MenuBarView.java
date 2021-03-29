@@ -6,6 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 public class MenuBarView {
+    static int menuBarHeight = 45;
     Controller controller;
     MenuBar menuBar = new MenuBar();
     Menu fileMenu = new Menu("File");
@@ -14,11 +15,15 @@ public class MenuBarView {
     MenuItem exportItem = new MenuItem("Export");
     MenuItem exitItem = new MenuItem("Exit");
 
+
     public MenuBarView(Controller _controller) {
         this.controller = _controller;
         // Setting Menu fileMenu properties.
         this.fileMenu.getItems().addAll(this.newItem, this.openItem, this.exportItem, this.exitItem);
         // Setting MenuBar menuBar properties.
+        this.menuBar.setMinHeight(MenuBarView.menuBarHeight);
+        this.menuBar.setMaxHeight(MenuBarView.menuBarHeight);
+        // Adding children nodes to their parents nodes.
         this.menuBar.getMenus().addAll(this.fileMenu);
     }
 

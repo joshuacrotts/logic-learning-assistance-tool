@@ -24,20 +24,17 @@ public class FormulaInputView {
         this.stage = _controller.getStage();
         // Setting HBox parentHBox settings.
         this.formulaInputHBox.setId("formulaInputHBox");
-        this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.formulaInputHBox.setMinWidth(newVal.doubleValue());
-        });
-        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.formulaInputHBox.setMinHeight(newVal.doubleValue() * .05);
+        this.stage.widthProperty().addListener((obs, oldVal, newVal) -> { this.formulaInputHBox.setMinWidth(newVal.doubleValue()); });
+        this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.formulaInputHBox.setMaxHeight(newVal.doubleValue() * .10);
+            this.formulaInputHBox.setMinHeight(newVal.doubleValue() * .10);
         });
         this.formulaInputHBox.setAlignment(Pos.CENTER);
         this.formulaInputHBox.setFillHeight(true);
         this.formulaInputHBox.setSpacing(4);
         // Setting TextField formulaInputField settings.
         HBox.setHgrow(this.formulaInputField, Priority.ALWAYS);
-        this.formulaInputHBox.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.formulaInputField.setMaxWidth(newVal.doubleValue() * .50);
-        });
+        this.formulaInputHBox.widthProperty().addListener((obs, oldVal, newVal) -> { this.formulaInputField.setMaxWidth(newVal.doubleValue() * .50); });
         // Setting Button formulaInputButton settings.
         HBox.setHgrow(this.formulaInputButton, Priority.ALWAYS);
         // Adding children nodes to their parents nodes.

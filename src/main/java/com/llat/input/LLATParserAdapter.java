@@ -19,14 +19,11 @@ public class LLATParserAdapter {
      * @return WffTree representing abstract syntax tree.
      */
     public static WffTree getAbstractSyntaxTree(String _wff) {
-        System.out.println(_wff);
         CharStream charStream = CharStreams.fromString(_wff);
         LLATParserListener parser = LLATParserAdapter.parseStream(charStream);
         // For now, the errors are just printed in the tester class - if
         // JUnit is integrated, these should be removed so they align with
         // the tests.
-        LLATErrorListener.printErrors();
-        LLATErrorListener.printWarnings();
         WffTree result = parser.getSyntaxTree();
         return result;
     }

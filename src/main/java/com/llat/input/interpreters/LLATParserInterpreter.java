@@ -1,11 +1,12 @@
 package com.llat.input.interpreters;
 
 import com.llat.input.LLATParserAdapter;
-import com.llat.models.treenode.WffTree;
+import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.events.FormulaInputEvent;
+
 
 public class LLATParserInterpreter implements Listener {
 
@@ -15,10 +16,7 @@ public class LLATParserInterpreter implements Listener {
 
     @Override
     public void catchEvent(Event _event) {
-        if (_event instanceof FormulaInputEvent) {
-            WffTree wffTree = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula());
-            wffTree.printSyntaxTree();
-        }
+        if (_event instanceof FormulaInputEvent) { EventBus.throwEvent(new SolvedFormulaEvent(LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula()))); }
     }
 
 }
