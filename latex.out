@@ -1,0 +1,89 @@
+\documentclass[tikz,border=10pt]{standalone}
+\newcommand*\lif{\mathbin{\to}}% added thanks to egreg's suggestion
+\usepackage{forest}
+\usepackage{amsfonts}
+\newcommand{\varlnot}{\mathord{\sim}}
+\newcommand{\varland}{\mathbin{\&}}
+\newcommand{\varliff}{\leftrightarrow}
+\newcommand{\dneg}{\varlnot\varlnot}
+\forestset{
+  smullyan tableaux/.style={
+    for tree={
+        s sep'=20ex,
+        math content,
+        parent anchor=south,
+        child anchor=north
+    },
+    where n children=1{
+      !1.before computing xy={l=\baselineskip},
+      !1.no edge,
+    }{},
+    closed/.style={
+      label=below:$\times$
+    },
+    open/.style={
+      label=below:open
+    },
+    uni/.style={
+    label=right:*
+    },
+    uns/.style={
+    label=right:?
+    },
+  },
+}
+\begin{document}
+\begin{forest}
+smullyan tableaux
+[(A \mathbin{\&} (B \mathbin{\&} (C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))))))
+	[A
+		[(B \mathbin{\&} (C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))))))
+			[B
+				[(C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))))
+					[C
+						[(D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))))
+							[D
+								[(E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))
+									[E
+										[(F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))
+											[F
+												[(G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))
+													[G
+														[(H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))
+															[H
+																[(I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))
+																	[I
+																		[(J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))
+																			[J
+																				[(K \mathbin{\&} (L \mathbin{\&} M))
+																					[K
+																						[(L \mathbin{\&} M)
+																							[L
+																								[M, open
+																								]
+																							]
+																						]
+																					]
+																				]
+																			]
+																		]
+																	]
+																]
+															]
+														]
+													]
+												]
+											]
+										]
+									]
+								]
+							]
+						]
+					]
+				]
+			]
+		]
+	]
+]
+\end{forest}
+\end{document}

@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class EventBus {
-    private static ArrayList<Listener> listeners = new ArrayList<Listener>();
+    private static final ArrayList<Listener> listeners = new ArrayList<Listener>();
 
     public static void throwEvent(Event _event) {
         EventBus.listeners.forEach((listener) -> {

@@ -3,33 +3,31 @@
 │  └── ∼(x)((Px & Kx) → Cx)
 │     └── (∃x)~((Px & Kx) → Cx)
 │        └── ~((Pa & Ka) → Ca)
-│           └── ~~(Pa & Ka)
+│           └── (Pa & Ka)
 │              └── ~Ca
-│                 └── (Pa & Ka)
-│                    └── Pa
-│                       └── Ka
-│                          └── (Ca → (Pa & Ka))
-│                             ├── ~Ca open
-│                             └── (Pa & Ka)
-│                                └── Pa
-│                                   └── Ka open
+│                 └── Pa
+│                    └── Ka
+│                       └── (Ca → (Pa & Ka))
+│                          ├── ~Ca open
+│                          └── (Pa & Ka)
+│                             └── Pa
+│                                └── Ka open
 └── ~(y)(Cy → (Py & Ky))
    └── ~∼(x)((Px & Kx) → Cx)
       └── (x)((Px & Kx) → Cx)
          └── (∃y)~(Cy → (Py & Ky))
             └── ~(Ca → (Pa & Ka))
-               └── ~~Ca
+               └── Ca
                   └── ~(Pa & Ka)
-                     └── Ca
-                        ├── ~Pa
-                        │  └── ((Pa & Ka) → Ca)
-                        │     ├── ~(Pa & Ka)
-                        │     │  ├── ~Pa open
-                        │     │  └── ~Ka open
-                        │     └── Ca open
-                        └── ~Ka
-                           └── ((Pa & Ka) → Ca)
-                              ├── ~(Pa & Ka)
-                              │  ├── ~Pa open
-                              │  └── ~Ka open
-                              └── Ca open
+                     ├── ~Pa
+                     │  └── ((Pa & Ka) → Ca)
+                     │     ├── ~(Pa & Ka)
+                     │     │  ├── ~Pa open
+                     │     │  └── ~Ka open
+                     │     └── Ca open
+                     └── ~Ka
+                        └── ((Pa & Ka) → Ca)
+                           ├── ~(Pa & Ka)
+                           │  ├── ~Pa open
+                           │  └── ~Ka open
+                           └── Ca open

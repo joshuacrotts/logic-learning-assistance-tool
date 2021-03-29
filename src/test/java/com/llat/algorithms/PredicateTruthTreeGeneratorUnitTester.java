@@ -122,6 +122,26 @@ public class PredicateTruthTreeGeneratorUnitTester {
         goodFileTest("test020");
     }
 
+    @Test
+    public void test021() {
+        goodFileTest("test021");
+    }
+
+    @Test
+    public void test022() {
+        goodFileTest("test022");
+    }
+
+    @Test
+    public void test023() {
+        goodFileTest("test023");
+    }
+
+    @Test
+    public void test024() {
+        goodFileTest("test024");
+    }
+
     /**
      * Helper function to count number of newlines in a string
      *

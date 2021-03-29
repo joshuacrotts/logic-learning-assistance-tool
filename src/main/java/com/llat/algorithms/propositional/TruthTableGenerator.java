@@ -12,39 +12,40 @@ import java.util.*;
 public final class TruthTableGenerator {
 
     /**
-     *
+     * Maximum number of atoms that this algorithm can realistically handle before taking an eternity
+     * to generate the truth table.
      */
     private static final int MAX_ATOMS = 14;
 
     /**
-     *
+     * Root of WffTree to generate the truth table for.
      */
     private final WffTree wffTree;
 
     /**
-     *
+     * Alternating pattern of truth values for the atoms.
      */
-    private final HashMap<String, Integer> truthPattern;
+    private final LinkedHashMap<String, Integer> truthPattern;
 
     /**
-     *
+     * Stack of operands and operators to recursively evaluate when building the tree.
      */
     private final Stack<WffTree> operands;
 
     /**
-     *
+     * The number of atoms in this truth tree.
      */
     private final int size;
 
     /**
-     *
+     * The number of rows for this truth tree. Equal to 2^(size).
      */
     private final int rows;
 
     public TruthTableGenerator(WffTree _wffTree) {
         this.wffTree = _wffTree;
         this.operands = new Stack<>();
-        this.truthPattern = new HashMap<>();
+        this.truthPattern = new LinkedHashMap<>();
         this.size = getAtomCount(this.wffTree);
         this.rows = (int) Math.pow(2, this.size);
     }
@@ -71,19 +72,51 @@ public final class TruthTableGenerator {
      * Prints out the truth values for a WffTree in pre-order fashion.
      */
     public void print() {
-        printHelper(this.wffTree);
+        printHelper();
     }
 
     /**
-     * Recursive printing helper function.
+     * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
      *
-     * @param _tree
+     * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
+     *
+     * @return list of nodes in post-order.
      */
-    private void printHelper(WffTree _tree) {
-        for (WffTree ch : _tree.getChildren()) {
-            System.out.println(ch + ": " + ch.getTruthValues());
-            printHelper(ch);
+    public LinkedHashSet<WffTree> postorder() {
+        LinkedHashSet<WffTree> list = new LinkedHashSet<>();
+        this.postorderHelper(this.wffTree.getChild(0), list);
+        return list;
+    }
+
+    /**
+     * Function to print out the truth tree in a "table" fashion in the console. This, however, does not print
+     * the atoms at the start of the truth table.
+     */
+    private void printHelper() {
+        LinkedList<WffTree> postorderTraversal = new LinkedList<>(this.postorder());
+        int maxWidth = postorderTraversal.get(postorderTraversal.size() - 1).getStringRep().length();
+        for (WffTree tree : postorderTraversal) {
+            System.out.printf("%-" + maxWidth + "s : ", tree.getStringRep());
+            System.out.println(tree.getTruthValues());
         }
+    }
+
+    /**
+     * Performs a recursive post-order traversal on the WffTree.
+     *
+     * @param _tree - tree to search.
+     * @param _postorderList - list to continuously add to.
+     */
+    private void postorderHelper(WffTree _tree, HashSet<WffTree> _postorderList) {
+        if (_tree == null) {
+            return;
+        }
+
+        for (int i = 0; i < _tree.getChildrenSize(); i++) {
+            this.postorderHelper(_tree.getChild(i), _postorderList);
+        }
+
+        _postorderList.add(_tree);
     }
 
     /**

@@ -3,6 +3,8 @@ package com.llat.input.tests;
 import com.llat.LLATLexer;
 import com.llat.LLATParser;
 import com.llat.algorithms.MainOperatorDetector;
+import com.llat.algorithms.TexTreePrinter;
+import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
 import com.llat.algorithms.propositional.*;
 import com.llat.input.LLATErrorListener;
@@ -17,6 +19,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
+import java.util.function.Predicate;
 
 /**
  * Basic parser tester. Has a main() so can be run from the command line, with
@@ -132,7 +135,9 @@ public class ParserTest {
                 System.out.println("Closed sentence: " + new ClosedSentenceDeterminer(result).get());
                 System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
                 System.out.println("Truth Tree: ");
-                new PredicateTruthTreeGenerator(result).get();
+                TruthTree predTruthTree = new PredicateTruthTreeGenerator(result).get();
+                TexTreePrinter texTreePrinter = new TexTreePrinter(predTruthTree, "latex.out");
+                texTreePrinter.outputToFile();
             } else {
                 System.out.println("Truth Table: ");
                 TruthTableGenerator ttg = new TruthTableGenerator(result);
@@ -142,7 +147,9 @@ public class ParserTest {
                 System.out.println("Contradiction: " + new ContradictoryDeterminer(result).get());
                 System.out.println("Contingency: " + new ContingencyDeterminer(result).get());
                 System.out.println("Truth Tree: ");
-                new PropositionalTruthTreeGenerator(result).get();
+                TruthTree propTruthTree = new PropositionalTruthTreeGenerator(result).get();
+                TexTreePrinter texTreePrinter = new TexTreePrinter(propTruthTree, "latex.out");
+                texTreePrinter.outputToFile();
             }
         }
     }

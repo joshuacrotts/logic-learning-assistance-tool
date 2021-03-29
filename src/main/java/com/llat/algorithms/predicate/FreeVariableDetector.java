@@ -23,10 +23,10 @@ public final class FreeVariableDetector {
      * @return
      */
     public LinkedList<WffTree> get() {
-        LinkedHashSet<WffTree> S = new LinkedHashSet<>();
+        LinkedList<WffTree> S = new LinkedList<>();
         Stack<WffTree> L = new Stack<>();
         this.free(this.wffTree, S, L);
-        return new LinkedList<>(S);
+        return S;
     }
 
     /**
@@ -34,7 +34,7 @@ public final class FreeVariableDetector {
      * @param S
      * @param L
      */
-    private void free(WffTree T, LinkedHashSet<WffTree> S, Stack<WffTree> L) {
+    private void free(WffTree T, LinkedList<WffTree> S, Stack<WffTree> L) {
         // Quantifiers are always the left-most child in a tree if they exist.
         if (T.isQuantifier()) {
             L.push(T);

@@ -4,6 +4,7 @@ import com.llat.algorithms.BaseTruthTreeGenerator;
 import com.llat.models.treenode.ConstantNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
+import com.llat.tools.TexPrintable;
 
 import java.util.*;
 
@@ -26,6 +27,11 @@ import java.util.*;
  * (left and right) should not use this; it is used for the conjunction operator.
  */
 public class TruthTree implements Comparable<TruthTree> {
+
+    /**
+     *
+     */
+    private static int truthTreeCount = 0;
 
     /**
      * WffTree "value" for the TruthTree.
@@ -55,19 +61,27 @@ public class TruthTree implements Comparable<TruthTree> {
      * Order of precedence for this node (as described above).
      */
     private final int VALUE;
+
     /**
      * Left pointer.
      */
     private TruthTree left;
+
     /**
      * Right pointer.
      */
     private TruthTree right;
+
     /**
      * Flags for the Truth tree - determines the status (open/closed), and if
      * it is an identity truth tree.
      */
     private int flags;
+
+    /**
+     * Identifier number of this truth tree node in the tree itself.
+     */
+    private int identifierNo;
 
     public TruthTree(WffTree _node, TruthTree _parent) {
         //this.TRUTH_TREE = _truthTree;
@@ -75,6 +89,7 @@ public class TruthTree implements Comparable<TruthTree> {
         this.PARENT = _parent;
         this.AVAILABLE_CONSTANTS = new HashSet<>();
         this.SUBSTITUTIONS = new HashMap<>();
+        this.identifierNo = ++TruthTree.truthTreeCount;
 
         // Compute the union of the constants from the parent.
         if (_parent != null) {
@@ -92,21 +107,23 @@ public class TruthTree implements Comparable<TruthTree> {
         } else if (_node.isExistential()) {
             this.VALUE = 1;
         } else if (_node.isUniversal()) {
-            this.VALUE = 12;
+            // Universal HAS to be the last operation - if not, then we run the risk of applying it before we
+            // have a constant available.
+            this.VALUE = 13;
         } else if (_node.isAnd()) {
-            this.VALUE = 5;
-        } else if (_node.isNegOr() || _node.isNegImp()) {
             this.VALUE = 6;
-        } else if (_node.isOr()) {
+        } else if (_node.isNegOr() || _node.isNegImp()) {
             this.VALUE = 7;
-        } else if (_node.isNegAnd()) {
+        } else if (_node.isOr()) {
             this.VALUE = 8;
-        } else if (_node.isImp()) {
+        } else if (_node.isNegAnd()) {
             this.VALUE = 9;
-        } else if (_node.isBicond()) {
+        } else if (_node.isImp()) {
             this.VALUE = 10;
-        } else {
+        } else if (_node.isBicond()) {
             this.VALUE = 11;
+        } else {
+            this.VALUE = 12;
         }
     }
 
@@ -122,8 +139,59 @@ public class TruthTree implements Comparable<TruthTree> {
 
     @Override
     public int compareTo(TruthTree _o) {
-        return this.VALUE - _o.VALUE;
+        if (this.VALUE - _o.VALUE == 0) {
+            return this.identifierNo - _o.identifierNo;
+        }
+        return (this.VALUE - _o.VALUE);
     }
+
+    /**
+     *
+     * @return
+     */
+    public String getTex() {
+        StringBuilder sb = new StringBuilder();
+        this.getTexHelper(this, sb, 0);
+        return sb.toString();
+    }
+
+    /**
+     *
+     * @param _tree
+     * @param _sb
+     */
+    private void getTexHelper(TruthTree _tree, StringBuilder _sb, int indent) {
+        if (_tree == null) {
+            return;
+        }
+
+        _sb.append("\t".repeat(indent));
+        _sb.append("[");
+        _sb.append(_tree.getWff().getTexCommand());
+
+        // If it's a rule we can apply infinitely many times, add the asterisk.
+        if (_tree.getWff().isUniversal() || _tree.getWff().isIdentity()) {
+            _sb.append(", uni");
+        }
+
+        if (_tree.isLeafNode()) {
+            _sb.append(", " + (_tree.isClosed() ? "closed" : "open"));
+        } else {
+            // Left and rights will need to branch, whereas just a left is a stack.
+            _sb.append("\n");
+            if (_tree.getLeft() != null && _tree.getRight() != null) {
+                getTexHelper(_tree.getLeft(), _sb, indent + 1);
+                _sb.append("\n");
+                getTexHelper(_tree.getRight(), _sb, indent + 1);
+            } else if (_tree.getLeft() != null) {
+                getTexHelper(_tree.getLeft(), _sb, indent + 1);
+            }
+        }
+
+        _sb.append("\n");
+        _sb.append("\t".repeat(indent) + "]");
+    }
+
 
     /**
      * TODO Document
@@ -145,7 +213,7 @@ public class TruthTree implements Comparable<TruthTree> {
             if (!leaf.isClosed()) {
                 // Create a copy and replace the selected variable.
                 WffTree _newRoot = _existentialTruthTree.getWff().getChild(0).copy();
-                this.replaceVariable(_newRoot, _variableToReplace, constant);
+                this.replaceSymbol(_newRoot, _variableToReplace, constant);
 
                 // Add to the tree and the queue.
                 TruthTree truthTreeRoot = new TruthTree(_newRoot, leaf);
@@ -174,7 +242,7 @@ public class TruthTree implements Comparable<TruthTree> {
                 if (!l.isClosed()) {
                     // Create a copy and replace the selected variable.
                     WffTree _newRoot = _universalTruthTree.getWff().getChild(0).copy();
-                    this.replaceVariable(_newRoot, _variableToReplace, c);
+                    this.replaceSymbol(_newRoot, _variableToReplace, c);
 
                     // Add to the tree and the queue.
                     TruthTree _newRootTT = new TruthTree(_newRoot, leaf);
@@ -203,12 +271,38 @@ public class TruthTree implements Comparable<TruthTree> {
      */
     public void addIdentityConstant(TruthTree _identityTruthTree, LinkedList<TruthTree> _leaves,
                                     PriorityQueue<TruthTree> _queue) {
-//            WffTree w = _identityTruthTree.getWff();
-//
-//            for (TruthTree leaf : _leaves) {
-//                // Copy the old leaf and replace the constants.
-//                TruthTree  l = leaf;
-//            }
+        char constantOne = _identityTruthTree.getWff().getChild(0).getSymbol().charAt(0);
+        char constantTwo = _identityTruthTree.getWff().getChild(1).getSymbol().charAt(0);
+
+        // If the constants are the same, then there's really nothing we can do.
+        if (constantOne == constantTwo) {
+            return;
+        }
+
+        // Go from the leaf up.
+        for (TruthTree leaf : _leaves) {
+            if (!leaf.isClosed()) {
+                TruthTree curr = leaf.getParent();
+                TruthTree l = leaf;
+                // From the leaf, find a possible contradiction.
+                while (curr != null) {
+                    WffTree currWff = curr.getWff().copy();
+                    // If the node we find is closable AND it's not an identity operator, we can
+                    // try to replace the constant we found.
+                    if (currWff.isClosable() && !currWff.isIdentity() && !currWff.isNegIdentity()) {
+                        this.replaceSymbol(currWff, constantOne, constantTwo);
+                        if (!currWff.equals(curr.getWff())) {
+                            // Add to the tree and the queue.
+                            TruthTree _newRootTT = new TruthTree(currWff, l);
+                            l.addCenter(_newRootTT);
+                            _queue.add(_newRootTT);
+                            l = l.getCenter();
+                        }
+                    }
+                    curr = curr.getParent();
+                }
+            }
+        }
     }
 
     public boolean isLeafNode() {
@@ -289,23 +383,22 @@ public class TruthTree implements Comparable<TruthTree> {
     }
 
     /**
-     * Replaces a variable with a constant node in a WffTree. This is used when performing
-     * existential or universal decomposition.
+     * Replaces a variable or a constant with a constant node in a WffTree. This is used when performing
+     * existential, universal decomposition, or identity decomposition.
      *
      * @param _newRoot           - root of WffTree to modify.
      * @param _variableToReplace - variable that we want to replace e.g. (x) = x
      * @param _constant          - constant to replace variable with.
      */
-    private void replaceVariable(WffTree _newRoot, char _variableToReplace, char _constant) {
+    private void replaceSymbol(WffTree _newRoot, char _variableToReplace, char _constant) {
         for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
-            if (_newRoot.getChild(i).isVariable()) {
+            if (_newRoot.getChild(i).isVariable() || _newRoot.getChild(0).isConstant()) {
                 char v = _newRoot.getChild(i).getSymbol().charAt(0);
                 if (v == _variableToReplace) {
                     _newRoot.setChild(i, new ConstantNode("" + _constant));
-                    break;
                 }
             }
-            replaceVariable(_newRoot.getChild(i), _variableToReplace, _constant);
+            this.replaceSymbol(_newRoot.getChild(i), _variableToReplace, _constant);
         }
     }
 }

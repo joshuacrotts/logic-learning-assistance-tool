@@ -32,4 +32,10 @@ public class UniversalQuantifierNode extends QuantifierNode {
         WffTree ch1 = this.getChild(0);
         return this.getSymbol() + ch1.getStringRep();
     }
+
+    @Override
+    public String getTexCommand() {
+        WffTree ch1 = this.getChild(0);
+        return "(" + this.getVariableSymbol() + ")" + ch1.getTexCommand();
+    }
 }

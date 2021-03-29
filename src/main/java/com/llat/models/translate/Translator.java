@@ -11,6 +11,9 @@ import java.util.List;
 
 public class Translator {
 
+    /**
+     *
+     */
     public static final String GOOGLE_TRANSLATE_API = "https://script.google.com/macros/s/AKfycbxMv7Hc_lCWSvOXU1jbiDvAXv36PJRVdOII3z-3kH1H5KRjA4tkyt5p5Psqz52UUw2p/exec";
 
     public static void main(String[] args) throws IOException {
@@ -22,6 +25,16 @@ public class Translator {
         List<String> result = translateList("en", "ar", textList);
     }
 
+    /**
+     *
+     * @param langFrom
+     * @param langTo
+     * @param text
+     *
+     * @return
+     *
+     * @throws IOException
+     */
     private static String translate(String langFrom, String langTo, String text) throws IOException {
         // INSERT YOU URL HERE
         String urlStr = GOOGLE_TRANSLATE_API +

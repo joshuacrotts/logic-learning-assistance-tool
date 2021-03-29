@@ -1,11 +1,13 @@
 package com.llat.models.treenode;
 
+import com.llat.tools.TexPrintable;
+
 import java.util.LinkedList;
 
 /**
  *
  */
-public class WffTree implements Copyable {
+public class WffTree implements Copyable, TexPrintable {
 
     /**
      * Defines the type of node that we're using. There should be only one
@@ -55,7 +57,6 @@ public class WffTree implements Copyable {
         return t;
     }
 
-
     /**
      * Recursively prints the syntax tree.
      */
@@ -82,14 +83,21 @@ public class WffTree implements Copyable {
             // If the identity is of the form ~x=y, reverse it as ~y=x
             if (this.isNegation() && this.getChild(0).isIdentity()) {
                 StringBuilder i1r = new StringBuilder(w1.substring(1)).reverse();
+                i1r.insert(0, "~");
                 return i1r.compareTo(w2) == 0;
             } else if (o.isNegation() && o.getChild(0).isIdentity()) {
                 StringBuilder i2r = new StringBuilder(w2.substring(1)).reverse();
+                i2r.insert(0, "~");
                 return i2r.compareTo(w1) == 0;
             }
         }
 
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getStringRep().hashCode();
     }
 
     /**
@@ -181,6 +189,11 @@ public class WffTree implements Copyable {
     public boolean isNegExclusiveOr() {
         return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
                 this.getChild(0).NODE_TYPE == NodeType.XOR;
+    }
+
+    public boolean isNegIdentity() {
+        return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
+                this.getChild(0).NODE_TYPE == NodeType.IDENTITY;
     }
 
     public boolean isAnd() {
@@ -283,6 +296,14 @@ public class WffTree implements Copyable {
         StringBuilder str = new StringBuilder();
         for (WffTree ch : this.getChildren()) {
             str.append(ch.getStringRep());
+        }
+        return str.toString();
+    }
+
+    public String getTexCommand() {
+        StringBuilder str = new StringBuilder();
+        for (WffTree ch : this.getChildren()) {
+            str.append(ch.getTexCommand());
         }
         return str.toString();
     }

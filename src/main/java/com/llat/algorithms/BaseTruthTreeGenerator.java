@@ -146,11 +146,40 @@ public abstract class BaseTruthTreeGenerator {
 
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
-                // Create a new node to negate the lhs and branch.
                 leaf.addLeft(new TruthTree(getNegatedNode(_imp.getWff().getChild(0)), leaf));
                 leaf.addRight(new TruthTree(_imp.getWff().getChild(1), leaf));
                 _queue.add(leaf.getLeft());
                 _queue.add(leaf.getRight());
+            }
+        }
+    }
+
+    /**
+     * Stacks an implication node in the truth tree.
+     * <p>
+     * The negated implication stacks as follows:
+     * <p>
+     * If we have ~(A -> B), then
+     * A AND ~B
+     * <p>
+     * is the resulting branch. If there are multiple leaves in the current TruthTree
+     * node, then this branch is applied to all of them.
+     *
+     * @param _negRoot    - Implication node.
+     * @param _leaves - list of leaves.
+     * @param _queue  - priority queue of nodes left to process.
+     */
+    protected void stackNegationImplication(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+        if (!(_negRoot.getWff().getChild(0) instanceof ImpNode)) {
+            throw new IllegalArgumentException("Error: negated implication child expects implication node but got " + _negRoot.getClass());
+        }
+        WffTree impNode = _negRoot.getWff().getChild(0);
+        for (TruthTree leaf : _leaves) {
+            if (!leaf.isClosed()) {
+                leaf.addCenter(new TruthTree(impNode.getChild(0), leaf));
+                leaf.getCenter().addCenter(new TruthTree(getNegatedNode(impNode.getChild(1)), leaf.getCenter()));
+                _queue.add(leaf.getCenter());
+                _queue.add(leaf.getCenter().getCenter());
             }
         }
     }
@@ -171,7 +200,7 @@ public abstract class BaseTruthTreeGenerator {
      */
     protected void branchExclusiveOr(TruthTree _xorRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_xorRoot.getWff() instanceof ExclusiveOrNode)) {
-            throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _xorRoot.getClass());
+            throw new IllegalArgumentException("Error: branch exclusive or expects exclusive or node but got " + _xorRoot.getClass());
         }
 
         WffTree xorNode = _xorRoot.getWff();
@@ -210,7 +239,7 @@ public abstract class BaseTruthTreeGenerator {
      */
     protected void branchNegationExclusiveOr(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_negRoot.getWff().getChild(0) instanceof ExclusiveOrNode)) {
-            throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _negRoot.getClass());
+            throw new IllegalArgumentException("Error: branch negation exclusive or expects exclusive or node but got " + _negRoot.getClass());
         }
 
         WffTree xorNode = _negRoot.getWff().getChild(0);
@@ -293,8 +322,8 @@ public abstract class BaseTruthTreeGenerator {
                 leaf.getLeft().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(1)), leaf.getLeft()));
 
                 // Right subtree.
-                leaf.addRight(new TruthTree(bicondNode.getChild(1), leaf));
-                leaf.getRight().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf.getRight()));
+                leaf.addRight(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf));
+                leaf.getRight().addCenter(new TruthTree(bicondNode.getChild(1), leaf));
 
                 // Add them to the queue.
                 _queue.add(leaf.getLeft());
@@ -336,9 +365,7 @@ public abstract class BaseTruthTreeGenerator {
                 if (!leaf.isClosed()) {
                     enqueuedTTNode = new TruthTree(child.getChild(0), leaf);
                     leaf.addCenter(enqueuedTTNode);
-                    if (!enqueuedTTNode.getWff().isAtom()) {
-                        _queue.add(enqueuedTTNode);
-                    }
+                    _queue.add(enqueuedTTNode);
                 }
             }
         } else {
@@ -348,23 +375,13 @@ public abstract class BaseTruthTreeGenerator {
             NegNode n1 = new NegNode();
             NegNode n2 = new NegNode();
 
-            // Add the two wffs that are going to be flipped to the negations.
-            // If we're negating an implication, it stacks a double negated A and ~B.
-            if (child.isImp()) {
-                NegNode n3 = new NegNode();
-                n3.addChild(child.getChild(0));
-                n1.addChild(n3);
-            } else {
-                n1.addChild(child.getChild(0));
-            }
-
+            n1.addChild(child.getChild(0));
             n2.addChild(child.getChild(1));
             negatedAtom.addChild(n1);
             negatedAtom.addChild(n2);
             enqueuedTTNode = new TruthTree(negatedAtom, _negRoot);
 
-            // Call the respective branch/stack function.
-            // Removes De'Morgan's laws.
+            // Call the respective branch/stack function. Removes De'Morgan's laws.
             if (child.isAnd()) {
                 this.branchDisjunction(enqueuedTTNode, _leaves, _queue);
             } else {
@@ -486,7 +503,7 @@ public abstract class BaseTruthTreeGenerator {
      * @throws IllegalArgumentException if tree is not an OrNode, ImpNode, or AndNode.
      */
     protected static WffTree getNegatedBinaryNode(WffTree _tree) {
-        if (_tree.isOr() || _tree.isImp()) {
+        if (_tree.isOr()) {
             return new AndNode();
         } else if (_tree.isAnd()) {
             return new OrNode();

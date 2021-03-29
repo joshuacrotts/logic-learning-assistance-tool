@@ -7,7 +7,6 @@ import com.llat.models.treenode.IdentityNode;
 import com.llat.models.treenode.UniversalQuantifierNode;
 import com.llat.models.treenode.WffTree;
 
-import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -47,6 +46,11 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
             if (curr.isNegation() && curr.getChild(0).isBicond()) {
                 // We handle biconditional negations differently since they're harder.
                 this.branchNegationBiconditional(tree, leaves, queue);
+            } else if (curr.isNegation() && curr.getChild(0).isImp()) {
+                // We handle a negated implication differently.
+                this.stackNegationImplication(tree, leaves, queue);
+            } else if (curr.isNegExclusiveOr()) {
+                this.branchNegationExclusiveOr(tree, leaves, queue);
             } else if (curr.isNegation() && !curr.getChild(0).isPredicate() && !curr.getChild(0).isQuantifier() && !curr.getChild(0).isIdentity()) {
                 // If the node is not a simple negation (~A) AND it's not a quantifier, negate it.
                 this.distributeNegation(tree, leaves, queue);

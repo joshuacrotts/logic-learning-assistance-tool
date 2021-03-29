@@ -11,6 +11,11 @@ public class NegNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "~";
 
+    /**
+     *
+     */
+    private static final String DEFAULT_TEX_SYMBOL = "\\varlnot";
+
     public NegNode(String _symbol) {
         super(_symbol, NodeType.NEG);
     }
@@ -32,5 +37,11 @@ public class NegNode extends WffTree {
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
         return this.getSymbol() + ch1.getStringRep();
+    }
+
+    @Override
+    public String getTexCommand() {
+        WffTree ch1 = this.getChild(0);
+        return DEFAULT_TEX_SYMBOL + " " + ch1.getTexCommand();
     }
 }

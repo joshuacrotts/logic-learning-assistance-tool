@@ -28,5 +28,4 @@ public class FormulaInputInterpreter implements Listener {
             EventBus.throwEvent(new FormulaInputEvent(this.formulaInputView.getFormulaInputField().getText()));
         }
     }
-
 }

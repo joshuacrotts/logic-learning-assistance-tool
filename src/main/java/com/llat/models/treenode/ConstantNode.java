@@ -21,6 +21,11 @@ public class ConstantNode extends WffTree {
     }
 
     @Override
+    public String getTexCommand() {
+        return this.getSymbol();
+    }
+
+    @Override
     public String toString() {
         return super.toString() + ": " + super.getSymbol();
     }
