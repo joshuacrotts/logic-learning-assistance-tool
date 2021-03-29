@@ -7,7 +7,7 @@ import java.util.List;
 public class GoogleCloudDatabase implements DatabaseInterface {
     public static final String CREDENTIALS_STRING = "jdbc:mysql://35.202.75.240:3306/llat";
 
-    static Connection connection = null;
+    private static Connection connection = null;
 
     public UserObject getUser(int UserId) {
         UserObject user = null;

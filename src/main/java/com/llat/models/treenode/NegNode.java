@@ -11,6 +11,9 @@ public class NegNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "~";
 
+    /**
+     *
+     */
     private static final String DEFAULT_TEX_SYMBOL = "\\varlnot";
 
     public NegNode(String _symbol) {

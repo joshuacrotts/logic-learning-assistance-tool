@@ -38,7 +38,6 @@ public class ExclusiveOrNode extends WffTree {
         return "(" + ch1.getStringRep() + " " + this.getSymbol() + " " + ch2.getStringRep() + ")";
     }
 
-
     @Override
     public String getTexCommand() {
         WffTree ch1 = this.getChild(0);

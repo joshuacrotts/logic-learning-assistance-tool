@@ -12,6 +12,9 @@ public class BicondNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "<->";
 
+    /**
+     *
+     */
     private static final String DEFAULT_TEX_SYMBOL = "\\varliff";
 
     public BicondNode(String _symbol) {

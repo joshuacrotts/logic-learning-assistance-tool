@@ -11,6 +11,9 @@ public class OrNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "∨";
 
+    /**
+     *
+     */
     private static final String DEFAULT_TEX_SYMBOL = "\\lor";
 
     public OrNode(String _symbol) {

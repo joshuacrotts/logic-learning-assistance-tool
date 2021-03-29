@@ -6,8 +6,7 @@ import com.llat.models.treenode.WffTree;
 public class TautologyDeterminer {
 
     /**
-     * WffTree object used in the algorithm. This should be a propositional
-     * wff.
+     * WffTree object used in the algorithm. This should be a propositional wff.
      */
     private WffTree wffTree;
 
@@ -35,7 +34,6 @@ public class TautologyDeterminer {
                 return false;
             }
         }
-
         return true;
     }
 }

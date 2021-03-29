@@ -5,8 +5,14 @@ package com.llat.models.treenode;
  */
 public class IdentityNode extends WffTree {
 
+    /**
+     *
+     */
     private static final String DEFAULT_SYMBOL = "=";
 
+    /**
+     *
+     */
     private static final String DEFAULT_TEX_SYMBOL = "\\,\\mathbb{=}\\,";
 
     public IdentityNode() {

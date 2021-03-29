@@ -115,6 +115,7 @@ public final class TruthTableGenerator {
         for (int i = 0; i < _tree.getChildrenSize(); i++) {
             this.postorderHelper(_tree.getChild(i), _postorderList);
         }
+
         _postorderList.add(_tree);
     }
 

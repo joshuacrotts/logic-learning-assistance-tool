@@ -12,18 +12,15 @@ public class DatabaseAdapter implements DatabaseInterface {
     @Override
     public void Register(String _userName, String _password, String _firstName, String _lastName) {
         db.Register(_userName, _password, _firstName, _lastName);
-
     }
 
     @Override
     public void UpdateTheme(int id, String Theme) {
         db.UpdateTheme(id, Theme);
-
     }
 
     @Override
     public void UpdateLanguage(int id, String Language) {
         db.UpdateLanguage(id, Language);
-
     }
 }

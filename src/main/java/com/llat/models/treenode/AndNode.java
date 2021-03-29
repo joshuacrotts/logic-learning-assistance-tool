@@ -14,6 +14,9 @@ public class AndNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "&";
 
+    /**
+     *
+     */
     private static final String DEFAULT_TEX_SYMBOL = "\\mathbin{\\&}";
 
     public AndNode(String _symbol) {

@@ -5,8 +5,6 @@ package com.llat.models.treenode;
  */
 public class UniversalQuantifierNode extends QuantifierNode {
 
-    private static final String DEFAULT_TEX_LABEL = "uni";
-
     public UniversalQuantifierNode(String _symbol, String _variableSymbol) {
         super(_symbol, _variableSymbol, NodeType.UNIVERSAL);
     }

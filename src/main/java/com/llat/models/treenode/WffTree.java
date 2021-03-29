@@ -3,7 +3,6 @@ package com.llat.models.treenode;
 import com.llat.tools.TexPrintable;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *

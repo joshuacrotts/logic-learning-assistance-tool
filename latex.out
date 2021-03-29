@@ -35,48 +35,50 @@
 \begin{document}
 \begin{forest}
 smullyan tableaux
-[(((x)(Lax \lor Max) \varliff Lax) \mathbin{\&} (\varlnot Sax \to Lax))
-	[((x)(Lax \lor Max) \varliff Lax)
-		[(\varlnot Sax \to Lax)
-			[\varlnot \varlnot Sax
-				[Sax
-					[(x)(Lax \lor Max), uni
-						[Lax
-							[(Laa \lor Maa)
-								[Laa, open
-								]
-								[Maa, open
-								]
-							]
-						]
-					]
-					[\varlnot (x)(Lax \lor Max)
-						[\varlnot Lax
-							[(\exists x)\varlnot (Lax \lor Max)
-								[\varlnot (Lab \lor Mab)
-									[\varlnot Lab
-										[\varlnot Mab, open
+[(A \mathbin{\&} (B \mathbin{\&} (C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))))))
+	[A
+		[(B \mathbin{\&} (C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))))))
+			[B
+				[(C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))))
+					[C
+						[(D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))))
+							[D
+								[(E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))
+									[E
+										[(F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))
+											[F
+												[(G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))
+													[G
+														[(H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))
+															[H
+																[(I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))
+																	[I
+																		[(J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))
+																			[J
+																				[(K \mathbin{\&} (L \mathbin{\&} M))
+																					[K
+																						[(L \mathbin{\&} M)
+																							[L
+																								[M, open
+																								]
+																							]
+																						]
+																					]
+																				]
+																			]
+																		]
+																	]
+																]
+															]
+														]
+													]
+												]
+											]
 										]
 									]
 								]
 							]
 						]
-					]
-				]
-			]
-			[Lax
-				[(x)(Lax \lor Max), uni
-					[Lax
-						[(Laa \lor Maa)
-							[Laa, open
-							]
-							[Maa, open
-							]
-						]
-					]
-				]
-				[\varlnot (x)(Lax \lor Max)
-					[\varlnot Lax, closed
 					]
 				]
 			]

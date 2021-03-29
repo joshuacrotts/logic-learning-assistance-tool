@@ -11,6 +11,9 @@ public class ImpNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "->";
 
+    /**
+     *
+     */
     private static final String DEFAULT_TEX_SYMBOL = "\\to";
 
     public ImpNode(String _symbol) {

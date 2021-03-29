@@ -10,6 +10,9 @@ public class ExistentialQuantifierNode extends QuantifierNode {
      */
     private static final String DEFAULT_SYMBOL = "∃";
 
+    /**
+     *
+     */
     private static final String DEFAULT_TEX_SYMBOL = "\\exists";
 
     public ExistentialQuantifierNode(String _symbol, String _variableSymbol) {

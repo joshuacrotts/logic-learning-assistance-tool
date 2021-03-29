@@ -61,10 +61,12 @@ public class TruthTree implements Comparable<TruthTree> {
      * Order of precedence for this node (as described above).
      */
     private final int VALUE;
+
     /**
      * Left pointer.
      */
     private TruthTree left;
+
     /**
      * Right pointer.
      */
@@ -77,7 +79,7 @@ public class TruthTree implements Comparable<TruthTree> {
     private int flags;
 
     /**
-     *
+     * Identifier number of this truth tree node in the tree itself.
      */
     private int identifierNo;
 
@@ -143,6 +145,10 @@ public class TruthTree implements Comparable<TruthTree> {
         return (this.VALUE - _o.VALUE);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTex() {
         StringBuilder sb = new StringBuilder();
         this.getTexHelper(this, sb, 0);

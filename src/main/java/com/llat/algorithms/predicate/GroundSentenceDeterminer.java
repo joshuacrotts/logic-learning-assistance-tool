@@ -32,11 +32,9 @@ public class GroundSentenceDeterminer {
                 if (ch.isVariable()) {
                     return false;
                 }
-
                 queue.add(ch);
             }
         }
-
         return true;
     }
 }

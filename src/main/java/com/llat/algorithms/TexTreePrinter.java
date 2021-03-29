@@ -6,12 +6,24 @@ import java.io.*;
 
 public class TexTreePrinter {
 
+    /**
+     * Truth tree to print to the output file.
+     */
     private final TruthTree TRUTH_TREE;
 
+    /**
+     * Output file to print to.
+     */
     private final String OUTPUT_FILE;
 
+    /**
+     * BufferedWriter object.
+     */
     private BufferedWriter writer;
 
+    /**
+     * BufferedReader object to read the template in.
+     */
     private BufferedReader reader;
 
     public TexTreePrinter(TruthTree _tree, String _outputFile) {
@@ -24,6 +36,9 @@ public class TexTreePrinter {
         }
     }
 
+    /**
+     *
+     */
     public void outputToFile() {
         try {
             this.reader = new BufferedReader(new FileReader("src/main/resources/tex_template.tex"));
