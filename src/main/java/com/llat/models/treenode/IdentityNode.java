@@ -22,6 +22,7 @@ public class IdentityNode extends WffTree {
     @Override
     public IdentityNode copy() {
         IdentityNode identity = new IdentityNode();
+        identity.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
             identity.addChild(ch.copy());
         }

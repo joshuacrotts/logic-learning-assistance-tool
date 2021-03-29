@@ -20,6 +20,7 @@ public class UniversalQuantifierNode extends QuantifierNode {
     @Override
     public WffTree copy() {
         UniversalQuantifierNode universalCopy = new UniversalQuantifierNode(this.getSymbol(), this.getVariableSymbol());
+        universalCopy.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
             universalCopy.addChild(ch.copy());
         }

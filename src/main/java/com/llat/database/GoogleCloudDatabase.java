@@ -146,7 +146,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
 
             }
 
-            if(user == null) {
+            if (user == null) {
                 return user;
 
             }

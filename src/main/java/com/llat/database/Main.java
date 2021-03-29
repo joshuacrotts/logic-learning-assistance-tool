@@ -1,7 +1,5 @@
 package com.llat.database;
 
-import javafx.scene.chart.PieChart;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -16,10 +14,9 @@ public class Main {
 
         DatabaseAdapter Adapter = new DatabaseAdapter();
         UserObject User = Adapter.Login("Hdog", "15151324");
-        if(User == null){
+        if (User == null) {
             System.out.println("Wrong UserName or Password");
-        }
-        else {
+        } else {
             int UserID = User.getUserId();
             System.out.println(User);
         }

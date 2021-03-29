@@ -1,11 +1,9 @@
 package com.llat.algorithms.models;
 
 import com.llat.algorithms.BaseTruthTreeGenerator;
-import com.llat.input.LLATErrorListener;
 import com.llat.models.treenode.ConstantNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
-import com.llat.tools.TexPrintable;
 
 import java.util.*;
 
@@ -165,47 +163,6 @@ public class TruthTree implements Comparable<TruthTree> {
         this.getTexTreeHelper(this, sb, 0);
         return sb.toString();
     }
-
-    /**
-     * Searches through the tree in preorder to build a LaTeX version of it.
-     * We use the forest package with a premade template.
-     *
-     * @param _tree - TruthTree object to start from.
-     * @param _sb - StringBuilder to continuously concatenate to.
-     * @param _indent - level of indentation for the current brackets.
-     */
-    private void getTexTreeHelper(TruthTree _tree, StringBuilder _sb, int _indent) {
-        if (_tree == null) {
-            return;
-        }
-
-        _sb.append("\t".repeat(_indent));
-        _sb.append("[");
-        _sb.append(_tree.getWff().getTexCommand());
-
-        // If it's a rule we can apply infinitely many times, add the asterisk.
-        if (_tree.getWff().isUniversal() || _tree.getWff().isIdentity()) {
-            _sb.append(", uni");
-        }
-
-        if (_tree.isLeafNode()) {
-            _sb.append(", " + (_tree.isClosed() ? "closed" : "open"));
-        } else {
-            // Left and rights will need to branch, whereas just a left is a stack.
-            _sb.append("\n");
-            if (_tree.getLeft() != null && _tree.getRight() != null) {
-                this.getTexTreeHelper(_tree.getLeft(), _sb, _indent + 1);
-                _sb.append("\n");
-                this.getTexTreeHelper(_tree.getRight(), _sb, _indent + 1);
-            } else if (_tree.getLeft() != null) {
-                this.getTexTreeHelper(_tree.getLeft(), _sb, _indent + 1);
-            }
-        }
-
-        _sb.append("\n");
-        _sb.append("\t".repeat(_indent) + "]");
-    }
-
 
     /**
      * TODO Document
@@ -394,6 +351,46 @@ public class TruthTree implements Comparable<TruthTree> {
             leafSignal = this.isClosed() ? "X" : "open";
         }
         return this.getWff().getStringRep() + " " + leafSignal;
+    }
+
+    /**
+     * Searches through the tree in preorder to build a LaTeX version of it.
+     * We use the forest package with a premade template.
+     *
+     * @param _tree   - TruthTree object to start from.
+     * @param _sb     - StringBuilder to continuously concatenate to.
+     * @param _indent - level of indentation for the current brackets.
+     */
+    private void getTexTreeHelper(TruthTree _tree, StringBuilder _sb, int _indent) {
+        if (_tree == null) {
+            return;
+        }
+
+        _sb.append("\t".repeat(_indent));
+        _sb.append("[");
+        _sb.append(_tree.getWff().getTexCommand());
+
+        // If it's a rule we can apply infinitely many times, add the asterisk.
+        if (_tree.getWff().isUniversal() || _tree.getWff().isIdentity()) {
+            _sb.append(", uni");
+        }
+
+        if (_tree.isLeafNode()) {
+            _sb.append(", " + (_tree.isClosed() ? "closed" : "open"));
+        } else {
+            // Left and rights will need to branch, whereas just a left is a stack.
+            _sb.append("\n");
+            if (_tree.getLeft() != null && _tree.getRight() != null) {
+                this.getTexTreeHelper(_tree.getLeft(), _sb, _indent + 1);
+                _sb.append("\n");
+                this.getTexTreeHelper(_tree.getRight(), _sb, _indent + 1);
+            } else if (_tree.getLeft() != null) {
+                this.getTexTreeHelper(_tree.getLeft(), _sb, _indent + 1);
+            }
+        }
+
+        _sb.append("\n");
+        _sb.append("\t".repeat(_indent) + "]");
     }
 
     /**

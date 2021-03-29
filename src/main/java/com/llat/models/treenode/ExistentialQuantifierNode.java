@@ -30,6 +30,7 @@ public class ExistentialQuantifierNode extends QuantifierNode {
     @Override
     public WffTree copy() {
         ExistentialQuantifierNode existentialCopy = new ExistentialQuantifierNode(this.getSymbol(), this.getVariableSymbol());
+        existentialCopy.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
             existentialCopy.addChild(ch.copy());
         }

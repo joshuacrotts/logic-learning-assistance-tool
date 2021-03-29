@@ -29,6 +29,25 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
         this.aClass = _objectClass;
     }
 
+    @Override
+    public void update(Object _obj, String _jsonFilePath) {
+        String filePath = App.class.getResource("/" + _jsonFilePath).getPath();
+        try {
+            Writer writer = new FileWriter(filePath);
+            gson.toJson(_obj, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public LocalStorage getData() {
+        String jsonString = readJsonFile(json);
+        LocalStorage x = gson.fromJson(jsonString, aClass);
+        return x;
+    }
+
     /**
      * This method is reading a giving file name that is stored in the `resources` folder and return it as
      * a string.
@@ -49,24 +68,5 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
             e.printStackTrace();
         }
         return result;
-    }
-
-    @Override
-    public void update(Object _obj, String _jsonFilePath) {
-        String filePath = App.class.getResource("/" + _jsonFilePath).getPath();
-        try {
-            Writer writer = new FileWriter(filePath);
-            gson.toJson(_obj, writer);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public LocalStorage getData() {
-        String jsonString = readJsonFile(json);
-        LocalStorage x = gson.fromJson(jsonString, aClass);
-        return x;
     }
 }

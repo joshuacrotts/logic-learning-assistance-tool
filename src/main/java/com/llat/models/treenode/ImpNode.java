@@ -26,11 +26,12 @@ public class ImpNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        ImpNode or = new ImpNode(this.getSymbol());
+        ImpNode impNode = new ImpNode(this.getSymbol());
+        impNode.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
-            or.addChild(ch.copy());
+            impNode.addChild(ch.copy());
         }
-        return or;
+        return impNode;
     }
 
     @Override

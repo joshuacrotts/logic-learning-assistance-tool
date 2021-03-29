@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
-public class TexTablePrinter {
+public final class TexTablePrinter {
 
     /**
      * Truth tree to print to the output file.
@@ -78,7 +78,6 @@ public class TexTablePrinter {
      *
      * @param _set - set of WffTree nodes that are collected in postorder prior to
      *             this method.
-     *
      * @return String representation of the TeX file.
      */
     private String getTexTable(LinkedHashSet<WffTree> _set) {

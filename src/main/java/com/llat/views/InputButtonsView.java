@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 public class InputButtonsView {
@@ -26,24 +27,37 @@ public class InputButtonsView {
     SymbolButton implicationButton = new SymbolButton(this.obj.getImplication());
     SymbolButton turnstileButton = new SymbolButton(this.obj.getTurnstile());
     SymbolButton doubleTurnstileButton = new SymbolButton(this.obj.getDoubleTurnstile());
-    ArrayList <SymbolButton> propositionalLogicButtons = new ArrayList <SymbolButton>() {{ add(conjunctionButton); add(disjunctionButton); add(negationButton); add(exclusiveDisjunctionButton);
-                                                                             add(equivalenceButton); add(implicationButton); add(turnstileButton); add(doubleTurnstileButton); }};
+    ArrayList<SymbolButton> propositionalLogicButtons = new ArrayList<SymbolButton>() {{
+        add(conjunctionButton);
+        add(disjunctionButton);
+        add(negationButton);
+        add(exclusiveDisjunctionButton);
+        add(equivalenceButton);
+        add(implicationButton);
+        add(turnstileButton);
+        add(doubleTurnstileButton);
+    }};
     Region belowPropositionalLogicPane = new Region();
     Label predicateLogicLabel = new Label("Predicate Logic");
     GridPane predicateLogicPane = new GridPane();
     SymbolButton existentialQuantifierButton = new SymbolButton(this.obj.getExistential());
     SymbolButton universalQuantifierButton = new SymbolButton(this.obj.getUniversal());
-    ArrayList <SymbolButton> predicateLogicButtons = new ArrayList <SymbolButton> () {{ add(existentialQuantifierButton); add(universalQuantifierButton); }};
+    ArrayList<SymbolButton> predicateLogicButtons = new ArrayList<SymbolButton>() {{
+        add(existentialQuantifierButton);
+        add(universalQuantifierButton);
+    }};
     InputButtonInterpreter inputButtonInterpreter;
 
-    public InputButtonsView (Controller _controller) {
+    public InputButtonsView(Controller _controller) {
         this.controller = _controller;
         this.stage = this.controller.getStage();
         // Setting VBox inputButtonVBox properties.
         this.inputButtonVBox.setId("inputButtonVBox");
         this.inputButtonVBox.setSpacing(0);
         this.inputButtonVBox.setAlignment(Pos.TOP_CENTER);
-        this.stage.widthProperty().addListener((obs, oldVal, newVal) -> { this.inputButtonVBox.setMinWidth(newVal.doubleValue() * .20); });
+        this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.inputButtonVBox.setMinWidth(newVal.doubleValue() * .20);
+        });
         // Setting Region abovePropositionalLogicLabel settings.
         this.inputButtonVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.abovePropositionalLogicLabel.setMinHeight(newVal.doubleValue() * .03);
@@ -54,19 +68,25 @@ public class InputButtonsView {
         // Setting GridPane propositionalLogicPane settings.
         this.propositionalLogicPane.setHgap(4);
         this.propositionalLogicPane.setVgap(4);
-        this.inputButtonVBox.widthProperty().addListener((obs, oldVal, newVal) -> { this.propositionalLogicPane.setMaxSize(newVal.doubleValue() / 2, newVal.doubleValue() / 4); });
+        this.inputButtonVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.propositionalLogicPane.setMaxSize(newVal.doubleValue() / 2, newVal.doubleValue() / 4);
+        });
         this.propositionalLogicPane.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), new ColumnConstraints(), new ColumnConstraints());
         this.propositionalLogicPane.getRowConstraints().addAll(new RowConstraints(), new RowConstraints());
-        this.propositionalLogicPane.getColumnConstraints().forEach((constraint) -> { constraint.setPercentWidth(25); });
-        this.propositionalLogicPane.getRowConstraints().forEach((constraint) -> { constraint.setPercentHeight(50); });
+        this.propositionalLogicPane.getColumnConstraints().forEach((constraint) -> {
+            constraint.setPercentWidth(25);
+        });
+        this.propositionalLogicPane.getRowConstraints().forEach((constraint) -> {
+            constraint.setPercentHeight(50);
+        });
         this.propositionalLogicPane.setAlignment(Pos.TOP_CENTER);
         // Setting Buttons propositionalLogicButtons properties.
         int rowCount = 0;
         for (SymbolButton curButton : this.propositionalLogicButtons) {
             curButton.setId("propositionalLogicButton");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            GridPane.setRowIndex(curButton,rowCount / 4);
-            GridPane.setColumnIndex(curButton,rowCount % 4);
+            GridPane.setRowIndex(curButton, rowCount / 4);
+            GridPane.setColumnIndex(curButton, rowCount % 4);
             this.propositionalLogicPane.getChildren().add(curButton);
             rowCount++;
         }
@@ -78,11 +98,17 @@ public class InputButtonsView {
         // Setting GridPane predicateLogicPane settings.
         this.predicateLogicPane.setHgap(4);
         this.predicateLogicPane.setVgap(4);
-        this.inputButtonVBox.widthProperty().addListener((obs, oldVal, newVal) -> { this.predicateLogicPane.setMaxSize(newVal.doubleValue() / 2, newVal.doubleValue() / 4); });
+        this.inputButtonVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.predicateLogicPane.setMaxSize(newVal.doubleValue() / 2, newVal.doubleValue() / 4);
+        });
         this.predicateLogicPane.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints());
         this.predicateLogicPane.getRowConstraints().addAll(new RowConstraints());
-        this.predicateLogicPane.getColumnConstraints().forEach((constraint) -> { constraint.setPercentWidth(25); });
-        this.predicateLogicPane.getRowConstraints().forEach((constraint) -> { constraint.setPercentHeight(50); });
+        this.predicateLogicPane.getColumnConstraints().forEach((constraint) -> {
+            constraint.setPercentWidth(25);
+        });
+        this.predicateLogicPane.getRowConstraints().forEach((constraint) -> {
+            constraint.setPercentHeight(50);
+        });
         this.predicateLogicPane.setAlignment(Pos.TOP_CENTER);
         // Setting Label predicateLogicLabel settings.
         this.predicateLogicLabel.setId("predicateLogicLabel");
@@ -91,21 +117,27 @@ public class InputButtonsView {
         for (SymbolButton curButton : this.predicateLogicButtons) {
             curButton.setId("predicateLogicButton");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            GridPane.setRowIndex(curButton,rowCount / 4);
-            GridPane.setColumnIndex(curButton,rowCount % 4);
+            GridPane.setRowIndex(curButton, rowCount / 4);
+            GridPane.setColumnIndex(curButton, rowCount % 4);
             this.predicateLogicPane.getChildren().add(curButton);
             rowCount++;
         }
         // Adding children nodes to their parents nodes.
         this.inputButtonVBox.getChildren().addAll(this.abovePropositionalLogicLabel, this.propositionalLogicLabel, this.propositionalLogicPane, this.belowPropositionalLogicPane, this.predicateLogicLabel, this.predicateLogicPane);
         // Creating interpreter to handle events and actions.
-        this.inputButtonInterpreter = new InputButtonInterpreter(this.controller,this);
+        this.inputButtonInterpreter = new InputButtonInterpreter(this.controller, this);
     }
 
-    public ArrayList<SymbolButton> getPropositionalLogicButtons () { return this.propositionalLogicButtons; }
+    public ArrayList<SymbolButton> getPropositionalLogicButtons() {
+        return this.propositionalLogicButtons;
+    }
 
-    public ArrayList<SymbolButton> getPredicateLogicButtons () { return this.predicateLogicButtons;}
+    public ArrayList<SymbolButton> getPredicateLogicButtons() {
+        return this.predicateLogicButtons;
+    }
 
-    public Pane getParentPane() { return this.inputButtonVBox; }
+    public Pane getParentPane() {
+        return this.inputButtonVBox;
+    }
 
 }

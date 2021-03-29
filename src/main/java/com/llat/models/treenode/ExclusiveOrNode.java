@@ -24,6 +24,7 @@ public class ExclusiveOrNode extends WffTree {
     @Override
     public WffTree copy() {
         ExclusiveOrNode xor = new ExclusiveOrNode(this.getSymbol());
+        xor.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
             xor.addChild(ch.copy());
         }

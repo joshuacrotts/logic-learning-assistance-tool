@@ -165,9 +165,9 @@ public abstract class BaseTruthTreeGenerator {
      * is the resulting branch. If there are multiple leaves in the current TruthTree
      * node, then this branch is applied to all of them.
      *
-     * @param _negRoot    - Implication node.
-     * @param _leaves - list of leaves.
-     * @param _queue  - priority queue of nodes left to process.
+     * @param _negRoot - Implication node.
+     * @param _leaves  - list of leaves.
+     * @param _queue   - priority queue of nodes left to process.
      */
     protected void stackNegationImplication(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_negRoot.getWff().getChild(0) instanceof ImpNode)) {

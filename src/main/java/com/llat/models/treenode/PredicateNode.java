@@ -38,6 +38,7 @@ public class PredicateNode extends WffTree {
     @Override
     public WffTree copy() {
         PredicateNode predicateCopy = new PredicateNode(this.PREDICATE_LETTER);
+        predicateCopy.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
             predicateCopy.addChild(ch.copy());
         }

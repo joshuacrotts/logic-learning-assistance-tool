@@ -14,20 +14,47 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     private Stage stage;
     private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
-    public Controller (Stage _stage) {
+
+    public Controller(Stage _stage) {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
     }
 
-    public void initialize (URL _url, ResourceBundle _rb) {}
+    public void initialize(URL _url, ResourceBundle _rb) {
+    }
 
-    private Pane getView (int _viewName) {
+    public void changeViewTo(int _viewName) {
+        Pane parentPane = this.getView(_viewName);
+        this.stage.getScene().setRoot(parentPane);
+    }
+
+    public void setSymbolInputButtonOnAction(SymbolButton _symbolButton) {
+        _symbolButton.setOnMouseClicked((event) -> {
+            if (event.getButton() == MouseButton.PRIMARY)
+                EventBus.throwEvent(new SymbolInputEvent(((SymbolButton) event.getSource()).getDefaultSymbol().getSymbol().getApplied()));
+            if (event.getButton() == MouseButton.SECONDARY)
+                EventBus.throwEvent(new SymbolDescriptionEvent(((SymbolButton) event.getSource()).getDefaultSymbol()));
+        });
+    }
+
+    public void setSolveButtonOnAction(Button _button) {
+        _button.setOnAction((event) -> {
+            EventBus.throwEvent(new SolveButtonEvent());
+        });
+    }
+
+    public Stage getStage() {
+        return this.stage;
+    }
+
+    private Pane getView(int _viewName) {
         Pane parentPane = new Pane();
         switch (_viewName) {
             case ViewManager.MAINAPPLICATION: {
@@ -40,24 +67,9 @@ public class Controller implements Initializable {
             default:
                 // Update this to error view.
                 parentPane = new Pane();
-        };
+        }
+        ;
         return parentPane;
     }
-
-    public void changeViewTo (int _viewName) {
-        Pane parentPane = this.getView(_viewName);
-        this.stage.getScene().setRoot(parentPane);
-    }
-
-    public void setSymbolInputButtonOnAction (SymbolButton _symbolButton) {
-        _symbolButton.setOnMouseClicked((event) -> {
-            if (event.getButton() == MouseButton.PRIMARY)  EventBus.throwEvent(new SymbolInputEvent(((SymbolButton)event.getSource()).getDefaultSymbol().getSymbol().getApplied()));
-            if (event.getButton() == MouseButton.SECONDARY) EventBus.throwEvent(new SymbolDescriptionEvent(((SymbolButton)event.getSource()).getDefaultSymbol()));
-        });
-    }
-
-    public void setSolveButtonOnAction (Button _button) { _button.setOnAction((event) -> { EventBus.throwEvent(new SolveButtonEvent()); }); }
-
-    public Stage getStage () { return this.stage; }
 
 }

@@ -11,8 +11,9 @@ public class ConstantNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        ConstantNode or = new ConstantNode(this.getSymbol());
-        return or;
+        ConstantNode constantNode = new ConstantNode(this.getSymbol());
+        constantNode.setFlags(this.getFlags());
+        return constantNode;
     }
 
     @Override

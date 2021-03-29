@@ -29,11 +29,12 @@ public class AndNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        AndNode or = new AndNode(this.getSymbol());
+        AndNode and = new AndNode(this.getSymbol());
+        and.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
-            or.addChild(ch.copy());
+            and.addChild(ch.copy());
         }
-        return or;
+        return and;
     }
 
     @Override

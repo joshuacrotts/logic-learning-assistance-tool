@@ -26,13 +26,10 @@ public class Translator {
     }
 
     /**
-     *
      * @param langFrom
      * @param langTo
      * @param text
-     *
      * @return
-     *
      * @throws IOException
      */
     private static String translate(String langFrom, String langTo, String text) throws IOException {

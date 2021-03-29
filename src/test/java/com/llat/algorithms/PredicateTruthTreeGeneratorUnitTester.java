@@ -237,14 +237,14 @@ public class PredicateTruthTreeGeneratorUnitTester {
         LLATParserListener parser = ParserTest.parseFromFile(inName);
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file " + inName);
-        WffTree syntaxTree = parser.getSyntaxTree();
+        WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         truthTreeGenerator = new PredicateTruthTreeGenerator(syntaxTree);
         truthTreeGenerator.get();
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();
-
         byte[] expected;
+
         try {
             expected = Files.readAllBytes(Paths.get(expName));
         } catch (IOException e) {

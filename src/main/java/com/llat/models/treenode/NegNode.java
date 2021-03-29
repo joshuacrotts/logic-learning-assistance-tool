@@ -26,11 +26,12 @@ public class NegNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        NegNode or = new NegNode(this.getSymbol());
+        NegNode negNode = new NegNode(this.getSymbol());
+        negNode.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
-            or.addChild(ch.copy());
+            negNode.addChild(ch.copy());
         }
-        return or;
+        return negNode;
     }
 
     @Override

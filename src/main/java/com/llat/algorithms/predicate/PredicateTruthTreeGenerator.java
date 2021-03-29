@@ -129,14 +129,14 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
     /**
      * Performs an identity decomposition. An identity decomposition is an equivalence
      * that can be applied infinitely many times. For instance,
-     *
+     * <p>
      * a = d
-     *
+     * <p>
      * We can substitute any d for an a, and vice versa in the tree.
      *
      * @param _identityTruthTree - root of Identity subtree.
-     * @param _leaves - linked list of leaf nodes.
-     * @param _queue - priority queue of truth tree nodes left to check.
+     * @param _leaves            - linked list of leaf nodes.
+     * @param _queue             - priority queue of truth tree nodes left to check.
      */
     private void identityDecomposition(TruthTree _identityTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_identityTruthTree.getWff() instanceof IdentityNode)) {

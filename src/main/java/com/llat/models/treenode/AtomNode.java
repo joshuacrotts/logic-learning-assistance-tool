@@ -17,7 +17,9 @@ public class AtomNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        return new AtomNode(ATOM_SYMBOL);
+        AtomNode atomNode = new AtomNode(ATOM_SYMBOL);
+        atomNode.setFlags(this.getFlags());
+        return atomNode;
     }
 
     public String getSymbol() {

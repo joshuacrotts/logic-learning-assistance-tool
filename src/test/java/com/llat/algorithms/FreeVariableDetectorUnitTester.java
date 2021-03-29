@@ -22,6 +22,46 @@ public class FreeVariableDetectorUnitTester {
 
     private static FreeVariableDetector freeVariableDetector;
 
+    @Test
+    public void test001() {
+        goodFileTest("test001");
+    }
+
+    @Test
+    public void test002() {
+        goodFileTest("test002");
+    }
+
+    @Test
+    public void test003() {
+        goodFileTest("test003");
+    }
+
+    @Test
+    public void test004() {
+        goodFileTest("test004");
+    }
+
+    @Test
+    public void test005() {
+        goodFileTest("test005");
+    }
+
+    @Test
+    public void test006() {
+        goodFileTest("test006");
+    }
+
+    @Test
+    public void test007() {
+        goodFileTest("test007");
+    }
+
+    @Test
+    public void test008() {
+        goodFileTest("test008");
+    }
+
     /**
      * Helper function to count number of newlines in a string
      *
@@ -117,7 +157,7 @@ public class FreeVariableDetectorUnitTester {
         LLATParserListener parser = ParserTest.parseFromFile(inName);
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file " + inName);
-        WffTree syntaxTree = parser.getSyntaxTree();
+        WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         freeVariableDetector = new FreeVariableDetector(syntaxTree);
         System.out.println(freeVariableDetector.get());
         System.setErr(origErr);
@@ -132,46 +172,5 @@ public class FreeVariableDetectorUnitTester {
         }
 
         compare(actual, expected);
-    }
-
-    @Test
-    public void test001() {
-        goodFileTest("test001");
-    }
-
-
-    @Test
-    public void test002() {
-        goodFileTest("test002");
-    }
-
-    @Test
-    public void test003() {
-        goodFileTest("test003");
-    }
-
-    @Test
-    public void test004() {
-        goodFileTest("test004");
-    }
-
-    @Test
-    public void test005() {
-        goodFileTest("test005");
-    }
-
-    @Test
-    public void test006() {
-        goodFileTest("test006");
-    }
-
-    @Test
-    public void test007() {
-        goodFileTest("test007");
-    }
-
-    @Test
-    public void test008() {
-        goodFileTest("test008");
     }
 }

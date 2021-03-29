@@ -11,8 +11,9 @@ public class VariableNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        VariableNode or = new VariableNode(this.getSymbol());
-        return or;
+        VariableNode variableNode = new VariableNode(this.getSymbol());
+        variableNode.setFlags(this.getFlags());
+        return variableNode;
     }
 
     @Override

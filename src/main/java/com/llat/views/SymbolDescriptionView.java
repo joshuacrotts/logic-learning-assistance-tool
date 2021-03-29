@@ -2,7 +2,8 @@ package com.llat.views;
 
 import com.llat.models.symbols.Symbol;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -22,7 +23,8 @@ public class SymbolDescriptionView {
     Button exampleText;
     Button explanationText;
     Region belowExplanationText = new Region();
-    public SymbolDescriptionView (Symbol _symbol) {
+
+    public SymbolDescriptionView(Symbol _symbol) {
         this.symbol = _symbol;
         // Setting VBox symbolDetailsVBox settings.
         this.symbolDetailsVBox.setId("symbolDetailsVBox");
@@ -70,6 +72,8 @@ public class SymbolDescriptionView {
         this.symbolDetailsVBox.getChildren().addAll(this.symbolNameLabel, this.symbolNameText, this.belowSymbolNameText, this.formalNameLabel, this.formalNameText, this.belowFormalNameText, this.alternativeSymbolsLabel, this.alternativeSymbolsText, this.belowAlternativeSymbolsText, this.exampleLabel, this.exampleText, this.explanationText, this.belowExplanationText);
     }
 
-    public VBox getParentPane () { return this.symbolDetailsVBox; }
+    public VBox getParentPane() {
+        return this.symbolDetailsVBox;
+    }
 
 }

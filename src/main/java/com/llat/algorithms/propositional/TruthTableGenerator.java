@@ -69,7 +69,7 @@ public final class TruthTableGenerator {
             for (WffTree ch : tree.getChildren()) {
                 queue.add(ch);
             }
-         }
+        }
     }
 
     /**
@@ -99,7 +99,7 @@ public final class TruthTableGenerator {
 
     /**
      * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
-     *
+     * <p>
      * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
      *
      * @return list of nodes in post-order.
@@ -126,7 +126,7 @@ public final class TruthTableGenerator {
     /**
      * Performs a recursive post-order traversal on the WffTree.
      *
-     * @param _tree - tree to search.
+     * @param _tree          - tree to search.
      * @param _postorderList - list to continuously add to.
      */
     private void postorderHelper(WffTree _tree, HashSet<WffTree> _postorderList) {

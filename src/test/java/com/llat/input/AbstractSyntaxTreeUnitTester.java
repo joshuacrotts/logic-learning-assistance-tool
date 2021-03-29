@@ -18,6 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class AbstractSyntaxTreeUnitTester {
 
+    @Test
+    public void test001() {
+        goodFileTest("test001");
+    }
+
     /**
      * Helper function to count number of newlines in a string
      *
@@ -113,7 +118,7 @@ public class AbstractSyntaxTreeUnitTester {
         LLATParserListener parser = ParserTest.parseFromFile(inName);
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file " + inName);
-        WffTree syntaxTree = parser.getSyntaxTree();
+        WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         syntaxTree.printSyntaxTree();
         System.setErr(origErr);
         System.setOut(origOut);
@@ -127,11 +132,6 @@ public class AbstractSyntaxTreeUnitTester {
         }
 
         compare(actual, expected);
-    }
-
-    @Test
-    public void test001() {
-        goodFileTest("test001");
     }
 
     /*

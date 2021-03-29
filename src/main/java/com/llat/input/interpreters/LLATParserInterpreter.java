@@ -7,6 +7,8 @@ import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.events.FormulaInputEvent;
 
+import java.util.LinkedList;
+
 public class LLATParserInterpreter implements Listener {
 
     public LLATParserInterpreter() {
@@ -16,9 +18,8 @@ public class LLATParserInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof FormulaInputEvent) {
-            WffTree wffTree = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula());
-            wffTree.printSyntaxTree();
+            LinkedList<WffTree> wffTreeList = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula());
+            wffTreeList.get(0).printSyntaxTree();
         }
     }
-
 }
