@@ -40,7 +40,6 @@ public final class MainOperatorDetector {
         } else if (_tree.isBinaryOp() || _tree.isQuantifier() || _tree.isNegation()) {
             return _tree;
         }
-
         return null;
     }
 }

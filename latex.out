@@ -35,92 +35,32 @@
 \begin{document}
 \begin{forest}
 smullyan tableaux
-[((((Pxy \mathbin{\&} (Ea \varliff \varlnot (x)(y)(z)Ex)) \lor (x)(w)Zxw) \to \varlnot Ea) \mathbin{\&} \varlnot Ep)
-	[(((Pxy \mathbin{\&} (Ea \varliff \varlnot (x)(y)(z)Ex)) \lor (x)(w)Zxw) \to \varlnot Ea)
-		[\varlnot Ep
-			[\varlnot ((Pxy \mathbin{\&} (Ea \varliff \varlnot (x)(y)(z)Ex)) \lor (x)(w)Zxw)
-				[\varlnot (Pxy \mathbin{\&} (Ea \varliff \varlnot (x)(y)(z)Ex))
-					[\varlnot (x)(w)Zxw
-						[(\exists x)\varlnot (w)Zxw
-							[\varlnot (w)Zbw
-								[(\exists w)\varlnot Zbw
-									[\varlnot Zbc
-										[\varlnot Pxy, open
-										]
-										[\varlnot (Ea \varliff \varlnot (x)(y)(z)Ex)
-											[Ea
-												[\varlnot \varlnot (x)(y)(z)Ex
-													[(x)(y)(z)Ex, uni
-														[(y)(z)Ep, uni
-															[(y)(z)Ea, uni
-																[(y)(z)Eb, uni
-																	[(y)(z)Ec, uni
-																		[(z)Ep, uni
-																			[(z)Ep, uni
-																				[(z)Ep, uni
-																					[(z)Ep, uni
-																						[(z)Ea, uni
-																							[(z)Ea, uni
-																								[(z)Ea, uni
-																									[(z)Ea, uni
-																										[(z)Eb, uni
-																											[(z)Eb, uni
-																												[(z)Eb, uni
-																													[(z)Eb, uni
-																														[(z)Ec, uni
-																															[(z)Ec, uni
-																																[(z)Ec, uni
-																																	[(z)Ec, uni
-																																		[Ep, closed
-																																		]
-																																	]
-																																]
-																															]
-																														]
-																													]
-																												]
-																											]
-																										]
-																									]
-																								]
-																							]
-																						]
-																					]
-																				]
-																			]
-																		]
-																	]
-																]
-															]
-														]
-													]
-												]
-											]
-											[\varlnot Ea
-												[\varlnot (x)(y)(z)Ex
-													[(\exists x)\varlnot (y)(z)Ex
-														[\varlnot (y)(z)Ed
-															[(\exists y)\varlnot (z)Ed
-																[\varlnot (z)Ed
-																	[(\exists z)\varlnot Ed
-																		[\varlnot Ed, open
-																		]
-																	]
-																]
-															]
-														]
-													]
-												]
-											]
-										]
-									]
+[((A \to (\varlnot B \mathbin{\&} (\varlnot C \varliff \varlnot A))) \lor (\varlnot B \mathbin{\&} \varlnot C))
+	[(A \to (\varlnot B \mathbin{\&} (\varlnot C \varliff \varlnot A)))
+		[\varlnot A, open
+		]
+		[(\varlnot B \mathbin{\&} (\varlnot C \varliff \varlnot A))
+			[\varlnot B
+				[(\varlnot C \varliff \varlnot A)
+					[\varlnot C
+						[\varlnot A, open
+						]
+					]
+					[\varlnot \varlnot C
+						[\varlnot \varlnot A
+							[C
+								[A, open
 								]
 							]
 						]
 					]
 				]
 			]
-			[\varlnot Ea, open
+		]
+	]
+	[(\varlnot B \mathbin{\&} \varlnot C)
+		[\varlnot B
+			[\varlnot C, open
 			]
 		]
 	]

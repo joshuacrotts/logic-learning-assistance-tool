@@ -139,7 +139,6 @@ public class WffTree implements Copyable, TexPrintable {
         }
         // Nodes of type identity are good.
         else { return this.isIdentity(); }
-
     }
 
     public int getChildrenSize() {

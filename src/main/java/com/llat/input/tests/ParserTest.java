@@ -136,7 +136,7 @@ public class ParserTest {
                 System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
                 System.out.println("Truth Tree: ");
                 TruthTree predTruthTree = new PredicateTruthTreeGenerator(result).get();
-                TexTreePrinter texTreePrinter = new TexTreePrinter(predTruthTree, "latex.out");
+                TexTreePrinter texTreePrinter = new TexTreePrinter(predTruthTree, "latex_tree.out");
                 texTreePrinter.outputToFile();
             } else {
                 System.out.println("Truth Table: ");
@@ -147,9 +147,15 @@ public class ParserTest {
                 System.out.println("Contradiction: " + new ContradictoryDeterminer(result).get());
                 System.out.println("Contingency: " + new ContingencyDeterminer(result).get());
                 System.out.println("Truth Tree: ");
+
+                // Draw the truth tree in TeX.
                 TruthTree propTruthTree = new PropositionalTruthTreeGenerator(result).get();
                 TexTreePrinter texTreePrinter = new TexTreePrinter(propTruthTree, "latex.out");
                 texTreePrinter.outputToFile();
+
+                // Draw the truth table in TeX.
+                TexTablePrinter propTruthTable = new TexTablePrinter(result, "latex_table.tex");
+                propTruthTable.outputToFile();
             }
         }
     }

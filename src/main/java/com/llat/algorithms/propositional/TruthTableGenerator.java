@@ -48,6 +48,28 @@ public final class TruthTableGenerator {
         this.truthPattern = new LinkedHashMap<>();
         this.size = getAtomCount(this.wffTree);
         this.rows = (int) Math.pow(2, this.size);
+
+        // We want to clear the tree every time so we don't get duplicate values.
+        this.clearWffTree();
+
+        // Calling it here just makes more sense...
+        this.get();
+    }
+
+    /**
+     * Clears all truth values from this WffTree.
+     */
+    public void clearWffTree() {
+        Queue<WffTree> queue = new LinkedList<>();
+        queue.add(this.wffTree);
+
+        while (!queue.isEmpty()) {
+            WffTree tree = queue.poll();
+            tree.getTruthValues().clear();
+            for (WffTree ch : tree.getChildren()) {
+                queue.add(ch);
+            }
+         }
     }
 
     /**

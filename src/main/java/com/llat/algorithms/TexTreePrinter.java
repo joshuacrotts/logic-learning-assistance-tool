@@ -37,7 +37,9 @@ public class TexTreePrinter {
     }
 
     /**
-     *
+     * Outputs the truth tree to a .tex file. The preamble information/template data is
+     * copied to the output file first, then we recursively traverse the TruthTree object
+     * calling the getTexCommand() methods on each node.
      */
     public void outputToFile() {
         try {
