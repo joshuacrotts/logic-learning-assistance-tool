@@ -6,18 +6,18 @@ import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
-import com.llat.views.TruthTreeView;
+import com.llat.views.ParseTreeView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class TruthTreeInterpreter implements Listener {
+public class ParseTreeInterpreter implements Listener {
     Controller controller;
-    TruthTreeView truthTreeView;
+    ParseTreeView truthTreeView;
     VBox treeRepresentation = new VBox();
 
-    public TruthTreeInterpreter(Controller _controller, TruthTreeView _truthTreeView) {
+    public ParseTreeInterpreter(Controller _controller, ParseTreeView _truthTreeView) {
         this.controller = _controller;
         this.truthTreeView = _truthTreeView;
         EventBus.addListener(this);

@@ -7,7 +7,7 @@ import com.llat.tools.ViewManager;
 import com.llat.views.ApplicationView;
 import com.llat.views.LoginView;
 import com.llat.views.SymbolButton;
-import com.llat.views.TruthTreeView;
+import com.llat.views.ParseTreeView;
 import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolDescriptionEvent;
 import com.llat.views.events.SymbolInputEvent;
@@ -68,8 +68,8 @@ public class Controller implements Initializable {
                 double modifier = 0;
                 if (scrollEvent.getDeltaY() < 0) { modifier = .1; }
                 else { modifier = -.1; }
-                if (_canvas.getScaleX() + modifier < TruthTreeView.MAXSCALE && _canvas.getScaleX() + modifier > TruthTreeView.MINSCALE + .1) { _canvas.setScaleX(_canvas.getScaleX() + modifier); }
-                if (_canvas.getScaleY() + modifier < TruthTreeView.MAXSCALE && _canvas.getScaleY() + modifier > TruthTreeView.MINSCALE + .1) { _canvas.setScaleY(_canvas.getScaleY() + modifier); }
+                if (_canvas.getScaleX() + modifier < ParseTreeView.MAXSCALE && _canvas.getScaleX() + modifier > ParseTreeView.MINSCALE + .1) { _canvas.setScaleX(_canvas.getScaleX() + modifier); }
+                if (_canvas.getScaleY() + modifier < ParseTreeView.MAXSCALE && _canvas.getScaleY() + modifier > ParseTreeView.MINSCALE + .1) { _canvas.setScaleY(_canvas.getScaleY() + modifier); }
             }
         });
     }

@@ -10,7 +10,7 @@ public class ApplicationView {
 
     public ApplicationView(Controller _controller) {
         this.controller = _controller;
-        parentPane.setCenter(new TruthTreeView(this.controller).getParentPane());
+        parentPane.setCenter(new ParseTreeView(this.controller).getParentPane());
         parentPane.setTop(new MenuBarView(this.controller).getMenuBar());
         parentPane.setLeft(new InputButtonsView(this.controller).getParentPane());
         parentPane.setRight(new RulesAxiomsView(this.controller).getParentPane());

@@ -1,20 +1,20 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
-import com.llat.views.interpreters.TruthTreeInterpreter;
+import com.llat.views.interpreters.ParseTreeInterpreter;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class TruthTreeView {
+public class ParseTreeView {
     public static int MAXSCALE = 2;
     public static int MINSCALE = 0;
 
     private Controller controller;
     private VBox truthTreeVBox = new VBox();
-    private TruthTreeInterpreter truthTreeInterpreter;
+    private ParseTreeInterpreter truthTreeInterpreter;
 
-    public TruthTreeView (Controller _controller) {
+    public ParseTreeView(Controller _controller) {
         this.controller = _controller;
         // Setting VBox truthTreeVBox properties.
         this.truthTreeVBox.setId("truthTreeVBox");
@@ -29,7 +29,7 @@ public class TruthTreeView {
         this.truthTreeVBox.setAlignment(Pos.TOP_CENTER);
         // Adding children nodes to their parents nodes.
         // Creating interpreter to handle events and actions.
-        this.truthTreeInterpreter = new TruthTreeInterpreter(this.controller,this);
+        this.truthTreeInterpreter = new ParseTreeInterpreter(this.controller,this);
     }
 
     public Pane getParentPane () { return this.truthTreeVBox; }
