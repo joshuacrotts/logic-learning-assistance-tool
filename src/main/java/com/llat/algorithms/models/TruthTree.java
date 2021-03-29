@@ -95,7 +95,6 @@ public class TruthTree implements Comparable<TruthTree> {
     private int universalCount;
 
     public TruthTree(WffTree _node, TruthTree _parent) {
-        //this.TRUTH_TREE = _truthTree;
         this.NODE = _node;
         this.PARENT = _parent;
         this.AVAILABLE_CONSTANTS = new HashSet<>();
@@ -157,8 +156,9 @@ public class TruthTree implements Comparable<TruthTree> {
     }
 
     /**
+     * Constructs a LaTeX version of the truth tree for printout.
      *
-     * @return
+     * @return String representing the TruthTree in LaTeX.
      */
     public String getTexTree() {
         StringBuilder sb = new StringBuilder();
@@ -167,16 +167,19 @@ public class TruthTree implements Comparable<TruthTree> {
     }
 
     /**
+     * Searches through the tree in preorder to build a LaTeX version of it.
+     * We use the forest package with a premade template.
      *
-     * @param _tree
-     * @param _sb
+     * @param _tree - TruthTree object to start from.
+     * @param _sb - StringBuilder to continuously concatenate to.
+     * @param _indent - level of indentation for the current brackets.
      */
-    private void getTexTreeHelper(TruthTree _tree, StringBuilder _sb, int indent) {
+    private void getTexTreeHelper(TruthTree _tree, StringBuilder _sb, int _indent) {
         if (_tree == null) {
             return;
         }
 
-        _sb.append("\t".repeat(indent));
+        _sb.append("\t".repeat(_indent));
         _sb.append("[");
         _sb.append(_tree.getWff().getTexCommand());
 
@@ -191,16 +194,16 @@ public class TruthTree implements Comparable<TruthTree> {
             // Left and rights will need to branch, whereas just a left is a stack.
             _sb.append("\n");
             if (_tree.getLeft() != null && _tree.getRight() != null) {
-                this.getTexTreeHelper(_tree.getLeft(), _sb, indent + 1);
+                this.getTexTreeHelper(_tree.getLeft(), _sb, _indent + 1);
                 _sb.append("\n");
-                this.getTexTreeHelper(_tree.getRight(), _sb, indent + 1);
+                this.getTexTreeHelper(_tree.getRight(), _sb, _indent + 1);
             } else if (_tree.getLeft() != null) {
-                this.getTexTreeHelper(_tree.getLeft(), _sb, indent + 1);
+                this.getTexTreeHelper(_tree.getLeft(), _sb, _indent + 1);
             }
         }
 
         _sb.append("\n");
-        _sb.append("\t".repeat(indent) + "]");
+        _sb.append("\t".repeat(_indent) + "]");
     }
 
 

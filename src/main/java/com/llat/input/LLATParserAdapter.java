@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class LLATParserAdapter {
+
     /**
      * Builds the abstract syntax tree from the user input string. This
      * method should be called by any class that sends input from a front-end
@@ -27,8 +28,7 @@ public class LLATParserAdapter {
         // the tests.
         LLATErrorListener.printErrors();
         LLATErrorListener.printWarnings();
-        WffTree result = parser.getSyntaxTree();
-        return result;
+        return parser.getSyntaxTree();
     }
 
     /**
