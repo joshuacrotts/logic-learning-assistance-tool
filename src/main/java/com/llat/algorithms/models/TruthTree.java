@@ -1,6 +1,7 @@
 package com.llat.algorithms.models;
 
 import com.llat.algorithms.BaseTruthTreeGenerator;
+import com.llat.input.LLATErrorListener;
 import com.llat.models.treenode.ConstantNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
@@ -27,6 +28,11 @@ import java.util.*;
  * (left and right) should not use this; it is used for the conjunction operator.
  */
 public class TruthTree implements Comparable<TruthTree> {
+
+    /**
+     *
+     */
+    private static final int THRESHOLD_LIMIT = 100;
 
     /**
      *
@@ -82,6 +88,11 @@ public class TruthTree implements Comparable<TruthTree> {
      * Identifier number of this truth tree node in the tree itself.
      */
     private int identifierNo;
+
+    /**
+     *
+     */
+    private int universalCount;
 
     public TruthTree(WffTree _node, TruthTree _parent) {
         //this.TRUTH_TREE = _truthTree;
@@ -149,9 +160,9 @@ public class TruthTree implements Comparable<TruthTree> {
      *
      * @return
      */
-    public String getTex() {
+    public String getTexTree() {
         StringBuilder sb = new StringBuilder();
-        this.getTexHelper(this, sb, 0);
+        this.getTexTreeHelper(this, sb, 0);
         return sb.toString();
     }
 
@@ -160,7 +171,7 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _tree
      * @param _sb
      */
-    private void getTexHelper(TruthTree _tree, StringBuilder _sb, int indent) {
+    private void getTexTreeHelper(TruthTree _tree, StringBuilder _sb, int indent) {
         if (_tree == null) {
             return;
         }
@@ -180,11 +191,11 @@ public class TruthTree implements Comparable<TruthTree> {
             // Left and rights will need to branch, whereas just a left is a stack.
             _sb.append("\n");
             if (_tree.getLeft() != null && _tree.getRight() != null) {
-                getTexHelper(_tree.getLeft(), _sb, indent + 1);
+                this.getTexTreeHelper(_tree.getLeft(), _sb, indent + 1);
                 _sb.append("\n");
-                getTexHelper(_tree.getRight(), _sb, indent + 1);
+                this.getTexTreeHelper(_tree.getRight(), _sb, indent + 1);
             } else if (_tree.getLeft() != null) {
-                getTexHelper(_tree.getLeft(), _sb, indent + 1);
+                this.getTexTreeHelper(_tree.getLeft(), _sb, indent + 1);
             }
         }
 
@@ -391,6 +402,9 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _constant          - constant to replace variable with.
      */
     private void replaceSymbol(WffTree _newRoot, char _variableToReplace, char _constant) {
+        if (universalCount > THRESHOLD_LIMIT) {
+            System.err.println("Error - universal constant has reached the upper limit of 100.");
+        }
         for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
             if (_newRoot.getChild(i).isVariable() || _newRoot.getChild(0).isConstant()) {
                 char v = _newRoot.getChild(i).getSymbol().charAt(0);

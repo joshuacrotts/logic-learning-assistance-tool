@@ -35,37 +35,75 @@
 \begin{document}
 \begin{forest}
 smullyan tableaux
-[(A \mathbin{\&} (B \mathbin{\&} (C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))))))
-	[A
-		[(B \mathbin{\&} (C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))))))
-			[B
-				[(C \mathbin{\&} (D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))))
-					[C
-						[(D \mathbin{\&} (E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))))
-							[D
-								[(E \mathbin{\&} (F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))))
-									[E
-										[(F \mathbin{\&} (G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))))
-											[F
-												[(G \mathbin{\&} (H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))))
-													[G
-														[(H \mathbin{\&} (I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))))
-															[H
-																[(I \mathbin{\&} (J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M))))
-																	[I
-																		[(J \mathbin{\&} (K \mathbin{\&} (L \mathbin{\&} M)))
-																			[J
-																				[(K \mathbin{\&} (L \mathbin{\&} M))
-																					[K
-																						[(L \mathbin{\&} M)
-																							[L
-																								[M, open
+[((((Pxy \mathbin{\&} (Ea \varliff \varlnot (x)(y)(z)Ex)) \lor (x)(w)Zxw) \to \varlnot Ea) \mathbin{\&} \varlnot Ep)
+	[(((Pxy \mathbin{\&} (Ea \varliff \varlnot (x)(y)(z)Ex)) \lor (x)(w)Zxw) \to \varlnot Ea)
+		[\varlnot Ep
+			[\varlnot ((Pxy \mathbin{\&} (Ea \varliff \varlnot (x)(y)(z)Ex)) \lor (x)(w)Zxw)
+				[\varlnot (Pxy \mathbin{\&} (Ea \varliff \varlnot (x)(y)(z)Ex))
+					[\varlnot (x)(w)Zxw
+						[(\exists x)\varlnot (w)Zxw
+							[\varlnot (w)Zbw
+								[(\exists w)\varlnot Zbw
+									[\varlnot Zbc
+										[\varlnot Pxy, open
+										]
+										[\varlnot (Ea \varliff \varlnot (x)(y)(z)Ex)
+											[Ea
+												[\varlnot \varlnot (x)(y)(z)Ex
+													[(x)(y)(z)Ex, uni
+														[(y)(z)Ep, uni
+															[(y)(z)Ea, uni
+																[(y)(z)Eb, uni
+																	[(y)(z)Ec, uni
+																		[(z)Ep, uni
+																			[(z)Ep, uni
+																				[(z)Ep, uni
+																					[(z)Ep, uni
+																						[(z)Ea, uni
+																							[(z)Ea, uni
+																								[(z)Ea, uni
+																									[(z)Ea, uni
+																										[(z)Eb, uni
+																											[(z)Eb, uni
+																												[(z)Eb, uni
+																													[(z)Eb, uni
+																														[(z)Ec, uni
+																															[(z)Ec, uni
+																																[(z)Ec, uni
+																																	[(z)Ec, uni
+																																		[Ep, closed
+																																		]
+																																	]
+																																]
+																															]
+																														]
+																													]
+																												]
+																											]
+																										]
+																									]
 																								]
 																							]
 																						]
 																					]
 																				]
 																			]
+																		]
+																	]
+																]
+															]
+														]
+													]
+												]
+											]
+											[\varlnot Ea
+												[\varlnot (x)(y)(z)Ex
+													[(\exists x)\varlnot (y)(z)Ex
+														[\varlnot (y)(z)Ed
+															[(\exists y)\varlnot (z)Ed
+																[\varlnot (z)Ed
+																	[(\exists z)\varlnot Ed
+																		[\varlnot Ed, open
 																		]
 																	]
 																]
@@ -81,6 +119,8 @@ smullyan tableaux
 						]
 					]
 				]
+			]
+			[\varlnot Ea, open
 			]
 		]
 	]

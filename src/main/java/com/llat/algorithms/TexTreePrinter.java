@@ -53,7 +53,7 @@ public class TexTreePrinter {
             this.reader.close();
 
             // Now print out the tree.
-            this.writer.write(this.TRUTH_TREE.getTex());
+            this.writer.write(this.TRUTH_TREE.getTexTree());
             this.writer.write("\n\\end{forest}\n\\end{document}\n");
             this.writer.close();
         } catch (IOException e) {
