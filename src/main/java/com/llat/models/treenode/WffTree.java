@@ -96,6 +96,11 @@ public class WffTree implements Copyable, TexPrintable {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return this.getStringRep().hashCode();
+    }
+
     /**
      * Returns the i-th child in the list of children.
      *

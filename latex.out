@@ -35,52 +35,14 @@
 \begin{document}
 \begin{forest}
 smullyan tableaux
-[\varlnot ((\varlnot P \mathbin{\&} (\varlnot Q \to R)) \varliff \varlnot (P \lor (\varlnot Q \mathbin{\&} \varlnot R)))
-	[(\varlnot P \mathbin{\&} (\varlnot Q \to R))
-		[\varlnot \varlnot (P \lor (\varlnot Q \mathbin{\&} \varlnot R))
-			[(P \lor (\varlnot Q \mathbin{\&} \varlnot R))
-				[\varlnot P
-					[(\varlnot Q \to R)
-						[P, closed
-						]
-						[(\varlnot Q \mathbin{\&} \varlnot R)
-							[\varlnot Q
-								[\varlnot R
-									[\varlnot \varlnot Q
-										[Q, closed
-										]
-									]
-									[R, closed
-									]
-								]
-							]
-						]
+[((A \to B) \mathbin{\&} \varlnot (A \lor B))
+	[(A \to B)
+		[\varlnot (A \lor B)
+			[\varlnot A
+				[\varlnot B
+					[\varlnot A, open
 					]
-				]
-			]
-		]
-	]
-	[\varlnot (\varlnot P \mathbin{\&} (\varlnot Q \to R))
-		[\varlnot (P \lor (\varlnot Q \mathbin{\&} \varlnot R))
-			[\varlnot P
-				[\varlnot (\varlnot Q \mathbin{\&} \varlnot R)
-					[\varlnot \varlnot P
-						[P, closed
-						]
-					]
-					[\varlnot (\varlnot Q \to R)
-						[\varlnot Q
-							[\varlnot R
-								[\varlnot \varlnot Q
-									[Q, closed
-									]
-								]
-								[\varlnot \varlnot R
-									[R, closed
-									]
-								]
-							]
-						]
+					[B, closed
 					]
 				]
 			]

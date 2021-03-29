@@ -76,16 +76,15 @@ public final class TruthTableGenerator {
     }
 
     /**
-     * Performs an in-order traversal of the WffTree. We do this to get the respective truth values in the
-     * form used by PHI-310.
+     * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
      *
      * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
      *
-     * @return list of nodes in in-order.
+     * @return list of nodes in post-order.
      */
-    public LinkedList<WffTree> inorder() {
-        LinkedList<WffTree> list = new LinkedList<>();
-        this.inorderHelper(this.wffTree.getChild(0), list);
+    public LinkedHashSet<WffTree> postorder() {
+        LinkedHashSet<WffTree> list = new LinkedHashSet<>();
+        this.postorderHelper(this.wffTree.getChild(0), list);
         return list;
     }
 
@@ -94,45 +93,29 @@ public final class TruthTableGenerator {
      * the atoms at the start of the truth table.
      */
     private void printHelper() {
-        LinkedList<WffTree> inorderTraversal = this.inorder();
-        int size = inorderTraversal.size();
-        int rows = inorderTraversal.get(0).getTruthValues().size();
-
-        System.out.printf("%3s", inorderTraversal.get(0).getSymbol());
-        // Print out the header rows.
-        for (int i = 1; i < size - 1; i++) {
-            System.out.printf("%8s", inorderTraversal.get(i).getSymbol());
-        }
-        System.out.printf("%8s\n", inorderTraversal.get(size - 1).getSymbol());
-
-        // Go line by line and print the truth values of each node.
-        for (int t = 0; t < rows; t++) {
-            for (int i = 0; i < size - 1; i++) {
-                WffTree tree = inorderTraversal.get(i);
-                System.out.printf("%-5b | ", tree.getTruthValues().get(t));
-            }
-            System.out.printf("%-5b\n", inorderTraversal.get(size - 1).getTruthValues().get(t));
+        LinkedList<WffTree> postorderTraversal = new LinkedList<>(this.postorder());
+        int maxWidth = postorderTraversal.get(postorderTraversal.size() - 1).getStringRep().length();
+        for (WffTree tree : postorderTraversal) {
+            System.out.printf("%-" + maxWidth + "s : ", tree.getStringRep());
+            System.out.println(tree.getTruthValues());
         }
     }
 
     /**
-     * Performs a recursive in-order traversal on the WffTree.
+     * Performs a recursive post-order traversal on the WffTree.
      *
      * @param _tree - tree to search.
-     * @param _inorderList - list to continuously add to.
+     * @param _postorderList - list to continuously add to.
      */
-    private void inorderHelper(WffTree _tree, LinkedList<WffTree> _inorderList) {
+    private void postorderHelper(WffTree _tree, HashSet<WffTree> _postorderList) {
         if (_tree == null) {
             return;
         }
 
-        int total = _tree.getChildrenSize();
-        for (int i = 0; i < total - 1; i++) {
-            inorderHelper(_tree.getChild(i), _inorderList);
+        for (int i = 0; i < _tree.getChildrenSize(); i++) {
+            this.postorderHelper(_tree.getChild(i), _postorderList);
         }
-
-        _inorderList.add(_tree);
-        inorderHelper(_tree.getChild(total - 1), _inorderList);
+        _postorderList.add(_tree);
     }
 
     /**
