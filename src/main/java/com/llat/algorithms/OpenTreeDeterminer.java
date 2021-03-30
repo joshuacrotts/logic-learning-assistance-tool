@@ -13,7 +13,11 @@ public class OpenTreeDeterminer {
         this.tree = _tree;
     }
 
-    public boolean get() {
+    /**
+     *
+     * @return
+     */
+    public boolean hasAllOpen() {
         Queue<TruthTree> queue = new LinkedList<>();
         queue.add(tree);
 
@@ -21,6 +25,29 @@ public class OpenTreeDeterminer {
             TruthTree t = queue.poll();
             if (t.isLeafNode() && t.isClosed())
                 return false;
+            if (t.getLeft() != null) {
+                queue.add(t.getLeft());
+            }
+            if (t.getRight() != null) {
+                queue.add(t.getRight());
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean hasSomeOpen() {
+        Queue<TruthTree> queue = new LinkedList<>();
+        queue.add(tree);
+
+        while (!queue.isEmpty()) {
+            TruthTree t = queue.poll();
+            if (t.isLeafNode() && !t.isClosed())
+                return true;
             if (t.getLeft() != null) {
                 queue.add(t.getLeft());
             }

@@ -222,7 +222,6 @@ public abstract class BaseTruthTreeGenerator {
     public TruthTree get() {
         TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
         this.buildTreeHelper(ttn);
-        System.out.println(print(ttn));
         return ttn;
     }
 

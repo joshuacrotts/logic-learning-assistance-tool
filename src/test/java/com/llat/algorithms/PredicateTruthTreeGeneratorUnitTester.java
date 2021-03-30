@@ -1,5 +1,6 @@
 package com.llat.algorithms;
 
+import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
@@ -119,7 +120,8 @@ public class PredicateTruthTreeGeneratorUnitTester {
             throw new AssertionFailedError("Failed reading test input file " + inName);
         WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         truthTreeGenerator = new PredicateTruthTreeGenerator(syntaxTree);
-        truthTreeGenerator.get();
+        TruthTree tt = truthTreeGenerator.get();
+        System.out.println(truthTreeGenerator.print(tt));
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();

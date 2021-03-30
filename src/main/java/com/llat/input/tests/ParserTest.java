@@ -91,12 +91,20 @@ public class ParserTest {
                 TexTablePrinter propTruthTable = new TexTablePrinter(result, "latex_table.tex");
                 propTruthTable.outputToFile();
             }
+            LogicalTautologyDeterminer tautologyDet = new LogicalTautologyDeterminer(result);
+            System.out.println("Logical Tautology: " + tautologyDet.isTautology());
+
+            LogicallyContingentDeterminer consistentDet = new LogicallyContingentDeterminer(result);
+            System.out.println("Logical Contingent: " + consistentDet.isContingent());
         } else {
             // Pull the two children from their root.
             WffTree ch1 = resultList.get(0);
             WffTree ch2 = resultList.get(1);
             LogicallyEquivalentDeterminer logDet = new LogicallyEquivalentDeterminer(ch1, ch2);
             System.out.println("Logically Equivalent: " + logDet.isEquivalent());
+
+            LogicallyConsistentDeterminer consistentDet = new LogicallyConsistentDeterminer(ch1, ch2);
+            System.out.println("Logically Consistent: " + consistentDet.isConsistent());
 
             LogicallyContradictoryDeterminer contradictoryDet = new LogicallyContradictoryDeterminer(ch1, ch2);
             System.out.println("Logically Contradictory: " + contradictoryDet.isContradictory());

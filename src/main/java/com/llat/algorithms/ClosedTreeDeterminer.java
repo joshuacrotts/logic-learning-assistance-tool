@@ -13,7 +13,11 @@ public class ClosedTreeDeterminer {
         this.tree = _tree;
     }
 
-    public boolean get() {
+    /**
+     *
+     * @return
+     */
+    public boolean hasAllClosed() {
         Queue<TruthTree> queue = new LinkedList<>();
         queue.add(this.tree);
 
@@ -31,5 +35,29 @@ public class ClosedTreeDeterminer {
         }
 
         return true;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean hasSomeClosed() {
+        Queue<TruthTree> queue = new LinkedList<>();
+        queue.add(this.tree);
+
+        while (!queue.isEmpty()) {
+            TruthTree t = queue.poll();
+            if (t.isLeafNode() && t.isClosed()) {
+                return true;
+            }
+            if (t.getLeft() != null) {
+                queue.add(t.getLeft());
+            }
+            if (t.getRight() != null) {
+                queue.add(t.getRight());
+            }
+        }
+
+        return false;
     }
 }

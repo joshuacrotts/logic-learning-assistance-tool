@@ -20,8 +20,9 @@ public final class LogicallyContingentDeterminer {
     private WffTree negatedTree;
 
     public LogicallyContingentDeterminer(WffTree _wffTree) {
+        this.negatedTree = new WffTree();
         this.wffTree = _wffTree.getChild(0);
-
+        this.wffTree.setFlags(_wffTree.getFlags());
         this.negatedTree.addChild(new NegNode());
         this.negatedTree.setFlags(_wffTree.isPropositionalWff() ? NodeFlag.PROPOSITIONAL : NodeFlag.PREDICATE);
         this.negatedTree.getChild(0).addChild(this.wffTree.copy());
@@ -33,7 +34,7 @@ public final class LogicallyContingentDeterminer {
     public boolean isContingent() {
         BaseTruthTreeGenerator treeGenerator;
         BaseTruthTreeGenerator negatedTreeGenerator;
-        if (this.wffTree.isPropositionalWff()) {
+        if (this.wffTree.isPropositionalWff() && this.negatedTree.isPropositionalWff()) {
             treeGenerator = new PropositionalTruthTreeGenerator(this.wffTree);
             negatedTreeGenerator = new PropositionalTruthTreeGenerator(this.negatedTree);
         } else {
@@ -45,8 +46,8 @@ public final class LogicallyContingentDeterminer {
         TruthTree negatedTruthTree = negatedTreeGenerator.get();
 
         // The consistency branch must close, and the right must have at least one open branch.
-        return new ClosedTreeDeterminer(truthTree).get()
-                && new ClosedTreeDeterminer(negatedTruthTree).get();
+        return (new OpenTreeDeterminer(truthTree).hasSomeOpen())
+            && (new OpenTreeDeterminer(negatedTruthTree).hasSomeOpen());
     }
 
     public WffTree getWffTree() {

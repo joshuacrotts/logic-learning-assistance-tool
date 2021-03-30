@@ -38,7 +38,7 @@ public final class LogicallyImpliedDeterminer {
         } else {
             treeGenerator = new PredicateTruthTreeGenerator(this.combinedTree);
         }
-        return new ClosedTreeDeterminer(treeGenerator.get()).get();
+        return new ClosedTreeDeterminer(treeGenerator.get()).hasAllClosed();
     }
 
     public WffTree getCombinedTree() {
