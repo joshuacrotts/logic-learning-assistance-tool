@@ -37,4 +37,8 @@ public final class LogicallyEquivalentDeterminer {
         }
         return new ClosedTreeDeterminer(treeGenerator.get()).hasAllClosed();
     }
+
+    public WffTree getCombinedTree() {
+        return this.combinedTree;
+    }
 }
