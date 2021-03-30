@@ -9,7 +9,9 @@ import com.llat.tools.Listener;
 import com.llat.views.ParseTreeView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ParseTreeInterpreter implements Listener {
@@ -48,20 +50,55 @@ public class ParseTreeInterpreter implements Listener {
         VBox parentVBox = new VBox();
         HBox parentHBox = new HBox();
         if(_wffTree.isPredicate()) {
-            parentVBox.getChildren().add(new Button(_wffTree.getStringRep()));
+            Button predicateNode = new Button(_wffTree.getStringRep());
+            predicateNode.setId("treeNode");
+            parentVBox.getChildren().add(predicateNode);
         }
         else {
             for (WffTree child : _wffTree.getChildren()) {
-                parentHBox.getChildren().add(createTree(child));
+                parentHBox.getChildren().addAll(createTree(child));
             }
-            parentVBox.getChildren().add(new Button(_wffTree.getSymbol()));
+            Button node = new Button(_wffTree.getSymbol());
+            node.setId("treeNode");
+            parentVBox.getChildren().add(node);
+            if(!(_wffTree.getChildrenSize() == 0)) {
+                if(_wffTree.getChildrenSize() == 1) {
+                    Button singleBracket = new Button();
+                    singleBracket.setId("singleBracket");
+                    parentVBox.getChildren().addAll(singleBracket);
+                }
+                if(_wffTree.getChildrenSize() == 2) {
+                    HBox testHBox = new HBox();
+                    testHBox.setId("treeNode");
+                    testHBox.setAlignment(Pos.TOP_CENTER);
+                    Button leftBracket = new Button();
+                    leftBracket.setId("leftBracketButton");
+                    leftBracket.setMaxWidth(Double.MAX_VALUE);
+                    Button middleBracket = new Button();
+                    middleBracket.setId("middleBracketButton");
+                    Button rightBracket = new Button();
+                    rightBracket.setId("rightBracketButton");
+                    testHBox.getChildren().addAll(leftBracket, middleBracket, rightBracket);
+                    parentVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
+                        leftBracket.setMinWidth(newVal.doubleValue()  * .3);
+                        middleBracket.setMinWidth(newVal.doubleValue() * .3);
+                        rightBracket.setMinWidth(newVal.doubleValue() * .3);
+                        System.out.println(node.getWidth());
+                    });
+                    //parentHBox.setSpacing(250);
+                    parentVBox.getChildren().addAll( testHBox);
+                }
+
+            }
         }
+
         parentVBox.getChildren().add(parentHBox);
         parentVBox.setAlignment(Pos.TOP_CENTER);
-        parentVBox.getChildren().forEach((child) -> child.setId("treeNode"));
-        parentHBox.getChildren().forEach((child) -> child.setId("treeNode"));
-        parentHBox.setId("rulesAxiomsText");
+
         parentHBox.setAlignment(Pos.TOP_CENTER);
+        parentVBox.setId("treeNode");
+        parentHBox.setId("treeNode");
+
         return parentVBox;
     }
 
