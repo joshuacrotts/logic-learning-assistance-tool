@@ -254,4 +254,9 @@ public class PredicateTruthTreeGeneratorUnitTester {
     public void test024() {
         goodFileTest("test024");
     }
+
+    @Test
+    public void test025() {
+        goodFileTest("test025");
+    }
 }

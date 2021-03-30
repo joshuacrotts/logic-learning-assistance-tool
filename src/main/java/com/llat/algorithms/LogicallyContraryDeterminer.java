@@ -38,8 +38,8 @@ public final class LogicallyContraryDeterminer {
         // Create the ROOTs for the two trees.
         WffTree leftSubTree = new WffTree();
         WffTree rightSubTree = new WffTree();
-        leftSubTree.addChild(this.combinedTree.getChild(0));
-        rightSubTree.addChild(this.combinedTree.getChild(1));
+        leftSubTree.addChild(this.combinedTree.getChild(0).getChild(0));
+        rightSubTree.addChild(this.combinedTree.getChild(0).getChild(1));
 
         if (this.combinedTree.isPropositionalWff()) {
             consistentBranchTreeGenerator = new PropositionalTruthTreeGenerator(leftSubTree);

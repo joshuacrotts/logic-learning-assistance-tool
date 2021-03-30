@@ -179,4 +179,9 @@ public class PropositionalTruthTreeGeneratorUnitTester {
     public void test009() {
         goodFileTest("test009");
     }
+
+    @Test
+    public void test010() {
+        goodFileTest("test010");
+    }
 }

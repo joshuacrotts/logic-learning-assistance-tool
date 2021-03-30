@@ -86,7 +86,7 @@ public class ParserTest {
             }
             // Generate the truth tree and print it to the console.
             TruthTree truthTree = truthTreeGenerator.get();
-            System.out.println("Truth Tree: " + truthTreeGenerator.print(truthTree));
+            System.out.println("Truth Tree: \n" + truthTreeGenerator.print(truthTree));
 
             // Print the tree in LaTeX.
             TexPrinter texTreePrinter = new TexTreePrinter(truthTree, "latex_tree.tex");
