@@ -53,6 +53,7 @@ public class WffTree implements Copyable, TexPrintable {
     @Override
     public WffTree copy() {
         WffTree t = new WffTree(this.symbol, this.NODE_TYPE);
+        t.setFlags(this.getFlags());
         this.copyHelper(this, t);
         return t;
     }

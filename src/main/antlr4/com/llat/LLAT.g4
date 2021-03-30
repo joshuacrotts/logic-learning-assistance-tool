@@ -54,8 +54,10 @@ THEREFORE: '⊢' | '∴' | '=>';
 
 program: (predProof EOF)
        | (propProof EOF)
-       | (predicateWff EOF)
-       | (propositionalWff EOF);
+       | (propositionalWff COMMA propositionalWff EOF)
+       | (predicateWff COMMA predicateWff EOF)
+       | (propositionalWff EOF)
+       | (predicateWff EOF);
 
 /* Propositional Logic Rules. */
 atom: ATOM;

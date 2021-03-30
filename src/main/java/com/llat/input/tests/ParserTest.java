@@ -82,9 +82,6 @@ public class ParserTest {
                 TexTreePrinter texTreePrinter = new TexTreePrinter(predTruthTree, "latex_tree.tex");
                 texTreePrinter.outputToFile();
             } else {
-                System.out.println(result.isPropositionalWff());
-                System.out.println("Truth Table: ");
-
                 // Draw the truth tree in TeX.
                 TruthTree propTruthTree = new PropositionalTruthTreeGenerator(result).get();
                 TexTreePrinter texTreePrinter = new TexTreePrinter(propTruthTree, "latex.out");
@@ -96,10 +93,19 @@ public class ParserTest {
             }
         } else {
             // Pull the two children from their root.
-            WffTree ch1 = resultList.get(0).getChild(0);
-            WffTree ch2 = resultList.get(1).getChild(0);
+            WffTree ch1 = resultList.get(0);
+            WffTree ch2 = resultList.get(1);
             LogicallyEquivalentDeterminer logDet = new LogicallyEquivalentDeterminer(ch1, ch2);
-            System.out.println(logDet.get());
+            System.out.println("Logically Equivalent: " + logDet.get());
+
+            LogicallyContradictoryDeterminer contradictoryDet = new LogicallyContradictoryDeterminer(ch1, ch2);
+            System.out.println("Logically Contradictory: " + contradictoryDet.get());
+
+            LogicallyContraryDeterminer contraryDet = new LogicallyContraryDeterminer(ch1, ch2);
+            System.out.println("Logically Contrary: " + contraryDet.get());
+
+            LogicallyImpliedDeterminer impliedDet = new LogicallyImpliedDeterminer(ch1, ch2);
+            System.out.println("Logically Implied: " + impliedDet.get());
         }
     }
 
