@@ -6,6 +6,7 @@ import com.llat.algorithms.*;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
+import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.LLATErrorListener;
 import com.llat.input.LLATErrorStrategy;
 import com.llat.input.LLATParserAdapter;
@@ -66,6 +67,7 @@ public class ParserTest {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         LinkedList<WffTree> resultList = LLATParserAdapter.getAbstractSyntaxTree(reader.readLine());
 
+        // If we only have one WffTree, we can do the simple operations.
         if (resultList.size() == 1) {
             WffTree result = resultList.get(0);
             result.printSyntaxTree();
@@ -78,6 +80,8 @@ public class ParserTest {
                 System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
                 truthTreeGenerator = new PredicateTruthTreeGenerator(result);
             } else {
+                TexPrinter texTablePrinter = new TexTablePrinter(result, "latex_table.tex");
+                texTablePrinter.outputToFile();
                 truthTreeGenerator = new PropositionalTruthTreeGenerator(result);
             }
             // Generate the truth tree and print it to the console.
@@ -85,7 +89,7 @@ public class ParserTest {
             System.out.println("Truth Tree: " + truthTreeGenerator.print(truthTree));
 
             // Print the tree in LaTeX.
-            TexTreePrinter texTreePrinter = new TexTreePrinter(truthTree, "latex_tree.tex");
+            TexPrinter texTreePrinter = new TexTreePrinter(truthTree, "latex_tree.tex");
             texTreePrinter.outputToFile();
 
             // Display the main operator.
@@ -98,7 +102,9 @@ public class ParserTest {
             // Determine if it's contingent.
             LogicallyContingentDeterminer consistentDet = new LogicallyContingentDeterminer(result);
             System.out.println("Logical Contingent: " + consistentDet.isContingent());
-        } else {
+        }
+        // Otherwise, we test their logical relationship.
+        else {
             // Pull the two children from their root.
             WffTree ch1 = resultList.get(0);
             WffTree ch2 = resultList.get(1);

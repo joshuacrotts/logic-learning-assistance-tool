@@ -1,5 +1,7 @@
 package com.llat.models.treenode;
 
+import com.llat.algorithms.TexPrinter;
+
 import java.util.LinkedList;
 
 /**
@@ -57,7 +59,7 @@ public class PredicateNode extends WffTree {
 
     @Override
     public String getTexCommand() {
-        StringBuilder sb = new StringBuilder(this.PREDICATE_LETTER);
+        StringBuilder sb = new StringBuilder(TexPrinter.removeMathMode(this.PREDICATE_LETTER));
         for (WffTree ch : this.getChildren()) {
             sb.append(ch.getTexCommand());
         }

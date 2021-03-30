@@ -1,5 +1,7 @@
 package com.llat.models.treenode;
 
+import com.llat.algorithms.TexPrinter;
+
 /**
  *
  */
@@ -33,7 +35,7 @@ public class AtomNode extends WffTree {
 
     @Override
     public String getTexCommand() {
-        return this.getSymbol();
+        return TexPrinter.removeMathMode(this.getSymbol());
     }
 
     @Override
