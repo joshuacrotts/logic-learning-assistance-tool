@@ -179,10 +179,6 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void enterPredicate(LLATParser.PredicateContext ctx) {
-    }
-
-    @Override
     public void exitPredicate(LLATParser.PredicateContext ctx) {
         AtomNode atomNode = (AtomNode) PARSE_TREE.get(ctx.atom());
 
@@ -205,22 +201,9 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void exitConstant(LLATParser.ConstantContext ctx) {
-    }
-
-    @Override
     public void enterVariable(LLATParser.VariableContext ctx) {
         WffTree variableNode = new VariableNode(ctx.VARIABLE().getText());
         this.PARSE_TREE.put(ctx, variableNode);
-    }
-
-    @Override
-    public void exitVariable(LLATParser.VariableContext ctx) {
-    }
-
-    @Override
-    public void enterPredQuantifier(LLATParser.PredQuantifierContext ctx) {
-
     }
 
     @Override
@@ -247,10 +230,6 @@ public class LLATParserListener extends LLATBaseListener {
         UniversalQuantifierNode uqn = new UniversalQuantifierNode(symbol, variableNode.getSymbol());
         this.treeRoots.push(wffTree);
         this.wffTree = uqn;
-    }
-
-    @Override
-    public void enterExistential(LLATParser.ExistentialContext ctx) {
     }
 
     @Override
@@ -355,9 +334,13 @@ public class LLATParserListener extends LLATBaseListener {
         this.wffTree.addChild(identityNode);
     }
 
-//========================== LOGIC RELATIONSHIP LISTENERS =============================//
-
-
+    /**
+     * Returns the list of WffTrees that were constructed during parsing. Multiple are
+     * possible if a comma is used as the delimiter.
+     *
+     * @return LinkedList of WffTrees. If there is only one, then only one WffTree should
+     * be evaluated. Otherwise, use an algorithm for 2+.
+     */
     public LinkedList<WffTree> getSyntaxTrees() {
         return LLATErrorListener.sawError() ? null : this.currentTrees;
     }

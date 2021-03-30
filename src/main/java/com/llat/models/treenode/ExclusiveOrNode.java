@@ -11,6 +11,9 @@ public class ExclusiveOrNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "⊕";
 
+    /**
+     * The default TeX symbol is the "crosshair" symbol.
+     */
     private static final String DEFAULT_TEX_SYMBOL = "\\oplus";
 
     public ExclusiveOrNode(String _symbol) {

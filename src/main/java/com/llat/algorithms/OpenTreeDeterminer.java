@@ -14,7 +14,6 @@ public class OpenTreeDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean hasAllOpen() {
@@ -37,7 +36,6 @@ public class OpenTreeDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean hasSomeOpen() {

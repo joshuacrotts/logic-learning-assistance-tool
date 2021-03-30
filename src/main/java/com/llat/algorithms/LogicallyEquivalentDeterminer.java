@@ -12,6 +12,9 @@ import com.llat.models.treenode.WffTree;
  */
 public final class LogicallyEquivalentDeterminer {
 
+    /**
+     *
+     */
     private WffTree combinedTree;
 
     public LogicallyEquivalentDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {

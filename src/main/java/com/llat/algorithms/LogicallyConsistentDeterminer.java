@@ -13,6 +13,9 @@ import com.llat.models.treenode.WffTree;
  */
 public final class LogicallyConsistentDeterminer {
 
+    /**
+     *
+     */
     private WffTree combinedTree;
 
     public LogicallyConsistentDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {

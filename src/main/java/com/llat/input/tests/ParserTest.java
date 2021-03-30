@@ -6,7 +6,6 @@ import com.llat.algorithms.*;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
-import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.LLATErrorListener;
 import com.llat.input.LLATErrorStrategy;
 import com.llat.input.LLATParserAdapter;
@@ -66,34 +65,37 @@ public class ParserTest {
     public static void main(String[] argv) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         LinkedList<WffTree> resultList = LLATParserAdapter.getAbstractSyntaxTree(reader.readLine());
-        WffTree result = resultList.get(0);
 
         if (resultList.size() == 1) {
+            WffTree result = resultList.get(0);
             result.printSyntaxTree();
-            System.out.println("Main operator: " + new MainOperatorDetector(result).get());
+            BaseTruthTreeGenerator truthTreeGenerator;
             if (result.isPredicateWff()) {
                 System.out.println("Bound variables: " + new BoundVariableDetector(result).get());
                 System.out.println("Free variables: " + new FreeVariableDetector(result).get());
                 System.out.println("Open sentence: " + new OpenSentenceDeterminer(result).get());
                 System.out.println("Closed sentence: " + new ClosedSentenceDeterminer(result).get());
                 System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
-                System.out.println("Truth Tree: ");
-                TruthTree predTruthTree = new PredicateTruthTreeGenerator(result).get();
-                TexTreePrinter texTreePrinter = new TexTreePrinter(predTruthTree, "latex_tree.tex");
-                texTreePrinter.outputToFile();
+                truthTreeGenerator = new PredicateTruthTreeGenerator(result);
             } else {
-                // Draw the truth tree in TeX.
-                TruthTree propTruthTree = new PropositionalTruthTreeGenerator(result).get();
-                TexTreePrinter texTreePrinter = new TexTreePrinter(propTruthTree, "latex.out");
-                texTreePrinter.outputToFile();
-
-                // Draw the truth table in TeX.
-                TexTablePrinter propTruthTable = new TexTablePrinter(result, "latex_table.tex");
-                propTruthTable.outputToFile();
+                truthTreeGenerator = new PropositionalTruthTreeGenerator(result);
             }
+            // Generate the truth tree and print it to the console.
+            TruthTree truthTree = truthTreeGenerator.get();
+            System.out.println("Truth Tree: " + truthTreeGenerator.print(truthTree));
+
+            // Print the tree in LaTeX.
+            TexTreePrinter texTreePrinter = new TexTreePrinter(truthTree, "latex_tree.tex");
+            texTreePrinter.outputToFile();
+
+            // Display the main operator.
+            System.out.println("Main operator: " + new MainOperatorDetector(result).get());
+
+            // Determine if it's a tautology.
             LogicalTautologyDeterminer tautologyDet = new LogicalTautologyDeterminer(result);
             System.out.println("Logical Tautology: " + tautologyDet.isTautology());
 
+            // Determine if it's contingent.
             LogicallyContingentDeterminer consistentDet = new LogicallyContingentDeterminer(result);
             System.out.println("Logical Contingent: " + consistentDet.isContingent());
         } else {

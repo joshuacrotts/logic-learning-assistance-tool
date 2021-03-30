@@ -6,12 +6,12 @@ package com.llat.models.treenode;
 public class ExistentialQuantifierNode extends QuantifierNode {
 
     /**
-     *
+     * The existential operator is the same across the board.
      */
     private static final String DEFAULT_SYMBOL = "∃";
 
     /**
-     *
+     * The default TeX symbol is just the standard existential symbol.
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\exists";
 

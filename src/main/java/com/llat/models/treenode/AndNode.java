@@ -15,7 +15,8 @@ public class AndNode extends WffTree {
     private static final String DEFAULT_SYMBOL = "&";
 
     /**
-     *
+     * The default TeX symbol is the ampersand, but defined in a mathbin
+     * environment so it can be read in the forest env.
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\mathbin{\\&}";
 

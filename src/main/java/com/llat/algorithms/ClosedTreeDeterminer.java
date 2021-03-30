@@ -14,7 +14,6 @@ public class ClosedTreeDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean hasAllClosed() {
@@ -38,7 +37,6 @@ public class ClosedTreeDeterminer {
     }
 
     /**
-     *
      * @return
      */
     public boolean hasSomeClosed() {

@@ -12,6 +12,9 @@ import com.llat.models.treenode.WffTree;
  */
 public final class LogicallyContraryDeterminer {
 
+    /**
+     *
+     */
     private WffTree combinedTree;
 
     public LogicallyContraryDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
@@ -36,7 +39,7 @@ public final class LogicallyContraryDeterminer {
         WffTree leftSubTree = new WffTree();
         WffTree rightSubTree = new WffTree();
         leftSubTree.addChild(this.combinedTree.getChild(0));
-        rightSubTree.addChild(this.combinedTree.getChild(0));
+        rightSubTree.addChild(this.combinedTree.getChild(1));
 
         if (this.combinedTree.isPropositionalWff()) {
             consistentBranchTreeGenerator = new PropositionalTruthTreeGenerator(leftSubTree);

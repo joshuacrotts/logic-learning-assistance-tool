@@ -12,7 +12,7 @@ public class ImpNode extends WffTree {
     private static final String DEFAULT_SYMBOL = "->";
 
     /**
-     *
+     * The default TeX symbol is just the simple right-arrow.
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\to";
 

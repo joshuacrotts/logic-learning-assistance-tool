@@ -13,7 +13,8 @@ public class BicondNode extends WffTree {
     private static final String DEFAULT_SYMBOL = "<->";
 
     /**
-     *
+     * The default TeX symbol is a custom symbol I made. It's just
+     * the double arrow but it looks a little cleaner.
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\varliff";
 

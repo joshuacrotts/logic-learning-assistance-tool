@@ -12,7 +12,8 @@ public class NegNode extends WffTree {
     private static final String DEFAULT_SYMBOL = "~";
 
     /**
-     *
+     * The default TeX symbol is the tilde, but because it is difficult
+     * to produce correctly, we had to make a custom definition for it.
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\varlnot";
 

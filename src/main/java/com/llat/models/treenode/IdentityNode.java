@@ -6,12 +6,14 @@ package com.llat.models.treenode;
 public class IdentityNode extends WffTree {
 
     /**
-     *
+     * Identity always uses the equals sign.
      */
     private static final String DEFAULT_SYMBOL = "=";
 
     /**
-     *
+     * The default TeX symbol is a space, equals sign (using mathbb since
+     * apparently displaying an equals sign is challenging!), and another
+     * space.
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\,\\mathbb{=}\\,";
 

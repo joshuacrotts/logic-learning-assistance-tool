@@ -57,6 +57,60 @@ public final class TruthTableGenerator {
     }
 
     /**
+     * Clears all truth values from this WffTree.
+     */
+    public void clearWffTree() {
+        Queue<WffTree> queue = new LinkedList<>();
+        queue.add(this.wffTree);
+
+        while (!queue.isEmpty()) {
+            WffTree tree = queue.poll();
+            tree.getTruthValues().clear();
+            for (WffTree ch : tree.getChildren()) {
+                queue.add(ch);
+            }
+        }
+    }
+
+    /**
+     * Builds the truth table for the supplied tree. Each node
+     * has a LinkedList of truth values associated with it, and
+     * these are set as the tree is built. So, this function does
+     * not return anything. Once this method is called, the tree
+     * will need to be traversed again to find the truth values.
+     * To get just the truth table values for the entire tree,
+     * call getTruthValues() on the main operator. This process can
+     * also be done on each subtree for easy printing.
+     */
+    public void get() {
+        if (this.size > MAX_ATOMS) {
+            System.out.println("This formula is too complex to build a truth table for.");
+            return;
+        }
+        this.buildTable(this.wffTree);
+    }
+
+    /**
+     * Prints out the truth values for a WffTree in pre-order fashion.
+     */
+    public void print() {
+        printHelper();
+    }
+
+    /**
+     * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
+     * <p>
+     * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
+     *
+     * @return list of nodes in post-order.
+     */
+    public LinkedHashSet<WffTree> postorder() {
+        LinkedHashSet<WffTree> list = new LinkedHashSet<>();
+        this.postorderHelper(this.wffTree.getChild(0), list);
+        return list;
+    }
+
+    /**
      * Performs a logical conjunction (AND) (&&) on two boolean values, meaning that
      * both values must be true to return true.
      *
@@ -116,60 +170,6 @@ public final class TruthTableGenerator {
      */
     private static boolean logicalBicond(boolean _a, boolean _b) {
         return !logicalXOR(_a, _b);
-    }
-
-    /**
-     * Clears all truth values from this WffTree.
-     */
-    public void clearWffTree() {
-        Queue<WffTree> queue = new LinkedList<>();
-        queue.add(this.wffTree);
-
-        while (!queue.isEmpty()) {
-            WffTree tree = queue.poll();
-            tree.getTruthValues().clear();
-            for (WffTree ch : tree.getChildren()) {
-                queue.add(ch);
-            }
-        }
-    }
-
-    /**
-     * Builds the truth table for the supplied tree. Each node
-     * has a LinkedList of truth values associated with it, and
-     * these are set as the tree is built. So, this function does
-     * not return anything. Once this method is called, the tree
-     * will need to be traversed again to find the truth values.
-     * To get just the truth table values for the entire tree,
-     * call getTruthValues() on the main operator. This process can
-     * also be done on each subtree for easy printing.
-     */
-    public void get() {
-        if (this.size > MAX_ATOMS) {
-            System.out.println("This formula is too complex to build a truth table for.");
-            return;
-        }
-        this.buildTable(this.wffTree);
-    }
-
-    /**
-     * Prints out the truth values for a WffTree in pre-order fashion.
-     */
-    public void print() {
-        printHelper();
-    }
-
-    /**
-     * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
-     * <p>
-     * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
-     *
-     * @return list of nodes in post-order.
-     */
-    public LinkedHashSet<WffTree> postorder() {
-        LinkedHashSet<WffTree> list = new LinkedHashSet<>();
-        this.postorderHelper(this.wffTree.getChild(0), list);
-        return list;
     }
 
     /**
