@@ -19,8 +19,9 @@ public class ClosedTreeDeterminer {
 
         while (!queue.isEmpty()) {
             TruthTree t = queue.poll();
-            if (t.isLeafNode() && !t.isClosed())
+            if (t.isLeafNode() && !t.isClosed()) {
                 return false;
+            }
             if (t.getLeft() != null) {
                 queue.add(t.getLeft());
             }

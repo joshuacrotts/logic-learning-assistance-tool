@@ -1,10 +1,8 @@
 package com.llat.algorithms;
 
-import com.llat.algorithms.MainOperatorDetector;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
-import com.llat.algorithms.propositional.TruthTableGenerator;
 import com.llat.models.treenode.NegNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
@@ -32,7 +30,7 @@ public final class LogicallyContingentDeterminer {
     /**
      * @return
      */
-    public boolean get() {
+    public boolean isContingent() {
         BaseTruthTreeGenerator treeGenerator;
         BaseTruthTreeGenerator negatedTreeGenerator;
         if (this.wffTree.isPropositionalWff()) {

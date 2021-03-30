@@ -1,6 +1,5 @@
 package com.llat.algorithms;
 
-import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.models.treenode.ImpNode;
@@ -11,8 +10,11 @@ import com.llat.models.treenode.WffTree;
 /**
  *
  */
-public class LogicallyImpliedDeterminer {
+public final class LogicallyImpliedDeterminer {
 
+    /**
+     *
+     */
     private WffTree combinedTree;
 
     public LogicallyImpliedDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
@@ -29,7 +31,7 @@ public class LogicallyImpliedDeterminer {
     /**
      * @return
      */
-    public boolean get() {
+    public boolean isImplied() {
         BaseTruthTreeGenerator treeGenerator;
         if (this.combinedTree.isPropositionalWff()) {
             treeGenerator = new PropositionalTruthTreeGenerator(this.combinedTree);

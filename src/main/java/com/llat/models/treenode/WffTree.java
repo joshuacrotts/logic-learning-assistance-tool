@@ -67,6 +67,10 @@ public class WffTree implements Copyable, TexPrintable {
 
     @Override
     public boolean equals(Object _obj) {
+        if (!(_obj instanceof WffTree)) {
+            throw new ClassCastException("Cannot cast object of type " + _obj.getClass() + " to WffTree.");
+        }
+
         WffTree o = (WffTree) _obj;
         if (this.getStringRep().equals(o.getStringRep())) {
             return true;

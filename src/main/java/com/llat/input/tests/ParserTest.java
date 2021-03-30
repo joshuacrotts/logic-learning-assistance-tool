@@ -5,7 +5,8 @@ import com.llat.LLATParser;
 import com.llat.algorithms.*;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
-import com.llat.algorithms.propositional.*;
+import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
+import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.LLATErrorListener;
 import com.llat.input.LLATErrorStrategy;
 import com.llat.input.LLATParserAdapter;
@@ -34,10 +35,9 @@ import java.util.LinkedList;
  *
  * @author Steve Tate (srtate@uncg.edu)
  * @modified Joshua Crotts
- * @date 2/20/2021
+ * @date 3/30/2021
  */
 public class ParserTest {
-
 
     /**
      * Public static method to run the parser on an input file.
@@ -96,23 +96,23 @@ public class ParserTest {
             WffTree ch1 = resultList.get(0);
             WffTree ch2 = resultList.get(1);
             LogicallyEquivalentDeterminer logDet = new LogicallyEquivalentDeterminer(ch1, ch2);
-            System.out.println("Logically Equivalent: " + logDet.get());
+            System.out.println("Logically Equivalent: " + logDet.isEquivalent());
 
             LogicallyContradictoryDeterminer contradictoryDet = new LogicallyContradictoryDeterminer(ch1, ch2);
-            System.out.println("Logically Contradictory: " + contradictoryDet.get());
+            System.out.println("Logically Contradictory: " + contradictoryDet.isContradictory());
 
             LogicallyContraryDeterminer contraryDet = new LogicallyContraryDeterminer(ch1, ch2);
-            System.out.println("Logically Contrary: " + contraryDet.get());
+            System.out.println("Logically Contrary: " + contraryDet.isContrary());
 
             LogicallyImpliedDeterminer impliedDet = new LogicallyImpliedDeterminer(ch1, ch2);
-            System.out.println("Logically Implied: " + impliedDet.get());
+            System.out.println("Logically Implied: " + impliedDet.isImplied());
         }
     }
 
     /**
      * Runs the parser and syntax tree constructor for the provided input stream.
      * The returned object can be used to access the syntax tree and the symbol table
-     * for either futher processing or for checking results in automated tests.
+     * for either further processing or for checking results in automated tests.
      *
      * @param input an initialized CharStream
      */

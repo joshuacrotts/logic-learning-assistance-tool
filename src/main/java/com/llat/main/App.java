@@ -14,6 +14,14 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    public static void main(String[] args) {
+        Symbol x = new Existential();
+
+//        app.test(x);
+
+        launch(args);
+    }
+
     public void test(Symbol _test) {
 
     }
@@ -31,13 +39,5 @@ public class App extends Application {
         _stage.setFullScreen(true);
         _stage.setMinHeight(720);
         _stage.setMinWidth(1280);
-    }
-
-    public static void main(String[] args) {
-        Symbol x = new Existential();
-
-//        app.test(x);
-
-        launch(args);
     }
 }

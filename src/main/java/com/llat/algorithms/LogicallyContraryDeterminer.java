@@ -3,12 +3,14 @@ package com.llat.algorithms;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
-import com.llat.models.treenode.*;
+import com.llat.models.treenode.BicondNode;
+import com.llat.models.treenode.NodeFlag;
+import com.llat.models.treenode.WffTree;
 
 /**
  *
  */
-public class LogicallyContraryDeterminer {
+public final class LogicallyContraryDeterminer {
 
     private WffTree combinedTree;
 
@@ -26,7 +28,7 @@ public class LogicallyContraryDeterminer {
     /**
      * @return
      */
-    public boolean get() {
+    public boolean isContrary() {
         BaseTruthTreeGenerator consistentBranchTreeGenerator;
         BaseTruthTreeGenerator inconsistentBranchTreeGenerator;
 

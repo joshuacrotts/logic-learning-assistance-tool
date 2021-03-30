@@ -14,38 +14,19 @@ import java.lang.reflect.Type;
  */
 public class GsonIO implements UIDescriptionInterface, SettingsInterface {
 
-    public static Gson gson = new Gson();
+    private static Gson gson = new Gson();
 
     /**
      *
      */
-    public String json;
-    public Object obj;
-    public Type aClass;
+    private String json;
+    private Object obj;
+    private Type aClass;
 
     public GsonIO(String _jsonFileName, Object _obj, Type _objectClass) {
         this.json = _jsonFileName;
         this.obj = _obj;
         this.aClass = _objectClass;
-    }
-
-    @Override
-    public void update(Object _obj, String _jsonFilePath) {
-        String filePath = App.class.getResource("/" + _jsonFilePath).getPath();
-        try {
-            Writer writer = new FileWriter(filePath);
-            gson.toJson(_obj, writer);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public LocalStorage getData() {
-        String jsonString = readJsonFile(json);
-        LocalStorage x = gson.fromJson(jsonString, aClass);
-        return x;
     }
 
     /**
@@ -68,5 +49,24 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public void update(Object _obj, String _jsonFilePath) {
+        String filePath = App.class.getResource("/" + _jsonFilePath).getPath();
+        try {
+            Writer writer = new FileWriter(filePath);
+            gson.toJson(_obj, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public LocalStorage getData() {
+        String jsonString = readJsonFile(json);
+        LocalStorage localStorage = gson.fromJson(jsonString, aClass);
+        return localStorage;
     }
 }

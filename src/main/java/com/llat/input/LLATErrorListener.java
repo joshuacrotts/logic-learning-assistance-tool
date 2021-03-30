@@ -46,18 +46,6 @@ public class LLATErrorListener extends BaseErrorListener {
     }
 
     /**
-     * This is the syntaxError method from the BaseErrorListener ANTLR class. We have
-     * overridden it to set the error flag and add a new Message to our running set of
-     * objects.
-     */
-    @Override
-    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int col, String errorMsg,
-                            RecognitionException e) {
-        gotError = true;
-        LLATErrorListener.errors.add(new Message(errorMsg, line, col));
-    }
-
-    /**
      * Prints an error message to the console with the line and column number
      * specified by the ParserRuleContext. The error flag is also set.
      *
@@ -184,6 +172,18 @@ public class LLATErrorListener extends BaseErrorListener {
         LLATErrorListener.errors.clear();
         LLATErrorListener.gotError = false;
         LLATErrorListener.gotWarning = false;
+    }
+
+    /**
+     * This is the syntaxError method from the BaseErrorListener ANTLR class. We have
+     * overridden it to set the error flag and add a new Message to our running set of
+     * objects.
+     */
+    @Override
+    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int col, String errorMsg,
+                            RecognitionException e) {
+        gotError = true;
+        LLATErrorListener.errors.add(new Message(errorMsg, line, col));
     }
 
     /**

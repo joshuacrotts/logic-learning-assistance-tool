@@ -3,7 +3,6 @@ package com.llat.algorithms;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
-import com.llat.models.treenode.BicondNode;
 import com.llat.models.treenode.NegNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
@@ -11,8 +10,11 @@ import com.llat.models.treenode.WffTree;
 /**
  *
  */
-public class LogicalTautologyDeterminer {
+public final class LogicalTautologyDeterminer {
 
+    /**
+     *
+     */
     private WffTree wffTree;
 
     public LogicalTautologyDeterminer(WffTree _wffTreeOne) {
@@ -25,7 +27,7 @@ public class LogicalTautologyDeterminer {
     /**
      * @return
      */
-    public boolean get() {
+    public boolean isTautology() {
         BaseTruthTreeGenerator treeGenerator;
         if (this.wffTree.isPropositionalWff()) {
             treeGenerator = new PropositionalTruthTreeGenerator(this.wffTree);

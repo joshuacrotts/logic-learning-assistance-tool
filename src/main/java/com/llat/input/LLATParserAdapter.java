@@ -36,7 +36,7 @@ public class LLATParserAdapter {
     /**
      * Runs the parser and syntax tree constructor for the provided input stream.
      * The returned object can be used to access the syntax tree and the symbol table
-     * for either futher processing or for checking results in automated tests.
+     * for either further processing or for checking results in automated tests.
      *
      * @param input an initialized CharStream
      */
