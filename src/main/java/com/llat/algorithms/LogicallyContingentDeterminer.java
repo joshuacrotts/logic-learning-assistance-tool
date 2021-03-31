@@ -20,12 +20,14 @@ public final class LogicallyContingentDeterminer {
     private WffTree negatedTree;
 
     public LogicallyContingentDeterminer(WffTree _wffTree) {
-        this.negatedTree = new WffTree();
-        this.wffTree = _wffTree.getChild(0);
+        this.wffTree = _wffTree.copy();
         this.wffTree.setFlags(_wffTree.getFlags());
+
+        // Create the negated expression.
+        this.negatedTree = new WffTree();
         this.negatedTree.addChild(new NegNode());
         this.negatedTree.setFlags(_wffTree.isPropositionalWff() ? NodeFlag.PROPOSITIONAL : NodeFlag.PREDICATE);
-        this.negatedTree.getChild(0).addChild(this.wffTree.copy());
+        this.negatedTree.getChild(0).addChild(this.wffTree.getChild(0).copy());
     }
 
     /**

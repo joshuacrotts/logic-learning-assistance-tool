@@ -99,6 +99,10 @@ public class ParserTest {
             LogicalTautologyDeterminer tautologyDet = new LogicalTautologyDeterminer(result);
             System.out.println("Logical Tautology: " + tautologyDet.isTautology());
 
+            // Determine if it's a falsehood.
+            LogicalFalsehoodDeterminer falsehoodDet = new LogicalFalsehoodDeterminer(result);
+            System.out.println("Logical Falsehood: " + falsehoodDet.isFalsehood());
+
             // Determine if it's contingent.
             LogicallyContingentDeterminer consistentDet = new LogicallyContingentDeterminer(result);
             System.out.println("Logical Contingent: " + consistentDet.isContingent());
