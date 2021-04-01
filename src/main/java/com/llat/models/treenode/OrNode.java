@@ -11,6 +11,11 @@ public class OrNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "∨";
 
+    /**
+     * The default TeX symbol is just the standard wedge symbol.
+     */
+    private static final String DEFAULT_TEX_SYMBOL = "\\lor";
+
     public OrNode(String _symbol) {
         super(_symbol, NodeType.OR);
     }
@@ -34,5 +39,18 @@ public class OrNode extends WffTree {
         WffTree ch2 = this.getChild(1);
 
         return "(" + ch1.getStringRep() + " " + this.getSymbol() + " " + ch2.getStringRep() + ")";
+    }
+
+    @Override
+    public String getTexCommand() {
+        WffTree ch1 = this.getChild(0);
+        WffTree ch2 = this.getChild(1);
+
+        return "(" + ch1.getTexCommand() + " " + DEFAULT_TEX_SYMBOL + " " + ch2.getTexCommand() + ")";
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return DEFAULT_TEX_SYMBOL;
     }
 }

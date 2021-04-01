@@ -27,6 +27,50 @@ import java.nio.file.NoSuchFileException;
 public class LexerTest {
 
     /**
+     * Public static method to run the lexical analyzer on an input file.
+     *
+     * @param fileName the name of the file to use for input
+     */
+    public static void lexFromFile(String fileName) {
+        try {
+            lexStream(CharStreams.fromFileName(fileName));
+        } catch (IOException e) {
+            if (e instanceof NoSuchFileException) {
+                System.err.println("Could not open file " + fileName);
+            } else {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Public static method to run the lexical analyzer on the standard input
+     * stream.
+     */
+    public static void lexFromStdin() {
+        try {
+            lexStream(CharStreams.fromStream(System.in));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Command line interface -- one argument is filename, and if omitted then
+     * input is taken from standard input.
+     *
+     * @param argv command line arguments
+     */
+    public static void main(String[] argv) {
+        if (argv.length > 0) {
+            System.err.println("...terminal arguments not supported.");
+            return;
+        } else {
+            lexFromStdin();
+        }
+    }
+
+    /**
      * Produces a "portable" string representation of the token and position.
      * This is necessary due to differences between Windows and Linux/Unix
      * end of line conventions, which makes the character positions of tokens
@@ -79,50 +123,6 @@ public class LexerTest {
             } else {
                 System.out.println(tok.toString());
             }
-        }
-    }
-
-    /**
-     * Public static method to run the lexical analyzer on an input file.
-     *
-     * @param fileName the name of the file to use for input
-     */
-    public static void lexFromFile(String fileName) {
-        try {
-            lexStream(CharStreams.fromFileName(fileName));
-        } catch (IOException e) {
-            if (e instanceof NoSuchFileException) {
-                System.err.println("Could not open file " + fileName);
-            } else {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Public static method to run the lexical analyzer on the standard input
-     * stream.
-     */
-    public static void lexFromStdin() {
-        try {
-            lexStream(CharStreams.fromStream(System.in));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Command line interface -- one argument is filename, and if omitted then
-     * input is taken from standard input.
-     *
-     * @param argv command line arguments
-     */
-    public static void main(String[] argv) {
-        if (argv.length > 0) {
-            System.err.println("...terminal arguments not supported.");
-            return;
-        } else {
-            lexFromStdin();
         }
     }
 }

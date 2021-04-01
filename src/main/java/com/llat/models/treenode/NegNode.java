@@ -11,6 +11,12 @@ public class NegNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "~";
 
+    /**
+     * The default TeX symbol is the tilde, but because it is difficult
+     * to produce correctly, we had to make a custom definition for it.
+     */
+    private static final String DEFAULT_TEX_SYMBOL = "\\varlnot";
+
     public NegNode(String _symbol) {
         super(_symbol, NodeType.NEG);
     }
@@ -21,16 +27,28 @@ public class NegNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        NegNode or = new NegNode(this.getSymbol());
+        NegNode negNode = new NegNode(this.getSymbol());
+        negNode.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
-            or.addChild(ch.copy());
+            negNode.addChild(ch.copy());
         }
-        return or;
+        return negNode;
     }
 
     @Override
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
         return this.getSymbol() + ch1.getStringRep();
+    }
+
+    @Override
+    public String getTexCommand() {
+        WffTree ch1 = this.getChild(0);
+        return DEFAULT_TEX_SYMBOL + " " + ch1.getTexCommand();
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return DEFAULT_TEX_SYMBOL;
     }
 }

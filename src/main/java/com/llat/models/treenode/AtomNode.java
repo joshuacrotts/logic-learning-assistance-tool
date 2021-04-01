@@ -1,5 +1,7 @@
 package com.llat.models.treenode;
 
+import com.llat.algorithms.TexPrinter;
+
 /**
  *
  */
@@ -17,7 +19,9 @@ public class AtomNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        return new AtomNode(ATOM_SYMBOL);
+        AtomNode atomNode = new AtomNode(ATOM_SYMBOL);
+        atomNode.setFlags(this.getFlags());
+        return atomNode;
     }
 
     public String getSymbol() {
@@ -30,7 +34,17 @@ public class AtomNode extends WffTree {
     }
 
     @Override
+    public String getTexCommand() {
+        return TexPrinter.removeMathMode(this.getSymbol());
+    }
+
+    @Override
     public String toString() {
         return super.toString() + ": " + this.ATOM_SYMBOL;
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return this.getTexCommand();
     }
 }

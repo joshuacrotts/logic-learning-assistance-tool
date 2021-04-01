@@ -12,6 +12,12 @@ public class BicondNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "<->";
 
+    /**
+     * The default TeX symbol is a custom symbol I made. It's just
+     * the double arrow but it looks a little cleaner.
+     */
+    private static final String DEFAULT_TEX_SYMBOL = "\\varliff";
+
     public BicondNode(String _symbol) {
         super(_symbol, NodeType.BICOND);
     }
@@ -22,11 +28,12 @@ public class BicondNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        BicondNode or = new BicondNode(this.getSymbol());
+        BicondNode bicondNode = new BicondNode(this.getSymbol());
+        bicondNode.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
-            or.addChild(ch.copy());
+            bicondNode.addChild(ch.copy());
         }
-        return or;
+        return bicondNode;
     }
 
     @Override
@@ -35,5 +42,18 @@ public class BicondNode extends WffTree {
         WffTree ch2 = this.getChild(1);
 
         return "(" + ch1.getStringRep() + " " + this.getSymbol() + " " + ch2.getStringRep() + ")";
+    }
+
+    @Override
+    public String getTexCommand() {
+        WffTree ch1 = this.getChild(0);
+        WffTree ch2 = this.getChild(1);
+
+        return "(" + ch1.getTexCommand() + " " + DEFAULT_TEX_SYMBOL + " " + ch2.getTexCommand() + ")";
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return DEFAULT_TEX_SYMBOL;
     }
 }

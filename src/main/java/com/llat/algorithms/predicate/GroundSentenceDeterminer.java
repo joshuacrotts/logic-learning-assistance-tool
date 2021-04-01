@@ -8,7 +8,7 @@ import java.util.Queue;
 /**
  *
  */
-public class GroundSentenceDeterminer {
+public final class GroundSentenceDeterminer {
 
     /**
      *
@@ -32,11 +32,9 @@ public class GroundSentenceDeterminer {
                 if (ch.isVariable()) {
                     return false;
                 }
-
                 queue.add(ch);
             }
         }
-
         return true;
     }
 }

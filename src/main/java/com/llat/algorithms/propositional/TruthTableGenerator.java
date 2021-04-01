@@ -12,41 +12,102 @@ import java.util.*;
 public final class TruthTableGenerator {
 
     /**
-     *
+     * Maximum number of atoms that this algorithm can realistically handle before taking an eternity
+     * to generate the truth table.
      */
     private static final int MAX_ATOMS = 14;
 
     /**
-     *
+     * Root of WffTree to generate the truth table for.
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     /**
-     *
+     * Alternating pattern of truth values for the atoms.
      */
-    private HashMap<String, Integer> truthPattern;
+    private final LinkedHashMap<String, Integer> truthPattern;
 
     /**
-     *
+     * Stack of operands and operators to recursively evaluate when building the tree.
      */
-    private Stack<WffTree> operands;
+    private final Stack<WffTree> operands;
 
     /**
-     *
+     * The number of atoms in this truth tree.
      */
-    private int size;
+    private final int size;
 
     /**
-     *
+     * The number of rows for this truth tree. Equal to 2^(size).
      */
-    private int rows;
+    private final int rows;
 
     public TruthTableGenerator(WffTree _wffTree) {
         this.wffTree = _wffTree;
         this.operands = new Stack<>();
-        this.truthPattern = new HashMap<>();
+        this.truthPattern = new LinkedHashMap<>();
         this.size = getAtomCount(this.wffTree);
         this.rows = (int) Math.pow(2, this.size);
+
+        // We want to clear the tree every time so we don't get duplicate values.
+        this.clearWffTree();
+
+        // Calling it here just makes more sense...
+        this.get();
+    }
+
+    /**
+     * Clears all truth values from this WffTree.
+     */
+    public void clearWffTree() {
+        Queue<WffTree> queue = new LinkedList<>();
+        queue.add(this.wffTree);
+
+        while (!queue.isEmpty()) {
+            WffTree tree = queue.poll();
+            tree.getTruthValues().clear();
+            for (WffTree ch : tree.getChildren()) {
+                queue.add(ch);
+            }
+        }
+    }
+
+    /**
+     * Builds the truth table for the supplied tree. Each node
+     * has a LinkedList of truth values associated with it, and
+     * these are set as the tree is built. So, this function does
+     * not return anything. Once this method is called, the tree
+     * will need to be traversed again to find the truth values.
+     * To get just the truth table values for the entire tree,
+     * call getTruthValues() on the main operator. This process can
+     * also be done on each subtree for easy printing.
+     */
+    public void get() {
+        if (this.size > MAX_ATOMS) {
+            System.out.println("This formula is too complex to build a truth table for.");
+            return;
+        }
+        this.buildTable(this.wffTree);
+    }
+
+    /**
+     * Prints out the truth values for a WffTree in pre-order fashion.
+     */
+    public void print() {
+        printHelper();
+    }
+
+    /**
+     * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
+     * <p>
+     * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
+     *
+     * @return list of nodes in post-order.
+     */
+    public LinkedHashSet<WffTree> postorder() {
+        LinkedHashSet<WffTree> list = new LinkedHashSet<>();
+        this.postorderHelper(this.wffTree.getChild(0), list);
+        return list;
     }
 
     /**
@@ -81,7 +142,7 @@ public final class TruthTableGenerator {
      * @param _b
      * @return logical XOR operation result.
      */
-    private static boolean logicalXOr(boolean _a, boolean _b) {
+    private static boolean logicalXOR(boolean _a, boolean _b) {
         return _a ^ _b;
     }
 
@@ -108,44 +169,38 @@ public final class TruthTableGenerator {
      * @return logical AND operation result.
      */
     private static boolean logicalBicond(boolean _a, boolean _b) {
-        return !logicalXOr(_a, _b);
+        return !logicalXOR(_a, _b);
     }
 
     /**
-     * Builds the truth table for the supplied tree. Each node
-     * has a LinkedList of truth values associated with it, and
-     * these are set as the tree is built. So, this function does
-     * not return anything. Once this method is called, the tree
-     * will need to be traversed again to find the truth values.
-     * To get just the truth table values for the entire tree,
-     * call getTruthValues() on the main operator. This process can
-     * also be done on each subtree for easy printing.
+     * Function to print out the truth tree in a "table" fashion in the console. This, however, does not print
+     * the atoms at the start of the truth table.
      */
-    public void get() {
-        if (this.size > MAX_ATOMS) {
-            System.out.println("This formula is too complex to build a truth table for.");
+    private void printHelper() {
+        LinkedList<WffTree> postorderTraversal = new LinkedList<>(this.postorder());
+        int maxWidth = postorderTraversal.get(postorderTraversal.size() - 1).getStringRep().length();
+        for (WffTree tree : postorderTraversal) {
+            System.out.printf("%-" + maxWidth + "s : ", tree.getStringRep());
+            System.out.println(tree.getTruthValues());
+        }
+    }
+
+    /**
+     * Performs a recursive post-order traversal on the WffTree.
+     *
+     * @param _tree          - tree to search.
+     * @param _postorderList - list to continuously add to.
+     */
+    private void postorderHelper(WffTree _tree, HashSet<WffTree> _postorderList) {
+        if (_tree == null) {
             return;
         }
-        this.buildTable(this.wffTree);
-    }
 
-    /**
-     * Prints out the truth values for a WffTree in pre-order fashion.
-     */
-    public void print() {
-        printHelper(this.wffTree);
-    }
-
-    /**
-     * Recursive printing helper function.
-     *
-     * @param _tree
-     */
-    private void printHelper(WffTree _tree) {
-        for (WffTree ch : _tree.getChildren()) {
-            System.out.println(ch + ": " + ch.getTruthValues());
-            printHelper(ch);
+        for (int i = 0; i < _tree.getChildrenSize(); i++) {
+            this.postorderHelper(_tree.getChild(i), _postorderList);
         }
+
+        _postorderList.add(_tree);
     }
 
     /**
@@ -266,6 +321,8 @@ public final class TruthTableGenerator {
                     _op.setTruthValue(logicalImp(op1Bool, op2Bool), i);
                 } else if (_op.isBicond()) {
                     _op.setTruthValue(logicalBicond(op1Bool, op2Bool), i);
+                } else if (_op.isExclusiveOr()) {
+                    _op.setTruthValue(logicalXOR(op1Bool, op2Bool), i);
                 }
             }
         }

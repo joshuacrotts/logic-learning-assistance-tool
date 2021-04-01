@@ -2,8 +2,9 @@ package com.llat.models.gson;
 
 import com.google.gson.Gson;
 import com.llat.main.App;
-import com.llat.models.uidescription.UIDescriptionInterface;
-import com.llat.models.settings.SettingsInterface;
+import com.llat.models.localstorage.LocalStorage;
+import com.llat.models.localstorage.settings.SettingsInterface;
+import com.llat.models.localstorage.uidescription.UIDescriptionInterface;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -13,14 +14,14 @@ import java.lang.reflect.Type;
  */
 public class GsonIO implements UIDescriptionInterface, SettingsInterface {
 
-    public static Gson gson = new Gson();
+    private static Gson gson = new Gson();
 
     /**
      *
      */
-    public String json;
-    public Object obj;
-    public Type aClass;
+    private String json;
+    private Object obj;
+    private Type aClass;
 
     public GsonIO(String _jsonFileName, Object _obj, Type _objectClass) {
         this.json = _jsonFileName;
@@ -35,7 +36,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
     public static String readJsonFile(String _fileName) {
         String result = "";
         try {
-            String var = App.class.getResource("/" + _fileName).getPath();
+            String var = App.class.getResource("/" + _fileName).getPath().replace("\\", "/").replaceAll("%20", " ");
             BufferedReader br = new BufferedReader(new FileReader(var));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
@@ -63,10 +64,9 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
     }
 
     @Override
-    public GsonObject getData() {
+    public LocalStorage getData() {
         String jsonString = readJsonFile(json);
-        Object x = gson.fromJson(jsonString, aClass);
-        GsonObject<Object> gobj = new GsonObject<>(x);
-        return gobj;
+        LocalStorage localStorage = gson.fromJson(jsonString, aClass);
+        return localStorage;
     }
 }

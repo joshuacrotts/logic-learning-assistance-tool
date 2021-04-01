@@ -1,5 +1,6 @@
 package com.llat.algorithms;
 
+import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
@@ -21,6 +22,131 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class PredicateTruthTreeGeneratorUnitTester {
 
     private static PredicateTruthTreeGenerator truthTreeGenerator;
+
+    @Test
+    public void test001() {
+        goodFileTest("test001");
+    }
+
+    @Test
+    public void test002() {
+        goodFileTest("test002");
+    }
+
+    @Test
+    public void test003() {
+        goodFileTest("test003");
+    }
+
+    @Test
+    public void test004() {
+        goodFileTest("test004");
+    }
+
+    @Test
+    public void test005() {
+        goodFileTest("test005");
+    }
+
+    @Test
+    public void test006() {
+        goodFileTest("test006");
+    }
+
+    @Test
+    public void test007() {
+        goodFileTest("test007");
+    }
+
+    @Test
+    public void test008() {
+        goodFileTest("test008");
+    }
+
+    @Test
+    public void test009() {
+        goodFileTest("test009");
+    }
+
+    @Test
+    public void test010() {
+        goodFileTest("test010");
+    }
+
+    @Test
+    public void test011() {
+        goodFileTest("test011");
+    }
+
+    @Test
+    public void test012() {
+        goodFileTest("test012");
+    }
+
+    @Test
+    public void test013() {
+        goodFileTest("test013");
+    }
+
+    @Test
+    public void test014() {
+        goodFileTest("test014");
+    }
+
+    @Test
+    public void test015() {
+        goodFileTest("test015");
+    }
+
+    @Test
+    public void test016() {
+        goodFileTest("test016");
+    }
+
+    @Test
+    public void test017() {
+        goodFileTest("test017");
+    }
+
+    @Test
+    public void test018() {
+        goodFileTest("test018");
+    }
+
+    @Test
+    public void test019() {
+        goodFileTest("test019");
+    }
+
+    @Test
+    public void test020() {
+        goodFileTest("test020");
+    }
+
+    @Test
+    public void test021() {
+        goodFileTest("test021");
+    }
+
+    @Test
+    public void test022() {
+        goodFileTest("test022");
+    }
+
+    @Test
+    public void test023() {
+        goodFileTest("test023");
+    }
+
+    @Test
+    public void test024() {
+        goodFileTest("test024");
+    }
+
+    @Test
+    public void test025() {
+        goodFileTest("test025");
+    }
 
     /**
      * Helper function to count number of newlines in a string
@@ -117,49 +243,20 @@ public class PredicateTruthTreeGeneratorUnitTester {
         LLATParserListener parser = ParserTest.parseFromFile(inName);
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file " + inName);
-        WffTree syntaxTree = parser.getSyntaxTree();
+        WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         truthTreeGenerator = new PredicateTruthTreeGenerator(syntaxTree);
-        truthTreeGenerator.get();
+        TruthTree tt = truthTreeGenerator.get();
+        System.out.println(truthTreeGenerator.print(tt));
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();
-
         byte[] expected;
+
         try {
             expected = Files.readAllBytes(Paths.get(expName));
         } catch (IOException e) {
             throw new AssertionFailedError("Missing expected output file " + expName);
         }
         compare(actual, expected);
-    }
-
-    @Test
-    public void test001() {
-        goodFileTest("test001");
-    }
-
-    @Test
-    public void test002() {
-        goodFileTest("test002");
-    }
-
-    @Test
-    public void test003() {
-        goodFileTest("test003");
-    }
-
-    @Test
-    public void test004() {
-        goodFileTest("test004");
-    }
-
-    @Test
-    public void test005() {
-        goodFileTest("test005");
-    }
-
-    @Test
-    public void test006() {
-        goodFileTest("test006");
     }
 }

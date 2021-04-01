@@ -1,5 +1,7 @@
 package com.llat.models.treenode;
 
+import com.llat.algorithms.TexPrinter;
+
 /**
  *
  */
@@ -11,13 +13,24 @@ public class ConstantNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        ConstantNode or = new ConstantNode(this.getSymbol());
-        return or;
+        ConstantNode constantNode = new ConstantNode(this.getSymbol());
+        constantNode.setFlags(this.getFlags());
+        return constantNode;
     }
 
     @Override
     public String getStringRep() {
         return this.getSymbol();
+    }
+
+    @Override
+    public String getTexCommand() {
+        return TexPrinter.removeMathMode(this.getSymbol());
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return this.getTexCommand();
     }
 
     @Override

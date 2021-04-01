@@ -30,7 +30,8 @@ AND     : '&' | '∧'  ;
 OR      : '|' | '∨' | '+' | '||'  ;
 IMP     : '->' | '→' | '⇒' | '⊃'  ;
 BICOND  : '<->' | '⇔' | '≡' | '↔' ;
-NEG     : '~' | '¬' | '!'  ;
+NEG     : '~' | '∼' | '¬' | '!'   ;
+XOR     : '⊕' | '⊻' | '≢' | '⩒' '↮' ;
 IDENTITY: '=';
 
 /* Atoms. */
@@ -51,26 +52,33 @@ THEREFORE: '⊢' | '∴' | '=>';
 
 //=========== Parser rules. ==============
 
-program: (predProof EOF) | (propProof EOF) | (predicateWff) | (propositionalWff);
+program: (predProof EOF)
+       | (propProof EOF)
+       | (propositionalWff COMMA propositionalWff EOF)
+       | (predicateWff COMMA predicateWff EOF)
+       | (propositionalWff EOF)
+       | (predicateWff EOF);
 
 /* Propositional Logic Rules. */
 atom: ATOM;
 
 /* Starting rule. */
-propositionalWff: propWff EOF;
+propositionalWff: propWff;
 
 propWff: atom
     | propNegRule
     | propAndRule
     | propOrRule
     | propImpRule
-    | propBicondRule;
+    | propBicondRule
+    | propExclusiveOrRule;
 
 propNegRule: NEG propWff;
 propAndRule: OPEN_PAREN propWff AND propWff CLOSE_PAREN;
 propOrRule : OPEN_PAREN propWff OR propWff CLOSE_PAREN;
 propImpRule: OPEN_PAREN propWff IMP propWff CLOSE_PAREN;
 propBicondRule: OPEN_PAREN propWff BICOND propWff CLOSE_PAREN;
+propExclusiveOrRule: OPEN_PAREN propWff XOR propWff CLOSE_PAREN;
 
 /* Predicate Logic Rules. */
 constant: CONSTANT;
@@ -80,7 +88,7 @@ existential: OPEN_PAREN EXISTENTIAL variable CLOSE_PAREN;
 predicate: atom(constant|variable)+;
 
 /* Starting rule. */
-predicateWff: predWff EOF;
+predicateWff: predWff;
 
 predWff: predicate
     | predNegRule
@@ -89,6 +97,7 @@ predWff: predicate
     | predOrRule
     | predImpRule
     | predBicondRule
+    | predExclusiveOrRule
     | predIdentityRule;
 
 predQuantifier: NEG? (existential | universal) predWff;
@@ -97,6 +106,7 @@ predAndRule: OPEN_PAREN predWff AND predWff CLOSE_PAREN;
 predOrRule : OPEN_PAREN predWff OR predWff CLOSE_PAREN;
 predImpRule: OPEN_PAREN predWff IMP predWff CLOSE_PAREN;
 predBicondRule: OPEN_PAREN predWff BICOND predWff CLOSE_PAREN;
+predExclusiveOrRule: OPEN_PAREN predWff XOR predWff CLOSE_PAREN;
 predIdentityRule: (constant|variable) IDENTITY (constant|variable);
 
 /* Proof rules. */

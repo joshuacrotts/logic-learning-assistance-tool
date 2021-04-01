@@ -1,0 +1,34 @@
+∼((y)(~By ∨ ~Ga) ↔ (z)~(Ga ∨ Bz))
+├── (y)(~By ∨ ~Ga)
+│  └── ~(z)~(Ga ∨ Bz)
+│     └── (∃z)~~(Ga ∨ Bz)
+│        └── ~~(Ga ∨ Bb)
+│           └── (Ga ∨ Bb)
+│              ├── Ga
+│              │  └── (~Ba ∨ ~Ga)
+│              │     └── (~Bb ∨ ~Ga)
+│              │        ├── ~Ba
+│              │        │  ├── ~Bb open
+│              │        │  └── ~Ga X
+│              │        └── ~Ga X
+│              └── Bb
+│                 └── (~Ba ∨ ~Ga)
+│                    └── (~Bb ∨ ~Ga)
+│                       ├── ~Ba
+│                       │  ├── ~Bb X
+│                       │  └── ~Ga open
+│                       └── ~Ga
+│                          ├── ~Bb X
+│                          └── ~Ga open
+└── ~(y)(~By ∨ ~Ga)
+   └── (z)~(Ga ∨ Bz)
+      └── (∃y)~(~By ∨ ~Ga)
+         └── ~(~Bb ∨ ~Ga)
+            └── ~~Bb
+               └── ~~Ga
+                  └── Bb
+                     └── Ga
+                        └── ~(Ga ∨ Ba)
+                           └── ~(Ga ∨ Bb)
+                              └── ~Ga
+                                 └── ~Ba X

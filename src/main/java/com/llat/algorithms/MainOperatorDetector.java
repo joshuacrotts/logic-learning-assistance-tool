@@ -11,7 +11,7 @@ import com.llat.models.treenode.WffTree;
 public final class MainOperatorDetector {
 
     /**
-     *
+     * Well-formed formula tree to check - also called the root.
      */
     private WffTree wffTree;
 
@@ -40,7 +40,6 @@ public final class MainOperatorDetector {
         } else if (_tree.isBinaryOp() || _tree.isQuantifier() || _tree.isNegation()) {
             return _tree;
         }
-
         return null;
     }
 }

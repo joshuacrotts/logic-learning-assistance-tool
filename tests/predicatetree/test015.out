@@ -1,0 +1,8 @@
+((Pab & ~Pab) → (Clap ∨ Laugh))
+├── ~(Pab & ~Pab)
+│  ├── ~Pab open
+│  └── ~~Pab
+│     └── Pab open
+└── (Clap ∨ Laugh)
+   ├── Clap open
+   └── Laugh open

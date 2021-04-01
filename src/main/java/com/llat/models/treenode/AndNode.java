@@ -14,6 +14,12 @@ public class AndNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "&";
 
+    /**
+     * The default TeX symbol is the ampersand, but defined in a mathbin
+     * environment so it can be read in the forest env.
+     */
+    private static final String DEFAULT_TEX_SYMBOL = "\\mathbin{\\&}";
+
     public AndNode(String _symbol) {
         super(_symbol, NodeType.AND);
     }
@@ -24,11 +30,12 @@ public class AndNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        AndNode or = new AndNode(this.getSymbol());
+        AndNode and = new AndNode(this.getSymbol());
+        and.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
-            or.addChild(ch.copy());
+            and.addChild(ch.copy());
         }
-        return or;
+        return and;
     }
 
     @Override
@@ -37,5 +44,18 @@ public class AndNode extends WffTree {
         WffTree ch2 = this.getChild(1);
 
         return "(" + ch1.getStringRep() + " " + this.getSymbol() + " " + ch2.getStringRep() + ")";
+    }
+
+    @Override
+    public String getTexCommand() {
+        WffTree ch1 = this.getChild(0);
+        WffTree ch2 = this.getChild(1);
+
+        return "(" + ch1.getTexCommand() + " " + DEFAULT_TEX_SYMBOL + " " + ch2.getTexCommand() + ")";
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return DEFAULT_TEX_SYMBOL;
     }
 }

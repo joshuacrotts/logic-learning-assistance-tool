@@ -4,13 +4,15 @@ module LLAT {
     requires javafx.graphics;
     requires org.antlr.antlr4.runtime;
     requires com.google.gson;
-    //requires google.cloud.com.llat.translate;
-    //requires google.cloud.core;
+    requires bcrypt;
 
-    opens com.llat.models.settings;
-    opens com.llat.models.uidescription;
+    opens com.llat.models.localstorage.settings;
+    opens com.llat.models.localstorage.uidescription;
+    opens com.llat.models.symbols;
     opens com.llat.models.gson;
+    opens com.llat.tools;
+    opens com.llat.controller;
 
-    opens com.llat.controller to javafx.fxml;
+    //opens com.llat.controller to javafx.fxml;
     exports com.llat.main;
 }

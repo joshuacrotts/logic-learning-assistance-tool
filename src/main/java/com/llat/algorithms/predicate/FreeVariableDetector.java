@@ -4,7 +4,6 @@ import com.llat.models.treenode.QuantifierNode;
 import com.llat.models.treenode.VariableNode;
 import com.llat.models.treenode.WffTree;
 
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -23,10 +22,10 @@ public final class FreeVariableDetector {
      * @return
      */
     public LinkedList<WffTree> get() {
-        LinkedHashSet<WffTree> S = new LinkedHashSet<>();
+        LinkedList<WffTree> S = new LinkedList<>();
         Stack<WffTree> L = new Stack<>();
         this.free(this.wffTree, S, L);
-        return new LinkedList<>(S);
+        return S;
     }
 
     /**
@@ -34,7 +33,7 @@ public final class FreeVariableDetector {
      * @param S
      * @param L
      */
-    private void free(WffTree T, LinkedHashSet<WffTree> S, Stack<WffTree> L) {
+    private void free(WffTree T, LinkedList<WffTree> S, Stack<WffTree> L) {
         // Quantifiers are always the left-most child in a tree if they exist.
         if (T.isQuantifier()) {
             L.push(T);
@@ -55,6 +54,7 @@ public final class FreeVariableDetector {
             }
         }
 
+        // Pre-order search for free variables.
         for (WffTree ch : T.getChildren()) {
             free(ch, S, L);
         }

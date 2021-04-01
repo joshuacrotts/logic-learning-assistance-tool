@@ -1,5 +1,6 @@
 package com.llat.algorithms;
 
+import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
@@ -21,6 +22,56 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class PropositionalTruthTreeGeneratorUnitTester {
 
     private static PropositionalTruthTreeGenerator truthTreeGenerator;
+
+    @Test
+    public void test001() {
+        goodFileTest("test001");
+    }
+
+    @Test
+    public void test002() {
+        goodFileTest("test002");
+    }
+
+    @Test
+    public void test003() {
+        goodFileTest("test003");
+    }
+
+    @Test
+    public void test004() {
+        goodFileTest("test004");
+    }
+
+    @Test
+    public void test005() {
+        goodFileTest("test005");
+    }
+
+    @Test
+    public void test006() {
+        goodFileTest("test006");
+    }
+
+    @Test
+    public void test007() {
+        goodFileTest("test007");
+    }
+
+    @Test
+    public void test008() {
+        goodFileTest("test008");
+    }
+
+    @Test
+    public void test009() {
+        goodFileTest("test009");
+    }
+
+    @Test
+    public void test010() {
+        goodFileTest("test010");
+    }
 
     /**
      * Helper function to count number of newlines in a string
@@ -117,49 +168,20 @@ public class PropositionalTruthTreeGeneratorUnitTester {
         LLATParserListener parser = ParserTest.parseFromFile(inName);
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file " + inName);
-        WffTree syntaxTree = parser.getSyntaxTree();
+        WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         truthTreeGenerator = new PropositionalTruthTreeGenerator(syntaxTree);
-        truthTreeGenerator.get();
+        TruthTree tt = truthTreeGenerator.get();
+        System.out.println(truthTreeGenerator.print(tt));
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();
-
         byte[] expected;
+
         try {
             expected = Files.readAllBytes(Paths.get(expName));
         } catch (IOException e) {
             throw new AssertionFailedError("Missing expected output file " + expName);
         }
         compare(actual, expected);
-    }
-
-    @Test
-    public void test001() {
-        goodFileTest("test001");
-    }
-
-    @Test
-    public void test002() {
-        goodFileTest("test002");
-    }
-
-    @Test
-    public void test003() {
-        goodFileTest("test003");
-    }
-
-    @Test
-    public void test004() {
-        goodFileTest("test004");
-    }
-
-    @Test
-    public void test005() {
-        goodFileTest("test005");
-    }
-
-    @Test
-    public void test006() {
-        goodFileTest("test006");
     }
 }

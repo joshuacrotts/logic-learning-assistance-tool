@@ -11,6 +11,11 @@ public class ImpNode extends WffTree {
      */
     private static final String DEFAULT_SYMBOL = "->";
 
+    /**
+     * The default TeX symbol is just the simple right-arrow.
+     */
+    private static final String DEFAULT_TEX_SYMBOL = "\\to";
+
     public ImpNode(String _symbol) {
         super(_symbol, NodeType.IMP);
     }
@@ -21,11 +26,12 @@ public class ImpNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        ImpNode or = new ImpNode(this.getSymbol());
+        ImpNode impNode = new ImpNode(this.getSymbol());
+        impNode.setFlags(this.getFlags());
         for (WffTree ch : this.getChildren()) {
-            or.addChild(ch.copy());
+            impNode.addChild(ch.copy());
         }
-        return or;
+        return impNode;
     }
 
     @Override
@@ -34,5 +40,17 @@ public class ImpNode extends WffTree {
         WffTree ch2 = this.getChild(1);
 
         return "(" + ch1.getStringRep() + " " + this.getSymbol() + " " + ch2.getStringRep() + ")";
+    }
+
+    @Override
+    public String getTexCommand() {
+        WffTree ch1 = this.getChild(0);
+        WffTree ch2 = this.getChild(1);
+        return "(" + ch1.getTexCommand() + " " + DEFAULT_TEX_SYMBOL + " " + ch2.getTexCommand() + ")";
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return DEFAULT_TEX_SYMBOL;
     }
 }
