@@ -4,7 +4,7 @@ module LLAT {
     requires javafx.graphics;
     requires org.antlr.antlr4.runtime;
     requires com.google.gson;
-    //requires google.cloud.translate;
+    //requires google.cloud.com.llat.translate;
     //requires google.cloud.core;
 
     opens com.llat.models.settings;

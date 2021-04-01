@@ -1,4 +1,4 @@
-package translate;
+package com.llat.translate;
 
 import java.util.List;
 
