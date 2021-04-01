@@ -49,7 +49,7 @@ public final class LogicallyContingentDeterminer {
 
         // The consistency branch must close, and the right must have at least one open branch.
         return (new OpenTreeDeterminer(truthTree).hasSomeOpen())
-            && (new OpenTreeDeterminer(negatedTruthTree).hasSomeOpen());
+                && (new OpenTreeDeterminer(negatedTruthTree).hasSomeOpen());
     }
 
     public WffTree getWffTree() {

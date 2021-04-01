@@ -78,6 +78,46 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
+     * TODO Document
+     *
+     * @return
+     */
+    public TruthTree get() {
+        TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
+        this.buildTreeHelper(ttn);
+        return ttn;
+    }
+
+    /**
+     * TODO Document
+     * <p>
+     * https://www.baeldung.com/java-print-binary-tree-diagram
+     *
+     * @param root
+     */
+    public String print(TruthTree root) {
+        if (root == null) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(root);
+
+        String pointerRight = "└── ";
+        String pointerLeft = (root.getRight() != null) ? "├── " : "└── ";
+
+        printHelper(sb, "", pointerLeft, root.getLeft(), root.getRight() != null);
+        printHelper(sb, "", pointerRight, root.getRight(), false);
+
+        return sb.toString();
+    }
+
+    /**
+     * @param _node
+     */
+    public abstract void buildTreeHelper(TruthTree _node);
+
+    /**
      * Computes the negated version of any arbitrary WffTree node. This performs
      * a "raw negation" only, where raw is defined as follows:
      * <p>
@@ -178,81 +218,6 @@ public abstract class BaseTruthTreeGenerator {
 
         return negWff;
     }
-
-    /**
-     * TODO Document
-     * <p>
-     * https://www.baeldung.com/java-print-binary-tree-diagram
-     *
-     * @param sb
-     * @param padding
-     * @param pointer
-     * @param node
-     * @param hasRightSibling
-     */
-    private static void printHelper(StringBuilder sb, String padding, String pointer, TruthTree node,
-                                    boolean hasRightSibling) {
-        if (node != null) {
-            sb.append("\n");
-            sb.append(padding);
-            sb.append(pointer);
-            sb.append(node);
-
-            StringBuilder paddingBuilder = new StringBuilder(padding);
-            if (hasRightSibling) {
-                paddingBuilder.append("│  ");
-            } else {
-                paddingBuilder.append("   ");
-            }
-
-            String paddingForBoth = paddingBuilder.toString();
-            String pointerRight = "└── ";
-            String pointerLeft = (node.getRight() != null) ? "├── " : "└── ";
-
-            printHelper(sb, paddingForBoth, pointerLeft, node.getLeft(), node.getRight() != null);
-            printHelper(sb, paddingForBoth, pointerRight, node.getRight(), false);
-        }
-    }
-
-    /**
-     * TODO Document
-     *
-     * @return
-     */
-    public TruthTree get() {
-        TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
-        this.buildTreeHelper(ttn);
-        return ttn;
-    }
-
-    /**
-     * TODO Document
-     * <p>
-     * https://www.baeldung.com/java-print-binary-tree-diagram
-     *
-     * @param root
-     */
-    public String print(TruthTree root) {
-        if (root == null) {
-            return "";
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(root);
-
-        String pointerRight = "└── ";
-        String pointerLeft = (root.getRight() != null) ? "├── " : "└── ";
-
-        printHelper(sb, "", pointerLeft, root.getLeft(), root.getRight() != null);
-        printHelper(sb, "", pointerRight, root.getRight(), false);
-
-        return sb.toString();
-    }
-
-    /**
-     * @param _node
-     */
-    public abstract void buildTreeHelper(TruthTree _node);
 
     /**
      * Stacks a conjunction node. The stack works as follows:
@@ -576,6 +541,41 @@ public abstract class BaseTruthTreeGenerator {
             } else {
                 this.stackConjunction(enqueuedTTNode, _leaves, _queue);
             }
+        }
+    }
+
+    /**
+     * TODO Document
+     * <p>
+     * https://www.baeldung.com/java-print-binary-tree-diagram
+     *
+     * @param sb
+     * @param padding
+     * @param pointer
+     * @param node
+     * @param hasRightSibling
+     */
+    private static void printHelper(StringBuilder sb, String padding, String pointer, TruthTree node,
+                                    boolean hasRightSibling) {
+        if (node != null) {
+            sb.append("\n");
+            sb.append(padding);
+            sb.append(pointer);
+            sb.append(node);
+
+            StringBuilder paddingBuilder = new StringBuilder(padding);
+            if (hasRightSibling) {
+                paddingBuilder.append("│  ");
+            } else {
+                paddingBuilder.append("   ");
+            }
+
+            String paddingForBoth = paddingBuilder.toString();
+            String pointerRight = "└── ";
+            String pointerLeft = (node.getRight() != null) ? "├── " : "└── ";
+
+            printHelper(sb, paddingForBoth, pointerLeft, node.getLeft(), node.getRight() != null);
+            printHelper(sb, paddingForBoth, pointerRight, node.getRight(), false);
         }
     }
 }

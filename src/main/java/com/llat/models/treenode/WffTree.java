@@ -59,6 +59,18 @@ public class WffTree implements Copyable, TexPrintable {
     }
 
     /**
+     * Turns off highlighting for all nodes in the AST. This just iterates through the tree and
+     * calls setHighlighted(false) on all nodes and their children. Each time an algorithm is called,
+     * just call this before running it.
+     */
+    public void clearHighlighting() {
+        this.setHighlighted(false);
+        for (WffTree t : this.children) {
+            this.clearHighlightingHelper(t);
+        }
+    }
+
+    /**
      * Recursively prints the syntax tree.
      */
     public void printSyntaxTree() {
@@ -298,6 +310,22 @@ public class WffTree implements Copyable, TexPrintable {
         this.flags |= _flag;
     }
 
+    public boolean isHighlighted() {
+        return (this.flags & NodeFlag.HIGHLIGHT) != 0;
+    }
+
+    public void setHighlighted(boolean _highlighted) {
+        if (_highlighted) {
+            this.flags |= NodeFlag.HIGHLIGHT;
+        } else {
+            this.flags &= ~NodeFlag.HIGHLIGHT;
+        }
+    }
+
+    /**
+     * 
+     * @return
+     */
     public String getStringRep() {
         StringBuilder str = new StringBuilder();
         for (WffTree ch : this.getChildren()) {
@@ -306,6 +334,11 @@ public class WffTree implements Copyable, TexPrintable {
         return str.toString();
     }
 
+    /**
+     * Recursively returns the tex command for this WffTree.
+     *
+     * @return String representation of the tex commands needed to display this in LaTeX.
+     */
     public String getTexCommand() {
         StringBuilder str = new StringBuilder();
         for (WffTree ch : this.getChildren()) {
@@ -328,6 +361,18 @@ public class WffTree implements Copyable, TexPrintable {
     private void copyHelper(WffTree _root, WffTree _newTree) {
         for (WffTree ch : _root.children) {
             _newTree.addChild(ch.copy());
+        }
+    }
+
+    /**
+     * TODO Document
+     *
+     * @param _root
+     */
+    private void clearHighlightingHelper(WffTree _root) {
+        for (WffTree ch : _root.children) {
+            ch.setHighlighted(false);
+            this.clearHighlightingHelper(ch);
         }
     }
 

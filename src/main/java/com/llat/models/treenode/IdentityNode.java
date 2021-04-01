@@ -38,6 +38,6 @@ public class IdentityNode extends WffTree {
 
     @Override
     public String getTexCommand() {
-        return this.getChild(0).getStringRep() + " " + DEFAULT_TEX_SYMBOL + " " + this.getChild(1).getStringRep();
+        return this.getChild(0).getTexCommand() + " " + DEFAULT_TEX_SYMBOL + " " + this.getChild(1).getTexCommand();
     }
 }
