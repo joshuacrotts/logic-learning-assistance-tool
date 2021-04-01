@@ -1,5 +1,7 @@
 package com.llat.models.treenode;
 
+import com.llat.algorithms.TexPrinter;
+
 /**
  *
  */
@@ -47,6 +49,6 @@ public class ExistentialQuantifierNode extends QuantifierNode {
     @Override
     public String getTexCommand() {
         WffTree ch1 = this.getChild(0);
-        return "(" + DEFAULT_TEX_SYMBOL + " " + this.getVariableSymbol() + ")" + ch1.getTexCommand();
+        return "(" + DEFAULT_TEX_SYMBOL + " " + TexPrinter.removeMathMode(this.getVariableSymbol()) + ")" + ch1.getTexCommand();
     }
 }
