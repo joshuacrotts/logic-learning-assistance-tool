@@ -41,4 +41,9 @@ public class UniversalQuantifierNode extends QuantifierNode {
         WffTree ch1 = this.getChild(0);
         return "(" + TexPrinter.removeMathMode(this.getVariableSymbol()) + ")" + ch1.getTexCommand();
     }
+
+    @Override
+    public String getTexParseCommand() {
+        return "(" + TexPrinter.removeMathMode(this.getVariableSymbol()) + ")";
+    }
 }

@@ -323,7 +323,6 @@ public class WffTree implements Copyable, TexPrintable {
     }
 
     /**
-     * 
      * @return
      */
     public String getStringRep() {
@@ -345,6 +344,17 @@ public class WffTree implements Copyable, TexPrintable {
             str.append(ch.getTexCommand());
         }
         return str.toString();
+    }
+
+    /**
+     * Returns the tex command for this WffTree ONLY, meaning that no children are called. Whatever is
+     * returned is the tex commmand for that particular node. For WffTree nodes, it is null since this
+     * should be the root of an AST.
+     *
+     * @return String representation of TeX command.
+     */
+    public String getTexParseCommand() {
+        return null;
     }
 
     @Override

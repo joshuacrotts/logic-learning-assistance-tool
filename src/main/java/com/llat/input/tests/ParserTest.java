@@ -71,6 +71,11 @@ public class ParserTest {
         if (resultList.size() == 1) {
             WffTree result = resultList.get(0);
             result.printSyntaxTree();
+
+            // Print the parse tree in LaTeX.
+            TexPrinter texParseTreePrinter = new TexParseTreePrinter(result, "latex_parse_tree.tex");
+            texParseTreePrinter.outputToFile();
+
             BaseTruthTreeGenerator truthTreeGenerator;
             if (result.isPredicateWff()) {
                 System.out.println("Bound variables: " + new BoundVariableDetector(result).get());
@@ -80,17 +85,18 @@ public class ParserTest {
                 System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
                 truthTreeGenerator = new PredicateTruthTreeGenerator(result);
             } else {
-                TexPrinter texTablePrinter = new TexTablePrinter(result, "latex_table.tex");
-                texTablePrinter.outputToFile();
+                // Print the truth table in LaTeX.
+                TexPrinter texTruthTablePrinter = new TexTablePrinter(result, "latex_truth_table.tex");
+                texTruthTablePrinter.outputToFile();
                 truthTreeGenerator = new PropositionalTruthTreeGenerator(result);
             }
             // Generate the truth tree and print it to the console.
             TruthTree truthTree = truthTreeGenerator.get();
             System.out.println("Truth Tree: \n" + truthTreeGenerator.print(truthTree));
 
-            // Print the tree in LaTeX.
-            TexPrinter texTreePrinter = new TexTreePrinter(truthTree, "latex_tree.tex");
-            texTreePrinter.outputToFile();
+            // Print the truth tree in LaTeX.
+            TexPrinter texTruthTreePrinter = new TexTruthTreePrinter(truthTree, "latex_truth_tree.tex");
+            texTruthTreePrinter.outputToFile();
 
             // Display the main operator.
             System.out.println("Main operator: " + new MainOperatorDetector(result).get());
