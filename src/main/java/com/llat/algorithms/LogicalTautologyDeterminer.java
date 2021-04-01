@@ -1,6 +1,5 @@
 package com.llat.algorithms;
 
-import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.models.treenode.NegNode;
