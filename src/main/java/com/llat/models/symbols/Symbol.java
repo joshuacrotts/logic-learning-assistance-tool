@@ -69,6 +69,14 @@ public abstract class Symbol {
         public void setAllSymbols(List<String> allSymbols) {
             this.allSymbols = allSymbols;
         }
+
+        @Override
+        public String toString() {
+            return "StringSymbol{" +
+                    "applied='" + applied + '\'' +
+                    ", allSymbols=" + allSymbols +
+                    '}';
+        }
     }
 
     public class Axioms {
@@ -90,6 +98,25 @@ public abstract class Symbol {
         public void setExample(String example) {
             this.example = example;
         }
+
+        @Override
+        public String toString() {
+            return "Axioms{" +
+                    "explanation='" + explanation + '\'' +
+                    ", example='" + example + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Symbol{" +
+                "symbol=" + symbol +
+                ", description='" + description + '\'' +
+                ", axioms=" + axioms +
+                ", tooltip='" + tooltip + '\'' +
+                ", readAs='" + readAs + '\'' +
+                '}';
     }
 }
 

@@ -1,13 +1,12 @@
-package com.llat.models.localstorage.uidescription;
+package com.llat.models.localstorage.credentials;
 
 import com.llat.models.gson.GsonIO;
 import com.llat.models.localstorage.LocalStorage;
 
-public class UIDescriptionAdaptor implements UIDescriptionInterface {
+public class CredentialsAdaptor implements CredentialsInterface {
+    private static final String CREDENTIAL = "credentials.json";
 
-    private static final String UI_DESCRIPTION = "UIDescription.json";
-
-    UIDescriptionInterface obj = new GsonIO(UI_DESCRIPTION, UIDescriptionObject.class);
+    CredentialsInterface obj =  new GsonIO(CREDENTIAL, UserCredentialsObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
@@ -15,7 +14,7 @@ public class UIDescriptionAdaptor implements UIDescriptionInterface {
     }
 
     public void update(LocalStorage _obj) {
-        obj.update(_obj, UI_DESCRIPTION);
+        obj.update(_obj, CREDENTIAL);
     }
 
     @Override

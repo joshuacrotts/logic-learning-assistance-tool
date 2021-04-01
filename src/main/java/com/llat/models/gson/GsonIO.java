@@ -3,6 +3,7 @@ package com.llat.models.gson;
 import com.google.gson.Gson;
 import com.llat.main.App;
 import com.llat.models.localstorage.LocalStorage;
+import com.llat.models.localstorage.credentials.CredentialsInterface;
 import com.llat.models.localstorage.settings.SettingsInterface;
 import com.llat.models.localstorage.uidescription.UIDescriptionInterface;
 
@@ -12,7 +13,7 @@ import java.lang.reflect.Type;
 /**
  *
  */
-public class GsonIO implements UIDescriptionInterface, SettingsInterface {
+public class GsonIO implements UIDescriptionInterface, SettingsInterface, CredentialsInterface {
 
     private static Gson gson = new Gson();
 
@@ -20,15 +21,15 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
      *
      */
     private String json;
-    private Object obj;
     private Type aClass;
 
-    public GsonIO(String _jsonFileName, Object _obj, Type _objectClass) {
+    public GsonIO(String _jsonFileName, Type _objectClass) {
         this.json = _jsonFileName;
-        this.obj = _obj;
         this.aClass = _objectClass;
     }
 
+    public GsonIO(){
+    }
     /**
      * This method is reading a giving file name that is stored in the `resources` folder and return it as
      * a string.
@@ -52,7 +53,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface {
     }
 
     @Override
-    public void update(Object _obj, String _jsonFilePath) {
+    public void update(LocalStorage _obj, String _jsonFilePath) {
         String filePath = App.class.getResource("/" + _jsonFilePath).getPath();
         try {
             Writer writer = new FileWriter(filePath);

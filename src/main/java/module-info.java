@@ -7,6 +7,7 @@ module LLAT {
 
     opens com.llat.models.localstorage.settings;
     opens com.llat.models.localstorage.uidescription;
+    opens com.llat.models.localstorage.credentials;
     opens com.llat.models.symbols;
     opens com.llat.models.gson;
     opens com.llat.tools;
