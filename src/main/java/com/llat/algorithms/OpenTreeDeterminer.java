@@ -54,6 +54,6 @@ public class OpenTreeDeterminer {
             }
         }
 
-        return true;
+        return false;
     }
 }

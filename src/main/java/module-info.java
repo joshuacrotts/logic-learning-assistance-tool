@@ -4,6 +4,7 @@ module LLAT {
     requires javafx.graphics;
     requires org.antlr.antlr4.runtime;
     requires com.google.gson;
+    requires bcrypt;
 
     opens com.llat.models.localstorage.settings;
     opens com.llat.models.localstorage.uidescription;
