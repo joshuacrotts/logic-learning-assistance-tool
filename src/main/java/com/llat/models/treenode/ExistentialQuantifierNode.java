@@ -51,4 +51,9 @@ public class ExistentialQuantifierNode extends QuantifierNode {
         WffTree ch1 = this.getChild(0);
         return "(" + DEFAULT_TEX_SYMBOL + " " + TexPrinter.removeMathMode(this.getVariableSymbol()) + ")" + ch1.getTexCommand();
     }
+
+    @Override
+    public String getTexParseCommand() {
+        return "(" + DEFAULT_TEX_SYMBOL + " " + TexPrinter.removeMathMode(this.getVariableSymbol()) + ")";
+    }
 }

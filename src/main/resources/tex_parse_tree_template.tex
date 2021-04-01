@@ -1,0 +1,21 @@
+\documentclass[tikz,border=10pt]{standalone}
+\newcommand*\lif{\mathbin{\to}}% added thanks to egreg's suggestion
+\usepackage{forest}
+\usepackage{amsfonts}
+\newcommand{\varlnot}{\mathord{\sim}}
+\newcommand{\varland}{\mathbin{\&}}
+\newcommand{\varliff}{\leftrightarrow}
+\newcommand{\dneg}{\varlnot\varlnot}
+\forestset{
+	smullyan tableaux/.style={
+		for tree={
+			s sep'=20ex,
+			math content,
+			parent anchor=south,
+			child anchor=north
+		},
+	},
+}
+\begin{document}
+\begin{forest}
+smullyan tableaux

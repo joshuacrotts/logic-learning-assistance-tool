@@ -42,4 +42,9 @@ public class AtomNode extends WffTree {
     public String toString() {
         return super.toString() + ": " + this.ATOM_SYMBOL;
     }
+
+    @Override
+    public String getTexParseCommand() {
+        return this.getTexCommand();
+    }
 }
