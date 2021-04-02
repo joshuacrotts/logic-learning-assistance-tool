@@ -1,5 +1,7 @@
 package com.llat.database;
 
+import java.util.List;
+
 public class DatabaseAdapter implements DatabaseInterface {
 
     DatabaseInterface db = new GoogleCloudDatabase();
@@ -11,8 +13,8 @@ public class DatabaseAdapter implements DatabaseInterface {
     }
 
     @Override
-    public void Register(String _userName, String _password, String _firstName, String _lastName) {
-        db.Register(_userName, _password, _firstName, _lastName);
+    public String Register(String _userName, String _password, String _firstName, String _lastName) {
+        return db.Register(_userName, _password, _firstName, _lastName);
 
     }
 
@@ -29,15 +31,15 @@ public class DatabaseAdapter implements DatabaseInterface {
     }
 
     @Override
-    public void UpdateQuery(int id, String Text) {
-        db.UpdateQuery(id, Text);
+    public void InsertQuery(int id, String Text) {
+        db.InsertQuery(id, Text);
 
     }
 
-/*    @Override
-    public UserObject UserINFO(int ID) {
-        return db.UserINFO(ID);
-    }*/
+    @Override
+    public List<String> UpdateHistory(int id) {
+        return db.UpdateHistory(id);
+    }
 
 
 }

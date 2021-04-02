@@ -2,6 +2,9 @@ package com.llat.database;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.scene.chart.PieChart;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main {
 
@@ -10,40 +13,28 @@ public class Main {
     public static void main(String[] args) {
         GoogleCloudDatabase db = new GoogleCloudDatabase();
         DatabaseAdapter Adapter = new DatabaseAdapter();
-        int UserID = 0;
+        String Status = null;
+        int UserID = 2;
+        List<String> history = new ArrayList<>();
 
 
-        /*Adapter.Register( "Kevin43","12345","Kevin","B");*/
-        UserObject User = Adapter.Login("George43", "54321");
-        System.out.println(User);
+      Status = Adapter.Register( "Bob98",null,"Bob","Howard");
+       System.out.println(Status);
+/*        UserObject User = Adapter.Login("Bob98", "12345");
         if(User == null){
             System.out.println("Wrong UserName or Password");
         }
         else {
+            System.out.println(User);
             UserID = User.getUserId();
-        }
+        }*/
 
 
-/*        Adapter.UpdateQuery(UserID, "Test1");
-        Adapter.UpdateQuery(UserID, "Test2");
-        Adapter.UpdateQuery(UserID, "Test3");
-        Adapter.UpdateQuery(UserID, "Test4");
-        Adapter.UpdateQuery(UserID, "Test5");
-        Adapter.UpdateQuery(UserID, "Test6");
-        Adapter.UpdateQuery(UserID, "Test7");
-        Adapter.UpdateQuery(UserID, "Test8");
-        Adapter.UpdateQuery(UserID, "Test9");
-        Adapter.UpdateQuery(UserID, "Test10");
-        Adapter.UpdateQuery(UserID, "Test11");
-        Adapter.UpdateQuery(UserID, "Test12");
-        Adapter.UpdateQuery(UserID, "Test13");
-        Adapter.UpdateQuery(UserID, "Test14");
-        Adapter.UpdateQuery(UserID, "Test15");*/
+/*      Adapter.InsertQuery(UserID, "(A -> C)");
 
 
-
-
-
+        history = Adapter.UpdateHistory(UserID);
+        System.out.println(history);*/
 
 
 
