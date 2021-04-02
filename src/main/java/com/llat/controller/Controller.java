@@ -24,7 +24,7 @@ public class Controller implements Initializable {
 
     public Controller(Stage _stage) {
         this.stage = _stage;
-        this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
+        this.stage.getScene().getStylesheets().add(ViewManager.getStyle());
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {

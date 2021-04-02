@@ -1,9 +1,18 @@
 {
   "theme": {
-    "applied": "dark.css",
+    "applied": {
+      "name": "Dark",
+      "code": "dark.css"
+    },
     "allThemes": [
-      "default.css",
-      "dark.css"
+      {
+        "name": "Default",
+        "code": "default.css"
+      },
+      {
+        "name": "Dark",
+        "code": "dark.css"
+      }
     ]
   },
   "language": {

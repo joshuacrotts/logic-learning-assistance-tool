@@ -11,7 +11,7 @@ public class UIDescriptionAdaptor implements UIDescriptionInterface {
 
     String code = so.getLanguage().getApplied().getCode();
 
-    private  final String UI_DESCRIPTION = "UIDescription_"+ code +".json";
+    private  final String UI_DESCRIPTION = "UID/UIDescription_"+ code +".json";
 
     UIDescriptionInterface obj = new GsonIO(UI_DESCRIPTION, UIDescriptionObject.class);
 

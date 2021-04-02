@@ -2,6 +2,7 @@ package com.llat.models.localstorage.settings;
 
 import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.settings.langague.LangaugeObject;
+import com.llat.models.localstorage.settings.theme.ThemeObject;
 
 import java.util.List;
 
@@ -39,22 +40,27 @@ public class SettingsObject extends LocalStorage {
      *
      */
     public class Theme {
-        private String applied;
-        private List<String> allThemes;
+        private ThemeObject applied;
+        private List<ThemeObject> allThemes;
 
-        public String getApplied() {
+        public Theme(ThemeObject applied, List<ThemeObject> allThemes) {
+            this.applied = applied;
+            this.allThemes = allThemes;
+        }
+
+        public ThemeObject getApplied() {
             return applied;
         }
 
-        public void setApplied(String applied) {
+        public void setApplied(ThemeObject applied) {
             this.applied = applied;
         }
 
-        public List<String> getAllThemes() {
+        public List<ThemeObject> getAllThemes() {
             return allThemes;
         }
 
-        public void setAllThemes(List<String> allThemes) {
+        public void setAllThemes(List<ThemeObject> allThemes) {
             this.allThemes = allThemes;
         }
     }

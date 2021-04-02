@@ -19,7 +19,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
 
     private static Gson gson = new Gson();
     private final static String RESOURCES_PATH = "src\\main\\resources\\";
-    private final static String DEFAULT_UIDO_FILE = "UIDescription_en.json";
+    private final static String DEFAULT_UIDO_FILE = "UID/UIDescription_en.json";
 
     /**
      *
