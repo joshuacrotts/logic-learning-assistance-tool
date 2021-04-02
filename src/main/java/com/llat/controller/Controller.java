@@ -43,7 +43,6 @@ public class Controller implements Initializable {
                 EventBus.throwEvent(new SymbolDescriptionEvent(((SymbolButton) event.getSource()).getDefaultSymbol()));
         });
     }
-
     public void setSolveButtonOnAction(Button _button) {
         _button.setOnAction((event) -> {
             EventBus.throwEvent(new SolveButtonEvent());

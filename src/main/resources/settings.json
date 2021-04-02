@@ -1,8 +1,8 @@
 {
   "theme": {
     "applied": {
-      "name": "Dark",
-      "code": "dark.css"
+      "name": "Default",
+      "code": "default.css"
     },
     "allThemes": [
       {

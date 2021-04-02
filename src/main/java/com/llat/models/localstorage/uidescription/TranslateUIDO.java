@@ -2,7 +2,7 @@ package com.llat.models.localstorage.uidescription;
 
 import com.llat.models.gson.GsonIO;
 import com.llat.models.symbols.*;
-import com.llat.models.translate.TranslatorAdaptor;
+import com.llat.translate.TranslatorAdaptor;
 
 public class TranslateUIDO {
 
