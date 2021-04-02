@@ -66,6 +66,10 @@ public class PredicateNode extends WffTree {
         return sb.toString();
     }
 
+    @Override
+    public String getTexParseCommand() {
+        return this.getTexCommand();
+    }
 
     public String getPredicateLetter() {
         return this.PREDICATE_LETTER;

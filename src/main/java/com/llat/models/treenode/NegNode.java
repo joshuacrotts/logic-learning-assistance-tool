@@ -46,4 +46,9 @@ public class NegNode extends WffTree {
         WffTree ch1 = this.getChild(0);
         return DEFAULT_TEX_SYMBOL + " " + ch1.getTexCommand();
     }
+
+    @Override
+    public String getTexParseCommand() {
+        return DEFAULT_TEX_SYMBOL;
+    }
 }

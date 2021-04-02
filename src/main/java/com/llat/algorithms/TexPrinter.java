@@ -36,7 +36,6 @@ public abstract class TexPrinter {
      * Removes the math mode environment from a string in TeX.
      *
      * @param _s - String to embed in the math mode removal command.
-     *
      * @return String inside of \mathrm{...}.
      */
     public static String removeMathMode(String _s) {

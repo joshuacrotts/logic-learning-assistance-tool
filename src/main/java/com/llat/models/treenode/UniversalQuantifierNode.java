@@ -1,5 +1,7 @@
 package com.llat.models.treenode;
 
+import com.llat.algorithms.TexPrinter;
+
 /**
  *
  */
@@ -37,6 +39,11 @@ public class UniversalQuantifierNode extends QuantifierNode {
     @Override
     public String getTexCommand() {
         WffTree ch1 = this.getChild(0);
-        return "(" + this.getVariableSymbol() + ")" + ch1.getTexCommand();
+        return "(" + TexPrinter.removeMathMode(this.getVariableSymbol()) + ")" + ch1.getTexCommand();
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return "(" + TexPrinter.removeMathMode(this.getVariableSymbol()) + ")";
     }
 }

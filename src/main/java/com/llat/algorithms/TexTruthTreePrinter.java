@@ -4,19 +4,19 @@ import com.llat.algorithms.models.TruthTree;
 
 import java.io.*;
 
-public class TexTreePrinter extends TexPrinter {
+public class TexTruthTreePrinter extends TexPrinter {
 
     /**
      * Template location to read from.
      */
-    private static final String TEX_TREE_TEMPLATE = "src/main/resources/tex_tree_template.tex";
+    private static final String TEX_TREE_TEMPLATE = "src/main/resources/tex_truth_tree_template.tex";
 
     /**
      * Truth tree to print.
      */
     private final TruthTree TRUTH_TREE;
 
-    public TexTreePrinter(TruthTree _tree, String _outputFile) {
+    public TexTruthTreePrinter(TruthTree _tree, String _outputFile) {
         super(_tree.getWff(), _outputFile);
         this.TRUTH_TREE = _tree;
     }

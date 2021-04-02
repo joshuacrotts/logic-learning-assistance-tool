@@ -45,4 +45,6 @@ hs_err_pid*
 /gen/
 gen/
 *.out
-*.tex
+latex_parse_tree.tex
+latex_truth_table.tex
+latex_truth_tree.tex
