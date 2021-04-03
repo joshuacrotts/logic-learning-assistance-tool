@@ -1,28 +1,42 @@
 package com.llat.database;
-
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.scene.chart.PieChart;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main {
 
+    private static String password = "1234";
+
     public static void main(String[] args) {
         GoogleCloudDatabase db = new GoogleCloudDatabase();
-
-/*        db.UpdateLanguage(6, "French");
-       UserObject x = db.getUser(6);
-        System.out.println(x);*/
-        /*db.createUser( "John2341","12345","John","Smith");*/
-/*        UserObject x = db.Login("Hdog","12345");
-        System.out.println(x);*/
-
         DatabaseAdapter Adapter = new DatabaseAdapter();
-        UserObject User = Adapter.Login("Hdog", "15151324");
+        String Status = null;
+        int UserID = 2;
+        List<String> history = new ArrayList<>();
+
+
+      Status = Adapter.Register( "Bob98",null,"Bob","Howard");
+       System.out.println(Status);
+/*        UserObject User = Adapter.Login("Bob98", "12345");
         if(User == null){
             System.out.println("Wrong UserName or Password");
         }
         else {
-            int UserID = User.getUserId();
             System.out.println(User);
-        }
+            UserID = User.getUserId();
+        }*/
+
+
+/*      Adapter.InsertQuery(UserID, "(A -> C)");
+
+
+        history = Adapter.UpdateHistory(UserID);
+        System.out.println(history);*/
+
+
 
     }
 }

@@ -13,7 +13,7 @@ public class RulesAxiomsInterpreter implements Listener {
     RulesAxiomsView rulesAxiomsView;
     Controller controller;
 
-    public RulesAxiomsInterpreter (Controller _controller, RulesAxiomsView _rulesAxiomsView) {
+    public RulesAxiomsInterpreter(Controller _controller, RulesAxiomsView _rulesAxiomsView) {
         this.controller = _controller;
         this.rulesAxiomsView = _rulesAxiomsView;
         EventBus.addListener(this);

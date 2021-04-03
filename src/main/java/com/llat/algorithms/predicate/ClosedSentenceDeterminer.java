@@ -5,7 +5,7 @@ import com.llat.models.treenode.WffTree;
 /**
  *
  */
-public class ClosedSentenceDeterminer {
+public final class ClosedSentenceDeterminer {
 
     /**
      *

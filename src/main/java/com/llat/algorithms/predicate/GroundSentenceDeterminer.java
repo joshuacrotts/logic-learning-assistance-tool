@@ -8,7 +8,7 @@ import java.util.Queue;
 /**
  *
  */
-public class GroundSentenceDeterminer {
+public final class GroundSentenceDeterminer {
 
     /**
      *

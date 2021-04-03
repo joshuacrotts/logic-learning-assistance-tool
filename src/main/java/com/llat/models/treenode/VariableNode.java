@@ -1,5 +1,7 @@
 package com.llat.models.treenode;
 
+import com.llat.algorithms.TexPrinter;
+
 /**
  *
  */
@@ -11,8 +13,9 @@ public class VariableNode extends WffTree {
 
     @Override
     public WffTree copy() {
-        VariableNode or = new VariableNode(this.getSymbol());
-        return or;
+        VariableNode variableNode = new VariableNode(this.getSymbol());
+        variableNode.setFlags(this.getFlags());
+        return variableNode;
     }
 
     @Override
@@ -22,7 +25,12 @@ public class VariableNode extends WffTree {
 
     @Override
     public String getTexCommand() {
-        return this.getSymbol();
+        return TexPrinter.removeMathMode(this.getSymbol());
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return this.getTexCommand();
     }
 
     @Override

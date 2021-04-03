@@ -19,7 +19,7 @@ public class RulesAxiomsView {
 
     RulesAxiomsInterpreter rulesAxiomsInterpreter;
 
-    public RulesAxiomsView (Controller _controller) {
+    public RulesAxiomsView(Controller _controller) {
         this.controller = _controller;
         this.stage = this.controller.getStage();
         // Setting VBox rulesAxiomsVBox settings.
@@ -36,7 +36,9 @@ public class RulesAxiomsView {
         });
         // Setting ScrollPane scrollPane properties.
         this.scrollPane.setId("rulesAxiomsScrollPane");
-        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> { this.scrollPane.setMaxHeight(Double.MAX_VALUE); });
+        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.scrollPane.setMaxHeight(Double.MAX_VALUE);
+        });
         this.scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
         this.scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         this.scrollPane.fitToWidthProperty().set(true);
@@ -53,10 +55,16 @@ public class RulesAxiomsView {
         this.rulesAxiomsInterpreter = new RulesAxiomsInterpreter(this.controller, this);
     }
 
-    public Region getTopFiller () { return this.topFiller; }
+    public Region getTopFiller() {
+        return this.topFiller;
+    }
 
-    public ScrollPane getScrollPane() { return this.scrollPane; }
+    public ScrollPane getScrollPane() {
+        return this.scrollPane;
+    }
 
-    public VBox getParentPane() { return this.rulesAxiomsVBox; }
+    public VBox getParentPane() {
+        return this.rulesAxiomsVBox;
+    }
 
 }

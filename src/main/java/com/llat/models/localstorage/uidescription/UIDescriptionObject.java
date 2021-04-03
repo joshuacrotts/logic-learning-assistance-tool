@@ -111,6 +111,19 @@ public class UIDescriptionObject extends LocalStorage {
         this.existential = existential;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "UIDescriptionObject{" +
+                "implication=" + implication +
+                ", biconditional=" + biconditional +
+                ", negation=" + negation +
+                ", conjunction=" + conjunction +
+                ", disjunction=" + disjunction +
+                ", exclusiveDisjunction=" + exclusiveDisjunction +
+                ", turnstile=" + turnstile +
+                ", doubleTurnstile=" + doubleTurnstile +
+                ", universal=" + universal +
+                ", existential=" + existential +
+                '}';
+    }
 }

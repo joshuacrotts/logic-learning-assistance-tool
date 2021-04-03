@@ -2,20 +2,25 @@ package com.llat.models.localstorage.uidescription;
 
 import com.llat.models.gson.GsonIO;
 import com.llat.models.localstorage.LocalStorage;
+import com.llat.models.localstorage.settings.SettingsAdaptor;
+import com.llat.models.localstorage.settings.SettingsObject;
 
 public class UIDescriptionAdaptor implements UIDescriptionInterface {
+    SettingsAdaptor sa = new SettingsAdaptor();
+    SettingsObject so = (SettingsObject) sa.getData();
 
-    private static final String UI_DESCRIPTION = "UIDescription.json";
+    String code = so.getLanguage().getApplied().getCode();
 
-    private Object UIObj;
-    UIDescriptionInterface obj = (UIDescriptionInterface) new GsonIO(UI_DESCRIPTION, UIObj, UIDescriptionObject.class);
+    private  final String UI_DESCRIPTION = "UID/UIDescription_"+ code +".json";
+
+    UIDescriptionInterface obj = new GsonIO(UI_DESCRIPTION, UIDescriptionObject.class);
 
     @Override
-    public void update(Object _obj, String _jsonFilePath) {
+    public void update(LocalStorage _obj, String _jsonFilePath) {
         obj.update(_obj, _jsonFilePath);
     }
 
-    public void update(Object _obj) {
+    public void update(LocalStorage _obj) {
         obj.update(_obj, UI_DESCRIPTION);
     }
 

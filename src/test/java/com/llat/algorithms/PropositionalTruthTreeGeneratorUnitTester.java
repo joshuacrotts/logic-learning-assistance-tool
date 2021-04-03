@@ -1,5 +1,6 @@
 package com.llat.algorithms;
 
+import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
@@ -65,6 +66,11 @@ public class PropositionalTruthTreeGeneratorUnitTester {
     @Test
     public void test009() {
         goodFileTest("test009");
+    }
+
+    @Test
+    public void test010() {
+        goodFileTest("test010");
     }
 
     /**
@@ -162,14 +168,15 @@ public class PropositionalTruthTreeGeneratorUnitTester {
         LLATParserListener parser = ParserTest.parseFromFile(inName);
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file " + inName);
-        WffTree syntaxTree = parser.getSyntaxTree();
+        WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         truthTreeGenerator = new PropositionalTruthTreeGenerator(syntaxTree);
-        truthTreeGenerator.get();
+        TruthTree tt = truthTreeGenerator.get();
+        System.out.println(truthTreeGenerator.print(tt));
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();
-
         byte[] expected;
+
         try {
             expected = Files.readAllBytes(Paths.get(expName));
         } catch (IOException e) {

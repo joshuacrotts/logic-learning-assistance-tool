@@ -29,10 +29,17 @@ public class LLATParserListener extends LLATBaseListener {
      * LLATParser object brought from the ParserTest.
      */
     private final LLATParser LLAT_PARSER;
+
     /**
      * Stack to keep track of all in-progress subwffs.
      */
     private final Stack<WffTree> treeRoots;
+
+    /**
+     * LinkedList to return to the user of all WffTrees that were inputted.
+     */
+    private final LinkedList<WffTree> currentTrees;
+
     /**
      * Current root of the wff tree being constructed.
      */
@@ -43,18 +50,24 @@ public class LLATParserListener extends LLATBaseListener {
 
         this.LLAT_PARSER = _llatParser;
         this.PARSE_TREE = new ParseTreeProperty<>();
-        this.wffTree = new WffTree();
         this.treeRoots = new Stack<>();
+        this.currentTrees = new LinkedList<>();
     }
 
     @Override
     public void enterPropositionalWff(LLATParser.PropositionalWffContext ctx) {
-        if (this.wffTree.isPredicateWff()) {
+        if (this.wffTree != null && this.wffTree.isPredicateWff()) {
             LLATErrorListener.syntaxError(ctx, "Wff cannot be both propositional and predicate.");
             return;
         }
 
+        this.wffTree = new WffTree();
         this.wffTree.setFlags(NodeFlag.PROPOSITIONAL);
+    }
+
+    @Override
+    public void exitPropositionalWff(LLATParser.PropositionalWffContext ctx) {
+        this.currentTrees.add(this.wffTree.copy());
     }
 
     @Override
@@ -151,16 +164,18 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void enterPredicateWff(LLATParser.PredicateWffContext ctx) {
-        if (this.wffTree.isPropositionalWff()) {
-            LLATErrorListener.syntaxError(ctx, "Wff cannot be both predicate and propositional.");
+        if (this.wffTree != null && this.wffTree.isPropositionalWff()) {
+            LLATErrorListener.syntaxError(ctx, "Wff cannot be both propositional and predicate.");
             return;
         }
 
+        this.wffTree = new WffTree();
         this.wffTree.setFlags(NodeFlag.PREDICATE);
     }
 
     @Override
-    public void enterPredicate(LLATParser.PredicateContext ctx) {
+    public void exitPredicateWff(LLATParser.PredicateWffContext ctx) {
+        this.currentTrees.add(this.wffTree.copy());
     }
 
     @Override
@@ -186,22 +201,9 @@ public class LLATParserListener extends LLATBaseListener {
     }
 
     @Override
-    public void exitConstant(LLATParser.ConstantContext ctx) {
-    }
-
-    @Override
     public void enterVariable(LLATParser.VariableContext ctx) {
         WffTree variableNode = new VariableNode(ctx.VARIABLE().getText());
         this.PARSE_TREE.put(ctx, variableNode);
-    }
-
-    @Override
-    public void exitVariable(LLATParser.VariableContext ctx) {
-    }
-
-    @Override
-    public void enterPredQuantifier(LLATParser.PredQuantifierContext ctx) {
-
     }
 
     @Override
@@ -228,10 +230,6 @@ public class LLATParserListener extends LLATBaseListener {
         UniversalQuantifierNode uqn = new UniversalQuantifierNode(symbol, variableNode.getSymbol());
         this.treeRoots.push(wffTree);
         this.wffTree = uqn;
-    }
-
-    @Override
-    public void enterExistential(LLATParser.ExistentialContext ctx) {
     }
 
     @Override
@@ -336,8 +334,15 @@ public class LLATParserListener extends LLATBaseListener {
         this.wffTree.addChild(identityNode);
     }
 
-    public WffTree getSyntaxTree() {
-        return LLATErrorListener.sawError() ? null : this.wffTree;
+    /**
+     * Returns the list of WffTrees that were constructed during parsing. Multiple are
+     * possible if a comma is used as the delimiter.
+     *
+     * @return LinkedList of WffTrees. If there is only one, then only one WffTree should
+     * be evaluated. Otherwise, use an algorithm for 2+.
+     */
+    public LinkedList<WffTree> getSyntaxTrees() {
+        return LLATErrorListener.sawError() ? null : this.currentTrees;
     }
 
     /**

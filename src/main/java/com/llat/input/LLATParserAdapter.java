@@ -9,29 +9,34 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.util.LinkedList;
+
 public class LLATParserAdapter {
+
     /**
-     * Builds the abstract syntax tree from the user input string. This
+     * Builds the abstract syntax tree(s) from the user input string. This
      * method should be called by any class that sends input from a front-end
      * and wants to create an AST, whether it be stdin or JavaFX.
      *
      * @param _wff - String of wff characters.
-     * @return WffTree representing abstract syntax tree.
+     * @return LinkedList<WffTree> representing abstract syntax trees returned. If
+     * this list contains only one WffTree, then we can run most algorithms.
      */
-    public static WffTree getAbstractSyntaxTree(String _wff) {
+    public static LinkedList<WffTree> getAbstractSyntaxTree(String _wff) {
         CharStream charStream = CharStreams.fromString(_wff);
         LLATParserListener parser = LLATParserAdapter.parseStream(charStream);
         // For now, the errors are just printed in the tester class - if
         // JUnit is integrated, these should be removed so they align with
         // the tests.
-        WffTree result = parser.getSyntaxTree();
-        return result;
+        LLATErrorListener.printErrors();
+        LLATErrorListener.printWarnings();
+        return parser.getSyntaxTrees();
     }
 
     /**
      * Runs the parser and syntax tree constructor for the provided input stream.
      * The returned object can be used to access the syntax tree and the symbol table
-     * for either futher processing or for checking results in automated tests.
+     * for either further processing or for checking results in automated tests.
      *
      * @param input an initialized CharStream
      */

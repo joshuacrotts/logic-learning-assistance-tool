@@ -1,6 +1,8 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
+import com.llat.database.DatabaseAdapter;
+import com.llat.database.UserObject;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -14,7 +16,6 @@ import javafx.stage.Stage;
 public class LoginView {
     Region aboveLogoRegion = new Region();
     Region belowLogoRegion = new Region();
-    ;
     Region belowEmailRegion = new Region();
     Region belowPasswordFieldRegion = new Region();
     Region belowLoginButtonRegion = new Region();
@@ -81,7 +82,9 @@ public class LoginView {
         // Setting TextField emailField properties.
         this.emailField.setPromptText("Enter your email.");
         this.emailField.setFocusTraversable(false);
-        this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> { this.emailField.setMaxWidth(newVal.doubleValue() * .70); });
+        this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.emailField.setMaxWidth(newVal.doubleValue() * .70);
+        });
         // Setting Region belowEmailRegion properties.
         this.loginVBox.heightProperty().addListener(((obs, oldVal, newVal) -> {
             this.belowEmailRegion.setMinHeight(newVal.doubleValue() * .10);
@@ -91,7 +94,9 @@ public class LoginView {
         // Setting PasswordField passwordField properties.
         this.passwordField.setPromptText("Enter your password.");
         this.passwordField.setFocusTraversable(false);
-        this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> { this.passwordField.setMaxWidth(newVal.doubleValue() * .70); });
+        this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.passwordField.setMaxWidth(newVal.doubleValue() * .70);
+        });
         // Setting Region belowPasswordFieldRegion properties.
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.belowPasswordFieldRegion.setMinHeight(newVal.doubleValue() * .10);
@@ -101,6 +106,19 @@ public class LoginView {
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.loginButton.setMinWidth(newVal.doubleValue() * .30);
         });
+
+
+        this.loginButton.setOnAction((event1 -> {
+            DatabaseAdapter ad = new DatabaseAdapter();
+            String email = this.emailField.getText();
+            String pass = this.passwordField.getText();
+            UserObject user = ad.Login(email, pass);
+            if(!(user == null)){
+                System.out.println(user.getHistory());
+            }else {
+                System.out.println("pass or email is wrong");
+            }
+        }));
         // Setting Region belowLoginButtonRegion properties.
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.belowLoginButtonRegion.setMinHeight(newVal.doubleValue() * .10);

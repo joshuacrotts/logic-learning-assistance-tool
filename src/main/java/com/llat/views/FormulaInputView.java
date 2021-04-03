@@ -19,7 +19,8 @@ public class FormulaInputView {
     TextField formulaInputField = new TextField();
     Button formulaInputButton = new Button("Solve");
     FormulaInputInterpreter formulaInputInterpreter;
-    public FormulaInputView (Controller _controller) {
+
+    public FormulaInputView(Controller _controller) {
         this.controller = _controller;
         this.stage = _controller.getStage();
         // Setting HBox parentHBox settings.

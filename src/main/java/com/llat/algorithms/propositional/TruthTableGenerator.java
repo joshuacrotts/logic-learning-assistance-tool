@@ -48,6 +48,28 @@ public final class TruthTableGenerator {
         this.truthPattern = new LinkedHashMap<>();
         this.size = getAtomCount(this.wffTree);
         this.rows = (int) Math.pow(2, this.size);
+
+        // We want to clear the tree every time so we don't get duplicate values.
+        this.clearWffTree();
+
+        // Calling it here just makes more sense...
+        this.get();
+    }
+
+    /**
+     * Clears all truth values from this WffTree.
+     */
+    public void clearWffTree() {
+        Queue<WffTree> queue = new LinkedList<>();
+        queue.add(this.wffTree);
+
+        while (!queue.isEmpty()) {
+            WffTree tree = queue.poll();
+            tree.getTruthValues().clear();
+            for (WffTree ch : tree.getChildren()) {
+                queue.add(ch);
+            }
+        }
     }
 
     /**
@@ -77,7 +99,7 @@ public final class TruthTableGenerator {
 
     /**
      * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
-     *
+     * <p>
      * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
      *
      * @return list of nodes in post-order.
@@ -86,6 +108,68 @@ public final class TruthTableGenerator {
         LinkedHashSet<WffTree> list = new LinkedHashSet<>();
         this.postorderHelper(this.wffTree.getChild(0), list);
         return list;
+    }
+
+    /**
+     * Performs a logical conjunction (AND) (&&) on two boolean values, meaning that
+     * both values must be true to return true.
+     *
+     * @param _a
+     * @param _b
+     * @return logical AND operation result.
+     */
+    private static boolean logicalAnd(boolean _a, boolean _b) {
+        return _a && _b;
+    }
+
+    /**
+     * Performs a logical disjunction (OR) (||) on two boolean values, meaning that
+     * at least value values must be true to return true.
+     *
+     * @param _a
+     * @param _b
+     * @return logical OR operation result.
+     */
+    private static boolean logicalOr(boolean _a, boolean _b) {
+        return _a || _b;
+    }
+
+    /**
+     * Performs a logical exclusive or (XOR) (^) on two boolean values, meaning that
+     * both operands must be different to be true.
+     *
+     * @param _a
+     * @param _b
+     * @return logical XOR operation result.
+     */
+    private static boolean logicalXOR(boolean _a, boolean _b) {
+        return _a ^ _b;
+    }
+
+    /**
+     * Performs a logical implication (if-then) (->) on two boolean values, meaning that
+     * if _a is true and _b is false, we return false. This otherwise returns
+     * true. We use the logically equivalent form of NOT A OR B to compute this.
+     *
+     * @param _a
+     * @param _b
+     * @return logical implication operation result.
+     */
+    private static boolean logicalImp(boolean _a, boolean _b) {
+        return !_a || _b;
+    }
+
+    /**
+     * Performs a logical biconditional (iff) (&&) on two boolean values, meaning that
+     * both values must be the same to return true. This is simply the negation of
+     * the logical exclusive-or, so we use this instead of computing it manually.
+     *
+     * @param _a
+     * @param _b
+     * @return logical AND operation result.
+     */
+    private static boolean logicalBicond(boolean _a, boolean _b) {
+        return !logicalXOR(_a, _b);
     }
 
     /**
@@ -104,7 +188,7 @@ public final class TruthTableGenerator {
     /**
      * Performs a recursive post-order traversal on the WffTree.
      *
-     * @param _tree - tree to search.
+     * @param _tree          - tree to search.
      * @param _postorderList - list to continuously add to.
      */
     private void postorderHelper(WffTree _tree, HashSet<WffTree> _postorderList) {
@@ -269,67 +353,5 @@ public final class TruthTableGenerator {
         }
 
         return atoms.size();
-    }
-
-    /**
-     * Performs a logical conjunction (AND) (&&) on two boolean values, meaning that
-     * both values must be true to return true.
-     *
-     * @param _a
-     * @param _b
-     * @return logical AND operation result.
-     */
-    private static boolean logicalAnd(boolean _a, boolean _b) {
-        return _a && _b;
-    }
-
-    /**
-     * Performs a logical disjunction (OR) (||) on two boolean values, meaning that
-     * at least value values must be true to return true.
-     *
-     * @param _a
-     * @param _b
-     * @return logical OR operation result.
-     */
-    private static boolean logicalOr(boolean _a, boolean _b) {
-        return _a || _b;
-    }
-
-    /**
-     * Performs a logical exclusive or (XOR) (^) on two boolean values, meaning that
-     * both operands must be different to be true.
-     *
-     * @param _a
-     * @param _b
-     * @return logical XOR operation result.
-     */
-    private static boolean logicalXOR(boolean _a, boolean _b) {
-        return _a ^ _b;
-    }
-
-    /**
-     * Performs a logical implication (if-then) (->) on two boolean values, meaning that
-     * if _a is true and _b is false, we return false. This otherwise returns
-     * true. We use the logically equivalent form of NOT A OR B to compute this.
-     *
-     * @param _a
-     * @param _b
-     * @return logical implication operation result.
-     */
-    private static boolean logicalImp(boolean _a, boolean _b) {
-        return !_a || _b;
-    }
-
-    /**
-     * Performs a logical biconditional (iff) (&&) on two boolean values, meaning that
-     * both values must be the same to return true. This is simply the negation of
-     * the logical exclusive-or, so we use this instead of computing it manually.
-     *
-     * @param _a
-     * @param _b
-     * @return logical AND operation result.
-     */
-    private static boolean logicalBicond(boolean _a, boolean _b) {
-        return !logicalXOR(_a, _b);
     }
 }

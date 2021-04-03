@@ -127,9 +127,16 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
     }
 
     /**
-     * @param _identityTruthTree
-     * @param _leaves
-     * @param _queue
+     * Performs an identity decomposition. An identity decomposition is an equivalence
+     * that can be applied infinitely many times. For instance,
+     * <p>
+     * a = d
+     * <p>
+     * We can substitute any d for an a, and vice versa in the tree.
+     *
+     * @param _identityTruthTree - root of Identity subtree.
+     * @param _leaves            - linked list of leaf nodes.
+     * @param _queue             - priority queue of truth tree nodes left to check.
      */
     private void identityDecomposition(TruthTree _identityTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_identityTruthTree.getWff() instanceof IdentityNode)) {
@@ -168,9 +175,10 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
     }
 
     /**
-     * TODO Document
+     * Recursively finds all constants and stores them in the constants set
+     * in the TruthTree objects.
      *
-     * @param _leaves
+     * @param _leaves - LinkedList of leaves.
      */
     private void getAllConstants(LinkedList<TruthTree> _leaves) {
         for (TruthTree leaf : _leaves) {
@@ -179,9 +187,10 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
     }
 
     /**
-     * TODO Document
+     * Recursively searches through the tree from a leaf to the parent to find
+     * all constants in use. A constant is a lower-case letter from a-t.
      *
-     * @param _tree
+     * @param _tree - TruthTree (should be a leaf node).
      */
     private void getAllConstantsHelper(TruthTree _tree) {
         TruthTree curr = _tree;

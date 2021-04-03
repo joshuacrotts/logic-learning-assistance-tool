@@ -4,7 +4,6 @@ import com.llat.models.treenode.QuantifierNode;
 import com.llat.models.treenode.VariableNode;
 import com.llat.models.treenode.WffTree;
 
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -51,6 +50,7 @@ public final class BoundVariableDetector {
             }
         }
 
+        // Pre-order bind variables.
         for (WffTree ch : T.getChildren()) {
             bound(ch, S, L);
         }

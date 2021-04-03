@@ -12,7 +12,7 @@ public class OrNode extends WffTree {
     private static final String DEFAULT_SYMBOL = "∨";
 
     /**
-     *
+     * The default TeX symbol is just the standard wedge symbol.
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\lor";
 
@@ -47,5 +47,10 @@ public class OrNode extends WffTree {
         WffTree ch2 = this.getChild(1);
 
         return "(" + ch1.getTexCommand() + " " + DEFAULT_TEX_SYMBOL + " " + ch2.getTexCommand() + ")";
+    }
+
+    @Override
+    public String getTexParseCommand() {
+        return DEFAULT_TEX_SYMBOL;
     }
 }
