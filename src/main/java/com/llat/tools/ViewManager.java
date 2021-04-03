@@ -8,6 +8,7 @@ import java.io.File;
 public class ViewManager {
     public final static int LOGIN = 0;
     public final static int MAINAPPLICATION = 1;
+    public final static int SETTINGS = 2;
 
     public final static String RESOURCEPATH = "src/main/resources/assets/stylesheets/";
     public static SettingsObject so = (SettingsObject) new SettingsAdaptor().getData();
@@ -24,5 +25,4 @@ public class ViewManager {
         String theme = so.getTheme().getApplied().getCode();
         return getDefaultStyle(theme);
     }
-
 }

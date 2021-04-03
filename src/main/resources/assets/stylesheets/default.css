@@ -33,11 +33,11 @@
     -fx-border-color: rgba(0, 0, 0, 1);
 }
 
-.label {
-    -fx-font-size: 2em;
-    -fx-underline: true;
-    -fx-font-weight: bold;
-}
+/*.label {*/
+/*    -fx-font-size: 2em;*/
+/*    -fx-underline: true;*/
+/*    -fx-font-weight: bold;*/
+/*}*/
 
 .button {
     -fx-wrap-text: true;
@@ -62,7 +62,7 @@
     -fx-background-insets: 0;
 }
 
-#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox {
+#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox, #rightView {
     -fx-background-color: silver;
 }
 
@@ -112,3 +112,34 @@
     -fx-text-fill: black;
     -fx-opacity: 1.0;
 }
+
+
+/*Right Tab Settings*/
+/*.tab {*/
+
+/*    -fx-min-width: 5em;*/
+/*    -fx-pref-width: 8em;*/
+/*    -fx-max-width: 10em;*/
+/*}*/
+/*.tab-header-background {*/
+/*    -fx-background-color:transparent*/
+/*}*/
+
+/*.tab-pane{*/
+/*    -fx-padding: 0 -1 -1 -1*/
+/*}*/
+
+/*.tab-pane .tab-header-area .tab-header-background {*/
+/*    -fx-opacity: 0;*/
+/*}*/
+
+/*.tab-pane*/
+/*{*/
+/*    -fx-tab-min-width:90px;*/
+/*}*/
+
+/*.tab{*/
+/*    -fx-background-insets: 0 1 0 1,0,0;*/
+/*}*/
+
+

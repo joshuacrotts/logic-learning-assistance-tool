@@ -3,7 +3,8 @@ package com.llat.controller;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.tools.EventBus;
 import com.llat.tools.ViewManager;
-import com.llat.views.RegisterView;
+import com.llat.views.ApplicationView;
+import com.llat.views.LoginView;
 import com.llat.views.SymbolButton;
 import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolDescriptionEvent;
@@ -56,12 +57,13 @@ public class Controller implements Initializable {
         Pane parentPane = new Pane();
         switch (_viewName) {
             case ViewManager.MAINAPPLICATION: {
-                parentPane = (new RegisterView(this).getParentPane());
+                parentPane = (new ApplicationView(this).getParentPane());
                 break;
             }
-            case ViewManager.LOGIN:
-                parentPane = (new RegisterView(this)).getParentPane();
+            case ViewManager.LOGIN:{
+                parentPane = (new LoginView(this)).getParentPane();
                 break;
+            }
             default:
                 // Update this to error view.
                 parentPane = new Pane();
