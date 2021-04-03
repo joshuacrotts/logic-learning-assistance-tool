@@ -1,9 +1,10 @@
 package com.llat.database;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class GoogleCloudDatabase implements DatabaseInterface {
     public static final String CREDENTIALS_STRING = "jdbc:mysql://35.202.75.240:3306/llat";
@@ -114,8 +115,11 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             while (rs4.next()) {
                 bcryptHashString = rs4.getString(1);
             }
-
-            BCrypt.Result result = BCrypt.verifyer().verify(Password.toCharArray(), bcryptHashString);
+            if (bcryptHashString == null){
+                System.out.println("[DB - Error] - User is not exist");
+                return null;
+            }
+                BCrypt.Result result = BCrypt.verifyer().verify(Password.toCharArray(), bcryptHashString);
 
             if(!result.verified){
                 return null;

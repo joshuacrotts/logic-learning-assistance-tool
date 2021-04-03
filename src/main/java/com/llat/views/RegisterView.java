@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LoginView {
+public class RegisterView {
     Region aboveLogoRegion = new Region();
     Region belowLogoRegion = new Region();
     Region belowEmailRegion = new Region();
@@ -31,7 +31,7 @@ public class LoginView {
     private Button loginButton = new Button("Login");
     private Button returnButton = new Button("Return to Application");
 
-    public LoginView(Controller _controller) {
+    public RegisterView(Controller _controller) {
         this.controller = _controller;
         this.stage = _controller.getStage();
         // Setting VBox loginVBox properties.
