@@ -12,14 +12,21 @@ public class GoogleCloudDatabase implements DatabaseInterface {
     static Connection connection = null;
 
     //Method that creates a user Account and stores in database and sets default values to theme and language.
-    public void Register(String _userName, String _password, String _firstName, String _lastName) {
+    public String Register(String _userName, String _password, String _firstName, String _lastName) {
+        String Message = null;
         int id = 0;
         String bcryptHashString = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
 
+            if(_password == null || _userName == null){
+                Message = "You must enter in a Username or Password.";
+                return Message;
+            }
+
             bcryptHashString = BCrypt.withDefaults().hashToString(12, _password.toCharArray());
+
 
             Statement stmt = connection.createStatement();
             String sql = "INSERT INTO User (UserName, Password, LName, FName) VALUES (?,?,?,?)";
@@ -50,15 +57,14 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             statement4.setInt(1, id);
             statement4.executeUpdate();
 
-            System.out.println("Account Succesfully Created!");
+            Message = "Account Successfully Created!";
             connection.close();
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             /*System.out.println("UserName Already Taken. Please Try New Username.");*/
-        } catch (NullPointerException e) {
-
         }
+        return Message;
     }
 
     // Method that Updates Theme and stores in database for user.
@@ -170,8 +176,8 @@ public class GoogleCloudDatabase implements DatabaseInterface {
         return user;
     }
 
-    // updates and inserts user text history and stores in data, up to 10 rows per user.
-    public void UpdateQuery(int id, String Text){
+    // inserts user text history and stores in data, up to 10 rows per user.
+    public void InsertQuery(int id, String Text){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
@@ -205,6 +211,33 @@ public class GoogleCloudDatabase implements DatabaseInterface {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public List<String> UpdateHistory(int id){
+
+        List<String> history = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            String sql = "SELECT TextInput FROM Query_History WHERE UserID = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet rs3 = statement.executeQuery();
+
+            while (rs3.next()) {
+                history.add(rs3.getString(1));
+            }
+
+
+            connection.close();
+
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return history;
 
     }
 
