@@ -1,0 +1,36 @@
+~((~(a = d ∨ (x)Lx) ∨ ~a = d) ↔ ~(~a = d ∨ ~(x)Lx))
+├── (~(a = d ∨ (x)Lx) ∨ ~a = d)
+│  └── ~~(~a = d ∨ ~(x)Lx)
+│     └── (~a = d ∨ ~(x)Lx)
+│        ├── ~(a = d ∨ (x)Lx)
+│        │  └── ~a = d
+│        │     └── ~(x)Lx
+│        │        └── (∃x)~Lx
+│        │           └── ~Lb
+│        │              ├── ~a = d open
+│        │              └── ~(x)Lx
+│        │                 └── (∃x)~Lx
+│        │                    └── ~Lc open
+│        └── ~a = d
+│           ├── ~a = d open
+│           └── ~(x)Lx
+│              └── (∃x)~Lx
+│                 └── ~Lb open
+└── ~(~(a = d ∨ (x)Lx) ∨ ~a = d)
+   └── ~(~a = d ∨ ~(x)Lx)
+      └── ~~(a = d ∨ (x)Lx)
+         └── ~~a = d
+            └── (a = d ∨ (x)Lx)
+               └── a = d
+                  └── ~~a = d
+                     └── ~~(x)Lx
+                        └── a = d
+                           └── (x)Lx
+                              ├── a = d
+                              │  └── La
+                              │     └── Ld open
+                              └── (x)Lx
+                                 └── La
+                                    └── Ld
+                                       └── La
+                                          └── Ld open

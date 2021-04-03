@@ -1,0 +1,22 @@
+ROOT (
+  AND (
+    BICOND (
+      UNIVERSAL: x (
+        OR (
+          PREDICATE: L (
+            CONSTANT: a,
+            VARIABLE: x),
+          PREDICATE: M (
+            CONSTANT: a,
+            VARIABLE: x))),
+      PREDICATE: L (
+        CONSTANT: a,
+        VARIABLE: x)),
+    IMP (
+      NEG (
+        PREDICATE: S (
+          CONSTANT: a,
+          VARIABLE: x)),
+      PREDICATE: L (
+        CONSTANT: a,
+        VARIABLE: x))))

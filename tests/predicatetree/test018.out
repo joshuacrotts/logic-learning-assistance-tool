@@ -1,0 +1,9 @@
+(∼(∃z)(Dz & Ez) & (Dn & En))
+└── ∼(∃z)(Dz & Ez)
+   └── (Dn & En)
+      └── (z)~(Dz & Ez)
+         └── Dn
+            └── En
+               └── ~(Dn & En)
+                  ├── ~Dn X
+                  └── ~En X

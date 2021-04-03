@@ -1,0 +1,16 @@
+(((x)(Lxe | ~Lxa) & ~Lae) & ~~(∃x)Lxa)
+└── ((x)(Lxe | ~Lxa) & ~Lae)
+   └── ~~(∃x)Lxa
+      └── (∃x)Lxa
+         └── Lba
+            └── (x)(Lxe | ~Lxa)
+               └── ~Lae
+                  └── (Lae | ~Laa)
+                     └── (Lbe | ~Lba)
+                        └── (Lee | ~Lea)
+                           ├── Lae X
+                           └── ~Laa
+                              ├── Lbe
+                              │  ├── Lee open
+                              │  └── ~Lea open
+                              └── ~Lba X

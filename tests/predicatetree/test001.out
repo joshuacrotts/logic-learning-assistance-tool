@@ -1,0 +1,5 @@
+~(Usa -> (Lol & Usa))
+└── Usa
+   └── ~(Lol & Usa)
+      ├── ~Lol open
+      └── ~Usa X

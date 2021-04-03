@@ -1,0 +1,12 @@
+~(y)((Py -> My) -> ~(My | Py))
+└── (∃y)~((Py -> My) -> ~(My | Py))
+   └── ~((Pa -> Ma) -> ~(Ma | Pa))
+      └── (Pa -> Ma)
+         └── ~~(Ma | Pa)
+            └── (Ma | Pa)
+               ├── Ma
+               │  ├── ~Pa open
+               │  └── Ma open
+               └── Pa
+                  ├── ~Pa X
+                  └── Ma open

@@ -1,0 +1,114 @@
+#loginLogoLabel {
+    -fx-background-image: url("../images/LogoStatic.png");
+    -fx-background-size: 100% 100%;
+    -fx-alignment: center;
+}
+
+#loginViewParentPane {
+    -fx-background-color: radial-gradient(center 50% 50% , radius 90% , silver, derive(gray, -50%));
+    -fx-background-color: linear-gradient(to right, gray 0%, silver 50%, gray 100%);
+    -fx-alignment: center;
+}
+
+.text-field {
+    -fx-background-color: black;
+    -fx-border-width: 5;
+    -fx-border-color: black;
+    -fx-text-color: black;
+    -fx-alignment: center;
+    -fx-prompt-text-fill :black;
+    -fx-font-size: 2em;
+}
+
+.text-field:focused {
+    -fx-background-color: derive(silver, 80%);
+    -fx-background-insets: 0 0 0 0;
+}
+
+#loginVBox {
+    -fx-background-color: radial-gradient(center 50% 25% , radius 90% , silver, derive(black, 50%));
+    -fx-alignment: top-center;
+    -fx-spacing: 0;
+    -fx-border-width: 0 10;
+    -fx-border-color: rgba(0, 0, 0, 1);
+}
+
+.label {
+    -fx-font-size: 2em;
+    -fx-underline: true;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-size: 2em;
+    -fx-background-color: derive(silver, 0%);
+    -fx-border-color: black;
+    -fx-border-width: 5;
+    -fx-background-insets: 0;
+}
+
+.button:hover {
+    -fx-background-color: derive(silver, 80%);
+}
+
+.button:pressed {
+    -fx-background-color: #add8e6;
+}
+
+.button:focused {
+    -fx-background-insets: 0;
+}
+
+#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox {
+    -fx-background-color: silver;
+}
+
+#formulaInputHBox {
+    -fx-background-color: derive(black, 50%);
+}
+
+#rulesAxiomsScrollPane {
+    -fx-background-color: silver;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+#rulesAxiomsScrollPane > .viewport {
+   -fx-background-color: transparent;
+}
+
+#rulesAxiomsScrollPane:vertical {
+    -fx-min-width: 10;
+}
+
+#rulesAxiomsScrollPane:focused {
+    -fx-background-insets: 0;
+}
+
+#rulesAxiomsScrollPane .corner {
+    -fx-background-insets: 0;
+}
+
+#rulesAxiomsText, #exampleText, #explanationText {
+    -fx-font-size: 2em;
+
+}
+
+#rulesAxiomsText {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+}
+
+#rulesAxiomsText:focused {
+    -fx-background-insets: 0;
+}
+
+#rulesAxiomsText:disabled {
+    -fx-text-fill: black;
+    -fx-opacity: 1.0;
+}
