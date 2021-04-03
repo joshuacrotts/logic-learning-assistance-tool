@@ -29,9 +29,10 @@ public class ParseTreeView {
         this.truthTreeVBox.setAlignment(Pos.TOP_CENTER);
         // Adding children nodes to their parents nodes.
         // Creating interpreter to handle events and actions.
-        this.truthTreeInterpreter = new ParseTreeInterpreter(this.controller,this);
+        this.truthTreeInterpreter = new ParseTreeInterpreter(this.controller, this);
     }
 
-    public Pane getParentPane () { return this.truthTreeVBox; }
-
+    public Pane getParentPane() {
+        return this.truthTreeVBox;
+    }
 }

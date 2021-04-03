@@ -1,30 +1,16 @@
 package com.llat.main;
 
 import com.llat.controller.Controller;
-import com.llat.models.symbols.Existential;
-import com.llat.models.symbols.Symbol;
 import com.llat.tools.ViewManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-/**
- * JavaFX App
- */
+
 public class App extends Application {
 
-    public static void main(String[] args) {
-        Symbol x = new Existential();
-
-//        app.test(x);
-
-        launch(args);
-    }
-
-    public void test(Symbol _test) {
-
-    }
+    public static void main(String[] args) { launch(args); }
 
     @Override
     public void start(Stage _stage) {
