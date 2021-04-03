@@ -112,3 +112,83 @@
     -fx-text-fill: black;
     -fx-opacity: 1.0;
 }
+
+#parseTreeVBox, #truthTreeVBox {
+    -fx-background-color: derive(black, 90%);
+}
+
+#treeNode {
+/*
+    -fx-min-width: 250;
+    -fx-max-width: 250;
+    */
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+    -fx-font-size: 30pt;
+}
+
+#treeNode:focused {
+    -fx-background-insets: 0;
+}
+
+#treeNode:disabled {
+    -fx-text-fill: black;
+    -fx-opacity: 1.0;
+}
+
+#leftBracketButton {
+/*
+    -fx-min-width: 250;
+    -fx-max-width: 250;
+        */
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/LeftBracket.png");
+    -fx-background-size: 100% 100%;
+    -fx-alignment: center;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+}
+
+#rightBracketButton {
+/*
+    -fx-min-width: 250;
+    -fx-max-width: 250;
+        */
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/RightBracket.png");
+    -fx-background-size: 100% 100%;
+    -fx-alignment: center;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+}
+#middleBracketButton {
+/*
+    -fx-min-width: 250;
+    -fx-max-width: 250;
+        */
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/MiddleBracket.png");
+    -fx-background-size: 100% 100%;
+    -fx-alignment: center;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+}
+
+#singleBracket {
+/*
+    -fx-min-width: 250;
+    -fx-max-width: 250;
+        */
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/SingleBracket.png");
+    -fx-background-size: 100% 100%;
+    -fx-alignment: center;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+}

@@ -1,10 +1,10 @@
-#loginLogoLabel, #registerLogoLabel {
+#loginLogoLabel {
     -fx-background-image: url("../images/LogoStatic.png");
     -fx-background-size: 100% 100%;
     -fx-alignment: center;
 }
 
-#loginViewParentPane, #registerViewParentPane {
+#loginViewParentPane {
     -fx-background-color: radial-gradient(center 50% 50% , radius 90% , silver, derive(gray, -50%));
     -fx-background-color: linear-gradient(to right, gray 0%, silver 50%, gray 100%);
     -fx-alignment: center;
@@ -25,7 +25,7 @@
     -fx-background-insets: 0 0 0 0;
 }
 
-#loginVBox, #registerVBox {
+#loginVBox {
     -fx-background-color: radial-gradient(center 50% 25% , radius 90% , silver, derive(black, 50%));
     -fx-alignment: top-center;
     -fx-spacing: 0;
@@ -33,11 +33,11 @@
     -fx-border-color: rgba(0, 0, 0, 1);
 }
 
-/*.label {*/
-/*    -fx-font-size: 2em;*/
-/*    -fx-underline: true;*/
-/*    -fx-font-weight: bold;*/
-/*}*/
+.label {
+    -fx-font-size: 2em;
+    -fx-underline: true;
+    -fx-font-weight: bold;
+}
 
 .button {
     -fx-wrap-text: true;
@@ -62,7 +62,7 @@
     -fx-background-insets: 0;
 }
 
-#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox, #rightView {
+#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox {
     -fx-background-color: silver;
 }
 
@@ -113,33 +113,6 @@
     -fx-opacity: 1.0;
 }
 
-
-/*Right Tab Settings*/
-/*.tab {*/
-
-/*    -fx-min-width: 5em;*/
-/*    -fx-pref-width: 8em;*/
-/*    -fx-max-width: 10em;*/
-/*}*/
-/*.tab-header-background {*/
-/*    -fx-background-color:transparent*/
-/*}*/
-
-/*.tab-pane{*/
-/*    -fx-padding: 0 -1 -1 -1*/
-/*}*/
-
-/*.tab-pane .tab-header-area .tab-header-background {*/
-/*    -fx-opacity: 0;*/
-/*}*/
-
-/*.tab-pane*/
-/*{*/
-/*    -fx-tab-min-width:90px;*/
-/*}*/
-
-/*.tab{*/
-/*    -fx-background-insets: 0 1 0 1,0,0;*/
-/*}*/
-
-
+#parseTreeVBox, #truthTreeVBox {
+    -fx-background-color: derive(black, 90%);
+}
