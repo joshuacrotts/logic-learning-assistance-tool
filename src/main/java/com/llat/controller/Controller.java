@@ -13,6 +13,7 @@ import com.llat.views.events.SymbolDescriptionEvent;
 import com.llat.views.events.SymbolInputEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -61,7 +62,7 @@ public class Controller implements Initializable {
         });
     }
 
-    public void setPaneToZoomable (Pane _canvas) {
+    public void setPaneToZoomable (Canvas _canvas) {
         _canvas.setOnScroll(new EventHandler <ScrollEvent> () {
             @Override
             public void handle(ScrollEvent scrollEvent) {
@@ -74,7 +75,7 @@ public class Controller implements Initializable {
         });
     }
 
-    public void setPaneToPannable (Pane _canvas) {
+    public void setPaneToPannable (Canvas _canvas) {
         _canvas.setOnMousePressed(new EventHandler <MouseEvent> () {
             @Override
             public void handle(MouseEvent mouseEvent) {
