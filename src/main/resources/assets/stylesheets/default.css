@@ -1,10 +1,10 @@
-#loginLogoLabel {
+#loginLogoLabel, #registerLogoLabel {
     -fx-background-image: url("../images/LogoStatic.png");
     -fx-background-size: 100% 100%;
     -fx-alignment: center;
 }
 
-#loginViewParentPane {
+#loginViewParentPane, #registerViewParentPane {
     -fx-background-color: radial-gradient(center 50% 50% , radius 90% , silver, derive(gray, -50%));
     -fx-background-color: linear-gradient(to right, gray 0%, silver 50%, gray 100%);
     -fx-alignment: center;
@@ -25,7 +25,7 @@
     -fx-background-insets: 0 0 0 0;
 }
 
-#loginVBox {
+#loginVBox, #registerVBox {
     -fx-background-color: radial-gradient(center 50% 25% , radius 90% , silver, derive(black, 50%));
     -fx-alignment: top-center;
     -fx-spacing: 0;
