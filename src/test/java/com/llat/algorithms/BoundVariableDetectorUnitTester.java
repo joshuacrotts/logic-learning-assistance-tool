@@ -159,7 +159,7 @@ public class BoundVariableDetectorUnitTester {
             throw new AssertionFailedError("Failed reading test input file " + inName);
         WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         boundVariableDetector = new BoundVariableDetector(syntaxTree);
-        System.out.println(boundVariableDetector.get());
+        System.out.println(boundVariableDetector.getBoundVariables());
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();

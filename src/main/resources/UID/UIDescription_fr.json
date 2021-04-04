@@ -1,0 +1,168 @@
+{
+  "implication": {
+    "symbol": {
+      "applied": "⇒",
+      "allSymbols": [
+        "⇒",
+        "→",
+        "⊃",
+        "-\u003e"
+      ]
+    },
+    "description": "C\u0026#39;est le bouton d\u0026#39;implication",
+    "axioms": {
+      "explanation": "A ⇒ B est faux quand A est vrai et B est faux mais vrai sinon.",
+      "example": "(A ⇒ B)"
+    },
+    "tooltip": "implication",
+    "readAs": "implique; si donc"
+  },
+  "biconditional": {
+    "symbol": {
+      "applied": "⇔",
+      "allSymbols": [
+        "⇔",
+        "≡",
+        "↔",
+        "\u003c-\u003e"
+      ]
+    },
+    "description": "C\u0026#39;est le bouton d\u0026#39;équivalence",
+    "axioms": {
+      "explanation": "A ⇔ B n\u0026#39;est vrai que si A et B sont tous les deux faux, ou si A et B sont tous les deux réels.",
+      "example": "(A ⇔ B)"
+    },
+    "tooltip": "équivalence",
+    "readAs": "si et seulement si; iff; signifie la même chose que"
+  },
+  "negation": {
+    "symbol": {
+      "applied": "¬",
+      "allSymbols": [
+        "¬",
+        "˜",
+        "!"
+      ]
+    },
+    "description": "This is the negation button",
+    "axioms": {
+      "explanation": "The statement ¬A is true if and only if A is false.",
+      "example": "(¬(¬A) ⇔  A)"
+    },
+    "tooltip": "negation",
+    "readAs": "not"
+  },
+  "conjunction": {
+    "symbol": {
+      "applied": "∧",
+      "allSymbols": [
+        "∧",
+        "^",
+        "·",
+        "\u0026"
+      ]
+    },
+    "description": "C\u0026#39;est le bouton de conjonction.",
+    "axioms": {
+      "explanation": "L\u0026#39;énoncé A ∧ B est vrai si A et B sont tous les deux vrais; sinon, c\u0026#39;est faux.",
+      "example": "(A ∧ B)"
+    },
+    "tooltip": "conjonction",
+    "readAs": "et"
+  },
+  "disjunction": {
+    "symbol": {
+      "applied": "∨",
+      "allSymbols": [
+        "∨",
+        "∥",
+        "|"
+      ]
+    },
+    "description": "C\u0026#39;est le bouton de disjonction.",
+    "axioms": {
+      "explanation": "L\u0026#39;énoncé A ∨ B est vrai si A ou B (ou les deux) sont vrais; si les deux sont faux, la déclaration est fausse.",
+      "example": "(A ∨ B)"
+    },
+    "tooltip": "conjonction",
+    "readAs": "ou"
+  },
+  "exclusiveDisjunction": {
+    "symbol": {
+      "applied": "⊕",
+      "allSymbols": [
+        "⊕",
+        "⊻",
+        "≢"
+      ]
+    },
+    "description": "C\u0026#39;est le bouton de disjonction.",
+    "axioms": {
+      "explanation": "L\u0026#39;énoncé A ⊕ B est vrai lorsque A ou B, mais pas les deux, sont vrais. A ⊻ B signifie la même chose.",
+      "example": "(¬A) ⊕ A"
+    },
+    "tooltip": "disjonction exclusive",
+    "readAs": "xor; soit ... soit"
+  },
+  "turnstile": {
+    "symbol": {
+      "applied": "⊢",
+      "allSymbols": [
+        "⊢"
+      ]
+    },
+    "description": "Ceci est le bouton du tourniquet.",
+    "axioms": {
+      "explanation": "x ⊢ y signifie que x prouve (implique syntaxiquement) y.",
+      "example": "(A → B) ⊢ (¬B → ¬A)"
+    },
+    "tooltip": "tourniquet",
+    "readAs": "prouve"
+  },
+  "doubleTurnstile": {
+    "symbol": {
+      "applied": "⊨",
+      "allSymbols": [
+        "⊨"
+      ]
+    },
+    "description": "Ceci est le bouton du tourniquet.",
+    "axioms": {
+      "explanation": "x ⊨ y signifie x modèles (implique sémantiquement) y",
+      "example": "(A → B) ⊨ (¬B → ¬A)"
+    },
+    "tooltip": "double tourniquet",
+    "readAs": "des modèles"
+  },
+  "universal": {
+    "symbol": {
+      "applied": "∀",
+      "allSymbols": [
+        "∀",
+        "()"
+      ]
+    },
+    "description": "C\u0026#39;est le bouton de quantification universel.",
+    "axioms": {
+      "explanation": "∀ x: P (x) ou (x) P (x) signifie que P (x) est vrai pour tout x.",
+      "example": "(∀x)P(x)"
+    },
+    "tooltip": "quantification universelle",
+    "readAs": "pour tous; pour toute; pour chaque"
+  },
+  "existential": {
+    "symbol": {
+      "applied": "∃",
+      "allSymbols": [
+        "∃"
+      ]
+    },
+    "description": "C\u0026#39;est le bouton de quantification universel.",
+    "axioms": {
+      "explanation": "∃ x: P (x) signifie qu\u0026#39;il y a au moins un x tel que P (x) est vrai.",
+      "example": "(∃x)Px"
+    },
+    "tooltip": "quantification universelle",
+    "readAs": "il existe"
+  }
+}

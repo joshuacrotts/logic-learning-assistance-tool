@@ -1,14 +1,22 @@
 package com.llat.database;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class GoogleCloudDatabase implements DatabaseInterface {
+
+    /**
+     *
+     */
     public static final String CREDENTIALS_STRING = "jdbc:mysql://35.202.75.240:3306/llat";
 
-    static Connection connection = null;
+    /**
+     *
+     */
+    private static Connection connection = null;
 
     //Method that creates a user Account and stores in database and sets default values to theme and language.
     public String Register(String _userName, String _password, String _firstName, String _lastName) {
@@ -19,13 +27,12 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
 
-            if(_password == null || _userName == null){
+            if (_password == null || _userName == null) {
                 Message = "You must enter in a Username or Password.";
                 return Message;
             }
 
             bcryptHashString = BCrypt.withDefaults().hashToString(12, _password.toCharArray());
-
 
             Statement stmt = connection.createStatement();
             String sql = "INSERT INTO User (UserName, Password, LName, FName) VALUES (?,?,?,?)";
@@ -77,15 +84,14 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             statement.setInt(2, id);
             statement.executeUpdate();
             connection.close();
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
 
-
-    //Method that Updates Language and stores in database for user.
+    /**
+     * Method that Updates Language and stores in database for user.
+     */
     public void UpdateLanguage(int id, String Language) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -103,7 +109,9 @@ public class GoogleCloudDatabase implements DatabaseInterface {
         }
     }
 
-    //Method that validates Login credidentials, if Correct, will return User data. If Incorrect, will return null.
+    /**
+     * Method that validates Login credidentials, if Correct, will return User data. If Incorrect, will return null.
+     */
     public UserObject Login(String Username, String Password) {
         UserObject user = null;
         String bcryptHashString = null;
@@ -115,19 +123,20 @@ public class GoogleCloudDatabase implements DatabaseInterface {
 
             String PassSql = "SELECT Password FROM User where UserName = ?";
             PreparedStatement VerifyPass = connection.prepareStatement(PassSql);
-            VerifyPass.setString(1,Username);
+            VerifyPass.setString(1, Username);
             ResultSet rs4 = VerifyPass.executeQuery();
             while (rs4.next()) {
                 bcryptHashString = rs4.getString(1);
             }
-
-            BCrypt.Result result = BCrypt.verifyer().verify(Password.toCharArray(), bcryptHashString);
-
-            if(!result.verified){
+            if (bcryptHashString == null) {
+                System.out.println("[DB - Error] - User is not exist");
                 return null;
             }
+            BCrypt.Result result = BCrypt.verifyer().verify(Password.toCharArray(), bcryptHashString);
 
-
+            if (!result.verified) {
+                return null;
+            }
 
             String sql = "SELECT T.UserID, UserName,Password,FName,Lname,Theme,Language FROM User INNER Join Theme T on User.UserID = T.UserID\n" +
                     "INNER JOIN Language L on User.UserID = L.UserID WHERE UserName = ?;";
@@ -159,21 +168,21 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             }
             //user.setHistory(history);
 
-            if(!history.isEmpty()){
+            if (!history.isEmpty()) {
                 user.setHistory(history);
             }
 
-
             connection.close();
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return user;
     }
 
-    // inserts user text history and stores in data, up to 10 rows per user.
-    public void InsertQuery(int id, String Text){
+    /**
+     * Inserts user text history and stores in data, up to 10 rows per user.
+     */
+    public void InsertQuery(int id, String Text) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
@@ -200,18 +209,18 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             PreparedStatement s2 = connection.prepareStatement(sql2);
             s2.executeUpdate();
 
-
             connection.close();
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-    public List<String> UpdateHistory(int id){
-
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List<String> UpdateHistory(int id) {
         List<String> history = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -224,17 +233,10 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             while (rs3.next()) {
                 history.add(rs3.getString(1));
             }
-
-
             connection.close();
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
         return history;
-
     }
-
 }

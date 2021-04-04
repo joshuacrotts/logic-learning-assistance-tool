@@ -12,13 +12,14 @@ import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class FormulaInputView {
-    Controller controller;
-    Stage stage;
-    AnchorPane parentPane = new AnchorPane();
-    HBox formulaInputHBox = new HBox();
-    TextField formulaInputField = new TextField();
-    Button formulaInputButton = new Button("Solve");
-    FormulaInputInterpreter formulaInputInterpreter;
+
+    private Controller controller;
+    private Stage stage;
+    private AnchorPane parentPane = new AnchorPane();
+    private HBox formulaInputHBox = new HBox();
+    private TextField formulaInputField = new TextField();
+    private Button formulaInputButton = new Button("Solve");
+    private FormulaInputInterpreter formulaInputInterpreter;
 
     public FormulaInputView(Controller _controller) {
         this.controller = _controller;
@@ -28,8 +29,9 @@ public class FormulaInputView {
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.formulaInputHBox.setMinWidth(newVal.doubleValue());
         });
-        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.formulaInputHBox.setMinHeight(newVal.doubleValue() * .05);
+        this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.formulaInputHBox.setMaxHeight(newVal.doubleValue() * .10);
+            this.formulaInputHBox.setMinHeight(newVal.doubleValue() * .10);
         });
         this.formulaInputHBox.setAlignment(Pos.CENTER);
         this.formulaInputHBox.setFillHeight(true);

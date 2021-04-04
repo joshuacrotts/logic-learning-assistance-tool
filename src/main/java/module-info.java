@@ -6,8 +6,12 @@ module LLAT {
     requires com.google.gson;
     requires bcrypt;
 
+    opens com.llat.models.localstorage;
     opens com.llat.models.localstorage.settings;
+    opens com.llat.models.localstorage.settings.langague;
+    opens com.llat.models.localstorage.settings.theme;
     opens com.llat.models.localstorage.uidescription;
+    opens com.llat.models.localstorage.credentials;
     opens com.llat.models.symbols;
     opens com.llat.models.gson;
     opens com.llat.tools;

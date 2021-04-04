@@ -1,0 +1,3 @@
+// Affirming the consequent - false.
+
+(A->B), B => A

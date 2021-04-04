@@ -4,6 +4,7 @@ import com.llat.models.symbols.Symbol;
 import javafx.scene.control.Button;
 
 public class SymbolButton extends Button {
+
     private Symbol symbol;
 
     public SymbolButton() {

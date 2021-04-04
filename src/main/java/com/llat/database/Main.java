@@ -1,6 +1,4 @@
 package com.llat.database;
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import javafx.scene.chart.PieChart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +16,8 @@ public class Main {
         List<String> history = new ArrayList<>();
 
 
-      Status = Adapter.Register( "Bob98",null,"Bob","Howard");
-       System.out.println(Status);
+        Status = Adapter.Register("Bob98", null, "Bob", "Howard");
+        System.out.println(Status);
 /*        UserObject User = Adapter.Login("Bob98", "12345");
         if(User == null){
             System.out.println("Wrong UserName or Password");
@@ -35,7 +33,6 @@ public class Main {
 
         history = Adapter.UpdateHistory(UserID);
         System.out.println(history);*/
-
 
 
     }

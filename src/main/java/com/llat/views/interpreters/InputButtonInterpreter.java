@@ -7,8 +7,16 @@ import com.llat.tools.Listener;
 import com.llat.views.InputButtonsView;
 
 public class InputButtonInterpreter implements Listener {
-    Controller controller;
-    InputButtonsView inputButtonsView;
+
+    /**
+     *
+     */
+    private Controller controller;
+
+    /**
+     *
+     */
+    private InputButtonsView inputButtonsView;
 
     public InputButtonInterpreter(Controller _controller, InputButtonsView _inputButtonsView) {
         this.controller = _controller;
@@ -27,5 +35,4 @@ public class InputButtonInterpreter implements Listener {
     public void catchEvent(Event _event) {
 
     }
-
 }

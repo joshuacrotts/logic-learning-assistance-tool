@@ -23,6 +23,7 @@ public class LLATParserAdapter {
      * this list contains only one WffTree, then we can run most algorithms.
      */
     public static LinkedList<WffTree> getAbstractSyntaxTree(String _wff) {
+        LLATErrorListener.reset();
         CharStream charStream = CharStreams.fromString(_wff);
         LLATParserListener parser = LLATParserAdapter.parseStream(charStream);
         // For now, the errors are just printed in the tester class - if

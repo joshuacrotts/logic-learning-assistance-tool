@@ -1,6 +1,8 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
+import com.llat.database.DatabaseAdapter;
+import com.llat.database.UserObject;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -12,11 +14,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginView {
-    Region aboveLogoRegion = new Region();
-    Region belowLogoRegion = new Region();
-    Region belowEmailRegion = new Region();
-    Region belowPasswordFieldRegion = new Region();
-    Region belowLoginButtonRegion = new Region();
+    private Region aboveLogoRegion = new Region();
+    private Region belowLogoRegion = new Region();
+    private Region belowEmailRegion = new Region();
+    private Region belowPasswordFieldRegion = new Region();
+    private Region belowLoginButtonRegion = new Region();
     private Controller controller;
     private AnchorPane parentPane = new AnchorPane();
     private Stage stage;
@@ -104,6 +106,19 @@ public class LoginView {
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.loginButton.setMinWidth(newVal.doubleValue() * .30);
         });
+
+
+        this.loginButton.setOnAction((event1 -> {
+            DatabaseAdapter ad = new DatabaseAdapter();
+            String email = this.emailField.getText();
+            String pass = this.passwordField.getText();
+            UserObject user = ad.Login(email, pass);
+            if (!(user == null)) {
+                System.out.println(user.getHistory());
+            } else {
+                System.out.println("pass or email is wrong");
+            }
+        }));
         // Setting Region belowLoginButtonRegion properties.
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.belowLoginButtonRegion.setMinHeight(newVal.doubleValue() * .10);

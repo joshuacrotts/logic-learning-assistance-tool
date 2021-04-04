@@ -159,7 +159,7 @@ public class FreeVariableDetectorUnitTester {
             throw new AssertionFailedError("Failed reading test input file " + inName);
         WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         freeVariableDetector = new FreeVariableDetector(syntaxTree);
-        System.out.println(freeVariableDetector.get());
+        System.out.println(freeVariableDetector.getFreeVariables());
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();

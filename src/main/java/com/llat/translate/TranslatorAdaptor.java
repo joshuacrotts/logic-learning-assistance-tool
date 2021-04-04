@@ -3,6 +3,10 @@ package com.llat.translate;
 import java.util.List;
 
 public class TranslatorAdaptor implements TranslatorInterface {
+
+    /**
+     *
+     */
     TranslatorInterface T = new GoogleTranslatorAPI();
 
     @Override

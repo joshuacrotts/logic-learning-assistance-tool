@@ -3,14 +3,15 @@ package com.llat.database;
 import java.util.List;
 
 public class UserObject {
-    int UserId;
-    String UserName;
-    String Pword;
-    String Lname;
-    String Fname;
-    String Theme;
-    String Language;
-    List<String> History;
+
+    private int UserId;
+    private String UserName;
+    private String Pword;
+    private String Lname;
+    private String Fname;
+    private String Theme;
+    private String Language;
+    private List<String> History;
 
     public UserObject(int userId, String userName, String pword, String lname, String fname, String theme, String language, List<String> history) {
         UserId = userId;
