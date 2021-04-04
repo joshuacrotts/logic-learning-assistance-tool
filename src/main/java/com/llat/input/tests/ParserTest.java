@@ -135,7 +135,7 @@ public class ParserTest {
         }
 
         // If we have at least two wffs, we can see if they form a valid or invalid argument.
-        if (resultList.size() >= 2){
+        if (resultList.size() >= 2) {
             ArgumentTruthTreeValidator validator = new ArgumentTruthTreeValidator(resultList);
             System.out.println("Deductively valid: " + validator.isValid());
         }

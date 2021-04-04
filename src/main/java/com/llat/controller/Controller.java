@@ -38,7 +38,6 @@ public class Controller implements Initializable {
     }
 
     /**
-     *
      * @param _viewName
      */
     public void changeViewTo(int _viewName) {
@@ -47,7 +46,6 @@ public class Controller implements Initializable {
     }
 
     /**
-     *
      * @param _symbolButton
      */
     public void setSymbolInputButtonOnAction(SymbolButton _symbolButton) {
@@ -60,7 +58,6 @@ public class Controller implements Initializable {
     }
 
     /**
-     *
      * @param _canvas
      */
     public void setPaneToZoomable(Canvas _canvas) {
@@ -84,7 +81,6 @@ public class Controller implements Initializable {
     }
 
     /**
-     *
      * @param _canvas
      */
     public void setPaneToPannable(Canvas _canvas) {
@@ -112,7 +108,6 @@ public class Controller implements Initializable {
     }
 
     /**
-     *
      * @param _button
      */
     public void setSolveButtonOnAction(Button _button) {

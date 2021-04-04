@@ -216,7 +216,6 @@ public class GoogleCloudDatabase implements DatabaseInterface {
     }
 
     /**
-     *
      * @param id
      * @return
      */
