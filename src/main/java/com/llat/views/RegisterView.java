@@ -145,9 +145,9 @@ public class RegisterView {
             String email = this.userNameField.getText();
             String pass = this.passwordField.getText();
             UserObject user = ad.Login(email, pass);
-            if(!(user == null)){
+            if (!(user == null)) {
                 System.out.println(user.getHistory());
-            }else {
+            } else {
                 System.out.println("pass or email is wrong");
             }
         }));
@@ -160,7 +160,7 @@ public class RegisterView {
         this.registerVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.returnButton.setMinWidth(newVal.doubleValue() * .30);
         });
-        this.registerVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.userNameInputLabel, this.userNameField, this.belowUserNameRegion, this.firstNameInputLabel, this.firstNameField, this.belowFirstNameRegion, this.lastNameInputLabel, this.lastNameField, this.belowLastNameRegion,this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.registerButton, this.belowLoginButtonRegion, this.returnButton);
+        this.registerVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.userNameInputLabel, this.userNameField, this.belowUserNameRegion, this.firstNameInputLabel, this.firstNameField, this.belowFirstNameRegion, this.lastNameInputLabel, this.lastNameField, this.belowLastNameRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.registerButton, this.belowLoginButtonRegion, this.returnButton);
         // Setting AnchorPane parentPane properties.
         this.parentPane.setId("registerViewParentPane");
         // Adding children nodes to their parents nodes.

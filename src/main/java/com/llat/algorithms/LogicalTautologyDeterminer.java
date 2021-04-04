@@ -33,7 +33,7 @@ public final class LogicalTautologyDeterminer {
         } else {
             treeGenerator = new PredicateTruthTreeGenerator(this.wffTree);
         }
-        return new ClosedTreeDeterminer(treeGenerator.get()).hasAllClosed();
+        return new ClosedTreeDeterminer(treeGenerator.getTruthTree()).hasAllClosed();
     }
 
     public WffTree getTree() {

@@ -14,11 +14,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginView {
-    Region aboveLogoRegion = new Region();
-    Region belowLogoRegion = new Region();
-    Region belowEmailRegion = new Region();
-    Region belowPasswordFieldRegion = new Region();
-    Region belowLoginButtonRegion = new Region();
+    private Region aboveLogoRegion = new Region();
+    private Region belowLogoRegion = new Region();
+    private Region belowEmailRegion = new Region();
+    private Region belowPasswordFieldRegion = new Region();
+    private Region belowLoginButtonRegion = new Region();
     private Controller controller;
     private AnchorPane parentPane = new AnchorPane();
     private Stage stage;
@@ -113,9 +113,9 @@ public class LoginView {
             String email = this.emailField.getText();
             String pass = this.passwordField.getText();
             UserObject user = ad.Login(email, pass);
-            if(!(user == null)){
+            if (!(user == null)) {
                 System.out.println(user.getHistory());
-            }else {
+            } else {
                 System.out.println("pass or email is wrong");
             }
         }));

@@ -5,13 +5,15 @@ import com.llat.models.localstorage.LocalStorage;
 
 public class SettingsAdaptor implements SettingsInterface {
 
+    /**
+     *
+     */
     private final String jsonFileName = "settings.json";
 
     /**
      *
      */
-    SettingsInterface settings =  new GsonIO(jsonFileName, SettingsObject.class);
-
+    SettingsInterface settings = new GsonIO(jsonFileName, SettingsObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {

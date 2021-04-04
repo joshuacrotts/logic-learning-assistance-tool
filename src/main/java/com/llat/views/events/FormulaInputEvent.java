@@ -3,7 +3,11 @@ package com.llat.views.events;
 import com.llat.tools.Event;
 
 public class FormulaInputEvent implements Event {
-    String formula;
+
+    /**
+     *
+     */
+    private String formula;
 
     public FormulaInputEvent(String _formula) {
         this.formula = _formula;
@@ -16,5 +20,4 @@ public class FormulaInputEvent implements Event {
     public void setFormula(String _formula) {
         this.formula = _formula;
     }
-
 }

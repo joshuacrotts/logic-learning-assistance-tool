@@ -1,0 +1,3 @@
+// Composition
+
+(P->Q), (P->R) => (P->(Q&R))

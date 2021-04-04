@@ -12,6 +12,11 @@ import java.util.PriorityQueue;
 public abstract class BaseTruthTreeGenerator {
 
     /**
+     * We should definitely make this a setting...
+     */
+    protected static int TIMEOUT = 1000;
+
+    /**
      *
      */
     protected WffTree tree;
@@ -82,7 +87,7 @@ public abstract class BaseTruthTreeGenerator {
      *
      * @return
      */
-    public TruthTree get() {
+    public TruthTree getTruthTree() {
         TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
         this.buildTreeHelper(ttn);
         return ttn;
