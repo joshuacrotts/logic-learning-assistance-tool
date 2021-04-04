@@ -29,10 +29,11 @@ public class ParseTreeInterpreter implements Listener {
 
     private Controller controller;
     private ParseTreeView truthTreeView;
-    private Canvas treeRepresentation = new Canvas(1000, 1000);
+    private Canvas treeRepresentation = new Canvas(1280,  1280);
     private GraphicsContext tgc = treeRepresentation.getGraphicsContext2D();
 
     private static final Color BORDER_COLOR = Color.DARKGRAY;
+    private static final Color HIGHLIGHTED_COLOR = Color.YELLOW;
     private static final Color BOX_COLOR = Color.ORANGE;
     private static final Color TEXT_COLOR = Color.BLACK;
 
@@ -53,18 +54,19 @@ public class ParseTreeInterpreter implements Listener {
             this.truthTreeView.getParentPane().getChildren().remove(this.treeRepresentation);
 
             WffTree wff = ((SolvedFormulaEvent) _event).getWffTree().getChild(0);
+            wff.clearHighlighting();
             TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
 
             // Setup the tree layout configuration.
             double gapBetweenLevels = 20;
-            double gapBetweenNodes = 30;
+            double gapBetweenNodes = 20;
             DefaultConfiguration<WffTree> configuration = new DefaultConfiguration<WffTree>(
                     gapBetweenLevels, gapBetweenNodes);
 
-            // Create the NodeExtentProvider for TextInBox nodes
+            // Create the NodeExtentProvider for WffTree nodes.
             WffTreeExtentProvider nodeExtentProvider = new WffTreeExtentProvider();
 
-            // Create the layout
+            // Create the layout.
             TreeLayout<WffTree> treeLayout = new TreeLayout<WffTree>(tree,
                     nodeExtentProvider, configuration);
 
@@ -129,9 +131,14 @@ public class ParseTreeInterpreter implements Listener {
         this.tgc.strokeRoundRect(box.x - 1, box.y - 1, box.width + 1, box.height + 1, ARC_SIZE, ARC_SIZE);
 
         // Now draw the box itself.
-        this.tgc.setFill(Color.ORANGE);
-        this.tgc.fillRoundRect(box.x - 1, box.y - 1, box.width + 1, box.height + 1, ARC_SIZE, ARC_SIZE);
-        this.tgc.setFill(Color.BLACK);
+        // If the node is highlighted, that means it's selected by an algorithm.
+        if (_wffTree.isHighlighted()) {
+            // Right now, there's nothing but this will change...
+        } else {
+            this.tgc.setFill(Color.ORANGE);
+            this.tgc.fillRoundRect(box.x - 1, box.y - 1, box.width + 1, box.height + 1, ARC_SIZE, ARC_SIZE);
+            this.tgc.setFill(Color.BLACK);
+        }
 
         // Finally, draw and position the text.
         Text t = new Text(_wffTree.getSymbol());
