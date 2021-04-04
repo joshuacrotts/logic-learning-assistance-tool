@@ -142,7 +142,7 @@ public class TruthTree implements Comparable<TruthTree> {
         }
 
         TruthTree o = (TruthTree) obj;
-        return this.getWff().equals(o.getWff());
+        return this.getWff().stringEquals(o.getWff());
     }
 
     @Override
@@ -262,7 +262,7 @@ public class TruthTree implements Comparable<TruthTree> {
                     // try to replace the constant we found.
                     if (currWff.isClosable() && !currWff.isIdentity() && !currWff.isNegIdentity()) {
                         this.replaceSymbol(currWff, constantOne, constantTwo);
-                        if (!currWff.equals(curr.getWff())) {
+                        if (!currWff.stringEquals(curr.getWff())) {
                             // Add to the tree and the queue.
                             TruthTree _newRootTT = new TruthTree(currWff, l);
                             l.addCenter(_newRootTT);

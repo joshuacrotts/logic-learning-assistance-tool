@@ -17,29 +17,14 @@ import java.lang.reflect.Type;
  */
 public class GsonIO implements UIDescriptionInterface, SettingsInterface, CredentialsInterface {
 
-    /**
-     *
-     */
+    private static Gson gson = new Gson();
     private final static String RESOURCES_PATH = "src\\main\\resources\\";
-
-    /**
-     *
-     */
     private final static String DEFAULT_UIDO_FILE = "UID/UIDescription_en.json";
 
     /**
      *
      */
-    private static Gson gson = new Gson();
-
-    /**
-     *
-     */
     private String json;
-
-    /**
-     *
-     */
     private Type aClass;
 
     public GsonIO(String _jsonFileName, Type _objectClass) {
@@ -87,8 +72,10 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
                     line = br.readLine();
                 }
                 result = sb.toString();
-            } catch (IOException fileNotFoundException) {
+            } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,9 +83,6 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
         return result;
     }
 
-    /**
-     *
-     */
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
         String filePath = null;
@@ -109,7 +93,6 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             createMissingFile(_jsonFilePath);
         }
         try {
-            assert filePath != null;
             Writer writer = new FileWriter(filePath);
             gson.toJson(_obj, writer);
             writer.close();
@@ -127,19 +110,15 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
     @Override
     public LocalStorage getData() {
         String jsonString = readJsonFile(json);
-        return gson.fromJson(jsonString, aClass);
+        LocalStorage localStorage = gson.fromJson(jsonString, aClass);
+        return localStorage;
     }
 
-    /**
-     *
-     */
-    private String getLanguageFromFileName(String fileName) {
+    private String getLanguageFromFileName(String fileName){
+
         return fileName.substring(fileName.indexOf("_") + 1, fileName.indexOf("."));
     }
 
-    /**
-     *
-     */
     private void createMissingFile(String _path) {
         File f = new File(RESOURCES_PATH, _path);
         try {

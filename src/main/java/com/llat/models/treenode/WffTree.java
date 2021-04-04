@@ -77,13 +77,22 @@ public class WffTree implements Copyable, TexPrintable {
         System.out.println(this.printSyntaxTreeHelper(0));
     }
 
-    @Override
-    public boolean equals(Object _obj) {
+    /**
+     * Returns whether or not the string representations of two Wffs are equivalent. The important
+     * distinction is that this method does NOT compare object references - the equals method
+     * does this. This ONLY compares the strings that make up this Wff.
+     *
+     * @param _obj - WffTree object to compare against.
+     *
+     * @return true if the string representations match, false otherwise.
+     */
+    public boolean stringEquals(Object _obj) {
         if (!(_obj instanceof WffTree)) {
             throw new ClassCastException("Cannot cast object of type " + _obj.getClass() + " to WffTree.");
         }
 
         WffTree o = (WffTree) _obj;
+
         if (this.getStringRep().equals(o.getStringRep())) {
             return true;
         }
@@ -110,6 +119,11 @@ public class WffTree implements Copyable, TexPrintable {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean equals(Object _obj) {
+        return super.equals(_obj);
     }
 
     @Override
