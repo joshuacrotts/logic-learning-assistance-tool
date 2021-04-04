@@ -36,7 +36,7 @@ public abstract class BaseTruthTreeGenerator {
      */
     public static LinkedList<TruthTree> getLeaves(TruthTree _truthTree) {
         LinkedList<TruthTree> leaves = new LinkedList<>();
-        getLeavesHelper(_truthTree, leaves);
+        BaseTruthTreeGenerator.getLeavesHelper(_truthTree, leaves);
         return leaves;
     }
 
@@ -68,7 +68,7 @@ public abstract class BaseTruthTreeGenerator {
                 while (currentLeaf != null && (currentLeaf.getFlags() & NodeFlag.STOP_CLOSE_CHECK) == 0) {
                     TruthTree parentToCheck = currentLeaf.getParent();
                     while (parentToCheck != null) {
-                        if (currentLeaf.getWff().equals(getFlippedNode(parentToCheck.getWff()))
+                        if (currentLeaf.getWff().stringEquals(getFlippedNode(parentToCheck.getWff()))
                                 && currentLeaf.getWff().isClosable()) {
                             leaf.setClosed(true);
                             break outer;

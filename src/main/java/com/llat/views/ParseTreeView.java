@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 public class ParseTreeView {
 
-    public static int MAXSCALE = 2;
+    public static int MAXSCALE = 8;
     public static int MINSCALE = 0;
 
     private Controller controller;
