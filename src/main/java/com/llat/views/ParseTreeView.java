@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class ParseTreeView {
+
     public static int MAXSCALE = 2;
     public static int MINSCALE = 0;
 

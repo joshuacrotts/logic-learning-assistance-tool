@@ -19,8 +19,8 @@ public final class OpenSentenceDeterminer {
     /**
      * @return
      */
-    public boolean get() {
+    public boolean isOpenSentence() {
         FreeVariableDetector fvd = new FreeVariableDetector(this.wffTree);
-        return !fvd.get().isEmpty();
+        return !fvd.getFreeVariables().isEmpty();
     }
 }

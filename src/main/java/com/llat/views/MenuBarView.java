@@ -6,15 +6,16 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 public class MenuBarView {
-    static int menuBarHeight = 45;
-    Controller controller;
-    MenuBar menuBar = new MenuBar();
-    Menu fileMenu = new Menu("File");
-    MenuItem newItem = new MenuItem("New");
-    MenuItem openItem = new MenuItem("Open");
-    MenuItem exportItem = new MenuItem("Export");
-    MenuItem exitItem = new MenuItem("Exit");
 
+    protected static int menuBarHeight = 45;
+
+    private Controller controller;
+    private MenuBar menuBar = new MenuBar();
+    private Menu fileMenu = new Menu("File");
+    private MenuItem newItem = new MenuItem("New");
+    private MenuItem openItem = new MenuItem("Open");
+    private MenuItem exportItem = new MenuItem("Export");
+    private MenuItem exitItem = new MenuItem("Exit");
 
     public MenuBarView(Controller _controller) {
         this.controller = _controller;

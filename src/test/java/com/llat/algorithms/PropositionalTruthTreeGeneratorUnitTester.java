@@ -170,7 +170,7 @@ public class PropositionalTruthTreeGeneratorUnitTester {
             throw new AssertionFailedError("Failed reading test input file " + inName);
         WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         truthTreeGenerator = new PropositionalTruthTreeGenerator(syntaxTree);
-        TruthTree tt = truthTreeGenerator.get();
+        TruthTree tt = truthTreeGenerator.getTruthTree();
         System.out.println(truthTreeGenerator.print(tt));
         System.setErr(origErr);
         System.setOut(origOut);

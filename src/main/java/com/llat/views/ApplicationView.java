@@ -5,20 +5,27 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class ApplicationView {
-    Controller controller;
-    BorderPane parentPane = new BorderPane();
+
+    /**
+     *
+     */
+    private Controller controller;
+
+    /**
+     *
+     */
+    private BorderPane parentPane = new BorderPane();
 
     public ApplicationView(Controller _controller) {
         this.controller = _controller;
-        parentPane.setCenter(new ParseTreeView(this.controller).getParentPane());
-        parentPane.setTop(new MenuBarView(this.controller).getMenuBar());
-        parentPane.setLeft(new InputButtonsView(this.controller).getParentPane());
-        parentPane.setRight(new RulesAxiomsView(this.controller).getParentPane());
-        parentPane.setBottom(new FormulaInputView(this.controller).getParentPane());
+        this.parentPane.setCenter(new ParseTreeView(this.controller).getParentPane());
+        this.parentPane.setTop(new MenuBarView(this.controller).getMenuBar());
+        this.parentPane.setLeft(new InputButtonsView(this.controller).getParentPane());
+        this.parentPane.setRight(new RulesAxiomsView(this.controller).getParentPane());
+        this.parentPane.setBottom(new FormulaInputView(this.controller).getParentPane());
     }
 
     public Pane getParentPane() {
         return this.parentPane;
     }
-
 }

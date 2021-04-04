@@ -87,7 +87,7 @@ public abstract class BaseTruthTreeGenerator {
      *
      * @return
      */
-    public TruthTree get() {
+    public TruthTree getTruthTree() {
         TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
         this.buildTreeHelper(ttn);
         return ttn;
