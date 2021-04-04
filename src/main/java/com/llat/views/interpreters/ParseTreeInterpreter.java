@@ -10,6 +10,15 @@ import com.llat.views.ParseTreeView;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Text;
+import org.abego.treelayout.NodeExtentProvider;
+import org.abego.treelayout.TreeForTreeLayout;
+import org.abego.treelayout.TreeLayout;
+import org.abego.treelayout.util.DefaultConfiguration;
+import org.abego.treelayout.util.DefaultTreeForTreeLayout;
+
+import java.awt.geom.Rectangle2D;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 public class ParseTreeInterpreter implements Listener {
@@ -32,62 +41,89 @@ public class ParseTreeInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof SolvedFormulaEvent) {
-            tgc.clearRect(0, 0, treeRepresentation.getWidth(), treeRepresentation.getHeight());
-            this.tgc = this.treeRepresentation.getGraphicsContext2D();
-            // Clear the TruthTreeView parentPane of the the treeRepresentation.
-            this.truthTreeView.getParentPane().getChildren().remove(this.treeRepresentation);
-            // Create the View of the tree from the first child of the root.
-            this.getTotalWidth(((SolvedFormulaEvent) _event).getWffTree().getChild(0), 0);
-            this.createTree(((SolvedFormulaEvent) _event).getWffTree().getChild(0), (this.treeRepresentation.getWidth() / 2) - this.totalWidth / 2, this.treeRepresentation.getHeight() / 2 - ((this.totalHeight * nodeHeight) / 2), 0);
-            // Setting VBox treeRepresentation properties.
-            // Adding children nodes to their parents nodes.
-            this.truthTreeView.getParentPane().getChildren().add(this.treeRepresentation);
-            this.controller.setPaneToPannable(this.treeRepresentation);
-            this.controller.setPaneToZoomable(this.treeRepresentation);
+            WffTree wff = ((SolvedFormulaEvent) _event).getWffTree().getChild(0);
+            TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
+            // setup the tree layout configuration
+            double gapBetweenLevels = 50;
+            double gapBetweenNodes = 10;
+            DefaultConfiguration<WffTree> configuration = new DefaultConfiguration<WffTree>(
+                    gapBetweenLevels, gapBetweenNodes);
 
+            // create the NodeExtentProvider for TextInBox nodes
+            TextInBoxNodeExtentProvider nodeExtentProvider = new TextInBoxNodeExtentProvider();
 
+            // create the layout
+            TreeLayout<WffTree> treeLayout = new TreeLayout<WffTree>(tree,
+                    nodeExtentProvider, configuration);
+
+            this.drawTree(treeLayout);
         }
     }
 
-    public double[] createTree(WffTree _wffTree, double _center, double _height, double _depth) {
-        if (_depth == 0) {
-            curWidth = 0;
-        }
-        Text rootWffText = _wffTree.isPredicate() ? new Text(_wffTree.getStringRep()) : new Text(_wffTree.getSymbol());
-        if (_wffTree.getChildrenSize() == 2) {
-            double[] leftchildProperties = createTree(_wffTree.getChild(0), _center, _height, _depth + 1);
-            curWidth += nodeWidth;
-            this.tgc.strokeLine(_center + curWidth + (rootWffText.getBoundsInParent().getWidth() / 2), _height + (_depth * nodeHeight) + rootWffText.getBoundsInParent().getHeight(), leftchildProperties[0], leftchildProperties[1]);
-            double parentWidth = _center + curWidth;
-            double parentHeight = _height + (_depth * nodeHeight);
-            this.tgc.fillText(rootWffText.getText(), _center + curWidth, _height + (_depth * nodeHeight));
-            double[] rightchildProperties = createTree(_wffTree.getChild(1), _center, _height, _depth + 1);
-            this.tgc.strokeLine(parentWidth + (rootWffText.getBoundsInParent().getWidth() / 2), parentHeight + rootWffText.getBoundsInParent().getHeight(), rightchildProperties[0], rightchildProperties[1]);
-            return new double[]{parentWidth + (rootWffText.getBoundsInParent().getWidth() / 2), parentHeight - rootWffText.getBoundsInParent().getHeight()};
-        } else {
-            curWidth += nodeWidth;
-            this.tgc.fillText(rootWffText.getText(), _center + curWidth, _height + (_depth * nodeHeight));
-            return new double[]{_center + curWidth + (rootWffText.getBoundsInParent().getWidth() / 2), _height + (_depth * nodeHeight) - rootWffText.getBoundsInParent().getHeight()};
+    private void drawTree(TreeLayout<WffTree> layout) {
+        this.drawEdges(layout, layout.getTree().getRoot());
+
+        // paint the boxes
+        for (WffTree wffTree : layout.getNodeBounds().keySet()) {
+            this.paintBox(layout, wffTree);
         }
     }
 
-    public void getTotalWidth(WffTree _wffTree, int _depth) {
-        if (_depth == 0) {
-            totalWidth = 0;
-            totalHeight = 0;
-        }
-        if (_wffTree.getChildrenSize() == 2) {
-            getTotalWidth(_wffTree.getChild(0), _depth + 1);
-            totalWidth += nodeWidth;
-            getTotalWidth(_wffTree.getChild(1), _depth + 1);
-        } else {
-            if (_depth > totalHeight) {
-                totalHeight = _depth;
+    private void drawEdges(TreeLayout<WffTree> layout, WffTree _tree) {
+        if (!layout.getTree().isLeaf(_tree)) {
+                Rectangle2D b1 = layout.getNodeBounds().get(_tree);
+                double x1 = b1.getCenterX();
+                double y1 = b1.getCenterY();
+                for (WffTree child : layout.getTree().getChildren(_tree)) {
+                    Rectangle2D.Double b2 = layout.getNodeBounds().get(child);
+                    this.tgc.strokeLine(x1, y1, b2.getCenterX(), b2.getCenterY());
+                    this.drawEdges(layout, child);
             }
-            totalWidth += nodeWidth;
         }
     }
 
+    private void paintBox(TreeLayout<WffTree> layout, WffTree wffTree) {
+        // draw the box in the background
+        final int ARC_SIZE = 10;
+        Rectangle2D.Double box = layout.getNodeBounds().get(wffTree);
+
+        // draw the text on top of the box (possibly multiple lines)
+        final Text text = new Text(wffTree.getSymbol());
+        text.applyCss();
+        int x = (int) box.x + ARC_SIZE / 2;
+        int y = (int) box.y;
+        tgc.fillText(wffTree.getSymbol(), x, y);
+    }
+
+    private TreeForTreeLayout<WffTree> convertToAbegoTree(WffTree _root) {
+        Queue<WffTree> q = new LinkedList<>();
+        DefaultTreeForTreeLayout<WffTree> tree = new DefaultTreeForTreeLayout<WffTree>(_root);
+        q.add(_root);
+
+        while (!q.isEmpty()) {
+            WffTree t = q.poll();
+            for (WffTree ch : t.getChildren()) {
+                q.add(ch);
+                tree.addChild(ch, t);
+            }
+        }
+
+        return tree;
+    }
+
+    private class TextInBoxNodeExtentProvider implements
+            NodeExtentProvider<WffTree> {
+
+        @Override
+        public double getWidth(WffTree treeNode) {
+            return treeNode.getStringRep().length();
+        }
+
+        @Override
+        public double getHeight(WffTree treeNode) {
+            return 10;
+        }
+    }
 }
 
 
