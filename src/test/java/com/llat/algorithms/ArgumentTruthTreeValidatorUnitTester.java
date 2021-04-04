@@ -1,11 +1,7 @@
 package com.llat.algorithms;
 
-import com.llat.algorithms.models.TruthTree;
-import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
-import com.llat.models.treenode.WffTree;
-import com.sun.jdi.connect.Connector;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 

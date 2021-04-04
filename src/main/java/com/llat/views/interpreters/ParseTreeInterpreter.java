@@ -54,20 +54,26 @@ public class ParseTreeInterpreter implements Listener {
             curWidth = 0;
         }
         Text rootWffText = _wffTree.isPredicate() ? new Text(_wffTree.getStringRep()) : new Text(_wffTree.getSymbol());
-        if (_wffTree.getChildrenSize() == 2) {
-            double[] leftchildProperties = createTree(_wffTree.getChild(0), _center, _height, _depth + 1);
+        if(_wffTree.getChildrenSize() >= 1) {
+            double[] leftChildProperties = createTree(_wffTree.getChild(0), _center, _height, _depth + 1);
             curWidth += nodeWidth;
-            this.tgc.strokeLine(_center + curWidth + (rootWffText.getBoundsInParent().getWidth() / 2), _height + (_depth * nodeHeight) + rootWffText.getBoundsInParent().getHeight(), leftchildProperties[0], leftchildProperties[1]);
+            curWidth += rootWffText.getLayoutBounds().getWidth();
+            this.tgc.strokeLine(_center + curWidth + (rootWffText.getBoundsInParent().getWidth() / 2), _height + (_depth * nodeHeight) + (rootWffText.getBoundsInParent().getHeight()/ 2), leftChildProperties[0], leftChildProperties[1]);
             double parentWidth = _center + curWidth;
             double parentHeight = _height + (_depth * nodeHeight);
             this.tgc.fillText(rootWffText.getText(), _center + curWidth, _height + (_depth * nodeHeight));
-            double[] rightchildProperties = createTree(_wffTree.getChild(1), _center, _height, _depth + 1);
-            this.tgc.strokeLine(parentWidth + (rootWffText.getBoundsInParent().getWidth() / 2), parentHeight + rootWffText.getBoundsInParent().getHeight(), rightchildProperties[0], rightchildProperties[1]);
-            return new double[]{parentWidth + (rootWffText.getBoundsInParent().getWidth() / 2), parentHeight - rootWffText.getBoundsInParent().getHeight()};
-        } else {
+            if (_wffTree.getChildrenSize() == 2) {
+                double[] rightChildProperties = createTree(_wffTree.getChild(1), _center, _height, _depth + 1);
+                this.tgc.strokeLine(parentWidth + (rootWffText.getBoundsInParent().getWidth() / 2), parentHeight + (rootWffText.getBoundsInParent().getHeight()/ 2), rightChildProperties[0], rightChildProperties[1]);
+                return new double[] {parentWidth + (rootWffText.getBoundsInParent().getWidth() / 2), parentHeight - rootWffText.getBoundsInParent().getHeight()};
+            }
+            return new double[] {parentWidth + (rootWffText.getBoundsInParent().getWidth() / 2), parentHeight - rootWffText.getBoundsInParent().getHeight()};
+        }
+        else {
             curWidth += nodeWidth;
+            curWidth += rootWffText.getLayoutBounds().getWidth();
             this.tgc.fillText(rootWffText.getText(), _center + curWidth, _height + (_depth * nodeHeight));
-            return new double[]{_center + curWidth + (rootWffText.getBoundsInParent().getWidth() / 2), _height + (_depth * nodeHeight) - rootWffText.getBoundsInParent().getHeight()};
+            return new double[] {_center + curWidth + (rootWffText.getBoundsInParent().getWidth() / 2), _height + (_depth * nodeHeight) - rootWffText.getBoundsInParent().getHeight()};
         }
     }
 
