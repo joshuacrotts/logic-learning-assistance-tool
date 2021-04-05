@@ -57,7 +57,8 @@ program: (predProof EOF)
        | (propositionalWff COMMA propositionalWff EOF)
        | (predicateWff COMMA predicateWff EOF)
        | (propositionalWff EOF)
-       | (predicateWff EOF);
+       | (predicateWff EOF)
+       ;
 
 /* Propositional Logic Rules. */
 atom: ATOM;
@@ -73,11 +74,22 @@ propWff: atom
     | propBicondRule
     | propExclusiveOrRule;
 
+// Propositional negation rule.
 propNegRule: NEG propWff;
-propAndRule: OPEN_PAREN propWff AND propWff CLOSE_PAREN;
+
+// Propositional AND rule.
+propAndRule: (OPEN_PAREN propWff AND propWff CLOSE_PAREN);
+
+// Propositional OR rule.
 propOrRule : OPEN_PAREN propWff OR propWff CLOSE_PAREN;
+
+// Propositional IMP rule.
 propImpRule: OPEN_PAREN propWff IMP propWff CLOSE_PAREN;
+
+// Propositional BICOND rule.
 propBicondRule: OPEN_PAREN propWff BICOND propWff CLOSE_PAREN;
+
+// Propositional XOR rule.
 propExclusiveOrRule: OPEN_PAREN propWff XOR propWff CLOSE_PAREN;
 
 /* Predicate Logic Rules. */

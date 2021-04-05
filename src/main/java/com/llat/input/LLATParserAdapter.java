@@ -43,11 +43,10 @@ public class LLATParserAdapter {
      */
     private static LLATParserListener parseStream(CharStream input) {
         // "input" is the character-by-character input - connect to lexer
-        LLATLexer lexer = new LLATLexer(input);
-        LLATErrorListener errorListener = new LLATErrorListener();
-        LLATErrorStrategy errorStrategy = new LLATErrorStrategy();
+        LLATRecoverableLexer lexer = new LLATRecoverableLexer(input);
+        LLATErrorListener parserErrorListener = new LLATErrorListener();
         lexer.removeErrorListeners();
-        lexer.addErrorListener(errorListener);
+        lexer.addErrorListener(parserErrorListener);
 
         // Connect token stream to lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -55,8 +54,8 @@ public class LLATParserAdapter {
         // Connect parser to token stream
         LLATParser parser = new LLATParser(tokens);
         parser.removeErrorListeners();
-        parser.setErrorHandler(errorStrategy);
-        parser.addErrorListener(errorListener);
+        parser.setErrorHandler(new LLATErrorStrategy());
+        parser.addErrorListener(parserErrorListener);
         ParseTree tree = parser.program();
 
         // Now do the parsing, and walk the parse tree with our listeners

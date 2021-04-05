@@ -1,9 +1,6 @@
 package com.llat.input;
 
-import org.antlr.v4.runtime.BaseErrorListener;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.RecognitionException;
-import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.*;
 
 import java.util.*;
 
@@ -46,6 +43,30 @@ public class LLATErrorListener extends BaseErrorListener {
     }
 
     /**
+     * Prints an error message to the console.
+     * The error flag is also set.
+     *
+     * @param errorMsg
+     */
+    public static void syntaxError(String errorMsg) {
+        LLATErrorListener.gotError = true;
+        LLATErrorListener.errors.add(new Message(errorMsg, -1, -1));
+    }
+
+    /**
+     * Prints an error message to the console with the line and column number.
+     * The error flag is also set.
+     *
+     * @param lineNo
+     * @param colNo
+     * @param errorMsg
+     */
+    public static void syntaxError(int lineNo, int colNo, String errorMsg) {
+        LLATErrorListener.gotError = true;
+        LLATErrorListener.errors.add(new Message(errorMsg, lineNo, colNo));
+    }
+
+    /**
      * Prints an error message to the console with the line and column number
      * specified by the ParserRuleContext. The error flag is also set.
      *
@@ -74,6 +95,7 @@ public class LLATErrorListener extends BaseErrorListener {
      *
      * @param ctx
      * @param warningMsg
+     *
      * @return void.
      */
     public static void syntaxWarning(ParserRuleContext ctx, String warningMsg) {
@@ -96,7 +118,6 @@ public class LLATErrorListener extends BaseErrorListener {
      * Prints error messages generated through parsing the syntax tree to standard
      * error.
      *
-     * @param void.
      * @return void.
      */
     public static void printErrors() {
@@ -112,7 +133,6 @@ public class LLATErrorListener extends BaseErrorListener {
      * Prints warning messages generated through parsing the syntax tree to standard
      * out.
      *
-     * @param void.
      * @return void.
      */
     public static void printWarnings() {
@@ -182,8 +202,7 @@ public class LLATErrorListener extends BaseErrorListener {
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int col, String errorMsg,
                             RecognitionException e) {
-        gotError = true;
-        LLATErrorListener.errors.add(new Message(errorMsg, line, col));
+        // Don't do anything since we're handling the errors ourselves.
     }
 
     /**
@@ -221,7 +240,25 @@ public class LLATErrorListener extends BaseErrorListener {
 
         @Override
         public String toString() {
-            return "line " + lineNo + ":" + colNo + " " + text;
+            StringBuilder sb = new StringBuilder();
+            if (lineNo != -1) {
+                sb.append("line ");
+                sb.append(lineNo);
+                if (colNo != -1) {
+                    sb.append(":");
+                    sb.append(colNo);
+                    sb.append(" ");
+                }
+            } else {
+                if (colNo != -1) {
+                    sb.append("Character ");
+                    sb.append(colNo);
+                    sb.append(" ");
+                }
+            }
+
+            sb.append(text);
+            return sb.toString();
         }
     }
 }

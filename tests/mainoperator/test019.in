@@ -1,1 +1,1 @@
-(((∀x)(Lax ∨ Max) ⇔ Lax) ∧ (¬Sax → Lax))
+(((∀x)(Lax ∨ Max) ⇔ Lax) ∧ (¬(Sax → Lax))
