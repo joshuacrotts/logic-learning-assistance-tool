@@ -21,7 +21,7 @@ public final class FreeVariableDetector {
     /**
      * @return
      */
-    public LinkedList<WffTree> get() {
+    public LinkedList<WffTree> getFreeVariables() {
         LinkedList<WffTree> S = new LinkedList<>();
         Stack<WffTree> L = new Stack<>();
         this.free(this.wffTree, S, L);

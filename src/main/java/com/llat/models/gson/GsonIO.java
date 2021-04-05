@@ -134,6 +134,4 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             e.printStackTrace();
         }
     }
-
-
 }

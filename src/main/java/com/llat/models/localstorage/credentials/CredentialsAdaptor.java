@@ -4,9 +4,16 @@ import com.llat.models.gson.GsonIO;
 import com.llat.models.localstorage.LocalStorage;
 
 public class CredentialsAdaptor implements CredentialsInterface {
+
+    /**
+     *
+     */
     private static final String CREDENTIAL = "credentials.json";
 
-    CredentialsInterface obj =  new GsonIO(CREDENTIAL, UserCredentialsObject.class);
+    /**
+     *
+     */
+    private CredentialsInterface obj = new GsonIO(CREDENTIAL, UserCredentialsObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {

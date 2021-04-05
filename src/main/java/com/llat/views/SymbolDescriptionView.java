@@ -8,21 +8,22 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class SymbolDescriptionView {
-    Symbol symbol;
-    VBox symbolDetailsVBox = new VBox();
-    Label symbolNameLabel = new Label("Symbol Name");
-    Button symbolNameText;
-    Region belowSymbolNameText = new Region();
-    Label formalNameLabel = new Label("Formal Name");
-    Button formalNameText;
-    Region belowFormalNameText = new Region();
-    Label alternativeSymbolsLabel = new Label("Alternative Symbols");
-    Button alternativeSymbolsText;
-    Region belowAlternativeSymbolsText = new Region();
-    Label exampleLabel = new Label("Examples");
-    Button exampleText;
-    Button explanationText;
-    Region belowExplanationText = new Region();
+
+    private Symbol symbol;
+    private VBox symbolDetailsVBox = new VBox();
+    private Label symbolNameLabel = new Label("Symbol Name");
+    private Button symbolNameText;
+    private Region belowSymbolNameText = new Region();
+    private Label formalNameLabel = new Label("Formal Name");
+    private Button formalNameText;
+    private Region belowFormalNameText = new Region();
+    private Label alternativeSymbolsLabel = new Label("Alternative Symbols");
+    private Button alternativeSymbolsText;
+    private Region belowAlternativeSymbolsText = new Region();
+    private Label exampleLabel = new Label("Examples");
+    private Button exampleText;
+    private Button explanationText;
+    private Region belowExplanationText = new Region();
 
     public SymbolDescriptionView(Symbol _symbol) {
         this.symbol = _symbol;

@@ -1,0 +1,2 @@
+// destructive dilemma
+(P->Q), (R->S), (~Q | ~S) => (~P | ~R)

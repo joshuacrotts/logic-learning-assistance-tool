@@ -7,6 +7,9 @@ import java.util.Queue;
 
 public class ClosedTreeDeterminer {
 
+    /**
+     *
+     */
     private TruthTree tree;
 
     public ClosedTreeDeterminer(TruthTree _tree) {

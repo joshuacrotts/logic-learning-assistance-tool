@@ -78,11 +78,11 @@ public class ParserTest {
 
             BaseTruthTreeGenerator truthTreeGenerator;
             if (result.isPredicateWff()) {
-                System.out.println("Bound variables: " + new BoundVariableDetector(result).get());
-                System.out.println("Free variables: " + new FreeVariableDetector(result).get());
-                System.out.println("Open sentence: " + new OpenSentenceDeterminer(result).get());
-                System.out.println("Closed sentence: " + new ClosedSentenceDeterminer(result).get());
-                System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).get());
+                System.out.println("Bound variables: " + new BoundVariableDetector(result).getBoundVariables());
+                System.out.println("Free variables: " + new FreeVariableDetector(result).getFreeVariables());
+                System.out.println("Open sentence: " + new OpenSentenceDeterminer(result).isOpenSentence());
+                System.out.println("Closed sentence: " + new ClosedSentenceDeterminer(result).isClosedSentence());
+                System.out.println("Ground sentence: " + new GroundSentenceDeterminer(result).isGroundSentence());
                 truthTreeGenerator = new PredicateTruthTreeGenerator(result);
             } else {
                 // Print the truth table in LaTeX.
@@ -91,7 +91,7 @@ public class ParserTest {
                 truthTreeGenerator = new PropositionalTruthTreeGenerator(result);
             }
             // Generate the truth tree and print it to the console.
-            TruthTree truthTree = truthTreeGenerator.get();
+            TruthTree truthTree = truthTreeGenerator.getTruthTree();
             System.out.println("Truth Tree: \n" + truthTreeGenerator.print(truthTree));
 
             // Print the truth tree in LaTeX.
@@ -113,8 +113,8 @@ public class ParserTest {
             LogicallyContingentDeterminer consistentDet = new LogicallyContingentDeterminer(result);
             System.out.println("Logical Contingent: " + consistentDet.isContingent());
         }
-        // Otherwise, we test their logical relationship.
-        else {
+        // If there are two, we can generate logical relationships.
+        else if (resultList.size() == 2) {
             // Pull the two children from their root.
             WffTree ch1 = resultList.get(0);
             WffTree ch2 = resultList.get(1);
@@ -132,6 +132,12 @@ public class ParserTest {
 
             LogicallyImpliedDeterminer impliedDet = new LogicallyImpliedDeterminer(ch1, ch2);
             System.out.println("Logically Implied: " + impliedDet.isImplied());
+        }
+
+        // If we have at least two wffs, we can see if they form a valid or invalid argument.
+        if (resultList.size() >= 2) {
+            ArgumentTruthTreeValidator validator = new ArgumentTruthTreeValidator(resultList);
+            System.out.println("Deductively valid: " + validator.isValid());
         }
     }
 

@@ -4,7 +4,9 @@ module LLAT {
     requires javafx.graphics;
     requires org.antlr.antlr4.runtime;
     requires com.google.gson;
+    requires org.abego.treelayout.core;
     requires bcrypt;
+    requires java.desktop;
 
     opens com.llat.models.localstorage;
     opens com.llat.models.localstorage.settings;

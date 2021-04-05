@@ -10,7 +10,15 @@ import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolInputEvent;
 
 public class FormulaInputInterpreter implements Listener {
-    Controller controller;
+
+    /**
+     *
+     */
+    private Controller controller;
+
+    /**
+     *
+     */
     private FormulaInputView formulaInputView;
 
     public FormulaInputInterpreter(Controller _controller, FormulaInputView _formulaInputView) {

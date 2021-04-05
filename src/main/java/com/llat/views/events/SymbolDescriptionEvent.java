@@ -4,6 +4,10 @@ import com.llat.models.symbols.Symbol;
 import com.llat.tools.Event;
 
 public class SymbolDescriptionEvent implements Event {
+
+    /**
+     *
+     */
     private Symbol symbol;
 
     public SymbolDescriptionEvent(Symbol _symbol) {
