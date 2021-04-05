@@ -28,8 +28,6 @@ public class RightView {
             System.out.println(tabPane.getWidth());
             tabPane.setTabMinWidth(newVal.doubleValue() * .35);
             tabPane.setTabMaxWidth(newVal.doubleValue() * .35);
-            System.out.println(tabPane.getWidth());
-            System.out.println("next");
         });
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.tabPane.setMinWidth(newVal.doubleValue() * .20);

@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 public class ParseTreeInterpreter implements Listener {
     private Controller controller;
     private ParseTreeView truthTreeView;
-    private Canvas treeRepresentation = new Canvas(1280, 1280);
+    private Canvas treeRepresentation = new Canvas(1000, 1000);
     GraphicsContext tgc = treeRepresentation.getGraphicsContext2D();
 
     public ParseTreeInterpreter(Controller _controller, ParseTreeView _truthTreeView) {

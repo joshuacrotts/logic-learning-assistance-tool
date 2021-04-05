@@ -23,8 +23,8 @@ public class ParseTreeView {
             this.truthTreeVBox.setMinWidth(newVal.doubleValue() * .60);
         });
         this.controller.getStage().getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.truthTreeVBox.setMinHeight((newVal.doubleValue() * .90) - MenuBarView.menuBarHeight);
-            this.truthTreeVBox.setMaxHeight((newVal.doubleValue() * .90) - MenuBarView.menuBarHeight);
+            this.truthTreeVBox.setMinHeight((newVal.doubleValue() * .4) - MenuBarView.menuBarHeight);
+            this.truthTreeVBox.setMaxHeight((newVal.doubleValue() * .4) - MenuBarView.menuBarHeight);
         });
         this.truthTreeVBox.setAlignment(Pos.TOP_CENTER);
         // Adding children nodes to their parents nodes.

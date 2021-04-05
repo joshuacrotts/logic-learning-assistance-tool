@@ -7,7 +7,7 @@ import javafx.scene.control.MenuBar;
 public class MenuBarView {
     Controller controller;
     MenuBar menuBar = new MenuBar();
-
+    static int menuBarHeight = 45;
 
     public MenuBarView(Controller _controller) {
         this.controller = _controller;

@@ -23,6 +23,8 @@ public class TranslateUIDO {
 
         obj.setBiconditional((Biconditional) main.symbol(obj.getBiconditional(), langTo));
 
+        obj.setNegation((Negation) main.symbol(obj.getNegation(), langTo));
+
         obj.setConjunction((Conjunction) main.symbol(obj.getConjunction(), langTo));
 
         obj.setDisjunction((Disjunction) main.symbol(obj.getDisjunction(), langTo));

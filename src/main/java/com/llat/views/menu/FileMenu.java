@@ -1,11 +1,9 @@
 package com.llat.views.menu;
 
 import com.llat.controller.Controller;
-import com.llat.views.menu.items.ExitItem;
-import com.llat.views.menu.items.NewProjectItem;
-import com.llat.views.menu.items.OpenItem;
-import com.llat.views.menu.items.SettingsItem;
+import com.llat.views.menu.items.*;
 import javafx.scene.control.Menu;
+import javafx.scene.control.SeparatorMenuItem;
 
 public class FileMenu {
     Controller controller;
@@ -16,10 +14,11 @@ public class FileMenu {
 
 
         // Setting Menu fileMenu properties.
-        this.fileMenu.getItems().addAll(new NewProjectItem(this.controller).getItem(), new OpenItem(this.controller).getItem(), new ExportMenu(this.controller).getMenu(), new SettingsItem(this.controller).getItem(), new ExitItem(this.controller).getItem());
+        this.fileMenu.getItems().addAll(new NewProjectItem(this.controller).getItem(), new OpenItem(this.controller).getItem(), new SeparatorMenuItem(), new ExportMenu(this.controller).getMenu(), new SeparatorMenuItem(), new LoginItem(this.controller).getItem(), new SeparatorMenuItem(), new SettingsItem(this.controller).getItem(), new SeparatorMenuItem(), new ExitItem(this.controller).getItem());
 
     }
-    public Menu getMenu(){
+
+    public Menu getMenu() {
         return fileMenu;
     }
 }

@@ -11,8 +11,10 @@
     },
     "description": "This is the implication button",
     "axioms": {
-      "explanation": "A ⇒ B is false when A is true and B is false but true otherwise.",
-      "example": "(A ⇒ B)"
+      "explanation": "(A ⇒ B) is false when A is true and B is false, but true otherwise. The implication operator is often difficult for students to understand, especially since if A is false and B is false, the conclusion remains true (also called vacuously true). We refer to A as the antecedent of the conditional, and B as the consequent. An important piece of the right-arrow operator is the idea of sufficient and necessary conditions. The antecedent is sufficient for the consequent. The consequent is necessary for the antecedent.",
+      "example": [
+        "Suppose A represents the proposition that someone is a bachelor, and B represents the proposition that someone is unmarried. Therefore, (A ⇒ B) reads \"If someone is a bachelor, then they are unmarried\". Since someone cannot be married and a bachelor, it holds true that being unmarried is necessary for being a bachelor (in other words, you cannot be a bachelor if you are married). Since everyone who is a bachelor is unmarried, it makes sense that being a bachelor is sufficient for being unmarried."
+      ]
     },
     "tooltip": "implication",
     "readAs": "implies; if ... then"
@@ -29,11 +31,13 @@
     },
     "description": "This is the equivalence button",
     "axioms": {
-      "explanation": "A ⇔ B is true only if both A and B are false, or both A and B are ture.",
-      "example": "(A ⇔ B)"
+      "explanation": "(A ⇔ B) is true when A and B are the same. This means that A must be true and B must be true for this sentence to be true. Likewise, A must be false and B must be false for this sentence to be true. When they differ, the sentence is false.",
+      "example": [
+        "(A ⇔ B)"
+      ]
     },
     "tooltip": "equivalence",
-    "readAs": "if and only if; iff; means the same as"
+    "readAs": "if and only if; \"iff\"; means the same as"
   },
   "negation": {
     "symbol": {
@@ -46,8 +50,12 @@
     },
     "description": "This is the negation button",
     "axioms": {
-      "explanation": "The statement ¬A is true if and only if A is false.",
-      "example": "(¬(¬A) ⇔  A)"
+      "explanation": "The negation operator ¬ flips the truth value of some proposition A. So, if A is true, then ¬A is false. Likewise, if ¬A is false, then ¬A is true. The negation operator works across any sentence and distributes over both symbols and operators.",
+      "example": [
+        "(¬¬A ⇔ A)",
+        "¬(A & B) is equivalent to (¬A ∨ ¬B). The negation operator follows the distributive property from math - we distribute it to everything inside of the parentheses.",
+        "~(A -> ~B) is equivalent to (A & ~~B), which reduces to (A & B). Note that when we use a negation on an implication (also called a negated implication) sentence, we do not double-negate the antecedent; we reduce it to a proposition minus any negations."
+      ]
     },
     "tooltip": "negation",
     "readAs": "not"
@@ -64,8 +72,10 @@
     },
     "description": "This is the conjunction button.",
     "axioms": {
-      "explanation": "The statement A ∧ B is true if A and B are both true; otherwise, it is false.",
-      "example": "(A ∧ B)"
+      "explanation": "The statement (A ∧ B) is true if A and B are both true; otherwise, it is false.",
+      "example": [
+        "(A ∧ B)"
+      ]
     },
     "tooltip": "conjunction",
     "readAs": "and"
@@ -81,8 +91,10 @@
     },
     "description": "This is the disjunction button.",
     "axioms": {
-      "explanation": "The statement A ∨ B is true if A or B (or both) are true; if both are false, the statement is false.",
-      "example": "(A ∨ B)"
+      "explanation": "The statement (A ∨ B) is true if A or B (or both) are true; if both are false, the statement is false.",
+      "example": [
+        "(A ∨ B)"
+      ]
     },
     "tooltip": "conjunction",
     "readAs": "or"
@@ -98,8 +110,10 @@
     },
     "description": "This is the disjunction button.",
     "axioms": {
-      "explanation": "The statement A ⊕ B is true when either A or B, but not both, are true. A ⊻ B means the same.",
-      "example": "(¬A) ⊕ A"
+      "explanation": "The statement (A ⊕ B) is true when either A or B are true, but not both are true.",
+      "example": [
+        "(¬A ⊕ B)"
+      ]
     },
     "tooltip": "exclusive disjunction",
     "readAs": "xor; either ... or"
@@ -114,7 +128,9 @@
     "description": "This is the turnstile button.",
     "axioms": {
       "explanation": "x ⊢ y means x proves (syntactically entails) y.",
-      "example": "(A → B) ⊢ (¬B → ¬A)"
+      "example": [
+        "(A → B) ⊢ (¬B → ¬A)"
+      ]
     },
     "tooltip": "turnstile",
     "readAs": "proves"
@@ -129,7 +145,10 @@
     "description": "This is the turnstile button.",
     "axioms": {
       "explanation": "x ⊨ y means x models (semantically entails) y",
-      "example": "(A → B) ⊨ (¬B → ¬A)"
+      "example": [
+        "(A → B) ⊨ (¬B → ¬A)",
+        "(A → B) ⊨ (~A | B)"
+      ]
     },
     "tooltip": "double turnstile",
     "readAs": "models"
@@ -144,8 +163,10 @@
     },
     "description": "This is the universal quantification button.",
     "axioms": {
-      "explanation": "∀ x: P(x) or (x) P(x) means P(x) is true for all x.",
-      "example": "(∀x)P(x)"
+      "explanation": "(∀x)Px or (x)Px means the proposition P holds true for all inputs x in a domain D.",
+      "example": [
+        "(∀x)Px"
+      ]
     },
     "tooltip": "universal quantification",
     "readAs": "for all; for any; for each"
@@ -157,12 +178,14 @@
         "∃"
       ]
     },
-    "description": "This is the universal quantification button.",
+    "description": "This is the existential quantification button.",
     "axioms": {
-      "explanation": "∃ x: P(x) means there is at least one x such that P(x) is true.",
-      "example": "(∃x)Px"
+      "explanation": "(∃x)Px means there is at least one input x in a domain D that satisfies the proposition P (that makes P true).",
+      "example": [
+        "(∃x)Px"
+      ]
     },
-    "tooltip": "universal quantification",
+    "tooltip": "existential quantification",
     "readAs": "there exists"
   }
 }
