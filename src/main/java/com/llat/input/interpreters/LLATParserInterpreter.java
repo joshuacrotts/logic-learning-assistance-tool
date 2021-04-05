@@ -1,5 +1,6 @@
 package com.llat.input.interpreters;
 
+import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.input.LLATParserAdapter;
 import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.models.treenode.WffTree;

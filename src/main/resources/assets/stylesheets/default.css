@@ -113,6 +113,6 @@
     -fx-opacity: 1.0;
 }
 
-#parseTreeVBox, #truthTreeVBox {
+#truthTableParentPane, #parseTreeVBox, #truthTreeVBox {
     -fx-background-color: derive(black, 90%);
 }

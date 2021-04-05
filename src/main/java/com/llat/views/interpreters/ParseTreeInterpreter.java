@@ -17,7 +17,6 @@ import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
-
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.Queue;
