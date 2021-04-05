@@ -7,10 +7,17 @@ import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.ParseTreeView;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeForTreeLayout;
@@ -29,8 +36,7 @@ public class ParseTreeInterpreter implements Listener {
 
     private Controller controller;
     private ParseTreeView truthTreeView;
-    private Canvas treeRepresentation = new Canvas(1000, 1000);
-    private GraphicsContext tgc = treeRepresentation.getGraphicsContext2D();
+    private Pane borderPane;
 
     private static final Color BORDER_COLOR = Color.DARKGRAY;
     private static final Color BOX_COLOR = Color.ORANGE;
@@ -46,11 +52,10 @@ public class ParseTreeInterpreter implements Listener {
     public void catchEvent(Event _event) {
         if (_event instanceof SolvedFormulaEvent) {
             // Clear the screen before drawing the next tree.
-            this.tgc.clearRect(0, 0, this.treeRepresentation.getWidth(), this.treeRepresentation.getHeight());
-            this.tgc = this.treeRepresentation.getGraphicsContext2D();
 
-            // Clear the TruthTreeView parentPane of the the treeRepresentation.
-            this.truthTreeView.getParentPane().getChildren().remove(this.treeRepresentation);
+            if (this.borderPane != null)
+            this.truthTreeView.getParentPane().getChildren().remove(this.borderPane);
+            this.borderPane = new Pane();
 
             WffTree wff = ((SolvedFormulaEvent) _event).getWffTree().getChild(0);
             TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
@@ -69,12 +74,9 @@ public class ParseTreeInterpreter implements Listener {
                     nodeExtentProvider, configuration);
 
             this.drawTree(treeLayout);
-
             // Setting VBox treeRepresentation properties.
             // Adding children nodes to their parents nodes.
-            this.truthTreeView.getParentPane().getChildren().add(this.treeRepresentation);
-            this.controller.setPaneToPannable(this.treeRepresentation);
-            this.controller.setPaneToZoomable(this.treeRepresentation);
+            this.truthTreeView.getParentPane().getChildren().add(this.borderPane);
         }
     }
 
@@ -105,8 +107,8 @@ public class ParseTreeInterpreter implements Listener {
                 double y1 = b1.getCenterY();
                 for (WffTree child : _layout.getTree().getChildren(_tree)) {
                     Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
-                    this.tgc.setStroke(Color.BLACK);
-                    this.tgc.strokeLine(x1, y1, b2.getCenterX(), b2.getCenterY());
+                    Line line = new Line(x1, y1, b2.getCenterX(), b2.getCenterY());
+                    this.borderPane.getChildren().add(line);
                     this.drawEdges(_layout, child);
             }
         }
@@ -124,21 +126,17 @@ public class ParseTreeInterpreter implements Listener {
         // Draw the box in the background.
         Rectangle2D.Double box = _layout.getNodeBounds().get(_wffTree);
 
-        // Draw the border first.
-        this.tgc.setStroke(Color.DARKGRAY);
-        this.tgc.strokeRoundRect(box.x - 1, box.y - 1, box.width + 1, box.height + 1, ARC_SIZE, ARC_SIZE);
-
         // Now draw the box itself.
-        this.tgc.setFill(Color.ORANGE);
-        this.tgc.fillRoundRect(box.x - 1, box.y - 1, box.width + 1, box.height + 1, ARC_SIZE, ARC_SIZE);
-        this.tgc.setFill(Color.BLACK);
+        Rectangle r = new Rectangle(box.x, box.y, box.width, box.height);
+        r.setArcWidth(ARC_SIZE);
+        r.setArcHeight(ARC_SIZE);
 
         // Finally, draw and position the text.
         Text t = new Text(_wffTree.getSymbol());
-
-        // These values may need to be adjuated...
-        this.tgc.fillText(_wffTree.getSymbol(), box.getCenterX() - t.getBoundsInLocal().getWidth() / 2,
-                                               box.getCenterY() + t.getBoundsInLocal().getHeight() / 4);
+        t.setTranslateX(box.getCenterX() - t.getBoundsInLocal().getWidth() / 2);
+        t.setTranslateY(box.getCenterY() - t.getBoundsInLocal().getHeight() / 4);
+        this.borderPane.getChildren().add(r);
+        this.borderPane.getChildren().add(t);
     }
 
     /**
