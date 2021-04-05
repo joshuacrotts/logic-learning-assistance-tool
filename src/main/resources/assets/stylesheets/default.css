@@ -91,6 +91,24 @@
 #rulesAxiomsScrollPane .corner {
     -fx-background-insets: 0;
 }
+#truthTableScrollPane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+#truthTableScrollPane > .viewport {
+   -fx-background-color: transparent;
+}
+#truthTableScrollPane:horizontal {
+    -fx-min-height: 10;
+}
+#truthTableScrollPane:focused {
+    -fx-background-insets: 0;
+}
+#truthTableScrollPane .corner {
+    -fx-background-insets: 0;
+}
 
 #rulesAxiomsText, #exampleText, #explanationText {
     -fx-font-size: 2em;

@@ -10,7 +10,6 @@ import com.llat.tools.Listener;
 import com.llat.views.TruthTableView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -26,11 +25,12 @@ public class TruthTableInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof SolvedFormulaEvent) {
+            this.truthTableView.getTruthTable().getChildren().clear();
             createTruthTable(((SolvedFormulaEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
             this.truthTableView.getTruthTable().setLayoutX((this.truthTableView.getParentPane().getWidth() / 2) - (this.truthTableView.getTruthTable().getWidth() / 2) );
         }
     }
-    //(A∧B)
+    //(A∧B) (A∧(A∧(A∧B)))
     public void createTruthTable (WffTree _wffTree, HBox _truthTable) {
         int childSize = _wffTree.getChildrenSize();
         Button wffSymbol = new Button(_wffTree.getStringRep());
