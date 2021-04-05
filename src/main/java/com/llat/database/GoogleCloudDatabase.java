@@ -11,7 +11,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
     /**
      *
      */
-    public static final String CREDENTIALS_STRING = "jdbc:mysql://35.202.75.240:3306/llat";
+    public static final String CREDENTIALS_STRING = "jdbc:mysql://llat-instance-1.cux0wahd0k8a.us-east-2.rds.amazonaws.com:3306/llat";
 
     /**
      *
@@ -25,7 +25,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
         String bcryptHashString = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
 
             if (_password == null || _userName == null) {
                 Message = "You must enter in a Username or Password.";
@@ -77,7 +77,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
     public void UpdateTheme(int id, String Theme) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
             String sql = "UPDATE Theme SET Theme = ? WHERE UserID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, Theme);
@@ -95,7 +95,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
     public void UpdateLanguage(int id, String Language) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
             String sql = "UPDATE Language SET Language = ?  WHERE UserID = ? ;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, Language);
@@ -119,7 +119,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
         int id = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
 
             String PassSql = "SELECT Password FROM User where UserName = ?";
             PreparedStatement VerifyPass = connection.prepareStatement(PassSql);
@@ -185,7 +185,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
     public void InsertQuery(int id, String Text) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
             String sql = "INSERT INTO Query_History(USERID, TEXTINPUT) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -223,7 +223,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
         List<String> history = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
             String sql = "SELECT TextInput FROM Query_History WHERE UserID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
