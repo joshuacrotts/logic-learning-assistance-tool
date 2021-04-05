@@ -58,7 +58,7 @@ public class Controller implements Initializable {
     /**
      * @param _canvas
      */
-    public void setPaneToZoomable(Canvas _canvas) {
+    public void setPaneToZoomable(Pane _canvas) {
         _canvas.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent scrollEvent) {
@@ -81,7 +81,7 @@ public class Controller implements Initializable {
     /**
      * @param _canvas
      */
-    public void setPaneToPannable(Canvas _canvas) {
+    public void setPaneToPannable(Pane _canvas) {
         _canvas.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

@@ -10,10 +10,7 @@ import com.llat.views.ParseTreeView;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
@@ -36,7 +33,7 @@ public class ParseTreeInterpreter implements Listener {
 
     private Controller controller;
     private ParseTreeView truthTreeView;
-    private Pane borderPane;
+    private Pane treePane;
 
     private static final Color BORDER_COLOR = Color.DARKGRAY;
     private static final Color BOX_COLOR = Color.ORANGE;
@@ -53,9 +50,11 @@ public class ParseTreeInterpreter implements Listener {
         if (_event instanceof SolvedFormulaEvent) {
             // Clear the screen before drawing the next tree.
 
-            if (this.borderPane != null)
-            this.truthTreeView.getParentPane().getChildren().remove(this.borderPane);
-            this.borderPane = new Pane();
+            if (this.treePane != null) {
+                this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
+            }
+
+            this.treePane = new Pane();
 
             WffTree wff = ((SolvedFormulaEvent) _event).getWffTree().getChild(0);
             TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
@@ -69,14 +68,16 @@ public class ParseTreeInterpreter implements Listener {
             // Create the NodeExtentProvider for TextInBox nodes
             WffTreeExtentProvider nodeExtentProvider = new WffTreeExtentProvider();
 
-            // Create the layout
+            // Create the layout.
             TreeLayout<WffTree> treeLayout = new TreeLayout<WffTree>(tree,
                     nodeExtentProvider, configuration);
 
             this.drawTree(treeLayout);
             // Setting VBox treeRepresentation properties.
             // Adding children nodes to their parents nodes.
-            this.truthTreeView.getParentPane().getChildren().add(this.borderPane);
+            this.truthTreeView.getParentPane().getChildren().add(this.treePane);
+            this.controller.setPaneToPannable(this.treePane);
+            this.controller.setPaneToZoomable(this.treePane);
         }
     }
 
@@ -107,8 +108,13 @@ public class ParseTreeInterpreter implements Listener {
                 double y1 = b1.getCenterY();
                 for (WffTree child : _layout.getTree().getChildren(_tree)) {
                     Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
-                    Line line = new Line(x1, y1, b2.getCenterX(), b2.getCenterY());
-                    this.borderPane.getChildren().add(line);
+                    // Compute offsets to position it in the center of the screen.
+                    double x1Off = x1 + this.truthTreeView.getParentPane().getWidth() / 2;
+                    double y1Off = y1 + this.truthTreeView.getParentPane().getHeight() / 2;
+                    double x2Off = b2.getCenterX() + this.truthTreeView.getParentPane().getWidth() / 2;
+                    double y2Off = b2.getCenterY() + this.truthTreeView.getParentPane().getHeight() / 2;
+                    Line line = new Line(x1Off, y1Off, x2Off, y2Off);
+                    this.treePane.getChildren().add(line);
                     this.drawEdges(_layout, child);
             }
         }
@@ -123,20 +129,32 @@ public class ParseTreeInterpreter implements Listener {
      */
     private void paintBox(TreeLayout<WffTree> _layout, WffTree _wffTree) {
         final int ARC_SIZE = 10;
-        // Draw the box in the background.
         Rectangle2D.Double box = _layout.getNodeBounds().get(_wffTree);
 
+        // First draw the border.
+        Rectangle borderBox = new Rectangle(box.x + this.truthTreeView.getParentPane().getWidth() / 2 - 1,
+                box.y + this.truthTreeView.getParentPane().getHeight() / 2 - 1,
+                box.width + 2, box.height + 2);
+
+        borderBox.setArcWidth(ARC_SIZE);
+        borderBox.setArcHeight(ARC_SIZE);
+        borderBox.setStroke(Color.DARKGRAY);
+
         // Now draw the box itself.
-        Rectangle r = new Rectangle(box.x, box.y, box.width, box.height);
-        r.setArcWidth(ARC_SIZE);
-        r.setArcHeight(ARC_SIZE);
+        Rectangle nodeBox = new Rectangle(box.x + this.truthTreeView.getParentPane().getWidth() / 2,
+                                    box.y + this.truthTreeView.getParentPane().getHeight() / 2,
+                                        box.width, box.height);
+        nodeBox.setArcWidth(ARC_SIZE);
+        nodeBox.setArcHeight(ARC_SIZE);
+        nodeBox.setFill(Color.ORANGE);
 
         // Finally, draw and position the text.
-        Text t = new Text(_wffTree.getSymbol());
-        t.setTranslateX(box.getCenterX() - t.getBoundsInLocal().getWidth() / 2);
-        t.setTranslateY(box.getCenterY() - t.getBoundsInLocal().getHeight() / 4);
-        this.borderPane.getChildren().add(r);
-        this.borderPane.getChildren().add(t);
+        Text wffSymbol = new Text(_wffTree.getSymbol());
+        wffSymbol.setX(nodeBox.getX() + (nodeBox.getWidth() - wffSymbol.getBoundsInLocal().getWidth()) / 2);
+        wffSymbol.setY(nodeBox.getY() + nodeBox.getHeight() / 1.25d);
+
+        // Add all the children to the tree.
+        this.treePane.getChildren().addAll(borderBox, nodeBox, wffSymbol);
     }
 
     /**
