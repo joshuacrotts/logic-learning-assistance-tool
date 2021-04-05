@@ -21,11 +21,10 @@ public class RightView {
     public RightView(Controller _controller) {
         this.controller = _controller;
         this.stage = this.controller.getStage();
-
+//        this.parentPane.setStyle("-fx-background-color: black");
         // Setting tabPane rulesAxiomsVBox settings.
         this.tabPane.setId("rightView");
         this.tabPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            System.out.println(tabPane.getWidth());
             tabPane.setTabMinWidth(newVal.doubleValue() * .35);
             tabPane.setTabMaxWidth(newVal.doubleValue() * .35);
         });
@@ -33,13 +32,13 @@ public class RightView {
             this.tabPane.setMinWidth(newVal.doubleValue() * .20);
             this.tabPane.setMaxWidth(newVal.doubleValue() * .20);
         });
-        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.tabPane.setMinHeight(newVal.doubleValue() * .8);
+        this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.tabPane.setMinHeight(newVal.doubleValue() * .88);
             this.tabPane.setMaxHeight(newVal.doubleValue());
         });
         // Setting ScrollPane scrollPane properties.
         this.scrollPane.setId("rulesAxiomsScrollPane");
-        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+        this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
             this.scrollPane.setMaxHeight(Double.MAX_VALUE);
         });
          this.axiomsView = new Tab("Axioms", new RulesAxiomsView(this.controller).getParentPane());

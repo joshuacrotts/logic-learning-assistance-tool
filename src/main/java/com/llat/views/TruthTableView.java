@@ -2,9 +2,7 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -21,22 +19,23 @@ public class TruthTableView {
         this.controller = _controller;
         this.stage = _controller.getStage();
 
-        dummyData();
+
+        this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            table.setMinWidth(newVal.doubleValue() * .6);
+            table.setMaxWidth(newVal.doubleValue()* .6);
+        });
+
+
+        this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.parentPane.setMinHeight((newVal.doubleValue() * .4) - MenuBarView.menuBarHeight);
+            this.parentPane.setMaxHeight((newVal.doubleValue() * .4) - MenuBarView.menuBarHeight);
+        });
 
         this.parentPane.getChildren().addAll(this.table);
     }
 
+
     public Node getParentPane() {
         return parentPane;
-    }
-
-    private void dummyData() {
-        TableColumn<String, String> column1 = new TableColumn<>("First Name");
-        column1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        TableColumn<String, String> column2 = new TableColumn<>("Last Name");
-        column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-
-        table.getColumns().add(column1);
-        table.getColumns().add(column2);
     }
 }
