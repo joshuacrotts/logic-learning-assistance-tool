@@ -48,17 +48,19 @@ public class Controller implements Initializable {
      */
     public void setSymbolInputButtonOnAction(SymbolButton _symbolButton) {
         _symbolButton.setOnMouseClicked((event) -> {
-            if (event.getButton() == MouseButton.PRIMARY)
+            if (event.getButton() == MouseButton.PRIMARY) {
                 EventBus.throwEvent(new SymbolInputEvent(((SymbolButton) event.getSource()).getDefaultSymbol().getSymbol().getApplied()));
-            if (event.getButton() == MouseButton.SECONDARY)
+            }
+            if (event.getButton() == MouseButton.SECONDARY) {
                 EventBus.throwEvent(new SymbolDescriptionEvent(((SymbolButton) event.getSource()).getDefaultSymbol()));
+            }
         });
     }
 
     /**
      * @param _canvas
      */
-    public void setPaneToZoomable(Canvas _canvas) {
+    public void setPaneToZoomable(Pane _canvas) {
         _canvas.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent scrollEvent) {
@@ -81,7 +83,7 @@ public class Controller implements Initializable {
     /**
      * @param _canvas
      */
-    public void setPaneToPannable(Canvas _canvas) {
+    public void setPaneToPannable(Pane _canvas) {
         _canvas.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
