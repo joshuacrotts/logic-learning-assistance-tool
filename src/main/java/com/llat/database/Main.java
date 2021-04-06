@@ -9,7 +9,7 @@ public class Main {
     private static String password = "1234";
 
     public static void main(String[] args) {
-        GoogleCloudDatabase db = new GoogleCloudDatabase();
+        AWSDatabase db = new AWSDatabase();
         DatabaseAdapter Adapter = new DatabaseAdapter();
         String Status = null;
         int UserID = 0;

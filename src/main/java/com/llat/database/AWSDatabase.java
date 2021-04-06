@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleCloudDatabase implements DatabaseInterface {
+public class AWSDatabase implements DatabaseInterface {
 
     /**
      *

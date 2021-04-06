@@ -4,7 +4,7 @@ import java.util.List;
 
 public class DatabaseAdapter implements DatabaseInterface {
 
-    private DatabaseInterface db = new GoogleCloudDatabase();
+    private DatabaseInterface db = new AWSDatabase();
 
     @Override
     public UserObject Login(String Username, String Password) {
