@@ -47,6 +47,19 @@ public class LLATErrorListener extends BaseErrorListener {
 
     /**
      * Prints an error message to the console with the line and column number
+     * specified by the parameters. The error flag is also set.
+     *
+     * @param lineNo
+     * @param colNo
+     * @param errorMsg
+     */
+    public static void syntaxError(int lineNo, int colNo, String errorMsg) {
+        LLATErrorListener.gotError = true;
+        LLATErrorListener.errors.add(new Message(errorMsg, lineNo, colNo));
+    }
+
+    /**
+     * Prints an error message to the console with the line and column number
      * specified by the ParserRuleContext. The error flag is also set.
      *
      * @param ctx

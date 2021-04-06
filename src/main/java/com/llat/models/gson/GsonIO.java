@@ -1,7 +1,6 @@
 package com.llat.models.gson;
 
 import com.google.gson.Gson;
-import com.llat.main.App;
 import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.credentials.CredentialsInterface;
 import com.llat.models.localstorage.settings.SettingsInterface;
@@ -17,29 +16,14 @@ import java.lang.reflect.Type;
  */
 public class GsonIO implements UIDescriptionInterface, SettingsInterface, CredentialsInterface {
 
-    /**
-     *
-     */
-    private final static String RESOURCES_PATH = "src\\main\\resources\\";
-
-    /**
-     *
-     */
+    private static Gson gson = new Gson();
+    private final static String RESOURCES_PATH = "src/main/resources/";
     private final static String DEFAULT_UIDO_FILE = "UID/UIDescription_en.json";
 
     /**
      *
      */
-    private static Gson gson = new Gson();
-
-    /**
-     *
-     */
     private String json;
-
-    /**
-     *
-     */
     private Type aClass;
 
     public GsonIO(String _jsonFileName, Type _objectClass) {
@@ -77,7 +61,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             TranslateUIDO tuido = new TranslateUIDO();
             UIDescriptionObject obj = (UIDescriptionObject) g.getData();
             obj = tuido.translateUIDO(obj, code);
-            g.update(obj, "UIDescription" + "_" + code + ".json");
+            g.update(obj, "UID/UIDescription" + "_" + code + ".json");
             try {
                 BufferedReader br = new BufferedReader(new FileReader(RESOURCES_PATH + _fileName));
                 StringBuilder sb = new StringBuilder();
@@ -87,8 +71,10 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
                     line = br.readLine();
                 }
                 result = sb.toString();
-            } catch (IOException fileNotFoundException) {
+            } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,20 +82,19 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
         return result;
     }
 
-    /**
-     *
-     */
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
         String filePath = null;
         try {
-            filePath = App.class.getResource("/" + _jsonFilePath).getPath();
+
+//            filePath = App.class.getResource("/" + _jsonFilePath).getPath();
+            filePath = new File(RESOURCES_PATH + _jsonFilePath).getPath();
+            System.out.println(filePath);
         } catch (NullPointerException e) {
             System.out.println("File is not exist. Empty file will be generated");
             createMissingFile(_jsonFilePath);
         }
         try {
-            assert filePath != null;
             Writer writer = new FileWriter(filePath);
             gson.toJson(_obj, writer);
             writer.close();
@@ -127,19 +112,15 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
     @Override
     public LocalStorage getData() {
         String jsonString = readJsonFile(json);
-        return gson.fromJson(jsonString, aClass);
+        LocalStorage localStorage = gson.fromJson(jsonString, aClass);
+        return localStorage;
     }
 
-    /**
-     *
-     */
-    private String getLanguageFromFileName(String fileName) {
+    private String getLanguageFromFileName(String fileName){
+
         return fileName.substring(fileName.indexOf("_") + 1, fileName.indexOf("."));
     }
 
-    /**
-     *
-     */
     private void createMissingFile(String _path) {
         File f = new File(RESOURCES_PATH, _path);
         try {
