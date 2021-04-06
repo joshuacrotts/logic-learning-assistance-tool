@@ -1,7 +1,7 @@
 package com.llat.views.menu.items;
 
 import com.llat.controller.Controller;
-import com.llat.main.Window;
+import com.llat.views.SettingsView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
@@ -24,12 +24,17 @@ public class SettingsItem {
 //        });
 //
         this.openItem.setOnAction(new EventHandler<ActionEvent>() {
-
+            @Override
             public void handle(ActionEvent event) {
-                new Window(new Stage(), 2);
+
+                Stage settignsStage = new SettingsView(controller).getStage();
+                // Set position of second window, related to primary window.
+                settignsStage.setX(stage.getX() + 200);
+                settignsStage.setY(stage.getY() + 100);
+
+                settignsStage.show();
             }
         });
-
     }
 
     public MenuItem getItem(){

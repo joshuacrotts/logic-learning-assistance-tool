@@ -92,7 +92,7 @@ public abstract class Symbol {
 
     public class Axioms {
         String explanation;
-        String example;
+        List<String> example;
 
         public String getExplanation() {
             return explanation;
@@ -102,11 +102,11 @@ public abstract class Symbol {
             this.explanation = explanation;
         }
 
-        public String getExample() {
+        public List<String> getExample() {
             return example;
         }
 
-        public void setExample(String example) {
+        public void setExample(List<String> example) {
             this.example = example;
         }
 
