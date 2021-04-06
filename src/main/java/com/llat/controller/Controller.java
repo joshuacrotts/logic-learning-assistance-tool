@@ -1,5 +1,6 @@
 package com.llat.controller;
 
+import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.tools.EventBus;
 import com.llat.tools.MouseManager;
@@ -13,9 +14,10 @@ import com.llat.views.events.SymbolDescriptionEvent;
 import com.llat.views.events.SymbolInputEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.input.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -26,6 +28,7 @@ public class Controller implements Initializable {
 
     private Stage stage;
     private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
+    private UserObject user;
 
     public Controller(Stage _stage) {
         this.stage = _stage;
@@ -138,4 +141,11 @@ public class Controller implements Initializable {
         return parentPane;
     }
 
+    public UserObject getUser() {
+        return user;
+    }
+
+    public void setUser(UserObject user) {
+        this.user = user;
+    }
 }
