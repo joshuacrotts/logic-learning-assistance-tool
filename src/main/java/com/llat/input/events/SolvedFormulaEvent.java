@@ -15,6 +15,7 @@ public class SolvedFormulaEvent implements Event {
     public SolvedFormulaEvent(WffTree _wffTree) {
         this.wffTree = _wffTree;
         this.propositionalTruthTreeGenerator = new TruthTableGenerator(this.wffTree);
+        this.propositionalTruthTreeGenerator.getTruthTable();
     }
 
     public WffTree getWffTree() {
