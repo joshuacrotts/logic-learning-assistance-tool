@@ -14,6 +14,7 @@ public class CenterView {
     public CenterView(Controller _controller) {
         this.controller = _controller;
         Pane tree = new ParseTreeView(this.controller).getParentPane();
+
         this.vBox.getChildren().addAll(new AlgorithmsView(this.controller).getParentPane(), new TruthTableView(this.controller).getParentPane(), tree);
         this.parentPane.getChildren().addAll(vBox);
     }

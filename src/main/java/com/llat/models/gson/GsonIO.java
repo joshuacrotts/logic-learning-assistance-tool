@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
 public class GsonIO implements UIDescriptionInterface, SettingsInterface, CredentialsInterface {
 
     private static Gson gson = new Gson();
-    private final static String RESOURCES_PATH = "src\\main\\resources\\";
+    private final static String RESOURCES_PATH = "src/main/resources/";
     private final static String DEFAULT_UIDO_FILE = "UID/UIDescription_en.json";
 
     /**

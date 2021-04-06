@@ -14,7 +14,7 @@ public class FileMenu {
 
 
         // Setting Menu fileMenu properties.
-        this.fileMenu.getItems().addAll(new NewProjectItem(this.controller).getItem(), new OpenItem(this.controller).getItem(), new SeparatorMenuItem(), new ExportMenu(this.controller).getMenu(), new SeparatorMenuItem(), new LoginItem(this.controller).getItem(), new SeparatorMenuItem(), new SettingsItem(this.controller).getItem(), new SeparatorMenuItem(), new ExitItem(this.controller).getItem());
+        this.fileMenu.getItems().addAll(new NewProjectItem(this.controller).getItem(), new OpenItem(this.controller).getItem(), new ExportMenu(this.controller).getMenu(), new SeparatorMenuItem(), new LoginItem(this.controller).getItem(), new SeparatorMenuItem(), new SettingsItem(this.controller).getItem(), new SeparatorMenuItem(), new ExitItem(this.controller).getItem());
 
     }
 

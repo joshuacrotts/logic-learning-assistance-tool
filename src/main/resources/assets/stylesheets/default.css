@@ -119,6 +119,14 @@
     -fx-opacity: 1.0;
 }
 
+#truthTableLabel, #truthTreeLabel{
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+
+}
+#treePane{
+    -fx-background-color: black;
+}
 
 
 /*Settings start*/
