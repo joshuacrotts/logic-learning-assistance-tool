@@ -47,7 +47,7 @@ public final class TruthTableGenerator {
         this.wffTree = _wffTree;
         this.operands = new Stack<>();
         this.truthPattern = new LinkedHashMap<>();
-        this.size = getAtomCount(this.wffTree);
+        this.size = this.getAtomCount(this.wffTree);
         this.rows = (int) Math.pow(2, this.size);
 
         // We want to clear the tree every time so we don't get duplicate values.

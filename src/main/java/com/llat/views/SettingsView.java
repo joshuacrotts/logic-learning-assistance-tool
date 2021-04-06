@@ -177,12 +177,9 @@ public class SettingsView {
                 this.settingsStage.close();
                 this.stage.close();
                 new Window(new Stage());
-
             } else {
                 // ... user chose CANCEL or closed the dialog
-
             }
-
         });
 
         bottomPaneHbox.setSpacing(10);
