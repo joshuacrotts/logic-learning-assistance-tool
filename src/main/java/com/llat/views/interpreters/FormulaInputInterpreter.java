@@ -33,7 +33,9 @@ public class FormulaInputInterpreter implements Listener {
     public void catchEvent(Event _event) {
         if (_event instanceof SymbolInputEvent) {
             TextField input = this.formulaInputView.getFormulaInputField();
-            input.insertText(this.formulaInputView.getCaretPos(), ((SymbolInputEvent) _event).getSymbolInput());
+            if (this.formulaInputView.getCaretPos() != -1) {
+                input.insertText(this.formulaInputView.getCaretPos(), ((SymbolInputEvent) _event).getSymbolInput());
+            }
             // If they click a button, go to the end of the formula.
             input.requestFocus();
             input.positionCaret(this.formulaInputView.getCaretPos());

@@ -36,8 +36,8 @@ public class TruthTableView {
 
 
         this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.parentPane.setMinHeight((newVal.doubleValue() * .4) - MenuBarView.menuBarHeight);
-            this.parentPane.setMaxHeight((newVal.doubleValue() * .4) - MenuBarView.menuBarHeight);
+            this.parentPane.setMinHeight((newVal.doubleValue() * .25) - MenuBarView.menuBarHeight);
+            this.parentPane.setMaxHeight((newVal.doubleValue() * .25) - MenuBarView.menuBarHeight);
         });
 
         this.parentPane.getChildren().addAll(vBox);
