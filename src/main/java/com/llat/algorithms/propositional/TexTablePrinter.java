@@ -2,6 +2,9 @@ package com.llat.algorithms.propositional;
 
 import com.llat.algorithms.TexPrinter;
 import com.llat.models.treenode.WffTree;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 
 import java.io.*;
 import java.util.LinkedHashSet;
@@ -26,6 +29,15 @@ public final class TexTablePrinter extends TexPrinter {
      * put the plain atoms first, but that's a feature for another time.
      */
     public void outputToFile() {
+        // First make sure that we actually can generate this tree.
+        TruthTableGenerator ttg = new TruthTableGenerator(this.getWffTree());
+        if (!ttg.getTruthTable()) {
+            System.err.println("Could not create truth table.");
+            return;
+        }
+        LinkedHashSet<WffTree> postOrderTraversal = ttg.postorder();
+
+        // Now, print it out in TeX.
         try {
             this.setBufferedReader(new BufferedReader(new FileReader(TEX_TABLE_TEMPLATE)));
             this.setBufferedWriter(new BufferedWriter(new FileWriter(this.getOutputFile())));
@@ -38,9 +50,6 @@ public final class TexTablePrinter extends TexPrinter {
             }
             this.getBufferedReader().close();
 
-            // Now print out the tree.
-            TruthTableGenerator ttg = new TruthTableGenerator(this.getWffTree());
-            LinkedHashSet<WffTree> postOrderTraversal = ttg.postorder();
             this.getBufferedWriter().write(this.getTexTable(postOrderTraversal));
 
             // Output the closing latex commands.
