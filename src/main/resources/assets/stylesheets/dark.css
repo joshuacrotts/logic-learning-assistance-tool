@@ -63,11 +63,11 @@
 }
 
 #inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox {
-    -fx-background-color: silver;
+    -fx-background-color: derive(blue, 50%);
 }
 
 #formulaInputHBox {
-    -fx-background-color: derive(black, 50%);
+    -fx-background-color: derive(blue, 50%);
 }
 
 #rulesAxiomsScrollPane {

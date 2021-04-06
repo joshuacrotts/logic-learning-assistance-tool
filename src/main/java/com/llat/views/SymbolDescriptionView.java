@@ -27,6 +27,12 @@ public class SymbolDescriptionView {
 
     public SymbolDescriptionView(Symbol _symbol) {
         this.symbol = _symbol;
+        // Settings labels id
+        this.symbolNameLabel.setId("symbolNameLabel");
+        this.formalNameLabel.setId("formalNameLabel");
+        this.exampleLabel.setId("exampleLabel");
+        this.alternativeSymbolsLabel.setId("alternativeSymbolsLabel");
+
         // Setting VBox symbolDetailsVBox settings.
         this.symbolDetailsVBox.setId("symbolDetailsVBox");
         this.symbolDetailsVBox.setSpacing(0);
@@ -56,7 +62,7 @@ public class SymbolDescriptionView {
         // Setting Region belowAlternativeSymbols settings.
         this.belowAlternativeSymbolsText.setMinHeight(25);
         // Setting Text exampleText settings.
-        this.exampleText = new Button(symbol.getAxioms().getExample());
+        this.exampleText = new Button(symbol.getAxioms().getExample().get(0));
         this.exampleText.setWrapText(true);
         this.exampleText.setId("rulesAxiomsText");
         this.exampleText.setMaxHeight(Double.MAX_VALUE);

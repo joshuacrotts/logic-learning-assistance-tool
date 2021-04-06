@@ -7,10 +7,15 @@ import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.ParseTreeView;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeForTreeLayout;
@@ -26,31 +31,40 @@ import java.util.Queue;
  */
 public class ParseTreeInterpreter implements Listener {
 
+    /**
+     *
+     */
     private Controller controller;
-    private ParseTreeView truthTreeView;
-    private Canvas treeRepresentation = new Canvas(1280,  1280);
-    private GraphicsContext tgc = treeRepresentation.getGraphicsContext2D();
 
-    private static final Color BORDER_COLOR = Color.DARKGRAY;
-    private static final Color HIGHLIGHTED_COLOR = Color.YELLOW;
-    private static final Color BOX_COLOR = Color.ORANGE;
+    /**
+     *
+     */
+    private ParseTreeView truthTreeView;
+
+    /**
+     *
+     */
+    private Pane treePane;
+
+    /**
+     * Color to use when drawing the text/symbol(s).
+     */
     private static final Color TEXT_COLOR = Color.BLACK;
 
     public ParseTreeInterpreter(Controller _controller, ParseTreeView _truthTreeView) {
         this.controller = _controller;
         this.truthTreeView = _truthTreeView;
+        this.treePane = new Pane();
         EventBus.addListener(this);
     }
 
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof SolvedFormulaEvent) {
-            // Clear the screen before drawing the next tree.
-            this.tgc.clearRect(0, 0, this.treeRepresentation.getWidth(), this.treeRepresentation.getHeight());
-            this.tgc = this.treeRepresentation.getGraphicsContext2D();
-
-            // Clear the TruthTreeView parentPane of the the treeRepresentation.
-            this.truthTreeView.getParentPane().getChildren().remove(this.treeRepresentation);
+            if (this.treePane != null) {
+                this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
+            }
+            this.treePane = new Pane();
 
             WffTree wff = ((SolvedFormulaEvent) _event).getWffTree().getChild(0);
             wff.clearHighlighting();
@@ -71,11 +85,10 @@ public class ParseTreeInterpreter implements Listener {
 
             this.drawTree(treeLayout);
 
-            // Setting VBox treeRepresentation properties.
             // Adding children nodes to their parents nodes.
-            this.truthTreeView.getParentPane().getChildren().add(this.treeRepresentation);
-            this.controller.setPaneToPannable(this.treeRepresentation);
-            this.controller.setPaneToZoomable(this.treeRepresentation);
+            this.truthTreeView.getParentPane().getChildren().add(this.treePane);
+            this.controller.setPaneToPannable(this.treePane);
+            this.controller.setPaneToZoomable(this.treePane);
         }
     }
 
@@ -106,8 +119,12 @@ public class ParseTreeInterpreter implements Listener {
                 double y1 = b1.getCenterY();
                 for (WffTree child : _layout.getTree().getChildren(_tree)) {
                     Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
-                    this.tgc.setStroke(Color.BLACK);
-                    this.tgc.strokeLine(x1, y1, b2.getCenterX(), b2.getCenterY());
+                    // Compute offsets to position it in the center of the screen.
+                    double x1Off = x1 + this.truthTreeView.getParentPane().getWidth() / 2;
+                    double y1Off = y1 + this.truthTreeView.getParentPane().getHeight() / 2;
+                    double x2Off = b2.getCenterX() + this.truthTreeView.getParentPane().getWidth() / 2;
+                    double y2Off = b2.getCenterY() + this.truthTreeView.getParentPane().getHeight() / 2;
+                    this.treePane.getChildren().add(new Line(x1Off, y1Off, x2Off, y2Off));
                     this.drawEdges(_layout, child);
             }
         }
@@ -121,30 +138,23 @@ public class ParseTreeInterpreter implements Listener {
      * @param _wffTree - WffTree object to construct.
      */
     private void paintBox(TreeLayout<WffTree> _layout, WffTree _wffTree) {
-        final int ARC_SIZE = 10;
-        // Draw the box in the background.
         Rectangle2D.Double box = _layout.getNodeBounds().get(_wffTree);
 
-        // Draw the border first.
-        this.tgc.setStroke(Color.DARKGRAY);
-        this.tgc.strokeRoundRect(box.x - 1, box.y - 1, box.width + 1, box.height + 1, ARC_SIZE, ARC_SIZE);
+        // Set up the offsets to center the tree.
+        double xOffset = box.x + this.truthTreeView.getParentPane().getWidth() / 2;
+        double yOffset = box.y + this.truthTreeView.getParentPane().getHeight() / 2;
 
-        // Now draw the box itself.
-        // If the node is highlighted, that means it's selected by an algorithm.
-        if (_wffTree.isHighlighted()) {
-            // Right now, there's nothing but this will change...
-        } else {
-            this.tgc.setFill(Color.ORANGE);
-            this.tgc.fillRoundRect(box.x - 1, box.y - 1, box.width + 1, box.height + 1, ARC_SIZE, ARC_SIZE);
-            this.tgc.setFill(Color.BLACK);
-        }
+        // Constructs the node and the borders.
+        WffTreeGuiNode nodeBox = new WffTreeGuiNode(_wffTree, this.treePane, xOffset, yOffset, box.width, box.height);
 
         // Finally, draw and position the text.
-        Text t = new Text(_wffTree.getSymbol());
+        Text wffSymbol = new Text(_wffTree.getSymbol());
+        wffSymbol.setFill(ParseTreeInterpreter.TEXT_COLOR);
+        wffSymbol.setX(nodeBox.getX() + (nodeBox.getWidth() - wffSymbol.getBoundsInLocal().getWidth()) / 2);
+        wffSymbol.setY(nodeBox.getY() + nodeBox.getHeight() / 1.30d);
 
-        // These values may need to be adjuated...
-        this.tgc.fillText(_wffTree.getSymbol(), box.getCenterX() - t.getBoundsInLocal().getWidth() / 2,
-                                               box.getCenterY() + t.getBoundsInLocal().getHeight() / 4);
+        // Add all the children to the tree.
+        this.treePane.getChildren().addAll(wffSymbol);
     }
 
     /**
@@ -208,6 +218,97 @@ public class ParseTreeInterpreter implements Listener {
         @Override
         public double getHeight(WffTree treeNode) {
             return WffTreeExtentProvider.WFF_HEIGHT;
+        }
+    }
+
+    /**
+     * Creates a WffTree node for display in the GUI. Pass in the x, y, width, and height for
+     * the backing rectangle. This class also adds the objects to the Pane in the constructor
+     * after drawing the borders.
+     *
+     * Hopefully, by encapsulating this in a class, we can add listeners or whatever else easily.
+     */
+    private static class WffTreeGuiNode extends Rectangle {
+
+        /**
+         * Backing WffTree for this gui node.
+         */
+        private WffTree WFF_TREE;
+
+        /**
+         * Pane to attach this WffTreeGuiNode to and its border children (lines).
+         */
+        private final Pane PANE;
+
+        /**
+         * Color for the inner left and top borders.
+         */
+        private static final Color INNER_LEFT_BORDER_COLOR = Color.color(0.84314f, 0.97647f, 0.49412f);
+
+        /**
+         * Color for the inner bottom and right borders.
+         */
+        private static final Color INNER_RIGHT_BORDER_COLOR = Color.color(0.35686f, 0.45490f, 0.23137f);
+
+        /**
+         * Color for the outer left and top borders.
+         */
+        private static final Color OUTER_LEFT_BORDER_COLOR = Color.color(0.99608f, 0.98431f, 0.58431f);
+
+        /**
+         * Color for the outer bottom and right borders.
+         */
+        private static final Color OUTER_RIGHT_BORDER_COLOR = Color.BLACK;
+
+        /**
+         * Color for the box node itself.
+         */
+        private static final Color BOX_COLOR = Color.color(0.54902f, 0.70980f, 0.35294);
+
+        /**
+         * Color for when the node is highlighted by an algorithm.
+         */
+        private static final Color HIGHLIGHTED_COLOR = Color.YELLOW;
+
+        public WffTreeGuiNode(WffTree _tree, Pane _pane, double _x, double _y, double _w, double _h) {
+            super(_x, _y, _w, _h);
+            this.WFF_TREE = _tree;
+            this.PANE = _pane;
+
+            // Add the lines and decorations to the pane.
+            // First, draw the box itself.
+            this.setFill(this.WFF_TREE.isHighlighted() ? WffTreeGuiNode.HIGHLIGHTED_COLOR : WffTreeGuiNode.BOX_COLOR);
+
+            // Draw the left-bot and top-right inner borders.
+            Line innerLeftToBot = new Line(_x, _y, _x, _y + _h);
+            Line innerTopToRight = new Line(_x, _y, _x + _w, _y);
+            innerLeftToBot.setStroke(WffTreeGuiNode.INNER_LEFT_BORDER_COLOR);
+            innerTopToRight.setStroke(WffTreeGuiNode.INNER_LEFT_BORDER_COLOR);
+
+            // Draw the bot-right and top-right-bot inner borders.
+            Line innerBotToRight = new Line(_x, _y + _h, _x + _w, _y + _h);
+            Line innerTopRightToBot = new Line(_x + _w, _y, _x + _w, _y + _h);
+            innerBotToRight.setStroke(WffTreeGuiNode.INNER_RIGHT_BORDER_COLOR);
+            innerTopRightToBot.setStroke(WffTreeGuiNode.INNER_RIGHT_BORDER_COLOR);
+
+            // Draw the left-bot and top-right outer borders.
+            Line outerLeftToBot = new Line(_x - 1, _y - 1, _x - 1, _y + _h);
+            Line outerTopToRight = new Line(_x - 1, _y - 1, _x + _w, _y - 1);
+            outerLeftToBot.setStroke(WffTreeGuiNode.OUTER_LEFT_BORDER_COLOR);
+            outerTopToRight.setStroke(WffTreeGuiNode.OUTER_LEFT_BORDER_COLOR);
+
+            // Draw the bot-right and top-right-bot outer borders.
+            Line outerBotToRight = new Line(_x - 1, _y + _h + 1, _x + _w + 1, _y + _h + 1);
+            Line outerTopRightToBot = new Line(_x + _w + 1, _y - 1, _x + _w + 1, _y + _h + 1);
+            outerBotToRight.setStroke(WffTreeGuiNode.OUTER_RIGHT_BORDER_COLOR);
+            outerTopRightToBot.setStroke(WffTreeGuiNode.OUTER_RIGHT_BORDER_COLOR);
+
+            this.PANE.getChildren().addAll(this, innerLeftToBot, innerTopToRight, innerBotToRight, innerTopRightToBot,
+                    outerLeftToBot, outerTopToRight, outerBotToRight, outerTopRightToBot);
+        }
+
+        public Pane getPane() {
+            return this.PANE;
         }
     }
 }

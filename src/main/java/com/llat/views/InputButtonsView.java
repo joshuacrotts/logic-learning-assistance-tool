@@ -53,6 +53,7 @@ public class InputButtonsView {
     public InputButtonsView(Controller _controller) {
         this.controller = _controller;
         this.stage = this.controller.getStage();
+
         // Setting VBox inputButtonVBox properties.
         this.inputButtonVBox.setId("inputButtonVBox");
         this.inputButtonVBox.setSpacing(0);

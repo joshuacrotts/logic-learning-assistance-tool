@@ -25,6 +25,7 @@ public final class PropositionalTruthTreeGenerator extends BaseTruthTreeGenerato
     @Override
     public void buildTreeHelper(TruthTree _node) {
         int iterations = 0;
+
         // Initialize the min-heap and linkedlist of leaves.
         PriorityQueue<TruthTree> queue = new PriorityQueue<>();
         LinkedList<TruthTree> leaves = new LinkedList<>();

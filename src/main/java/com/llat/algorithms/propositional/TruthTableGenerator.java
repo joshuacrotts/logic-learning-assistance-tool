@@ -1,5 +1,6 @@
 package com.llat.algorithms.propositional;
 
+import com.llat.input.LLATErrorListener;
 import com.llat.models.treenode.AtomNode;
 import com.llat.models.treenode.NegNode;
 import com.llat.models.treenode.WffTree;
@@ -46,14 +47,11 @@ public final class TruthTableGenerator {
         this.wffTree = _wffTree;
         this.operands = new Stack<>();
         this.truthPattern = new LinkedHashMap<>();
-        this.size = getAtomCount(this.wffTree);
+        this.size = this.getAtomCount(this.wffTree);
         this.rows = (int) Math.pow(2, this.size);
 
         // We want to clear the tree every time so we don't get duplicate values.
         this.clearWffTree();
-
-        // Calling it here just makes more sense...
-        this.get();
     }
 
     /**
@@ -82,12 +80,17 @@ public final class TruthTableGenerator {
      * call getTruthValues() on the main operator. This process can
      * also be done on each subtree for easy printing.
      */
-    public void get() {
+    public boolean getTruthTable() {
         if (this.size > MAX_ATOMS) {
-            System.out.println("This formula is too complex to build a truth table for.");
-            return;
+            return false;
         }
-        this.buildTable(this.wffTree);
+
+        // If the tree already HAS truth values, then don't rebuild the tree.
+        if (this.wffTree.getTruthValues().isEmpty()) {
+            this.buildTable(this.wffTree);
+        }
+
+        return true;
     }
 
     /**
