@@ -66,6 +66,9 @@ public class ParserTest {
     public static void main(String[] argv) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         LinkedList<WffTree> resultList = LLATParserAdapter.getAbstractSyntaxTree(reader.readLine());
+        if (resultList == null) {
+            return;
+        }
 
         // If we only have one WffTree, we can do the simple operations.
         if (resultList.size() == 1) {

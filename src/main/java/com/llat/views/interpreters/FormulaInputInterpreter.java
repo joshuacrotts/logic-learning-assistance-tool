@@ -8,6 +8,7 @@ import com.llat.views.FormulaInputView;
 import com.llat.views.events.FormulaInputEvent;
 import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolInputEvent;
+import javafx.scene.control.TextField;
 
 public class FormulaInputInterpreter implements Listener {
 
@@ -24,14 +25,19 @@ public class FormulaInputInterpreter implements Listener {
     public FormulaInputInterpreter(Controller _controller, FormulaInputView _formulaInputView) {
         this.controller = _controller;
         this.formulaInputView = _formulaInputView;
-        EventBus.addListener(this);
         this.controller.setSolveButtonOnAction(this.formulaInputView.getFormulaInputButton());
+        EventBus.addListener(this);
     }
 
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof SymbolInputEvent) {
-            this.formulaInputView.getFormulaInputField().appendText(((SymbolInputEvent) _event).getSymbolInput());
+            TextField input = this.formulaInputView.getFormulaInputField();
+            input.insertText(this.formulaInputView.getCaretPos(), ((SymbolInputEvent) _event).getSymbolInput());
+            // If they click a button, go to the end of the formula.
+            input.requestFocus();
+            input.positionCaret(this.formulaInputView.getCaretPos());
+            input.deselect();
         } else if (_event instanceof SolveButtonEvent) {
             EventBus.throwEvent(new FormulaInputEvent(this.formulaInputView.getFormulaInputField().getText()));
         }
