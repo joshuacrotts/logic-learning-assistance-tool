@@ -6,6 +6,7 @@ import com.llat.models.localstorage.uidescription.UIDescriptionObject;
 import com.llat.views.interpreters.InputButtonInterpreter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -87,6 +88,7 @@ public class InputButtonsView {
         for (SymbolButton curButton : this.propositionalLogicButtons) {
             curButton.setId("propositionalLogicButton");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            curButton.setTooltip(new Tooltip(curButton.getDefaultSymbol().getTooltip()));
             GridPane.setRowIndex(curButton, rowCount / 4);
             GridPane.setColumnIndex(curButton, rowCount % 4);
             this.propositionalLogicPane.getChildren().add(curButton);
@@ -119,6 +121,7 @@ public class InputButtonsView {
         for (SymbolButton curButton : this.predicateLogicButtons) {
             curButton.setId("predicateLogicButton");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            curButton.setTooltip(new Tooltip(curButton.getDefaultSymbol().getTooltip()));
             GridPane.setRowIndex(curButton, rowCount / 4);
             GridPane.setColumnIndex(curButton, rowCount % 4);
             this.predicateLogicPane.getChildren().add(curButton);
