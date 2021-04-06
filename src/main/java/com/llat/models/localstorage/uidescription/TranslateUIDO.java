@@ -17,7 +17,7 @@ public class TranslateUIDO {
         g.update(obj, "UIDescription" + "_" + langTo + ".json");
     }
 
-    public UIDescriptionObject translateUIDO(UIDescriptionObject obj, String langTo){
+    public UIDescriptionObject translateUIDO(UIDescriptionObject obj, String langTo) {
         TranslateUIDO main = new TranslateUIDO();
         obj.setImplication((Implication) main.symbol(obj.getImplication(), langTo));
 
@@ -39,7 +39,8 @@ public class TranslateUIDO {
 
         return obj;
     }
-    public Symbol symbol(Symbol s, String langTo){
+
+    public Symbol symbol(Symbol s, String langTo) {
         TranslatorAdaptor ta = new TranslatorAdaptor();
 //        Symbol.StringSymbol symbol = s.getSymbol();
         String description = s.getDescription();
@@ -59,10 +60,7 @@ public class TranslateUIDO {
         return s;
 
 
-
-
     }
-
 
 
 }

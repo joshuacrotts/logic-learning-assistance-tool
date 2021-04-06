@@ -7,6 +7,9 @@ import java.util.Queue;
 
 public class OpenTreeDeterminer {
 
+    /**
+     *
+     */
     private TruthTree tree;
 
     public OpenTreeDeterminer(TruthTree _tree) {

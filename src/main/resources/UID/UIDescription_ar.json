@@ -1,1 +1,168 @@
-{"implication":{"symbol":{"applied":"⇒","allSymbols":["⇒","→","⊃","-\u003e"]},"description":"هذا هو زر التضمين","axioms":{"explanation":"A ⇒ B خطأ عندما يكون A صحيحًا و B خطأ ولكن بخلاف ذلك يكون صحيحًا.","example":"(A ⇒ B)"},"tooltip":"يتضمن","readAs":"يدل؛ اذا ثم"},"biconditional":{"symbol":{"applied":"⇔","allSymbols":["⇔","≡","↔","\u003c-\u003e"]},"description":"هذا هو زر التكافؤ","axioms":{"explanation":"A ⇔ B صحيح فقط إذا كان كل من A و B خطأ ، أو أن كلاهما A و B صحيحان.","example":"(A ⇔ B)"},"tooltip":"التكافؤ","readAs":"إذا وفقط إذا؛ iff؛ يعني نفس"},"negation":{"symbol":{"applied":"¬","allSymbols":["¬","˜","!"]},"description":"This is the negation button","axioms":{"explanation":"The statement ¬A is true if and only if A is false.","example":"(¬(¬A) ⇔  A)"},"tooltip":"negation","readAs":"not"},"conjunction":{"symbol":{"applied":"∧","allSymbols":["∧","^","·","\u0026"]},"description":"هذا هو زر الاقتران.","axioms":{"explanation":"تكون العبارة A ∧ B صحيحة إذا كان كل من A و B صحيحين ؛ وإلا فهو خطأ.","example":"(A ∧ B)"},"tooltip":"بالاشتراك","readAs":"و"},"disjunction":{"symbol":{"applied":"∨","allSymbols":["∨","∥","|"]},"description":"هذا هو زر الفصل.","axioms":{"explanation":"تكون العبارة A ∨ B صحيحة إذا كانت A أو B (أو كلاهما) صحيحة ؛ إذا كان كلاهما خطأ ، فإن العبارة خاطئة.","example":"(A ∨ B)"},"tooltip":"بالاشتراك","readAs":"أو"},"exclusiveDisjunction":{"symbol":{"applied":"⊕","allSymbols":["⊕","⊻","≢"]},"description":"هذا هو زر الفصل.","axioms":{"explanation":"تكون العبارة A ⊕ B صحيحة عندما يكون A أو B ، وليس كلاهما ، صحيحًا. أ ⊻ ب تعني نفس الشيء.","example":"(¬A) ⊕ A"},"tooltip":"انفصال حصري","readAs":"xor. إما او"},"turnstile":{"symbol":{"applied":"⊢","allSymbols":["⊢"]},"description":"هذا هو زر الباب الدوار.","axioms":{"explanation":"x ⊢ y تعني x تثبت (تستلزم نحويًا) y.","example":"(A → B) ⊢ (¬B → ¬A)"},"tooltip":"الباب الدوار","readAs":"يثبت"},"doubleTurnstile":{"symbol":{"applied":"⊨","allSymbols":["⊨"]},"description":"هذا هو زر الباب الدوار.","axioms":{"explanation":"x ⊨ y تعني نماذج x (تستلزم دلاليًا) y","example":"(A → B) ⊨ (¬B → ¬A)"},"tooltip":"باب دوار مزدوج","readAs":"عارضات ازياء"},"universal":{"symbol":{"applied":"∀","allSymbols":["∀","()"]},"description":"هذا هو زر القياس العام.","axioms":{"explanation":"∀ x: P (x) أو (x) P (x) تعني أن P (x) صحيحة لجميع x.","example":"(∀x)P(x)"},"tooltip":"القياس الكمي العالمي","readAs":"للجميع لأي؛ لكل"},"existential":{"symbol":{"applied":"∃","allSymbols":["∃"]},"description":"هذا هو زر القياس العام.","axioms":{"explanation":"∃ x: P (x) تعني وجود x واحد على الأقل بحيث يكون P (x) صحيحًا.","example":"(∃x)Px"},"tooltip":"القياس الكمي العالمي","readAs":"يوجد"}}
+{
+  "implication": {
+    "symbol": {
+      "applied": "⇒",
+      "allSymbols": [
+        "⇒",
+        "→",
+        "⊃",
+        "-\u003e"
+      ]
+    },
+    "description": "هذا هو زر التضمين",
+    "axioms": {
+      "explanation": "A ⇒ B خطأ عندما يكون A صحيحًا و B خطأ ولكن بخلاف ذلك يكون صحيحًا.",
+      "example": "(A ⇒ B)"
+    },
+    "tooltip": "يتضمن",
+    "readAs": "يدل؛ اذا ثم"
+  },
+  "biconditional": {
+    "symbol": {
+      "applied": "⇔",
+      "allSymbols": [
+        "⇔",
+        "≡",
+        "↔",
+        "\u003c-\u003e"
+      ]
+    },
+    "description": "هذا هو زر التكافؤ",
+    "axioms": {
+      "explanation": "A ⇔ B صحيح فقط إذا كان كل من A و B خطأ ، أو أن كلاهما A و B صحيحان.",
+      "example": "(A ⇔ B)"
+    },
+    "tooltip": "التكافؤ",
+    "readAs": "إذا وفقط إذا؛ iff؛ يعني نفس"
+  },
+  "negation": {
+    "symbol": {
+      "applied": "¬",
+      "allSymbols": [
+        "¬",
+        "˜",
+        "!"
+      ]
+    },
+    "description": "This is the negation button",
+    "axioms": {
+      "explanation": "The statement ¬A is true if and only if A is false.",
+      "example": "(¬(¬A) ⇔  A)"
+    },
+    "tooltip": "negation",
+    "readAs": "not"
+  },
+  "conjunction": {
+    "symbol": {
+      "applied": "∧",
+      "allSymbols": [
+        "∧",
+        "^",
+        "·",
+        "\u0026"
+      ]
+    },
+    "description": "هذا هو زر الاقتران.",
+    "axioms": {
+      "explanation": "تكون العبارة A ∧ B صحيحة إذا كان كل من A و B صحيحين ؛ وإلا فهو خطأ.",
+      "example": "(A ∧ B)"
+    },
+    "tooltip": "بالاشتراك",
+    "readAs": "و"
+  },
+  "disjunction": {
+    "symbol": {
+      "applied": "∨",
+      "allSymbols": [
+        "∨",
+        "∥",
+        "|"
+      ]
+    },
+    "description": "هذا هو زر الفصل.",
+    "axioms": {
+      "explanation": "تكون العبارة A ∨ B صحيحة إذا كانت A أو B (أو كلاهما) صحيحة ؛ إذا كان كلاهما خطأ ، فإن العبارة خاطئة.",
+      "example": "(A ∨ B)"
+    },
+    "tooltip": "بالاشتراك",
+    "readAs": "أو"
+  },
+  "exclusiveDisjunction": {
+    "symbol": {
+      "applied": "⊕",
+      "allSymbols": [
+        "⊕",
+        "⊻",
+        "≢"
+      ]
+    },
+    "description": "هذا هو زر الفصل.",
+    "axioms": {
+      "explanation": "تكون العبارة A ⊕ B صحيحة عندما يكون A أو B ، وليس كلاهما ، صحيحًا. أ ⊻ ب تعني نفس الشيء.",
+      "example": "(¬A) ⊕ A"
+    },
+    "tooltip": "انفصال حصري",
+    "readAs": "xor. إما او"
+  },
+  "turnstile": {
+    "symbol": {
+      "applied": "⊢",
+      "allSymbols": [
+        "⊢"
+      ]
+    },
+    "description": "هذا هو زر الباب الدوار.",
+    "axioms": {
+      "explanation": "x ⊢ y تعني x تثبت (تستلزم نحويًا) y.",
+      "example": "(A → B) ⊢ (¬B → ¬A)"
+    },
+    "tooltip": "الباب الدوار",
+    "readAs": "يثبت"
+  },
+  "doubleTurnstile": {
+    "symbol": {
+      "applied": "⊨",
+      "allSymbols": [
+        "⊨"
+      ]
+    },
+    "description": "هذا هو زر الباب الدوار.",
+    "axioms": {
+      "explanation": "x ⊨ y تعني نماذج x (تستلزم دلاليًا) y",
+      "example": "(A → B) ⊨ (¬B → ¬A)"
+    },
+    "tooltip": "باب دوار مزدوج",
+    "readAs": "عارضات ازياء"
+  },
+  "universal": {
+    "symbol": {
+      "applied": "∀",
+      "allSymbols": [
+        "∀",
+        "()"
+      ]
+    },
+    "description": "هذا هو زر القياس العام.",
+    "axioms": {
+      "explanation": "∀ x: P (x) أو (x) P (x) تعني أن P (x) صحيحة لجميع x.",
+      "example": "(∀x)P(x)"
+    },
+    "tooltip": "القياس الكمي العالمي",
+    "readAs": "للجميع لأي؛ لكل"
+  },
+  "existential": {
+    "symbol": {
+      "applied": "∃",
+      "allSymbols": [
+        "∃"
+      ]
+    },
+    "description": "هذا هو زر القياس العام.",
+    "axioms": {
+      "explanation": "∃ x: P (x) تعني وجود x واحد على الأقل بحيث يكون P (x) صحيحًا.",
+      "example": "(∃x)Px"
+    },
+    "tooltip": "القياس الكمي العالمي",
+    "readAs": "يوجد"
+  }
+}

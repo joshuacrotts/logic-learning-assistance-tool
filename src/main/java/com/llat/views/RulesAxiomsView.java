@@ -11,13 +11,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RulesAxiomsView {
-    Controller controller;
-    Stage stage;
-    ScrollPane scrollPane = new ScrollPane();
-    VBox rulesAxiomsVBox = new VBox();
-    Region topFiller = new Region();
 
-    RulesAxiomsInterpreter rulesAxiomsInterpreter;
+    private Controller controller;
+    private Stage stage;
+    private ScrollPane scrollPane = new ScrollPane();
+    private VBox rulesAxiomsVBox = new VBox();
+    private Region topFiller = new Region();
+
+    private RulesAxiomsInterpreter rulesAxiomsInterpreter;
 
     public RulesAxiomsView(Controller _controller) {
         this.controller = _controller;

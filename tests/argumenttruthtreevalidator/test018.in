@@ -1,0 +1,2 @@
+//distribution 1
+(P & (Q | R)) => ((P & Q) | (P & R))

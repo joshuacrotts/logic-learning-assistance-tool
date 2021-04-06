@@ -21,7 +21,7 @@ public final class BoundVariableDetector {
     /**
      * @return
      */
-    public LinkedList<WffTree> get() {
+    public LinkedList<WffTree> getBoundVariables() {
         LinkedList<WffTree> S = new LinkedList<>();
         Stack<WffTree> L = new Stack<>();
         this.bound(this.wffTree, S, L);

@@ -10,7 +10,9 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-    public static void main(String[] args) { launch(args); }
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage _stage) {
@@ -22,6 +24,7 @@ public class App extends Application {
     public void setStageSettings(Stage _stage) {
         _stage.setScene(new Scene(new Pane()));
         _stage.setTitle("Logic Learning Assistance Tool");
+        _stage.setMaximized(true);
         _stage.setFullScreen(false);
         _stage.setMinHeight(720);
         _stage.setMinWidth(1280);

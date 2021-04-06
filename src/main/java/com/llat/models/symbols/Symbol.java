@@ -50,6 +50,17 @@ public abstract class Symbol {
         this.readAs = readAs;
     }
 
+    @Override
+    public String toString() {
+        return "Symbol{" +
+                "symbol=" + symbol +
+                ", description='" + description + '\'' +
+                ", axioms=" + axioms +
+                ", tooltip='" + tooltip + '\'' +
+                ", readAs='" + readAs + '\'' +
+                '}';
+    }
+
     public class StringSymbol {
         String applied;
         List<String> allSymbols;
@@ -106,17 +117,6 @@ public abstract class Symbol {
                     ", example='" + example + '\'' +
                     '}';
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Symbol{" +
-                "symbol=" + symbol +
-                ", description='" + description + '\'' +
-                ", axioms=" + axioms +
-                ", tooltip='" + tooltip + '\'' +
-                ", readAs='" + readAs + '\'' +
-                '}';
     }
 }
 

@@ -14,14 +14,14 @@ public class UserCredentialsObject extends LocalStorage {
         return User;
     }
 
-    public String getPassword() {
-        return Password;
+    public void setUser(String User) {
+        this.User = User;
     }
 
     // Setter Methods
 
-    public void setUser(String User) {
-        this.User = User;
+    public String getPassword() {
+        return Password;
     }
 
     public void setPassword(String Password) {

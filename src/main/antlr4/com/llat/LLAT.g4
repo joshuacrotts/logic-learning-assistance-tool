@@ -111,11 +111,11 @@ predIdentityRule: (constant|variable) IDENTITY (constant|variable);
 
 /* Proof rules. */
 /* Proof for predicate logic. */
-predPremise: ((predWff (COMMA|SEMICOLON)) | predWff);
-predConclusion: predWff;
+predPremise: ((predicateWff (COMMA|SEMICOLON)) | predicateWff);
+predConclusion: predicateWff;
 predProof: predPremise+ THEREFORE predConclusion;
 
 /* Proof for propositional logic. */
-propPremise: ((propWff (COMMA|SEMICOLON)) | propWff);
-propConclusion: propWff;
+propPremise: ((propositionalWff (COMMA|SEMICOLON)) | propositionalWff);
+propConclusion: propositionalWff;
 propProof: propPremise+ THEREFORE propConclusion;
