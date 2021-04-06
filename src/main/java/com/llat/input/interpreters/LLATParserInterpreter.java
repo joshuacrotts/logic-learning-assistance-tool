@@ -1,6 +1,5 @@
 package com.llat.input.interpreters;
 
-import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.input.LLATParserAdapter;
 import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.models.treenode.WffTree;
@@ -8,9 +7,7 @@ import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.events.FormulaInputEvent;
-
 import java.util.LinkedList;
-
 
 public class LLATParserInterpreter implements Listener {
 
@@ -28,4 +25,5 @@ public class LLATParserInterpreter implements Listener {
             }
         }
     }
+
 }
