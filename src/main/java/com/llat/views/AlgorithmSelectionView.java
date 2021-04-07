@@ -38,7 +38,7 @@ public class AlgorithmSelectionView {
                 "Logically Contradictory Determiner (2)",
                 "Logically Contrary Determiner (2)",
                 "Logically Equivalent Determiner (2)",
-                " Logically Implied Determiner (2)",
+                "Logically Implied Determiner (2)",
                 "Logical Tautology Determiner (1)",
                 "Main operator detector (1)",
                 "Open Tree Determiner (1)"
