@@ -63,8 +63,8 @@ public class ParseTreeInterpreter implements Listener {
         if (_event instanceof SolvedFormulaEvent) {
             if (this.treePane != null) {
                 this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
+                this.treePane.getChildren().clear();
             }
-            this.treePane = new Pane();
 
             WffTree wff = ((SolvedFormulaEvent) _event).getWffTree().getChild(0);
             wff.clearHighlighting();
