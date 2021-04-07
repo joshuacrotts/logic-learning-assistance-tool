@@ -1,14 +1,12 @@
 package com.llat.controller;
 
+import com.llat.database.DatabaseAdapter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.tools.EventBus;
 import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
-import com.llat.views.ApplicationView;
-import com.llat.views.LoginView;
-import com.llat.views.ParseTreeView;
-import com.llat.views.SymbolButton;
+import com.llat.views.*;
 import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolDescriptionEvent;
 import com.llat.views.events.SymbolInputEvent;
@@ -28,6 +26,7 @@ public class Controller implements Initializable {
 
     private Stage stage;
     private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
+    private DatabaseAdapter databaseAdapter = new DatabaseAdapter();
     private UserObject user;
 
     public Controller(Stage _stage) {
@@ -133,11 +132,13 @@ public class Controller implements Initializable {
             case ViewManager.LOGIN:
                 parentPane = (new LoginView(this)).getParentPane();
                 break;
+            case ViewManager.REGISTER:
+                parentPane = (new RegisterView(this)).getParentPane();
+                break;
             default:
                 // Update this to error view.
                 parentPane = new Pane();
         }
-        ;
         return parentPane;
     }
 
@@ -148,4 +149,5 @@ public class Controller implements Initializable {
     public void setUser(UserObject user) {
         this.user = user;
     }
+
 }

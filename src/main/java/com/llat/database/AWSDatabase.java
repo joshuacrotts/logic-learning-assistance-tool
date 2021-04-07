@@ -19,7 +19,7 @@ public class AWSDatabase implements DatabaseInterface {
     private static Connection connection = null;
 
     //Method that creates a user Account and stores in database and sets default values to theme and language.
-    public String Register(String _userName, String _password, String _firstName, String _lastName) {
+    public int Register(String _userName, String _password, String _firstName, String _lastName) {
         String Message = null;
         int id = 0;
         String bcryptHashString = null;
@@ -29,7 +29,7 @@ public class AWSDatabase implements DatabaseInterface {
 
             if (_password == null || _userName == null) {
                 Message = "You must enter in a Username or Password.";
-                return Message;
+                return DatabaseAdapter.REGISTERED_EMPTY_INPUT;
             }
 
             bcryptHashString = BCrypt.withDefaults().hashToString(12, _password.toCharArray());
@@ -66,11 +66,13 @@ public class AWSDatabase implements DatabaseInterface {
             Message = "Account Successfully Created!";
             connection.close();
 
+        } catch (SQLIntegrityConstraintViolationException DupUser) {
+            return DatabaseAdapter.REGISTERED_DUP_USER;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             /*System.out.println("UserName Already Taken. Please Try New Username.");*/
         }
-        return Message;
+        return DatabaseAdapter.REGISTERED_SUCCESSFULLY;
     }
 
     // Method that Updates Theme and stores in database for user.

@@ -1,8 +1,7 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
-import com.llat.database.DatabaseAdapter;
-import com.llat.database.UserObject;
+import com.llat.views.interpreters.RegisterInterpreter;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -37,6 +36,7 @@ public class RegisterView {
     private Button registerButton = new Button("Register");
     private Button returnButton = new Button("Return to Application");
 
+    private RegisterInterpreter registerInterpreter;
     public RegisterView(Controller _controller) {
         this.controller = _controller;
         this.stage = _controller.getStage();
@@ -140,17 +140,7 @@ public class RegisterView {
         });
 
 
-        this.registerButton.setOnAction((event1 -> {
-            DatabaseAdapter ad = new DatabaseAdapter();
-            String email = this.userNameField.getText();
-            String pass = this.passwordField.getText();
-            UserObject user = ad.Login(email, pass);
-            if (!(user == null)) {
-                System.out.println(user.getHistory());
-            } else {
-                System.out.println("pass or email is wrong");
-            }
-        }));
+
         // Setting Region belowLoginButtonRegion properties.
         this.registerVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.belowLoginButtonRegion.setMinHeight(newVal.doubleValue() * 0.1);
@@ -165,10 +155,47 @@ public class RegisterView {
         this.parentPane.setId("registerViewParentPane");
         // Adding children nodes to their parents nodes.
         this.parentPane.getChildren().addAll(this.registerVBox);
+
+
+        registerInterpreter = new RegisterInterpreter(this.controller, this);
     }
 
     public Pane getParentPane() {
         return this.parentPane;
     }
+    public Button getRegisterButton(){
+        return this.registerButton;
+    }
 
+    public TextField getUserNameField() {
+        return userNameField;
+    }
+
+    public void setUserNameField(TextField userNameField) {
+        this.userNameField = userNameField;
+    }
+
+    public TextField getFirstNameField() {
+        return firstNameField;
+    }
+
+    public void setFirstNameField(TextField firstNameField) {
+        this.firstNameField = firstNameField;
+    }
+
+    public TextField getLastNameField() {
+        return lastNameField;
+    }
+
+    public void setLastNameField(TextField lastNameField) {
+        this.lastNameField = lastNameField;
+    }
+
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public void setPasswordField(PasswordField passwordField) {
+        this.passwordField = passwordField;
+    }
 }

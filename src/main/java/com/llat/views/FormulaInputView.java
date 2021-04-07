@@ -6,7 +6,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -72,6 +71,7 @@ public class FormulaInputView {
             this.caretPos = this.formulaInputField.getCaretPosition();
         });
         // Setting Button formulaInputButton settings.
+        formulaInputButton.setId("formulaInputButton");
         HBox.setHgrow(this.formulaInputButton, Priority.ALWAYS);
         // Adding children nodes to their parents nodes.
         this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton);

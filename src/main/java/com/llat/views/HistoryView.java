@@ -26,19 +26,19 @@ public class HistoryView {
 
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             table.setMinWidth(newVal.doubleValue() * .2);
-            table.setMaxWidth(newVal.doubleValue()* .2);
+            table.setMaxWidth(newVal.doubleValue() * .2);
         });
         this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
             table.setMinHeight(newVal.doubleValue() * .82);
-            table.setMaxHeight(newVal.doubleValue()* .82);
+            table.setMaxHeight(newVal.doubleValue() * .82);
         });
-        if (this.controller.getUser() != null){
-            List<String> history =  this.controller.getUser().getHistory();
+        if (this.controller.getUser() != null && this.controller.getUser().getHistory() != null) {
+            List<String> history = this.controller.getUser().getHistory();
             ObservableList<String> names = FXCollections.observableArrayList(history);
             TableView<String> tv = new TableView(FXCollections.observableArrayList(new ArrayList<String>(history)));
             TableColumn<String, String> formulaColumn = new TableColumn<>("Formula");
             this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-                formulaColumn.setMinWidth(newVal.doubleValue()* .18);
+                formulaColumn.setMinWidth(newVal.doubleValue() * .18);
             });
             formulaColumn.setCellValueFactory((p) -> {
                 return new ReadOnlyStringWrapper(p.getValue());
