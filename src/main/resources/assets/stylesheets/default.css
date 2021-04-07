@@ -70,27 +70,28 @@
     -fx-background-color: derive(black, 50%);
 }
 
-#rulesAxiomsScrollPane {
-    -fx-background-color: silver;
+#rulesAxiomsScrollPane, #treeTableScrollPane {
+    -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
 
-#rulesAxiomsScrollPane > .viewport {
+#rulesAxiomsScrollPane > .viewport, #treeTableScrollPane > .viewport {
     -fx-background-color: transparent;
 }
 
-#rulesAxiomsScrollPane:vertical {
+#rulesAxiomsScrollPane:vertical, #treeTableScrollPane:vertical {
     -fx-min-width: 10;
 }
 
-#rulesAxiomsScrollPane:focused {
+#rulesAxiomsScrollPane:focused, #treeTableScrollPane:focused {
     -fx-background-insets: 0;
 }
 
-#rulesAxiomsScrollPane .corner {
+#rulesAxiomsScrollPane .corner, #treeTableScrollPane .corner {
     -fx-background-insets: 0;
 }
+
 #truthTableScrollPane {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -100,12 +101,15 @@
 #truthTableScrollPane > .viewport {
    -fx-background-color: transparent;
 }
+
 #truthTableScrollPane:horizontal {
     -fx-min-height: 10;
 }
+
 #truthTableScrollPane:focused {
     -fx-background-insets: 0;
 }
+
 #truthTableScrollPane .corner {
     -fx-background-insets: 0;
 }
@@ -131,7 +135,7 @@
     -fx-opacity: 1.0;
 }
 
-#truthTableParentPane, #parseTreeVBox, #truthTreeVBox {
+#truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
     -fx-background-color: derive(black, 90%);
 }
 #parseTreeVBox, #truthTreeVBox {
@@ -173,6 +177,7 @@
 #leftPane{
     -fx-background-color: derive(black, 50%);
 }
+
 #settingsMainPane{
     -fx-background-color: silver;
 }
@@ -185,7 +190,6 @@
 #langLabel, #themeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 12;
-
 }
 
 #bottomPaneHbox{

@@ -1,6 +1,5 @@
 package com.llat.views.interpreters;
 
-import com.llat.algorithms.models.TruthTree;
 import com.llat.controller.Controller;
 import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.models.treenode.WffTree;
@@ -30,6 +29,7 @@ public class TruthTableInterpreter implements Listener {
             this.truthTableView.getTruthTable().setLayoutX((this.truthTableView.getParentPane().getWidth() / 2) - (this.truthTableView.getTruthTable().getWidth() / 2) );
         }
     }
+
     //(A∧B) (A∧(A∧(A∧B)))
     public void createTruthTable (WffTree _wffTree, HBox _truthTable) {
         int childSize = _wffTree.getChildrenSize();

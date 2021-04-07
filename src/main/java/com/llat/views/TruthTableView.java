@@ -2,7 +2,6 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.views.interpreters.TruthTableInterpreter;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
@@ -34,14 +33,20 @@ public class TruthTableView {
         this.scrollPane.fitToHeightProperty().set(true);
         // Setting HBox truthTable properties.
         this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> { this.truthTable.setMinWidth(newVal.doubleValue() - 1); });
-
         // Adding children nodes to their parents nodes.
         this.scrollPane.setContent(this.truthTable);
         this.parentPane.getChildren().addAll(this.scrollPane);
         this.truthTableInterpreter = new TruthTableInterpreter(this.controller, this);
     }
-    public HBox getTruthTable() {return this.truthTable; }
-    public ScrollPane getScrollPane() {return this.scrollPane;}
+
+    public HBox getTruthTable() {
+        return this.truthTable;
+    }
+
+    public ScrollPane getScrollPane() {
+        return this.scrollPane;
+    }
+
     public Pane getParentPane() {
         return parentPane;
     }
