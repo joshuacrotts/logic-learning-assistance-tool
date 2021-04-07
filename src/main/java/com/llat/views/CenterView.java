@@ -26,7 +26,9 @@ public class CenterView {
         this.scrollPane.setFitToWidth(true);
         // Adding children nodes to their parents nodes.
         this.vBox.getChildren().addAll(new TruthTableView(this.controller).getParentPane(), new ParseTreeView(this.controller).getParentPane());
-        this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.scrollPane);
+       // this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.scrollPane);
+        this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane());
+
     }
     public Pane getParentPane() {
         return this.parentPane;

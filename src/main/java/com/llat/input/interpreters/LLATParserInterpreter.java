@@ -21,7 +21,7 @@ public class LLATParserInterpreter implements Listener {
             LinkedList<WffTree> linkedTree = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula());
             if (linkedTree != null) {
                 WffTree wffTree = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula()).get(0);
-                EventBus.throwEvent(new SolvedFormulaEvent(wffTree));
+                EventBus.throwEvent(new SolvedFormulaEvent(linkedTree));
             }
         }
     }
