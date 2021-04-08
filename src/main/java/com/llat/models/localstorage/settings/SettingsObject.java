@@ -1,7 +1,7 @@
 package com.llat.models.localstorage.settings;
 
 import com.llat.models.localstorage.LocalStorage;
-import com.llat.models.localstorage.settings.langague.LangaugeObject;
+import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.localstorage.settings.theme.ThemeObject;
 
 import java.util.List;
@@ -11,13 +11,19 @@ import java.util.List;
  */
 public class SettingsObject extends LocalStorage {
 
-    //    public String test;
-    private Language language;
-    private Theme theme;
+    /**
+     *
+     */
+    public static Language language;
+
+    /**
+     *
+     */
+    public static Theme theme;
 
     public SettingsObject(Language language, Theme theme) {
-        this.language = language;
-        this.theme = theme;
+        SettingsObject.language = language;
+        SettingsObject.theme = theme;
     }
 
     public Language getLanguage() {
@@ -25,7 +31,7 @@ public class SettingsObject extends LocalStorage {
     }
 
     public void setLanguage(Language language) {
-        this.language = language;
+        SettingsObject.language = language;
     }
 
     public Theme getTheme() {
@@ -33,7 +39,7 @@ public class SettingsObject extends LocalStorage {
     }
 
     public void setTheme(Theme theme) {
-        this.theme = theme;
+        SettingsObject.theme = theme;
     }
 
     /**
@@ -69,27 +75,27 @@ public class SettingsObject extends LocalStorage {
      *
      */
     public class Language {
-        private LangaugeObject applied;
-        private List<LangaugeObject> allLanguages;
+        private LanguageObject applied;
+        private List<LanguageObject> allLanguages;
 
-        public Language(LangaugeObject applied, List<LangaugeObject> allLanguages) {
+        public Language(LanguageObject applied, List<LanguageObject> allLanguages) {
             this.applied = applied;
             this.allLanguages = allLanguages;
         }
 
-        public LangaugeObject getApplied() {
+        public LanguageObject getApplied() {
             return applied;
         }
 
-        public void setApplied(LangaugeObject applied) {
+        public void setApplied(LanguageObject applied) {
             this.applied = applied;
         }
 
-        public List<LangaugeObject> getAllLanguages() {
+        public List<LanguageObject> getAllLanguages() {
             return allLanguages;
         }
 
-        public void setAllLanguages(List<LangaugeObject> allLanguages) {
+        public void setAllLanguages(List<LanguageObject> allLanguages) {
             this.allLanguages = allLanguages;
         }
     }

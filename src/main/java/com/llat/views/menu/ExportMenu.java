@@ -17,7 +17,8 @@ public class ExportMenu {
         exportMenu.getItems().add(latexItem);
 
     }
-    public Menu getMenu(){
+
+    public Menu getMenu() {
         return exportMenu;
     }
 }

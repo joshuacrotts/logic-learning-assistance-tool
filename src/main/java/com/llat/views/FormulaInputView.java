@@ -6,7 +6,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -61,7 +60,7 @@ public class FormulaInputView {
         this.formulaInputHBox.setAlignment(Pos.CENTER);
         this.formulaInputHBox.setFillHeight(true);
         this.formulaInputHBox.setSpacing(4);
-        this.formulaInputHBox.setPadding(new Insets(10,0,10,0));
+        this.formulaInputHBox.setPadding(new Insets(10, 0, 10, 0));
         // Setting TextField formulaInputField properties.
         HBox.setHgrow(this.formulaInputField, Priority.ALWAYS);
         this.formulaInputHBox.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -81,26 +80,28 @@ public class FormulaInputView {
         this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);
     }
 
-    public Button getFormulaInputButton () {
+    public Button getFormulaInputButton() {
         return this.formulaInputButton;
     }
-    public Button getAlgorithmApplyButton () {
-        return this.algorithmApplyButton;}
 
-    public TextField getFormulaInputField () {
+    public Button getAlgorithmApplyButton() {
+        return this.algorithmApplyButton;
+    }
+
+    public TextField getFormulaInputField() {
         return this.formulaInputField;
     }
 
-    public Pane getParentPane () {
+    public Pane getParentPane() {
         return this.formulaInputHBox;
     }
 
-    public void setCaretPos (int _caretPos) {
-        this.caretPos = _caretPos;
+    public int getCaretPos() {
+        return this.caretPos;
     }
 
-    public int getCaretPos () {
-        return this.caretPos;
+    public void setCaretPos(int _caretPos) {
+        this.caretPos = _caretPos;
     }
 
 }

@@ -4,12 +4,21 @@ import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 
 public class UpdateViewTruthTreeEvent implements Event {
-    WffTree wffTree;
-    boolean isEmpty = false;
+
+    /**
+     *
+     */
+    private WffTree wffTree;
+
+    /**
+     *
+     */
+    private boolean isEmpty;
 
     public UpdateViewTruthTreeEvent(WffTree _wffTree) {
         this.wffTree = _wffTree;
     }
+
     public UpdateViewTruthTreeEvent() {
         this.isEmpty = true;
     }

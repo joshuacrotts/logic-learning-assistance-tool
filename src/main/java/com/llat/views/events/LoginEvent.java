@@ -1,6 +1,5 @@
 package com.llat.views.events;
 
-import com.llat.controller.Controller;
 import com.llat.database.UserObject;
 import com.llat.tools.Event;
 

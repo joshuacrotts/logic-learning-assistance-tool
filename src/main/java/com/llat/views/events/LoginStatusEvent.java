@@ -1,7 +1,6 @@
 package com.llat.views.events;
 
 import com.llat.database.UserObject;
-import com.llat.tools.Event;
 
 public class LoginStatusEvent {
     UserObject user;

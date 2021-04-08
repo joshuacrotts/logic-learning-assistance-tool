@@ -23,15 +23,15 @@ public class RegisterInterpreter implements Listener {
             EventBus.throwEvent(re);
         });
         registerView.getReturnButton().setOnAction((node) -> {
-                    this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
-                });
+            this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
+        });
 
         EventBus.addListener(this);
     }
 
     @Override
     public void catchEvent(Event _event) {
-        if (_event instanceof RegistrationStatusEvent){
+        if (_event instanceof RegistrationStatusEvent) {
             switch (((RegistrationStatusEvent) _event).getStatus()) {
                 case DatabaseAdapter.REGISTERED_SUCCESSFULLY:
                     System.out.println("User Registered");

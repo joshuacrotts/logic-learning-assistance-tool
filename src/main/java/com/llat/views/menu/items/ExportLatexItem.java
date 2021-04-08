@@ -13,11 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ExportLatexItem {
+    private static final String LATEX_FILE_PATH = "src/main/resources/tex_truth_tree_template.tex";
     Controller controller;
     Stage stage;
     MenuItem latexItem;
-
-    private static final String LATEX_FILE_PATH = "src/main/resources/tex_truth_tree_template.tex";
     private String sampleText;
 
     public ExportLatexItem(Controller controller) {

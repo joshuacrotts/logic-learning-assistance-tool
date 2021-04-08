@@ -16,7 +16,8 @@ public class ExitItem {
             System.exit(0);
         });
     }
-    public MenuItem getItem(){
+
+    public MenuItem getItem() {
         return exitItem;
     }
 }

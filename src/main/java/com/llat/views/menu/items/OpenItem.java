@@ -13,7 +13,8 @@ public class OpenItem {
 
         openItem.setDisable(true);
     }
-    public MenuItem getItem(){
+
+    public MenuItem getItem() {
         return openItem;
     }
 }

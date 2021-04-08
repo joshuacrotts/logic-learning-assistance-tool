@@ -4,8 +4,6 @@ import com.llat.controller.Controller;
 import com.llat.database.DatabaseAdapter;
 import com.llat.database.UserObject;
 import com.llat.tools.ViewManager;
-/*import com.llat.views.interpreters.LoginInterpreter;*/
-import com.llat.views.interpreters.RegisterInterpreter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -19,11 +17,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginView {
-     Region aboveLogoRegion = new Region();
-     Region belowLogoRegion = new Region();
-     Region belowUserNameRegion = new Region();
-     Region belowPasswordFieldRegion = new Region();
-     Region belowLoginButtonRegion = new Region();
+    private Region aboveLogoRegion = new Region();
+    private Region belowLogoRegion = new Region();
+    private Region belowUserNameRegion = new Region();
+    private Region belowPasswordFieldRegion = new Region();
+    private Region belowLoginButtonRegion = new Region();
     private Controller controller;
     private AnchorPane parentPane = new AnchorPane();
     private Stage stage;
@@ -36,28 +34,33 @@ public class LoginView {
     private Button loginButton = new Button("Login");
     private Button returnButton = new Button("Return to Application");
 
-    /*private LoginInterpreter LoginInterpreter;*/
     public LoginView(Controller _controller) {
         this.controller = _controller;
         this.stage = _controller.getStage();
+
         // Setting VBox loginVBox properties.
         this.loginVBox.setId("loginVBox");
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.loginVBox.setMinWidth(newVal.doubleValue() * .30);
         });
+
         this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.loginVBox.setMinHeight(newVal.doubleValue());
         });
+
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.loginVBox.setLayoutX((newVal.doubleValue() * .50) - this.loginVBox.getMinWidth() / 2);
         });
+
         this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.loginVBox.setLayoutY((newVal.doubleValue() * .50) - this.loginVBox.getMinHeight() / 2);
         });
+
         // Setting Region aboveLogoRegion properties.
         this.loginVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.aboveLogoRegion.setMinHeight(newVal.doubleValue() * .05);
         });
+
         // Setting Label logoImage properties.
         this.logoImage.setId("loginLogoLabel");
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -79,45 +82,54 @@ public class LoginView {
                 this.logoImage.setMinHeight(newVal.doubleValue() * .40);
             }
         });
+
         // Setting Region belowLogoRegion properties.
         this.loginVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.belowLogoRegion.setMinHeight(newVal.doubleValue() * .05);
         });
+
         // Setting Label emailInputLabel properties.
         this.userNameInputLabel.setId("emailInputLabel");
+
         // Setting TextField emailField properties.
         this.userNameField.setPromptText("Enter your Username.");
         this.userNameField.setFocusTraversable(false);
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.userNameField.setMaxWidth(newVal.doubleValue() * .70);
         });
+
         // Setting Region belowEmailRegion properties.
         this.loginVBox.heightProperty().addListener(((obs, oldVal, newVal) -> {
             this.belowUserNameRegion.setMinHeight(newVal.doubleValue() * .10);
         }));
+
         // Setting Label passwordInputLabel properties.
         this.passwordInputLabel.setId("passwordInputLabel");
+
         // Setting PasswordField passwordField properties.
         this.passwordField.setPromptText("Enter your password.");
         this.passwordField.setFocusTraversable(false);
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.passwordField.setMaxWidth(newVal.doubleValue() * .70);
         });
+
         // Setting Region belowPasswordFieldRegion properties.
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.belowPasswordFieldRegion.setMinHeight(newVal.doubleValue() * .10);
         });
+
         // Setting Button loginButton properties.
         this.loginButton.setId("loginButton");
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.loginButton.setMinWidth(newVal.doubleValue() * .30);
         });
+
         this.loginButton.setOnAction((event1 -> {
             DatabaseAdapter ad = new DatabaseAdapter();
             String email = this.userNameField.getText();
             String pass = this.passwordField.getText();
             UserObject user = ad.Login(email, pass);
-            if (!(user == null)) {
+            if (user != null) {
                 System.out.println("User logged");
                 this.controller.setUser(user);
                 this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
@@ -125,10 +137,12 @@ public class LoginView {
                 System.out.println("pass or email is wrong");
             }
         }));
+
         // Setting Region belowLoginButtonRegion properties.
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.belowLoginButtonRegion.setMinHeight(newVal.doubleValue() * .10);
         });
+
         // Setting Button returnButton properties.
         this.returnButton.setId("returnButton");
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -136,39 +150,21 @@ public class LoginView {
         });
         this.returnButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                controller.changeViewTo(ViewManager.MAINAPPLICATION);            }
+                controller.changeViewTo(ViewManager.MAINAPPLICATION);
+            }
         });
-        this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.userNameInputLabel, this.userNameField, this.belowUserNameRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
+        this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.userNameInputLabel,
+                this.userNameField, this.belowUserNameRegion, this.passwordInputLabel, this.passwordField,
+                this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
+
         // Setting AnchorPane parentPane properties.
         this.parentPane.setId("loginViewParentPane");
+
         // Adding children nodes to their parents nodes.
         this.parentPane.getChildren().addAll(this.loginVBox);
-
-        /*LoginInterpreter = new LoginInterpreter(this.controller, this);*/
     }
 
     public Pane getParentPane() {
         return this.parentPane;
     }
-/*    public Button getLoginButton(){
-        return this.loginButton;
-    }
-
-    public TextField getUserNameField() {
-        return userNameField;
-    }
-
-    public void setUserNameField(TextField userNameField) {
-        this.userNameField = userNameField;
-    }
-
-
-    public PasswordField getPasswordField() {
-        return passwordField;
-    }
-
-    public void setPasswordField(PasswordField passwordField) {
-        this.passwordField = passwordField;
-    }*/
-
 }

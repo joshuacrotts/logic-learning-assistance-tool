@@ -14,24 +14,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryView {
-    Controller controller;
-    Stage stage;
-    AnchorPane parentPane = new AnchorPane();
-    private TableView<String> table = new TableView();
 
+    /**
+     *
+     */
+    private Controller controller;
+
+    /**
+     *
+     */
+    private Stage stage;
+
+    /**
+     *
+     */
+    private AnchorPane parentPane = new AnchorPane();
+
+    /**
+     *
+     */
+    private TableView<String> table = new TableView();
 
     public HistoryView(Controller _controller) {
         this.controller = _controller;
         this.stage = this.controller.getStage();
-
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             table.setMinWidth(newVal.doubleValue() * .2);
             table.setMaxWidth(newVal.doubleValue() * .2);
         });
+
         this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
             table.setMinHeight(newVal.doubleValue() * .82);
             table.setMaxHeight(newVal.doubleValue() * .82);
         });
+
         if (this.controller.getUser() != null && this.controller.getUser().getHistory() != null) {
             List<String> history = this.controller.getUser().getHistory();
             ObservableList<String> names = FXCollections.observableArrayList(history);
@@ -40,13 +56,12 @@ public class HistoryView {
             this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
                 formulaColumn.setMinWidth(newVal.doubleValue() * .18);
             });
-            formulaColumn.setCellValueFactory((p) -> {
-                return new ReadOnlyStringWrapper(p.getValue());
-            });
+            formulaColumn.setCellValueFactory((p) -> new ReadOnlyStringWrapper(p.getValue()));
             tv.getColumns().add(formulaColumn);
-            table = tv;
+            this.table = tv;
         }
-        parentPane.getChildren().add(table);
+
+        this.parentPane.getChildren().add(this.table);
     }
 
     public Pane getParentPane() {

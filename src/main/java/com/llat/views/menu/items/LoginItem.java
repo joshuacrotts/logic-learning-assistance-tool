@@ -15,13 +15,14 @@ public class LoginItem {
         this.newItem = new MenuItem("Login");
         newItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                controller.changeViewTo(ViewManager.LOGIN);            }
+                controller.changeViewTo(ViewManager.LOGIN);
+            }
         });
 
 
     }
 
-    public MenuItem getItem(){
+    public MenuItem getItem() {
         return newItem;
     }
 }

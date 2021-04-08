@@ -37,10 +37,11 @@ public class SettingsItem {
         });
     }
 
-    public MenuItem getItem(){
+    public MenuItem getItem() {
         return openItem;
     }
-    public Stage getStage(){
+
+    public Stage getStage() {
         return this.stage;
     }
 }

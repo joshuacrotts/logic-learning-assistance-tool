@@ -61,28 +61,35 @@ public class InputButtonsView {
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.inputButtonVBox.setMinWidth(newVal.doubleValue() * .20);
         });
+
         // Setting Region abovePropositionalLogicLabel settings.
         this.inputButtonVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.abovePropositionalLogicLabel.setMinHeight(newVal.doubleValue() * .03);
             this.abovePropositionalLogicLabel.setMaxHeight(newVal.doubleValue() * .03);
         });
+
         // Setting Label propositionalLogicLabel settings.
         this.propositionalLogicLabel.setId("propositionalLogicLabel");
+
         // Setting GridPane propositionalLogicPane settings.
         this.propositionalLogicPane.setHgap(4);
         this.propositionalLogicPane.setVgap(4);
         this.inputButtonVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.propositionalLogicPane.setMaxSize(newVal.doubleValue() / 2, newVal.doubleValue() / 4);
         });
+
         this.propositionalLogicPane.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), new ColumnConstraints(), new ColumnConstraints());
         this.propositionalLogicPane.getRowConstraints().addAll(new RowConstraints(), new RowConstraints());
         this.propositionalLogicPane.getColumnConstraints().forEach((constraint) -> {
             constraint.setPercentWidth(25);
         });
+
         this.propositionalLogicPane.getRowConstraints().forEach((constraint) -> {
             constraint.setPercentHeight(50);
         });
+
         this.propositionalLogicPane.setAlignment(Pos.TOP_CENTER);
+
         // Setting Buttons propositionalLogicButtons properties.
         int rowCount = 0;
         for (SymbolButton curButton : this.propositionalLogicButtons) {
@@ -94,28 +101,35 @@ public class InputButtonsView {
             this.propositionalLogicPane.getChildren().add(curButton);
             rowCount++;
         }
+
         // Setting Region belowPropositionalLogicPane settings.
         this.inputButtonVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.belowPropositionalLogicPane.setMaxHeight(newVal.doubleValue() * .02);
             this.belowPropositionalLogicPane.setMinHeight(newVal.doubleValue() * .02);
         });
+
         // Setting GridPane predicateLogicPane settings.
         this.predicateLogicPane.setHgap(4);
         this.predicateLogicPane.setVgap(4);
         this.inputButtonVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.predicateLogicPane.setMaxSize(newVal.doubleValue() / 2, newVal.doubleValue() / 4);
         });
+
         this.predicateLogicPane.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints());
         this.predicateLogicPane.getRowConstraints().addAll(new RowConstraints());
         this.predicateLogicPane.getColumnConstraints().forEach((constraint) -> {
             constraint.setPercentWidth(25);
         });
+
         this.predicateLogicPane.getRowConstraints().forEach((constraint) -> {
             constraint.setPercentHeight(50);
         });
+
         this.predicateLogicPane.setAlignment(Pos.TOP_CENTER);
+
         // Setting Label predicateLogicLabel settings.
         this.predicateLogicLabel.setId("predicateLogicLabel");
+
         // Setting Buttons predicateLogicButtons properties.
         rowCount = 0;
         for (SymbolButton curButton : this.predicateLogicButtons) {
@@ -127,8 +141,11 @@ public class InputButtonsView {
             this.predicateLogicPane.getChildren().add(curButton);
             rowCount++;
         }
+
         // Adding children nodes to their parents nodes.
-        this.inputButtonVBox.getChildren().addAll(this.abovePropositionalLogicLabel, this.propositionalLogicLabel, this.propositionalLogicPane, this.belowPropositionalLogicPane, this.predicateLogicLabel, this.predicateLogicPane);
+        this.inputButtonVBox.getChildren().addAll(this.abovePropositionalLogicLabel, this.propositionalLogicLabel,
+                this.propositionalLogicPane, this.belowPropositionalLogicPane, this.predicateLogicLabel, this.predicateLogicPane);
+
         // Creating interpreter to handle events and actions.
         this.inputButtonInterpreter = new InputButtonInterpreter(this.controller, this);
     }
@@ -144,5 +161,4 @@ public class InputButtonsView {
     public Pane getParentPane() {
         return this.inputButtonVBox;
     }
-
 }

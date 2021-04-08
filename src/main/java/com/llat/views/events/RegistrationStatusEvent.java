@@ -3,6 +3,7 @@ package com.llat.views.events;
 import com.llat.tools.Event;
 
 public class RegistrationStatusEvent implements Event {
+
     private int status;
 
     public RegistrationStatusEvent(int status) {

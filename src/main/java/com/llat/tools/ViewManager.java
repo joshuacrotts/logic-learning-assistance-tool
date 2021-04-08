@@ -17,11 +17,13 @@ public class ViewManager {
         File styleSheet = new File(ViewManager.RESOURCEPATH + so.getTheme().getApplied().getCode());
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
+
     public static String getDefaultStyle(String _theme) {
         File styleSheet = new File(ViewManager.RESOURCEPATH + _theme);
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
-    public static String getStyle(){
+
+    public static String getStyle() {
         SettingsObject so = (SettingsObject) new SettingsAdaptor().getData();
         String theme = so.getTheme().getApplied().getCode();
         return getDefaultStyle(theme);

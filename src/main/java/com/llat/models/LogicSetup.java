@@ -11,239 +11,219 @@ import com.llat.models.treenode.WffTree;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+/**
+ *
+ */
 public class LogicSetup {
+
+    /**
+     *
+     */
     private LinkedList<WffTree> wffTree;
-    LogicSetupInterpreter logicSetupInterpreter;
-    List<Object> general1 = new ArrayList(){{
+
+    /**
+     *
+     */
+    private LogicSetupInterpreter logicSetupInterpreter;
+
+    /**
+     *
+     */
+    private final List<Object> general1 = new ArrayList() {{
         add(AlgorithmType.GENERAL);
-        add("Closed Tree Determiner");
-        add("Logical Falsehood Determiner");
-        add("Logically Contingent Determiner");
-        add("Logical Tautology Determiner");
-        add("Main operator detector");
-        add("Open Tree Determiner");
+        add(AlgorithmType.MAIN_OPERATOR_DETECTOR);
+        add(AlgorithmType.CLOSED_TREE_DETERMINER);
+        add(AlgorithmType.OPEN_TREE_DETERMINER);
+        add(AlgorithmType.LOGICAL_FALSEHOOD_DETERMINER);
+        add(AlgorithmType.LOGICALLY_CONTINGENT_DETERMINER);
+        add(AlgorithmType.LOGICAL_TAUTOLOGY_DETERMINER);
     }};
-    List<Object> general2 = new ArrayList(){{
+
+    /**
+     *
+     */
+    private final List<Object> general2 = new ArrayList() {{
         add(AlgorithmType.GENERAL);
-        add("Logically Contradictory Determiner");
-        add("Logically Consistent Determiner");
-        add("Logically Contrary Determiner");
-        add("Logically Equivalent Determiner");
-        add("Logically Implied Determiner");
+        add(AlgorithmType.LOGICALLY_CONTRADICTORY_DETERMINER);
+        add(AlgorithmType.LOGICALLY_CONSISTENT_DETERMINER);
+        add(AlgorithmType.LOGICALLY_CONTRARY_DETERMINER);
+        add(AlgorithmType.LOGICALLY_EQUIVALENT_DETERMINER);
+        add(AlgorithmType.LOGICALLY_IMPLIED_DETERMINER);
     }};
-    List<Object> generalMore = new ArrayList(){{
+
+    /**
+     *
+     */
+    private final List<Object> generalMore = new ArrayList() {{
         add(AlgorithmType.GENERAL);
-        add("Argument Truth Tree Validator");
+        add(AlgorithmType.ARGUMENT_TRUTH_TREE_VALIDATOR);
     }};
-    List<Object> propositional1 = new ArrayList() {{
+
+    /**
+     *
+     */
+    private final List<Object> propositional1 = new ArrayList() {{
         add(AlgorithmType.PROPOSITIONAL);
-        add("Propositional Truth Tree Generator");
-        add("Random Formula generation");
-        add("Truth Table Generator");
+        add(AlgorithmType.PROPOSITIONAL_TRUTH_TREE_GENERATOR);
+        add(AlgorithmType.RANDOM_FORMULA_GENERATION);
+        add(AlgorithmType.TRUTH_TABLE_GENERATOR);
     }};
+
+    /**
+     *
+     */
     List<Object> predicate1 = new ArrayList() {{
         add(AlgorithmType.PREDICATE);
-        //add("Bound Variable Detector");
-        add("Closed Sentence Determiner");
-        //add("Free Variable Detector");
-        add("Ground Sentence Determiner");
-        add("Open Sentence Determiner");
-        add("Predicate Truth Tree Generator");
+        add(AlgorithmType.BOUND_VARIABLE_DETECTOR);
+        add(AlgorithmType.CLOSED_SENTENCE_DETERMINER);
+        add(AlgorithmType.FREE_VARIABLE_DETECTOR);
+        add(AlgorithmType.GROUND_SENTENCE_DETERMINER);
+        add(AlgorithmType.OPEN_SENTENCE_DETERMINER);
+        add(AlgorithmType.PREDICATE_TRUTH_TREE_GENERATOR);
     }};
 
     public LogicSetup() {
         logicSetupInterpreter = new LogicSetupInterpreter(this);
     }
 
-    public interface LogicReturn {}
-
-    public class LogicTruthAndTree implements LogicReturn {
-        private boolean truthValue;
-        private WffTree wffTree;
-        public LogicTruthAndTree (boolean _truthValue, WffTree _wffTree){
-            this.truthValue = _truthValue;
-            this.wffTree = _wffTree;
-        }
-        public boolean getTruthValue() {return this.truthValue;}
-        public WffTree getWffTree() {return this.wffTree;}
-    }
-
-    public class LogicTruth implements LogicReturn {
-        private boolean truthValue;
-        public LogicTruth (boolean _truthValue) {
-            this.truthValue = _truthValue;
-        }
-        public boolean getTruthValue() {return this.truthValue;}
-    }
-
-
-
-    public class LogicTruthTree implements LogicReturn {
-        private TruthTree truthTree;
-        public LogicTruthTree(TruthTree _truthTree) {
-            this.truthTree = _truthTree;
-        }
-        public TruthTree getTruthTree () {return this.truthTree;}
-    }
-
-    public class LogicTree implements LogicReturn {
-        private WffTree wffTree;
-        public LogicTree (WffTree _wffTree) {
-            this.wffTree = _wffTree;
-        }
-        public WffTree getWffTree() {return this.wffTree;}
-    }
-
-    public class LogicTrees implements LogicReturn {
-        private LinkedList<WffTree> wffTrees;
-
-        public LogicTrees(LinkedList<WffTree> _wffTrees) {
-            this.wffTrees = _wffTrees;
-        }
-        public LinkedList<WffTree> getWffTrees() {return this.wffTrees;}
-    }
+    /**
+     *
+     * @param _inputType
+     * @return
+     */
     public AlgorithmType convertStringToAlgorithmType(String _inputType) {
-        switch(_inputType) {
-            case "Closed Tree Determiner":
-                return AlgorithmType.CLOSED_TREE_DETERMINER;                                    /*Truth and Parse Tree*/
-            case "Logical Falsehood Determiner":
-                return AlgorithmType.LOGICAL_FALSEHOOD_DETERMINER;                              /*Truth and Parse Tree*/
-            case "Logically Contingent Determiner":
-                return AlgorithmType.LOGICALLY_CONTINGENT_DETERMINER;                                     /*Parse Tree*/
-            case "Logical Tautology Determiner":
-                return AlgorithmType.LOGICAL_TAUTOLOGY_DETERMINER;                              /*Truth and Parse Tree*/
-            case "Main operator detector":
-                return AlgorithmType.MAIN_OPERATOR_DETECTOR;                                              /*Parse Tree*/
-            case "Open Tree Determiner":
-                return AlgorithmType.OPEN_TREE_DETERMINER;                                      /*Truth and Parse Tree*/
-            case "Logically Contradictory Determiner":
-                return AlgorithmType.LOGICALLY_CONTRADICTORY_DETERMINER;                        /*Truth and Parse Tree*/
-            case "Logically Consistent Determiner":
-                return AlgorithmType.LOGICALLY_CONSISTENT_DETERMINER;                           /*Truth and Parse Tree*/
-            case "Logically Contrary Determiner":
-                return AlgorithmType.LOGICALLY_CONTRARY_DETERMINER;                             /*Truth and Parse Tree*/
-            case "Logically Equivalent Determiner":
-                return AlgorithmType.LOGICALLY_EQUIVALENT_DETERMINER;                           /*Truth and Parse Tree*/
-            case "Logically Implied Determiner":
-                return AlgorithmType.LOGICALLY_IMPLIED_DETERMINER;                              /*Truth and Parse Tree*/
-            case "Argument Truth Tree Validator":
-                return AlgorithmType.ARGUMENT_TRUTH_TREE_VALIDATOR;                             /*Truth and Parse Tree*/
-            case "Propositional Truth Tree Generator":
-                return AlgorithmType.PROPOSITIONAL_TRUTH_TREE_GENERATOR;                        /*Truth and Parse Tree*/
-            case "Random Formula generation":
-                return AlgorithmType.RANDOM_FORMULA_GENERATION;
-            case "Truth Table Generator":
-                return AlgorithmType.TRUTH_TABLE_GENERATOR;
-            case "Bound Variable Detector":
-                return AlgorithmType.BOUND_VARIABLE_DETECTOR;                                             /*Parse Tree*/
-            case "Closed Sentence Determiner":
-                return AlgorithmType.CLOSED_SENTENCE_DETERMINER;                                          /*Parse Tree*/
-            case "Free Variable Detector":
-                return AlgorithmType.FREE_VARIABLE_DETECTOR;                                              /*Parse Tree*/
-            case "Ground Sentence Determiner":
-                return AlgorithmType.GROUND_SENTENCE_DETERMINER;                                          /*Parse Tree*/
-            case "Open Sentence Determiner":
-                return AlgorithmType.OPEN_SENTENCE_DETERMINER;                                            /*Parse Tree*/
-            case "Predicate Truth Tree Generator":
-                return AlgorithmType.PREDICATE_TRUTH_TREE_GENERATOR;
-            default:
-                return AlgorithmType.NULL;
-        }
+        return AlgorithmType.getEnum(_inputType);
     }
-    public LogicReturn detectAlgorithm (AlgorithmType _algorithm) {
+
+    /**
+     *
+     * @param _algorithm
+     * @return
+     */
+    public LogicReturn detectAlgorithm(AlgorithmType _algorithm) {
+        WffTree rootOne = this.wffTree.size() == 1 ? this.wffTree.get(0) : null;
+        WffTree rootTwo = this.wffTree.size() == 2 ? this.wffTree.get(1) : null;
+
+        // Clear the highlighting before we detect an algorithm.
+        if (rootOne != null) {
+            rootOne.clearHighlighting();
+        }
+
+        if (rootTwo != null) {
+            rootTwo.clearHighlighting();
+        }
+
+        // Choose the appropriate algorithm.
         switch (_algorithm) {
-                // Build parse and truth tree.
+            // Build parse and truth tree.
             case CLOSED_TREE_DETERMINER:
-                ClosedTreeDeterminer closedTreeDeterminer = new ClosedTreeDeterminer(this.wffTree.get(0));
-                return new LogicTruthAndTree (closedTreeDeterminer.hasAllClosed(), this.wffTree.get(0));
-                // Build parse and truth tree.
+                ClosedTreeDeterminer closedTreeDeterminer = new ClosedTreeDeterminer(rootOne);
+                return new LogicTruthAndTree(closedTreeDeterminer.hasAllClosed(), rootOne);
+
             case LOGICAL_FALSEHOOD_DETERMINER:
-                LogicalFalsehoodDeterminer logicalFalsehoodDeterminer = new LogicalFalsehoodDeterminer(this.wffTree.get(0));
-                return new LogicTruthAndTree (logicalFalsehoodDeterminer.isFalsehood(), logicalFalsehoodDeterminer.getTree());
-                // Build parse tree.
+                LogicalFalsehoodDeterminer logicalFalsehoodDeterminer = new LogicalFalsehoodDeterminer(rootOne);
+                return new LogicTruthAndTree(logicalFalsehoodDeterminer.isFalsehood(), logicalFalsehoodDeterminer.getTree());
+
             case LOGICALLY_CONTINGENT_DETERMINER:
-                LogicallyContingentDeterminer logicallyContingentDeterminer = new LogicallyContingentDeterminer(this.wffTree.get(0));
-                return new LogicTruthAndTree (logicallyContingentDeterminer.isContingent(), logicallyContingentDeterminer.getWffTree());
-                // Build parse and truth tree.
+                LogicallyContingentDeterminer logicallyContingentDeterminer = new LogicallyContingentDeterminer(rootOne);
+                return new LogicTruthAndTree(logicallyContingentDeterminer.isContingent(), logicallyContingentDeterminer.getWffTree());
+
             case LOGICAL_TAUTOLOGY_DETERMINER:
-                LogicalTautologyDeterminer logicalTautologyDeterminer = new LogicalTautologyDeterminer(this.wffTree.get(0));
-                return new LogicTruthAndTree (logicalTautologyDeterminer.isTautology(), logicalTautologyDeterminer.getTree());
-                // Build parse tree.
+                LogicalTautologyDeterminer logicalTautologyDeterminer = new LogicalTautologyDeterminer(rootOne);
+                return new LogicTruthAndTree(logicalTautologyDeterminer.isTautology(), logicalTautologyDeterminer.getTree());
+
             case MAIN_OPERATOR_DETECTOR:
-                MainOperatorDetector mainOperatorDetector = new MainOperatorDetector(this.wffTree.get(0));
-                return new LogicTree (mainOperatorDetector.get());
-                // Build parse and truth tree.
+                MainOperatorDetector mainOperatorDetector = new MainOperatorDetector(rootOne);
+                WffTree mainOp = mainOperatorDetector.get();
+                mainOp.setHighlighted(true);
+                return new LogicTree(mainOperatorDetector.get());
+
             case OPEN_TREE_DETERMINER:
-                OpenTreeDeterminer openTreeDeterminer = new OpenTreeDeterminer(this.wffTree.get(0));
-                return new LogicTruthAndTree (openTreeDeterminer.hasSomeOpen(), this.wffTree.get(0));
-                // Build parse and truth tree.
+                OpenTreeDeterminer openTreeDeterminer = new OpenTreeDeterminer(rootOne);
+                return new LogicTruthAndTree(openTreeDeterminer.hasSomeOpen(), rootOne);
+
             case LOGICALLY_CONTRADICTORY_DETERMINER:
-                LogicallyContradictoryDeterminer logicallyContradictoryDeterminer = new LogicallyContradictoryDeterminer(this.wffTree.get(0), this.wffTree.get(1));
-                return new LogicTruthAndTree (logicallyContradictoryDeterminer.isContradictory(), logicallyContradictoryDeterminer.getCombinedTree());
-                // Build parse and truth tree.
+                LogicallyContradictoryDeterminer logicallyContradictoryDeterminer = new LogicallyContradictoryDeterminer(rootOne, rootTwo);
+                return new LogicTruthAndTree(logicallyContradictoryDeterminer.isContradictory(), logicallyContradictoryDeterminer.getCombinedTree());
+
             case LOGICALLY_CONSISTENT_DETERMINER:
-                LogicallyConsistentDeterminer logicallyConsistentDeterminer = new LogicallyConsistentDeterminer(this.wffTree.get(0), this.wffTree.get(1));
-                return new LogicTruthAndTree (logicallyConsistentDeterminer.isConsistent(), logicallyConsistentDeterminer.getCombinedTree());
-                // Build parse and truth tree.
+                LogicallyConsistentDeterminer logicallyConsistentDeterminer = new LogicallyConsistentDeterminer(rootOne, rootTwo);
+                return new LogicTruthAndTree(logicallyConsistentDeterminer.isConsistent(), logicallyConsistentDeterminer.getCombinedTree());
+
             case LOGICALLY_CONTRARY_DETERMINER:
-                LogicallyContraryDeterminer logicallyContraryDeterminer = new LogicallyContraryDeterminer(this.wffTree.get(0), this.wffTree.get(1));
-                return new LogicTruthAndTree (logicallyContraryDeterminer.isContrary(), logicallyContraryDeterminer.getCombinedTree());
-                // Build parse and truth tree.
+                LogicallyContraryDeterminer logicallyContraryDeterminer = new LogicallyContraryDeterminer(rootOne, rootTwo);
+                return new LogicTruthAndTree(logicallyContraryDeterminer.isContrary(), logicallyContraryDeterminer.getCombinedTree());
+
             case LOGICALLY_EQUIVALENT_DETERMINER:
-                LogicallyEquivalentDeterminer logicallyEquivalentDeterminer = new LogicallyEquivalentDeterminer(this.wffTree.get(0), this.wffTree.get(1));
-                return new LogicTruthAndTree (logicallyEquivalentDeterminer.isEquivalent(), logicallyEquivalentDeterminer.getCombinedTree());
-                // Build parse and truth tree.
+                LogicallyEquivalentDeterminer logicallyEquivalentDeterminer = new LogicallyEquivalentDeterminer(rootOne, rootTwo);
+                return new LogicTruthAndTree(logicallyEquivalentDeterminer.isEquivalent(), logicallyEquivalentDeterminer.getCombinedTree());
+
             case LOGICALLY_IMPLIED_DETERMINER:
-                LogicallyImpliedDeterminer logicallyImpliedDeterminer = new LogicallyImpliedDeterminer(this.wffTree.get(0), this.wffTree.get(1));
-                return new LogicTruthAndTree (logicallyImpliedDeterminer.isImplied(), logicallyImpliedDeterminer.getCombinedTree());
-                // Build parse and truth tree.
+                LogicallyImpliedDeterminer logicallyImpliedDeterminer = new LogicallyImpliedDeterminer(rootOne, rootTwo);
+                return new LogicTruthAndTree(logicallyImpliedDeterminer.isImplied(), logicallyImpliedDeterminer.getCombinedTree());
+
             case ARGUMENT_TRUTH_TREE_VALIDATOR:
                 ArgumentTruthTreeValidator argumentTruthTreeValidator = new ArgumentTruthTreeValidator(this.wffTree);
-                return new LogicTree (argumentTruthTreeValidator.getCombinedTree());
-                // Build parse and truth tree.
+                return new LogicTree(argumentTruthTreeValidator.getCombinedTree());
+
             case PROPOSITIONAL_TRUTH_TREE_GENERATOR:
-                PropositionalTruthTreeGenerator propositionalTruthTreeGenerator = new PropositionalTruthTreeGenerator(this.wffTree.get(0));
-                return new LogicTruthTree (propositionalTruthTreeGenerator.getTruthTree());
+                PropositionalTruthTreeGenerator propositionalTruthTreeGenerator = new PropositionalTruthTreeGenerator(rootOne);
+                return new LogicTruthTree(propositionalTruthTreeGenerator.getTruthTree());
+
             case RANDOM_FORMULA_GENERATION:
-                return null;
-                // Build truth table.
+                throw new UnsupportedOperationException("Random formula generation not working yet.");
+
             case TRUTH_TABLE_GENERATOR:
-                TruthTableGenerator truthTableGenerator = new TruthTableGenerator(this.wffTree.get(0));
-                return new LogicTruthAndTree (truthTableGenerator.getTruthTable(), this.wffTree.get(0));
-                // Build parse tree.
+                TruthTableGenerator truthTableGenerator = new TruthTableGenerator(rootOne);
+                return new LogicTruthAndTree(truthTableGenerator.getTruthTable(), rootOne);
+
             case BOUND_VARIABLE_DETECTOR:
-                BoundVariableDetector boundVariableDetector = new BoundVariableDetector(this.wffTree.get(0));
-                return new LogicTrees (boundVariableDetector.getBoundVariables());
-                // Build parse tree.
+                BoundVariableDetector boundVariableDetector = new BoundVariableDetector(rootOne);
+                this.clearAndHighlight(rootOne, boundVariableDetector.getBoundVariables());
+                return new LogicTree(rootOne);
+
             case CLOSED_SENTENCE_DETERMINER:
-                ClosedSentenceDeterminer closedSentenceDeterminer = new ClosedSentenceDeterminer(this.wffTree.get(0));
-                return new LogicTruthAndTree (closedSentenceDeterminer.isClosedSentence(), this.wffTree.get(0));
-                // Build parse tree.
+                ClosedSentenceDeterminer closedSentenceDeterminer = new ClosedSentenceDeterminer(rootOne);
+                return new LogicTruthAndTree(closedSentenceDeterminer.isClosedSentence(), rootOne);
+
             case FREE_VARIABLE_DETECTOR:
-                FreeVariableDetector freeVariableDetector = new FreeVariableDetector(this.wffTree.get(0));
-                return new LogicTrees (freeVariableDetector.getFreeVariables());
-                // Build parse tree.
+                FreeVariableDetector freeVariableDetector = new FreeVariableDetector(rootOne);
+                this.clearAndHighlight(rootOne, freeVariableDetector.getFreeVariables());
+                return new LogicTree(rootOne);
+
             case GROUND_SENTENCE_DETERMINER:
-                GroundSentenceDeterminer groundSentenceDeterminer = new GroundSentenceDeterminer(this.wffTree.get(0));
-                return new LogicTruthAndTree (groundSentenceDeterminer.isGroundSentence(), this.wffTree.get(0));
-                // Build parse tree.
+                GroundSentenceDeterminer groundSentenceDeterminer = new GroundSentenceDeterminer(rootOne);
+                return new LogicTruthAndTree(groundSentenceDeterminer.isGroundSentence(), rootOne);
+
             case OPEN_SENTENCE_DETERMINER:
-                OpenSentenceDeterminer openSentenceDeterminer = new OpenSentenceDeterminer(this.wffTree.get(0));
-                return new LogicTruthAndTree (openSentenceDeterminer.isOpenSentence(), this.wffTree.get(0));
-                // Build truth tree.
+                OpenSentenceDeterminer openSentenceDeterminer = new OpenSentenceDeterminer(rootOne);
+                return new LogicTruthAndTree(openSentenceDeterminer.isOpenSentence(), rootOne);
+
             case PREDICATE_TRUTH_TREE_GENERATOR:
-                PredicateTruthTreeGenerator predicateTruthTreeGenerator = new PredicateTruthTreeGenerator(this.wffTree.get(0));
-                return new LogicTruthTree (predicateTruthTreeGenerator.getTruthTree());
+                PredicateTruthTreeGenerator predicateTruthTreeGenerator = new PredicateTruthTreeGenerator(rootOne);
+                return new LogicTruthTree(predicateTruthTreeGenerator.getTruthTree());
+
             default:
                 return null;
         }
     }
 
-    public LinkedList<WffTree> getWffTree () {
+    /**
+     *
+     * @param _root
+     * @param _trees
+     */
+    private void clearAndHighlight(WffTree _root, LinkedList<WffTree> _trees) {
+        for (WffTree t : _trees)
+            t.setHighlighted(true);
+    }
+
+    public LinkedList<WffTree> getWffTree() {
         return this.wffTree;
     }
 
-    public int getWffCount () {
+    public int getWffCount() {
         return (this.wffTree == null) ? -1 : this.wffTree.size();
     }
 
@@ -252,11 +232,22 @@ public class LogicSetup {
             case -1:
                 return null;
             case 1:
-                return (this.wffTree.get(0).isPredicateWff()) ? new ArrayList<List<Object>>(){{add(general1); add(predicate1);}} : new ArrayList<List<Object>>(){{add(general1); add(propositional1);}};
+                return (this.wffTree.get(0).isPredicateWff()) ? new ArrayList<List<Object>>() {{
+                    add(general1);
+                    add(predicate1);
+                }} : new ArrayList<List<Object>>() {{
+                    add(general1);
+                    add(propositional1);
+                }};
             case 2:
-                return new ArrayList<List<Object>>(){{add(general2); add(generalMore);}};
+                return new ArrayList<List<Object>>() {{
+                    add(general2);
+                    add(generalMore);
+                }};
             default:
-                return new ArrayList<List<Object>>(){{add(generalMore);}};
+                return new ArrayList<List<Object>>() {{
+                    add(generalMore);
+                }};
         }
     }
 
@@ -264,4 +255,87 @@ public class LogicSetup {
         this.wffTree = _wffTree;
     }
 
+    public interface LogicReturn {
+    }
+
+    /**
+     *
+     */
+    public class LogicTruthAndTree implements LogicReturn {
+        private boolean truthValue;
+        private WffTree wffTree;
+
+        public LogicTruthAndTree(boolean _truthValue, WffTree _wffTree) {
+            this.truthValue = _truthValue;
+            this.wffTree = _wffTree;
+        }
+
+        public boolean getTruthValue() {
+            return this.truthValue;
+        }
+
+        public WffTree getWffTree() {
+            return this.wffTree;
+        }
+    }
+
+    /**
+     *
+     */
+    public class LogicTruth implements LogicReturn {
+        private boolean truthValue;
+
+        public LogicTruth(boolean _truthValue) {
+            this.truthValue = _truthValue;
+        }
+
+        public boolean getTruthValue() {
+            return this.truthValue;
+        }
+    }
+
+    /**
+     *
+     */
+    public class LogicTruthTree implements LogicReturn {
+        private TruthTree truthTree;
+
+        public LogicTruthTree(TruthTree _truthTree) {
+            this.truthTree = _truthTree;
+        }
+
+        public TruthTree getTruthTree() {
+            return this.truthTree;
+        }
+    }
+
+    /**
+     *
+     */
+    public class LogicTree implements LogicReturn {
+        private WffTree wffTree;
+
+        public LogicTree(WffTree _wffTree) {
+            this.wffTree = _wffTree;
+        }
+
+        public WffTree getWffTree() {
+            return this.wffTree;
+        }
+    }
+
+    /**
+     *
+     */
+    public class LogicTrees implements LogicReturn {
+        private LinkedList<WffTree> wffTrees;
+
+        public LogicTrees(LinkedList<WffTree> _wffTrees) {
+            this.wffTrees = _wffTrees;
+        }
+
+        public LinkedList<WffTree> getWffTrees() {
+            return this.wffTrees;
+        }
+    }
 }

@@ -15,13 +15,14 @@ public class RegisterItem {
         this.newItem = new MenuItem("Register");
         newItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                controller.changeViewTo(ViewManager.REGISTER);            }
+                controller.changeViewTo(ViewManager.REGISTER);
+            }
         });
 
 
     }
 
-    public MenuItem getItem(){
+    public MenuItem getItem() {
         return newItem;
     }
 }

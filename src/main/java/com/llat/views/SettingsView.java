@@ -5,7 +5,7 @@ import com.llat.main.Window;
 import com.llat.models.localstorage.settings.ItemObject;
 import com.llat.models.localstorage.settings.SettingsAdaptor;
 import com.llat.models.localstorage.settings.SettingsObject;
-import com.llat.models.localstorage.settings.langague.LangaugeObject;
+import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.localstorage.settings.theme.ThemeObject;
 import com.llat.tools.ViewManager;
 import javafx.event.ActionEvent;
@@ -28,22 +28,22 @@ import java.util.Optional;
 import static com.llat.views.SettingsView.WIDTH;
 
 public class SettingsView {
+    public static final int WIDTH = 750;
+    public static final int HEIGHT = 500;
+    // view id
+    private final static int APPEARANCE_ID = 0;
+    private final static int LANGUAGE_ID = 1;
+    private final static int ADVANCE_ID = 2;
+    SettingsAdaptor sa = new SettingsAdaptor();
+    SettingsObject so = (SettingsObject) sa.getData();
     private Controller controller;
     private AnchorPane parentPane = new AnchorPane();
     private Stage stage;
     private Stage settingsStage;
     private Pane leftPane = new Pane();
-    public static final int WIDTH = 750;
-    public static final int HEIGHT = 500;
-
-    SettingsAdaptor sa = new SettingsAdaptor();
-    SettingsObject so = (SettingsObject) sa.getData();
-
-
     private HBox hBox = new HBox();
     private VBox vBox1 = new VBox();
     private VBox vBox2 = new VBox();
-
     private Button appearanceButton = new Button("Appearance");
     private Button languageButton = new Button("Language");
     private Button advanceButton = new Button("Advance");
@@ -56,21 +56,13 @@ public class SettingsView {
             }
         }
     };
-
     private Button cancelButton = new Button("Cancel");
     private Button saveButton = new Button("Save");
-
-
     // pane
     private List<Pane> paneList = new ArrayList<>();
     private Pane appearancePane;
     private Pane languagePane;
     private Pane advancePane;
-
-    // view id
-    private final static int APPEARANCE_ID = 0;
-    private final static int LANGUAGE_ID = 1;
-    private final static int ADVANCE_ID = 2;
 
     public SettingsView(Controller controller) {
         this.controller = controller;
@@ -171,7 +163,7 @@ public class SettingsView {
             alert.setContentText("Saving the current changes will require the application to restart. Are you sure you want to continue?");
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
+            if (result.get() == ButtonType.OK) {
                 // ... user chose OK
                 updateLocalStorage();
                 this.settingsStage.close();
@@ -271,7 +263,7 @@ public class SettingsView {
 
     public void languageSetUp() {
         String appliedLang = so.getLanguage().getApplied().getName();
-        List<LangaugeObject> langList = so.getLanguage().getAllLanguages();
+        List<LanguageObject> langList = so.getLanguage().getAllLanguages();
         Label langLabel = new Label("Language");
         HBox langHBox = new HBox();
         MenuButton langMenu = new MenuButton(appliedLang);
@@ -283,7 +275,7 @@ public class SettingsView {
             menuItem.setOnAction(e -> {
                 langMenu.setText(menuItem.getText());
                 langMenu.setText(menuItem.getText());
-                so.getLanguage().setApplied((LangaugeObject) menuItem.getContent());
+                so.getLanguage().setApplied((LanguageObject) menuItem.getContent());
 
             });
         }
@@ -338,10 +330,10 @@ class SettingsPane {
     }
 }
 
-class CustomMenuItem extends MenuItem{
+class CustomMenuItem extends MenuItem {
     ItemObject content;
 
-    public CustomMenuItem( ItemObject content) {
+    public CustomMenuItem(ItemObject content) {
         this.setText(content.getName());
         this.content = content;
     }
