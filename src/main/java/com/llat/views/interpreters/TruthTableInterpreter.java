@@ -24,11 +24,11 @@ public class TruthTableInterpreter implements Listener {
 
     @Override
     public void catchEvent(Event _event) {
-        if (_event instanceof SolvedFormulaEvent) {
+/*        if (_event instanceof SolvedFormulaEvent) {
             this.truthTableView.getTruthTable().getChildren().clear();
             createTruthTable(((SolvedFormulaEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
             this.truthTableView.getTruthTable().setLayoutX((this.truthTableView.getParentPane().getWidth() / 2) - (this.truthTableView.getTruthTable().getWidth() / 2) );
-        }
+        }*/
     }
 
     //(A∧B) (A∧(A∧(A∧B)))

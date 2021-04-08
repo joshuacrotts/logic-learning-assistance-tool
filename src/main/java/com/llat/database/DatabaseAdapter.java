@@ -13,7 +13,12 @@ public class DatabaseAdapter implements DatabaseInterface {
 
     Controller controller;
     private DatabaseInterface db = new AWSDatabase();
+    private UserObject user;
 
+
+    public Controller Controller() {
+        return controller;
+    }
 
     @Override
     public UserObject Login(String Username, String Password) {

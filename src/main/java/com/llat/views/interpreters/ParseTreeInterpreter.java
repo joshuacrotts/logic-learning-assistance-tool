@@ -55,7 +55,7 @@ public class ParseTreeInterpreter implements Listener {
 
     @Override
     public void catchEvent(Event _event) {
-        if (_event instanceof SolvedFormulaEvent) {
+/*        if (_event instanceof SolvedFormulaEvent) {
             if (this.treePane != null) {
                 this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
                 this.treePane.getChildren().clear();
@@ -84,7 +84,7 @@ public class ParseTreeInterpreter implements Listener {
             this.truthTreeView.getParentPane().getChildren().add(this.treePane);
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
-        }
+        }*/
     }
 
     /**
