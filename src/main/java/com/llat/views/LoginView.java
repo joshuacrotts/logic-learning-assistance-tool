@@ -3,6 +3,9 @@ package com.llat.views;
 import com.llat.controller.Controller;
 import com.llat.database.DatabaseAdapter;
 import com.llat.database.UserObject;
+import com.llat.tools.ViewManager;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -106,15 +109,15 @@ public class LoginView {
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.loginButton.setMinWidth(newVal.doubleValue() * .30);
         });
-
-
         this.loginButton.setOnAction((event1 -> {
             DatabaseAdapter ad = new DatabaseAdapter();
             String email = this.emailField.getText();
             String pass = this.passwordField.getText();
             UserObject user = ad.Login(email, pass);
             if (!(user == null)) {
-                System.out.println(user.getHistory());
+                System.out.println("User logged");
+                this.controller.setUser(user);
+                this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
             } else {
                 System.out.println("pass or email is wrong");
             }
@@ -127,6 +130,10 @@ public class LoginView {
         this.returnButton.setId("returnButton");
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.returnButton.setMinWidth(newVal.doubleValue() * .30);
+        });
+        this.returnButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.changeViewTo(ViewManager.MAINAPPLICATION);            }
         });
         this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.emailInputLabel, this.emailField, this.belowEmailRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
         // Setting AnchorPane parentPane properties.

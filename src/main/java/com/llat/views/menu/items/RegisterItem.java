@@ -6,16 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 
-public class LoginItem {
+public class RegisterItem {
     Controller controller;
     MenuItem newItem;
 
-    public LoginItem(Controller controller) {
+    public RegisterItem(Controller controller) {
         this.controller = controller;
-        this.newItem = new MenuItem("Login");
+        this.newItem = new MenuItem("Register");
         newItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                controller.changeViewTo(ViewManager.LOGIN);            }
+                controller.changeViewTo(ViewManager.REGISTER);            }
         });
 
 

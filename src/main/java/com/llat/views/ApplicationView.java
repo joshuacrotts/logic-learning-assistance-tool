@@ -13,8 +13,8 @@ public class ApplicationView {
         parentPane.setCenter(new CenterView(this.controller).getParentPane());
         parentPane.setTop(new MenuBarView(this.controller).getMenuBar());
         parentPane.setLeft(new InputButtonsView(this.controller).getParentPane());
-        //parentPane.setRight(new RightView(this.controller).getParentPane());
-        parentPane.setRight(new RulesAxiomsView(this.controller).getParentPane());
+        parentPane.setRight(new RightView(this.controller).getParentPane());
+//        parentPane.setRight(new RulesAxiomsView(this.controller).getParentPane());
         parentPane.setBottom(new FormulaInputView(this.controller).getParentPane());
     }
 

@@ -34,6 +34,13 @@ public class UserObject {
         Language = language;
     }
 
+    public UserObject(String userName, String pword, String fname, String lname){
+        UserName = userName;
+        UserName = userName;
+        Pword = pword;
+        Fname = fname;
+        Lname = lname;
+    }
 
     public int getUserId() {
         return UserId;

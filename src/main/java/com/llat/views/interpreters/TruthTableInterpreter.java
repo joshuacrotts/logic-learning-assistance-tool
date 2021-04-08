@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class TruthTableInterpreter implements Listener {
     private Controller controller;
@@ -38,8 +39,8 @@ public class TruthTableInterpreter implements Listener {
         VBox truthColumn = new VBox();
         truthColumn.getChildren().add(wffSymbol);
         _wffTree.getTruthValues().forEach((truthValue) -> {
-            Button truthValueButton = new Button(truthValue.toString());
-            truthValueButton.setMaxWidth(Double.MAX_VALUE);
+            Text truthValueButton = new Text(truthValue.toString());
+//            truthValueButton.setMaxWidth(Double.MAX_VALUE);
             truthColumn.getChildren().add(truthValueButton);
         });
 
