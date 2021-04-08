@@ -38,28 +38,12 @@
     -fx-underline: true;
     -fx-font-weight: bold;
 }
-
-/*.button {*/
-/*    -fx-wrap-text: true;*/
-/*    -fx-text-alignment: center;*/
-/*    -fx-font-weight: bold;*/
-/*    -fx-font-size: 2em;*/
-/*    -fx-background-color: derive(silver, 0%);*/
-/*    -fx-border-color: black;*/
-/*    -fx-border-width: 5;*/
-/*    -fx-background-insets: 0;*/
-/*}*/
-/*.button:hover {*/
-/*    -fx-background-color: derive(silver, 80%);*/
-/*}*/
-/*.button:pressed {*/
-/*    -fx-background-color: #add8e6;*/
-/*}*/
-
-/*.button:focused {*/
-/*    -fx-background-insets: 0;*/
-/*}*/
-#propositionalLogicButton, #predicateLogicButton, #formulaInputButton {
+#trueLabel, #falseLabel, #resultLabel {
+    -fx-font-size: 2em;
+    -fx-underline: true;
+    -fx-font-weight: bold;
+}
+.button {
     -fx-wrap-text: true;
     -fx-text-alignment: center;
     -fx-font-weight: bold;
@@ -70,15 +54,15 @@
     -fx-background-insets: 0;
 }
 
-#propositionalLogicButton:hover, #predicateLogicButton:hover, #formulaInputButton:hover {
+.button:hover {
     -fx-background-color: derive(silver, 80%);
 }
 
-#propositionalLogicButton:pressed, #predicateLogicButton:pressed, #formulaInputButton:pressed {
+.button:pressed {
     -fx-background-color: #add8e6;
 }
 
-#propositionalLogicButton:focused, predicateLogicButton:focused, #formulaInputButton:focused {
+.button:focused {
     -fx-background-insets: 0;
 }
 

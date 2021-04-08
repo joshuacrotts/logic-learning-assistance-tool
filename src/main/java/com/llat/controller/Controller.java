@@ -3,19 +3,28 @@ package com.llat.controller;
 import com.llat.database.DatabaseAdapter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
+import com.llat.models.LogicSetup;
 import com.llat.tools.EventBus;
 import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
+import com.llat.views.ApplicationView;
+import com.llat.views.LoginView;
+import com.llat.views.ParseTreeView;
+import com.llat.views.SymbolButton;
+import com.llat.views.events.*;
 import com.llat.views.*;
 import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolDescriptionEvent;
 import com.llat.views.events.SymbolInputEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.control.ComboBox;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -28,6 +37,7 @@ public class Controller implements Initializable {
     private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
     private DatabaseAdapter databaseAdapter = new DatabaseAdapter();
     private UserObject user;
+    LogicSetup logicSetup = new LogicSetup();
 
     public Controller(Stage _stage) {
         this.stage = _stage;
@@ -97,15 +107,9 @@ public class Controller implements Initializable {
                 _canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        double xMovement = _canvas.getTranslateX() + (curMouse.getCurX() - mouseEvent.getX());
-                        if (xMovement > 0 - _canvas.getWidth() / 2 && xMovement < _canvas.getWidth() - (_canvas.getWidth() / 2)) {
-                            _canvas.setTranslateX(_canvas.getTranslateX() + (curMouse.getCurX() - mouseEvent.getX()) / (2 / _canvas.getScaleX()));
-                        }
-                        double yMovement = _canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY());
-                        if (yMovement > 0 - _canvas.getHeight() / 2 && yMovement < _canvas.getHeight() - (_canvas.getHeight() / 2)) {
-                            _canvas.setTranslateY(_canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX()));
-                        }
+                        _canvas.setTranslateX(_canvas.getTranslateX() + (curMouse.getCurX() - mouseEvent.getX()) / (2 / _canvas.getScaleX()));
                         curMouse.setCurX(mouseEvent.getX());
+                        _canvas.setTranslateY(_canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX()));
                         curMouse.setCurY(mouseEvent.getY());
                     }
                 });
@@ -119,6 +123,15 @@ public class Controller implements Initializable {
     public void setSolveButtonOnAction(Button _button) {
         _button.setOnAction((event) -> {
             EventBus.throwEvent(new SolveButtonEvent());
+        });
+    }
+
+    /**
+     * @param _button
+     */
+    public void setApplyAlgorithmOnAction(Button _button) {
+        _button.setOnAction((event) -> {
+            EventBus.throwEvent(new ApplyAlgorithmButtonEvent());
         });
     }
 

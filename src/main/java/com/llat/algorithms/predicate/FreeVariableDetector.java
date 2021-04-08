@@ -18,6 +18,10 @@ public final class FreeVariableDetector {
         this.wffTree = _wffTree;
     }
 
+    public WffTree getWffTree () {
+        return this.wffTree;
+    }
+
     /**
      * @return
      */

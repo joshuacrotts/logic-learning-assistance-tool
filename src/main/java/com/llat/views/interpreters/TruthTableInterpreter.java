@@ -2,6 +2,7 @@ package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
 import com.llat.input.events.SolvedFormulaEvent;
+import com.llat.models.events.UpdateViewTruthTableEvent;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
@@ -11,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class TruthTableInterpreter implements Listener {
     private Controller controller;
@@ -24,11 +24,18 @@ public class TruthTableInterpreter implements Listener {
 
     @Override
     public void catchEvent(Event _event) {
-/*        if (_event instanceof SolvedFormulaEvent) {
+        if (_event instanceof UpdateViewTruthTableEvent) {
             this.truthTableView.getTruthTable().getChildren().clear();
-            createTruthTable(((SolvedFormulaEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
+            if(((UpdateViewTruthTableEvent) _event).isEmpty()) {
+                this.truthTableView.getParentPane().getChildren().remove(this.truthTableView.getScrollPane());
+                return;
+            }
+            if (this.truthTableView.getScrollPane().getParent() == null) {
+                this.truthTableView.getParentPane().getChildren().add(this.truthTableView.getScrollPane());
+            }
+            createTruthTable(((UpdateViewTruthTableEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
             this.truthTableView.getTruthTable().setLayoutX((this.truthTableView.getParentPane().getWidth() / 2) - (this.truthTableView.getTruthTable().getWidth() / 2) );
-        }*/
+        }
     }
 
     //(A∧B) (A∧(A∧(A∧B)))
@@ -39,8 +46,8 @@ public class TruthTableInterpreter implements Listener {
         VBox truthColumn = new VBox();
         truthColumn.getChildren().add(wffSymbol);
         _wffTree.getTruthValues().forEach((truthValue) -> {
-            Text truthValueButton = new Text(truthValue.toString());
-//            truthValueButton.setMaxWidth(Double.MAX_VALUE);
+            Button truthValueButton = new Button(truthValue.toString());
+            truthValueButton.setMaxWidth(Double.MAX_VALUE);
             truthColumn.getChildren().add(truthValueButton);
         });
 

@@ -26,6 +26,7 @@ public class FormulaInputInterpreter implements Listener {
         this.controller = _controller;
         this.formulaInputView = _formulaInputView;
         this.controller.setSolveButtonOnAction(this.formulaInputView.getFormulaInputButton());
+        this.controller.setApplyAlgorithmOnAction(this.formulaInputView.getAlgorithmApplyButton());
         EventBus.addListener(this);
     }
 

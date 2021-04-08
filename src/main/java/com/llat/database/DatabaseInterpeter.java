@@ -33,7 +33,7 @@ public class DatabaseInterpeter implements Listener {
             ((SolvedFormulaEvent) _event).getWffTree().forEach((tree) -> {
                 this.test.add(tree.getStringRep());
             });
-            USERID = this.controller.getUser().getUserId();
+//            USERID = this.controller.getUser().getUserId();
             /*this.databaseAdapter.InsertQuery(this.);*/
             System.out.println(test);
         }
