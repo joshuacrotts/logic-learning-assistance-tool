@@ -3,6 +3,11 @@ package com.llat.views;
 import com.llat.controller.Controller;
 import com.llat.database.DatabaseAdapter;
 import com.llat.database.UserObject;
+import com.llat.tools.ViewManager;
+/*import com.llat.views.interpreters.LoginInterpreter;*/
+import com.llat.views.interpreters.RegisterInterpreter;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -14,23 +19,24 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginView {
-    private Region aboveLogoRegion = new Region();
-    private Region belowLogoRegion = new Region();
-    private Region belowEmailRegion = new Region();
-    private Region belowPasswordFieldRegion = new Region();
-    private Region belowLoginButtonRegion = new Region();
+     Region aboveLogoRegion = new Region();
+     Region belowLogoRegion = new Region();
+     Region belowUserNameRegion = new Region();
+     Region belowPasswordFieldRegion = new Region();
+     Region belowLoginButtonRegion = new Region();
     private Controller controller;
     private AnchorPane parentPane = new AnchorPane();
     private Stage stage;
     private VBox loginVBox = new VBox();
     private Label logoImage = new Label();
-    private Label emailInputLabel = new Label("Email");
-    private TextField emailField = new TextField();
+    private Label userNameInputLabel = new Label("Username");
+    private TextField userNameField = new TextField();
     private Label passwordInputLabel = new Label("Password");
     private PasswordField passwordField = new PasswordField();
     private Button loginButton = new Button("Login");
     private Button returnButton = new Button("Return to Application");
 
+    /*private LoginInterpreter LoginInterpreter;*/
     public LoginView(Controller _controller) {
         this.controller = _controller;
         this.stage = _controller.getStage();
@@ -78,16 +84,16 @@ public class LoginView {
             this.belowLogoRegion.setMinHeight(newVal.doubleValue() * .05);
         });
         // Setting Label emailInputLabel properties.
-        this.emailInputLabel.setId("emailInputLabel");
+        this.userNameInputLabel.setId("emailInputLabel");
         // Setting TextField emailField properties.
-        this.emailField.setPromptText("Enter your email.");
-        this.emailField.setFocusTraversable(false);
+        this.userNameField.setPromptText("Enter your Username.");
+        this.userNameField.setFocusTraversable(false);
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.emailField.setMaxWidth(newVal.doubleValue() * .70);
+            this.userNameField.setMaxWidth(newVal.doubleValue() * .70);
         });
         // Setting Region belowEmailRegion properties.
         this.loginVBox.heightProperty().addListener(((obs, oldVal, newVal) -> {
-            this.belowEmailRegion.setMinHeight(newVal.doubleValue() * .10);
+            this.belowUserNameRegion.setMinHeight(newVal.doubleValue() * .10);
         }));
         // Setting Label passwordInputLabel properties.
         this.passwordInputLabel.setId("passwordInputLabel");
@@ -106,15 +112,15 @@ public class LoginView {
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.loginButton.setMinWidth(newVal.doubleValue() * .30);
         });
-
-
         this.loginButton.setOnAction((event1 -> {
             DatabaseAdapter ad = new DatabaseAdapter();
-            String email = this.emailField.getText();
+            String email = this.userNameField.getText();
             String pass = this.passwordField.getText();
             UserObject user = ad.Login(email, pass);
             if (!(user == null)) {
-                System.out.println(user.getHistory());
+                System.out.println("User logged");
+                this.controller.setUser(user);
+                this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
             } else {
                 System.out.println("pass or email is wrong");
             }
@@ -128,15 +134,41 @@ public class LoginView {
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.returnButton.setMinWidth(newVal.doubleValue() * .30);
         });
-        this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.emailInputLabel, this.emailField, this.belowEmailRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
+        this.returnButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.changeViewTo(ViewManager.MAINAPPLICATION);            }
+        });
+        this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.userNameInputLabel, this.userNameField, this.belowUserNameRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
         // Setting AnchorPane parentPane properties.
         this.parentPane.setId("loginViewParentPane");
         // Adding children nodes to their parents nodes.
         this.parentPane.getChildren().addAll(this.loginVBox);
+
+        /*LoginInterpreter = new LoginInterpreter(this.controller, this);*/
     }
 
     public Pane getParentPane() {
         return this.parentPane;
     }
+/*    public Button getLoginButton(){
+        return this.loginButton;
+    }
+
+    public TextField getUserNameField() {
+        return userNameField;
+    }
+
+    public void setUserNameField(TextField userNameField) {
+        this.userNameField = userNameField;
+    }
+
+
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public void setPasswordField(PasswordField passwordField) {
+        this.passwordField = passwordField;
+    }*/
 
 }

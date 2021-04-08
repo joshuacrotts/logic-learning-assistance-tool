@@ -1,5 +1,7 @@
 package com.llat.controller;
 
+import com.llat.database.DatabaseAdapter;
+import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.models.LogicSetup;
 import com.llat.tools.EventBus;
@@ -10,10 +12,17 @@ import com.llat.views.LoginView;
 import com.llat.views.ParseTreeView;
 import com.llat.views.SymbolButton;
 import com.llat.views.events.*;
+import com.llat.views.*;
+import com.llat.views.events.SolveButtonEvent;
+import com.llat.views.events.SymbolDescriptionEvent;
+import com.llat.views.events.SymbolInputEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
@@ -26,6 +35,8 @@ public class Controller implements Initializable {
 
     private Stage stage;
     private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
+    private DatabaseAdapter databaseAdapter = new DatabaseAdapter();
+    private UserObject user;
     LogicSetup logicSetup = new LogicSetup();
 
     public Controller(Stage _stage) {
@@ -138,11 +149,22 @@ public class Controller implements Initializable {
             case ViewManager.LOGIN:
                 parentPane = (new LoginView(this)).getParentPane();
                 break;
+            case ViewManager.REGISTER:
+                parentPane = (new RegisterView(this)).getParentPane();
+                break;
             default:
                 // Update this to error view.
                 parentPane = new Pane();
         }
         return parentPane;
+    }
+
+    public UserObject getUser() {
+        return user;
+    }
+
+    public void setUser(UserObject user) {
+        this.user = user;
     }
 
 }
