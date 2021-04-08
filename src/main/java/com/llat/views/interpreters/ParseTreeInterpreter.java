@@ -1,19 +1,15 @@
 package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
-import com.llat.input.events.SolvedFormulaEvent;
+import com.llat.models.events.UpdateViewParseTreeEvent;
+import com.llat.models.events.UpdateViewTruthTableEvent;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.ParseTreeView;
-import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -60,13 +56,17 @@ public class ParseTreeInterpreter implements Listener {
 
     @Override
     public void catchEvent(Event _event) {
-        if (_event instanceof SolvedFormulaEvent) {
+        if (_event instanceof UpdateViewParseTreeEvent) {
+            this.truthTreeView.getParentPane().setVisible(true);
             if (this.treePane != null) {
                 this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
                 this.treePane.getChildren().clear();
+                this.treePane = new Pane();
             }
-
-            WffTree wff = ((SolvedFormulaEvent) _event).getWffTree().getChild(0);
+            if(((UpdateViewParseTreeEvent) _event).isEmpty()) {
+                return;
+            }
+            WffTree wff = ((UpdateViewParseTreeEvent) _event).getWffTree();
             wff.clearHighlighting();
             TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
 
@@ -87,6 +87,9 @@ public class ParseTreeInterpreter implements Listener {
 
             // Adding children nodes to their parents nodes.
             this.truthTreeView.getParentPane().getChildren().add(this.treePane);
+            this.treePane.setTranslateX((this.truthTreeView.getParentPane().getWidth() / 2));
+            this.treePane.setTranslateY((this.truthTreeView.getParentPane().getHeight() / 2));
+            //this.truthTreeView.getParentPane().getWidth()
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
         }
@@ -120,10 +123,10 @@ public class ParseTreeInterpreter implements Listener {
                 for (WffTree child : _layout.getTree().getChildren(_tree)) {
                     Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
                     // Compute offsets to position it in the center of the screen.
-                    double x1Off = x1 + this.truthTreeView.getParentPane().getWidth() / 2;
-                    double y1Off = y1 + this.truthTreeView.getParentPane().getHeight() / 2;
-                    double x2Off = b2.getCenterX() + this.truthTreeView.getParentPane().getWidth() / 2;
-                    double y2Off = b2.getCenterY() + this.truthTreeView.getParentPane().getHeight() / 2;
+                    double x1Off = x1;
+                    double y1Off = y1;
+                    double x2Off = b2.getCenterX();
+                    double y2Off = b2.getCenterY();
                     this.treePane.getChildren().add(new Line(x1Off, y1Off, x2Off, y2Off));
                     this.drawEdges(_layout, child);
             }
@@ -141,8 +144,8 @@ public class ParseTreeInterpreter implements Listener {
         Rectangle2D.Double box = _layout.getNodeBounds().get(_wffTree);
 
         // Set up the offsets to center the tree.
-        double xOffset = box.x + this.truthTreeView.getParentPane().getWidth() / 2;
-        double yOffset = box.y + this.truthTreeView.getParentPane().getHeight() / 2;
+        double xOffset = box.x;
+        double yOffset = box.y;
 
         // Constructs the node and the borders.
         WffTreeGuiNode nodeBox = new WffTreeGuiNode(_wffTree, this.treePane, xOffset, yOffset, box.width, box.height);
@@ -208,6 +211,9 @@ public class ParseTreeInterpreter implements Listener {
         @Override
         public double getWidth(WffTree treeNode) {
             String s = treeNode.getSymbol();
+            if (s == null) {
+                return 0;
+            }
             if (s.length() <= 2) {
                 return WffTreeExtentProvider.SMALL_WFF_WIDTH;
             }

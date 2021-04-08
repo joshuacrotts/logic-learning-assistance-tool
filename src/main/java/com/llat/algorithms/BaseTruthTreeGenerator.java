@@ -25,6 +25,9 @@ public abstract class BaseTruthTreeGenerator {
         this.tree = _tree;
     }
 
+    public WffTree getWffTree () {
+        return this.tree;
+    }
     /**
      * Computes a list of leaves for the current TruthTree. A leaf is a
      * node in the tree that contains no children (in other words, the

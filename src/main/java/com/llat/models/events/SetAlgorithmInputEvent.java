@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SetAlgorithmInputEvent implements Event {
-    ArrayList<List<String>> algorithmOptions;
+    ArrayList<List<Object>> algorithmOptions;
 
-    public SetAlgorithmInputEvent (ArrayList<List<String>> _algorithmOptions) {
+    public SetAlgorithmInputEvent (ArrayList<List<Object>> _algorithmOptions) {
         this.algorithmOptions = _algorithmOptions;
     }
 
-    public ArrayList<List<String>> getAlgorithmOptions () {
+    public ArrayList<List<Object>> getAlgorithmOptions () {
         return this.algorithmOptions;
     }
 
-    public void setAlgorithmOptions(ArrayList<List<String>> _algorithmOptions) {
+    public void setAlgorithmOptions(ArrayList<List<Object>> _algorithmOptions) {
         this.algorithmOptions = _algorithmOptions;
     }
 

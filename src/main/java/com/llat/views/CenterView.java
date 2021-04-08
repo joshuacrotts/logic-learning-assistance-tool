@@ -1,37 +1,40 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
+import com.llat.views.interpreters.CenterViewInterpreter;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
-
 import javafx.scene.layout.VBox;
 
 public class CenterView {
     Controller controller;
     VBox parentPane = new VBox();
-    VBox vBox = new VBox();
-    ScrollPane scrollPane = new ScrollPane();
-
+    TabPane tabPane;
+    CenterViewInterpreter centerViewInterpreter;
 
     public CenterView(Controller _controller) {
         this.controller = _controller;
         // Setting VBox parentPane properties.
         this.parentPane.setId("centerView");
-        // Setting ScrollPane scrollPane properties.
-        this.scrollPane.setId("treeTableScrollPane");
-        this.scrollPane.setContent(this.vBox);
-        this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        this.scrollPane.setFitToWidth(true);
+        // Setting TabPane tabPane properties.
+        this.tabPane = new TabPane();
+        this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        this.tabPane.getTabs().addAll(new Tab("Truth Tree"), new Tab("Parse Tree"), new Tab("Truth Table"));
+        //this.tabPane.getTabs().get(0).setContent();
+        this.tabPane.getTabs().get(1).setContent(new ParseTreeView(this.controller).getParentPane());
+        this.tabPane.getTabs().get(2).setContent(new TruthTableView(this.controller).getParentPane());
         // Adding children nodes to their parents nodes.
-        this.vBox.getChildren().addAll(new TruthTableView(this.controller).getParentPane(), new ParseTreeView(this.controller).getParentPane());
        // this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.scrollPane);
-        this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane());
-
+        this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.tabPane);
+        this.centerViewInterpreter = new CenterViewInterpreter(this.controller, this);
     }
     public Pane getParentPane() {
         return this.parentPane;
+    }
+
+    public TabPane getTabPane() {
+        return this.tabPane;
     }
 
 }

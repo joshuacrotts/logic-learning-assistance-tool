@@ -29,7 +29,7 @@ public class TruthTableView {
         this.scrollPane.setId("truthTableScrollPane");
         this.stage.heightProperty().addListener((obs, oldVal, newVal) -> { this.scrollPane.setMaxWidth(Double.MAX_VALUE); });
         this.scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
-        this.scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+        this.scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
         this.scrollPane.fitToHeightProperty().set(true);
         // Setting HBox truthTable properties.
         this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> { this.truthTable.setMinWidth(newVal.doubleValue() - 1); });

@@ -38,7 +38,7 @@ public class FormulaInputView {
      *
      */
     private Button formulaInputButton = new Button("Solve");
-
+    private Button algorithmApplyButton = new Button("Apply");
     /**
      *
      */
@@ -53,7 +53,7 @@ public class FormulaInputView {
     public FormulaInputView(Controller _controller) {
         this.controller = _controller;
         this.stage = _controller.getStage();
-        // Setting HBox parentHBox settings.
+        // Setting HBox parentHBox properties.
         this.formulaInputHBox.setId("formulaInputHBox");
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.formulaInputHBox.setMinWidth(newVal.doubleValue());
@@ -62,7 +62,7 @@ public class FormulaInputView {
         this.formulaInputHBox.setFillHeight(true);
         this.formulaInputHBox.setSpacing(4);
         this.formulaInputHBox.setPadding(new Insets(10,0,10,0));
-        // Setting TextField formulaInputField settings.
+        // Setting TextField formulaInputField properties.
         HBox.setHgrow(this.formulaInputField, Priority.ALWAYS);
         this.formulaInputHBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.formulaInputField.setMaxWidth(newVal.doubleValue() * .50);
@@ -71,31 +71,36 @@ public class FormulaInputView {
         this.formulaInputField.focusedProperty().addListener((obs, oldVal, newVal) -> {
             this.caretPos = this.formulaInputField.getCaretPosition();
         });
-        // Setting Button formulaInputButton settings.
+        // Setting Button formulaInputButton properties.
         HBox.setHgrow(this.formulaInputButton, Priority.ALWAYS);
+        // Setting Button algorithmApplyButton properties.
+        HBox.setHgrow(this.algorithmApplyButton, Priority.ALWAYS);
         // Adding children nodes to their parents nodes.
-        this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton);
+        this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton, this.algorithmApplyButton);
         // Creating interpreter to handle events and actions.
         this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);
     }
 
-    public Button getFormulaInputButton() {
+    public Button getFormulaInputButton () {
         return this.formulaInputButton;
     }
+    public Button getAlgorithmApplyButton () {
+        return this.algorithmApplyButton;}
 
-    public TextField getFormulaInputField() {
+    public TextField getFormulaInputField () {
         return this.formulaInputField;
     }
 
-    public Pane getParentPane() {
+    public Pane getParentPane () {
         return this.formulaInputHBox;
     }
 
-    public void setCaretPos(int _caretPos) {
+    public void setCaretPos (int _caretPos) {
         this.caretPos = _caretPos;
     }
 
-    public int getCaretPos() {
+    public int getCaretPos () {
         return this.caretPos;
     }
+
 }

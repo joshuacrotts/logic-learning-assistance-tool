@@ -38,7 +38,11 @@
     -fx-underline: true;
     -fx-font-weight: bold;
 }
-
+#trueLabel, #falseLabel, #resultLabel {
+    -fx-font-size: 2em;
+    -fx-underline: true;
+    -fx-font-weight: bold;
+}
 .button {
     -fx-wrap-text: true;
     -fx-text-alignment: center;
@@ -146,6 +150,7 @@
     -fx-font-size: 20;
 
 }
+
 #treePane{
     /*-fx-background-color: black;*/
 }

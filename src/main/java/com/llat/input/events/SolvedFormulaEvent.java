@@ -1,9 +1,7 @@
 package com.llat.input.events;
 
-import com.llat.algorithms.propositional.TruthTableGenerator;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
-
 import java.util.LinkedList;
 
 public class SolvedFormulaEvent implements Event {
