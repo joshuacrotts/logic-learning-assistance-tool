@@ -22,6 +22,9 @@ public class RegisterInterpreter implements Listener {
                     , this.registerView.getPasswordField().getText());
             EventBus.throwEvent(re);
         });
+        registerView.getReturnButton().setOnAction((node) -> {
+                    this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
+                });
 
         EventBus.addListener(this);
     }

@@ -167,6 +167,10 @@ public class RegisterView {
         return this.registerButton;
     }
 
+    public Button getReturnButton() {
+        return returnButton;
+    }
+
     public TextField getUserNameField() {
         return userNameField;
     }
