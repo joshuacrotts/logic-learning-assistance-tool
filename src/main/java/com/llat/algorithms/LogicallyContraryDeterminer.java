@@ -49,8 +49,8 @@ public final class LogicallyContraryDeterminer {
             inconsistentBranchTreeGenerator = new PredicateTruthTreeGenerator(rightSubTree);
         }
 
-        TruthTree consistentTree = consistentBranchTreeGenerator.get();
-        TruthTree inconsistentTree = inconsistentBranchTreeGenerator.get();
+        TruthTree consistentTree = consistentBranchTreeGenerator.getTruthTree();
+        TruthTree inconsistentTree = inconsistentBranchTreeGenerator.getTruthTree();
 
         // The consistency branch must close, and the right must have at least one open branch.
         return (new ClosedTreeDeterminer(consistentTree).hasAllClosed())

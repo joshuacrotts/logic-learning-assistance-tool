@@ -10,8 +10,16 @@ import com.llat.views.events.SymbolDescriptionEvent;
 import javafx.scene.layout.VBox;
 
 public class RulesAxiomsInterpreter implements Listener {
-    RulesAxiomsView rulesAxiomsView;
-    Controller controller;
+
+    /**
+     *
+     */
+    private RulesAxiomsView rulesAxiomsView;
+
+    /**
+     *
+     */
+    private Controller controller;
 
     public RulesAxiomsInterpreter(Controller _controller, RulesAxiomsView _rulesAxiomsView) {
         this.controller = _controller;
@@ -27,5 +35,4 @@ public class RulesAxiomsInterpreter implements Listener {
             this.rulesAxiomsView.getScrollPane().setContent(symbolDescriptionVBox);
         }
     }
-
 }

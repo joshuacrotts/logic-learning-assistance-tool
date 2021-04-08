@@ -12,6 +12,11 @@ import java.util.PriorityQueue;
 public abstract class BaseTruthTreeGenerator {
 
     /**
+     * We should definitely make this a setting...
+     */
+    protected static int TIMEOUT = 1000;
+
+    /**
      *
      */
     protected WffTree tree;
@@ -20,6 +25,9 @@ public abstract class BaseTruthTreeGenerator {
         this.tree = _tree;
     }
 
+    public WffTree getWffTree () {
+        return this.tree;
+    }
     /**
      * Computes a list of leaves for the current TruthTree. A leaf is a
      * node in the tree that contains no children (in other words, the
@@ -31,7 +39,7 @@ public abstract class BaseTruthTreeGenerator {
      */
     public static LinkedList<TruthTree> getLeaves(TruthTree _truthTree) {
         LinkedList<TruthTree> leaves = new LinkedList<>();
-        getLeavesHelper(_truthTree, leaves);
+        BaseTruthTreeGenerator.getLeavesHelper(_truthTree, leaves);
         return leaves;
     }
 
@@ -63,7 +71,7 @@ public abstract class BaseTruthTreeGenerator {
                 while (currentLeaf != null && (currentLeaf.getFlags() & NodeFlag.STOP_CLOSE_CHECK) == 0) {
                     TruthTree parentToCheck = currentLeaf.getParent();
                     while (parentToCheck != null) {
-                        if (currentLeaf.getWff().equals(getFlippedNode(parentToCheck.getWff()))
+                        if (currentLeaf.getWff().stringEquals(getFlippedNode(parentToCheck.getWff()))
                                 && currentLeaf.getWff().isClosable()) {
                             leaf.setClosed(true);
                             break outer;
@@ -82,7 +90,7 @@ public abstract class BaseTruthTreeGenerator {
      *
      * @return
      */
-    public TruthTree get() {
+    public TruthTree getTruthTree() {
         TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
         this.buildTreeHelper(ttn);
         return ttn;

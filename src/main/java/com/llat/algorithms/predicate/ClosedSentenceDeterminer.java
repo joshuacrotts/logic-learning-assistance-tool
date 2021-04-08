@@ -19,9 +19,9 @@ public final class ClosedSentenceDeterminer {
     /**
      * @return
      */
-    public boolean get() {
+    public boolean isClosedSentence() {
         FreeVariableDetector fvd = new FreeVariableDetector(this.wffTree);
         GroundSentenceDeterminer gsd = new GroundSentenceDeterminer(this.wffTree);
-        return fvd.get().isEmpty() && !gsd.get();
+        return fvd.getFreeVariables().isEmpty() && !gsd.isGroundSentence();
     }
 }

@@ -4,6 +4,9 @@ import com.llat.tools.Event;
 
 public class InputEvent implements Event {
 
+    /**
+     *
+     */
     private String parameter;
 
     public InputEvent(String parameter) {

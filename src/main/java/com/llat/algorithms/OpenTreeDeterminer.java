@@ -1,16 +1,30 @@
 package com.llat.algorithms;
 
 import com.llat.algorithms.models.TruthTree;
+import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
+import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
+import com.llat.models.treenode.WffTree;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class OpenTreeDeterminer {
 
+    /**
+     *
+     */
     private TruthTree tree;
 
     public OpenTreeDeterminer(TruthTree _tree) {
         this.tree = _tree;
+    }
+
+    public OpenTreeDeterminer(WffTree _tree) {
+        if (_tree.isPropositionalWff()) {
+            tree = new PropositionalTruthTreeGenerator(_tree).getTruthTree();
+        } else {
+            tree = new PredicateTruthTreeGenerator(_tree).getTruthTree();
+        }
     }
 
     /**

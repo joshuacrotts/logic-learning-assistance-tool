@@ -24,6 +24,8 @@ public final class PropositionalTruthTreeGenerator extends BaseTruthTreeGenerato
      */
     @Override
     public void buildTreeHelper(TruthTree _node) {
+        int iterations = 0;
+
         // Initialize the min-heap and linkedlist of leaves.
         PriorityQueue<TruthTree> queue = new PriorityQueue<>();
         LinkedList<TruthTree> leaves = new LinkedList<>();
@@ -34,10 +36,15 @@ public final class PropositionalTruthTreeGenerator extends BaseTruthTreeGenerato
 
         // Poll the heap and build the tree.
         while (!queue.isEmpty()) {
+            if (++iterations >= BaseTruthTreeGenerator.TIMEOUT) {
+                System.err.println("Timeout error: cannot compute a tree this complex.");
+                return;
+            }
+
             TruthTree tree = queue.poll();
             WffTree curr = tree.getWff();
-            leaves = getLeaves(tree);
-            computeClosedBranches(leaves);
+            leaves = BaseTruthTreeGenerator.getLeaves(tree);
+            BaseTruthTreeGenerator.computeClosedBranches(leaves);
 
             if (curr.isNegation() && curr.getChild(0).isBicond()) {
                 // We handle biconditional negations differently since they're harder.

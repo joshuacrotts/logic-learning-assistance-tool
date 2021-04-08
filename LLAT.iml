@@ -12,10 +12,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:mac:15.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.abego.treelayout:org.abego.treelayout.core:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.6.2" level="project" />
     <orderEntry type="library" name="Maven: org.apiguardian:apiguardian-api:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-engine:1.6.2" level="project" />

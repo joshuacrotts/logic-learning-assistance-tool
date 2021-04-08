@@ -20,7 +20,7 @@ public class PredicateNode extends WffTree {
     private final LinkedList<WffTree> PARAMS;
 
     public PredicateNode(String _predicateLetter, LinkedList<WffTree> _params) {
-        super(NodeType.PREDICATE);
+        super(_predicateLetter, NodeType.PREDICATE);
         this.PREDICATE_LETTER = _predicateLetter;
         this.PARAMS = _params;
 
@@ -32,7 +32,7 @@ public class PredicateNode extends WffTree {
     }
 
     public PredicateNode(String _predicateLetter) {
-        super(NodeType.PREDICATE);
+        super(_predicateLetter, NodeType.PREDICATE);
         this.PREDICATE_LETTER = _predicateLetter;
         this.PARAMS = new LinkedList<>();
     }

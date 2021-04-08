@@ -44,8 +44,8 @@ public final class LogicallyContingentDeterminer {
             negatedTreeGenerator = new PredicateTruthTreeGenerator(this.negatedTree);
         }
 
-        TruthTree truthTree = treeGenerator.get();
-        TruthTree negatedTruthTree = negatedTreeGenerator.get();
+        TruthTree truthTree = treeGenerator.getTruthTree();
+        TruthTree negatedTruthTree = negatedTreeGenerator.getTruthTree();
 
         // The consistency branch must close, and the right must have at least one open branch.
         return (new OpenTreeDeterminer(truthTree).hasSomeOpen())

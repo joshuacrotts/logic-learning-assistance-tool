@@ -6,27 +6,33 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleCloudDatabase implements DatabaseInterface {
-    public static final String CREDENTIALS_STRING = "jdbc:mysql://35.202.75.240:3306/llat";
+public class AWSDatabase implements DatabaseInterface {
 
-    static Connection connection = null;
+    /**
+     *
+     */
+    public static final String CREDENTIALS_STRING = "jdbc:mysql://llat-instance-1.cux0wahd0k8a.us-east-2.rds.amazonaws.com:3306/llat";
+
+    /**
+     *
+     */
+    private static Connection connection = null;
 
     //Method that creates a user Account and stores in database and sets default values to theme and language.
-    public String Register(String _userName, String _password, String _firstName, String _lastName) {
+    public int Register(String _userName, String _password, String _firstName, String _lastName) {
         String Message = null;
         int id = 0;
         String bcryptHashString = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
 
-            if(_password == null || _userName == null){
+            if (_password == null || _userName == null) {
                 Message = "You must enter in a Username or Password.";
-                return Message;
+                return DatabaseAdapter.REGISTERED_EMPTY_INPUT;
             }
 
             bcryptHashString = BCrypt.withDefaults().hashToString(12, _password.toCharArray());
-
 
             Statement stmt = connection.createStatement();
             String sql = "INSERT INTO User (UserName, Password, LName, FName) VALUES (?,?,?,?)";
@@ -60,37 +66,38 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             Message = "Account Successfully Created!";
             connection.close();
 
+        } catch (SQLIntegrityConstraintViolationException DupUser) {
+            return DatabaseAdapter.REGISTERED_DUP_USER;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             /*System.out.println("UserName Already Taken. Please Try New Username.");*/
         }
-        return Message;
+        return DatabaseAdapter.REGISTERED_SUCCESSFULLY;
     }
 
     // Method that Updates Theme and stores in database for user.
     public void UpdateTheme(int id, String Theme) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
             String sql = "UPDATE Theme SET Theme = ? WHERE UserID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, Theme);
             statement.setInt(2, id);
             statement.executeUpdate();
             connection.close();
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
 
-
-    //Method that Updates Language and stores in database for user.
+    /**
+     * Method that Updates Language and stores in database for user.
+     */
     public void UpdateLanguage(int id, String Language) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
             String sql = "UPDATE Language SET Language = ?  WHERE UserID = ? ;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, Language);
@@ -104,7 +111,9 @@ public class GoogleCloudDatabase implements DatabaseInterface {
         }
     }
 
-    //Method that validates Login credidentials, if Correct, will return User data. If Incorrect, will return null.
+    /**
+     * Method that validates Login credidentials, if Correct, will return User data. If Incorrect, will return null.
+     */
     public UserObject Login(String Username, String Password) {
         UserObject user = null;
         String bcryptHashString = null;
@@ -112,26 +121,24 @@ public class GoogleCloudDatabase implements DatabaseInterface {
         int id = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
 
             String PassSql = "SELECT Password FROM User where UserName = ?";
             PreparedStatement VerifyPass = connection.prepareStatement(PassSql);
-            VerifyPass.setString(1,Username);
+            VerifyPass.setString(1, Username);
             ResultSet rs4 = VerifyPass.executeQuery();
             while (rs4.next()) {
                 bcryptHashString = rs4.getString(1);
             }
-            if (bcryptHashString == null){
+            if (bcryptHashString == null) {
                 System.out.println("[DB - Error] - User is not exist");
                 return null;
             }
-                BCrypt.Result result = BCrypt.verifyer().verify(Password.toCharArray(), bcryptHashString);
+            BCrypt.Result result = BCrypt.verifyer().verify(Password.toCharArray(), bcryptHashString);
 
-            if(!result.verified){
+            if (!result.verified) {
                 return null;
             }
-
-
 
             String sql = "SELECT T.UserID, UserName,Password,FName,Lname,Theme,Language FROM User INNER Join Theme T on User.UserID = T.UserID\n" +
                     "INNER JOIN Language L on User.UserID = L.UserID WHERE UserName = ?;";
@@ -141,7 +148,7 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                user = new UserObject(rs.getInt("UserID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Lname"), rs.getString("Fname"), rs.getString("Theme"), rs.getString("Language"));
+                user = new UserObject(rs.getInt("UserID"), rs.getString("UserName"),rs.getString("Fname"), rs.getString("Lname"),  rs.getString("Password"), rs.getString("Theme"), rs.getString("Language"));
 
             }
 
@@ -163,24 +170,24 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             }
             //user.setHistory(history);
 
-            if(!history.isEmpty()){
+            if (!history.isEmpty()) {
                 user.setHistory(history);
             }
 
-
             connection.close();
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return user;
     }
 
-    // inserts user text history and stores in data, up to 10 rows per user.
-    public void InsertQuery(int id, String Text){
+    /**
+     * Inserts user text history and stores in data, up to 10 rows per user.
+     */
+    public void InsertQuery(int id, String Text) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
             String sql = "INSERT INTO Query_History(USERID, TEXTINPUT) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -204,22 +211,21 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             PreparedStatement s2 = connection.prepareStatement(sql2);
             s2.executeUpdate();
 
-
             connection.close();
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-    public List<String> UpdateHistory(int id){
-
+    /**
+     * @param id
+     * @return
+     */
+    public List<String> UpdateHistory(int id) {
         List<String> history = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, "root", "12345");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, "admin", "SeniorCapstone490");
             String sql = "SELECT TextInput FROM Query_History WHERE UserID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -228,17 +234,10 @@ public class GoogleCloudDatabase implements DatabaseInterface {
             while (rs3.next()) {
                 history.add(rs3.getString(1));
             }
-
-
             connection.close();
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
         return history;
-
     }
-
 }

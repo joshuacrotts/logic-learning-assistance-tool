@@ -1,7 +1,6 @@
 package com.llat.models.gson;
 
 import com.google.gson.Gson;
-import com.llat.main.App;
 import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.credentials.CredentialsInterface;
 import com.llat.models.localstorage.settings.SettingsInterface;
@@ -18,7 +17,7 @@ import java.lang.reflect.Type;
 public class GsonIO implements UIDescriptionInterface, SettingsInterface, CredentialsInterface {
 
     private static Gson gson = new Gson();
-    private final static String RESOURCES_PATH = "src\\main\\resources\\";
+    private final static String RESOURCES_PATH = "src/main/resources/";
     private final static String DEFAULT_UIDO_FILE = "UID/UIDescription_en.json";
 
     /**
@@ -62,7 +61,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             TranslateUIDO tuido = new TranslateUIDO();
             UIDescriptionObject obj = (UIDescriptionObject) g.getData();
             obj = tuido.translateUIDO(obj, code);
-            g.update(obj, "UIDescription" + "_" + code + ".json");
+            g.update(obj, "UID/UIDescription" + "_" + code + ".json");
             try {
                 BufferedReader br = new BufferedReader(new FileReader(RESOURCES_PATH + _fileName));
                 StringBuilder sb = new StringBuilder();
@@ -87,7 +86,10 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
     public void update(LocalStorage _obj, String _jsonFilePath) {
         String filePath = null;
         try {
-            filePath = App.class.getResource("/" + _jsonFilePath).getPath();
+
+//            filePath = App.class.getResource("/" + _jsonFilePath).getPath();
+            filePath = new File(RESOURCES_PATH + _jsonFilePath).getPath();
+            System.out.println(filePath);
         } catch (NullPointerException e) {
             System.out.println("File is not exist. Empty file will be generated");
             createMissingFile(_jsonFilePath);
@@ -132,6 +134,4 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             e.printStackTrace();
         }
     }
-
-
 }

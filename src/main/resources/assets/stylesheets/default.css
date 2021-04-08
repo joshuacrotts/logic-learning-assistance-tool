@@ -5,7 +5,7 @@
 }
 
 #loginViewParentPane, #registerViewParentPane {
-    -fx-background-color: radial-gradient(center 50% 50% , radius 90% , silver, derive(gray, -50%));
+    -fx-background-color: radial-gradient(center 50% 50%, radius 90%, silver, derive(gray, -50%));
     -fx-background-color: linear-gradient(to right, gray 0%, silver 50%, gray 100%);
     -fx-alignment: center;
 }
@@ -16,7 +16,7 @@
     -fx-border-color: black;
     -fx-text-color: black;
     -fx-alignment: center;
-    -fx-prompt-text-fill :black;
+    -fx-prompt-text-fill: black;
     -fx-font-size: 2em;
 }
 
@@ -26,19 +26,23 @@
 }
 
 #loginVBox, #registerVBox {
-    -fx-background-color: radial-gradient(center 50% 25% , radius 90% , silver, derive(black, 50%));
+    -fx-background-color: radial-gradient(center 50% 25%, radius 90%, silver, derive(black, 50%));
     -fx-alignment: top-center;
     -fx-spacing: 0;
     -fx-border-width: 0 10;
     -fx-border-color: rgba(0, 0, 0, 1);
 }
 
-.label {
+#propositionalLogicLabel, #predicateLogicLabel, #symbolNameLabel, #formalNameLabel, #alternativeSymbolsLabel, #exampleLabel, #alternativeSymbolsLabel {
     -fx-font-size: 2em;
     -fx-underline: true;
     -fx-font-weight: bold;
 }
-
+#trueLabel, #falseLabel, #resultLabel {
+    -fx-font-size: 2em;
+    -fx-underline: true;
+    -fx-font-weight: bold;
+}
 .button {
     -fx-wrap-text: true;
     -fx-text-alignment: center;
@@ -70,30 +74,52 @@
     -fx-background-color: derive(black, 50%);
 }
 
-#rulesAxiomsScrollPane {
-    -fx-background-color: silver;
+#rulesAxiomsScrollPane, #treeTableScrollPane {
+    -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
 
-#rulesAxiomsScrollPane > .viewport {
-   -fx-background-color: transparent;
+#rulesAxiomsScrollPane > .viewport, #treeTableScrollPane > .viewport {
+    -fx-background-color: transparent;
 }
 
-#rulesAxiomsScrollPane:vertical {
+#rulesAxiomsScrollPane:vertical, #treeTableScrollPane:vertical {
     -fx-min-width: 10;
 }
 
-#rulesAxiomsScrollPane:focused {
+#rulesAxiomsScrollPane:focused, #treeTableScrollPane:focused {
     -fx-background-insets: 0;
 }
 
-#rulesAxiomsScrollPane .corner {
+#rulesAxiomsScrollPane .corner, #treeTableScrollPane .corner {
+    -fx-background-insets: 0;
+}
+
+#truthTableScrollPane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+#truthTableScrollPane > .viewport {
+   -fx-background-color: transparent;
+}
+
+#truthTableScrollPane:horizontal {
+    -fx-min-height: 10;
+}
+
+#truthTableScrollPane:focused {
+    -fx-background-insets: 0;
+}
+
+#truthTableScrollPane .corner {
     -fx-background-insets: 0;
 }
 
 #rulesAxiomsText, #exampleText, #explanationText {
-    -fx-font-size: 2em;
+    -fx-font-size: 1.5em;
 
 }
 
@@ -112,3 +138,69 @@
     -fx-text-fill: black;
     -fx-opacity: 1.0;
 }
+
+#truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
+    -fx-background-color: derive(black, 90%);
+}
+#parseTreeVBox, #truthTreeVBox {
+    /*-fx-background-color: derive(black, 90%);*/
+}
+#truthTableLabel, #truthTreeLabel{
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+
+}
+#treePane{
+    /*-fx-background-color: black;*/
+}
+
+/*Settings start*/
+#settingsCategory {
+    -fx-pref-width: 10em;
+    -fx-pref-height: 4em;
+    -fx-font-size: 20;
+    -fx-background-color: #292826;
+    -fx-text-fill: gray;
+
+}
+
+#settingsCategory:hover {
+    -fx-pref-width: 10em;
+    -fx-pref-height: 4em;
+    -fx-font-size: 20;
+    -fx-background-color: #324241;
+    -fx-font-weight: Bold;
+}
+#settingsCategoryOnPress {
+    -fx-pref-width: 10em;
+    -fx-pref-height: 4em;
+    -fx-font-size: 20;
+    -fx-background-color: silver;
+}
+
+#leftPane{
+    -fx-background-color: derive(black, 50%);
+}
+
+#settingsMainPane{
+    -fx-background-color: silver;
+}
+
+#categoryTitle{
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#langLabel, #themeLabel{
+    -fx-font-weight: bold;
+    -fx-font-size: 12;
+}
+
+#bottomPaneHbox{
+    -fx-background-color: derive(black, 50%);
+}
+#bottonPaneButtons{
+    -fx-background-color: derive(silver, 50%);
+    -fx-background-radius: 0;
+}
+/*Settings end*/

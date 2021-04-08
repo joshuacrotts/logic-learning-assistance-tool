@@ -22,7 +22,7 @@ public final class GroundSentenceDeterminer {
     /**
      * @return
      */
-    public boolean get() {
+    public boolean isGroundSentence() {
         Queue<WffTree> queue = new LinkedList<>();
         queue.add(this.wffTree);
 
