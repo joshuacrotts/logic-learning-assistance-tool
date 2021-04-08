@@ -14,32 +14,37 @@ public class SettingsObject extends LocalStorage {
     /**
      *
      */
-    public static Language language;
+    public static LanguageObject languageObject;
 
     /**
      *
      */
-    public static Theme theme;
+    private Language language;
+
+    /**
+     *
+     */
+    private Theme theme;
 
     public SettingsObject(Language language, Theme theme) {
-        SettingsObject.language = language;
-        SettingsObject.theme = theme;
+        this.language = language;
+        this.theme = theme;
     }
 
     public Language getLanguage() {
-        return language;
+        SettingsObject.languageObject = this.language.applied;
+        return this.language;
     }
 
-    public void setLanguage(Language language) {
-        SettingsObject.language = language;
+    public void setLanguage(Language language) {this.language = language;
     }
 
     public Theme getTheme() {
-        return theme;
+        return this.theme;
     }
 
     public void setTheme(Theme theme) {
-        SettingsObject.theme = theme;
+        this.theme = theme;
     }
 
     /**

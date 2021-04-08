@@ -49,7 +49,7 @@
     -fx-font-size: 2em;
     -fx-background-color: derive(silver, 0%);
     -fx-border-color: black;
-    -fx-border-width: 5;
+    -fx-border-width: 2.5;
     -fx-background-insets: 0;
 }
 

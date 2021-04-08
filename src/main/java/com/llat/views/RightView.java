@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class RightView {
+
     private Controller controller;
     private Stage stage;
     private ScrollPane scrollPane = new ScrollPane();

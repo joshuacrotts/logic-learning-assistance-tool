@@ -23,6 +23,7 @@ public class RulesAxiomsView {
     public RulesAxiomsView(Controller _controller) {
         this.controller = _controller;
         this.stage = this.controller.getStage();
+
         // Setting VBox rulesAxiomsVBox settings.
         this.rulesAxiomsVBox.setId("rulesAxiomsVBox");
         this.rulesAxiomsVBox.setAlignment(Pos.TOP_CENTER);
@@ -30,16 +31,19 @@ public class RulesAxiomsView {
             this.rulesAxiomsVBox.setMinWidth(newVal.doubleValue() * .20);
             this.rulesAxiomsVBox.setMaxWidth(newVal.doubleValue() * .20);
         });
+
         // Setting Region topFiller settings.
         this.rulesAxiomsVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.topFiller.setMinHeight(newVal.doubleValue() * .03);
             this.topFiller.setMaxHeight(newVal.doubleValue() * .03);
         });
+
         // Setting ScrollPane scrollPane properties.
         this.scrollPane.setId("rulesAxiomsScrollPane");
         this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.scrollPane.setMaxHeight(Double.MAX_VALUE);
         });
+
         this.scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
         this.scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         this.scrollPane.fitToWidthProperty().set(true);
@@ -48,10 +52,12 @@ public class RulesAxiomsView {
             this.scrollPane.setMinHeight(newVal.doubleValue() * .95);
             this.scrollPane.setMaxHeight(newVal.doubleValue());
         });
+
         // Adding children nodes to their parents nodes.
         this.scrollPane.setContent(new AnchorPane());
         this.rulesAxiomsVBox.getChildren().addAll(this.scrollPane);
         VBox.setMargin(this.scrollPane, new Insets(0, 15, 0, 0));
+
         // Creating interpreter to handle events and actions.
         this.rulesAxiomsInterpreter = new RulesAxiomsInterpreter(this.controller, this);
     }

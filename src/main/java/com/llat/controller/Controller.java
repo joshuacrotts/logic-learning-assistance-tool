@@ -37,7 +37,7 @@ public class Controller implements Initializable {
     private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
     private DatabaseAdapter databaseAdapter = new DatabaseAdapter();
     private UserObject user;
-    LogicSetup logicSetup = new LogicSetup();
+    private LogicSetup logicSetup = new LogicSetup();
 
     public Controller(Stage _stage) {
         this.stage = _stage;

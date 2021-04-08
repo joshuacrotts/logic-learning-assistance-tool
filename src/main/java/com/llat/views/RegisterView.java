@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RegisterView {
+
     private Region aboveLogoRegion = new Region();
     private Region belowLogoRegion = new Region();
     private Region belowUserNameRegion = new Region();

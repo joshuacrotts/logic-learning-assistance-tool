@@ -1,6 +1,8 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
+import com.llat.models.localstorage.settings.SettingsAdaptor;
+import com.llat.models.localstorage.settings.SettingsObject;
 import com.llat.models.localstorage.uidescription.UIDescriptionAdaptor;
 import com.llat.models.localstorage.uidescription.UIDescriptionObject;
 import com.llat.views.interpreters.InputButtonInterpreter;
