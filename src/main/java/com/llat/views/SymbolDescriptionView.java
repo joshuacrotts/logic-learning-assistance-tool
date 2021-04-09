@@ -39,6 +39,7 @@ public class SymbolDescriptionView {
     /* Label, button, and region for the example that we're going to use. */
     private final Label exampleLabel = new Label("Examples");
     private final Button exampleText;
+    private final Region belowExampleText = new Region();
 
     public SymbolDescriptionView(Symbol _symbol) {
         this.symbol = _symbol;
@@ -50,42 +51,42 @@ public class SymbolDescriptionView {
         this.exampleLabel.setId("exampleLabel");
         this.alternativeSymbolsLabel.setId("alternativeSymbolsLabel");
 
-        // Setting VBox symbolDetailsVBox settings.
+        // Setting VBox symbolDetailsVBox properties.
         this.symbolDetailsVBox.setId("symbolDetailsVBox");
         this.symbolDetailsVBox.setSpacing(0);
         this.symbolDetailsVBox.setAlignment(Pos.TOP_CENTER);
 
-        // Setting Text readAsText settings.
+        // Setting Text readAsText properties.
         this.symbolNameText = new Button(symbol.getReadAs());
         this.symbolNameText.setWrapText(true);
         this.symbolNameText.setId("rulesAxiomsText");
         this.symbolNameText.setMaxHeight(Double.MAX_VALUE);
         this.symbolDetailsVBox.widthProperty().addListener((obs, oldVal, newVal) -> this.symbolNameText.setMaxWidth(newVal.doubleValue() * .80));
 
-        // Setting Region belowSymbolNameText settings.
+        // Setting Region belowSymbolNameText properties.
         this.belowSymbolNameText.setMinHeight(25);
 
-        // Setting Text toolTipText settings.
+        // Setting Text toolTipText properties.
         this.formalNameText = new Button(symbol.getTooltip());
         this.formalNameText.setWrapText(true);
         this.formalNameText.setId("rulesAxiomsText");
         this.formalNameText.setMaxHeight(Double.MAX_VALUE);
         this.symbolDetailsVBox.widthProperty().addListener((obs, oldVal, newVal) -> this.formalNameText.setMaxWidth(newVal.doubleValue() * .80));
 
-        // Setting Region belowFormulaNameText settings.
+        // Setting Region belowFormulaNameText properties.
         this.belowFormalNameText.setMinHeight(25);
 
-        // Setting Text allSymbolsText settings.
+        // Setting Text allSymbolsText properties.
         this.alternativeSymbolsText = new Button(symbol.getSymbol().getAllSymbols().toString());
         this.alternativeSymbolsText.setWrapText(true);
         this.alternativeSymbolsText.setId("rulesAxiomsText");
         this.alternativeSymbolsText.setMaxHeight(Double.MAX_VALUE);
         this.symbolDetailsVBox.widthProperty().addListener((obs, oldVal, newVal) -> this.alternativeSymbolsText.setMaxWidth(newVal.doubleValue() * .80));
 
-        // Setting Region belowAlternativeSymbols settings.
+        // Setting Region belowAlternativeSymbols properties.
         this.belowAlternativeSymbolsText.setMinHeight(25);
 
-        // Setting Text exampleText settings.
+        // Setting Text exampleText properties.
         this.explanationText = new Button(symbol.getAxioms().getExplanation());
         this.explanationText.setNodeOrientation(LanguageObject.isUsingRightToLeftLanguage() ?
                 NodeOrientation.RIGHT_TO_LEFT :
@@ -96,10 +97,10 @@ public class SymbolDescriptionView {
         this.explanationText.setMaxHeight(Double.MAX_VALUE);
         this.symbolDetailsVBox.widthProperty().addListener((obs, oldVal, newVal) -> this.explanationText.setMaxWidth(newVal.doubleValue() * .80));
 
-        // Setting Region belowExplanationText settings.
+        // Setting Region belowExplanationText properties.
         this.belowExplanationText.setMinHeight(25);
 
-        // Setting Text exampleText settings.
+        // Setting Text exampleText properties.
         this.exampleText = new Button(symbol.getAxioms().getExample().get(0));
         this.exampleText.setTextAlignment(TextAlignment.JUSTIFY);
         this.exampleText.setNodeOrientation(LanguageObject.isUsingRightToLeftLanguage() ?
@@ -110,11 +111,14 @@ public class SymbolDescriptionView {
         this.exampleText.setMaxHeight(Double.MAX_VALUE);
         this.symbolDetailsVBox.widthProperty().addListener((obs, oldVal, newVal) -> this.exampleText.setMaxWidth(newVal.doubleValue() * .80));
 
+        // Setting Region belowExampleText properties.
+        this.belowExampleText.setMinHeight(25);
         // Adding children nodes to their parents nodes.
         this.symbolDetailsVBox.getChildren().addAll(this.symbolNameLabel, this.symbolNameText, this.belowSymbolNameText,
-                this.formalNameLabel, this.formalNameText, this.belowFormalNameText, this.alternativeSymbolsLabel,
-                this.alternativeSymbolsText, this.belowAlternativeSymbolsText, this.explanationLabel,
-                this.explanationText, this.belowExplanationText, this.exampleLabel, this.exampleText);
+                this.formalNameLabel, this.formalNameText, this.belowFormalNameText,
+                this.alternativeSymbolsLabel, this.alternativeSymbolsText, this.belowAlternativeSymbolsText,
+                this.explanationLabel, this.explanationText, this.belowExplanationText,
+                this.exampleLabel, this.exampleText, this.belowExampleText);
     }
 
     public VBox getParentPane() {

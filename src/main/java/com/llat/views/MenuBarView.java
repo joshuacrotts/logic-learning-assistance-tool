@@ -11,7 +11,7 @@ public class MenuBarView {
     /**
      *
      */
-    private static final int menuBarHeight = 25;
+    public static final int MENUBARHEIGHT = 25;
 
     /**
      *
@@ -27,8 +27,8 @@ public class MenuBarView {
         this.controller = _controller;
 
         // Setting Menu fileMenu properties.
-        this.menuBar.setMinHeight(MenuBarView.menuBarHeight);
-        this.menuBar.setMaxHeight(MenuBarView.menuBarHeight);
+        this.menuBar.setMinHeight(MenuBarView.MENUBARHEIGHT);
+        this.menuBar.setMaxHeight(MenuBarView.MENUBARHEIGHT);
 
         // Adding children nodes to their parents nodes.
         this.menuBar.getMenus().addAll(new FileMenu(this.controller).getMenu(),
