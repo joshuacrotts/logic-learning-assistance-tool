@@ -28,6 +28,13 @@ public class CenterView {
        // this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.scrollPane);
         this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.tabPane);
         this.centerViewInterpreter = new CenterViewInterpreter(this.controller, this);
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            ((Pane)this.tabPane.getTabs().get(0).getContent()).setMinHeight(newVal.doubleValue());
+        });
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            ((Pane)this.tabPane.getTabs().get(1).getContent()).setMinHeight(newVal.doubleValue());
+        });
+
     }
     public Pane getParentPane() {
         return this.parentPane;
