@@ -30,10 +30,12 @@ public class TruthTableInterpreter implements Listener {
                 this.truthTableView.getParentPane().getChildren().remove(this.truthTableView.getScrollPane());
                 return;
             }
+
             if (this.truthTableView.getScrollPane().getParent() == null) {
                 this.truthTableView.getParentPane().getChildren().add(this.truthTableView.getScrollPane());
             }
-            createTruthTable(((UpdateViewTruthTableEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
+
+            this.createTruthTable(((UpdateViewTruthTableEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
             this.truthTableView.getTruthTable().setLayoutX((this.truthTableView.getParentPane().getWidth() / 2) - (this.truthTableView.getTruthTable().getWidth() / 2));
         }
     }

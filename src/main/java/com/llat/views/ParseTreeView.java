@@ -25,7 +25,7 @@ public class ParseTreeView {
     /**
      *
      */
-    private final Pane truthTreeVBox = new VBox();
+    private final Pane truthTreeVBox = new Pane();
 
     /**
      *

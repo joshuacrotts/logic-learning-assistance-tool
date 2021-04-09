@@ -88,9 +88,6 @@ public class TruthTreeInterpreter implements Listener {
 
             // Adding children nodes to their parents nodes.
             this.truthTreeView.getParentPane().getChildren().add(this.treePane);
-            this.treePane.setTranslateX((this.truthTreeView.getParentPane().getWidth() / 2));
-            this.treePane.setTranslateY((this.truthTreeView.getParentPane().getHeight() / 2));
-
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
         }

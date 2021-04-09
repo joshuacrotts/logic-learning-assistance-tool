@@ -11,22 +11,26 @@ public class TruthTreeView {
     public static int MINSCALE = 0;
 
     private final Controller controller;
-    private final Pane truthTreeVBox = new VBox();
+    private final Pane truthTreeVBox = new Pane();
     private final TruthTreeInterpreter truthTreeInterpreter;
 
     public TruthTreeView(Controller _controller) {
         this.controller = _controller;
+
         // Setting VBox truthTreeVBox properties.
         this.truthTreeVBox.setId("truthTreeVBox");
         this.controller.getStage().widthProperty().addListener((obs, oldVal, newVal) -> {
             this.truthTreeVBox.setMaxWidth(newVal.doubleValue() * .60);
             this.truthTreeVBox.setMinWidth(newVal.doubleValue() * .60);
         });
+
         this.controller.getStage().getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
             this.truthTreeVBox.setMinHeight(newVal.doubleValue());
             this.truthTreeVBox.setMaxHeight(newVal.doubleValue());
         });
+
         this.truthTreeVBox.setVisible(false);
+
         // Adding children nodes to their parents nodes.
         // Creating interpreter to handle events and actions.
         this.truthTreeInterpreter = new TruthTreeInterpreter(this.controller, this);
