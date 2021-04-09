@@ -18,11 +18,10 @@ public class Main {
 
 /*        Status = Adapter.Register("George96", "12345", "George", "C");
         System.out.println(Status);*/
-       UserObject User = Adapter.Login("Bob98", "12345");
-        if(User == null){
+        UserObject User = Adapter.Login("Bob98", "12345");
+        if (User == null) {
             System.out.println("Wrong UserName or Password");
-        }
-        else {
+        } else {
             System.out.println(User);
             UserID = User.getUserId();
         }

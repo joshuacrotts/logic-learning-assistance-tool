@@ -6,11 +6,12 @@ import com.llat.tools.Event;
 public class UpdateViewTruthTableEvent implements Event {
     WffTree wffTree;
     boolean isEmpty = false;
-    public UpdateViewTruthTableEvent (WffTree _wffTree) {
+
+    public UpdateViewTruthTableEvent(WffTree _wffTree) {
         this.wffTree = _wffTree;
     }
 
-    public UpdateViewTruthTableEvent () {
+    public UpdateViewTruthTableEvent() {
         this.isEmpty = true;
     }
 
@@ -18,7 +19,7 @@ public class UpdateViewTruthTableEvent implements Event {
         return this.isEmpty;
     }
 
-    public WffTree getWffTree () {
+    public WffTree getWffTree() {
         return this.wffTree;
     }
 

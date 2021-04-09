@@ -7,7 +7,7 @@ public class TranslatorAdaptor implements TranslatorInterface {
     /**
      *
      */
-    TranslatorInterface T = new GoogleTranslatorAPI();
+    private TranslatorInterface T = new GoogleTranslatorAPI();
 
     @Override
     public String translate(String langFrom, String langTo, String text) {

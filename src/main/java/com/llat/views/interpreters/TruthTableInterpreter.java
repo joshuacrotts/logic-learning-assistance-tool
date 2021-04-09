@@ -1,7 +1,6 @@
 package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
-import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.models.events.UpdateViewTruthTableEvent;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
@@ -14,9 +13,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class TruthTableInterpreter implements Listener {
-    private Controller controller;
-    private TruthTableView truthTableView;
-    public TruthTableInterpreter (Controller _controller, TruthTableView _truthTableView) {
+    private final Controller controller;
+    private final TruthTableView truthTableView;
+
+    public TruthTableInterpreter(Controller _controller, TruthTableView _truthTableView) {
         this.controller = _controller;
         this.truthTableView = _truthTableView;
         EventBus.addListener(this);
@@ -26,20 +26,22 @@ public class TruthTableInterpreter implements Listener {
     public void catchEvent(Event _event) {
         if (_event instanceof UpdateViewTruthTableEvent) {
             this.truthTableView.getTruthTable().getChildren().clear();
-            if(((UpdateViewTruthTableEvent) _event).isEmpty()) {
+            if (((UpdateViewTruthTableEvent) _event).isEmpty()) {
                 this.truthTableView.getParentPane().getChildren().remove(this.truthTableView.getScrollPane());
                 return;
             }
+
             if (this.truthTableView.getScrollPane().getParent() == null) {
                 this.truthTableView.getParentPane().getChildren().add(this.truthTableView.getScrollPane());
             }
-            createTruthTable(((UpdateViewTruthTableEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
-            this.truthTableView.getTruthTable().setLayoutX((this.truthTableView.getParentPane().getWidth() / 2) - (this.truthTableView.getTruthTable().getWidth() / 2) );
+
+            this.createTruthTable(((UpdateViewTruthTableEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
+            this.truthTableView.getTruthTable().setLayoutX((this.truthTableView.getParentPane().getWidth() / 2) - (this.truthTableView.getTruthTable().getWidth() / 2));
         }
     }
 
     //(A∧B) (A∧(A∧(A∧B)))
-    public void createTruthTable (WffTree _wffTree, HBox _truthTable) {
+    public void createTruthTable(WffTree _wffTree, HBox _truthTable) {
         int childSize = _wffTree.getChildrenSize();
         Button wffSymbol = new Button(_wffTree.getStringRep());
         wffSymbol.setMaxWidth(Double.MAX_VALUE);

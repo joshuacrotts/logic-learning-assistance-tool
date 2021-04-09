@@ -13,7 +13,7 @@ public class CredentialsAdaptor implements CredentialsInterface {
     /**
      *
      */
-    private CredentialsInterface obj = new GsonIO(CREDENTIAL, UserCredentialsObject.class);
+    private final CredentialsInterface obj = new GsonIO(CREDENTIAL, UserCredentialsObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {

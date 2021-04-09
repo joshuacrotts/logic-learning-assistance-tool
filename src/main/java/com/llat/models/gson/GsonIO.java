@@ -16,10 +16,9 @@ import java.lang.reflect.Type;
  */
 public class GsonIO implements UIDescriptionInterface, SettingsInterface, CredentialsInterface {
 
-    private static Gson gson = new Gson();
     private final static String RESOURCES_PATH = "src/main/resources/";
     private final static String DEFAULT_UIDO_FILE = "UID/UIDescription_en.json";
-
+    private static final Gson gson = new Gson();
     /**
      *
      */
@@ -116,7 +115,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
         return localStorage;
     }
 
-    private String getLanguageFromFileName(String fileName){
+    private String getLanguageFromFileName(String fileName) {
 
         return fileName.substring(fileName.indexOf("_") + 1, fileName.indexOf("."));
     }

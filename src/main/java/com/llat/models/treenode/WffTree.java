@@ -83,7 +83,6 @@ public class WffTree implements Copyable, TexPrintable {
      * does this. This ONLY compares the strings that make up this Wff.
      *
      * @param _obj - WffTree object to compare against.
-     *
      * @return true if the string representations match, false otherwise.
      */
     public boolean stringEquals(Object _obj) {

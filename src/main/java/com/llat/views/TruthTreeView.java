@@ -14,6 +14,7 @@ public class TruthTreeView {
 
     public TruthTreeView(Controller _controller) {
         this.controller = _controller;
+
         // Setting VBox truthTreeVBox properties.
         this.parentPane.setId("truthTreeVBox");
         this.controller.getStage().widthProperty().addListener((obs, oldVal, newVal) -> {

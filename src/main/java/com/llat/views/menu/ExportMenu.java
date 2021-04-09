@@ -1,23 +1,30 @@
 package com.llat.views.menu;
 
 import com.llat.controller.Controller;
-import com.llat.views.menu.items.ExportLatexItem;
+import com.llat.views.menu.items.ExportLaTeXParseTreeItem;
+import com.llat.views.menu.items.ExportLaTeXTruthTableItem;
+import com.llat.views.menu.items.ExportLaTeXTruthTreeItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 public class ExportMenu {
-    Controller controller;
-    Menu exportMenu = new Menu("Export");
+
+    private final Controller controller;
+    private final Menu exportMenu;
 
     public ExportMenu(Controller controller) {
         this.controller = controller;
+        this.exportMenu = new Menu("Export");
 
         // Setting export menu
-        MenuItem latexItem = new ExportLatexItem(this.controller).getItem();
-        exportMenu.getItems().add(latexItem);
+        MenuItem latexTruthTableItem = new ExportLaTeXTruthTableItem(this.controller).getItem();
+        MenuItem latexParseTreeItem = new ExportLaTeXParseTreeItem(this.controller).getItem();
+        MenuItem latexTruthTreeItem = new ExportLaTeXTruthTreeItem(this.controller).getItem();
+        this.exportMenu.getItems().addAll(latexTruthTableItem, latexParseTreeItem, latexTruthTreeItem);
 
     }
-    public Menu getMenu(){
+
+    public Menu getMenu() {
         return exportMenu;
     }
 }

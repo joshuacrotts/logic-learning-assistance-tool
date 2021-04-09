@@ -19,7 +19,8 @@ public class AlgorithmSelectionViewInterpreter implements Listener {
     Controller controller;
     AlgorithmSelectionView algorithmSelectionView;
     String currentAlgorithm = null;
-    public AlgorithmSelectionViewInterpreter (Controller _controller, AlgorithmSelectionView _algorithmSelectionView) {
+
+    public AlgorithmSelectionViewInterpreter(Controller _controller, AlgorithmSelectionView _algorithmSelectionView) {
         this.controller = _controller;
         this.algorithmSelectionView = _algorithmSelectionView;
 
@@ -31,8 +32,7 @@ public class AlgorithmSelectionViewInterpreter implements Listener {
         if (_event instanceof SolveButtonEvent) {
             this.algorithmSelectionView.clearComboBoxes();
             this.algorithmSelectionView.createComboBoxes();
-        }
-        else if (_event instanceof SetAlgorithmInputEvent) {
+        } else if (_event instanceof SetAlgorithmInputEvent) {
             this.currentAlgorithm = null;
             ((SetAlgorithmInputEvent) _event).getAlgorithmOptions().forEach((_algorithmList) -> {
                 List<Object> algorithmList = FXCollections.observableArrayList(_algorithmList);
@@ -43,18 +43,22 @@ public class AlgorithmSelectionViewInterpreter implements Listener {
                     tempBox = this.algorithmSelectionView.getPredicateComboBox();
                 } else if (algorithmList.get(0).equals(AlgorithmType.PROPOSITIONAL)) {
                     tempBox = this.algorithmSelectionView.getPropositionalComboBox();
-                }
-                else {
+                } else {
                     tempBox = new ComboBox();
                 }
                 algorithmList.remove(0);
                 tempBox.getItems().addAll(algorithmList);
             });
-            this.algorithmSelectionView.getGeneralComboBox().setOnAction(event -> { this.currentAlgorithm = ((ComboBox)(event.getSource())).getValue().toString(); });
-            this.algorithmSelectionView.getPredicateComboBox().setOnAction(event -> { this.currentAlgorithm = ((ComboBox)(event.getSource())).getValue().toString(); });
-            this.algorithmSelectionView.getPropositionalComboBox().setOnAction(event -> { this.currentAlgorithm = ((ComboBox)(event.getSource())).getValue().toString(); });
-        }
-        else if (_event instanceof ApplyAlgorithmButtonEvent) {
+            this.algorithmSelectionView.getGeneralComboBox().setOnAction(event -> {
+                this.currentAlgorithm = ((ComboBox) (event.getSource())).getValue().toString();
+            });
+            this.algorithmSelectionView.getPredicateComboBox().setOnAction(event -> {
+                this.currentAlgorithm = ((ComboBox) (event.getSource())).getValue().toString();
+            });
+            this.algorithmSelectionView.getPropositionalComboBox().setOnAction(event -> {
+                this.currentAlgorithm = ((ComboBox) (event.getSource())).getValue().toString();
+            });
+        } else if (_event instanceof ApplyAlgorithmButtonEvent) {
             if (this.currentAlgorithm != null) {
                 EventBus.throwEvent(new ApplyAlgorithmEvent(this.currentAlgorithm));
             }

@@ -25,7 +25,7 @@ public class CenterView {
         this.tabPane.getTabs().get(1).setContent(new ParseTreeView(this.controller).getParentPane());
         this.tabPane.getTabs().get(2).setContent(new TruthTableView(this.controller).getParentPane());
         // Adding children nodes to their parents nodes.
-       // this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.scrollPane);
+        // this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.scrollPane);
         this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.tabPane);
         this.centerViewInterpreter = new CenterViewInterpreter(this.controller, this);
         this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
@@ -36,6 +36,7 @@ public class CenterView {
         });
 
     }
+
     public Pane getParentPane() {
         return this.parentPane;
     }

@@ -5,6 +5,9 @@ import javafx.scene.control.Button;
 
 public class SymbolButton extends Button {
 
+    /**
+     *
+     */
     private Symbol symbol;
 
     public SymbolButton() {
@@ -22,5 +25,4 @@ public class SymbolButton extends Button {
     public void setDefaultSymbol(Symbol _defaultSymbol) {
         this.symbol = _defaultSymbol;
     }
-
 }

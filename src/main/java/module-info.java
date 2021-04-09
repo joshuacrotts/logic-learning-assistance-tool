@@ -10,7 +10,7 @@ module LLAT {
 
     opens com.llat.models.localstorage;
     opens com.llat.models.localstorage.settings;
-    opens com.llat.models.localstorage.settings.langague;
+    opens com.llat.models.localstorage.settings.language;
     opens com.llat.models.localstorage.settings.theme;
     opens com.llat.models.localstorage.uidescription;
     opens com.llat.models.localstorage.credentials;

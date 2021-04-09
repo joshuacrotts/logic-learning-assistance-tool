@@ -13,8 +13,9 @@ import javafx.scene.layout.HBox;
 public class CenterViewInterpreter implements Listener {
     Controller controller;
     CenterView centerView;
-    HBox resultHBox ;
-    public CenterViewInterpreter (Controller _controller, CenterView _centerView) {
+    HBox resultHBox;
+
+    public CenterViewInterpreter(Controller _controller, CenterView _centerView) {
         this.controller = _controller;
         this.centerView = _centerView;
         EventBus.addListener(this);
@@ -28,13 +29,13 @@ public class CenterViewInterpreter implements Listener {
                     this.centerView.getParentPane().getChildren().remove(i);
                 }
             }
-            if(((UpdateViewTruthEvent) _event).isEmpty()) {
+            if (((UpdateViewTruthEvent) _event).isEmpty()) {
                 return;
             }
             HBox curHbox = new HBox();
             curHbox.setId("resultHBox");
             Label truthLabel = ((UpdateViewTruthEvent) _event).getTruthValue() ? new Label("true") : new Label("false");
-            truthLabel.setId(truthLabel.getText() == "true" ?  "trueLabel" : "falseLabel");
+            truthLabel.setId(truthLabel.getText() == "true" ? "trueLabel" : "falseLabel");
             Label resultLabel = new Label("Result: ");
             resultLabel.setId("resultLabel");
             curHbox.getChildren().addAll(resultLabel, truthLabel);

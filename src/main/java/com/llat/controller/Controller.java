@@ -1,5 +1,7 @@
 package com.llat.controller;
 
+import com.llat.database.DatabaseAdapter;
+import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.models.LogicSetup;
 import com.llat.tools.EventBus;
@@ -10,6 +12,10 @@ import com.llat.views.LoginView;
 import com.llat.views.ParseTreeView;
 import com.llat.views.SymbolButton;
 import com.llat.views.events.*;
+import com.llat.views.*;
+import com.llat.views.events.SolveButtonEvent;
+import com.llat.views.events.SymbolDescriptionEvent;
+import com.llat.views.events.SymbolInputEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,7 +30,9 @@ public class Controller implements Initializable {
 
     private Stage stage;
     private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
-    LogicSetup logicSetup = new LogicSetup();
+    private DatabaseAdapter databaseAdapter = new DatabaseAdapter();
+    private UserObject user;
+    private LogicSetup logicSetup = new LogicSetup();
 
     public Controller(Stage _stage) {
         this.stage = _stage;
@@ -67,6 +75,7 @@ public class Controller implements Initializable {
         _canvas.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent scrollEvent) {
+                System.out.println("here");
                 double modifier = 0;
                 if (scrollEvent.getDeltaY() < 0) {
                     modifier = .1;
@@ -94,15 +103,12 @@ public class Controller implements Initializable {
                 _canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-
                         double xMovement = _canvas.getTranslateX() + (curMouse.getCurX() - mouseEvent.getX()) / (2 / _canvas.getScaleX());
                         if (xMovement > _canvas.getParent().getLayoutBounds().getMinX() && xMovement + _canvas.getWidth() < _canvas.getParent().getLayoutBounds().getMaxX()) {
                             _canvas.setTranslateX(_canvas.getTranslateX() + (curMouse.getCurX() - mouseEvent.getX()) / (2 / _canvas.getScaleX()));
                             curMouse.setCurX(mouseEvent.getX());
                         }
                         double yMovement = _canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX());
-                        System.out.println("yMovement: " + yMovement);
-                        System.out.println(_canvas.getParent().getLayoutBounds());
                         if (yMovement > _canvas.getParent().getLayoutBounds().getMinY() && yMovement + _canvas.getHeight() < _canvas.getParent().getLayoutBounds().getMaxY()) {
                             _canvas.setTranslateY(_canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX()));
                             curMouse.setCurY(mouseEvent.getY());
@@ -147,11 +153,22 @@ public class Controller implements Initializable {
             case ViewManager.LOGIN:
                 parentPane = (new LoginView(this)).getParentPane();
                 break;
+            case ViewManager.REGISTER:
+                parentPane = (new RegisterView(this)).getParentPane();
+                break;
             default:
                 // Update this to error view.
                 parentPane = new Pane();
         }
         return parentPane;
+    }
+
+    public UserObject getUser() {
+        return user;
+    }
+
+    public void setUser(UserObject user) {
+        this.user = user;
     }
 
 }

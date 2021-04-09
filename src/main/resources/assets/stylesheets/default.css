@@ -33,7 +33,7 @@
     -fx-border-color: rgba(0, 0, 0, 1);
 }
 
-#propositionalLogicLabel, #predicateLogicLabel, #symbolNameLabel, #formalNameLabel, #alternativeSymbolsLabel, #exampleLabel, #alternativeSymbolsLabel {
+#propositionalLogicLabel, #predicateLogicLabel, #symbolNameLabel, #formalNameLabel, #alternativeSymbolsLabel, #exampleLabel, #explanationLabel, #alternativeSymbolsLabel {
     -fx-font-size: 2em;
     -fx-underline: true;
     -fx-font-weight: bold;
@@ -45,12 +45,11 @@
 }
 .button {
     -fx-wrap-text: true;
-    -fx-text-alignment: center;
     -fx-font-weight: bold;
     -fx-font-size: 2em;
     -fx-background-color: derive(silver, 0%);
     -fx-border-color: black;
-    -fx-border-width: 5;
+    -fx-border-width: 2.5;
     -fx-background-insets: 0;
 }
 
@@ -140,15 +139,16 @@
 }
 
 #truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
-    -fx-background-color: derive(black, 90%);
+    -fx-background-color: #ffffff;
 }
+
 #parseTreeVBox, #truthTreeVBox {
     /*-fx-background-color: derive(black, 90%);*/
 }
+
 #truthTableLabel, #truthTreeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 20;
-
 }
 
 #treePane{

@@ -5,10 +5,12 @@ import com.llat.tools.Event;
 public class UpdateViewTruthEvent implements Event {
     boolean truthValue;
     boolean isEmpty = false;
-    public UpdateViewTruthEvent (boolean _truthValue) {
+
+    public UpdateViewTruthEvent(boolean _truthValue) {
         this.truthValue = _truthValue;
     }
-    public UpdateViewTruthEvent () {
+
+    public UpdateViewTruthEvent() {
         this.isEmpty = true;
     }
 
