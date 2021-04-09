@@ -68,6 +68,7 @@ public class ParseTreeInterpreter implements Listener {
             }
 
             WffTree wff = ((UpdateViewParseTreeEvent) _event).getWffTree();
+            wff = (wff.isRoot()) ? wff.getChild(0) : wff;
             TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
 
             // Setup the tree layout configuration.

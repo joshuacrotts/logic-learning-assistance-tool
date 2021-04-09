@@ -40,9 +40,9 @@
 }
 #trueLabel, #falseLabel, #resultLabel {
     -fx-font-size: 2em;
-    -fx-underline: true;
     -fx-font-weight: bold;
 }
+
 .button {
     -fx-wrap-text: true;
     -fx-font-weight: bold;

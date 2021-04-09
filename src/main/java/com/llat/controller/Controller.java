@@ -75,7 +75,6 @@ public class Controller implements Initializable {
         _canvas.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent scrollEvent) {
-                System.out.println("here");
                 double modifier = 0;
                 if (scrollEvent.getDeltaY() < 0) {
                     modifier = .1;
