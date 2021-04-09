@@ -12,7 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class FormulaInputView {
-
+    public final static int FORMULAINPUTVIEWHEIGHT = 74;
     /**
      *
      */
@@ -78,6 +78,8 @@ public class FormulaInputView {
         this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton, this.algorithmApplyButton);
         // Creating interpreter to handle events and actions.
         this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);
+        this.getParentPane().heightProperty().addListener((obs, oldVal, newVal) -> {System.out.println(newVal.doubleValue());
+        System.out.println(this.getParentPane().getHeight());});
     }
 
     public Button getFormulaInputButton() {

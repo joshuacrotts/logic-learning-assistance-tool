@@ -60,6 +60,7 @@ public class InputButtonsView {
         this.inputButtonVBox.setAlignment(Pos.TOP_CENTER);
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.inputButtonVBox.setMinWidth(newVal.doubleValue() * .20);
+            this.inputButtonVBox.setMaxWidth(newVal.doubleValue() * .20);
         });
 
         // Setting Region abovePropositionalLogicLabel settings.
