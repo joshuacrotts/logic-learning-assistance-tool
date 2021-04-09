@@ -47,11 +47,7 @@ public class Controller implements Initializable {
      */
     public void changeViewTo(int _viewName) {
         Pane parentPane = this.getView(_viewName);
-        double sceneWidth = this.stage.getScene().getWidth();
-        double sceneHeight = this.stage.getScene().getHeight();
         this.stage.getScene().setRoot(parentPane);
-        this.stage.setWidth(sceneWidth);
-        this.stage.setHeight(sceneHeight);
     }
 
     /**

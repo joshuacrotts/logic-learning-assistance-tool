@@ -2,15 +2,12 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.views.interpreters.RegisterInterpreter;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.*;
 
 public class RegisterView {
 
@@ -22,8 +19,7 @@ public class RegisterView {
     private final Region belowPasswordFieldRegion = new Region();
     private final Region belowLoginButtonRegion = new Region();
     private final Controller controller;
-    private final AnchorPane parentPane = new AnchorPane();
-    private final Stage stage;
+    private final HBox parentPane = new HBox();
     private final VBox registerVBox = new VBox();
     private final Label logoImage = new Label();
     private final Label userNameInputLabel = new Label("User Name");
@@ -41,23 +37,24 @@ public class RegisterView {
 
     public RegisterView(Controller _controller) {
         this.controller = _controller;
-        this.stage = _controller.getStage();
+
+        // Setting AnchorPane parentPane properties.
+        this.parentPane.setId("registerViewParentPane");
+        this.parentPane.setAlignment(Pos.CENTER);
 
         // Setting VBox loginVBox properties.
         this.registerVBox.setId("registerVBox");
-        this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+        this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.registerVBox.setMinWidth(newVal.doubleValue() * .30);
         });
-
-        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.registerVBox.setMinHeight(newVal.doubleValue());
         });
-
-        this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+        this.registerVBox.setLayoutX(this.parentPane.getWidth() / 2);
+        this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.registerVBox.setLayoutX((newVal.doubleValue() * .50) - this.registerVBox.getMinWidth() / 2);
         });
-
-        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.registerVBox.setLayoutY((newVal.doubleValue() * .50) - this.registerVBox.getMinHeight() / 2);
         });
 
@@ -165,18 +162,15 @@ public class RegisterView {
             this.returnButton.setMinWidth(newVal.doubleValue() * .30);
         });
 
+        // Adding children nodes to their parents nodes.
         this.registerVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion,
                 this.userNameInputLabel, this.userNameField, this.belowUserNameRegion, this.firstNameInputLabel,
                 this.firstNameField, this.belowFirstNameRegion, this.lastNameInputLabel, this.lastNameField,
                 this.belowLastNameRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion,
                 this.registerButton, this.belowLoginButtonRegion, this.returnButton);
-
-        // Setting AnchorPane parentPane properties.
-        this.parentPane.setId("registerViewParentPane");
-
-        // Adding children nodes to their parents nodes.
         this.parentPane.getChildren().addAll(this.registerVBox);
 
+        // Creating interpreter to handle events and actions.
         this.registerInterpreter = new RegisterInterpreter(this.controller, this);
     }
 
