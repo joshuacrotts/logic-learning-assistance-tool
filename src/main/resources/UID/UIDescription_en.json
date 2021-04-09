@@ -91,12 +91,12 @@
     },
     "description": "This is the disjunction button.",
     "axioms": {
-      "explanation": "The statement (A ∨ B) is true if A or B (or both) are true; if both are false, the statement is false.",
+      "explanation": "The statement (A ∨ B) is true if A or B (or both) are true. If both are false, then it is false.",
       "example": [
         "(A ∨ B)"
       ]
     },
-    "tooltip": "conjunction",
+    "tooltip": "disjunction",
     "readAs": "or"
   },
   "exclusiveDisjunction": {
@@ -129,7 +129,7 @@
     "axioms": {
       "explanation": "x ⊢ y means x proves (syntactically entails) y.",
       "example": [
-        "(A → B) ⊢ (¬B → ¬A)"
+        "((A → B) ⊢ (¬B → ¬A))"
       ]
     },
     "tooltip": "turnstile",
