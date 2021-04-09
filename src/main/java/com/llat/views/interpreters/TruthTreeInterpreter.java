@@ -1,9 +1,8 @@
 package com.llat.views.interpreters;
 
+import com.llat.algorithms.models.TruthTree;
 import com.llat.controller.Controller;
-import com.llat.models.events.UpdateViewParseTreeEvent;
 import com.llat.models.events.UpdateViewTruthTreeEvent;
-import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
@@ -29,24 +28,24 @@ import java.util.Queue;
 public class TruthTreeInterpreter implements Listener {
 
     /**
-     *
+     * Color to use when drawing the text/symbol(s).
      */
-    private Controller controller;
+    private static final Color TEXT_COLOR = Color.BLACK;
 
     /**
      *
      */
-    private TruthTreeView truthTreeView;
+    private final Controller controller;
+
+    /**
+     *
+     */
+    private final TruthTreeView truthTreeView;
 
     /**
      *
      */
     private Pane treePane;
-
-    /**
-     * Color to use when drawing the text/symbol(s).
-     */
-    private static final Color TEXT_COLOR = Color.BLACK;
 
     public TruthTreeInterpreter(Controller _controller, TruthTreeView _truthTreeView) {
         this.controller = _controller;
@@ -64,24 +63,25 @@ public class TruthTreeInterpreter implements Listener {
                 this.treePane.getChildren().clear();
                 this.treePane = new Pane();
             }
-            if(((UpdateViewTruthTreeEvent) _event).isEmpty()) {
+
+            if (((UpdateViewTruthTreeEvent) _event).isEmpty()) {
                 return;
             }
-            WffTree wff = ((UpdateViewTruthTreeEvent) _event).getWffTree();
-            wff.clearHighlighting();
-            TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
+
+            TruthTree truthTree = ((UpdateViewTruthTreeEvent) _event).getTruthTree();
+            TreeForTreeLayout<TruthTree> tree = this.convertToAbegoTree(truthTree);
 
             // Setup the tree layout configuration.
-            double gapBetweenLevels = 20;
+            double gapBetweenLevels = 10;
             double gapBetweenNodes = 20;
-            DefaultConfiguration<WffTree> configuration = new DefaultConfiguration<WffTree>(
+            DefaultConfiguration<TruthTree> configuration = new DefaultConfiguration<>(
                     gapBetweenLevels, gapBetweenNodes);
 
-            // Create the NodeExtentProvider for WffTree nodes.
-            WffTreeExtentProvider nodeExtentProvider = new WffTreeExtentProvider();
+            // Create the NodeExtentProvider for TruthTree nodes.
+            TruthTreeExtentProvider nodeExtentProvider = new TruthTreeExtentProvider();
 
             // Create the layout.
-            TreeLayout<WffTree> treeLayout = new TreeLayout<WffTree>(tree,
+            TreeLayout<TruthTree> treeLayout = new TreeLayout<>(tree,
                     nodeExtentProvider, configuration);
 
             this.drawTree(treeLayout);
@@ -90,7 +90,7 @@ public class TruthTreeInterpreter implements Listener {
             this.truthTreeView.getParentPane().getChildren().add(this.treePane);
             this.treePane.setTranslateX((this.truthTreeView.getParentPane().getWidth() / 2));
             this.treePane.setTranslateY((this.truthTreeView.getParentPane().getHeight() / 2));
-            //this.truthTreeView.getParentPane().getWidth()
+
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
         }
@@ -102,33 +102,35 @@ public class TruthTreeInterpreter implements Listener {
      *
      * @param _layout - Tree constructed by Abego.
      */
-    private void drawTree(TreeLayout<WffTree> _layout) {
+    private void drawTree(TreeLayout<TruthTree> _layout) {
         this.drawEdges(_layout, _layout.getTree().getRoot());
-        for (WffTree wffTree : _layout.getNodeBounds().keySet()) {
-            this.paintBox(_layout, wffTree);
+        for (TruthTree truthTree : _layout.getNodeBounds().keySet()) {
+            this.paintBox(_layout, truthTree);
         }
     }
 
     /**
-     * Draws the edges from the WffTree passed in to all of its children.
+     * Draws the edges from the TruthTree passed in to all of its children.
      *
      * @param _layout - TreeLayout object constructed from tree library Abego.
-     * @param _tree - tree to draw edge(s) from. Draws edges from this node
+     * @param _tree   - tree to draw edge(s) from. Draws edges from this node
      *                to all children.
      */
-    private void drawEdges(TreeLayout<WffTree> _layout, WffTree _tree) {
+    private void drawEdges(TreeLayout<TruthTree> _layout, TruthTree _tree) {
         if (!_layout.getTree().isLeaf(_tree)) {
             Rectangle2D b1 = _layout.getNodeBounds().get(_tree);
             double x1 = b1.getCenterX();
             double y1 = b1.getCenterY();
-            for (WffTree child : _layout.getTree().getChildren(_tree)) {
+            for (TruthTree child : _layout.getTree().getChildren(_tree)) {
                 Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
                 // Compute offsets to position it in the center of the screen.
                 double x1Off = x1;
                 double y1Off = y1;
                 double x2Off = b2.getCenterX();
                 double y2Off = b2.getCenterY();
-                this.treePane.getChildren().add(new Line(x1Off, y1Off, x2Off, y2Off));
+                if (_tree.getRight() != null) {
+                    this.treePane.getChildren().add(new Line(x1Off, y1Off, x2Off, y2Off));
+                }
                 this.drawEdges(_layout, child);
             }
         }
@@ -138,51 +140,72 @@ public class TruthTreeInterpreter implements Listener {
      * Draws the node in the tree. Each node is assigned a "box", which has a corresponding
      * position. This position is defined by the tree in the library.
      *
-     * @param _layout - TreeLayout constructed by the library.
-     * @param _wffTree - WffTree object to construct.
+     * @param _layout    - TreeLayout constructed by the library.
+     * @param _truthTree - TruthTree object to construct.
      */
-    private void paintBox(TreeLayout<WffTree> _layout, WffTree _wffTree) {
-        Rectangle2D.Double box = _layout.getNodeBounds().get(_wffTree);
+    private void paintBox(TreeLayout<TruthTree> _layout, TruthTree _truthTree) {
+        Rectangle2D.Double box = _layout.getNodeBounds().get(_truthTree);
 
         // Set up the offsets to center the tree.
         double xOffset = box.x;
         double yOffset = box.y;
 
         // Constructs the node and the borders.
-        WffTreeGuiNode nodeBox = new WffTreeGuiNode(_wffTree, this.treePane, xOffset, yOffset, box.width, box.height);
+        TruthTreeInterpreter.TruthTreeGuiNode nodeBox = new TruthTreeInterpreter.TruthTreeGuiNode(_truthTree, this.treePane, xOffset, yOffset, box.width, box.height);
 
         // Finally, draw and position the text.
-        Text wffSymbol = new Text(_wffTree.getSymbol());
+        Text wffSymbol = new Text(_truthTree.getWff().getStringRep());
         wffSymbol.setFill(TruthTreeInterpreter.TEXT_COLOR);
         wffSymbol.setX(nodeBox.getX() + (nodeBox.getWidth() - wffSymbol.getBoundsInLocal().getWidth()) / 2);
         wffSymbol.setY(nodeBox.getY() + nodeBox.getHeight() / 1.30d);
+
+        // If the branch is a leaf, then we can label it open or closed.
+        Text branchLabel = null;
+        if (_truthTree.isLeafNode()) {
+            if (_truthTree.isClosed()) {
+                branchLabel = new Text("X");
+            } else {
+                branchLabel = new Text("OPEN");
+            }
+        }
+
+        if (branchLabel != null) {
+            branchLabel.setX(nodeBox.getX() + (nodeBox.getWidth() - branchLabel.getBoundsInLocal().getWidth()) / 2);
+            branchLabel.setY(nodeBox.getY() + 32);
+            this.treePane.getChildren().add(branchLabel);
+        }
 
         // Add all the children to the tree.
         this.treePane.getChildren().addAll(wffSymbol);
     }
 
     /**
-     * Converts a WffTree and its children into the tree required by the Tree
+     * Converts a TruthTree and its children into the tree required by the Tree
      * building library Abego. The root is added to the tree in the above method
      * so we start off by enqueueing it, then traversing through its children in BFS
      * fashion. Each child is added to this queue and added to the tree at the same
      * time. We use a BFS because we have to tell the library which parent each
      * node belongs to.
      *
-     * @param _root - root of WffTree.
-     *
-     * @return TreeForTreeLayout<WffTree> constructed tree from Abego library.
+     * @param _root - root of TruthTree.
+     * @return TreeForTreeLayout<TruthTree> constructed tree from Abego library.
      */
-    private TreeForTreeLayout<WffTree> convertToAbegoTree(WffTree _root) {
-        Queue<WffTree> q = new LinkedList<>();
-        DefaultTreeForTreeLayout<WffTree> tree = new DefaultTreeForTreeLayout<WffTree>(_root);
+    private TreeForTreeLayout<TruthTree> convertToAbegoTree(TruthTree _root) {
+        Queue<TruthTree> q = new LinkedList<>();
+        DefaultTreeForTreeLayout<TruthTree> tree = new DefaultTreeForTreeLayout<TruthTree>(_root);
         q.add(_root);
         while (!q.isEmpty()) {
-            WffTree t = q.poll();
-            for (WffTree ch : t.getChildren()) {
-                q.add(ch);
-                tree.addChild(t, ch);
+            TruthTree t = q.poll();
+            if (t.getLeft() != null) {
+                q.add(t.getLeft());
+                tree.addChild(t, t.getLeft());
             }
+
+            if (t.getRight() != null) {
+                q.add(t.getRight());
+                tree.addChild(t, t.getRight());
+            }
+
         }
 
         return tree;
@@ -192,7 +215,7 @@ public class TruthTreeInterpreter implements Listener {
      * This class provides the attributes for the tree library - it determines
      * the positioning and sizing of each node in the GUI.
      */
-    private static class WffTreeExtentProvider implements NodeExtentProvider<WffTree> {
+    private static class TruthTreeExtentProvider implements NodeExtentProvider<TruthTree> {
 
         /**
          * Default width for a node that only has one or two chars as their symbol.
@@ -202,7 +225,7 @@ public class TruthTreeInterpreter implements Listener {
         /**
          * Multiplier for nodes that contain > 2 chars. The multiplier grows the node.
          */
-        private static final int LARGE_WFF_WIDTH_MULTIPLER = 4;
+        private static final int LARGE_WFF_WIDTH_MULTIPLER = 7;
 
         /**
          * Height for each WFF.
@@ -210,108 +233,62 @@ public class TruthTreeInterpreter implements Listener {
         private static final int WFF_HEIGHT = 15;
 
         @Override
-        public double getWidth(WffTree treeNode) {
-            String s = treeNode.getSymbol();
+        public double getWidth(TruthTree treeNode) {
+            String s = treeNode.getWff().getStringRep();
             if (s == null) {
                 return 0;
             }
             if (s.length() <= 2) {
-                return WffTreeExtentProvider.SMALL_WFF_WIDTH;
+                return TruthTreeExtentProvider.SMALL_WFF_WIDTH;
             }
 
-            return s.length() * WffTreeExtentProvider.LARGE_WFF_WIDTH_MULTIPLER;
+            return s.length() * TruthTreeExtentProvider.LARGE_WFF_WIDTH_MULTIPLER;
         }
 
         @Override
-        public double getHeight(WffTree treeNode) {
-            return WffTreeExtentProvider.WFF_HEIGHT;
+        public double getHeight(TruthTree treeNode) {
+            return TruthTreeExtentProvider.WFF_HEIGHT;
         }
     }
 
     /**
-     * Creates a WffTree node for display in the GUI. Pass in the x, y, width, and height for
+     * Creates a TruthTree node for display in the GUI. Pass in the x, y, width, and height for
      * the backing rectangle. This class also adds the objects to the Pane in the constructor
      * after drawing the borders.
-     *
+     * <p>
      * Hopefully, by encapsulating this in a class, we can add listeners or whatever else easily.
      */
-    private static class WffTreeGuiNode extends Rectangle {
-
-        /**
-         * Backing WffTree for this gui node.
-         */
-        private WffTree WFF_TREE;
-
-        /**
-         * Pane to attach this WffTreeGuiNode to and its border children (lines).
-         */
-        private final Pane PANE;
-
-        /**
-         * Color for the inner left and top borders.
-         */
-        private static final Color INNER_LEFT_BORDER_COLOR = Color.color(0.84314f, 0.97647f, 0.49412f);
-
-        /**
-         * Color for the inner bottom and right borders.
-         */
-        private static final Color INNER_RIGHT_BORDER_COLOR = Color.color(0.35686f, 0.45490f, 0.23137f);
-
-        /**
-         * Color for the outer left and top borders.
-         */
-        private static final Color OUTER_LEFT_BORDER_COLOR = Color.color(0.99608f, 0.98431f, 0.58431f);
+    private static class TruthTreeGuiNode extends Rectangle {
 
         /**
          * Color for the outer bottom and right borders.
          */
-        private static final Color OUTER_RIGHT_BORDER_COLOR = Color.BLACK;
+        private static final Color BORDER_COLOR = Color.BLACK;
 
         /**
          * Color for the box node itself.
          */
-        private static final Color BOX_COLOR = Color.color(0.54902f, 0.70980f, 0.35294);
+        private static final Color BOX_COLOR = Color.color(1, 1, 1);
 
         /**
-         * Color for when the node is highlighted by an algorithm.
+         * Pane to attach this TruthTreeGuiNode to and its border children (lines).
          */
-        private static final Color HIGHLIGHTED_COLOR = Color.YELLOW;
+        private final Pane PANE;
 
-        public WffTreeGuiNode(WffTree _tree, Pane _pane, double _x, double _y, double _w, double _h) {
+        /**
+         * Backing TruthTree for this gui node.
+         */
+        private final TruthTree TRUTH_TREE;
+
+        public TruthTreeGuiNode(TruthTree _tree, Pane _pane, double _x, double _y, double _w, double _h) {
             super(_x, _y, _w, _h);
-            this.WFF_TREE = _tree;
+            this.TRUTH_TREE = _tree;
             this.PANE = _pane;
 
             // Add the lines and decorations to the pane.
             // First, draw the box itself.
-            this.setFill(this.WFF_TREE.isHighlighted() ? WffTreeGuiNode.HIGHLIGHTED_COLOR : WffTreeGuiNode.BOX_COLOR);
-
-            // Draw the left-bot and top-right inner borders.
-            Line innerLeftToBot = new Line(_x, _y, _x, _y + _h);
-            Line innerTopToRight = new Line(_x, _y, _x + _w, _y);
-            innerLeftToBot.setStroke(WffTreeGuiNode.INNER_LEFT_BORDER_COLOR);
-            innerTopToRight.setStroke(WffTreeGuiNode.INNER_LEFT_BORDER_COLOR);
-
-            // Draw the bot-right and top-right-bot inner borders.
-            Line innerBotToRight = new Line(_x, _y + _h, _x + _w, _y + _h);
-            Line innerTopRightToBot = new Line(_x + _w, _y, _x + _w, _y + _h);
-            innerBotToRight.setStroke(WffTreeGuiNode.INNER_RIGHT_BORDER_COLOR);
-            innerTopRightToBot.setStroke(WffTreeGuiNode.INNER_RIGHT_BORDER_COLOR);
-
-            // Draw the left-bot and top-right outer borders.
-            Line outerLeftToBot = new Line(_x - 1, _y - 1, _x - 1, _y + _h);
-            Line outerTopToRight = new Line(_x - 1, _y - 1, _x + _w, _y - 1);
-            outerLeftToBot.setStroke(WffTreeGuiNode.OUTER_LEFT_BORDER_COLOR);
-            outerTopToRight.setStroke(WffTreeGuiNode.OUTER_LEFT_BORDER_COLOR);
-
-            // Draw the bot-right and top-right-bot outer borders.
-            Line outerBotToRight = new Line(_x - 1, _y + _h + 1, _x + _w + 1, _y + _h + 1);
-            Line outerTopRightToBot = new Line(_x + _w + 1, _y - 1, _x + _w + 1, _y + _h + 1);
-            outerBotToRight.setStroke(WffTreeGuiNode.OUTER_RIGHT_BORDER_COLOR);
-            outerTopRightToBot.setStroke(WffTreeGuiNode.OUTER_RIGHT_BORDER_COLOR);
-
-            this.PANE.getChildren().addAll(this, innerLeftToBot, innerTopToRight, innerBotToRight, innerTopRightToBot,
-                    outerLeftToBot, outerTopToRight, outerBotToRight, outerTopRightToBot);
+            this.setFill(TruthTreeGuiNode.BOX_COLOR);
+            this.PANE.getChildren().addAll(this);
         }
 
         public Pane getPane() {
