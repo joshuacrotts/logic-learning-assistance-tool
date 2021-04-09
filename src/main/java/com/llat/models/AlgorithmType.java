@@ -38,12 +38,11 @@ public enum AlgorithmType {
      */
     private final String string;
 
-    private AlgorithmType(String _string) {
+    AlgorithmType(String _string) {
         this.string = _string;
     }
 
     /**
-     *
      * @param _s
      * @return
      */

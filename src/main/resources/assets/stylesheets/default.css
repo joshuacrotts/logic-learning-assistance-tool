@@ -139,7 +139,7 @@
 }
 
 #truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
-    -fx-background-color: derive(black, 90%);
+    -fx-background-color: #ffffff;
 }
 
 #parseTreeVBox, #truthTreeVBox {

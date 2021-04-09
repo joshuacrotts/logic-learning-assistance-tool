@@ -15,12 +15,12 @@ public class FormulaInputInterpreter implements Listener {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private FormulaInputView formulaInputView;
+    private final FormulaInputView formulaInputView;
 
     public FormulaInputInterpreter(Controller _controller, FormulaInputView _formulaInputView) {
         this.controller = _controller;

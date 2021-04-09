@@ -36,7 +36,8 @@ public class SettingsObject extends LocalStorage {
         return this.language;
     }
 
-    public void setLanguage(Language language) {this.language = language;
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     public Theme getTheme() {

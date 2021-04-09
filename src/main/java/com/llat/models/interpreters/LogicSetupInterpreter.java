@@ -14,7 +14,7 @@ public class LogicSetupInterpreter implements Listener {
     /**
      *
      */
-    private LogicSetup logicSetup;
+    private final LogicSetup logicSetup;
 
     public LogicSetupInterpreter(LogicSetup _logicSetup) {
         this.logicSetup = _logicSetup;
@@ -44,14 +44,16 @@ public class LogicSetupInterpreter implements Listener {
                 case LOGICALLY_CONTRARY_DETERMINER:
                 case LOGICALLY_EQUIVALENT_DETERMINER:
                 case LOGICALLY_IMPLIED_DETERMINER:
-                    updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthAndTree) logicReturn).getTruthValue());
-                    updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthAndTree) logicReturn).getWffTree());
-                    updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthAndTree) logicReturn).getWffTree());
+                case GROUND_SENTENCE_DETERMINER:
+                case CLOSED_SENTENCE_DETERMINER:
+                case OPEN_SENTENCE_DETERMINER:
+                    updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthAndParseTree) logicReturn).getTruthValue());
+                    updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthAndParseTree) logicReturn).getWffTree());
                     break;
 
                 case TRUTH_TABLE_GENERATOR:
-                    updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthAndTree) logicReturn).getTruthValue());
-                    updateViewTruthTableEvent = new UpdateViewTruthTableEvent(((LogicSetup.LogicTruthAndTree) logicReturn).getWffTree());
+                    updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthAndParseTree) logicReturn).getTruthValue());
+                    updateViewTruthTableEvent = new UpdateViewTruthTableEvent(((LogicSetup.LogicTruthAndParseTree) logicReturn).getWffTree());
                     break;
 
                 case MAIN_OPERATOR_DETECTOR:
@@ -61,28 +63,13 @@ public class LogicSetupInterpreter implements Listener {
                     break;
 
                 case ARGUMENT_TRUTH_TREE_VALIDATOR:
-                    updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTree) logicReturn).getWffTree());
-                    updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTree) logicReturn).getWffTree());
-                    break;
-
+                case PREDICATE_TRUTH_TREE_GENERATOR:
                 case PROPOSITIONAL_TRUTH_TREE_GENERATOR:
-                    updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthTree) logicReturn).getTruthTree().getWff());
-                    updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthTree) logicReturn).getTruthTree().getWff());
+                    updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicParseAndTruthTree) logicReturn).getWffTree());
+                    updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicParseAndTruthTree) logicReturn).getTruthTree());
                     break;
 
                 case RANDOM_FORMULA_GENERATION:
-                    break;
-
-                case GROUND_SENTENCE_DETERMINER:
-                case CLOSED_SENTENCE_DETERMINER:
-                case OPEN_SENTENCE_DETERMINER:
-                    updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthAndTree) logicReturn).getTruthValue());
-                    updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthAndTree) logicReturn).getWffTree());
-                    break;
-
-                // Build truth tree.
-                case PREDICATE_TRUTH_TREE_GENERATOR:
-                    updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthTree) logicReturn).getTruthTree().getWff());
                     break;
             }
 
@@ -92,5 +79,4 @@ public class LogicSetupInterpreter implements Listener {
             EventBus.throwEvent(updateViewTruthTableEvent);
         }
     }
-
 }

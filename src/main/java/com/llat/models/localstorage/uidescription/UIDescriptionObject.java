@@ -1,8 +1,6 @@
 package com.llat.models.localstorage.uidescription;
 
 import com.llat.models.localstorage.LocalStorage;
-import com.llat.models.localstorage.settings.SettingsObject;
-import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.symbols.*;
 
 public class UIDescriptionObject extends LocalStorage {

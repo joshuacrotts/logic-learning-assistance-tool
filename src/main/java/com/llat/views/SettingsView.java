@@ -36,18 +36,18 @@ public class SettingsView {
     private final static int ADVANCE_ID = 2;
     SettingsAdaptor sa = new SettingsAdaptor();
     SettingsObject so = (SettingsObject) sa.getData();
-    private Controller controller;
-    private AnchorPane parentPane = new AnchorPane();
-    private Stage stage;
+    private final Controller controller;
+    private final AnchorPane parentPane = new AnchorPane();
+    private final Stage stage;
     private Stage settingsStage;
-    private Pane leftPane = new Pane();
-    private HBox hBox = new HBox();
-    private VBox vBox1 = new VBox();
-    private VBox vBox2 = new VBox();
-    private Button appearanceButton = new Button("Appearance");
-    private Button languageButton = new Button("Language");
-    private Button advanceButton = new Button("Advance");
-    private ArrayList<Button> categoryButtonsList = new ArrayList<Button>() {
+    private final Pane leftPane = new Pane();
+    private final HBox hBox = new HBox();
+    private final VBox vBox1 = new VBox();
+    private final VBox vBox2 = new VBox();
+    private final Button appearanceButton = new Button("Appearance");
+    private final Button languageButton = new Button("Language");
+    private final Button advanceButton = new Button("Advance");
+    private final ArrayList<Button> categoryButtonsList = new ArrayList<Button>() {
         {
             {
                 add(appearanceButton);
@@ -56,13 +56,13 @@ public class SettingsView {
             }
         }
     };
-    private Button cancelButton = new Button("Cancel");
-    private Button saveButton = new Button("Save");
+    private final Button cancelButton = new Button("Cancel");
+    private final Button saveButton = new Button("Save");
     // pane
-    private List<Pane> paneList = new ArrayList<>();
-    private Pane appearancePane;
-    private Pane languagePane;
-    private Pane advancePane;
+    private final List<Pane> paneList = new ArrayList<>();
+    private final Pane appearancePane;
+    private final Pane languagePane;
+    private final Pane advancePane;
 
     public SettingsView(Controller controller) {
         this.controller = controller;
@@ -175,8 +175,8 @@ public class SettingsView {
         });
 
         bottomPaneHbox.setSpacing(10);
-        bottomPaneHbox.setMargin(cancelButton, new Insets(5, 10, 10, 550));
-        bottomPaneHbox.setMargin(saveButton, new Insets(5, 20, 10, 20));
+        HBox.setMargin(cancelButton, new Insets(5, 10, 10, 550));
+        HBox.setMargin(saveButton, new Insets(5, 20, 10, 20));
         bottomPaneHbox.setId("bottomPaneHbox");
         bottomPaneHbox.getChildren().addAll(cancelButton, saveButton);
 //        bottomPane.getChildren().add(bottomPaneHbox);
@@ -253,8 +253,8 @@ public class SettingsView {
         //Setting the space between the nodes of a VBox pane
         appearanceHBox.setSpacing(10);
         //Setting the margin to the nodes
-        appearanceHBox.setMargin(themeLabel, new Insets(150, 20, 20, 20));
-        appearanceHBox.setMargin(themeMenu, new Insets(150, 20, 20, 20));
+        HBox.setMargin(themeLabel, new Insets(150, 20, 20, 20));
+        HBox.setMargin(themeMenu, new Insets(150, 20, 20, 20));
 
 //        appearanceHBox.setStyle("-fx-background-color: black");
         appearanceHBox.getChildren().addAll(themeLabel, themeMenu);
@@ -287,8 +287,8 @@ public class SettingsView {
         //Setting the space between the nodes of a VBox pane
         langHBox.setSpacing(10);
         //Setting the margin to the nodes
-        langHBox.setMargin(langLabel, new Insets(150, 20, 20, 20));
-        langHBox.setMargin(langMenu, new Insets(150, 20, 20, 20));
+        HBox.setMargin(langLabel, new Insets(150, 20, 20, 20));
+        HBox.setMargin(langMenu, new Insets(150, 20, 20, 20));
 
         langHBox.getChildren().addAll(langLabel, langMenu);
         this.languagePane.getChildren().addAll(langHBox);
@@ -305,7 +305,7 @@ class SettingsPane {
     Pane parentPane = new Pane();
     VBox newVBox = new VBox();
     // labels
-    private Label paneTitle = new Label();
+    private final Label paneTitle = new Label();
 
     public SettingsPane(Controller _controller, String _title) {
         this.controller = _controller;

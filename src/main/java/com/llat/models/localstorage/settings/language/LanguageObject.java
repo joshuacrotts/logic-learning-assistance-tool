@@ -11,7 +11,6 @@ public class LanguageObject extends ItemObject {
     private static final String[] RIGHT_TO_LEFT_LANGUAGES = {"ar", "az", "dv", "fa", "he", "ku", "ur"};
 
     /**
-     *
      * @return
      */
     public static boolean isUsingRightToLeftLanguage() {
@@ -25,7 +24,6 @@ public class LanguageObject extends ItemObject {
     }
 
     /**
-     *
      * @param _obj
      * @return
      */

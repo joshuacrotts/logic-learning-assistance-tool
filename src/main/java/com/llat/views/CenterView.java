@@ -21,7 +21,7 @@ public class CenterView {
         this.tabPane = new TabPane();
         this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         this.tabPane.getTabs().addAll(new Tab("Truth Tree"), new Tab("Parse Tree"), new Tab("Truth Table"));
-        //this.tabPane.getTabs().get(0).setContent();
+        this.tabPane.getTabs().get(0).setContent(new TruthTreeView(this.controller).getParentPane());
         this.tabPane.getTabs().get(1).setContent(new ParseTreeView(this.controller).getParentPane());
         this.tabPane.getTabs().get(2).setContent(new TruthTableView(this.controller).getParentPane());
         // Adding children nodes to their parents nodes.

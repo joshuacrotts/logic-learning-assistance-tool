@@ -11,13 +11,13 @@ import javafx.stage.Stage;
 
 
 public class AlgorithmSelectionView {
-    private Controller controller;
-    private Stage stage;
-    private HBox comboHBox = new HBox();
+    private final Controller controller;
+    private final Stage stage;
+    private final HBox comboHBox = new HBox();
     private ComboBox generalComboBox = new ComboBox();
     private ComboBox propositionalComboBox = new ComboBox();
     private ComboBox predicateComboBox = new ComboBox();
-    private AlgorithmSelectionViewInterpreter algorithmSelectionViewInterpreter;
+    private final AlgorithmSelectionViewInterpreter algorithmSelectionViewInterpreter;
 
     public AlgorithmSelectionView(Controller _controller) {
         this.controller = _controller;
@@ -34,7 +34,6 @@ public class AlgorithmSelectionView {
     }
 
     /**
-     *
      * @param _comboBox
      * @param _id
      */

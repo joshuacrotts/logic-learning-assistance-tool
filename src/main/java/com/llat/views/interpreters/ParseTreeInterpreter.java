@@ -35,12 +35,12 @@ public class ParseTreeInterpreter implements Listener {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private ParseTreeView truthTreeView;
+    private final ParseTreeView parseTreeView;
 
     /**
      *
@@ -49,7 +49,7 @@ public class ParseTreeInterpreter implements Listener {
 
     public ParseTreeInterpreter(Controller _controller, ParseTreeView _truthTreeView) {
         this.controller = _controller;
-        this.truthTreeView = _truthTreeView;
+        this.parseTreeView = _truthTreeView;
         this.treePane = new Pane();
         EventBus.addListener(this);
     }
@@ -57,9 +57,9 @@ public class ParseTreeInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof UpdateViewParseTreeEvent) {
-            this.truthTreeView.getParentPane().setVisible(true);
+            this.parseTreeView.getParentPane().setVisible(true);
             if (this.treePane != null) {
-                this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
+                this.parseTreeView.getParentPane().getChildren().remove(this.treePane);
                 this.treePane.getChildren().clear();
                 this.treePane = new Pane();
             }
@@ -87,9 +87,9 @@ public class ParseTreeInterpreter implements Listener {
             this.drawTree(treeLayout);
 
             // Adding children nodes to their parents nodes.
-            this.truthTreeView.getParentPane().getChildren().add(this.treePane);
-            this.treePane.setTranslateX((this.truthTreeView.getParentPane().getWidth() / 2));
-            this.treePane.setTranslateY((this.truthTreeView.getParentPane().getHeight() / 2));
+            this.parseTreeView.getParentPane().getChildren().add(this.treePane);
+            this.treePane.setTranslateX((this.parseTreeView.getParentPane().getWidth() / 2));
+            this.treePane.setTranslateY((this.parseTreeView.getParentPane().getHeight() / 2));
 
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
@@ -240,34 +240,41 @@ public class ParseTreeInterpreter implements Listener {
          * Color for the inner left and top borders.
          */
         private static final Color INNER_LEFT_BORDER_COLOR = Color.color(0.84314f, 0.97647f, 0.49412f);
+
         /**
          * Color for the inner bottom and right borders.
          */
         private static final Color INNER_RIGHT_BORDER_COLOR = Color.color(0.35686f, 0.45490f, 0.23137f);
+
         /**
          * Color for the outer left and top borders.
          */
         private static final Color OUTER_LEFT_BORDER_COLOR = Color.color(0.99608f, 0.98431f, 0.58431f);
+
         /**
          * Color for the outer bottom and right borders.
          */
         private static final Color OUTER_RIGHT_BORDER_COLOR = Color.BLACK;
+
         /**
          * Color for the box node itself.
          */
         private static final Color BOX_COLOR = Color.color(0.54902f, 0.70980f, 0.35294);
+
         /**
          * Color for when the node is highlighted by an algorithm.
          */
         private static final Color HIGHLIGHTED_COLOR = Color.YELLOW;
+
         /**
          * Pane to attach this WffTreeGuiNode to and its border children (lines).
          */
         private final Pane PANE;
+
         /**
          * Backing WffTree for this gui node.
          */
-        private WffTree WFF_TREE;
+        private final WffTree WFF_TREE;
 
         public WffTreeGuiNode(WffTree _tree, Pane _pane, double _x, double _y, double _w, double _h) {
             super(_x, _y, _w, _h);

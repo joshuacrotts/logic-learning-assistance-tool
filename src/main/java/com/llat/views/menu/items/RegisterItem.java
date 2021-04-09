@@ -7,22 +7,21 @@ import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 
 public class RegisterItem {
-    Controller controller;
-    MenuItem newItem;
+
+    private final Controller controller;
+    private final MenuItem registerItem;
 
     public RegisterItem(Controller controller) {
         this.controller = controller;
-        this.newItem = new MenuItem("Register");
-        newItem.setOnAction(new EventHandler<ActionEvent>() {
+        this.registerItem = new MenuItem("Register");
+        this.registerItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.changeViewTo(ViewManager.REGISTER);
             }
         });
-
-
     }
 
     public MenuItem getItem() {
-        return newItem;
+        return registerItem;
     }
 }

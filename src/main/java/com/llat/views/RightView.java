@@ -10,13 +10,13 @@ import javafx.stage.Stage;
 
 public class RightView {
 
-    private Controller controller;
-    private Stage stage;
-    private ScrollPane scrollPane = new ScrollPane();
-    private Tab historyView;
-    private Tab axiomsView;
-    private AnchorPane parentPane = new AnchorPane();
-    private TabPane tabPane = new TabPane();
+    private final Controller controller;
+    private final Stage stage;
+    private final ScrollPane scrollPane = new ScrollPane();
+    private final Tab historyView;
+    private final Tab axiomsView;
+    private final AnchorPane parentPane = new AnchorPane();
+    private final TabPane tabPane = new TabPane();
 
     public RightView(Controller _controller) {
         this.controller = _controller;

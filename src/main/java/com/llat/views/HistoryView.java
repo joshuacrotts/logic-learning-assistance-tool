@@ -18,17 +18,17 @@ public class HistoryView {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private Stage stage;
+    private final Stage stage;
 
     /**
      *
      */
-    private AnchorPane parentPane = new AnchorPane();
+    private final AnchorPane parentPane = new AnchorPane();
 
     /**
      *

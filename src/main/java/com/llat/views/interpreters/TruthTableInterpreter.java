@@ -13,8 +13,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class TruthTableInterpreter implements Listener {
-    private Controller controller;
-    private TruthTableView truthTableView;
+    private final Controller controller;
+    private final TruthTableView truthTableView;
 
     public TruthTableInterpreter(Controller _controller, TruthTableView _truthTableView) {
         this.controller = _controller;

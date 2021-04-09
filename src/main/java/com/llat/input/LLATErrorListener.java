@@ -24,12 +24,12 @@ public class LLATErrorListener extends BaseErrorListener {
     /**
      * Set of all compiler errors generated while parsing.
      */
-    private static Set<Message> errors = new HashSet<>();
+    private static final Set<Message> errors = new HashSet<>();
 
     /**
      * Set of all warning errors generated while parsing.
      */
-    private static Set<Message> warnings = new HashSet<>();
+    private static final Set<Message> warnings = new HashSet<>();
 
     /**
      * Keeps track of whether we have encountered an error or not.

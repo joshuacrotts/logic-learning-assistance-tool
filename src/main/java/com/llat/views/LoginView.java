@@ -17,22 +17,22 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginView {
-    private Region aboveLogoRegion = new Region();
-    private Region belowLogoRegion = new Region();
-    private Region belowUserNameRegion = new Region();
-    private Region belowPasswordFieldRegion = new Region();
-    private Region belowLoginButtonRegion = new Region();
-    private Controller controller;
-    private AnchorPane parentPane = new AnchorPane();
-    private Stage stage;
-    private VBox loginVBox = new VBox();
-    private Label logoImage = new Label();
-    private Label userNameInputLabel = new Label("Username");
-    private TextField userNameField = new TextField();
-    private Label passwordInputLabel = new Label("Password");
-    private PasswordField passwordField = new PasswordField();
-    private Button loginButton = new Button("Login");
-    private Button returnButton = new Button("Return to Application");
+    private final Region aboveLogoRegion = new Region();
+    private final Region belowLogoRegion = new Region();
+    private final Region belowUserNameRegion = new Region();
+    private final Region belowPasswordFieldRegion = new Region();
+    private final Region belowLoginButtonRegion = new Region();
+    private final Controller controller;
+    private final AnchorPane parentPane = new AnchorPane();
+    private final Stage stage;
+    private final VBox loginVBox = new VBox();
+    private final Label logoImage = new Label();
+    private final Label userNameInputLabel = new Label("Username");
+    private final TextField userNameField = new TextField();
+    private final Label passwordInputLabel = new Label("Password");
+    private final PasswordField passwordField = new PasswordField();
+    private final Button loginButton = new Button("Login");
+    private final Button returnButton = new Button("Return to Application");
 
     public LoginView(Controller _controller) {
         this.controller = _controller;

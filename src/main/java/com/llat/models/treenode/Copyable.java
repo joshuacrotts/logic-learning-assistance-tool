@@ -9,5 +9,5 @@ public interface Copyable {
      *
      * @return new copy of the WffTree.
      */
-    public abstract WffTree copy();
+    WffTree copy();
 }

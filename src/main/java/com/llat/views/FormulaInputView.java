@@ -16,32 +16,32 @@ public class FormulaInputView {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private Stage stage;
+    private final Stage stage;
 
     /**
      *
      */
-    private HBox formulaInputHBox = new HBox();
+    private final HBox formulaInputHBox = new HBox();
 
     /**
      *
      */
-    private TextField formulaInputField = new TextField();
+    private final TextField formulaInputField = new TextField();
 
     /**
      *
      */
-    private Button formulaInputButton = new Button("Solve");
-    private Button algorithmApplyButton = new Button("Apply");
+    private final Button formulaInputButton = new Button("Solve");
+    private final Button algorithmApplyButton = new Button("Apply");
     /**
      *
      */
-    private FormulaInputInterpreter formulaInputInterpreter;
+    private final FormulaInputInterpreter formulaInputInterpreter;
 
     /**
      * Keeps track of the current caret position for when the field loses and

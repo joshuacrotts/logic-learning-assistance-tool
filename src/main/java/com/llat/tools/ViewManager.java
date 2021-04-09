@@ -4,7 +4,6 @@ import com.llat.models.localstorage.settings.SettingsAdaptor;
 import com.llat.models.localstorage.settings.SettingsObject;
 
 import java.io.File;
-import java.util.Set;
 
 public class ViewManager {
 

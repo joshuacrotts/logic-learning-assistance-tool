@@ -11,12 +11,12 @@ import javafx.stage.Stage;
 
 public class TruthTableView {
 
-    private TruthTableInterpreter truthTableInterpreter;
-    private Controller controller;
-    private Stage stage;
-    private VBox parentPane = new VBox();
-    private ScrollPane scrollPane = new ScrollPane();
-    private HBox truthTable = new HBox();
+    private final TruthTableInterpreter truthTableInterpreter;
+    private final Controller controller;
+    private final Stage stage;
+    private final VBox parentPane = new VBox();
+    private final ScrollPane scrollPane = new ScrollPane();
+    private final HBox truthTable = new HBox();
 
     public TruthTableView(Controller _controller) {
         this.controller = _controller;

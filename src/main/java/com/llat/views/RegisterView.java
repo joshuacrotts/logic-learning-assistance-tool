@@ -14,30 +14,30 @@ import javafx.stage.Stage;
 
 public class RegisterView {
 
-    private Region aboveLogoRegion = new Region();
-    private Region belowLogoRegion = new Region();
-    private Region belowUserNameRegion = new Region();
-    private Region belowFirstNameRegion = new Region();
-    private Region belowLastNameRegion = new Region();
-    private Region belowPasswordFieldRegion = new Region();
-    private Region belowLoginButtonRegion = new Region();
-    private Controller controller;
-    private AnchorPane parentPane = new AnchorPane();
-    private Stage stage;
-    private VBox registerVBox = new VBox();
-    private Label logoImage = new Label();
-    private Label userNameInputLabel = new Label("User Name");
+    private final Region aboveLogoRegion = new Region();
+    private final Region belowLogoRegion = new Region();
+    private final Region belowUserNameRegion = new Region();
+    private final Region belowFirstNameRegion = new Region();
+    private final Region belowLastNameRegion = new Region();
+    private final Region belowPasswordFieldRegion = new Region();
+    private final Region belowLoginButtonRegion = new Region();
+    private final Controller controller;
+    private final AnchorPane parentPane = new AnchorPane();
+    private final Stage stage;
+    private final VBox registerVBox = new VBox();
+    private final Label logoImage = new Label();
+    private final Label userNameInputLabel = new Label("User Name");
     private TextField userNameField = new TextField();
-    private Label firstNameInputLabel = new Label("First Name");
+    private final Label firstNameInputLabel = new Label("First Name");
     private TextField firstNameField = new TextField();
-    private Label lastNameInputLabel = new Label("Last Name");
+    private final Label lastNameInputLabel = new Label("Last Name");
     private TextField lastNameField = new TextField();
-    private Label passwordInputLabel = new Label("Password");
+    private final Label passwordInputLabel = new Label("Password");
     private PasswordField passwordField = new PasswordField();
-    private Button registerButton = new Button("Register");
-    private Button returnButton = new Button("Return to Application");
+    private final Button registerButton = new Button("Register");
+    private final Button returnButton = new Button("Return to Application");
 
-    private RegisterInterpreter registerInterpreter;
+    private final RegisterInterpreter registerInterpreter;
 
     public RegisterView(Controller _controller) {
         this.controller = _controller;
@@ -166,10 +166,10 @@ public class RegisterView {
         });
 
         this.registerVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion,
-                    this.userNameInputLabel, this.userNameField, this.belowUserNameRegion, this.firstNameInputLabel,
-                    this.firstNameField, this.belowFirstNameRegion, this.lastNameInputLabel, this.lastNameField,
-                    this.belowLastNameRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion,
-                    this.registerButton, this.belowLoginButtonRegion, this.returnButton);
+                this.userNameInputLabel, this.userNameField, this.belowUserNameRegion, this.firstNameInputLabel,
+                this.firstNameField, this.belowFirstNameRegion, this.lastNameInputLabel, this.lastNameField,
+                this.belowLastNameRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion,
+                this.registerButton, this.belowLoginButtonRegion, this.returnButton);
 
         // Setting AnchorPane parentPane properties.
         this.parentPane.setId("registerViewParentPane");

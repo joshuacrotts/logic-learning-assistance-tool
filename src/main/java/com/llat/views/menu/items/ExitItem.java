@@ -5,8 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
 
 public class ExitItem {
-    Controller controller;
-    MenuItem exitItem;
+
+    private final Controller controller;
+    private final MenuItem exitItem;
 
     public ExitItem(Controller controller) {
         this.controller = controller;
