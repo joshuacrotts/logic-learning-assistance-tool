@@ -4,6 +4,7 @@ import com.llat.database.DatabaseAdapter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.models.LogicSetup;
+import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
@@ -16,15 +17,21 @@ import com.llat.views.*;
 import com.llat.views.events.SolveButtonEvent;
 import com.llat.views.events.SymbolDescriptionEvent;
 import com.llat.views.events.SymbolInputEvent;
+import com.llat.views.menu.ExportMenu;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.llat.views.menu.ExportMenu.ExportType.*;
 
 public class Controller implements Initializable {
 
@@ -131,6 +138,32 @@ public class Controller implements Initializable {
     public void setApplyAlgorithmOnAction(Button _button) {
         _button.setOnAction((event) -> {
             EventBus.throwEvent(new ApplyAlgorithmButtonEvent());
+        });
+    }
+
+    public void setExportLatexOnAction(MenuItem _menuItem, ExportMenu.ExportType _exportType) {
+        _menuItem.setOnAction((event) -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Export to LaTex");
+            FileChooser.ExtensionFilter texExtension = new FileChooser.ExtensionFilter("LaTex files (*.tex)", "*.tex");
+            fileChooser.getExtensionFilters().add(texExtension);
+            File file = fileChooser.showSaveDialog(this.getStage());
+
+            if (file == null) {
+                return;
+            }
+            String filePath = file.getAbsolutePath();
+            switch (_exportType) {
+                case LATEX_PARSE_TREE:
+                    EventBus.throwEvent(new ExportLatexParseTreeEvent(filePath));
+                    break;
+                case LATEX_TRUTH_TREE:
+                    EventBus.throwEvent(new ExportLatexTruthTreeEvent(filePath));
+                    break;
+                case LATEX_TRUTH_TABLE:
+                    EventBus.throwEvent(new ExportLatexTruthTableEvent(filePath));
+                    break;
+            }
         });
     }
 

@@ -8,6 +8,9 @@ import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.events.ApplyAlgorithmEvent;
+import com.llat.views.events.ExportLatexParseTreeEvent;
+import com.llat.views.events.ExportLatexTruthTableEvent;
+import com.llat.views.events.ExportLatexTruthTreeEvent;
 
 public class LogicSetupInterpreter implements Listener {
 
@@ -78,5 +81,18 @@ public class LogicSetupInterpreter implements Listener {
             EventBus.throwEvent(updateViewTruthTreeEvent);
             EventBus.throwEvent(updateViewTruthTableEvent);
         }
+        else if (_event instanceof ExportLatexParseTreeEvent) {
+            System.out.println("Exporting latex parse tree event.");
+            System.out.println(((ExportLatexParseTreeEvent) _event).getFilePath());
+        }
+        else if (_event instanceof ExportLatexTruthTableEvent) {
+            System.out.println("Exporting latex truth table event.");
+            System.out.println(((ExportLatexTruthTableEvent) _event).getFilePath());
+        }
+        else if (_event instanceof ExportLatexTruthTreeEvent) {
+            System.out.println("Exporting latex truth tree event.");
+            System.out.println(((ExportLatexTruthTreeEvent) _event).getFilePath());
+        }
     }
+
 }
