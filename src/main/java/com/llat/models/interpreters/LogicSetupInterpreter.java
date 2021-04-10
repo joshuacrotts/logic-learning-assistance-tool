@@ -72,11 +72,16 @@ public class LogicSetupInterpreter implements Listener {
                     updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTree) logicReturn).getWffTree());
                     break;
 
-                case ARGUMENT_TRUTH_TREE_VALIDATOR:
                 case PREDICATE_TRUTH_TREE_GENERATOR:
                 case PROPOSITIONAL_TRUTH_TREE_GENERATOR:
                     updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicParseAndTruthTree) logicReturn).getWffTree());
                     updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicParseAndTruthTree) logicReturn).getTruthTree());
+                    break;
+
+                case ARGUMENT_TRUTH_TREE_VALIDATOR:
+                    updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthValue());
+                    updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree());
+                    updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthTree());
                     break;
 
                 case RANDOM_FORMULA_GENERATION:
