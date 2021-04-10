@@ -224,7 +224,7 @@ public class ParseTreeInterpreter implements Listener {
                 return WffTreeExtentProvider.SMALL_WFF_WIDTH;
             }
 
-            return s.length() * WffTreeExtentProvider.LARGE_WFF_WIDTH_MULTIPLER;
+            return (s.length() + 4) * WffTreeExtentProvider.LARGE_WFF_WIDTH_MULTIPLER;
         }
 
         @Override

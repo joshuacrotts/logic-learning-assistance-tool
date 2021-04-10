@@ -20,6 +20,9 @@ public final class ArgumentTruthTreeValidator {
      */
     private final WffTree combinedTree;
 
+    /**
+     *
+     */
     private BaseTruthTreeGenerator truthTreeGenerator;
 
     public ArgumentTruthTreeValidator(LinkedList<WffTree> _wffTreeList) {

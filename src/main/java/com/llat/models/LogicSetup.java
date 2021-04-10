@@ -100,8 +100,15 @@ public class LogicSetup {
      * @return
      */
     public LogicReturn detectAlgorithm(AlgorithmType _algorithm) {
-        WffTree rootOne = this.wffTree.size() == 1 ? this.wffTree.get(0) : null;
-        WffTree rootTwo = this.wffTree.size() == 2 ? this.wffTree.get(1) : null;
+        WffTree rootOne = null;
+        WffTree rootTwo = null;
+
+        if (this.wffTree.size() >= 1) {
+            rootOne = this.wffTree.get(0);
+        }
+        if (this.wffTree.size() == 2) {
+            rootTwo = this.wffTree.get(1);
+        }
 
         // Clear the highlighting before we detect an algorithm.
         if (rootOne != null) {
