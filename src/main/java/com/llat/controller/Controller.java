@@ -138,6 +138,7 @@ public class Controller implements Initializable {
     public void setApplyAlgorithmOnAction(Button _button) {
         _button.setOnAction((event) -> {
             EventBus.throwEvent(new ApplyAlgorithmButtonEvent());
+            _button.setDisable(true);
         });
     }
 

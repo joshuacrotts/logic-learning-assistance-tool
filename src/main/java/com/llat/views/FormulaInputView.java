@@ -73,6 +73,7 @@ public class FormulaInputView {
         // Setting Button formulaInputButton properties.
         HBox.setHgrow(this.formulaInputButton, Priority.ALWAYS);
         // Setting Button algorithmApplyButton properties.
+        this.algorithmApplyButton.setDisable(true);
         HBox.setHgrow(this.algorithmApplyButton, Priority.ALWAYS);
         // Adding children nodes to their parents nodes.
         this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton, this.algorithmApplyButton);

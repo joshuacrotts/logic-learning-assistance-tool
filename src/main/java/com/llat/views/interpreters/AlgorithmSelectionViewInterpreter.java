@@ -7,6 +7,7 @@ import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.AlgorithmSelectionView;
+import com.llat.views.events.AlgorithmSelectedEvent;
 import com.llat.views.events.ApplyAlgorithmButtonEvent;
 import com.llat.views.events.ApplyAlgorithmEvent;
 import com.llat.views.events.SolveButtonEvent;
@@ -51,12 +52,15 @@ public class AlgorithmSelectionViewInterpreter implements Listener {
             });
             this.algorithmSelectionView.getGeneralComboBox().setOnAction(event -> {
                 this.currentAlgorithm = ((ComboBox) (event.getSource())).getValue().toString();
+                EventBus.throwEvent(new AlgorithmSelectedEvent());
             });
             this.algorithmSelectionView.getPredicateComboBox().setOnAction(event -> {
                 this.currentAlgorithm = ((ComboBox) (event.getSource())).getValue().toString();
+                EventBus.throwEvent(new AlgorithmSelectedEvent());
             });
             this.algorithmSelectionView.getPropositionalComboBox().setOnAction(event -> {
                 this.currentAlgorithm = ((ComboBox) (event.getSource())).getValue().toString();
+                EventBus.throwEvent(new AlgorithmSelectedEvent());
             });
         } else if (_event instanceof ApplyAlgorithmButtonEvent) {
             if (this.currentAlgorithm != null) {
