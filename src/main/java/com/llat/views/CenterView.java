@@ -8,10 +8,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class CenterView {
-    Controller controller;
-    VBox parentPane = new VBox();
-    TabPane tabPane;
-    CenterViewInterpreter centerViewInterpreter;
+
+    private Controller controller;
+    private VBox parentPane = new VBox();
+    private TabPane tabPane;
+    private CenterViewInterpreter centerViewInterpreter;
 
     public CenterView(Controller _controller) {
         this.controller = _controller;
@@ -29,12 +30,11 @@ public class CenterView {
         this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.tabPane);
         this.centerViewInterpreter = new CenterViewInterpreter(this.controller, this);
         this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            ((Pane)this.tabPane.getTabs().get(0).getContent()).setMinHeight(newVal.doubleValue());
+            ((Pane) this.tabPane.getTabs().get(0).getContent()).setMinHeight(newVal.doubleValue());
         });
         this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            ((Pane)this.tabPane.getTabs().get(1).getContent()).setMinHeight(newVal.doubleValue());
+            ((Pane) this.tabPane.getTabs().get(1).getContent()).setMinHeight(newVal.doubleValue());
         });
-
     }
 
     public Pane getParentPane() {
@@ -44,5 +44,4 @@ public class CenterView {
     public TabPane getTabPane() {
         return this.tabPane;
     }
-
 }

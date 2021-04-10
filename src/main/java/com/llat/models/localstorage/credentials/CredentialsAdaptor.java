@@ -17,15 +17,15 @@ public class CredentialsAdaptor implements CredentialsInterface {
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
-        obj.update(_obj, _jsonFilePath);
+        this.obj.update(_obj, _jsonFilePath);
     }
 
     public void update(LocalStorage _obj) {
-        obj.update(_obj, CREDENTIAL);
+        this.obj.update(_obj, CREDENTIAL);
     }
 
     @Override
     public LocalStorage getData() {
-        return obj.getData();
+        return this.obj.getData();
     }
 }

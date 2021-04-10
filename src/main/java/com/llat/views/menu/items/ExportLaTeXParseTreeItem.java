@@ -13,7 +13,7 @@ public class ExportLaTeXParseTreeItem {
     }
 
     public MenuItem getItem() {
-        return latexParseTree;
+        return this.latexParseTree;
     }
 
 }

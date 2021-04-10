@@ -38,6 +38,7 @@
     -fx-underline: true;
     -fx-font-weight: bold;
 }
+
 #trueLabel, #falseLabel, #resultLabel {
     -fx-font-size: 2em;
     -fx-font-weight: bold;
@@ -102,7 +103,7 @@
 }
 
 #truthTableScrollPane > .viewport {
-   -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 #truthTableScrollPane:horizontal {
@@ -146,12 +147,12 @@
     /*-fx-background-color: derive(black, 90%);*/
 }
 
-#truthTableLabel, #truthTreeLabel{
+#truthTableLabel, #truthTreeLabel {
     -fx-font-weight: bold;
     -fx-font-size: 20;
 }
 
-#treePane{
+#treePane {
     /*-fx-background-color: black;*/
 }
 
@@ -172,6 +173,7 @@
     -fx-background-color: #324241;
     -fx-font-weight: Bold;
 }
+
 #settingsCategoryOnPress {
     -fx-pref-width: 10em;
     -fx-pref-height: 4em;
@@ -179,29 +181,31 @@
     -fx-background-color: silver;
 }
 
-#leftPane{
+#leftPane {
     -fx-background-color: derive(black, 50%);
 }
 
-#settingsMainPane{
+#settingsMainPane {
     -fx-background-color: silver;
 }
 
-#categoryTitle{
+#categoryTitle {
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
-#langLabel, #themeLabel{
+#langLabel, #themeLabel {
     -fx-font-weight: bold;
     -fx-font-size: 12;
 }
 
-#bottomPaneHbox{
+#bottomPaneHbox {
     -fx-background-color: derive(black, 50%);
 }
-#bottonPaneButtons{
+
+#bottonPaneButtons {
     -fx-background-color: derive(silver, 50%);
     -fx-background-radius: 0;
 }
+
 /*Settings end*/

@@ -14,7 +14,7 @@ public class MouseManager {
     }
 
     public double getXDirection(double _inputX) {
-        if (_inputX < curX) {
+        if (_inputX < this.curX) {
             return MouseManager.LEFT;
         }
         return MouseManager.RIGHT;

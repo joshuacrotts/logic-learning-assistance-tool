@@ -18,11 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class AbstractSyntaxTreeUnitTester {
 
-    @Test
-    public void test001() {
-        goodFileTest("test001");
-    }
-
     /**
      * Helper function to count number of newlines in a string
      *
@@ -132,6 +127,11 @@ public class AbstractSyntaxTreeUnitTester {
         }
 
         compare(actual, expected);
+    }
+
+    @Test
+    public void test001() {
+        goodFileTest("test001");
     }
 
     /*

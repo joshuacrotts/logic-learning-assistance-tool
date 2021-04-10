@@ -15,6 +15,4 @@ public interface DatabaseInterface {
     void InsertQuery(int id, String Text);
 
     List<String> UpdateHistory(int id);
-
-
 }

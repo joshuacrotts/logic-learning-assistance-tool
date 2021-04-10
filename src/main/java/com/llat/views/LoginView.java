@@ -1,22 +1,19 @@
 package com.llat.views;
 
-import com.llat.auth.Login;
 import com.llat.controller.Controller;
-import com.llat.database.DatabaseAdapter;
-import com.llat.database.UserObject;
-import com.llat.tools.ViewManager;
 import com.llat.views.interpreters.LoginViewInterpreter;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class LoginView {
+
     private final Controller controller;
     private final Region aboveLogoRegion = new Region();
     private final Region belowLogoRegion = new Region();
@@ -135,7 +132,7 @@ public class LoginView {
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.returnButton.setMinWidth(newVal.doubleValue() * .30);
         });
-        this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion, this.userNameInputLabel,
+        this.loginVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, this.belowLogoRegion, this.userNameInputLabel,
                 this.userNameField, this.belowUserNameRegion, this.passwordInputLabel, this.passwordField,
                 this.belowPasswordFieldRegion, this.loginButton, this.belowLoginButtonRegion, this.returnButton);
 
@@ -164,5 +161,4 @@ public class LoginView {
     public TextField getPasswordField() {
         return this.passwordField;
     }
-
 }

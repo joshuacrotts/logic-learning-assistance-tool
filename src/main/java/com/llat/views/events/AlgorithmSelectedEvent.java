@@ -4,7 +4,6 @@ import com.llat.tools.Event;
 
 public class AlgorithmSelectedEvent implements Event {
 
-    public AlgorithmSelectedEvent () {
+    public AlgorithmSelectedEvent() {
     }
-
 }

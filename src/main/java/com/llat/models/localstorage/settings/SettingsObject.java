@@ -61,7 +61,7 @@ public class SettingsObject extends LocalStorage {
         }
 
         public ThemeObject getApplied() {
-            return applied;
+            return this.applied;
         }
 
         public void setApplied(ThemeObject applied) {
@@ -69,7 +69,7 @@ public class SettingsObject extends LocalStorage {
         }
 
         public List<ThemeObject> getAllThemes() {
-            return allThemes;
+            return this.allThemes;
         }
 
         public void setAllThemes(List<ThemeObject> allThemes) {
@@ -90,7 +90,7 @@ public class SettingsObject extends LocalStorage {
         }
 
         public LanguageObject getApplied() {
-            return applied;
+            return this.applied;
         }
 
         public void setApplied(LanguageObject applied) {
@@ -98,7 +98,7 @@ public class SettingsObject extends LocalStorage {
         }
 
         public List<LanguageObject> getAllLanguages() {
-            return allLanguages;
+            return this.allLanguages;
         }
 
         public void setAllLanguages(List<LanguageObject> allLanguages) {

@@ -15,34 +15,34 @@ public class UIDescriptionAdaptor implements UIDescriptionInterface {
     /**
      *
      */
-    private final SettingsObject so = (SettingsObject) sa.getData();
+    private final SettingsObject so = (SettingsObject) this.sa.getData();
 
     /**
      *
      */
-    private final String code = so.getLanguage().getApplied().getCode();
+    private final String code = this.so.getLanguage().getApplied().getCode();
 
     /**
      *
      */
-    private final String UI_DESCRIPTION = "UID/UIDescription_" + code + ".json";
+    private final String UI_DESCRIPTION = "UID/UIDescription_" + this.code + ".json";
 
     /**
      *
      */
-    private final UIDescriptionInterface obj = new GsonIO(UI_DESCRIPTION, UIDescriptionObject.class);
+    private final UIDescriptionInterface obj = new GsonIO(this.UI_DESCRIPTION, UIDescriptionObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
-        obj.update(_obj, _jsonFilePath);
+        this.obj.update(_obj, _jsonFilePath);
     }
 
     public void update(LocalStorage _obj) {
-        obj.update(_obj, UI_DESCRIPTION);
+        this.obj.update(_obj, this.UI_DESCRIPTION);
     }
 
     @Override
     public LocalStorage getData() {
-        return obj.getData();
+        return this.obj.getData();
     }
 }

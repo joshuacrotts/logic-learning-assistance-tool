@@ -1,16 +1,23 @@
 package com.llat.models.interpreters;
 
 
+import com.llat.algorithms.BaseTruthTreeGenerator;
+import com.llat.algorithms.TexParseTreePrinter;
+import com.llat.algorithms.TexTruthTreePrinter;
+import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
+import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
+import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.models.LogicSetup;
 import com.llat.models.events.*;
+import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.events.ApplyAlgorithmEvent;
-import com.llat.views.events.ExportLatexParseTreeEvent;
-import com.llat.views.events.ExportLatexTruthTableEvent;
-import com.llat.views.events.ExportLatexTruthTreeEvent;
+import com.llat.views.events.ExportLaTeXParseTreeEvent;
+import com.llat.views.events.ExportLaTeXTruthTableEvent;
+import com.llat.views.events.ExportLaTeXTruthTreeEvent;
 
 public class LogicSetupInterpreter implements Listener {
 
@@ -80,19 +87,22 @@ public class LogicSetupInterpreter implements Listener {
             EventBus.throwEvent(updateViewParseTreeEvent);
             EventBus.throwEvent(updateViewTruthTreeEvent);
             EventBus.throwEvent(updateViewTruthTableEvent);
-        }
-        else if (_event instanceof ExportLatexParseTreeEvent) {
-            System.out.println("Exporting latex parse tree event.");
-            System.out.println(((ExportLatexParseTreeEvent) _event).getFilePath());
-        }
-        else if (_event instanceof ExportLatexTruthTableEvent) {
-            System.out.println("Exporting latex truth table event.");
-            System.out.println(((ExportLatexTruthTableEvent) _event).getFilePath());
-        }
-        else if (_event instanceof ExportLatexTruthTreeEvent) {
-            System.out.println("Exporting latex truth tree event.");
-            System.out.println(((ExportLatexTruthTreeEvent) _event).getFilePath());
+        } else if (_event instanceof ExportLaTeXParseTreeEvent) {
+            TexParseTreePrinter texParseTreePrinter = new TexParseTreePrinter(this.logicSetup.getWffTree().get(0), ((ExportLaTeXParseTreeEvent) _event).getFilePath());
+            texParseTreePrinter.outputToFile();
+        } else if (_event instanceof ExportLaTeXTruthTableEvent) {
+            TexTablePrinter texTablePrinter = new TexTablePrinter(this.logicSetup.getWffTree().get(0), ((ExportLaTeXTruthTableEvent) _event).getFilePath());
+            texTablePrinter.outputToFile();
+        } else if (_event instanceof ExportLaTeXTruthTreeEvent) {
+            WffTree wffTree = this.logicSetup.getWffTree().get(0);
+            BaseTruthTreeGenerator truthTreeGenerator;
+            if (wffTree.isPropositionalWff()) {
+                truthTreeGenerator = new PropositionalTruthTreeGenerator(wffTree);
+            } else {
+                truthTreeGenerator = new PredicateTruthTreeGenerator(wffTree);
+            }
+            TexTruthTreePrinter texTruthTreePrinter = new TexTruthTreePrinter(truthTreeGenerator.getTruthTree(), ((ExportLaTeXTruthTreeEvent) _event).getFilePath());
+            texTruthTreePrinter.outputToFile();
         }
     }
-
 }

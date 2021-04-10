@@ -22,6 +22,6 @@ public class RegisterItem {
     }
 
     public MenuItem getItem() {
-        return registerItem;
+        return this.registerItem;
     }
 }

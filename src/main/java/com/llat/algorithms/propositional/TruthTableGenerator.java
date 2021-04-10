@@ -1,6 +1,5 @@
 package com.llat.algorithms.propositional;
 
-import com.llat.input.LLATErrorListener;
 import com.llat.models.treenode.AtomNode;
 import com.llat.models.treenode.NegNode;
 import com.llat.models.treenode.WffTree;
@@ -52,65 +51,6 @@ public final class TruthTableGenerator {
 
         // We want to clear the tree every time so we don't get duplicate values.
         this.clearWffTree();
-    }
-
-    /**
-     * Clears all truth values from this WffTree.
-     */
-    public void clearWffTree() {
-        Queue<WffTree> queue = new LinkedList<>();
-        queue.add(this.wffTree);
-
-        while (!queue.isEmpty()) {
-            WffTree tree = queue.poll();
-            tree.getTruthValues().clear();
-            for (WffTree ch : tree.getChildren()) {
-                queue.add(ch);
-            }
-        }
-    }
-
-    /**
-     * Builds the truth table for the supplied tree. Each node
-     * has a LinkedList of truth values associated with it, and
-     * these are set as the tree is built. So, this function does
-     * not return anything. Once this method is called, the tree
-     * will need to be traversed again to find the truth values.
-     * To get just the truth table values for the entire tree,
-     * call getTruthValues() on the main operator. This process can
-     * also be done on each subtree for easy printing.
-     */
-    public boolean getTruthTable() {
-        if (this.size > MAX_ATOMS) {
-            return false;
-        }
-
-        // If the tree already HAS truth values, then don't rebuild the tree.
-        if (this.wffTree.getTruthValues().isEmpty()) {
-            this.buildTable(this.wffTree);
-        }
-
-        return true;
-    }
-
-    /**
-     * Prints out the truth values for a WffTree in pre-order fashion.
-     */
-    public void print() {
-        printHelper();
-    }
-
-    /**
-     * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
-     * <p>
-     * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
-     *
-     * @return list of nodes in post-order.
-     */
-    public LinkedHashSet<WffTree> postorder() {
-        LinkedHashSet<WffTree> list = new LinkedHashSet<>();
-        this.postorderHelper(this.wffTree.getChild(0), list);
-        return list;
     }
 
     /**
@@ -173,6 +113,65 @@ public final class TruthTableGenerator {
      */
     private static boolean logicalBicond(boolean _a, boolean _b) {
         return !logicalXOR(_a, _b);
+    }
+
+    /**
+     * Clears all truth values from this WffTree.
+     */
+    public void clearWffTree() {
+        Queue<WffTree> queue = new LinkedList<>();
+        queue.add(this.wffTree);
+
+        while (!queue.isEmpty()) {
+            WffTree tree = queue.poll();
+            tree.getTruthValues().clear();
+            for (WffTree ch : tree.getChildren()) {
+                queue.add(ch);
+            }
+        }
+    }
+
+    /**
+     * Builds the truth table for the supplied tree. Each node
+     * has a LinkedList of truth values associated with it, and
+     * these are set as the tree is built. So, this function does
+     * not return anything. Once this method is called, the tree
+     * will need to be traversed again to find the truth values.
+     * To get just the truth table values for the entire tree,
+     * call getTruthValues() on the main operator. This process can
+     * also be done on each subtree for easy printing.
+     */
+    public boolean getTruthTable() {
+        if (this.size > MAX_ATOMS) {
+            return false;
+        }
+
+        // If the tree already HAS truth values, then don't rebuild the tree.
+        if (this.wffTree.getTruthValues().isEmpty()) {
+            this.buildTable(this.wffTree);
+        }
+
+        return true;
+    }
+
+    /**
+     * Prints out the truth values for a WffTree in pre-order fashion.
+     */
+    public void print() {
+        this.printHelper();
+    }
+
+    /**
+     * Performs a post-order traversal of the WffTree. We do this to get the respective truth values.
+     * <p>
+     * To access these values, iterate over the list returned by this method, and do node.getTruthValues().
+     *
+     * @return list of nodes in post-order.
+     */
+    public LinkedHashSet<WffTree> postorder() {
+        LinkedHashSet<WffTree> list = new LinkedHashSet<>();
+        this.postorderHelper(this.wffTree.getChild(0), list);
+        return list;
     }
 
     /**
@@ -250,15 +249,15 @@ public final class TruthTableGenerator {
                 this.truthPattern.put(atom.getSymbol(), pattern);
             }
 
-            initializeAtomTruthValues((AtomNode) _tree);
+            this.initializeAtomTruthValues((AtomNode) _tree);
         } else if (_tree.isNegation()) {
             WffTree operand = this.operands.pop();
-            populateNodeTruthValues(operand, null, _tree);
+            this.populateNodeTruthValues(operand, null, _tree);
         } else if (!_tree.isRoot()) {
             WffTree operand1 = this.operands.pop();
             WffTree operand2 = this.operands.pop();
             // Push them backwards.
-            populateNodeTruthValues(operand2, operand1, _tree);
+            this.populateNodeTruthValues(operand2, operand1, _tree);
         }
 
         if (!_tree.isRoot()) {

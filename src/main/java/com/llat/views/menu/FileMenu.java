@@ -27,6 +27,6 @@ public class FileMenu {
     }
 
     public Menu getMenu() {
-        return fileMenu;
+        return this.fileMenu;
     }
 }

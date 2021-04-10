@@ -13,7 +13,7 @@ public final class MainOperatorDetector {
     /**
      * Well-formed formula tree to check - also called the root.
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     public MainOperatorDetector(WffTree _wffTree) {
         this.wffTree = _wffTree;
@@ -25,7 +25,7 @@ public final class MainOperatorDetector {
      * @return String symbol of main operator.
      */
     public WffTree get() {
-        return getMainOpHelper(this.wffTree);
+        return this.getMainOpHelper(this.wffTree);
     }
 
     /**
@@ -36,7 +36,7 @@ public final class MainOperatorDetector {
      */
     private WffTree getMainOpHelper(WffTree _tree) {
         if (_tree.isRoot()) {
-            return getMainOpHelper(_tree.getChild(0));
+            return this.getMainOpHelper(_tree.getChild(0));
         } else if (_tree.isBinaryOp() || _tree.isQuantifier() || _tree.isNegation()) {
             return _tree;
         }

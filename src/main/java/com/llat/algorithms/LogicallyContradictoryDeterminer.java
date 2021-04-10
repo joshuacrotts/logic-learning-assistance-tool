@@ -11,7 +11,7 @@ public final class LogicallyContradictoryDeterminer {
     /**
      *
      */
-    private WffTree combinedTree;
+    private final WffTree combinedTree;
 
     public LogicallyContradictoryDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
         BicondNode bicondNode = new BicondNode();

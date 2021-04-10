@@ -12,12 +12,12 @@ public final class LogicallyContingentDeterminer {
     /**
      *
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     /**
      *
      */
-    private WffTree negatedTree;
+    private final WffTree negatedTree;
 
     public LogicallyContingentDeterminer(WffTree _wffTree) {
         this.wffTree = _wffTree.copy();

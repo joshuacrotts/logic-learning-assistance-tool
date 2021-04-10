@@ -85,6 +85,11 @@ public class RandomPropositionalFormulaGenerator {
 
     }
 
+    public static void main(String[] args) {
+        RandomPropositionalFormulaGenerator r = new RandomPropositionalFormulaGenerator();
+        System.out.println(r.genRandomPropositionalFormula());
+    }
+
     /**
      * Generates the random propositional formula.
      *
@@ -214,10 +219,5 @@ public class RandomPropositionalFormulaGenerator {
      */
     private String getRandomBinaryOp() {
         return this.binaryOperators.get((int) (Math.random() * this.binaryOperators.size()));
-    }
-
-    public static void main(String[] args) {
-        RandomPropositionalFormulaGenerator r = new RandomPropositionalFormulaGenerator();
-        System.out.println(r.genRandomPropositionalFormula());
     }
 }

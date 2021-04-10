@@ -21,5 +21,4 @@ public class SymbolDescriptionEvent implements Event {
     public void setSymbol(Symbol _symbolInput) {
         this.symbol = _symbolInput;
     }
-
 }

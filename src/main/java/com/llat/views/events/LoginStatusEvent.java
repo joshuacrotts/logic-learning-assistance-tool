@@ -3,16 +3,18 @@ package com.llat.views.events;
 import com.llat.database.UserObject;
 
 public class LoginStatusEvent {
-    UserObject user;
 
+    /**
+     *
+     */
+    private UserObject user;
 
     public LoginStatusEvent(UserObject user) {
-
 
     }
 
     public UserObject getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(UserObject user) {

@@ -6,7 +6,7 @@ public abstract class ItemObject {
     private String code;
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -14,7 +14,7 @@ public abstract class ItemObject {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public void setCode(String code) {

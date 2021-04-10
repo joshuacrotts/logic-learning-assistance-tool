@@ -18,7 +18,7 @@ public final class ArgumentTruthTreeValidator {
     /**
      *
      */
-    private WffTree combinedTree;
+    private final WffTree combinedTree;
 
     private BaseTruthTreeGenerator truthTreeGenerator;
 

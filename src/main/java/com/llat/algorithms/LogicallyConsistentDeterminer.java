@@ -15,7 +15,7 @@ public final class LogicallyConsistentDeterminer {
     /**
      *
      */
-    private WffTree combinedTree;
+    private final WffTree combinedTree;
 
     public LogicallyConsistentDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
         // Construct the combined tree, where the biconditional note

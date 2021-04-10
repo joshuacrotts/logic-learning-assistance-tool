@@ -13,12 +13,12 @@ public class ExitItem {
         this.controller = controller;
         this.exitItem = new MenuItem("Exit");
 
-        exitItem.setOnAction((ActionEvent t) -> {
+        this.exitItem.setOnAction((ActionEvent t) -> {
             System.exit(0);
         });
     }
 
     public MenuItem getItem() {
-        return exitItem;
+        return this.exitItem;
     }
 }

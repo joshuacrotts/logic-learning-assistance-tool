@@ -13,7 +13,7 @@ public final class GroundSentenceDeterminer {
     /**
      *
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     public GroundSentenceDeterminer(WffTree _wffTree) {
         this.wffTree = _wffTree;

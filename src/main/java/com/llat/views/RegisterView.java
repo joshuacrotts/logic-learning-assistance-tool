@@ -7,7 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class RegisterView {
 
@@ -23,17 +26,16 @@ public class RegisterView {
     private final VBox registerVBox = new VBox();
     private final Label logoImage = new Label();
     private final Label userNameInputLabel = new Label("User Name");
-    private TextField userNameField = new TextField();
     private final Label firstNameInputLabel = new Label("First Name");
-    private TextField firstNameField = new TextField();
     private final Label lastNameInputLabel = new Label("Last Name");
-    private TextField lastNameField = new TextField();
     private final Label passwordInputLabel = new Label("Password");
-    private PasswordField passwordField = new PasswordField();
     private final Button registerButton = new Button("Register");
     private final Button returnButton = new Button("Return to Application");
-
     private final RegisterInterpreter registerInterpreter;
+    private TextField userNameField = new TextField();
+    private TextField firstNameField = new TextField();
+    private TextField lastNameField = new TextField();
+    private PasswordField passwordField = new PasswordField();
 
     public RegisterView(Controller _controller) {
         this.controller = _controller;
@@ -163,7 +165,7 @@ public class RegisterView {
         });
 
         // Adding children nodes to their parents nodes.
-        this.registerVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, belowLogoRegion,
+        this.registerVBox.getChildren().addAll(this.aboveLogoRegion, this.logoImage, this.belowLogoRegion,
                 this.userNameInputLabel, this.userNameField, this.belowUserNameRegion, this.firstNameInputLabel,
                 this.firstNameField, this.belowFirstNameRegion, this.lastNameInputLabel, this.lastNameField,
                 this.belowLastNameRegion, this.passwordInputLabel, this.passwordField, this.belowPasswordFieldRegion,
@@ -183,11 +185,11 @@ public class RegisterView {
     }
 
     public Button getReturnButton() {
-        return returnButton;
+        return this.returnButton;
     }
 
     public TextField getUserNameField() {
-        return userNameField;
+        return this.userNameField;
     }
 
     public void setUserNameField(TextField userNameField) {
@@ -195,7 +197,7 @@ public class RegisterView {
     }
 
     public TextField getFirstNameField() {
-        return firstNameField;
+        return this.firstNameField;
     }
 
     public void setFirstNameField(TextField firstNameField) {
@@ -203,7 +205,7 @@ public class RegisterView {
     }
 
     public TextField getLastNameField() {
-        return lastNameField;
+        return this.lastNameField;
     }
 
     public void setLastNameField(TextField lastNameField) {
@@ -211,7 +213,7 @@ public class RegisterView {
     }
 
     public PasswordField getPasswordField() {
-        return passwordField;
+        return this.passwordField;
     }
 
     public void setPasswordField(PasswordField passwordField) {

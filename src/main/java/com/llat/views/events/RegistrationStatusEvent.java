@@ -11,7 +11,7 @@ public class RegistrationStatusEvent implements Event {
     }
 
     public int getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(int status) {

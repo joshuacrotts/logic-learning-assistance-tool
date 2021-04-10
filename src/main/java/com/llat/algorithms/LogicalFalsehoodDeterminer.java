@@ -12,7 +12,7 @@ public final class LogicalFalsehoodDeterminer {
     /**
      *
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     public LogicalFalsehoodDeterminer(WffTree _wffTreeOne) {
         this.wffTree = _wffTreeOne.copy();

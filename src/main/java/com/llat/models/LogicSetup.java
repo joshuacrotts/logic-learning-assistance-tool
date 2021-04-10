@@ -21,64 +21,64 @@ public class LogicSetup {
      *
      */
     private final List<Object> general1 = new ArrayList() {{
-        add(AlgorithmType.GENERAL);
-        add(AlgorithmType.MAIN_OPERATOR_DETECTOR);
-        add(AlgorithmType.CLOSED_TREE_DETERMINER);
-        add(AlgorithmType.OPEN_TREE_DETERMINER);
-        add(AlgorithmType.LOGICAL_FALSEHOOD_DETERMINER);
-        add(AlgorithmType.LOGICALLY_CONTINGENT_DETERMINER);
-        add(AlgorithmType.LOGICAL_TAUTOLOGY_DETERMINER);
+        this.add(AlgorithmType.GENERAL);
+        this.add(AlgorithmType.MAIN_OPERATOR_DETECTOR);
+        this.add(AlgorithmType.CLOSED_TREE_DETERMINER);
+        this.add(AlgorithmType.OPEN_TREE_DETERMINER);
+        this.add(AlgorithmType.LOGICAL_FALSEHOOD_DETERMINER);
+        this.add(AlgorithmType.LOGICALLY_CONTINGENT_DETERMINER);
+        this.add(AlgorithmType.LOGICAL_TAUTOLOGY_DETERMINER);
     }};
     /**
      *
      */
     private final List<Object> general2 = new ArrayList() {{
-        add(AlgorithmType.GENERAL);
-        add(AlgorithmType.LOGICALLY_CONTRADICTORY_DETERMINER);
-        add(AlgorithmType.LOGICALLY_CONSISTENT_DETERMINER);
-        add(AlgorithmType.LOGICALLY_CONTRARY_DETERMINER);
-        add(AlgorithmType.LOGICALLY_EQUIVALENT_DETERMINER);
-        add(AlgorithmType.LOGICALLY_IMPLIED_DETERMINER);
+        this.add(AlgorithmType.GENERAL);
+        this.add(AlgorithmType.LOGICALLY_CONTRADICTORY_DETERMINER);
+        this.add(AlgorithmType.LOGICALLY_CONSISTENT_DETERMINER);
+        this.add(AlgorithmType.LOGICALLY_CONTRARY_DETERMINER);
+        this.add(AlgorithmType.LOGICALLY_EQUIVALENT_DETERMINER);
+        this.add(AlgorithmType.LOGICALLY_IMPLIED_DETERMINER);
     }};
     /**
      *
      */
     private final List<Object> generalMore = new ArrayList() {{
-        add(AlgorithmType.GENERAL);
-        add(AlgorithmType.ARGUMENT_TRUTH_TREE_VALIDATOR);
+        this.add(AlgorithmType.GENERAL);
+        this.add(AlgorithmType.ARGUMENT_TRUTH_TREE_VALIDATOR);
     }};
     /**
      *
      */
     private final List<Object> propositional1 = new ArrayList() {{
-        add(AlgorithmType.PROPOSITIONAL);
-        add(AlgorithmType.PROPOSITIONAL_TRUTH_TREE_GENERATOR);
-        add(AlgorithmType.RANDOM_FORMULA_GENERATION);
-        add(AlgorithmType.TRUTH_TABLE_GENERATOR);
+        this.add(AlgorithmType.PROPOSITIONAL);
+        this.add(AlgorithmType.PROPOSITIONAL_TRUTH_TREE_GENERATOR);
+        this.add(AlgorithmType.RANDOM_FORMULA_GENERATION);
+        this.add(AlgorithmType.TRUTH_TABLE_GENERATOR);
     }};
     /**
      *
      */
+    private final LogicSetupInterpreter logicSetupInterpreter;
+    /**
+     *
+     */
     List<Object> predicate1 = new ArrayList() {{
-        add(AlgorithmType.PREDICATE);
-        add(AlgorithmType.BOUND_VARIABLE_DETECTOR);
-        add(AlgorithmType.CLOSED_SENTENCE_DETERMINER);
-        add(AlgorithmType.FREE_VARIABLE_DETECTOR);
-        add(AlgorithmType.GROUND_SENTENCE_DETERMINER);
-        add(AlgorithmType.OPEN_SENTENCE_DETERMINER);
-        add(AlgorithmType.PREDICATE_TRUTH_TREE_GENERATOR);
+        this.add(AlgorithmType.PREDICATE);
+        this.add(AlgorithmType.BOUND_VARIABLE_DETECTOR);
+        this.add(AlgorithmType.CLOSED_SENTENCE_DETERMINER);
+        this.add(AlgorithmType.FREE_VARIABLE_DETECTOR);
+        this.add(AlgorithmType.GROUND_SENTENCE_DETERMINER);
+        this.add(AlgorithmType.OPEN_SENTENCE_DETERMINER);
+        this.add(AlgorithmType.PREDICATE_TRUTH_TREE_GENERATOR);
     }};
     /**
      *
      */
     private LinkedList<WffTree> wffTree;
-    /**
-     *
-     */
-    private final LogicSetupInterpreter logicSetupInterpreter;
 
     public LogicSetup() {
-        logicSetupInterpreter = new LogicSetupInterpreter(this);
+        this.logicSetupInterpreter = new LogicSetupInterpreter(this);
     }
 
     /**
@@ -226,20 +226,20 @@ public class LogicSetup {
                 return null;
             case 1:
                 return (this.wffTree.get(0).isPredicateWff()) ? new ArrayList<List<Object>>() {{
-                    add(general1);
-                    add(predicate1);
+                    this.add(LogicSetup.this.general1);
+                    this.add(LogicSetup.this.predicate1);
                 }} : new ArrayList<List<Object>>() {{
-                    add(general1);
-                    add(propositional1);
+                    this.add(LogicSetup.this.general1);
+                    this.add(LogicSetup.this.propositional1);
                 }};
             case 2:
                 return new ArrayList<List<Object>>() {{
-                    add(general2);
-                    add(generalMore);
+                    this.add(LogicSetup.this.general2);
+                    this.add(LogicSetup.this.generalMore);
                 }};
             default:
                 return new ArrayList<List<Object>>() {{
-                    add(generalMore);
+                    this.add(LogicSetup.this.generalMore);
                 }};
         }
     }
