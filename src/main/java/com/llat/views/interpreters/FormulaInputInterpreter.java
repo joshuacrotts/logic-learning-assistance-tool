@@ -2,6 +2,7 @@ package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
 import com.llat.input.events.SolvedFormulaEvent;
+import com.llat.models.events.RandomGeneratedFormulaEvent;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
@@ -74,6 +75,13 @@ public class FormulaInputInterpreter implements Listener {
             this.formulaInputView.getAlgorithmApplyButton().setDisable(false);
         } else if (_event instanceof SolvedFormulaEvent) {
             this.lastValidWff = this.formulaInputView.getFormulaInputField().getText();
+        }
+        else if (_event instanceof RandomGeneratedFormulaEvent) {
+            if (!((RandomGeneratedFormulaEvent) _event).isEmpty()) {
+                this.formulaInputView.getFormulaInputField().setText(((RandomGeneratedFormulaEvent) _event).getFormula());
+            } else {
+                this.formulaInputView.getFormulaInputField().setText("Formula could not be generated.");
+            }
         }
     }
 }

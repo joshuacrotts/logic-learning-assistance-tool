@@ -31,6 +31,8 @@ public class AlgorithmSelectionViewInterpreter implements Listener {
             this.algorithmSelectionView.clearComboBoxes();
             this.algorithmSelectionView.createComboBoxes();
         } else if (_event instanceof SetAlgorithmInputEvent) {
+            this.algorithmSelectionView.clearComboBoxes();
+            this.algorithmSelectionView.createComboBoxes();
             this.currentAlgorithm = null;
             ((SetAlgorithmInputEvent) _event).getAlgorithmOptions().forEach((_algorithmList) -> {
                 List<Object> algorithmList = FXCollections.observableArrayList(_algorithmList);
