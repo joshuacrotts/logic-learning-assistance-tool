@@ -20,6 +20,9 @@ public final class ArgumentTruthTreeValidator {
      */
     private final WffTree combinedTree;
 
+    /**
+     *
+     */
     private BaseTruthTreeGenerator truthTreeGenerator;
 
     public ArgumentTruthTreeValidator(LinkedList<WffTree> _wffTreeList) {
@@ -57,6 +60,13 @@ public final class ArgumentTruthTreeValidator {
 
         // Set the flags to make sure that the combined tree knows whether it's a propositional or FOPL formula.
         this.combinedTree.setFlags(_wffTreeList.get(0).getFlags());
+
+        // Get the truth tree generator ready because we're gonna use it.
+        if (this.combinedTree.isPropositionalWff()) {
+            this.truthTreeGenerator = new PropositionalTruthTreeGenerator(this.combinedTree);
+        } else {
+            this.truthTreeGenerator = new PropositionalTruthTreeGenerator(this.combinedTree);
+        }
     }
 
     /**
