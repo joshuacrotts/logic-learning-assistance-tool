@@ -191,7 +191,9 @@ public class RandomPropositionalFormulaGenerator {
                 _binopProbability, _binopDeltaProbability);
 
         // Binary op.
+        _sb.append(" ");
         _sb.append(this.getRandomBinaryOp());
+        _sb.append(" ");
 
         // Right wff.
         this.genWff(_sb, _atomProbability - _atomDeltaProbability, _atomDeltaProbability, _usedAtomProbability,

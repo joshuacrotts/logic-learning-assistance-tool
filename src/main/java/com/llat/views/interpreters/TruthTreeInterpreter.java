@@ -74,7 +74,7 @@ public class TruthTreeInterpreter implements Listener {
 
             // Setup the tree layout configuration.
             double gapBetweenLevels = 10;
-            double gapBetweenNodes = 20;
+            double gapBetweenNodes = 30;
             DefaultConfiguration<TruthTree> configuration = new DefaultConfiguration<>(
                     gapBetweenLevels, gapBetweenNodes);
 
@@ -94,9 +94,11 @@ public class TruthTreeInterpreter implements Listener {
             this.truthTreeView.getParentPane().widthProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateX((newVal.doubleValue() / 2) - (this.treePane.getWidth() / 2));
             });
+
             this.truthTreeView.getParentPane().heightProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateY((newVal.doubleValue() / 2) - (this.treePane.getHeight() / 2));
             });
+
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
         }
@@ -136,9 +138,9 @@ public class TruthTreeInterpreter implements Listener {
                 Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
                 // Compute offsets to position it in the center of the screen.
                 double x1Off = x1;
-                double y1Off = y1;
+                double y1Off = y1 + b1.getHeight() / 2 + 2;
                 double x2Off = b2.getCenterX();
-                double y2Off = b2.getCenterY();
+                double y2Off = b2.getCenterY() - b2.getHeight() / 2 - 2;
                 if (_tree.getRight() != null) {
                     this.treePane.getChildren().add(new Line(x1Off, y1Off, x2Off, y2Off));
                 }
