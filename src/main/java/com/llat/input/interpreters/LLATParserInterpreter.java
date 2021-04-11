@@ -5,6 +5,7 @@ import com.llat.input.LLATParserAdapter;
 import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.input.events.SyntaxErrorEvent;
 import com.llat.input.events.SyntaxWarningEvent;
+import com.llat.input.events.UnsolvedFormulaEvent;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
@@ -33,6 +34,9 @@ public class LLATParserInterpreter implements Listener {
             if (linkedTree != null) {
                 WffTree wffTree = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula()).get(0);
                 EventBus.throwEvent(new SolvedFormulaEvent(linkedTree));
+            }
+            else {
+                EventBus.throwEvent(new UnsolvedFormulaEvent());
             }
         }
     }

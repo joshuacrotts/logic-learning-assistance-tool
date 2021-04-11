@@ -8,6 +8,7 @@ import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.events.SolvedFormulaEvent;
+import com.llat.input.events.UnsolvedFormulaEvent;
 import com.llat.models.LogicSetup;
 import com.llat.models.events.*;
 import com.llat.models.treenode.WffTree;
@@ -44,6 +45,7 @@ public class LogicSetupInterpreter implements Listener {
                 switch (this.logicSetup.convertStringToAlgorithmType(((ApplyAlgorithmEvent) _event).getAlgorithmType())) {
                     case RANDOM_PREDICATE_FORMULA:
                     case RANDOM_PROPOSITIONAL_FORMULA:
+                        this.logicSetup.setWffTree(null);
                         randomGeneratedFormulaEvent = new RandomGeneratedFormulaEvent(((LogicSetup.LogicFormula) (logicReturn)).getFormula());
                         EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
                         break;
@@ -112,6 +114,10 @@ public class LogicSetupInterpreter implements Listener {
             texTruthTreePrinter.outputToFile();
         }
         else if (_event instanceof AlgorithmSelectionViewInitializedEvent) {
+            EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
+        }
+        else if (_event instanceof UnsolvedFormulaEvent) {
+            this.logicSetup.setWffTree(null);
             EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
         }
     }

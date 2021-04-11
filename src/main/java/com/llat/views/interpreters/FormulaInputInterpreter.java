@@ -79,8 +79,6 @@ public class FormulaInputInterpreter implements Listener {
         else if (_event instanceof RandomGeneratedFormulaEvent) {
             if (!((RandomGeneratedFormulaEvent) _event).isEmpty()) {
                 this.formulaInputView.getFormulaInputField().setText(((RandomGeneratedFormulaEvent) _event).getFormula());
-            } else {
-                this.formulaInputView.getFormulaInputField().setText("Formula could not be generated.");
             }
         }
     }
