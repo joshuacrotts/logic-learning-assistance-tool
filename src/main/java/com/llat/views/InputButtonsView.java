@@ -8,14 +8,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
 public class InputButtonsView {
 
     private final Controller controller;
-    private final Stage stage;
     private final UIDescriptionObject obj = (UIDescriptionObject) new UIDescriptionAdaptor().getData();
     private final VBox inputButtonVBox = new VBox();
     private final Region abovePropositionalLogicLabel = new Region();
@@ -52,16 +50,11 @@ public class InputButtonsView {
 
     public InputButtonsView(Controller _controller) {
         this.controller = _controller;
-        this.stage = this.controller.getStage();
 
         // Setting VBox inputButtonVBox properties.
         this.inputButtonVBox.setId("inputButtonVBox");
         this.inputButtonVBox.setSpacing(0);
         this.inputButtonVBox.setAlignment(Pos.TOP_CENTER);
-        this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.inputButtonVBox.setMinWidth(newVal.doubleValue() * .20);
-            this.inputButtonVBox.setMaxWidth(newVal.doubleValue() * .20);
-        });
 
         // Setting Region abovePropositionalLogicLabel settings.
         this.inputButtonVBox.heightProperty().addListener((obs, oldVal, newVal) -> {

@@ -202,7 +202,7 @@ public class LLATErrorListener extends BaseErrorListener {
     /**
      * @author joshuacrotts
      */
-    private static class Message {
+    public static class Message {
         private final String text;
         private final int lineNo;
         private final int colNo;
