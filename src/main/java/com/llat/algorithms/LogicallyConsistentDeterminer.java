@@ -15,7 +15,7 @@ public final class LogicallyConsistentDeterminer {
     /**
      *
      */
-    private WffTree combinedTree;
+    private final WffTree combinedTree;
 
     public LogicallyConsistentDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
         // Construct the combined tree, where the biconditional note
@@ -54,7 +54,7 @@ public final class LogicallyConsistentDeterminer {
 
         // The consistency branch must close, and the right must have at least one open branch.
         return (new ClosedTreeDeterminer(consistentTree).hasAllClosed())
-                && (new OpenTreeDeterminer(consistentTree).hasSomeOpen());
+                && (new OpenTreeDeterminer(inconsistentTree).hasSomeOpen());
     }
 
     public WffTree getCombinedTree() {

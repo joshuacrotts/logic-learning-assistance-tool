@@ -6,7 +6,7 @@ public interface DatabaseInterface {
 
     UserObject Login(String Username, String Password);
 
-    String Register(String _userName, String _password, String _firstName, String _lastName);
+    int Register(String _userName, String _password, String _firstName, String _lastName);
 
     void UpdateTheme(int id, String Theme);
 
@@ -15,6 +15,4 @@ public interface DatabaseInterface {
     void InsertQuery(int id, String Text);
 
     List<String> UpdateHistory(int id);
-
-
 }

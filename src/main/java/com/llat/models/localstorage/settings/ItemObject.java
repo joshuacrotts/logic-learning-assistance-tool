@@ -1,11 +1,12 @@
 package com.llat.models.localstorage.settings;
 
 public abstract class ItemObject {
-    String name;
-    String code;
+
+    private String name;
+    private String code;
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -13,7 +14,7 @@ public abstract class ItemObject {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public void setCode(String code) {

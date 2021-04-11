@@ -1,50 +1,64 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
+import com.llat.views.interpreters.TruthTableInterpreter;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TruthTableView {
 
-    private Controller controller;
-    private Stage stage;
-    private AnchorPane parentPane = new AnchorPane();
-    private Label tableLabel = new Label("Truth Table");
-    private VBox vBox = new VBox();
-
-    private TableView table = new TableView();
+    private final TruthTableInterpreter truthTableInterpreter;
+    private final Controller controller;
+    private final Stage stage;
+    private final VBox parentPane = new VBox();
+    private final ScrollPane scrollPane = new ScrollPane();
+    private final HBox truthTable = new HBox();
 
     public TruthTableView(Controller _controller) {
-
         this.controller = _controller;
         this.stage = _controller.getStage();
 
-        vBox.getChildren().addAll(tableLabel, this.table);
-        vBox.setAlignment(Pos.CENTER);
-        tableLabel.setId("truthTableLabel");
-        vBox.setId("truthTableVBox");
-
+        // Setting VBox parentPane properties.
+        this.parentPane.setAlignment(Pos.TOP_CENTER);
+        this.parentPane.setId("truthTableParentPane");
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            table.setMinWidth(newVal.doubleValue() * .6);
-            table.setMaxWidth(newVal.doubleValue()* .6);
+            this.parentPane.minWidth(newVal.doubleValue() * .60);
+            this.parentPane.maxWidth(newVal.doubleValue() * .60);
         });
 
-
-        this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.parentPane.setMinHeight((newVal.doubleValue() * .4) - MenuBarView.menuBarHeight);
-            this.parentPane.setMaxHeight((newVal.doubleValue() * .4) - MenuBarView.menuBarHeight);
+        // Setting scrollPane scrollPane properties.
+        this.scrollPane.setId("truthTableScrollPane");
+        this.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.scrollPane.setMaxWidth(Double.MAX_VALUE);
         });
 
-        this.parentPane.getChildren().addAll(vBox);
+        this.scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
+        this.scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
+        this.scrollPane.fitToHeightProperty().set(true);
+
+        // Setting HBox truthTable properties.
+        this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.truthTable.setMinWidth(newVal.doubleValue() - 1);
+        });
+
+        // Adding children nodes to their parents nodes.
+        this.scrollPane.setContent(this.truthTable);
+        this.truthTableInterpreter = new TruthTableInterpreter(this.controller, this);
     }
 
+    public HBox getTruthTable() {
+        return this.truthTable;
+    }
 
-    public Node getParentPane() {
-        return parentPane;
+    public ScrollPane getScrollPane() {
+        return this.scrollPane;
+    }
+
+    public Pane getParentPane() {
+        return this.parentPane;
     }
 }

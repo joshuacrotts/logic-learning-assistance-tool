@@ -10,7 +10,7 @@ public final class OpenSentenceDeterminer {
     /**
      *
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     public OpenSentenceDeterminer(WffTree _wffTree) {
         this.wffTree = _wffTree;

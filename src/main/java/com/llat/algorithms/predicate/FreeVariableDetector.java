@@ -12,10 +12,14 @@ public final class FreeVariableDetector {
     /**
      *
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     public FreeVariableDetector(WffTree _wffTree) {
         this.wffTree = _wffTree;
+    }
+
+    public WffTree getWffTree() {
+        return this.wffTree;
     }
 
     /**
@@ -56,7 +60,7 @@ public final class FreeVariableDetector {
 
         // Pre-order search for free variables.
         for (WffTree ch : T.getChildren()) {
-            free(ch, S, L);
+            this.free(ch, S, L);
         }
 
         if (T.isQuantifier()) {

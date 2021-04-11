@@ -32,7 +32,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public Implication getImplication() {
-        return implication;
+        return this.implication;
     }
 
     public void setImplication(Implication implication) {
@@ -40,7 +40,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public Biconditional getBiconditional() {
-        return biconditional;
+        return this.biconditional;
     }
 
     public void setBiconditional(Biconditional biconditional) {
@@ -48,7 +48,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public Negation getNegation() {
-        return negation;
+        return this.negation;
     }
 
     public void setNegation(Negation negation) {
@@ -56,7 +56,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public Conjunction getConjunction() {
-        return conjunction;
+        return this.conjunction;
     }
 
     public void setConjunction(Conjunction conjunction) {
@@ -64,7 +64,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public Disjunction getDisjunction() {
-        return disjunction;
+        return this.disjunction;
     }
 
     public void setDisjunction(Disjunction disjunction) {
@@ -72,7 +72,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public ExclusiveDisjunction getExclusiveDisjunction() {
-        return exclusiveDisjunction;
+        return this.exclusiveDisjunction;
     }
 
     public void setExclusiveDisjunction(ExclusiveDisjunction exclusiveDisjunction) {
@@ -80,7 +80,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public Turnstile getTurnstile() {
-        return turnstile;
+        return this.turnstile;
     }
 
     public void setTurnstile(Turnstile turnstile) {
@@ -88,7 +88,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public DoubleTurnstile getDoubleTurnstile() {
-        return doubleTurnstile;
+        return this.doubleTurnstile;
     }
 
     public void setDoubleTurnstile(DoubleTurnstile doubleTurnstile) {
@@ -96,7 +96,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public Universal getUniversal() {
-        return universal;
+        return this.universal;
     }
 
     public void setUniversal(Universal universal) {
@@ -104,7 +104,7 @@ public class UIDescriptionObject extends LocalStorage {
     }
 
     public Existential getExistential() {
-        return existential;
+        return this.existential;
     }
 
     public void setExistential(Existential existential) {
@@ -114,16 +114,16 @@ public class UIDescriptionObject extends LocalStorage {
     @Override
     public String toString() {
         return "UIDescriptionObject{" +
-                "implication=" + implication +
-                ", biconditional=" + biconditional +
-                ", negation=" + negation +
-                ", conjunction=" + conjunction +
-                ", disjunction=" + disjunction +
-                ", exclusiveDisjunction=" + exclusiveDisjunction +
-                ", turnstile=" + turnstile +
-                ", doubleTurnstile=" + doubleTurnstile +
-                ", universal=" + universal +
-                ", existential=" + existential +
+                "implication=" + this.implication +
+                ", biconditional=" + this.biconditional +
+                ", negation=" + this.negation +
+                ", conjunction=" + this.conjunction +
+                ", disjunction=" + this.disjunction +
+                ", exclusiveDisjunction=" + this.exclusiveDisjunction +
+                ", turnstile=" + this.turnstile +
+                ", doubleTurnstile=" + this.doubleTurnstile +
+                ", universal=" + this.universal +
+                ", existential=" + this.existential +
                 '}';
     }
 }

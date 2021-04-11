@@ -9,8 +9,6 @@ public class TranslateUIDO {
     public static void main(String[] args) {
         TranslateUIDO main = new TranslateUIDO();
         String langTo = "fr";
-//        Gson gson = new Gson();
-//        JsonReader reader = new JsonReader(new FileReader("C:\\Users\\PC\\IntelliJIDEAProjects\\Logic-Learning-Assistance-Tool\\src\\main\\resources\\UIDescription_en.json"));
         GsonIO g = new GsonIO("UID/UIDescription_en.json", UIDescriptionObject.class);
         UIDescriptionObject obj = (UIDescriptionObject) g.getData();
         obj = main.translateUIDO(obj, langTo);
