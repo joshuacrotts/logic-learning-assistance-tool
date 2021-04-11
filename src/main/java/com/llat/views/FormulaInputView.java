@@ -86,13 +86,17 @@ public class FormulaInputView {
 
         // Setting Button formulaInputButton properties.
         HBox.setHgrow(this.formulaInputButton, Priority.ALWAYS);
+        this.algorithmApplyButton.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.formulaInputButton.setMinWidth(newVal.doubleValue());
+            this.formulaInputButton.setMaxWidth(newVal.doubleValue());
+        });
 
         // Setting Button algorithmApplyButton properties.
         this.algorithmApplyButton.setDisable(true);
         HBox.setHgrow(this.algorithmApplyButton, Priority.ALWAYS);
 
         // Adding children nodes to their parents nodes.
-        this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton, this.algorithmApplyButton);
+        this.formulaInputHBox.getChildren().addAll(this.formulaInputButton, this.formulaInputField, this.algorithmApplyButton);
 
         // Creating interpreter to handle events and actions.
         this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);

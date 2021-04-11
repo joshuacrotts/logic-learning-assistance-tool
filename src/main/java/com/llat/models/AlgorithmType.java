@@ -18,12 +18,13 @@ public enum AlgorithmType {
 
     // Propositional ONLY algorithms.
     PROPOSITIONAL("PROPOSITIONAL"),
+    RANDOM_PROPOSITIONAL_FORMULA("Random Propositional Formula"),
     PROPOSITIONAL_TRUTH_TREE_GENERATOR("Propositional Truth Tree Generator"),
-    RANDOM_FORMULA_GENERATION("Random Formula Generation"),
     TRUTH_TABLE_GENERATOR("Truth Table Generator"),
 
     // Predicate ONLY algorithms.
     PREDICATE("PREDICATE"),
+    RANDOM_PREDICATE_FORMULA("Random Predicate Formula"),
     BOUND_VARIABLE_DETECTOR("Bound Variable Detector"),
     CLOSED_SENTENCE_DETERMINER("Closed Sentence Determiner"),
     FREE_VARIABLE_DETECTOR("Free Variable Detector"),

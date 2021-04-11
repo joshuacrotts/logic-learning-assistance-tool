@@ -9,6 +9,7 @@ import com.llat.models.interpreters.LogicSetupInterpreter;
 import com.llat.models.treenode.WffTree;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,17 +60,28 @@ public class LogicSetup {
         this.add(AlgorithmType.GENERAL);
         this.add(AlgorithmType.ARGUMENT_TRUTH_TREE_VALIDATOR);
     }};
-
+    /**
+     *
+     */
+    private final List<Object> propositional = new ArrayList() {{
+        this.add(AlgorithmType.PROPOSITIONAL);
+        this.add(AlgorithmType.RANDOM_PROPOSITIONAL_FORMULA);
+    }};
     /**
      *
      */
     private final List<Object> propositional1 = new ArrayList() {{
         this.add(AlgorithmType.PROPOSITIONAL);
         this.add(AlgorithmType.PROPOSITIONAL_TRUTH_TREE_GENERATOR);
-        this.add(AlgorithmType.RANDOM_FORMULA_GENERATION);
         this.add(AlgorithmType.TRUTH_TABLE_GENERATOR);
     }};
-
+    /**
+     *
+     */
+    private final List<Object> predicate = new ArrayList() {{
+        this.add(AlgorithmType.PREDICATE);
+        this.add(AlgorithmType.RANDOM_PREDICATE_FORMULA);
+    }};
     /**
      *
      */
@@ -176,9 +188,6 @@ public class LogicSetup {
                 PropositionalTruthTreeGenerator propositionalTruthTreeGenerator = new PropositionalTruthTreeGenerator(rootOne);
                 return new LogicParseAndTruthTree(propositionalTruthTreeGenerator.getWffTree(), propositionalTruthTreeGenerator.getTruthTree());
 
-            case RANDOM_FORMULA_GENERATION:
-                throw new UnsupportedOperationException("Random formula generation not working yet.");
-
             case TRUTH_TABLE_GENERATOR:
                 TruthTableGenerator truthTableGenerator = new TruthTableGenerator(rootOne);
                 return new LogicTruthAndParseTree(truthTableGenerator.getTruthTable(), rootOne);
@@ -236,26 +245,30 @@ public class LogicSetup {
     }
 
     public ArrayList<List<Object>> getAvailableAlgorithms() {
+        ArrayList<List<Object>> availableAlgorithms = new ArrayList<>() {{
+            this.add(LogicSetup.this.predicate);
+            this.add(LogicSetup.this.propositional);
+        }};
         switch (this.getWffCount()) {
             case -1:
-                return null;
+                return availableAlgorithms;
             case 1:
-                return (this.wffTree.get(0).isPredicateWff()) ? new ArrayList<List<Object>>() {{
-                    this.add(LogicSetup.this.general1);
-                    this.add(LogicSetup.this.predicate1);
-                }} : new ArrayList<List<Object>>() {{
-                    this.add(LogicSetup.this.general1);
-                    this.add(LogicSetup.this.propositional1);
-                }};
+                if (this.wffTree.get(0).isPredicateWff()) {
+                    availableAlgorithms.add(LogicSetup.this.general1);
+                    availableAlgorithms.add(LogicSetup.this.predicate1);
+                }
+                else {
+                    availableAlgorithms.add(LogicSetup.this.general1);
+                    availableAlgorithms.add(LogicSetup.this.propositional1);
+                }
+                return availableAlgorithms;
             case 2:
-                return new ArrayList<List<Object>>() {{
-                    this.add(LogicSetup.this.general2);
-                    this.add(LogicSetup.this.generalMore);
-                }};
+                availableAlgorithms.add(LogicSetup.this.general2);
+                availableAlgorithms.add(LogicSetup.this.generalMore);
+                return availableAlgorithms;
             default:
-                return new ArrayList<List<Object>>() {{
-                    this.add(LogicSetup.this.generalMore);
-                }};
+                availableAlgorithms.add(LogicSetup.this.generalMore);
+                return availableAlgorithms;
         }
     }
 

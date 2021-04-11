@@ -14,10 +14,7 @@ import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
-import com.llat.views.events.ApplyAlgorithmEvent;
-import com.llat.views.events.ExportLaTeXParseTreeEvent;
-import com.llat.views.events.ExportLaTeXTruthTableEvent;
-import com.llat.views.events.ExportLaTeXTruthTreeEvent;
+import com.llat.views.events.*;
 
 public class LogicSetupInterpreter implements Listener {
 
@@ -83,9 +80,6 @@ public class LogicSetupInterpreter implements Listener {
                     updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree());
                     updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthTree());
                     break;
-
-                case RANDOM_FORMULA_GENERATION:
-                    break;
             }
 
             EventBus.throwEvent(updateViewTruthEvent);
@@ -108,6 +102,9 @@ public class LogicSetupInterpreter implements Listener {
             }
             TexTruthTreePrinter texTruthTreePrinter = new TexTruthTreePrinter(truthTreeGenerator.getTruthTree(), ((ExportLaTeXTruthTreeEvent) _event).getFilePath());
             texTruthTreePrinter.outputToFile();
+        }
+        else if (_event instanceof AlgorithmSelectionViewInitializedEvent) {
+            EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
         }
     }
 }

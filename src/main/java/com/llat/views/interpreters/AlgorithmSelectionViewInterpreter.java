@@ -7,10 +7,7 @@ import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.AlgorithmSelectionView;
-import com.llat.views.events.AlgorithmSelectedEvent;
-import com.llat.views.events.ApplyAlgorithmButtonEvent;
-import com.llat.views.events.ApplyAlgorithmEvent;
-import com.llat.views.events.SolveButtonEvent;
+import com.llat.views.events.*;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 
@@ -24,8 +21,8 @@ public class AlgorithmSelectionViewInterpreter implements Listener {
     public AlgorithmSelectionViewInterpreter(Controller _controller, AlgorithmSelectionView _algorithmSelectionView) {
         this.controller = _controller;
         this.algorithmSelectionView = _algorithmSelectionView;
-
         EventBus.addListener(this);
+        EventBus.throwEvent(new AlgorithmSelectionViewInitializedEvent());
     }
 
     @Override
