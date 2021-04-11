@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -43,6 +42,7 @@ public class HistoryView {
             this.table.setMinHeight(newVal.doubleValue());
             this.table.setMinHeight(newVal.doubleValue());
         });
+
         if (this.controller.getUser() != null && this.controller.getUser().getHistory() != null) {
             List<String> history = this.controller.getUser().getHistory();
             ObservableList<String> names = FXCollections.observableArrayList(history);
@@ -62,5 +62,4 @@ public class HistoryView {
     public Pane getParentPane() {
         return this.parentPane;
     }
-
 }

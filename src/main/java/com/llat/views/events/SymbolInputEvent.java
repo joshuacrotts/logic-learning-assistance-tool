@@ -20,5 +20,4 @@ public class SymbolInputEvent implements Event {
     public void setSymbolInput(String _symbolInput) {
         this.symbolInput = _symbolInput;
     }
-
 }

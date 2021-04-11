@@ -13,6 +13,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class TruthTableInterpreter implements Listener {
+
     private final Controller controller;
     private final TruthTableView truthTableView;
 
@@ -55,11 +56,11 @@ public class TruthTableInterpreter implements Listener {
 
         switch (childSize) {
             case 1:
-                createTruthTable(_wffTree.getChild(0), _truthTable);
+                this.createTruthTable(_wffTree.getChild(0), _truthTable);
                 break;
             case 2:
-                createTruthTable(_wffTree.getChild(0), _truthTable);
-                createTruthTable(_wffTree.getChild(1), _truthTable);
+                this.createTruthTable(_wffTree.getChild(0), _truthTable);
+                this.createTruthTable(_wffTree.getChild(1), _truthTable);
                 break;
             default:
                 break;

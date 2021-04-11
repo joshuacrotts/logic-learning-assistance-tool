@@ -12,7 +12,12 @@ import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class FormulaInputView {
+
+    /**
+     *
+     */
     public final static int FORMULAINPUTVIEWHEIGHT = 74;
+
     /**
      *
      */
@@ -37,7 +42,12 @@ public class FormulaInputView {
      *
      */
     private final Button formulaInputButton = new Button("Solve");
+
+    /**
+     *
+     */
     private final Button algorithmApplyButton = new Button("Apply");
+
     /**
      *
      */
@@ -57,26 +67,33 @@ public class FormulaInputView {
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.formulaInputHBox.setMinWidth(newVal.doubleValue());
         });
+
         this.formulaInputHBox.setAlignment(Pos.CENTER);
         this.formulaInputHBox.setFillHeight(true);
         this.formulaInputHBox.setSpacing(4);
         this.formulaInputHBox.setPadding(new Insets(10, 0, 10, 0));
+
         // Setting TextField formulaInputField properties.
         HBox.setHgrow(this.formulaInputField, Priority.ALWAYS);
         this.formulaInputHBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.formulaInputField.setMaxWidth(newVal.doubleValue() * .50);
         });
+
         // If the formula input field loses focus, store the caret position.
         this.formulaInputField.focusedProperty().addListener((obs, oldVal, newVal) -> {
             this.caretPos = this.formulaInputField.getCaretPosition();
         });
+
         // Setting Button formulaInputButton properties.
         HBox.setHgrow(this.formulaInputButton, Priority.ALWAYS);
+
         // Setting Button algorithmApplyButton properties.
         this.algorithmApplyButton.setDisable(true);
         HBox.setHgrow(this.algorithmApplyButton, Priority.ALWAYS);
+
         // Adding children nodes to their parents nodes.
         this.formulaInputHBox.getChildren().addAll(this.formulaInputField, this.formulaInputButton, this.algorithmApplyButton);
+
         // Creating interpreter to handle events and actions.
         this.formulaInputInterpreter = new FormulaInputInterpreter(this.controller, this);
     }
@@ -104,5 +121,4 @@ public class FormulaInputView {
     public void setCaretPos(int _caretPos) {
         this.caretPos = _caretPos;
     }
-
 }

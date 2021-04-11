@@ -54,7 +54,7 @@ public class GoogleTranslatorAPI implements TranslatorInterface {
         List<String> transList = new ArrayList<String>();
 
         for (String s : textList) {
-            transList.add(translate(langFrom, langTo, s));
+            transList.add(this.translate(langFrom, langTo, s));
         }
         return transList;
     }

@@ -91,7 +91,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             System.out.println(filePath);
         } catch (NullPointerException e) {
             System.out.println("File is not exist. Empty file will be generated");
-            createMissingFile(_jsonFilePath);
+            this.createMissingFile(_jsonFilePath);
         }
         try {
             Writer writer = new FileWriter(filePath);
@@ -110,8 +110,8 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
 
     @Override
     public LocalStorage getData() {
-        String jsonString = readJsonFile(json);
-        LocalStorage localStorage = gson.fromJson(jsonString, aClass);
+        String jsonString = readJsonFile(this.json);
+        LocalStorage localStorage = gson.fromJson(jsonString, this.aClass);
         return localStorage;
     }
 

@@ -11,7 +11,7 @@ public class UserCredentialsObject extends LocalStorage {
     // Getter Methods
 
     public String getUser() {
-        return User;
+        return this.User;
     }
 
     public void setUser(String User) {
@@ -21,7 +21,7 @@ public class UserCredentialsObject extends LocalStorage {
     // Setter Methods
 
     public String getPassword() {
-        return Password;
+        return this.Password;
     }
 
     public void setPassword(String Password) {

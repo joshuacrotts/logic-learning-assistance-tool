@@ -14,7 +14,7 @@ public class ExportLaTeXTruthTreeItem {
     }
 
     public MenuItem getItem() {
-        return latexTruthTree;
+        return this.latexTruthTree;
     }
 
 }

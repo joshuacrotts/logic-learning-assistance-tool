@@ -14,7 +14,7 @@ public final class LogicalTautologyDeterminer {
     /**
      *
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     public LogicalTautologyDeterminer(WffTree _wffTreeOne) {
         this.wffTree = new WffTree();

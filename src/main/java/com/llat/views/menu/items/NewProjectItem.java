@@ -23,6 +23,6 @@ public class NewProjectItem {
     }
 
     public MenuItem getItem() {
-        return newProjectItem;
+        return this.newProjectItem;
     }
 }

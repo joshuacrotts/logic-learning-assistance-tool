@@ -28,14 +28,14 @@ public class InputButtonsView {
     private final SymbolButton turnstileButton = new SymbolButton(this.obj.getTurnstile());
     private final SymbolButton doubleTurnstileButton = new SymbolButton(this.obj.getDoubleTurnstile());
     private final ArrayList<SymbolButton> propositionalLogicButtons = new ArrayList<SymbolButton>() {{
-        add(conjunctionButton);
-        add(disjunctionButton);
-        add(negationButton);
-        add(exclusiveDisjunctionButton);
-        add(equivalenceButton);
-        add(implicationButton);
-        add(turnstileButton);
-        add(doubleTurnstileButton);
+        this.add(InputButtonsView.this.conjunctionButton);
+        this.add(InputButtonsView.this.disjunctionButton);
+        this.add(InputButtonsView.this.negationButton);
+        this.add(InputButtonsView.this.exclusiveDisjunctionButton);
+        this.add(InputButtonsView.this.equivalenceButton);
+        this.add(InputButtonsView.this.implicationButton);
+        this.add(InputButtonsView.this.turnstileButton);
+        this.add(InputButtonsView.this.doubleTurnstileButton);
     }};
     private final Region belowPropositionalLogicPane = new Region();
     private final Label predicateLogicLabel = new Label("Predicate Logic");
@@ -43,8 +43,8 @@ public class InputButtonsView {
     private final SymbolButton existentialQuantifierButton = new SymbolButton(this.obj.getExistential());
     private final SymbolButton universalQuantifierButton = new SymbolButton(this.obj.getUniversal());
     private final ArrayList<SymbolButton> predicateLogicButtons = new ArrayList<SymbolButton>() {{
-        add(existentialQuantifierButton);
-        add(universalQuantifierButton);
+        this.add(InputButtonsView.this.existentialQuantifierButton);
+        this.add(InputButtonsView.this.universalQuantifierButton);
     }};
     private final InputButtonInterpreter inputButtonInterpreter;
 

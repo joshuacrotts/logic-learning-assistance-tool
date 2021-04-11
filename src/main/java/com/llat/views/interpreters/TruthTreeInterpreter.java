@@ -94,7 +94,7 @@ public class TruthTreeInterpreter implements Listener {
                 this.treePane.setTranslateX((newVal.doubleValue() / 2) - (this.treePane.getWidth() / 2));
             });
             this.truthTreeView.getParentPane().heightProperty().addListener((obs, oldVal, newVal) -> {
-                this.treePane.setTranslateY((newVal.doubleValue() /2) - (this.treePane.getHeight() / 2));
+                this.treePane.setTranslateY((newVal.doubleValue() / 2) - (this.treePane.getHeight() / 2));
             });
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);

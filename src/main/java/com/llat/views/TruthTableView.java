@@ -60,7 +60,6 @@ public class TruthTableView {
     }
 
     public Pane getParentPane() {
-        return parentPane;
+        return this.parentPane;
     }
-
 }

@@ -1,10 +1,8 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -72,5 +70,4 @@ public class RightView {
     public Pane getParentPane() {
         return this.parentPane;
     }
-
 }

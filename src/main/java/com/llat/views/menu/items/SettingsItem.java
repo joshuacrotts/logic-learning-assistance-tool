@@ -22,15 +22,15 @@ public class SettingsItem {
             public void handle(ActionEvent event) {
                 Stage settingsStage = new SettingsView(controller).getStage();
                 // Set position of second window, related to primary window.
-                settingsStage.setX(stage.getX() + 200);
-                settingsStage.setY(stage.getY() + 100);
+                settingsStage.setX(SettingsItem.this.stage.getX() + 200);
+                settingsStage.setY(SettingsItem.this.stage.getY() + 100);
                 settingsStage.show();
             }
         });
     }
 
     public MenuItem getItem() {
-        return openItem;
+        return this.openItem;
     }
 
     public Stage getStage() {

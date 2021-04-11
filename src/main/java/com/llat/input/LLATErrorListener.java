@@ -221,7 +221,7 @@ public class LLATErrorListener extends BaseErrorListener {
 
         @Override
         public int hashCode() {
-            return this.text.hashCode() + lineNo + colNo;
+            return this.text.hashCode() + this.lineNo + this.colNo;
         }
 
         public int getLineNo() {
@@ -234,7 +234,7 @@ public class LLATErrorListener extends BaseErrorListener {
 
         @Override
         public String toString() {
-            return "line " + lineNo + ":" + colNo + " " + text;
+            return "line " + this.lineNo + ":" + this.colNo + " " + this.text;
         }
     }
 }

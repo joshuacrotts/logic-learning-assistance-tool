@@ -5,12 +5,13 @@ import com.llat.views.interpreters.TruthTreeInterpreter;
 import javafx.scene.layout.Pane;
 
 public class TruthTreeView {
+
     public static int MAXSCALE = 8;
     public static int MINSCALE = 0;
 
-    private Controller controller;
-    private Pane parentPane = new Pane();
-    private TruthTreeInterpreter truthTreeInterpreter;
+    private final Controller controller;
+    private final Pane parentPane = new Pane();
+    private final TruthTreeInterpreter truthTreeInterpreter;
 
     public TruthTreeView(Controller _controller) {
         this.controller = _controller;

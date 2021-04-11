@@ -20,106 +20,6 @@ public class ArgumentTruthTreeValidatorUnitTester {
 
     private static ArgumentTruthTreeValidator argumentTruthTreeValidator;
 
-    @Test
-    public void test001() {
-        goodFileTest("test001");
-    }
-
-    @Test
-    public void test002() {
-        goodFileTest("test002");
-    }
-
-    @Test
-    public void test003() {
-        goodFileTest("test003");
-    }
-
-    @Test
-    public void test004() {
-        goodFileTest("test004");
-    }
-
-    @Test
-    public void test005() {
-        goodFileTest("test005");
-    }
-
-    @Test
-    public void test006() {
-        goodFileTest("test006");
-    }
-
-    @Test
-    public void test007() {
-        goodFileTest("test007");
-    }
-
-    @Test
-    public void test008() {
-        goodFileTest("test008");
-    }
-
-    @Test
-    public void test009() {
-        goodFileTest("test009");
-    }
-
-    @Test
-    public void test010() {
-        goodFileTest("test010");
-    }
-
-    @Test
-    public void test011() {
-        goodFileTest("test011");
-    }
-
-    @Test
-    public void test012() {
-        goodFileTest("test012");
-    }
-
-    @Test
-    public void test013() {
-        goodFileTest("test013");
-    }
-
-    @Test
-    public void test014() {
-        goodFileTest("test014");
-    }
-
-    @Test
-    public void test015() {
-        goodFileTest("test015");
-    }
-
-    @Test
-    public void test016() {
-        goodFileTest("test016");
-    }
-
-    @Test
-    public void test017() {
-        goodFileTest("test017");
-    }
-
-    @Test
-    public void test018() {
-        goodFileTest("test018");
-    }
-
-    @Test
-    public void test019() {
-        goodFileTest("test019");
-    }
-
-    @Test
-    public void test020() {
-        goodFileTest("test020");
-    }
-
     /**
      * Helper function to count number of newlines in a string
      *
@@ -228,5 +128,105 @@ public class ArgumentTruthTreeValidatorUnitTester {
             throw new AssertionFailedError("Missing expected output file " + expName);
         }
         compare(actual, expected);
+    }
+
+    @Test
+    public void test001() {
+        goodFileTest("test001");
+    }
+
+    @Test
+    public void test002() {
+        goodFileTest("test002");
+    }
+
+    @Test
+    public void test003() {
+        goodFileTest("test003");
+    }
+
+    @Test
+    public void test004() {
+        goodFileTest("test004");
+    }
+
+    @Test
+    public void test005() {
+        goodFileTest("test005");
+    }
+
+    @Test
+    public void test006() {
+        goodFileTest("test006");
+    }
+
+    @Test
+    public void test007() {
+        goodFileTest("test007");
+    }
+
+    @Test
+    public void test008() {
+        goodFileTest("test008");
+    }
+
+    @Test
+    public void test009() {
+        goodFileTest("test009");
+    }
+
+    @Test
+    public void test010() {
+        goodFileTest("test010");
+    }
+
+    @Test
+    public void test011() {
+        goodFileTest("test011");
+    }
+
+    @Test
+    public void test012() {
+        goodFileTest("test012");
+    }
+
+    @Test
+    public void test013() {
+        goodFileTest("test013");
+    }
+
+    @Test
+    public void test014() {
+        goodFileTest("test014");
+    }
+
+    @Test
+    public void test015() {
+        goodFileTest("test015");
+    }
+
+    @Test
+    public void test016() {
+        goodFileTest("test016");
+    }
+
+    @Test
+    public void test017() {
+        goodFileTest("test017");
+    }
+
+    @Test
+    public void test018() {
+        goodFileTest("test018");
+    }
+
+    @Test
+    public void test019() {
+        goodFileTest("test019");
+    }
+
+    @Test
+    public void test020() {
+        goodFileTest("test020");
     }
 }

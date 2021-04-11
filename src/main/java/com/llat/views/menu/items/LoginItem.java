@@ -22,6 +22,6 @@ public class LoginItem {
     }
 
     public MenuItem getItem() {
-        return loginItem;
+        return this.loginItem;
     }
 }

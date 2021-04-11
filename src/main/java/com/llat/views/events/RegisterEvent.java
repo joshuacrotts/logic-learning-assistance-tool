@@ -5,16 +5,14 @@ import com.llat.tools.Event;
 
 public class RegisterEvent implements Event {
 
-    UserObject user;
-
+    private UserObject user;
 
     public RegisterEvent(String _userName, String _firstName, String _lastName, String _pass) {
-
-        user = new UserObject(_userName, _firstName, _lastName, _pass);
+        this.user = new UserObject(_userName, _firstName, _lastName, _pass);
     }
 
     public UserObject getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(UserObject user) {

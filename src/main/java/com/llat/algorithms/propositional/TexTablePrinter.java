@@ -2,9 +2,6 @@ package com.llat.algorithms.propositional;
 
 import com.llat.algorithms.TexPrinter;
 import com.llat.models.treenode.WffTree;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 
 import java.io.*;
 import java.util.LinkedHashSet;

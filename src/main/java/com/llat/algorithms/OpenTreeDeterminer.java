@@ -13,7 +13,7 @@ public class OpenTreeDeterminer {
     /**
      *
      */
-    private TruthTree tree;
+    private final TruthTree tree;
 
     public OpenTreeDeterminer(TruthTree _tree) {
         this.tree = _tree;
@@ -21,9 +21,9 @@ public class OpenTreeDeterminer {
 
     public OpenTreeDeterminer(WffTree _tree) {
         if (_tree.isPropositionalWff()) {
-            tree = new PropositionalTruthTreeGenerator(_tree).getTruthTree();
+            this.tree = new PropositionalTruthTreeGenerator(_tree).getTruthTree();
         } else {
-            tree = new PredicateTruthTreeGenerator(_tree).getTruthTree();
+            this.tree = new PredicateTruthTreeGenerator(_tree).getTruthTree();
         }
     }
 
@@ -32,7 +32,7 @@ public class OpenTreeDeterminer {
      */
     public boolean hasAllOpen() {
         Queue<TruthTree> queue = new LinkedList<>();
-        queue.add(tree);
+        queue.add(this.tree);
 
         while (!queue.isEmpty()) {
             TruthTree t = queue.poll();
@@ -54,7 +54,7 @@ public class OpenTreeDeterminer {
      */
     public boolean hasSomeOpen() {
         Queue<TruthTree> queue = new LinkedList<>();
-        queue.add(tree);
+        queue.add(this.tree);
 
         while (!queue.isEmpty()) {
             TruthTree t = queue.poll();

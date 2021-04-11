@@ -12,10 +12,10 @@ public class OpenItem {
         this.controller = controller;
         this.openItem = new MenuItem("Open Project");
 
-        openItem.setDisable(true);
+        this.openItem.setDisable(true);
     }
 
     public MenuItem getItem() {
-        return openItem;
+        return this.openItem;
     }
 }

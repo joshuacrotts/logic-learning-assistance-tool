@@ -27,6 +27,10 @@ public class ViewManager {
      */
     public final static String RESOURCEPATH = "src/main/resources/assets/stylesheets/";
 
+    /**
+     *
+     * @return
+     */
     public static String getDefaultStyle() {
         SettingsObject so = (SettingsObject) new SettingsAdaptor().getData();
         File styleSheet = new File(ViewManager.RESOURCEPATH + so.getTheme().getApplied().getCode());
@@ -34,11 +38,20 @@ public class ViewManager {
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
 
+    /**
+     *
+     * @param _theme
+     * @return
+     */
     public static String getDefaultStyle(String _theme) {
         File styleSheet = new File(ViewManager.RESOURCEPATH + _theme);
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
 
+    /**
+     *
+     * @return
+     */
     public static String getStyle() {
         SettingsObject so = (SettingsObject) new SettingsAdaptor().getData();
         String theme = so.getTheme().getApplied().getCode();

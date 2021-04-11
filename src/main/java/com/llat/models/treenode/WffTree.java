@@ -92,12 +92,15 @@ public class WffTree implements Copyable, TexPrintable {
 
         WffTree o = (WffTree) _obj;
 
-        if (this.getStringRep().equals(o.getStringRep())) {
+        String wff1Equiv = WffTree.getStandardizedEquiv(this.getStringRep());
+        String wff2Equiv = WffTree.getStandardizedEquiv(o.getStringRep());
+
+        if (wff1Equiv.equals(wff2Equiv)) {
             return true;
         }
 
-        StringBuilder w1 = new StringBuilder(this.getStringRep());
-        StringBuilder w2 = new StringBuilder(o.getStringRep());
+        StringBuilder w1 = new StringBuilder(wff1Equiv);
+        StringBuilder w2 = new StringBuilder(wff2Equiv);
 
         // Check to see if both are identity operators and if so, reverse them.
         if (w1.compareTo(w2.reverse()) == 0 || w1.reverse().compareTo(w2.reverse()) == 0) {
@@ -373,6 +376,21 @@ public class WffTree implements Copyable, TexPrintable {
     @Override
     public String toString() {
         return this.NODE_TYPE.toString();
+    }
+
+    /**
+     *
+     * @param _strRep
+     * @return
+     */
+    private static String getStandardizedEquiv(String _strRep) {
+        String s = _strRep.replaceAll("[∼¬!]", "~"); // NEG
+        s = s.replaceAll("[∧]", "&"); // AND
+        s = s.replaceAll("[\\|+\\|\\|]", "∨"); // OR
+        s = s.replaceAll("[→⇒⊃]", "->"); // IMP
+        s = s.replaceAll("[⇔≡↔]", "<->"); // BICOND
+        s = s.replaceAll("[⊻≢⩒↮]", "⊕"); // XOR
+        return s;
     }
 
     /**

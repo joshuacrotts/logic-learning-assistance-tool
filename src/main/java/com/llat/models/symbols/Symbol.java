@@ -11,7 +11,7 @@ public abstract class Symbol {
     private String readAs;
 
     public StringSymbol getSymbol() {
-        return symbol;
+        return this.symbol;
     }
 
     public void setSymbol(StringSymbol symbol) {
@@ -19,7 +19,7 @@ public abstract class Symbol {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -27,7 +27,7 @@ public abstract class Symbol {
     }
 
     public Axioms getAxioms() {
-        return axioms;
+        return this.axioms;
     }
 
     public void setAxioms(Axioms axioms) {
@@ -35,7 +35,7 @@ public abstract class Symbol {
     }
 
     public String getTooltip() {
-        return tooltip;
+        return this.tooltip;
     }
 
     public void setTooltip(String tooltip) {
@@ -43,7 +43,7 @@ public abstract class Symbol {
     }
 
     public String getReadAs() {
-        return readAs;
+        return this.readAs;
     }
 
     public void setReadAs(String readAs) {
@@ -53,11 +53,11 @@ public abstract class Symbol {
     @Override
     public String toString() {
         return "Symbol{" +
-                "symbol=" + symbol +
-                ", description='" + description + '\'' +
-                ", axioms=" + axioms +
-                ", tooltip='" + tooltip + '\'' +
-                ", readAs='" + readAs + '\'' +
+                "symbol=" + this.symbol +
+                ", description='" + this.description + '\'' +
+                ", axioms=" + this.axioms +
+                ", tooltip='" + this.tooltip + '\'' +
+                ", readAs='" + this.readAs + '\'' +
                 '}';
     }
 
@@ -66,7 +66,7 @@ public abstract class Symbol {
         List<String> allSymbols;
 
         public String getApplied() {
-            return applied;
+            return this.applied;
         }
 
         public void setApplied(String applied) {
@@ -74,7 +74,7 @@ public abstract class Symbol {
         }
 
         public List<String> getAllSymbols() {
-            return allSymbols;
+            return this.allSymbols;
         }
 
         public void setAllSymbols(List<String> allSymbols) {
@@ -84,8 +84,8 @@ public abstract class Symbol {
         @Override
         public String toString() {
             return "StringSymbol{" +
-                    "applied='" + applied + '\'' +
-                    ", allSymbols=" + allSymbols +
+                    "applied='" + this.applied + '\'' +
+                    ", allSymbols=" + this.allSymbols +
                     '}';
         }
     }
@@ -95,7 +95,7 @@ public abstract class Symbol {
         List<String> example;
 
         public String getExplanation() {
-            return explanation;
+            return this.explanation;
         }
 
         public void setExplanation(String explanation) {
@@ -103,7 +103,7 @@ public abstract class Symbol {
         }
 
         public List<String> getExample() {
-            return example;
+            return this.example;
         }
 
         public void setExample(List<String> example) {
@@ -113,8 +113,8 @@ public abstract class Symbol {
         @Override
         public String toString() {
             return "Axioms{" +
-                    "explanation='" + explanation + '\'' +
-                    ", example='" + example + '\'' +
+                    "explanation='" + this.explanation + '\'' +
+                    ", example='" + this.example + '\'' +
                     '}';
         }
     }

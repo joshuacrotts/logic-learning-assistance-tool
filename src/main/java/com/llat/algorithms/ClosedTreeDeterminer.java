@@ -13,7 +13,7 @@ public class ClosedTreeDeterminer {
     /**
      *
      */
-    private TruthTree tree;
+    private final TruthTree tree;
 
     public ClosedTreeDeterminer(TruthTree _tree) {
         this.tree = _tree;

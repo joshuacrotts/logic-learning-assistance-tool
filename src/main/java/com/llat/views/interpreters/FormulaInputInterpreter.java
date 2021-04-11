@@ -23,7 +23,15 @@ public class FormulaInputInterpreter implements Listener {
      *
      */
     private final FormulaInputView formulaInputView;
+
+    /**
+     *
+     */
     private String lastValidWff = null;
+
+    /**
+     *
+     */
     private boolean algorithmSelected = false;
 
     public FormulaInputInterpreter(Controller _controller, FormulaInputView _formulaInputView) {
@@ -34,14 +42,15 @@ public class FormulaInputInterpreter implements Listener {
             this.controller.setApplyAlgorithmOnAction(this.formulaInputView.getAlgorithmApplyButton());
             this.algorithmSelected = false;
         });
+
         this.formulaInputView.getFormulaInputField().textProperty().addListener((obs, oldVal, newVal) -> {
-            if(newVal.equals(this.lastValidWff) && this.algorithmSelected) {
+            if (newVal.equals(this.lastValidWff) && this.algorithmSelected) {
                 this.formulaInputView.getAlgorithmApplyButton().setDisable(false);
-            }
-            else {
+            } else {
                 this.formulaInputView.getAlgorithmApplyButton().setDisable(true);
             }
         });
+
         EventBus.addListener(this);
     }
 
@@ -60,14 +69,11 @@ public class FormulaInputInterpreter implements Listener {
             this.algorithmSelected = false;
             this.formulaInputView.getAlgorithmApplyButton().setDisable(true);
             EventBus.throwEvent(new FormulaInputEvent(this.formulaInputView.getFormulaInputField().getText()));
-        }
-        else if (_event instanceof AlgorithmSelectedEvent) {
+        } else if (_event instanceof AlgorithmSelectedEvent) {
             this.algorithmSelected = true;
             this.formulaInputView.getAlgorithmApplyButton().setDisable(false);
-        }
-        else if (_event instanceof SolvedFormulaEvent) {
+        } else if (_event instanceof SolvedFormulaEvent) {
             this.lastValidWff = this.formulaInputView.getFormulaInputField().getText();
         }
     }
-
 }

@@ -11,17 +11,18 @@ import javafx.stage.Stage;
 
 
 public class AlgorithmSelectionView {
+
     private final Controller controller;
     private final Stage stage;
     private final HBox comboHBox = new HBox();
+    private final AlgorithmSelectionViewInterpreter algorithmSelectionViewInterpreter;
     private ComboBox generalComboBox = new ComboBox();
     private ComboBox propositionalComboBox = new ComboBox();
     private ComboBox predicateComboBox = new ComboBox();
-    private final AlgorithmSelectionViewInterpreter algorithmSelectionViewInterpreter;
 
     public AlgorithmSelectionView(Controller _controller) {
         this.controller = _controller;
-        this.stage = controller.getStage();
+        this.stage = this.controller.getStage();
 
         // Setting HBox algorithmSelectionHBox properties.
         this.comboHBox.setSpacing(50);
@@ -72,7 +73,7 @@ public class AlgorithmSelectionView {
     }
 
     public ComboBox getGeneralComboBox() {
-        return generalComboBox;
+        return this.generalComboBox;
     }
 
     private void setGeneralComboBox(ComboBox _generalComboBox) {
@@ -80,7 +81,7 @@ public class AlgorithmSelectionView {
     }
 
     public ComboBox getPropositionalComboBox() {
-        return propositionalComboBox;
+        return this.propositionalComboBox;
     }
 
     private void setPropositionalComboBox(ComboBox _propositionalComboBox) {
@@ -88,7 +89,7 @@ public class AlgorithmSelectionView {
     }
 
     public ComboBox getPredicateComboBox() {
-        return predicateComboBox;
+        return this.predicateComboBox;
     }
 
     private void setPredicateComboBox(ComboBox _predicateComboBox) {

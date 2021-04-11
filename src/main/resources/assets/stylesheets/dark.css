@@ -5,7 +5,7 @@
 }
 
 #loginViewParentPane {
-    -fx-background-color: radial-gradient(center 50% 50% , radius 90% , silver, derive(gray, -50%));
+    -fx-background-color: radial-gradient(center 50% 50%, radius 90%, silver, derive(gray, -50%));
     -fx-background-color: linear-gradient(to right, gray 0%, silver 50%, gray 100%);
     -fx-alignment: center;
 }
@@ -16,7 +16,7 @@
     -fx-border-color: black;
     -fx-text-color: black;
     -fx-alignment: center;
-    -fx-prompt-text-fill :black;
+    -fx-prompt-text-fill: black;
     -fx-font-size: 2em;
 }
 
@@ -26,7 +26,7 @@
 }
 
 #loginVBox {
-    -fx-background-color: radial-gradient(center 50% 25% , radius 90% , silver, derive(black, 50%));
+    -fx-background-color: radial-gradient(center 50% 25%, radius 90%, silver, derive(black, 50%));
     -fx-alignment: top-center;
     -fx-spacing: 0;
     -fx-border-width: 0 10;
@@ -76,7 +76,7 @@
 }
 
 #rulesAxiomsScrollPane > .viewport {
-   -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 #rulesAxiomsScrollPane:vertical {
@@ -117,10 +117,10 @@
 }
 
 #treeNode {
-/*
-    -fx-min-width: 250;
-    -fx-max-width: 250;
-    */
+    /*
+        -fx-min-width: 250;
+        -fx-max-width: 250;
+        */
     -fx-border-width: 0;
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -138,10 +138,10 @@
 }
 
 #leftBracketButton {
-/*
-    -fx-min-width: 250;
-    -fx-max-width: 250;
-        */
+    /*
+        -fx-min-width: 250;
+        -fx-max-width: 250;
+            */
     -fx-border-width: 0;
     -fx-background-color: transparent;
     -fx-background-image: url("../images/LeftBracket.png");
@@ -152,10 +152,10 @@
 }
 
 #rightBracketButton {
-/*
-    -fx-min-width: 250;
-    -fx-max-width: 250;
-        */
+    /*
+        -fx-min-width: 250;
+        -fx-max-width: 250;
+            */
     -fx-border-width: 0;
     -fx-background-color: transparent;
     -fx-background-image: url("../images/RightBracket.png");
@@ -164,11 +164,12 @@
     -fx-background-insets: 0;
     -fx-opacity: 1;
 }
+
 #middleBracketButton {
-/*
-    -fx-min-width: 250;
-    -fx-max-width: 250;
-        */
+    /*
+        -fx-min-width: 250;
+        -fx-max-width: 250;
+            */
     -fx-border-width: 0;
     -fx-background-color: transparent;
     -fx-background-image: url("../images/MiddleBracket.png");
@@ -179,10 +180,10 @@
 }
 
 #singleBracket {
-/*
-    -fx-min-width: 250;
-    -fx-max-width: 250;
-        */
+    /*
+        -fx-min-width: 250;
+        -fx-max-width: 250;
+            */
     -fx-border-width: 0;
     -fx-background-color: transparent;
     -fx-background-image: url("../images/SingleBracket.png");

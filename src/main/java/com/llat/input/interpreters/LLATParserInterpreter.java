@@ -36,5 +36,4 @@ public class LLATParserInterpreter implements Listener {
             }
         }
     }
-
 }

@@ -58,7 +58,7 @@ public class SymbolDescriptionView {
         this.symbolDetailsVBox.setAlignment(Pos.TOP_CENTER);
 
         // Setting Text readAsText properties.
-        this.symbolNameText = new Button(symbol.getReadAs());
+        this.symbolNameText = new Button(this.symbol.getReadAs());
         this.symbolNameText.setWrapText(true);
         this.symbolNameText.setId("rulesAxiomsText");
         this.symbolNameText.setMaxHeight(Double.MAX_VALUE);
@@ -68,7 +68,7 @@ public class SymbolDescriptionView {
         this.belowSymbolNameText.setMinHeight(25);
 
         // Setting Text toolTipText properties.
-        this.formalNameText = new Button(symbol.getTooltip());
+        this.formalNameText = new Button(this.symbol.getTooltip());
         this.formalNameText.setWrapText(true);
         this.formalNameText.setId("rulesAxiomsText");
         this.formalNameText.setMaxHeight(Double.MAX_VALUE);
@@ -78,7 +78,7 @@ public class SymbolDescriptionView {
         this.belowFormalNameText.setMinHeight(25);
 
         // Setting Text allSymbolsText properties.
-        this.alternativeSymbolsText = new Button(symbol.getSymbol().getAllSymbols().toString());
+        this.alternativeSymbolsText = new Button(this.symbol.getSymbol().getAllSymbols().toString());
         this.alternativeSymbolsText.setWrapText(true);
         this.alternativeSymbolsText.setId("rulesAxiomsText");
         this.alternativeSymbolsText.setMaxHeight(Double.MAX_VALUE);
@@ -88,7 +88,7 @@ public class SymbolDescriptionView {
         this.belowAlternativeSymbolsText.setMinHeight(25);
 
         // Setting Text exampleText properties.
-        this.explanationText = new Button(symbol.getAxioms().getExplanation());
+        this.explanationText = new Button(this.symbol.getAxioms().getExplanation());
         this.explanationText.setNodeOrientation(LanguageObject.isUsingRightToLeftLanguage() ?
                 NodeOrientation.RIGHT_TO_LEFT :
                 NodeOrientation.LEFT_TO_RIGHT);
@@ -102,7 +102,7 @@ public class SymbolDescriptionView {
         this.belowExplanationText.setMinHeight(25);
 
         // Setting Text exampleText properties.
-        this.exampleText = new Button(symbol.getAxioms().getExample().get(0));
+        this.exampleText = new Button(this.symbol.getAxioms().getExample().get(0));
         this.exampleText.setTextAlignment(TextAlignment.JUSTIFY);
         this.exampleText.setNodeOrientation(LanguageObject.isUsingRightToLeftLanguage() ?
                 NodeOrientation.RIGHT_TO_LEFT :
@@ -125,5 +125,4 @@ public class SymbolDescriptionView {
     public VBox getParentPane() {
         return this.symbolDetailsVBox;
     }
-
 }

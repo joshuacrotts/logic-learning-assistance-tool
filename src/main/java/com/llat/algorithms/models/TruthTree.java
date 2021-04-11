@@ -65,28 +65,23 @@ public class TruthTree implements Comparable<TruthTree> {
      * Order of precedence for this node (as described above).
      */
     private final int VALUE;
-
+    /**
+     * Identifier number of this truth tree node in the tree itself.
+     */
+    private final int identifierNo;
     /**
      * Left pointer.
      */
     private TruthTree left;
-
     /**
      * Right pointer.
      */
     private TruthTree right;
-
     /**
      * Flags for the Truth tree - determines the status (open/closed), and if
      * it is an identity truth tree.
      */
     private int flags;
-
-    /**
-     * Identifier number of this truth tree node in the tree itself.
-     */
-    private int identifierNo;
-
     /**
      *
      */
@@ -402,7 +397,7 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _constant          - constant to replace variable with.
      */
     private void replaceSymbol(WffTree _newRoot, char _variableToReplace, char _constant) {
-        if (universalCount > THRESHOLD_LIMIT) {
+        if (this.universalCount > THRESHOLD_LIMIT) {
             System.err.println("Error - universal constant has reached the upper limit of 100.");
         }
         for (int i = 0; i < _newRoot.getChildrenSize(); i++) {

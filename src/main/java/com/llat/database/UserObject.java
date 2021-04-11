@@ -14,113 +14,113 @@ public class UserObject {
     private List<String> History;
 
     public UserObject(int userId, String userName, String pword, String lname, String fname, String theme, String language, List<String> history) {
-        UserId = userId;
-        UserName = userName;
-        Pword = pword;
-        Lname = lname;
-        Fname = fname;
-        Theme = theme;
-        Language = language;
-        History = history;
+        this.UserId = userId;
+        this.UserName = userName;
+        this.Pword = pword;
+        this.Lname = lname;
+        this.Fname = fname;
+        this.Theme = theme;
+        this.Language = language;
+        this.History = history;
     }
 
     public UserObject(int userId, String userName, String fname, String lname, String pword, String theme, String language) {
-        UserId = userId;
-        UserName = userName;
-        Pword = pword;
-        Lname = lname;
-        Fname = fname;
-        Theme = theme;
-        Language = language;
+        this.UserId = userId;
+        this.UserName = userName;
+        this.Pword = pword;
+        this.Lname = lname;
+        this.Fname = fname;
+        this.Theme = theme;
+        this.Language = language;
     }
 
-    public UserObject(String userName,String fname, String lname,String pword){
-        UserName = userName;
-        Pword = pword;
-        Fname = fname;
-        Lname = lname;
+    public UserObject(String userName, String fname, String lname, String pword) {
+        this.UserName = userName;
+        this.Pword = pword;
+        this.Fname = fname;
+        this.Lname = lname;
     }
 
     public UserObject(String userName, String pass) {
-        UserName = userName;
-        Pword = pass;
+        this.UserName = userName;
+        this.Pword = pass;
     }
 
     public int getUserId() {
-        return UserId;
+        return this.UserId;
     }
 
     public void setUserId(int userId) {
-        UserId = userId;
+        this.UserId = userId;
     }
 
     public String getUserName() {
-        return UserName;
+        return this.UserName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.UserName = userName;
     }
 
     public String getPword() {
-        return Pword;
+        return this.Pword;
     }
 
     public void setPword(String pword) {
-        Pword = pword;
+        this.Pword = pword;
     }
 
     public String getLname() {
-        return Lname;
+        return this.Lname;
     }
 
     public void setLname(String lname) {
-        Lname = lname;
+        this.Lname = lname;
     }
 
     public String getFname() {
-        return Fname;
+        return this.Fname;
     }
 
     public void setFname(String fname) {
-        Fname = fname;
+        this.Fname = fname;
     }
 
     public String getTheme() {
-        return Theme;
+        return this.Theme;
     }
 
     public void setTheme(String theme) {
-        Theme = theme;
+        this.Theme = theme;
     }
 
     public String getLanguage() {
-        return Language;
+        return this.Language;
     }
 
     public void setLanguage(String language) {
-        Language = language;
+        this.Language = language;
     }
 
     public List<String> getHistory() {
-        return History;
+        return this.History;
     }
 
     public void setHistory(List<String> history) {
-        History = history;
+        this.History = history;
     }
 
     @Override
     public String toString() {
         return "UserObject{" +
-                "UserId=" + UserId +
-                ", UserName='" + UserName + '\'' +
-                ", Pword='" + Pword + '\'' +
-                ", Lname='" + Lname + '\'' +
-                ", Fname='" + Fname + '\'' +
-                ", Theme='" + Theme + '\'' +
-                ", Language='" + Language + '\'' +
-                ", History=" + History +
+                "UserId=" + this.UserId +
+                ", UserName='" + this.UserName + '\'' +
+                ", Pword='" + this.Pword + '\'' +
+                ", Lname='" + this.Lname + '\'' +
+                ", Fname='" + this.Fname + '\'' +
+                ", Theme='" + this.Theme + '\'' +
+                ", Language='" + this.Language + '\'' +
+                ", History=" + this.History +
                 '}';
     }
 }

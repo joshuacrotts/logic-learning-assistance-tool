@@ -14,6 +14,6 @@ public class HelpMenu {
     }
 
     public Menu getMenu() {
-        return helpMenu;
+        return this.helpMenu;
     }
 }

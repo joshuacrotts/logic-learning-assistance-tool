@@ -80,11 +80,11 @@ public class RandomPredicateFormulaGenerator {
      * @param _binopDeltaProbability - The rate at which the likelihood of a binary operator being selected decreases.
      */
     public RandomPredicateFormulaGenerator(double _atomProbability,
-                                               double _atomDeltaProbability, double _usedAtomProbability,
-                                               double _wffProbability, double _wffDeltaProbability,
-                                               double _negProbability, double _negDeltaProbability,
-                                               double _binopProbability, double _binopDeltaProbability,
-                                               double _quantifierProbability, double _quantifierDeltaProbability) {
+                                           double _atomDeltaProbability, double _usedAtomProbability,
+                                           double _wffProbability, double _wffDeltaProbability,
+                                           double _negProbability, double _negDeltaProbability,
+                                           double _binopProbability, double _binopDeltaProbability,
+                                           double _quantifierProbability, double _quantifierDeltaProbability) {
         this.atomProbability = _atomProbability;
         this.atomDeltaProbability = _atomDeltaProbability;
         this.usedAtomProbability = _usedAtomProbability;
@@ -107,8 +107,12 @@ public class RandomPredicateFormulaGenerator {
 
     }
 
+    public static void main(String[] args) {
+        RandomPredicateFormulaGenerator r = new RandomPredicateFormulaGenerator();
+        System.out.println(r.genRandomPredicateFormula());
+    }
+
     /**
-     *
      * @return
      */
     public String genRandomPredicateFormula() {
@@ -209,18 +213,18 @@ public class RandomPredicateFormulaGenerator {
      * @return
      */
     private void genQuantifier(StringBuilder _sb, double _atomProbability,
-                        double _atomDeltaProbability, double _usedAtomProbability,
-                        double _wffProbability, double _wffDeltaProbability,
-                        double _negProbability, double _negDeltaProbability,
-                        double _binopProbability, double _binopDeltaProbability,
-                        double _quantifierProbability, double _quantifierDeltaProbability) {
+                               double _atomDeltaProbability, double _usedAtomProbability,
+                               double _wffProbability, double _wffDeltaProbability,
+                               double _negProbability, double _negDeltaProbability,
+                               double _binopProbability, double _binopDeltaProbability,
+                               double _quantifierProbability, double _quantifierDeltaProbability) {
         if (_negProbability > Math.random()) {
             this.genNeg(_sb, _atomProbability, _atomDeltaProbability, _usedAtomProbability,
                     _wffProbability, _wffDeltaProbability, _negProbability, _negDeltaProbability,
                     _binopProbability, _binopDeltaProbability, _quantifierProbability, _quantifierDeltaProbability);
         }
 
-        int idx = (int) (Math.random() * ((this.terminalsNotUsed.size() - 19 - variables) + 1) + 19 - variables);
+        int idx = (int) (Math.random() * ((this.terminalsNotUsed.size() - 19 - this.variables) + 1) + 19 - this.variables);
         this.variables++;
 
         // Either generate the existential or the universal...
@@ -305,10 +309,5 @@ public class RandomPredicateFormulaGenerator {
      */
     private String getRandomBinaryOp() {
         return this.binaryOperators.get((int) (Math.random() * this.binaryOperators.size()));
-    }
-
-    public static void main(String[] args) {
-        RandomPredicateFormulaGenerator r = new RandomPredicateFormulaGenerator();
-        System.out.println(r.genRandomPredicateFormula());
     }
 }

@@ -64,5 +64,4 @@ public class RulesAxiomsView {
     public VBox getParentPane() {
         return this.rulesAxiomsVBox;
     }
-
 }
