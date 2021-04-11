@@ -47,7 +47,6 @@ public class TruthTableView {
 
         // Adding children nodes to their parents nodes.
         this.scrollPane.setContent(this.truthTable);
-        this.parentPane.getChildren().addAll(this.scrollPane);
         this.truthTableInterpreter = new TruthTableInterpreter(this.controller, this);
     }
 

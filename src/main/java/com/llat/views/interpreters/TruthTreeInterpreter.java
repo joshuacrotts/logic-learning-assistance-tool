@@ -2,6 +2,7 @@ package com.llat.views.interpreters;
 
 import com.llat.algorithms.models.TruthTree;
 import com.llat.controller.Controller;
+import com.llat.input.events.UnsolvedFormulaEvent;
 import com.llat.models.events.UpdateViewTruthTreeEvent;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
@@ -98,6 +99,11 @@ public class TruthTreeInterpreter implements Listener {
             });
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
+        }
+        else if (_event instanceof UnsolvedFormulaEvent) {
+            if (this.treePane != null) {
+                this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
+            }
         }
     }
 

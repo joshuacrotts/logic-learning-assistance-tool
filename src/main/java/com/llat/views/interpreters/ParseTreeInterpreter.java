@@ -1,6 +1,7 @@
 package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
+import com.llat.input.events.UnsolvedFormulaEvent;
 import com.llat.models.events.UpdateViewParseTreeEvent;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
@@ -99,6 +100,11 @@ public class ParseTreeInterpreter implements Listener {
             });
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
+        }
+        else if (_event instanceof UnsolvedFormulaEvent) {
+            if (this.treePane != null) {
+                this.parseTreeView.getParentPane().getChildren().remove(this.treePane);
+            }
         }
     }
 
