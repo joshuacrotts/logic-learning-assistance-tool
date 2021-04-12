@@ -25,9 +25,6 @@ public abstract class BaseTruthTreeGenerator {
         this.tree = _tree;
     }
 
-    public WffTree getWffTree () {
-        return this.tree;
-    }
     /**
      * Computes a list of leaves for the current TruthTree. A leaf is a
      * node in the tree that contains no children (in other words, the
@@ -84,46 +81,6 @@ public abstract class BaseTruthTreeGenerator {
             leaf.setFlags(NodeFlag.STOP_CLOSE_CHECK);
         }
     }
-
-    /**
-     * TODO Document
-     *
-     * @return
-     */
-    public TruthTree getTruthTree() {
-        TruthTree ttn = new TruthTree(this.tree.getChild(0), null);
-        this.buildTreeHelper(ttn);
-        return ttn;
-    }
-
-    /**
-     * TODO Document
-     * <p>
-     * https://www.baeldung.com/java-print-binary-tree-diagram
-     *
-     * @param root
-     */
-    public String print(TruthTree root) {
-        if (root == null) {
-            return "";
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(root);
-
-        String pointerRight = "└── ";
-        String pointerLeft = (root.getRight() != null) ? "├── " : "└── ";
-
-        printHelper(sb, "", pointerLeft, root.getLeft(), root.getRight() != null);
-        printHelper(sb, "", pointerRight, root.getRight(), false);
-
-        return sb.toString();
-    }
-
-    /**
-     * @param _node
-     */
-    public abstract void buildTreeHelper(TruthTree _node);
 
     /**
      * Computes the negated version of any arbitrary WffTree node. This performs
@@ -228,6 +185,85 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
+     * TODO Document
+     * <p>
+     * https://www.baeldung.com/java-print-binary-tree-diagram
+     *
+     * @param sb
+     * @param padding
+     * @param pointer
+     * @param node
+     * @param hasRightSibling
+     */
+    private static void printHelper(StringBuilder sb, String padding, String pointer, TruthTree node,
+                                    boolean hasRightSibling) {
+        if (node != null) {
+            sb.append("\n");
+            sb.append(padding);
+            sb.append(pointer);
+            sb.append(node);
+
+            StringBuilder paddingBuilder = new StringBuilder(padding);
+            if (hasRightSibling) {
+                paddingBuilder.append("│  ");
+            } else {
+                paddingBuilder.append("   ");
+            }
+
+            String paddingForBoth = paddingBuilder.toString();
+            String pointerRight = "└── ";
+            String pointerLeft = (node.getRight() != null) ? "├── " : "└── ";
+
+            printHelper(sb, paddingForBoth, pointerLeft, node.getLeft(), node.getRight() != null);
+            printHelper(sb, paddingForBoth, pointerRight, node.getRight(), false);
+        }
+    }
+
+    public WffTree getWffTree() {
+        return this.tree;
+    }
+
+    /**
+     * TODO Document
+     *
+     * @return
+     */
+    public TruthTree getTruthTree() {
+        TruthTree ttn = new TruthTree(this.tree.getChild(0), null, null);
+        this.buildTreeHelper(ttn);
+        return ttn;
+    }
+
+    /**
+     * TODO Document
+     * <p>
+     * https://www.baeldung.com/java-print-binary-tree-diagram
+     *
+     * @param root
+     */
+    public String print(TruthTree root) {
+        if (root == null) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(root);
+
+        String pointerRight = "└── ";
+        String pointerLeft = (root.getRight() != null) ? "├── " : "└── ";
+
+        printHelper(sb, "", pointerLeft, root.getLeft(), root.getRight() != null);
+        printHelper(sb, "", pointerRight, root.getRight(), false);
+
+        return sb.toString();
+    }
+
+    /**
+     * @param _node
+     */
+    public abstract void buildTreeHelper(TruthTree _node);
+
+    /**
      * Stacks a conjunction node. The stack works as follows:
      * <p>
      * If we have (P & Q), then
@@ -249,8 +285,8 @@ public abstract class BaseTruthTreeGenerator {
         // We need to stack on the leaf ONLY.
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
-                leaf.addCenter(new TruthTree(_conj.getWff().getChild(0), leaf));
-                leaf.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1), leaf.getCenter()));
+                leaf.addCenter(new TruthTree(_conj.getWff().getChild(0), leaf, _conj));
+                leaf.getCenter().addCenter(new TruthTree(_conj.getWff().getChild(1), leaf.getCenter(), _conj));
                 _queue.add(leaf.getCenter());
                 _queue.add(leaf.getCenter().getCenter());
             }
@@ -278,8 +314,8 @@ public abstract class BaseTruthTreeGenerator {
 
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
-                leaf.addLeft(new TruthTree(_disj.getWff().getChild(0), leaf));
-                leaf.addRight(new TruthTree(_disj.getWff().getChild(1), leaf));
+                leaf.addLeft(new TruthTree(_disj.getWff().getChild(0), leaf, _disj));
+                leaf.addRight(new TruthTree(_disj.getWff().getChild(1), leaf, _disj));
                 _queue.add(leaf.getLeft());
                 _queue.add(leaf.getRight());
             }
@@ -308,8 +344,8 @@ public abstract class BaseTruthTreeGenerator {
 
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
-                leaf.addLeft(new TruthTree(getNegatedNode(_imp.getWff().getChild(0)), leaf));
-                leaf.addRight(new TruthTree(_imp.getWff().getChild(1), leaf));
+                leaf.addLeft(new TruthTree(getNegatedNode(_imp.getWff().getChild(0)), leaf, _imp));
+                leaf.addRight(new TruthTree(_imp.getWff().getChild(1), leaf, _imp));
                 _queue.add(leaf.getLeft());
                 _queue.add(leaf.getRight());
             }
@@ -338,8 +374,8 @@ public abstract class BaseTruthTreeGenerator {
         WffTree impNode = _negRoot.getWff().getChild(0);
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
-                leaf.addCenter(new TruthTree(impNode.getChild(0), leaf));
-                leaf.getCenter().addCenter(new TruthTree(getNegatedNode(impNode.getChild(1)), leaf.getCenter()));
+                leaf.addCenter(new TruthTree(impNode.getChild(0), leaf, _negRoot));
+                leaf.getCenter().addCenter(new TruthTree(getNegatedNode(impNode.getChild(1)), leaf.getCenter(), _negRoot));
                 _queue.add(leaf.getCenter());
                 _queue.add(leaf.getCenter().getCenter());
             }
@@ -369,12 +405,12 @@ public abstract class BaseTruthTreeGenerator {
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
                 // Left subtree.
-                leaf.addLeft(new TruthTree(xorNode.getChild(0), leaf));
-                leaf.getLeft().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(1)), leaf.getLeft()));
+                leaf.addLeft(new TruthTree(xorNode.getChild(0), leaf, _xorRoot));
+                leaf.getLeft().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(1)), leaf.getLeft(), _xorRoot));
 
                 // Right subtree.
-                leaf.addRight(new TruthTree(xorNode.getChild(1), leaf));
-                leaf.getRight().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(0)), leaf.getRight()));
+                leaf.addRight(new TruthTree(xorNode.getChild(1), leaf, _xorRoot));
+                leaf.getRight().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(0)), leaf.getRight(), _xorRoot));
 
                 // Add them to the queue.
                 _queue.add(leaf.getLeft());
@@ -408,12 +444,12 @@ public abstract class BaseTruthTreeGenerator {
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
                 // Left subtree.
-                leaf.addLeft(new TruthTree(xorNode.getChild(0), leaf));
-                leaf.getLeft().addCenter(new TruthTree(xorNode.getChild(1), leaf.getLeft()));
+                leaf.addLeft(new TruthTree(xorNode.getChild(0), leaf, _negRoot));
+                leaf.getLeft().addCenter(new TruthTree(xorNode.getChild(1), leaf.getLeft(), _negRoot));
 
                 // Right subtree.
-                leaf.addRight(new TruthTree(getNegatedNode(xorNode.getChild(0)), leaf));
-                leaf.getRight().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(1)), leaf.getRight()));
+                leaf.addRight(new TruthTree(getNegatedNode(xorNode.getChild(0)), leaf, _negRoot));
+                leaf.getRight().addCenter(new TruthTree(getNegatedNode(xorNode.getChild(1)), leaf.getRight(), _negRoot));
 
                 // Add them to the queue.
                 _queue.add(leaf.getLeft());
@@ -444,12 +480,12 @@ public abstract class BaseTruthTreeGenerator {
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
                 // Left subtree.
-                leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
-                leaf.getLeft().addCenter(new TruthTree(bicondNode.getChild(1), leaf.getLeft()));
+                leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf, _bicond));
+                leaf.getLeft().addCenter(new TruthTree(bicondNode.getChild(1), leaf.getLeft(), _bicond));
 
                 // Right subtree.
-                leaf.addRight(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf));
-                leaf.getRight().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(1)), leaf.getRight()));
+                leaf.addRight(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf, _bicond));
+                leaf.getRight().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(1)), leaf.getRight(), _bicond));
 
                 // Add them to the queue.
                 _queue.add(leaf.getLeft());
@@ -480,12 +516,12 @@ public abstract class BaseTruthTreeGenerator {
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
                 // Left subtree.
-                leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf));
-                leaf.getLeft().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(1)), leaf.getLeft()));
+                leaf.addLeft(new TruthTree(bicondNode.getChild(0), leaf, _negRoot));
+                leaf.getLeft().addCenter(new TruthTree(getNegatedNode(bicondNode.getChild(1)), leaf.getLeft(), _negRoot));
 
                 // Right subtree.
-                leaf.addRight(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf));
-                leaf.getRight().addCenter(new TruthTree(bicondNode.getChild(1), leaf.getRight()));
+                leaf.addRight(new TruthTree(getNegatedNode(bicondNode.getChild(0)), leaf, _negRoot));
+                leaf.getRight().addCenter(new TruthTree(bicondNode.getChild(1), leaf.getRight(), _negRoot));
 
                 // Add them to the queue.
                 _queue.add(leaf.getLeft());
@@ -525,7 +561,7 @@ public abstract class BaseTruthTreeGenerator {
             // Add to all leaves in this tree.
             for (TruthTree leaf : _leaves) {
                 if (!leaf.isClosed()) {
-                    enqueuedTTNode = new TruthTree(child.getChild(0), leaf);
+                    enqueuedTTNode = new TruthTree(child.getChild(0), leaf, _negRoot);
                     leaf.addCenter(enqueuedTTNode);
                     _queue.add(enqueuedTTNode);
                 }
@@ -541,7 +577,7 @@ public abstract class BaseTruthTreeGenerator {
             n2.addChild(child.getChild(1));
             negatedAtom.addChild(n1);
             negatedAtom.addChild(n2);
-            enqueuedTTNode = new TruthTree(negatedAtom, _negRoot);
+            enqueuedTTNode = new TruthTree(negatedAtom, _negRoot, _negRoot);
 
             // Call the respective branch/stack function. Removes De'Morgan's laws.
             if (child.isAnd()) {
@@ -549,41 +585,6 @@ public abstract class BaseTruthTreeGenerator {
             } else {
                 this.stackConjunction(enqueuedTTNode, _leaves, _queue);
             }
-        }
-    }
-
-    /**
-     * TODO Document
-     * <p>
-     * https://www.baeldung.com/java-print-binary-tree-diagram
-     *
-     * @param sb
-     * @param padding
-     * @param pointer
-     * @param node
-     * @param hasRightSibling
-     */
-    private static void printHelper(StringBuilder sb, String padding, String pointer, TruthTree node,
-                                    boolean hasRightSibling) {
-        if (node != null) {
-            sb.append("\n");
-            sb.append(padding);
-            sb.append(pointer);
-            sb.append(node);
-
-            StringBuilder paddingBuilder = new StringBuilder(padding);
-            if (hasRightSibling) {
-                paddingBuilder.append("│  ");
-            } else {
-                paddingBuilder.append("   ");
-            }
-
-            String paddingForBoth = paddingBuilder.toString();
-            String pointerRight = "└── ";
-            String pointerLeft = (node.getRight() != null) ? "├── " : "└── ";
-
-            printHelper(sb, paddingForBoth, pointerLeft, node.getLeft(), node.getRight() != null);
-            printHelper(sb, paddingForBoth, pointerRight, node.getRight(), false);
         }
     }
 }

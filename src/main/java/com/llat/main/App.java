@@ -4,6 +4,7 @@ import com.llat.controller.Controller;
 import com.llat.tools.ViewManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -29,6 +30,6 @@ public class App extends Application {
         _stage.setMinHeight(720);
         _stage.setMinWidth(1280);
         _stage.setMaximized(true);
-
+        _stage.getIcons().add(new Image(App.class.getResourceAsStream("/assets/images/LogoStatic.png")));
     }
 }

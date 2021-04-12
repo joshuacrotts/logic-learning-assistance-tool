@@ -16,10 +16,9 @@ import java.lang.reflect.Type;
  */
 public class GsonIO implements UIDescriptionInterface, SettingsInterface, CredentialsInterface {
 
-    private static Gson gson = new Gson();
     private final static String RESOURCES_PATH = "src/main/resources/";
     private final static String DEFAULT_UIDO_FILE = "UID/UIDescription_en.json";
-
+    private static final Gson gson = new Gson();
     /**
      *
      */
@@ -92,7 +91,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             System.out.println(filePath);
         } catch (NullPointerException e) {
             System.out.println("File is not exist. Empty file will be generated");
-            createMissingFile(_jsonFilePath);
+            this.createMissingFile(_jsonFilePath);
         }
         try {
             Writer writer = new FileWriter(filePath);
@@ -111,12 +110,12 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
 
     @Override
     public LocalStorage getData() {
-        String jsonString = readJsonFile(json);
-        LocalStorage localStorage = gson.fromJson(jsonString, aClass);
+        String jsonString = readJsonFile(this.json);
+        LocalStorage localStorage = gson.fromJson(jsonString, this.aClass);
         return localStorage;
     }
 
-    private String getLanguageFromFileName(String fileName){
+    private String getLanguageFromFileName(String fileName) {
 
         return fileName.substring(fileName.indexOf("_") + 1, fileName.indexOf("."));
     }

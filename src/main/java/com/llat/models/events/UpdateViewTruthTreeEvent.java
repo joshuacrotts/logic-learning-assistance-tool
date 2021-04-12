@@ -1,15 +1,24 @@
 package com.llat.models.events;
 
-import com.llat.models.treenode.WffTree;
+import com.llat.algorithms.models.TruthTree;
 import com.llat.tools.Event;
 
 public class UpdateViewTruthTreeEvent implements Event {
-    WffTree wffTree;
-    boolean isEmpty = false;
 
-    public UpdateViewTruthTreeEvent(WffTree _wffTree) {
-        this.wffTree = _wffTree;
+    /**
+     *
+     */
+    private TruthTree truthTree;
+
+    /**
+     *
+     */
+    private boolean isEmpty;
+
+    public UpdateViewTruthTreeEvent(TruthTree _truthTree) {
+        this.truthTree = _truthTree;
     }
+
     public UpdateViewTruthTreeEvent() {
         this.isEmpty = true;
     }
@@ -18,8 +27,8 @@ public class UpdateViewTruthTreeEvent implements Event {
         return this.isEmpty;
     }
 
-    public WffTree getWffTree() {
-        return this.wffTree;
+    public TruthTree getTruthTree() {
+        return this.truthTree;
     }
 
 }

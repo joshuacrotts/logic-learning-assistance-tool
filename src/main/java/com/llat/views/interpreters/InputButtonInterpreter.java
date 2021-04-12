@@ -11,12 +11,12 @@ public class InputButtonInterpreter implements Listener {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private InputButtonsView inputButtonsView;
+    private final InputButtonsView inputButtonsView;
 
     public InputButtonInterpreter(Controller _controller, InputButtonsView _inputButtonsView) {
         this.controller = _controller;

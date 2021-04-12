@@ -11,27 +11,28 @@ import com.llat.views.events.RegisterEvent;
 import com.llat.views.events.RegistrationStatusEvent;
 
 public class RegisterInterpreter implements Listener {
-    Controller controller;
-    RegisterView registerView;
+
+    private Controller controller;
+    private RegisterView registerView;
 
     public RegisterInterpreter(Controller _controller, RegisterView _registerView) {
         this.controller = _controller;
         this.registerView = _registerView;
-        registerView.getRegisterButton().setOnAction((node) -> {
+        this.registerView.getRegisterButton().setOnAction((node) -> {
             RegisterEvent re = new RegisterEvent(this.registerView.getUserNameField().getText(), this.registerView.getFirstNameField().getText(), this.registerView.getLastNameField().getText()
                     , this.registerView.getPasswordField().getText());
             EventBus.throwEvent(re);
         });
-        registerView.getReturnButton().setOnAction((node) -> {
-                    this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
-                });
+        this.registerView.getReturnButton().setOnAction((node) -> {
+            this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
+        });
 
         EventBus.addListener(this);
     }
 
     @Override
     public void catchEvent(Event _event) {
-        if (_event instanceof RegistrationStatusEvent){
+        if (_event instanceof RegistrationStatusEvent) {
             switch (((RegistrationStatusEvent) _event).getStatus()) {
                 case DatabaseAdapter.REGISTERED_SUCCESSFULLY:
                     System.out.println("User Registered");

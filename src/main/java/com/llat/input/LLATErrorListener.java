@@ -24,12 +24,12 @@ public class LLATErrorListener extends BaseErrorListener {
     /**
      * Set of all compiler errors generated while parsing.
      */
-    private static Set<Message> errors = new HashSet<>();
+    private static final Set<Message> errors = new HashSet<>();
 
     /**
      * Set of all warning errors generated while parsing.
      */
-    private static Set<Message> warnings = new HashSet<>();
+    private static final Set<Message> warnings = new HashSet<>();
 
     /**
      * Keeps track of whether we have encountered an error or not.
@@ -202,7 +202,7 @@ public class LLATErrorListener extends BaseErrorListener {
     /**
      * @author joshuacrotts
      */
-    private static class Message {
+    public static class Message {
         private final String text;
         private final int lineNo;
         private final int colNo;
@@ -221,7 +221,7 @@ public class LLATErrorListener extends BaseErrorListener {
 
         @Override
         public int hashCode() {
-            return this.text.hashCode() + lineNo + colNo;
+            return this.text.hashCode() + this.lineNo + this.colNo;
         }
 
         public int getLineNo() {
@@ -234,7 +234,7 @@ public class LLATErrorListener extends BaseErrorListener {
 
         @Override
         public String toString() {
-            return "line " + lineNo + ":" + colNo + " " + text;
+            return "line " + this.lineNo + ":" + this.colNo + " " + this.text;
         }
     }
 }

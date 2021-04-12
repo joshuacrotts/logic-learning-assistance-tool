@@ -1,15 +1,14 @@
 package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
+import com.llat.input.events.UnsolvedFormulaEvent;
 import com.llat.models.events.UpdateViewParseTreeEvent;
-import com.llat.models.events.UpdateViewTruthTableEvent;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.ParseTreeView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -19,6 +18,7 @@ import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
+
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -29,28 +29,28 @@ import java.util.Queue;
 public class ParseTreeInterpreter implements Listener {
 
     /**
-     *
+     * Color to use when drawing the text/symbol(s).
      */
-    private Controller controller;
+    private static final Color TEXT_COLOR = Color.BLACK;
 
     /**
      *
      */
-    private ParseTreeView truthTreeView;
+    private final Controller controller;
+
+    /**
+     *
+     */
+    private final ParseTreeView parseTreeView;
 
     /**
      *
      */
     private Pane treePane;
 
-    /**
-     * Color to use when drawing the text/symbol(s).
-     */
-    private static final Color TEXT_COLOR = Color.BLACK;
-
     public ParseTreeInterpreter(Controller _controller, ParseTreeView _truthTreeView) {
         this.controller = _controller;
-        this.truthTreeView = _truthTreeView;
+        this.parseTreeView = _truthTreeView;
         this.treePane = new Pane();
         EventBus.addListener(this);
     }
@@ -58,17 +58,19 @@ public class ParseTreeInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof UpdateViewParseTreeEvent) {
-            this.truthTreeView.getParentPane().setVisible(true);
+            this.parseTreeView.getParentPane().setVisible(true);
             if (this.treePane != null) {
-                this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
+                this.parseTreeView.getParentPane().getChildren().remove(this.treePane);
                 this.treePane.getChildren().clear();
                 this.treePane = new Pane();
             }
-            if(((UpdateViewParseTreeEvent) _event).isEmpty()) {
+
+            if (((UpdateViewParseTreeEvent) _event).isEmpty()) {
                 return;
             }
+
             WffTree wff = ((UpdateViewParseTreeEvent) _event).getWffTree();
-            wff.clearHighlighting();
+            wff = (wff.isRoot()) ? wff.getChild(0) : wff;
             TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
 
             // Setup the tree layout configuration.
@@ -87,12 +89,22 @@ public class ParseTreeInterpreter implements Listener {
             this.drawTree(treeLayout);
 
             // Adding children nodes to their parents nodes.
-            this.truthTreeView.getParentPane().getChildren().add(this.treePane);
-            this.treePane.setTranslateX((this.truthTreeView.getParentPane().getWidth() / 2));
-            this.treePane.setTranslateY((this.truthTreeView.getParentPane().getHeight() / 2));
-            //this.truthTreeView.getParentPane().getWidth()
+            this.parseTreeView.getParentPane().getChildren().add(this.treePane);
+            this.treePane.setTranslateX((this.parseTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getWidth() / 2)));
+            this.treePane.setTranslateY((this.parseTreeView.getParentPane().getHeight() / 2) - ((this.treePane.getHeight() / 2)));
+            this.parseTreeView.getParentPane().widthProperty().addListener((obs, oldVal, newVal) -> {
+                this.treePane.setTranslateX((newVal.doubleValue() / 2) - (this.treePane.getWidth() / 2));
+            });
+            this.parseTreeView.getParentPane().heightProperty().addListener((obs, oldVal, newVal) -> {
+                this.treePane.setTranslateY((newVal.doubleValue() / 2) - (this.treePane.getHeight() / 2));
+            });
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
+        }
+        else if (_event instanceof UnsolvedFormulaEvent) {
+            if (this.treePane != null) {
+                this.parseTreeView.getParentPane().getChildren().remove(this.treePane);
+            }
         }
     }
 
@@ -113,23 +125,23 @@ public class ParseTreeInterpreter implements Listener {
      * Draws the edges from the WffTree passed in to all of its children.
      *
      * @param _layout - TreeLayout object constructed from tree library Abego.
-     * @param _tree - tree to draw edge(s) from. Draws edges from this node
+     * @param _tree   - tree to draw edge(s) from. Draws edges from this node
      *                to all children.
      */
     private void drawEdges(TreeLayout<WffTree> _layout, WffTree _tree) {
         if (!_layout.getTree().isLeaf(_tree)) {
-                Rectangle2D b1 = _layout.getNodeBounds().get(_tree);
-                double x1 = b1.getCenterX();
-                double y1 = b1.getCenterY();
-                for (WffTree child : _layout.getTree().getChildren(_tree)) {
-                    Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
-                    // Compute offsets to position it in the center of the screen.
-                    double x1Off = x1;
-                    double y1Off = y1;
-                    double x2Off = b2.getCenterX();
-                    double y2Off = b2.getCenterY();
-                    this.treePane.getChildren().add(new Line(x1Off, y1Off, x2Off, y2Off));
-                    this.drawEdges(_layout, child);
+            Rectangle2D b1 = _layout.getNodeBounds().get(_tree);
+            double x1 = b1.getCenterX();
+            double y1 = b1.getCenterY();
+            for (WffTree child : _layout.getTree().getChildren(_tree)) {
+                Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
+                // Compute offsets to position it in the center of the screen.
+                double x1Off = x1;
+                double y1Off = y1 + b1.getHeight() / 2 + 2;
+                double x2Off = b2.getCenterX();
+                double y2Off = b2.getCenterY() - b2.getHeight() / 2 - 2;
+                this.treePane.getChildren().add(new Line(x1Off, y1Off, x2Off, y2Off));
+                this.drawEdges(_layout, child);
             }
         }
     }
@@ -138,7 +150,7 @@ public class ParseTreeInterpreter implements Listener {
      * Draws the node in the tree. Each node is assigned a "box", which has a corresponding
      * position. This position is defined by the tree in the library.
      *
-     * @param _layout - TreeLayout constructed by the library.
+     * @param _layout  - TreeLayout constructed by the library.
      * @param _wffTree - WffTree object to construct.
      */
     private void paintBox(TreeLayout<WffTree> _layout, WffTree _wffTree) {
@@ -170,7 +182,6 @@ public class ParseTreeInterpreter implements Listener {
      * node belongs to.
      *
      * @param _root - root of WffTree.
-     *
      * @return TreeForTreeLayout<WffTree> constructed tree from Abego library.
      */
     private TreeForTreeLayout<WffTree> convertToAbegoTree(WffTree _root) {
@@ -219,7 +230,7 @@ public class ParseTreeInterpreter implements Listener {
                 return WffTreeExtentProvider.SMALL_WFF_WIDTH;
             }
 
-            return s.length() * WffTreeExtentProvider.LARGE_WFF_WIDTH_MULTIPLER;
+            return (s.length() + 4) * WffTreeExtentProvider.LARGE_WFF_WIDTH_MULTIPLER;
         }
 
         @Override
@@ -232,20 +243,10 @@ public class ParseTreeInterpreter implements Listener {
      * Creates a WffTree node for display in the GUI. Pass in the x, y, width, and height for
      * the backing rectangle. This class also adds the objects to the Pane in the constructor
      * after drawing the borders.
-     *
+     * <p>
      * Hopefully, by encapsulating this in a class, we can add listeners or whatever else easily.
      */
     private static class WffTreeGuiNode extends Rectangle {
-
-        /**
-         * Backing WffTree for this gui node.
-         */
-        private WffTree WFF_TREE;
-
-        /**
-         * Pane to attach this WffTreeGuiNode to and its border children (lines).
-         */
-        private final Pane PANE;
 
         /**
          * Color for the inner left and top borders.
@@ -276,6 +277,16 @@ public class ParseTreeInterpreter implements Listener {
          * Color for when the node is highlighted by an algorithm.
          */
         private static final Color HIGHLIGHTED_COLOR = Color.YELLOW;
+
+        /**
+         * Pane to attach this WffTreeGuiNode to and its border children (lines).
+         */
+        private final Pane PANE;
+
+        /**
+         * Backing WffTree for this gui node.
+         */
+        private final WffTree WFF_TREE;
 
         public WffTreeGuiNode(WffTree _tree, Pane _pane, double _x, double _y, double _w, double _h) {
             super(_x, _y, _w, _h);

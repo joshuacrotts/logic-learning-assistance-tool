@@ -4,16 +4,18 @@ import com.llat.controller.Controller;
 import javafx.scene.control.MenuItem;
 
 public class OpenItem {
-    Controller controller;
-    MenuItem openItem;
+
+    private final Controller controller;
+    private final MenuItem openItem;
 
     public OpenItem(Controller controller) {
         this.controller = controller;
         this.openItem = new MenuItem("Open Project");
 
-        openItem.setDisable(true);
+        this.openItem.setDisable(true);
     }
-    public MenuItem getItem(){
-        return openItem;
+
+    public MenuItem getItem() {
+        return this.openItem;
     }
 }

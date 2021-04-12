@@ -1,55 +1,73 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RightView {
-    Controller controller;
-    Stage stage;
-    ScrollPane scrollPane = new ScrollPane();
-    Tab historyView;
-    Tab axiomsView;
-    AnchorPane parentPane = new AnchorPane();
-    TabPane tabPane = new TabPane();
 
+    private final Controller controller;
+    private final Stage stage;
+    private final VBox parentPane = new VBox();
+    private final Tab historyTab;
+    private final Tab axiomsTab;
+    private final TabPane tabPane = new TabPane();
+    private final RulesAxiomsView rulesAxiomsView;
+    private final HistoryView historyView;
 
     public RightView(Controller _controller) {
         this.controller = _controller;
         this.stage = this.controller.getStage();
-//        this.parentPane.setStyle("-fx-background-color: black");
-        // Setting tabPane rulesAxiomsVBox settings.
-        this.tabPane.setId("rightView");
-        this.tabPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            tabPane.setTabMinWidth(newVal.doubleValue() * .35);
-            tabPane.setTabMaxWidth(newVal.doubleValue() * .35);
-        });
+        this.rulesAxiomsView = new RulesAxiomsView(this.controller);
+        this.historyView = new HistoryView(this.controller);
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.tabPane.setMinWidth(newVal.doubleValue() * .20);
-            this.tabPane.setMaxWidth(newVal.doubleValue() * .20);
+            this.parentPane.setMinWidth(newVal.doubleValue() * .20);
+            this.parentPane.setMaxWidth(newVal.doubleValue() * .20);
         });
-        this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.tabPane.setMinHeight(newVal.doubleValue() * .88);
-            this.tabPane.setMaxHeight(newVal.doubleValue());
+        // Setting TabPane tabPane properties.
+        this.tabPane.setId("rightView");
+        this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.tabPane.setMinWidth(newVal.doubleValue());
+            this.tabPane.setMaxWidth(newVal.doubleValue());
+            this.tabPane.setTabMinWidth((newVal.doubleValue() / 2) - 30);
+            this.tabPane.setTabMaxWidth((newVal.doubleValue() / 2) - 30);
         });
-        // Setting ScrollPane scrollPane properties.
-        this.scrollPane.setId("rulesAxiomsScrollPane");
-        this.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.scrollPane.setMaxHeight(Double.MAX_VALUE);
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.tabPane.setTabMaxHeight(newVal.doubleValue());
         });
-         this.axiomsView = new Tab("Axioms", new RulesAxiomsView(this.controller).getParentPane());
-        this.axiomsView.setClosable(false);
-        this.historyView = new Tab("History", new HistoryView(this.controller).getParentPane());
-        this.historyView.setClosable(false);
-        this.tabPane.getTabs().addAll(axiomsView, historyView);
-        this.parentPane.getChildren().addAll(tabPane);
+        // Setting Tab axiomsTab properties.
+        this.axiomsTab = new Tab("Axioms", this.rulesAxiomsView.getParentPane());
+        this.axiomsTab.setClosable(false);
+        // Setting Tab historyTab properties.
+        this.historyTab = new Tab("History", this.historyView.getParentPane());
+        this.historyTab.setClosable(false);
+        // Setting VBox rulesAxiomsView properties.
+        this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.rulesAxiomsView.getParentPane().setMinWidth(newVal.doubleValue());
+            this.rulesAxiomsView.getParentPane().setMaxWidth(newVal.doubleValue());
+        });
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.rulesAxiomsView.getParentPane().setMinHeight(newVal.doubleValue());
+            this.rulesAxiomsView.getParentPane().setMaxHeight(newVal.doubleValue());
+        });
+        // Setting VBox historyView properties.
+        this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.historyView.getParentPane().setMinWidth(newVal.doubleValue());
+            this.historyView.getParentPane().setMaxWidth(newVal.doubleValue());
+        });
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.historyView.getParentPane().setMinHeight(newVal.doubleValue());
+            this.historyView.getParentPane().setMaxHeight(newVal.doubleValue());
+        });
+        // Adding children nodes to their parents.
+        this.tabPane.getTabs().addAll(this.axiomsTab, this.historyTab);
+        this.parentPane.getChildren().addAll(this.tabPane);
     }
+
     public Pane getParentPane() {
         return this.parentPane;
     }
-
 }

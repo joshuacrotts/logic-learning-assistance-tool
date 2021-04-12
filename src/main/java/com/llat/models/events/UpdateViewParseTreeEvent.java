@@ -5,19 +5,29 @@ import com.llat.tools.Event;
 
 public class UpdateViewParseTreeEvent implements Event {
 
-    WffTree wffTree;
-    boolean isEmpty;
-    public UpdateViewParseTreeEvent (WffTree _wffTree) {
+    /**
+     *
+     */
+    private WffTree wffTree;
+
+    /**
+     *
+     */
+    private boolean isEmpty;
+
+    public UpdateViewParseTreeEvent(WffTree _wffTree) {
         this.wffTree = _wffTree;
     }
-    public UpdateViewParseTreeEvent () {
+
+    public UpdateViewParseTreeEvent() {
         this.isEmpty = true;
-}
+    }
 
     public boolean isEmpty() {
         return this.isEmpty;
     }
-    public WffTree getWffTree () {
+
+    public WffTree getWffTree() {
         return this.wffTree;
     }
 

@@ -15,7 +15,7 @@ public final class LogicallyEquivalentDeterminer {
     /**
      *
      */
-    private WffTree combinedTree;
+    private final WffTree combinedTree;
 
     public LogicallyEquivalentDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
         BicondNode bicond = new BicondNode();

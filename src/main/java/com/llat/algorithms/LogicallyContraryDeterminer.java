@@ -15,7 +15,7 @@ public final class LogicallyContraryDeterminer {
     /**
      *
      */
-    private WffTree combinedTree;
+    private final WffTree combinedTree;
 
     public LogicallyContraryDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
         // Construct the combined tree, where the biconditional note

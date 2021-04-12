@@ -1,9 +1,11 @@
 package com.llat.algorithms.models;
 
 import com.llat.algorithms.BaseTruthTreeGenerator;
+import com.llat.input.events.SyntaxErrorEvent;
 import com.llat.models.treenode.ConstantNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
+import com.llat.tools.EventBus;
 
 import java.util.*;
 
@@ -48,6 +50,11 @@ public class TruthTree implements Comparable<TruthTree> {
     private final TruthTree PARENT;
 
     /**
+     * Pointer to the node that derived this step.
+     */
+    private final TruthTree DERIVED_PARENT;
+
+    /**
      * Set of available constants allocated to this TruthTree as well as
      * any parents above it.
      */
@@ -67,6 +74,11 @@ public class TruthTree implements Comparable<TruthTree> {
     private final int VALUE;
 
     /**
+     * Identifier number of this truth tree node in the tree itself.
+     */
+    private final int identifierNo;
+
+    /**
      * Left pointer.
      */
     private TruthTree left;
@@ -83,18 +95,14 @@ public class TruthTree implements Comparable<TruthTree> {
     private int flags;
 
     /**
-     * Identifier number of this truth tree node in the tree itself.
-     */
-    private int identifierNo;
-
-    /**
      *
      */
     private int universalCount;
 
-    public TruthTree(WffTree _node, TruthTree _parent) {
+    public TruthTree(WffTree _node, TruthTree _parent, TruthTree _derivedParent) {
         this.NODE = _node;
         this.PARENT = _parent;
+        this.DERIVED_PARENT = _derivedParent;
         this.AVAILABLE_CONSTANTS = new HashSet<>();
         this.SUBSTITUTIONS = new HashMap<>();
         this.identifierNo = ++TruthTree.truthTreeCount;
@@ -187,7 +195,7 @@ public class TruthTree implements Comparable<TruthTree> {
                 this.replaceSymbol(_newRoot, _variableToReplace, constant);
 
                 // Add to the tree and the queue.
-                TruthTree truthTreeRoot = new TruthTree(_newRoot, leaf);
+                TruthTree truthTreeRoot = new TruthTree(_newRoot, leaf, _existentialTruthTree);
                 leaf.addCenter(truthTreeRoot);
                 truthTreeRoot.AVAILABLE_CONSTANTS.add(constant);
                 _queue.add(leaf.getCenter());
@@ -216,7 +224,7 @@ public class TruthTree implements Comparable<TruthTree> {
                     this.replaceSymbol(_newRoot, _variableToReplace, c);
 
                     // Add to the tree and the queue.
-                    TruthTree _newRootTT = new TruthTree(_newRoot, leaf);
+                    TruthTree _newRootTT = new TruthTree(_newRoot, leaf, _universalTruthTree);
                     l.addCenter(_newRootTT);
                     _queue.add(_newRootTT);
 
@@ -264,7 +272,7 @@ public class TruthTree implements Comparable<TruthTree> {
                         this.replaceSymbol(currWff, constantOne, constantTwo);
                         if (!currWff.stringEquals(curr.getWff())) {
                             // Add to the tree and the queue.
-                            TruthTree _newRootTT = new TruthTree(currWff, l);
+                            TruthTree _newRootTT = new TruthTree(currWff, l, _identityTruthTree);
                             l.addCenter(_newRootTT);
                             _queue.add(_newRootTT);
                             l = l.getCenter();
@@ -328,6 +336,10 @@ public class TruthTree implements Comparable<TruthTree> {
         return this.PARENT;
     }
 
+    public TruthTree getDerivedParent() {
+        return this.DERIVED_PARENT;
+    }
+
     public void addConstant(char _ch) {
         this.AVAILABLE_CONSTANTS.add(_ch);
     }
@@ -350,6 +362,8 @@ public class TruthTree implements Comparable<TruthTree> {
         if (this.isLeafNode()) {
             leafSignal = this.isClosed() ? "X" : "open";
         }
+
+        //String deriveStep = this.DERIVED_PARENT != null ? "\t\t\t(" + this.DERIVED_PARENT.identifierNo + ") " + this.DERIVED_PARENT.getWff().getSymbol() : "";
         return this.getWff().getStringRep() + " " + leafSignal;
     }
 
@@ -402,8 +416,9 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _constant          - constant to replace variable with.
      */
     private void replaceSymbol(WffTree _newRoot, char _variableToReplace, char _constant) {
-        if (universalCount > THRESHOLD_LIMIT) {
+        if (this.universalCount > THRESHOLD_LIMIT) {
             System.err.println("Error - universal constant has reached the upper limit of 100.");
+            EventBus.throwEvent(new SyntaxErrorEvent("Error - universal constant has reached the upper limit of 100."));
         }
         for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
             if (_newRoot.getChild(i).isVariable() || _newRoot.getChild(0).isConstant()) {

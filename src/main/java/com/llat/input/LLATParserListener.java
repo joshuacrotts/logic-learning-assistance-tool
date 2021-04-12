@@ -180,13 +180,13 @@ public class LLATParserListener extends LLATBaseListener {
 
     @Override
     public void exitPredicate(LLATParser.PredicateContext ctx) {
-        AtomNode atomNode = (AtomNode) PARSE_TREE.get(ctx.atom());
+        AtomNode atomNode = (AtomNode) this.PARSE_TREE.get(ctx.atom());
 
         // Loop through the children and add them to the list.
         // Each parameter is either a constant or variable.
         LinkedList<WffTree> parameters = new LinkedList<>();
         for (int i = 1; i < ctx.children.size(); i++) {
-            parameters.add(PARSE_TREE.get(ctx.getChild(i)));
+            parameters.add(this.PARSE_TREE.get(ctx.getChild(i)));
         }
 
         String atomLetter = atomNode.toString().replaceAll("ATOM: ", "");
@@ -228,7 +228,7 @@ public class LLATParserListener extends LLATBaseListener {
                 + ")";
 
         UniversalQuantifierNode uqn = new UniversalQuantifierNode(symbol, variableNode.getSymbol());
-        this.treeRoots.push(wffTree);
+        this.treeRoots.push(this.wffTree);
         this.wffTree = uqn;
     }
 
@@ -249,7 +249,7 @@ public class LLATParserListener extends LLATBaseListener {
                 + ")";
 
         ExistentialQuantifierNode uqn = new ExistentialQuantifierNode(symbol, variableNode.getSymbol());
-        this.treeRoots.push(wffTree);
+        this.treeRoots.push(this.wffTree);
         this.wffTree = uqn;
     }
 

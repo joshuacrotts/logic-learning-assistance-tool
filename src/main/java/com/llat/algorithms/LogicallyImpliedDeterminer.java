@@ -15,7 +15,7 @@ public final class LogicallyImpliedDeterminer {
     /**
      *
      */
-    private WffTree combinedTree;
+    private final WffTree combinedTree;
 
     public LogicallyImpliedDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
         ImpNode impNode = new ImpNode();

@@ -33,24 +33,26 @@
     -fx-border-color: rgba(0, 0, 0, 1);
 }
 
-#propositionalLogicLabel, #predicateLogicLabel, #symbolNameLabel, #formalNameLabel, #alternativeSymbolsLabel, #exampleLabel, #alternativeSymbolsLabel {
+#propositionalLogicLabel, #predicateLogicLabel, #symbolNameLabel,
+#formalNameLabel, #alternativeSymbolsLabel, #exampleLabel,
+#explanationLabel, #alternativeSymbolsLabel, #errorLabel {
     -fx-font-size: 2em;
     -fx-underline: true;
     -fx-font-weight: bold;
 }
+
 #trueLabel, #falseLabel, #resultLabel {
     -fx-font-size: 2em;
-    -fx-underline: true;
     -fx-font-weight: bold;
 }
+
 .button {
     -fx-wrap-text: true;
-    -fx-text-alignment: center;
     -fx-font-weight: bold;
     -fx-font-size: 2em;
     -fx-background-color: derive(silver, 0%);
     -fx-border-color: black;
-    -fx-border-width: 5;
+    -fx-border-width: 2.5;
     -fx-background-insets: 0;
 }
 
@@ -66,7 +68,15 @@
     -fx-background-insets: 0;
 }
 
-#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox {
+.tooltip {
+    -fx-background-color: derive(silver, 50%);
+    -fx-text-fill: black;
+    -fx-font-size: 1.5em;
+    -fx-border-color: black;
+    -fx-border-size: 10;
+}
+
+#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox, #errorMessageVBox {
     -fx-background-color: silver;
 }
 
@@ -74,53 +84,45 @@
     -fx-background-color: derive(black, 50%);
 }
 
-#rulesAxiomsScrollPane, #treeTableScrollPane {
+#rulesAxiomsScrollPane, #treeTableScrollPane, #truthTableScrollPane {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
 
-#rulesAxiomsScrollPane > .viewport, #treeTableScrollPane > .viewport {
+#errorScrollPane {
     -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: black;
+    -fx-border-size: 10;
 }
 
-#rulesAxiomsScrollPane:vertical, #treeTableScrollPane:vertical {
+#rulesAxiomsScrollPane > .viewport, #treeTableScrollPane > .viewport, #truthTableScrollPane > .viewport  {
+    -fx-background-color: transparent;
+}
+#errorScrollPane > .viewport {
+    -fx-background-color: derive(silver, 50%);
+}
+
+#rulesAxiomsScrollPane:vertical, #treeTableScrollPane:vertical, #errorScrollPane:vertical {
     -fx-min-width: 10;
 }
 
-#rulesAxiomsScrollPane:focused, #treeTableScrollPane:focused {
+#rulesAxiomsScrollPane:focused, #treeTableScrollPane:focused, #truthTableScrollPane:focused, errorScrollPane:focused {
     -fx-background-insets: 0;
 }
 
-#rulesAxiomsScrollPane .corner, #treeTableScrollPane .corner {
+#rulesAxiomsScrollPane .corner, #treeTableScrollPane .corner, errorScrollPane .corner, #truthTableScrollPane .corner {
     -fx-background-insets: 0;
-}
-
-#truthTableScrollPane {
-    -fx-background-color: transparent;
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-}
-
-#truthTableScrollPane > .viewport {
-   -fx-background-color: transparent;
 }
 
 #truthTableScrollPane:horizontal {
     -fx-min-height: 10;
 }
 
-#truthTableScrollPane:focused {
-    -fx-background-insets: 0;
-}
-
-#truthTableScrollPane .corner {
-    -fx-background-insets: 0;
-}
-
 #rulesAxiomsText, #exampleText, #explanationText {
     -fx-font-size: 1.5em;
-
 }
 
 #rulesAxiomsText {
@@ -140,17 +142,19 @@
 }
 
 #truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
-    -fx-background-color: derive(black, 90%);
+    -fx-background-color: #ffffff;
 }
+
 #parseTreeVBox, #truthTreeVBox {
     /*-fx-background-color: derive(black, 90%);*/
 }
-#truthTableLabel, #truthTreeLabel{
+
+#truthTableLabel, #truthTreeLabel {
     -fx-font-weight: bold;
     -fx-font-size: 20;
-
 }
-#treePane{
+
+#treePane {
     /*-fx-background-color: black;*/
 }
 
@@ -171,6 +175,7 @@
     -fx-background-color: #324241;
     -fx-font-weight: Bold;
 }
+
 #settingsCategoryOnPress {
     -fx-pref-width: 10em;
     -fx-pref-height: 4em;
@@ -178,29 +183,31 @@
     -fx-background-color: silver;
 }
 
-#leftPane{
+#leftPane {
     -fx-background-color: derive(black, 50%);
 }
 
-#settingsMainPane{
+#settingsMainPane {
     -fx-background-color: silver;
 }
 
-#categoryTitle{
+#categoryTitle {
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
-#langLabel, #themeLabel{
+#langLabel, #themeLabel {
     -fx-font-weight: bold;
     -fx-font-size: 12;
 }
 
-#bottomPaneHbox{
+#bottomPaneHbox {
     -fx-background-color: derive(black, 50%);
 }
-#bottonPaneButtons{
+
+#bottonPaneButtons {
     -fx-background-color: derive(silver, 50%);
     -fx-background-radius: 0;
 }
+
 /*Settings end*/

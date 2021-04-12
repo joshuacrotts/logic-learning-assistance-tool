@@ -8,13 +8,14 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 public class NewProjectItem {
-    Controller controller;
-    MenuItem newItem;
+
+    private final Controller controller;
+    private final MenuItem newProjectItem;
 
     public NewProjectItem(Controller controller) {
         this.controller = controller;
-        this.newItem = new MenuItem("New Project");
-        newItem.setOnAction(new EventHandler<ActionEvent>() {
+        this.newProjectItem = new MenuItem("New Project");
+        this.newProjectItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 new Window(new Stage());
             }
@@ -22,6 +23,6 @@ public class NewProjectItem {
     }
 
     public MenuItem getItem() {
-        return newItem;
+        return this.newProjectItem;
     }
 }

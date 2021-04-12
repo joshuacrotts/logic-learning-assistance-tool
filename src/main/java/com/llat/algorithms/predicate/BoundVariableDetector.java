@@ -12,13 +12,13 @@ public final class BoundVariableDetector {
     /**
      *
      */
-    private WffTree wffTree;
+    private final WffTree wffTree;
 
     public BoundVariableDetector(WffTree _wffTree) {
         this.wffTree = _wffTree;
     }
 
-    public WffTree getWffTree () {
+    public WffTree getWffTree() {
         return this.wffTree;
     }
 
@@ -56,7 +56,7 @@ public final class BoundVariableDetector {
 
         // Pre-order bind variables.
         for (WffTree ch : T.getChildren()) {
-            bound(ch, S, L);
+            this.bound(ch, S, L);
         }
 
         if (T.isQuantifier()) {

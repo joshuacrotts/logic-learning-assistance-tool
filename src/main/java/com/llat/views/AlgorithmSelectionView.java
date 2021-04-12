@@ -11,26 +11,33 @@ import javafx.stage.Stage;
 
 
 public class AlgorithmSelectionView {
-    Controller controller;
-    Stage stage;
-    HBox comboHBox = new HBox();
-    ComboBox generalComboBox = new ComboBox();
-    ComboBox propositionalComboBox = new ComboBox();
-    ComboBox predicateComboBox = new ComboBox();
-    AlgorithmSelectionViewInterpreter algorithmSelectionViewInterpreter;
+
+    private final Controller controller;
+    private final Stage stage;
+    private final HBox comboHBox = new HBox();
+    private final AlgorithmSelectionViewInterpreter algorithmSelectionViewInterpreter;
+    private ComboBox generalComboBox = new ComboBox();
+    private ComboBox propositionalComboBox = new ComboBox();
+    private ComboBox predicateComboBox = new ComboBox();
 
     public AlgorithmSelectionView(Controller _controller) {
         this.controller = _controller;
-        this.stage = controller.getStage();
+        this.stage = this.controller.getStage();
+
         // Setting HBox algorithmSelectionHBox properties.
         this.comboHBox.setSpacing(50);
         this.comboHBox.setAlignment(Pos.CENTER);
         this.comboHBox.setPadding(new Insets(10, 10, 10, 10));
+
         // Adding children nodes to their parents nodes.
         this.createComboBoxes();
         this.algorithmSelectionViewInterpreter = new AlgorithmSelectionViewInterpreter(this.controller, this);
     }
 
+    /**
+     * @param _comboBox
+     * @param _id
+     */
     public void setComboBoxProperties(ComboBox _comboBox, String _id) {
         _comboBox.setPromptText(_id);
         _comboBox.setMinWidth(this.stage.getScene().getWidth() * .15);
@@ -40,9 +47,17 @@ public class AlgorithmSelectionView {
             _comboBox.setMaxWidth(newVal.doubleValue() * .15);
         });
     }
+
+    /**
+     *
+     */
     public void clearComboBoxes() {
         this.comboHBox.getChildren().removeAll(this.getGeneralComboBox(), this.getPropositionalComboBox(), this.getPredicateComboBox());
     }
+
+    /**
+     *
+     */
     public void createComboBoxes() {
         this.setGeneralComboBox(new ComboBox());
         this.setComboBoxProperties(this.getGeneralComboBox(), "General:");
@@ -52,31 +67,32 @@ public class AlgorithmSelectionView {
         this.setComboBoxProperties(this.getPredicateComboBox(), "Predicate:");
         this.comboHBox.getChildren().addAll(this.getGeneralComboBox(), this.getPropositionalComboBox(), this.getPredicateComboBox());
     }
+
     public Pane getParentPane() {
         return this.comboHBox;
     }
 
     public ComboBox getGeneralComboBox() {
-        return generalComboBox;
-    }
-
-    public ComboBox getPropositionalComboBox() {
-        return propositionalComboBox;
-    }
-
-    public ComboBox getPredicateComboBox() {
-        return predicateComboBox;
+        return this.generalComboBox;
     }
 
     private void setGeneralComboBox(ComboBox _generalComboBox) {
         this.generalComboBox = _generalComboBox;
     }
-    private void  setPropositionalComboBox(ComboBox _propositionalComboBox) {
+
+    public ComboBox getPropositionalComboBox() {
+        return this.propositionalComboBox;
+    }
+
+    private void setPropositionalComboBox(ComboBox _propositionalComboBox) {
         this.propositionalComboBox = _propositionalComboBox;
+    }
+
+    public ComboBox getPredicateComboBox() {
+        return this.predicateComboBox;
     }
 
     private void setPredicateComboBox(ComboBox _predicateComboBox) {
         this.predicateComboBox = _predicateComboBox;
     }
-
 }

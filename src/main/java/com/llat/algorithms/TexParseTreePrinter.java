@@ -68,7 +68,7 @@ public class TexParseTreePrinter extends TexPrinter {
             // off three times for each variable/constant.
             if (!_tree.isPredicate()) {
                 _sb.append("\n");
-                getTexParseTreeHelper(ch, _sb, _indent + 1);
+                this.getTexParseTreeHelper(ch, _sb, _indent + 1);
             }
         }
         _sb.append("\n");

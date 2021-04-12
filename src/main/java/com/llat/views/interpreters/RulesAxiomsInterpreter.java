@@ -14,12 +14,12 @@ public class RulesAxiomsInterpreter implements Listener {
     /**
      *
      */
-    private RulesAxiomsView rulesAxiomsView;
+    private final RulesAxiomsView rulesAxiomsView;
 
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     public RulesAxiomsInterpreter(Controller _controller, RulesAxiomsView _rulesAxiomsView) {
         this.controller = _controller;

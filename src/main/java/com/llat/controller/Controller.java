@@ -7,37 +7,31 @@ import com.llat.models.LogicSetup;
 import com.llat.tools.EventBus;
 import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
-import com.llat.views.ApplicationView;
-import com.llat.views.LoginView;
-import com.llat.views.ParseTreeView;
-import com.llat.views.SymbolButton;
-import com.llat.views.events.*;
 import com.llat.views.*;
-import com.llat.views.events.SolveButtonEvent;
-import com.llat.views.events.SymbolDescriptionEvent;
-import com.llat.views.events.SymbolInputEvent;
+import com.llat.views.events.*;
+import com.llat.views.menu.ExportMenu;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    private Stage stage;
-    private LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
-    private DatabaseAdapter databaseAdapter = new DatabaseAdapter();
+    private final Stage stage;
+    private final LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
+    private final DatabaseAdapter databaseAdapter = new DatabaseAdapter();
+    private final LogicSetup logicSetup = new LogicSetup();
     private UserObject user;
-    LogicSetup logicSetup = new LogicSetup();
 
     public Controller(Stage _stage) {
         this.stage = _stage;
@@ -52,11 +46,7 @@ public class Controller implements Initializable {
      */
     public void changeViewTo(int _viewName) {
         Pane parentPane = this.getView(_viewName);
-        double sceneWidth = this.stage.getScene().getWidth();
-        double sceneHeight = this.stage.getScene().getHeight();
         this.stage.getScene().setRoot(parentPane);
-        this.stage.setWidth(sceneWidth);
-        this.stage.setHeight(sceneHeight);
     }
 
     /**
@@ -107,10 +97,18 @@ public class Controller implements Initializable {
                 _canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        _canvas.setTranslateX(_canvas.getTranslateX() + (curMouse.getCurX() - mouseEvent.getX()) / (2 / _canvas.getScaleX()));
-                        curMouse.setCurX(mouseEvent.getX());
-                        _canvas.setTranslateY(_canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX()));
-                        curMouse.setCurY(mouseEvent.getY());
+                        double xMovement = _canvas.getTranslateX() + (curMouse.getCurX() - mouseEvent.getX()) / (2 / _canvas.getScaleX());
+                        if (xMovement > _canvas.getParent().getLayoutBounds().getMinX() && xMovement + _canvas.getWidth() < _canvas.getParent().getLayoutBounds().getMaxX()) {
+                            _canvas.setTranslateX(_canvas.getTranslateX() + (curMouse.getCurX() - mouseEvent.getX()) / (2 / _canvas.getScaleX()));
+                            curMouse.setCurX(mouseEvent.getX());
+                        }
+                        double yMovement = _canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX());
+                        if (yMovement > _canvas.getParent().getLayoutBounds().getMinY() && yMovement + _canvas.getHeight() < _canvas.getParent().getLayoutBounds().getMaxY()) {
+                            _canvas.setTranslateY(_canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX()));
+                            curMouse.setCurY(mouseEvent.getY());
+                        }
+
+
                     }
                 });
             }
@@ -132,6 +130,38 @@ public class Controller implements Initializable {
     public void setApplyAlgorithmOnAction(Button _button) {
         _button.setOnAction((event) -> {
             EventBus.throwEvent(new ApplyAlgorithmButtonEvent());
+            _button.setDisable(true);
+        });
+    }
+
+    /**
+     * @param _menuItem
+     * @param _exportType
+     */
+    public void setExportLatexOnAction(MenuItem _menuItem, ExportMenu.ExportType _exportType) {
+        _menuItem.setOnAction((event) -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Export to LaTeX");
+            FileChooser.ExtensionFilter texExtension = new FileChooser.ExtensionFilter("LaTeX files (*.tex)", "*.tex");
+            fileChooser.getExtensionFilters().add(texExtension);
+            File file = fileChooser.showSaveDialog(this.getStage());
+
+            if (file == null) {
+                return;
+            }
+
+            String filePath = file.getAbsolutePath();
+            switch (_exportType) {
+                case LATEX_PARSE_TREE:
+                    EventBus.throwEvent(new ExportLaTeXParseTreeEvent(filePath));
+                    break;
+                case LATEX_TRUTH_TREE:
+                    EventBus.throwEvent(new ExportLaTeXTruthTreeEvent(filePath));
+                    break;
+                case LATEX_TRUTH_TABLE:
+                    EventBus.throwEvent(new ExportLaTeXTruthTableEvent(filePath));
+                    break;
+            }
         });
     }
 
@@ -160,7 +190,7 @@ public class Controller implements Initializable {
     }
 
     public UserObject getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(UserObject user) {

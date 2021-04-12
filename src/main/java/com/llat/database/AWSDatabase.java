@@ -148,7 +148,7 @@ public class AWSDatabase implements DatabaseInterface {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                user = new UserObject(rs.getInt("UserID"), rs.getString("UserName"),rs.getString("Fname"), rs.getString("Lname"),  rs.getString("Password"), rs.getString("Theme"), rs.getString("Language"));
+                user = new UserObject(rs.getInt("UserID"), rs.getString("UserName"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Password"), rs.getString("Theme"), rs.getString("Language"));
 
             }
 

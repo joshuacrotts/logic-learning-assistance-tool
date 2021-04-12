@@ -14,7 +14,7 @@ public class InputEvent implements Event {
     }
 
     public String getParameter() {
-        return parameter;
+        return this.parameter;
     }
 
     public void setParameter(String parameter) {
