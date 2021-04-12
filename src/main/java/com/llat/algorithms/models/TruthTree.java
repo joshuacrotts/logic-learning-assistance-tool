@@ -105,7 +105,7 @@ public class TruthTree implements Comparable<TruthTree> {
         this.DERIVED_PARENT = _derivedParent;
         this.AVAILABLE_CONSTANTS = new HashSet<>();
         this.SUBSTITUTIONS = new HashMap<>();
-        this.identifierNo = ++TruthTree.truthTreeCount;
+        this.identifierNo = ++BaseTruthTreeGenerator.identityCount;
 
         // Compute the union of the constants from the parent.
         if (_parent != null) {
@@ -284,6 +284,10 @@ public class TruthTree implements Comparable<TruthTree> {
         }
     }
 
+    public int getIdentityNumber() {
+        return this.identifierNo;
+    }
+
     public boolean isLeafNode() {
         return this.left == null && this.right == null;
     }
@@ -420,6 +424,7 @@ public class TruthTree implements Comparable<TruthTree> {
             System.err.println("Error - universal constant has reached the upper limit of 100.");
             EventBus.throwEvent(new SyntaxErrorEvent("Error - universal constant has reached the upper limit of 100."));
         }
+
         for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
             if (_newRoot.getChild(i).isVariable() || _newRoot.getChild(0).isConstant()) {
                 char v = _newRoot.getChild(i).getSymbol().charAt(0);

@@ -12,6 +12,11 @@ import java.util.PriorityQueue;
 public abstract class BaseTruthTreeGenerator {
 
     /**
+     *
+     */
+    public static int identityCount = 0;
+
+    /**
      * We should definitely make this a setting...
      */
     protected static int TIMEOUT = 1000;
@@ -23,6 +28,7 @@ public abstract class BaseTruthTreeGenerator {
 
     public BaseTruthTreeGenerator(WffTree _tree) {
         this.tree = _tree;
+        BaseTruthTreeGenerator.identityCount = 0;
     }
 
     /**
