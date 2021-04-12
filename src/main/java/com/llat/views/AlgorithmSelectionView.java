@@ -25,9 +25,10 @@ public class AlgorithmSelectionView {
         this.stage = this.controller.getStage();
 
         // Setting HBox algorithmSelectionHBox properties.
+        this.comboHBox.setId("comboHBox");
         this.comboHBox.setSpacing(50);
         this.comboHBox.setAlignment(Pos.CENTER);
-        this.comboHBox.setPadding(new Insets(10, 10, 10, 10));
+        this.comboHBox.setPadding(new Insets(5, 10, 5, 10));
 
         // Adding children nodes to their parents nodes.
         this.createComboBoxes();

@@ -7,6 +7,7 @@ import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.LLATErrorView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class LLATErrorViewInterpreter implements Listener {
@@ -23,11 +24,17 @@ public class LLATErrorViewInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof SyntaxErrorEvent) {
-            this.llatErrorView.getLogBox().getChildren().add(new Text(((SyntaxErrorEvent) _event).getErrorMessage()));
+            Text errorMsg = new Text(((SyntaxErrorEvent) _event).getErrorMessage());
+            errorMsg.setFill(Color.RED);
+            errorMsg.setId("errorText");
+            this.llatErrorView.getLogBox().getChildren().add(errorMsg);
             System.out.println(((SyntaxErrorEvent) _event).getErrorMessage());
         }
         else if (_event instanceof SyntaxWarningEvent) {
-            this.llatErrorView.getLogBox().getChildren().add(new Text(((SyntaxWarningEvent) _event).getWarningMessage()));
+            Text warningMsg = new Text(((SyntaxWarningEvent) _event).getWarningMessage());
+            warningMsg.setFill(Color.YELLOW);
+            warningMsg.setId("warningText");
+            this.llatErrorView.getLogBox().getChildren().add(warningMsg);
             System.out.println(((SyntaxWarningEvent) _event).getWarningMessage());
         }
     }
