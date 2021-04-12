@@ -9,6 +9,9 @@ import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.TruthTreeView;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -164,36 +167,43 @@ public class TruthTreeInterpreter implements Listener {
         final int V_OFFSET = 12;
         final int Y_LABEL_OFFSET = 6;
         Rectangle2D.Double box = _layout.getNodeBounds().get(_truthTree);
-        String[] lines = _truthTree.text.split("\n");
         double prevY = box.y;
-
+        String[] lines = _truthTree.text.split("\n");
         // Stacked nodes are made up of multiple lines, so this breaks them apart.
         for (String line : lines) {
-            Text wffSymbol = new Text(line);
-            wffSymbol.setX(box.getX() + (box.getWidth() - wffSymbol.getBoundsInLocal().getWidth()) / 2);
-            wffSymbol.setY(prevY);
+            Text wffSymbolText = new Text(line);
+            Label wffSymbol = new Label(line);
+            wffSymbol.setLayoutX(box.getX() + (box.getWidth() - wffSymbolText.getBoundsInLocal().getWidth()) / 2);
+            wffSymbol.setLayoutY(prevY - Y_LABEL_OFFSET);
             prevY += V_OFFSET;
+
+            wffSymbol.setTooltip(_truthTree.createTooltip());
             this.treePane.getChildren().add(wffSymbol);
         }
 
         // If the branch is a leaf, then we can label it open or closed.
-        Text branchLabel = null;
+        Text branchText = null;
+        Label branchLabel = null;
+
         if (_layout.getTree().isLeaf(_truthTree)) {
             if (_truthTree.isClosed()) {
-                branchLabel = new Text("\u2715");
+                branchText = new Text("\u2715");
+                branchLabel = new Label("\u2715");
             } else {
-                branchLabel = new Text("OPEN");
+                branchText = new Text("OPEN");
+                branchLabel = new Label("OPEN");
             }
         }
 
         if (branchLabel != null) {
-            branchLabel.setX(box.getX() + (box.getWidth() - branchLabel.getBoundsInLocal().getWidth()) / 2);
-            branchLabel.setY(prevY + Y_LABEL_OFFSET);
+            branchLabel.setTranslateX(box.getX() + (box.getWidth() - branchText.getBoundsInLocal().getWidth()) / 2);
+            branchLabel.setTranslateY(prevY + Y_LABEL_OFFSET);
             this.treePane.getChildren().add(branchLabel);
         }
     }
 
     /**
+     *
      */
     private TreeForTreeLayout<TruthTreeGuiNode> convertToAbegoTree(TruthTree _root) {
         Queue<TruthTreeGuiNode> q = new LinkedList<>();
@@ -305,11 +315,11 @@ public class TruthTreeInterpreter implements Listener {
             this.truthTrees.add(_tree);
             this.PANE = _pane;
             this.text = _tree.getWff().getStringRep() + "\n";
-            this.height = 0;
+            this.height = 12;
+            this.width = text.length() * 10;
         }
 
         /**
-         *
          * @param _tree
          */
         public void stackNode(TruthTree _tree) {
@@ -338,6 +348,28 @@ public class TruthTreeInterpreter implements Listener {
 
         public Pane getPane() {
             return this.PANE;
+        }
+
+        /**
+         *
+         * @return
+         */
+        public Tooltip createTooltip() {
+            StringBuilder sb = new StringBuilder();
+            for (TruthTree t : this.truthTrees) {
+                if (t.getDerivedParent() != null) {
+                    sb.append(t.getIdentityNumber());
+                    sb.append(". (");
+                    sb.append(t.getDerivedParent().getIdentityNumber());
+                    sb.append(") ");
+                    sb.append(t.getDerivedParent().getWff().getSymbol());
+                } else {
+                    sb.append("1. ROOT");
+                }
+                sb.append("\n");
+            }
+
+            return new Tooltip(sb.toString());
         }
     }
 }
