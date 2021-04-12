@@ -1,9 +1,11 @@
 package com.llat.algorithms.models;
 
 import com.llat.algorithms.BaseTruthTreeGenerator;
+import com.llat.input.events.SyntaxErrorEvent;
 import com.llat.models.treenode.ConstantNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;
+import com.llat.tools.EventBus;
 
 import java.util.*;
 
@@ -399,6 +401,7 @@ public class TruthTree implements Comparable<TruthTree> {
     private void replaceSymbol(WffTree _newRoot, char _variableToReplace, char _constant) {
         if (this.universalCount > THRESHOLD_LIMIT) {
             System.err.println("Error - universal constant has reached the upper limit of 100.");
+            EventBus.throwEvent(new SyntaxErrorEvent("Error - universal constant has reached the upper limit of 100."));
         }
         for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
             if (_newRoot.getChild(i).isVariable() || _newRoot.getChild(0).isConstant()) {

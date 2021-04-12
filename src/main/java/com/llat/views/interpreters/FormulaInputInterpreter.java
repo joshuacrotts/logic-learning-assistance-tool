@@ -62,7 +62,7 @@ public class FormulaInputInterpreter implements Listener {
             if (this.formulaInputView.getCaretPos() != -1) {
                 input.insertText(this.formulaInputView.getCaretPos(), ((SymbolInputEvent) _event).getSymbolInput());
             }
-            // If they click a button, go to the end of the formula.
+            // If they click a button, go to the position where it previously was.
             input.requestFocus();
             input.positionCaret(this.formulaInputView.getCaretPos());
             input.deselect();

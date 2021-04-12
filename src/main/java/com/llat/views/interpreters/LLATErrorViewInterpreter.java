@@ -10,6 +10,7 @@ import com.llat.views.LLATErrorView;
 import javafx.scene.text.Text;
 
 public class LLATErrorViewInterpreter implements Listener {
+
     private Controller controller;
     private LLATErrorView llatErrorView;
 

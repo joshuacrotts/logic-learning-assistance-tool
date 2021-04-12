@@ -14,9 +14,10 @@ import javafx.scene.control.ComboBox;
 import java.util.List;
 
 public class AlgorithmSelectionViewInterpreter implements Listener {
-    Controller controller;
-    AlgorithmSelectionView algorithmSelectionView;
-    String currentAlgorithm = null;
+
+    private Controller controller;
+    private AlgorithmSelectionView algorithmSelectionView;
+    private String currentAlgorithm = null;
 
     public AlgorithmSelectionViewInterpreter(Controller _controller, AlgorithmSelectionView _algorithmSelectionView) {
         this.controller = _controller;
