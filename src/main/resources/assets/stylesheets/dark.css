@@ -10,6 +10,10 @@
 
 }
 
+* {
+    -fx-font-family: 'Arial';
+}
+
 /* Begin root */
 .label {
     -fx-text-fill: -quaternary-color;
@@ -146,7 +150,7 @@
     -fx-border-size: 10;
 }
 
-#errorScrollPane > .viewport  {
+#errorScrollPane > .viewport {
     -fx-background-color: -secondary-color;
 }
 
@@ -314,11 +318,11 @@
 
 
 /* Begin Tabs */
-.tab-header-background
-{
+.tab-header-background {
     -fx-background-color: -primary-color;
 
 }
+
 .tab-pane .tab {
     -fx-background-color: -primary-color;
     -fx-pref-height: 31;
@@ -402,19 +406,19 @@
 
 
 /* Start ComboBox (Algorithm selection) */
-.combo-box, .list-view, .list-cell
-{
+.combo-box, .list-view, .list-cell {
     -fx-background-color: -secondary-color;
 
 }
-.list-cell:hover
-{
+
+.list-cell:hover {
     -fx-background-color: -tertiary-color;
 
 }
 
 
-.combo-box-base .text{
+.combo-box-base .text {
     -fx-fill: -quaternary-color;
 }
+
 /* End ComboBox (Algorithm selection) */
