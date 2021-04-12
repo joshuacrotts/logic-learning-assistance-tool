@@ -177,7 +177,7 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
         WffTree negatedQuantifier = getFlippedNode(_negRoot.getWff().getChild(0));
         for (TruthTree tt : _leaves) {
             if (!tt.isClosed()) {
-                tt.addCenter(new TruthTree(negatedQuantifier, tt));
+                tt.addCenter(new TruthTree(negatedQuantifier, tt, _negRoot));
                 _queue.add(tt.getCenter());
             }
         }

@@ -50,6 +50,11 @@ public class TruthTree implements Comparable<TruthTree> {
     private final TruthTree PARENT;
 
     /**
+     * Pointer to the node that derived this step.
+     */
+    private final TruthTree DERIVED_PARENT;
+
+    /**
      * Set of available constants allocated to this TruthTree as well as
      * any parents above it.
      */
@@ -67,31 +72,37 @@ public class TruthTree implements Comparable<TruthTree> {
      * Order of precedence for this node (as described above).
      */
     private final int VALUE;
+
     /**
      * Identifier number of this truth tree node in the tree itself.
      */
     private final int identifierNo;
+
     /**
      * Left pointer.
      */
     private TruthTree left;
+
     /**
      * Right pointer.
      */
     private TruthTree right;
+
     /**
      * Flags for the Truth tree - determines the status (open/closed), and if
      * it is an identity truth tree.
      */
     private int flags;
+
     /**
      *
      */
     private int universalCount;
 
-    public TruthTree(WffTree _node, TruthTree _parent) {
+    public TruthTree(WffTree _node, TruthTree _parent, TruthTree _derivedParent) {
         this.NODE = _node;
         this.PARENT = _parent;
+        this.DERIVED_PARENT = _derivedParent;
         this.AVAILABLE_CONSTANTS = new HashSet<>();
         this.SUBSTITUTIONS = new HashMap<>();
         this.identifierNo = ++TruthTree.truthTreeCount;
@@ -184,7 +195,7 @@ public class TruthTree implements Comparable<TruthTree> {
                 this.replaceSymbol(_newRoot, _variableToReplace, constant);
 
                 // Add to the tree and the queue.
-                TruthTree truthTreeRoot = new TruthTree(_newRoot, leaf);
+                TruthTree truthTreeRoot = new TruthTree(_newRoot, leaf, _existentialTruthTree);
                 leaf.addCenter(truthTreeRoot);
                 truthTreeRoot.AVAILABLE_CONSTANTS.add(constant);
                 _queue.add(leaf.getCenter());
@@ -213,7 +224,7 @@ public class TruthTree implements Comparable<TruthTree> {
                     this.replaceSymbol(_newRoot, _variableToReplace, c);
 
                     // Add to the tree and the queue.
-                    TruthTree _newRootTT = new TruthTree(_newRoot, leaf);
+                    TruthTree _newRootTT = new TruthTree(_newRoot, leaf, _universalTruthTree);
                     l.addCenter(_newRootTT);
                     _queue.add(_newRootTT);
 
@@ -261,7 +272,7 @@ public class TruthTree implements Comparable<TruthTree> {
                         this.replaceSymbol(currWff, constantOne, constantTwo);
                         if (!currWff.stringEquals(curr.getWff())) {
                             // Add to the tree and the queue.
-                            TruthTree _newRootTT = new TruthTree(currWff, l);
+                            TruthTree _newRootTT = new TruthTree(currWff, l, _identityTruthTree);
                             l.addCenter(_newRootTT);
                             _queue.add(_newRootTT);
                             l = l.getCenter();
@@ -325,6 +336,10 @@ public class TruthTree implements Comparable<TruthTree> {
         return this.PARENT;
     }
 
+    public TruthTree getDerivedParent() {
+        return this.DERIVED_PARENT;
+    }
+
     public void addConstant(char _ch) {
         this.AVAILABLE_CONSTANTS.add(_ch);
     }
@@ -347,6 +362,8 @@ public class TruthTree implements Comparable<TruthTree> {
         if (this.isLeafNode()) {
             leafSignal = this.isClosed() ? "X" : "open";
         }
+
+        //String deriveStep = this.DERIVED_PARENT != null ? "\t\t\t(" + this.DERIVED_PARENT.identifierNo + ") " + this.DERIVED_PARENT.getWff().getSymbol() : "";
         return this.getWff().getStringRep() + " " + leafSignal;
     }
 
