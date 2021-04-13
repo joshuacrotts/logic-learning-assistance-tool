@@ -64,7 +64,6 @@ public class LexerTest {
     public static void main(String[] argv) {
         if (argv.length > 0) {
             System.err.println("...terminal arguments not supported.");
-            return;
         } else {
             lexFromStdin();
         }

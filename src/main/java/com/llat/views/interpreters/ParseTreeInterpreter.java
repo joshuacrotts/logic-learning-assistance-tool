@@ -137,9 +137,9 @@ public class ParseTreeInterpreter implements Listener {
                 Rectangle2D.Double b2 = _layout.getNodeBounds().get(child);
                 // Compute offsets to position it in the center of the screen.
                 double x1Off = x1;
-                double y1Off = y1;
+                double y1Off = y1 + b1.getHeight() / 2 + 2;
                 double x2Off = b2.getCenterX();
-                double y2Off = b2.getCenterY();
+                double y2Off = b2.getCenterY() - b2.getHeight() / 2 - 2;
                 this.treePane.getChildren().add(new Line(x1Off, y1Off, x2Off, y2Off));
                 this.drawEdges(_layout, child);
             }

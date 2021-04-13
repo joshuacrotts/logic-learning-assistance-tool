@@ -2,10 +2,12 @@ package com.llat.algorithms.predicate;
 
 import com.llat.algorithms.BaseTruthTreeGenerator;
 import com.llat.algorithms.models.TruthTree;
+import com.llat.input.events.SyntaxErrorEvent;
 import com.llat.models.treenode.ExistentialQuantifierNode;
 import com.llat.models.treenode.IdentityNode;
 import com.llat.models.treenode.UniversalQuantifierNode;
 import com.llat.models.treenode.WffTree;
+import com.llat.tools.EventBus;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -41,6 +43,7 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
         while (!queue.isEmpty()) {
             if (++iterations >= BaseTruthTreeGenerator.TIMEOUT) {
                 System.err.println("Timeout error: cannot compute a tree this complex.");
+                EventBus.throwEvent(new SyntaxErrorEvent("Timeout error: cannot compute a truth tree this complex."));
                 return;
             }
 
@@ -174,7 +177,7 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
         WffTree negatedQuantifier = getFlippedNode(_negRoot.getWff().getChild(0));
         for (TruthTree tt : _leaves) {
             if (!tt.isClosed()) {
-                tt.addCenter(new TruthTree(negatedQuantifier, tt));
+                tt.addCenter(new TruthTree(negatedQuantifier, tt, _negRoot));
                 _queue.add(tt.getCenter());
             }
         }
