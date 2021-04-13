@@ -2,7 +2,7 @@
 <h2 align="center">A Visual Improvement to the Pedagogy of Introductory Logic</h2>
 
 <p align="center">
-    <img width = 400, height=200, src="/docs/images/logollat.png" alt="LLAT Logo">
+    <img width = 400 height=225 src="/docs/images/logollat.png" alt="LLAT Logo">
 </p>
 
 <p align="justify">
