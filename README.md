@@ -13,10 +13,15 @@
 [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/JoshuaCrotts/Logic-Learning-Assistance-Tool)]()
 
 ## Logic-Learning Assistance Tool
+<p align="justify">
 LLAT (pronounced L-LÆT) allows students to build truth trees, parse trees, and truth tables. In addition, there are several algorithms to choose from which examine the well-formed formula entered. These include detecting the main operator, bound/free variable detector, argument validity determiner, and many more.
+</p>
 
 ## Dependencies
+<p align="justify">
 The following is a list of dependencies used in this project. As described in the next section, we use Maven as our build automation tool, so it isn't necessary to hunt these down yourself.
+</p>
+
 1. BCrypt
 2. JDBC (Java Database Connector)
 3. JavaFX
@@ -25,8 +30,9 @@ The following is a list of dependencies used in this project. As described in th
 6. Java 14/15
 
 ## Rebuilding LLAT
+<p align="justify">
 To rebuild the code, clone the repository to your computer. This project is setup to use Maven, so all dependencies should work natively in your IDE. We developed the application with IntelliJ and OpenJDK15. Compile via `make clean compile install` and be sure to refresh your Maven sources. Then, run `App.java`.
-
+</p>
 ## Developers 📣
 
 - [**Ali Altamimi**](https://github.com/CodingTheories)
