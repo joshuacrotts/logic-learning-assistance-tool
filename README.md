@@ -1,10 +1,8 @@
 <!-- PROJECT LOGO -->
-<h1 align="center">A Visual Improvement to the Pedagogy of Introductory Logic</h1>
+<h2 align="center">A Visual Improvement to the Pedagogy of Introductory Logic</h2>
 
 <p align="center">
-  <a href="https://github.com/JoshuaCrotts/CSC-490-Capstone-Project">
     <img src="/docs/images/llatlogo.png" alt="LLAT Logo">
-  </a>
 </p>
 
 <p align="justify">
