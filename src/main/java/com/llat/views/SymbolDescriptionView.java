@@ -104,8 +104,6 @@ public class SymbolDescriptionView {
         this.belowExplanationText.setMinHeight(25);
 
         // Setting Text exampleText properties.
-        System.out.println(this.symbol.getAxioms().getExample());
-        System.out.println(this.symbol.getAxioms().getExample().size());
         this.symbol.getAxioms().getExample().forEach((example) -> {
             Button curExample = new Button(example);
             curExample.setTextAlignment(TextAlignment.JUSTIFY);
