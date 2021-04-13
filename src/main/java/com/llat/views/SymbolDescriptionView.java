@@ -11,6 +11,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+import java.util.ArrayList;
+
 public class SymbolDescriptionView {
 
     /* Global JavaFX elements for this view. */
@@ -39,7 +41,7 @@ public class SymbolDescriptionView {
 
     /* Label, button, and region for the example that we're going to use. */
     private final Label exampleLabel = new Label("Examples");
-    private final Button exampleText;
+    private final ArrayList<Button> exampleText = new ArrayList<>();
     private final Region belowExampleText = new Region();
 
     public SymbolDescriptionView(Symbol _symbol) {
@@ -102,15 +104,18 @@ public class SymbolDescriptionView {
         this.belowExplanationText.setMinHeight(25);
 
         // Setting Text exampleText properties.
-        this.exampleText = new Button(this.symbol.getAxioms().getExample().get(0));
-        this.exampleText.setTextAlignment(TextAlignment.JUSTIFY);
-        this.exampleText.setNodeOrientation(LanguageObject.isUsingRightToLeftLanguage() ?
-                NodeOrientation.RIGHT_TO_LEFT :
-                NodeOrientation.LEFT_TO_RIGHT);
-        this.exampleText.setWrapText(true);
-        this.exampleText.setId("rulesAxiomsText");
-        this.exampleText.setMaxHeight(Double.MAX_VALUE);
-        this.symbolDetailsVBox.widthProperty().addListener((obs, oldVal, newVal) -> this.exampleText.setMaxWidth(newVal.doubleValue() * .80));
+        this.symbol.getAxioms().getExample().forEach((example) -> {
+            Button curExample = new Button(example);
+            curExample.setTextAlignment(TextAlignment.JUSTIFY);
+            curExample.setNodeOrientation(LanguageObject.isUsingRightToLeftLanguage() ?
+                    NodeOrientation.RIGHT_TO_LEFT :
+                    NodeOrientation.LEFT_TO_RIGHT);
+            curExample.setWrapText(true);
+            curExample.setId("rulesAxiomsText");
+            curExample.setMaxHeight(Double.MAX_VALUE);
+            this.symbolDetailsVBox.widthProperty().addListener((obs, oldVal, newVal) -> curExample.setMaxWidth(newVal.doubleValue() * .80));
+            this.exampleText.add(curExample);
+        });
 
         // Setting Region belowExampleText properties.
         this.belowExampleText.setMinHeight(25);
@@ -119,7 +124,11 @@ public class SymbolDescriptionView {
                 this.formalNameLabel, this.formalNameText, this.belowFormalNameText,
                 this.alternativeSymbolsLabel, this.alternativeSymbolsText, this.belowAlternativeSymbolsText,
                 this.explanationLabel, this.explanationText, this.belowExplanationText,
-                this.exampleLabel, this.exampleText, this.belowExampleText);
+                this.exampleLabel);
+        this.exampleText.forEach((exampleText) -> {
+            this.symbolDetailsVBox.getChildren().add(exampleText);
+        });
+        this.symbolDetailsVBox.getChildren().add(this.belowExampleText);
     }
 
     public VBox getParentPane() {
