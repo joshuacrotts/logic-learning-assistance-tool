@@ -95,7 +95,7 @@ public class TruthTree implements Comparable<TruthTree> {
     private int flags;
 
     /**
-     *
+     * Gets the number of universal rules currently applied - this is for a timeout.
      */
     private int universalCount;
 
