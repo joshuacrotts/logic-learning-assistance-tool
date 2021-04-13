@@ -6,5 +6,4 @@ public class AlgorithmSelectionViewInitializedEvent implements Event {
 
     public AlgorithmSelectionViewInitializedEvent () {
     }
-
 }

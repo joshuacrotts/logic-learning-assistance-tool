@@ -34,6 +34,12 @@ public class MenuBarView {
         this.menuBar.getMenus().addAll(new FileMenu(this.controller).getMenu(),
                 new ExportMenu(this.controller).getMenu(),
                 new HelpMenu(this.controller).getMenu());
+        
+        // Check the operating system and adjust eh menubar accordingly
+        final String os = System.getProperty("os.name");
+        if (os != null && os.startsWith("Mac"))
+            menuBar.useSystemMenuBarProperty().set(true);
+
     }
 
     public MenuBar getMenuBar() {
