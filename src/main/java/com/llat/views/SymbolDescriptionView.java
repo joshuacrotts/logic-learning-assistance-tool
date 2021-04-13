@@ -2,7 +2,6 @@ package com.llat.views;
 
 import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.symbols.Symbol;
-import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

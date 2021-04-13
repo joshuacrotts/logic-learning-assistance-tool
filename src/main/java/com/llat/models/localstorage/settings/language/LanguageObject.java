@@ -1,6 +1,6 @@
 package com.llat.models.localstorage.settings.language;
 
-import com.llat.models.localstorage.settings.ItemObject;
+import com.llat.models.localstorage.ItemObject;
 import com.llat.models.localstorage.settings.SettingsObject;
 
 public class LanguageObject extends ItemObject {

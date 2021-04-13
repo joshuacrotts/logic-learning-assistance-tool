@@ -1,0 +1,679 @@
+{
+  "menuBar": {
+    "file": {
+      "label": "ملف",
+      "newProject": {
+        "label": "New Project",
+        "content": []
+      },
+      "openProject": {
+        "label": "Open Project",
+        "content": [
+          {}
+        ]
+      },
+      "export": {
+        "label": "Export",
+        "content": [
+          {
+            "label": "Latex",
+            "content": []
+          }
+        ]
+      },
+      "login": {
+        "label": "Login",
+        "content": []
+      },
+      "register": {
+        "label": "Register",
+        "content": []
+      },
+      "settings": {
+        "label": "Settings",
+        "content": []
+      },
+      "exit": {
+        "label": "Exit",
+        "content": []
+      }
+    },
+    "help": {
+      "label": "مساعدة",
+      "about": {
+        "label": "About",
+        "content": []
+      }
+    }
+  },
+  "mainView": {
+    "mainViewLabels": {
+      "propositionalLabel": "المنطق الاقتراحي",
+      "predicateLabel": "المنطق المسند",
+      "truthTabelLabel": "جدول الحقيقة",
+      "truthTreeLabel": "شجرة الحقيقة",
+      "symbolNameLabel": "اسم الرمز",
+      "formalNameLabel": "اسم الرمز",
+      "alternativeSymbolsLabel": "الرموز البديلة",
+      "examplesLabel": "أمثلة",
+      "generalMenu": {
+        "label": "جنرال لواء",
+        "content": [
+          {
+            "label": "Argument Truth Tree Validator",
+            "content": []
+          },
+          {
+            "label": "Closed Tree Determiner",
+            "content": []
+          },
+          {
+            "label": "Logical Falsehood Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Consistent Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Contingent Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Contradictory Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Contrary Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Equivalent Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Implied Determiner",
+            "content": []
+          },
+          {
+            "label": "Logical Tautology Determiner",
+            "content": []
+          },
+          {
+            "label": "Main operator detector",
+            "content": []
+          },
+          {
+            "label": "Open Tree Determiner",
+            "content": []
+          }
+        ]
+      },
+      "propositionalMenu": {
+        "label": "Propositional",
+        "content": [
+          {
+            "label": "Propositional Truth Tree Generator",
+            "content": []
+          },
+          {
+            "label": "Random Formula generation",
+            "content": []
+          },
+          {
+            "label": "Truth Table Generator",
+            "content": []
+          }
+        ]
+      },
+      "predicateMenu": {
+        "label": "Predicate",
+        "content": [
+          {
+            "label": "Bound Variable Detector",
+            "content": []
+          },
+          {
+            "label": "Closed Sentence Determiner",
+            "content": []
+          },
+          {
+            "label": "Free Variable Detector",
+            "content": []
+          },
+          {
+            "label": "Ground Sentence Determiner",
+            "content": []
+          },
+          {
+            "label": "Open Sentence Determiner",
+            "content": []
+          },
+          {
+            "label": "Predicate Truth Tree Generator",
+            "content": []
+          }
+        ]
+      },
+      "axiomTabLabel": "البديهيات",
+      "historyTabLabel": "تاريخ",
+      "solveButton": "يحل"
+    },
+    "logicSymbols": {
+      "propositional": {
+        "implication": {
+          "symbol": {
+            "applied": "⇒",
+            "allSymbols": [
+              "⇒",
+              "→",
+              "⊃",
+              "-\u003e"
+            ]
+          },
+          "description": "هذا هو زر التضمين",
+          "axioms": {
+            "explanation": "(A ⇒ B) تكون خطأ عندما تكون A صحيحة و B خطأ ، ولكنها صحيحة بخلاف ذلك. غالبًا ما يصعب على الطلاب فهم عامل التضمين ، لا سيما أنه إذا كانت A خاطئة و B خاطئة ، فإن الاستنتاج يظل صحيحًا (يُطلق عليه أيضًا صواب فارغ). نشير إلى A على أنها سابقة الشرطي ، و B على أنها نتيجة. جزء مهم من عامل السهم الأيمن هو فكرة الشروط الكافية والضرورية. السابقة كافية لما يترتب على ذلك. والنتيجة ضرورية للسوابق.",
+            "example": [
+              "لنفترض أن (أ) يمثل الافتراض القائل بأن شخصًا ما أعزب ، ويمثل (ب) الافتراض بأن شخصًا ما غير متزوج. لذلك ، (أ ، ب) تقرأ \"إذا كان شخص ما أعزب ، فهو غير متزوج\". نظرًا لأن شخصًا ما لا يمكن أن يتزوج وأن يكون عازبًا ، فمن الصحيح أن عدم الزواج ضروري لكونك عازبًا (بمعنى آخر ، لا يمكنك أن تكون عازبًا إذا كنت متزوجًا) نظرًا لأن كل من هو أعزب غير متزوج ، فمن المنطقي أن يكون المرء عازبًا كافيًا لكونه غير متزوج."
+            ]
+          },
+          "tooltip": "يتضمن",
+          "readAs": "يدل؛ اذا ثم"
+        },
+        "biconditional": {
+          "symbol": {
+            "applied": "⇔",
+            "allSymbols": [
+              "⇔",
+              "≡",
+              "↔",
+              "\u003c-\u003e"
+            ]
+          },
+          "description": "هذا هو زر التكافؤ",
+          "axioms": {
+            "explanation": "(A ⇔ B) تكون صحيحة عندما يكون A و B متماثلين هذا يعني أنه يجب أن يكون A صحيحًا ويجب أن يكون B صحيحًا حتى تكون هذه الجملة صحيحة. وبالمثل ، يجب أن يكون A خطأ ويجب أن يكون B خطأ حتى تكون هذه الجملة صحيحة. عندما يختلفون ، الجملة خاطئة.",
+            "example": [
+              "(أ ، ب)"
+            ]
+          },
+          "tooltip": "التكافؤ",
+          "readAs": "إذا وفقط إذا؛ \"iff\" ؛ يعني نفس"
+        },
+        "negation": {
+          "symbol": {
+            "applied": "¬",
+            "allSymbols": [
+              "¬",
+              "˜",
+              "!"
+            ]
+          },
+          "description": "هذا هو زر النفي",
+          "axioms": {
+            "explanation": "عامل النفي ¬ يقلب قيمة الحقيقة لبعض الافتراضات أ. لذا ، إذا كانت A صحيحة ، فإن A تكون خطأ. وبالمثل ، إذا كانت \"أ\" خطأ ، فإن \"أ\" تكون صحيحة. عامل النفي يعمل عبر أي جملة ويوزع على كل من الرموز والمعاملات.",
+            "example": [
+              "(¬¬A ⇔ A)",
+              "¬ (A \u0026 B) تعادل (¬A ∨ ¬B). يتبع عامل النفي خاصية التوزيع من الرياضيات - نوزعها على كل شيء بداخل الأقواس.",
+              "~ (A -\u003e ~ B) تعادل (A \u0026 ~~ B) ، مما يقلل إلى (A \u0026 B). لاحظ أنه عندما نستخدم نفيًا في جملة ضمنية (تسمى أيضًا ضمنيًا نفيًا) ، فإننا لا نرفض السوابق مرتين ؛ نختصره إلى اقتراح مطروحًا منه أي نفي."
+            ]
+          },
+          "tooltip": "النفي",
+          "readAs": "ليس"
+        },
+        "conjunction": {
+          "symbol": {
+            "applied": "∧",
+            "allSymbols": [
+              "∧",
+              "^",
+              "·",
+              "\u0026"
+            ]
+          },
+          "description": "هذا هو زر الاقتران.",
+          "axioms": {
+            "explanation": "العبارة (A ∧ B) صحيحة إذا كان كل من A و B صحيحين ؛ وإلا فهو خطأ.",
+            "example": [
+              "(أ ، ب)"
+            ]
+          },
+          "tooltip": "بالاشتراك",
+          "readAs": "و"
+        },
+        "disjunction": {
+          "symbol": {
+            "applied": "∨",
+            "allSymbols": [
+              "∨",
+              "∥",
+              "|"
+            ]
+          },
+          "description": "هذا هو زر الفصل.",
+          "axioms": {
+            "explanation": "تكون العبارة * A ∨ B) صحيحة إذا كانت A أو B (أو كلاهما) صحيحة ؛ إذا كان كلاهما خطأ ، فإن العبارة خاطئة.",
+            "example": [
+              "(أ ، ب)"
+            ]
+          },
+          "tooltip": "بالاشتراك",
+          "readAs": "أو"
+        },
+        "exclusiveDisjunction": {
+          "symbol": {
+            "applied": "⊕",
+            "allSymbols": [
+              "⊕",
+              "⊻",
+              "≢"
+            ]
+          },
+          "description": "هذا هو زر الفصل.",
+          "axioms": {
+            "explanation": "العبارة (A ⊕ B) تكون صحيحة عندما يكون A أو B صحيحًا ، لكن ليس كلاهما صحيحًا.",
+            "example": [
+              "(¬A ⊕ B)"
+            ]
+          },
+          "tooltip": "انفصال حصري",
+          "readAs": "xor. إما او"
+        },
+        "turnstile": {
+          "symbol": {
+            "applied": "⊢",
+            "allSymbols": [
+              "⊢"
+            ]
+          },
+          "description": "هذا هو زر الباب الدوار.",
+          "axioms": {
+            "explanation": "x ⊢ y تعني x تثبت (تستلزم نحويًا) y.",
+            "example": [
+              "(أ → ب) ⊢ (¬B → ¬A)"
+            ]
+          },
+          "tooltip": "الباب الدوار",
+          "readAs": "يثبت"
+        },
+        "doubleTurnstile": {
+          "symbol": {
+            "applied": "⊨",
+            "allSymbols": [
+              "⊨"
+            ]
+          },
+          "description": "هذا هو زر الباب الدوار.",
+          "axioms": {
+            "explanation": "x ⊨ y تعني نماذج x (تستلزم دلاليًا) y",
+            "example": [
+              "(أ → ب) ⊨ (¬B → ¬A)",
+              "(أ → ب) ⊨ (~ أ | ب)"
+            ]
+          },
+          "tooltip": "باب دوار مزدوج",
+          "readAs": "عارضات ازياء"
+        }
+      },
+      "predicate": {
+        "universal": {
+          "symbol": {
+            "applied": "∀",
+            "allSymbols": [
+              "∀",
+              "()"
+            ]
+          },
+          "description": "هذا هو زر القياس العام.",
+          "axioms": {
+            "explanation": "(∀x) Px أو (x) Px تعني أن الاقتراح P ينطبق على جميع المدخلات x في المجال D.",
+            "example": [
+              "(∀x) Px"
+            ]
+          },
+          "tooltip": "القياس الكمي العالمي",
+          "readAs": "للجميع لأي؛ لكل"
+        },
+        "existential": {
+          "symbol": {
+            "applied": "∃",
+            "allSymbols": [
+              "∃"
+            ]
+          },
+          "description": "هذا هو زر القياس الوجودي.",
+          "axioms": {
+            "explanation": "(∃x) تعني Px وجود مدخل واحد على الأقل x في المجال D الذي يلبي الاقتراح P (مما يجعل P صحيحًا).",
+            "example": [
+              "(∃x) Px"
+            ]
+          },
+          "tooltip": "الكمي الوجودي",
+          "readAs": "يوجد"
+        }
+      }
+    }
+  },
+  "settingsView": {
+    "categories": {
+      "appearance": {
+        "label": "Appearance",
+        "theme": {
+          "label": "Theme",
+          "applied": {
+            "name": "Default",
+            "code": "default.css"
+          },
+          "allThemes": [
+            {
+              "name": "Default",
+              "code": "default.css"
+            },
+            {
+              "name": "Dark",
+              "code": "dark.css"
+            }
+          ]
+        }
+      },
+      "language": {
+        "label": "Language",
+        "languageContent": {
+          "label": "Language",
+          "applied": {
+            "name": "عربى",
+            "code": "ar"
+          },
+          "allLanguages": [
+            {
+              "name": "Afrikaans",
+              "code": "af"
+            },
+            {
+              "name": "Azərbaycan",
+              "code": "az"
+            },
+            {
+              "name": "bahasa Indonesia",
+              "code": "id"
+            },
+            {
+              "name": "català",
+              "code": "ca"
+            },
+            {
+              "name": "čeština",
+              "code": "cs"
+            },
+            {
+              "name": "Cymraeg",
+              "code": "cy"
+            },
+            {
+              "name": "dansk",
+              "code": "da"
+            },
+            {
+              "name": "Deutsche",
+              "code": "de"
+            },
+            {
+              "name": "eesti",
+              "code": "et"
+            },
+            {
+              "name": "English",
+              "code": "en"
+            },
+            {
+              "name": "español",
+              "code": "es"
+            },
+            {
+              "name": "Esperanto",
+              "code": "eo"
+            },
+            {
+              "name": "Euskal",
+              "code": "eu"
+            },
+            {
+              "name": "Français",
+              "code": "fr"
+            },
+            {
+              "name": "Gaeilge",
+              "code": "ga"
+            },
+            {
+              "name": "galego",
+              "code": "gl"
+            },
+            {
+              "name": "Hrvatski",
+              "code": "hr"
+            },
+            {
+              "name": "icelandic",
+              "code": "is"
+            },
+            {
+              "name": "italiano",
+              "code": "it"
+            },
+            {
+              "name": "Kiswahili",
+              "code": "sw"
+            },
+            {
+              "name": "kreyòl ayisyen",
+              "code": "ht"
+            },
+            {
+              "name": "Latine",
+              "code": "la"
+            },
+            {
+              "name": "Latvijas",
+              "code": "lv"
+            },
+            {
+              "name": "Lietuvos",
+              "code": "lt"
+            },
+            {
+              "name": "Magyar",
+              "code": "hu"
+            },
+            {
+              "name": "Malay",
+              "code": "ms"
+            },
+            {
+              "name": "Malti",
+              "code": "mt"
+            },
+            {
+              "name": "Nederlands",
+              "code": "nl"
+            },
+            {
+              "name": "norsk",
+              "code": "no"
+            },
+            {
+              "name": "Pilipino",
+              "code": "tl"
+            },
+            {
+              "name": "Polskie",
+              "code": "pl"
+            },
+            {
+              "name": "português",
+              "code": "pt"
+            },
+            {
+              "name": "Română",
+              "code": "ro"
+            },
+            {
+              "name": "shqiptar",
+              "code": "sq"
+            },
+            {
+              "name": "Slovenščina",
+              "code": "sl"
+            },
+            {
+              "name": "slovenský",
+              "code": "sk"
+            },
+            {
+              "name": "Suomalainen",
+              "code": "fi"
+            },
+            {
+              "name": "svenska",
+              "code": "sv"
+            },
+            {
+              "name": "Tiếng Việt",
+              "code": "vi"
+            },
+            {
+              "name": "Türk",
+              "code": "tr"
+            },
+            {
+              "name": "Ελληνικά",
+              "code": "el"
+            },
+            {
+              "name": "беларускі",
+              "code": "be"
+            },
+            {
+              "name": "български",
+              "code": "bg"
+            },
+            {
+              "name": "Македонски",
+              "code": "mk"
+            },
+            {
+              "name": "русский",
+              "code": "ru"
+            },
+            {
+              "name": "Српски",
+              "code": "sr"
+            },
+            {
+              "name": "український",
+              "code": "uk"
+            },
+            {
+              "name": "ქართული",
+              "code": "ka"
+            },
+            {
+              "name": "ייִדיש",
+              "code": "yi"
+            },
+            {
+              "name": "עִברִית",
+              "code": "iw"
+            },
+            {
+              "name": "اردو",
+              "code": "ur"
+            },
+            {
+              "name": "عربى",
+              "code": "ar"
+            },
+            {
+              "name": "فارسی",
+              "code": "fa"
+            },
+            {
+              "name": "हिन्दी",
+              "code": "hi"
+            },
+            {
+              "name": "বাংলা",
+              "code": "bn"
+            },
+            {
+              "name": "ગુજરાતી",
+              "code": "gu"
+            },
+            {
+              "name": "தமிழ்",
+              "code": "ta"
+            },
+            {
+              "name": "తెలుగు",
+              "code": "te"
+            },
+            {
+              "name": "ಕನ್ನಡ",
+              "code": "kn"
+            },
+            {
+              "name": "ไทย",
+              "code": "th"
+            },
+            {
+              "name": "한국어",
+              "code": "ko"
+            },
+            {
+              "name": "中國傳統的",
+              "code": "zh-TW"
+            },
+            {
+              "name": "日本語",
+              "code": "ja"
+            },
+            {
+              "name": "简体中文",
+              "code": "zh-CN"
+            }
+          ]
+        }
+      },
+      "advanced": {
+        "label": "Advanced",
+        "timeOut": {
+          "label": "Time Out",
+          "value": 1000
+        }
+      }
+    },
+    "cancel": "يلغي",
+    "save": "يحفظ"
+  },
+  "loginView": {
+    "userNameLabel": "User Name",
+    "userNamePromptText": "Enter your user name",
+    "passwordLabel": "Password",
+    "passwordPromptText": "Enter your password",
+    "loginButton": "Login",
+    "returnButton": "Return to Application"
+  },
+  "registerView": {
+    "userNameLabel": "User Name",
+    "userNamePromptText": "Enter your user name",
+    "firstNamePromptText": "Enter your first name",
+    "lastNamePromptText": "Enter your last name",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "passwordLabel": "Password",
+    "passwordPromptText": "Enter your password",
+    "registerButton": "Register",
+    "returnButton": "Return to Application"
+  }
+}
