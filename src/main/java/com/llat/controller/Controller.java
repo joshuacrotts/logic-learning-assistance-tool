@@ -1,6 +1,7 @@
 package com.llat.controller;
 
 import com.llat.database.DatabaseAdapter;
+import com.llat.database.DatabaseInterpeter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.models.LogicSetup;
@@ -30,6 +31,7 @@ public class Controller implements Initializable {
     private final Stage stage;
     private final LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
     private final DatabaseAdapter databaseAdapter = new DatabaseAdapter();
+    private final DatabaseInterpeter di = new DatabaseInterpeter(databaseAdapter, this);
     private final LogicSetup logicSetup = new LogicSetup();
     private UserObject user;
 
@@ -188,6 +190,8 @@ public class Controller implements Initializable {
         }
         return parentPane;
     }
+
+
 
     public UserObject getUser() {
         return this.user;

@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import com.llat.database.DatabaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class SettingsView {
     private final Pane appearancePane;
     private final Pane languagePane;
     private final Pane advancePane;
+    DatabaseAdapter db = new DatabaseAdapter();
     SettingsAdaptor sa = new SettingsAdaptor();
     SettingsObject so = (SettingsObject) this.sa.getData();
     private Stage settingsStage;
@@ -168,6 +170,11 @@ public class SettingsView {
                 this.updateLocalStorage();
                 this.settingsStage.close();
                 this.stage.close();
+                if (this.controller.getUser() != null) {
+                    int USERID = this.controller.getUser().getUserId();
+
+                    /*db.UpdateTheme(USERID, menuItem.getText())*/
+                }
                 new Window(new Stage());
             } else {
                 // ... user chose CANCEL or closed the dialog
@@ -235,6 +242,7 @@ public class SettingsView {
         Label themeLabel = new Label("Theme");
         HBox appearanceHBox = new HBox();
         MenuButton themeMenu = new MenuButton(appliedTheme);
+        DatabaseAdapter db = new DatabaseAdapter();
         // populate the theme menu
         for (int i = 0; i < themeList.size(); i++) {
             CustomMenuItem menuItem = new CustomMenuItem(themeList.get(i));
@@ -243,6 +251,13 @@ public class SettingsView {
             menuItem.setOnAction(e -> {
                 themeMenu.setText(menuItem.getText());
                 this.so.getTheme().setApplied((ThemeObject) menuItem.getContent());
+
+                if (this.controller.getUser() != null) {
+                    int USERID = this.controller.getUser().getUserId();
+                    System.out.println(appliedTheme);
+                    System.out.println(menuItem.getText());
+                    /*db.UpdateTheme(USERID, menuItem.getText())*/
+                }
             });
         }
 
