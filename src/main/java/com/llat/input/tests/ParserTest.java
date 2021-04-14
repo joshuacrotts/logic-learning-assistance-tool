@@ -115,6 +115,10 @@ public class ParserTest {
             // Determine if it's contingent.
             LogicallyContingentDeterminer consistentDet = new LogicallyContingentDeterminer(result);
             System.out.println("Logical Contingent: " + consistentDet.isContingent());
+
+            // Now find the CNF.
+            ConjunctiveNormalFormConverter cnfConverter = new ConjunctiveNormalFormConverter(result);
+            System.out.println(cnfConverter.getCNF().getStringRep());
         }
         // If there are two, we can generate logical relationships.
         else if (resultList.size() == 2) {
