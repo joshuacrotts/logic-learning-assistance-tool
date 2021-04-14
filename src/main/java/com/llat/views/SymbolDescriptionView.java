@@ -1,5 +1,6 @@
 package com.llat.views;
 
+import com.llat.controller.Controller;
 import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.symbols.Symbol;
 import javafx.geometry.NodeOrientation;
@@ -19,32 +20,41 @@ public class SymbolDescriptionView {
     private final VBox symbolDetailsVBox = new VBox();
 
     /* Label, button, and view for the symbol name that we're going to use. */
-    private final Label symbolNameLabel = new Label("Symbol Name");
+    private Label symbolNameLabel ;
     private final Button symbolNameText;
     private final Region belowSymbolNameText = new Region();
 
     /* Label, button, and region for the formal name of the symbol. */
-    private final Label formalNameLabel = new Label("Formal Name");
+    private Label formalNameLabel ;
     private final Button formalNameText;
     private final Region belowFormalNameText = new Region();
 
     /* Label, button, and region for the alternative symbols of our symbol. */
-    private final Label alternativeSymbolsLabel = new Label("Alternative Symbols");
+    private Label alternativeSymbolsLabel ;
     private final Button alternativeSymbolsText;
     private final Region belowAlternativeSymbolsText = new Region();
 
     /* Label, button, and region for the explanation that we're going to use. */
-    private final Label explanationLabel = new Label("Explanation");
+    private Label explanationLabel = new Label("Explanation");
     private final Button explanationText;
     private final Region belowExplanationText = new Region();
 
     /* Label, button, and region for the example that we're going to use. */
-    private final Label exampleLabel = new Label("Examples");
+    private Label exampleLabel;
     private final ArrayList<Button> exampleText = new ArrayList<>();
     private final Region belowExampleText = new Region();
+    private final Controller controller;
 
-    public SymbolDescriptionView(Symbol _symbol) {
+    public SymbolDescriptionView(Controller _controller, Symbol _symbol) {
         this.symbol = _symbol;
+        this.controller = _controller;
+
+        symbolNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getSymbolNameLabel());
+        formalNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getFormalNameLabel());
+        alternativeSymbolsLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getAlternativeSymbolsLabel());
+        explanationLabel = new Label("Explanation");
+        exampleLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExamplesLabel());
+
 
         // Settings labels id (linked via CSS).
         this.symbolNameLabel.setId("symbolNameLabel");

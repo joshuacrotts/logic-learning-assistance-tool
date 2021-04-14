@@ -10,7 +10,7 @@ public class OpenItem {
 
     public OpenItem(Controller controller) {
         this.controller = controller;
-        this.openItem = new MenuItem("Open Project");
+        this.openItem = new MenuItem(controller.getUiObject().getMenuBar().getFile().getOpenProject().getLabel());
 
         this.openItem.setDisable(true);
     }

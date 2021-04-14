@@ -1,4 +1,4 @@
-package com.llat.views.menu;
+package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.views.InputButtonsView;

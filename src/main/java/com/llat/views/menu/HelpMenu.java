@@ -10,7 +10,7 @@ public class HelpMenu {
 
     public HelpMenu(Controller controller) {
         this.controller = controller;
-        this.helpMenu = new Menu("Help");
+        this.helpMenu = new Menu(controller.getUiObject().getMenuBar().getHelp().getLabel());
     }
 
     public Menu getMenu() {
