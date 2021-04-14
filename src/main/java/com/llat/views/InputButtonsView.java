@@ -39,6 +39,10 @@ public class InputButtonsView {
     public InputButtonsView(Controller _controller) {
         this.controller = _controller;
         this.obj = this.controller.getUiObject();
+
+        propositionalLogicLabel = new Label(this.obj.getMainView().getMainViewLabels().getPropositionalLabel());
+        predicateLogicLabel = new Label(this.obj.getMainView().getMainViewLabels().getPredicateLabel());
+
         conjunctionButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getConjunction());
         disjunctionButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getDisjunction());
         negationButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getNegation());

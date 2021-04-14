@@ -32,11 +32,11 @@ import java.util.Optional;
 import static com.llat.views.SettingsView.WIDTH;
 
 public class SettingsView {
-    private Controller controller;
-    private AnchorPane parentPane = new AnchorPane();
-    private Stage stage;
+    private final Controller controller;
+    private final AnchorPane parentPane = new AnchorPane();
+    private final Stage stage;
     private Stage settingsStage;
-    private Pane leftPane = new Pane();
+    private final Pane leftPane = new Pane();
     public static final int WIDTH = 750;
     public static final int HEIGHT = 500;
 
@@ -47,32 +47,18 @@ public class SettingsView {
     UIObject uio = (UIObject) uioa.getData();
 
 
-    private HBox hBox = new HBox();
-    private VBox vBox1 = new VBox();
-    private VBox vBox2 = new VBox();
+    private final HBox hBox = new HBox();
+    private final VBox vBox2 = new VBox();
 
-    private Button appearanceButton = new Button("com.llat.models.localstorage.temp.settingsview.Appearance");
-    private Button languageButton = new Button("Language");
-    private Button advanceButton = new Button("Advance");
-    private ArrayList<Button> categoryButtonsList = new ArrayList<Button>() {
-        {
-            {
-                add(appearanceButton);
-                add(languageButton);
-                add(advanceButton);
-            }
-        }
-    };
-
-    private Button cancelButton = new Button("Cancel");
-    private Button saveButton = new Button("Save");
+    private final Button appearanceButton;
+    private final Button languageButton;
+    private final Button advanceButton;
+    private final ArrayList<Button> categoryButtonsList;
 
 
-    // pane
-    private List<Pane> paneList = new ArrayList<>();
-    private Pane appearancePane;
-    private Pane languagePane;
-    private Pane advancePane;
+    private final Pane appearancePane;
+    private final Pane languagePane;
+    private final Pane advancePane;
 
     // view id
     private final static int APPEARANCE_ID = 0;
@@ -82,9 +68,24 @@ public class SettingsView {
     public SettingsView(Controller controller) {
         this.controller = controller;
         this.stage = this.controller.getStage();
-        appearancePane = new SettingsPane(this.controller, "com.llat.models.localstorage.temp.settingsview.Appearance").getParentPane();
-        languagePane = new SettingsPane(this.controller, "Language").getParentPane();
-        advancePane = new SettingsPane(this.controller, "Advance").getParentPane();
+        appearancePane = new SettingsPane(this.controller, this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getLabel()).getParentPane();
+        languagePane = new SettingsPane(this.controller, this.controller.getUiObject().getSettingsView().getCategories().getLanguage().getLabel()).getParentPane();
+        advancePane = new SettingsPane(this.controller, this.controller.getUiObject().getSettingsView().getCategories().getAdvanced().getLabel()).getParentPane();
+
+        appearanceButton = new Button(this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getLabel());
+        languageButton = new Button(this.controller.getUiObject().getSettingsView().getCategories().getLanguage().getLabel());
+        advanceButton = new Button(this.controller.getUiObject().getSettingsView().getCategories().getAdvanced().getLabel());
+        categoryButtonsList = new ArrayList<Button>() {
+            {
+                {
+                    add(appearanceButton);
+                    add(languageButton);
+                    add(advanceButton);
+                }
+            }
+        };
+        Button cancelButton = new Button(this.controller.getUiObject().getSettingsView().getCancel());
+        Button saveButton = new Button(this.controller.getUiObject().getSettingsView().getSave());
         // setting the vBox size
         this.hBox.widthProperty().addListener(((observable, oldValue, newValue) -> {
             this.hBox.setMinWidth(stage.getWidth());
@@ -114,9 +115,11 @@ public class SettingsView {
         appearanceSetUp();
         languageSetUp();
         // adding the view panes to the list
-        this.paneList.add(appearancePane);
-        this.paneList.add(languagePane);
-        this.paneList.add(advancePane);
+        // pane
+        List<Pane> paneList = new ArrayList<>();
+        paneList.add(appearancePane);
+        paneList.add(languagePane);
+        paneList.add(advancePane);
 
         this.leftPane.heightProperty().addListener(((observable, oldValue, newValue) -> {
             this.leftPane.setMinHeight(stage.getScene().getHeight() * 0.454);
@@ -178,7 +181,7 @@ public class SettingsView {
             alert.setContentText("Saving the current changes will require the application to restart. Are you sure you want to continue?");
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
+            if (result.get() == ButtonType.OK) {
                 // ... user chose OK
                 updateLocalStorage();
                 this.settingsStage.close();
@@ -196,6 +199,7 @@ public class SettingsView {
         bottomPaneHbox.getChildren().addAll(cancelButton, saveButton);
 //        bottomPane.getChildren().add(bottomPaneHbox);
 
+        VBox vBox1 = new VBox();
         vBox1.getChildren().addAll(hBox, bottomPaneHbox);
         this.parentPane.getChildren().addAll(vBox1);
 
@@ -205,7 +209,7 @@ public class SettingsView {
 
         // New window (Stage)
         this.settingsStage = new Stage();
-        this.settingsStage.setTitle("com.llat.models.localstorage.temp.menubar.Settings");
+        this.settingsStage.setTitle("Settings");
         this.settingsStage.setScene(secondScene);
 
         // Specifies the modality for new window.
@@ -229,7 +233,7 @@ public class SettingsView {
             if (btn == categoryButtonsList.get(i)) {
                 categoryButtonsList.get(i).setId("settingsCategoryOnPress");
             } else {
-                categoryButtonsList.get(i).setId("settingsCategory");
+                  categoryButtonsList.get(i).setId("settingsCategory");
 
             }
         }
@@ -247,7 +251,7 @@ public class SettingsView {
     public void appearanceSetUp() {
         String appliedTheme = so.getTheme().getApplied().getName();
         List<ThemeObject> themeList = uio.getSettingsView().getCategories().getAppearance().getTheme().getAllThemes();
-        Label themeLabel = new Label("Theme");
+        Label themeLabel = new Label(this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getTheme().getLabel());
         HBox appearanceHBox = new HBox();
         MenuButton themeMenu = new MenuButton(appliedTheme);
         // populate the theme menu
@@ -280,7 +284,7 @@ public class SettingsView {
         String appliedLang = so.getLanguage().getApplied().getName();
         List<LanguageObject> langList = uio.getSettingsView().getCategories().getLanguage().getLanguageContent().getAllLanguages();
 
-        Label langLabel = new Label("Language");
+        Label langLabel = new Label(this.controller.getUiObject().getSettingsView().getCategories().getLanguage().getLabel());
         HBox langHBox = new HBox();
         MenuButton langMenu = new MenuButton(appliedLang);
         // populate the theme menu
@@ -346,7 +350,7 @@ class SettingsPane {
     }
 }
 
-class CustomMenuItem extends MenuItem{
+class CustomMenuItem extends MenuItem {
     ItemObject content;
 
     public CustomMenuItem(ItemObject content) {

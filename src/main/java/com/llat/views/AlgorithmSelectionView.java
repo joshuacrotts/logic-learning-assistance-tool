@@ -61,11 +61,11 @@ public class AlgorithmSelectionView {
      */
     public void createComboBoxes() {
         this.setGeneralComboBox(new ComboBox());
-        this.setComboBoxProperties(this.getGeneralComboBox(), "General:");
+        this.setComboBoxProperties(this.getGeneralComboBox(), this.controller.getUiObject().getMainView().getMainViewLabels().getGeneralMenu().getLabel()+":");
         this.setPropositionalComboBox(new ComboBox());
-        this.setComboBoxProperties(this.getPropositionalComboBox(), "Propositional:");
+        this.setComboBoxProperties(this.getPropositionalComboBox(), this.controller.getUiObject().getMainView().getMainViewLabels().getPropositionalMenu().getLabel()+":");
         this.setPredicateComboBox(new ComboBox());
-        this.setComboBoxProperties(this.getPredicateComboBox(), "Predicate:");
+        this.setComboBoxProperties(this.getPredicateComboBox(), this.controller.getUiObject().getMainView().getMainViewLabels().getPredicateMenu().getLabel()+":");
         this.comboHBox.getChildren().addAll(this.getGeneralComboBox(), this.getPropositionalComboBox(), this.getPredicateComboBox());
     }
 

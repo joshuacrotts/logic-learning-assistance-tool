@@ -11,7 +11,7 @@ public class ExitItem {
 
     public ExitItem(Controller controller) {
         this.controller = controller;
-        this.exitItem = new MenuItem("Exit");
+        this.exitItem = new MenuItem(controller.getUiObject().getMenuBar().getFile().getExit().getLabel());
 
         this.exitItem.setOnAction((ActionEvent t) -> {
             System.exit(0);

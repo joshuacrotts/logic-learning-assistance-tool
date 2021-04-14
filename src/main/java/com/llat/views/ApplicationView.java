@@ -1,7 +1,6 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
-import com.llat.views.menu.LeftView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 

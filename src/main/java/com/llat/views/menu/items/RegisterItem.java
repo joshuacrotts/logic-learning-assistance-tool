@@ -13,7 +13,7 @@ public class RegisterItem {
 
     public RegisterItem(Controller controller) {
         this.controller = controller;
-        this.registerItem = new MenuItem("Register");
+        this.registerItem = new MenuItem(controller.getUiObject().getMenuBar().getFile().getRegister().getLabel());
         this.registerItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.changeViewTo(ViewManager.REGISTER);

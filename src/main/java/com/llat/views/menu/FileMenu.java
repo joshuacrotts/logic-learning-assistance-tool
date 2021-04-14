@@ -12,7 +12,7 @@ public class FileMenu {
 
     public FileMenu(Controller controller) {
         this.controller = controller;
-        this.fileMenu = new Menu("File");
+        this.fileMenu = new Menu(controller.getUiObject().getMenuBar().getFile().getLabel());
 
         // Setting Menu fileMenu properties.
         this.fileMenu.getItems().addAll(new NewProjectItem(this.controller).getItem(),
