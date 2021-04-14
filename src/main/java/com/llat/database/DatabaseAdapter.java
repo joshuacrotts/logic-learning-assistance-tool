@@ -11,7 +11,6 @@ public class DatabaseAdapter implements DatabaseInterface {
     public static final int REGISTERED_DUP_USER = 2;
     public static final int DATABASE_ERROR = 3;
     private final DatabaseInterface db = new AWSDatabase();
-    private DatabaseInterpeter di = new DatabaseInterpeter(this);
     private Controller controller;
     private UserObject user;
 
