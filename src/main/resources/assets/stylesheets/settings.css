@@ -1,3 +1,7 @@
+* {
+    -fx-font-family: 'Arial';
+}
+
 /*Settings*/
 #settingsCategory {
     -fx-pref-width: 10em;

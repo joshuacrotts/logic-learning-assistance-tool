@@ -2,6 +2,7 @@ package com.llat.tools;
 
 import com.llat.models.localstorage.settings.SettingsAdaptor;
 import com.llat.models.localstorage.settings.SettingsObject;
+import com.llat.models.localstorage.settings.language.LanguageObject;
 
 import java.io.File;
 

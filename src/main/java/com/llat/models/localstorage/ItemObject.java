@@ -1,4 +1,4 @@
-package com.llat.models.localstorage.settings;
+package com.llat.models.localstorage;
 
 public abstract class ItemObject {
 
@@ -21,4 +21,11 @@ public abstract class ItemObject {
         this.code = code;
     }
 
+    @Override
+    public String toString() {
+        return "ItemObject{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

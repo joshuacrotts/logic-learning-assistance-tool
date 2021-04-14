@@ -22,7 +22,9 @@ public class GoogleTranslatorAPI implements TranslatorInterface {
     public String translate(String langFrom, String langTo, String text) {
         String urlStr = null;
         StringBuilder response = null;
-
+        if (text == null) {
+            return "";
+        }
         try {
             urlStr = GOOGLE_TRANSLATE_API +
                     "?q=" + URLEncoder.encode(text, "UTF-8") +
