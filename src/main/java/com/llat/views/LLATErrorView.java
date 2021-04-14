@@ -35,7 +35,7 @@ public class LLATErrorView {
             this.logScrollPane.setMaxWidth(newVal.doubleValue() * .80);
         });
         // Setting VBox logBox's properties.
-        this.logBox.setAlignment(Pos.TOP_CENTER);
+        this.logBox.setAlignment(Pos.TOP_LEFT);
         // Adding children nodes to their parents.
         this.logScrollPane.setContent(this.logBox);
         this.parentPane.getChildren().addAll(this.errorLabel, this.logScrollPane);
