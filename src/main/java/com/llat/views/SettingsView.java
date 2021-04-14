@@ -170,11 +170,6 @@ public class SettingsView {
                 this.updateLocalStorage();
                 this.settingsStage.close();
                 this.stage.close();
-                if (this.controller.getUser() != null) {
-                    int USERID = this.controller.getUser().getUserId();
-
-                    /*db.UpdateTheme(USERID, menuItem.getText())*/
-                }
                 new Window(new Stage());
             } else {
                 // ... user chose CANCEL or closed the dialog
@@ -251,13 +246,6 @@ public class SettingsView {
             menuItem.setOnAction(e -> {
                 themeMenu.setText(menuItem.getText());
                 this.so.getTheme().setApplied((ThemeObject) menuItem.getContent());
-
-                if (this.controller.getUser() != null) {
-                    int USERID = this.controller.getUser().getUserId();
-                    System.out.println(appliedTheme);
-                    System.out.println(menuItem.getText());
-                    /*db.UpdateTheme(USERID, menuItem.getText())*/
-                }
             });
         }
 
