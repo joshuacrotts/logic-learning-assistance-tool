@@ -4,6 +4,8 @@ import com.llat.database.DatabaseAdapter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.models.LogicSetup;
+import com.llat.models.localstorage.uidescription.UIObject;
+import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.tools.EventBus;
 import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
@@ -30,12 +32,15 @@ public class Controller implements Initializable {
     private final Stage stage;
     private final LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
     private final DatabaseAdapter databaseAdapter = new DatabaseAdapter();
+    private final UIObjectAdaptor uiObjectAdaptor =  new UIObjectAdaptor();
+    private UIObject uiObject;
     private final LogicSetup logicSetup = new LogicSetup();
     private UserObject user;
 
     public Controller(Stage _stage) {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
+        this.uiObject = (UIObject) uiObjectAdaptor.getData();
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {
@@ -197,4 +202,15 @@ public class Controller implements Initializable {
         this.user = user;
     }
 
+    public UIObjectAdaptor getUiObjectAdaptor() {
+        return uiObjectAdaptor;
+    }
+
+    public UIObject getUiObject() {
+        return uiObject;
+    }
+
+    public void setUiObject(UIObject uiObject) {
+        this.uiObject = uiObject;
+    }
 }

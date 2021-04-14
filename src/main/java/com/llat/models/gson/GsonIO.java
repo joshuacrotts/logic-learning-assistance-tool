@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.credentials.CredentialsInterface;
 import com.llat.models.localstorage.settings.SettingsInterface;
+import com.llat.models.localstorage.uidescription.UIObject;
+import com.llat.models.localstorage.uidescription.UIObjectInterface;
 import com.llat.models.localstorage.uidescription.TranslateUIDO;
-import com.llat.models.localstorage.uidescription.UIDescriptionInterface;
-import com.llat.models.localstorage.uidescription.UIDescriptionObject;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -14,11 +14,12 @@ import java.lang.reflect.Type;
 /**
  *
  */
-public class GsonIO implements UIDescriptionInterface, SettingsInterface, CredentialsInterface {
+public class GsonIO implements  SettingsInterface, CredentialsInterface, UIObjectInterface {
 
+    private static Gson gson = new Gson();
     private final static String RESOURCES_PATH = "src/main/resources/";
-    private final static String DEFAULT_UIDO_FILE = "UID/UIDescription_en.json";
-    private static final Gson gson = new Gson();
+    private final static String DEFAULT_UIDO_FILE = "UID/UIObject_en.json";
+
     /**
      *
      */
@@ -49,7 +50,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             }
             result = sb.toString();
         } catch (NullPointerException | FileNotFoundException e) {
-            GsonIO g = new GsonIO(DEFAULT_UIDO_FILE, UIDescriptionObject.class);
+            GsonIO g = new GsonIO(DEFAULT_UIDO_FILE, UIObject.class);
 
             // create the missing file
             g.createMissingFile(_fileName);
@@ -57,10 +58,10 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             String code = g.getLanguageFromFileName(_fileName);
 
             // translate it
-            TranslateUIDO tuido = new TranslateUIDO();
-            UIDescriptionObject obj = (UIDescriptionObject) g.getData();
-            obj = tuido.translateUIDO(obj, code);
-            g.update(obj, "UID/UIDescription" + "_" + code + ".json");
+            TranslateUIDO tuido = new TranslateUIDO(code);
+            UIObject obj = (UIObject) g.getData();
+            obj = tuido.translateUIDO(obj);
+            g.update(obj, "UID/UIObject" + "_" + code + ".json");
             try {
                 BufferedReader br = new BufferedReader(new FileReader(RESOURCES_PATH + _fileName));
                 StringBuilder sb = new StringBuilder();
@@ -91,7 +92,7 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
             System.out.println(filePath);
         } catch (NullPointerException e) {
             System.out.println("File is not exist. Empty file will be generated");
-            this.createMissingFile(_jsonFilePath);
+            createMissingFile(_jsonFilePath);
         }
         try {
             Writer writer = new FileWriter(filePath);
@@ -110,12 +111,12 @@ public class GsonIO implements UIDescriptionInterface, SettingsInterface, Creden
 
     @Override
     public LocalStorage getData() {
-        String jsonString = readJsonFile(this.json);
-        LocalStorage localStorage = gson.fromJson(jsonString, this.aClass);
+        String jsonString = readJsonFile(json);
+        LocalStorage localStorage = gson.fromJson(jsonString, aClass);
         return localStorage;
     }
 
-    private String getLanguageFromFileName(String fileName) {
+    private String getLanguageFromFileName(String fileName){
 
         return fileName.substring(fileName.indexOf("_") + 1, fileName.indexOf("."));
     }

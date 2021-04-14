@@ -13,6 +13,9 @@ module LLAT {
     opens com.llat.models.localstorage.settings.language;
     opens com.llat.models.localstorage.settings.theme;
     opens com.llat.models.localstorage.uidescription;
+    opens com.llat.models.localstorage.uidescription.menubar;
+    opens com.llat.models.localstorage.uidescription.settingsview;
+    opens com.llat.models.localstorage.uidescription.mainview;
     opens com.llat.models.localstorage.credentials;
     opens com.llat.models.symbols;
     opens com.llat.models.gson;
