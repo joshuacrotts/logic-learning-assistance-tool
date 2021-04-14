@@ -9,14 +9,14 @@ public class UIObject extends LocalStorage {
     public MenuBar menuBar;
     public MainView mainView;
     public SettingsView settingsView;
-    public LoginView loginView;
+    public LoginViewObject loginView;
     public RegisterView registerView;
 
-    public UIObject(MenuBar menuBar, MainView mainView, SettingsView settingsView, LoginView loginView, RegisterView registerView) {
+    public UIObject(MenuBar menuBar, MainView mainView, SettingsView settingsView, LoginViewObject loginViewObject, RegisterView registerView) {
         this.menuBar = menuBar;
         this.mainView = mainView;
         this.settingsView = settingsView;
-        this.loginView = loginView;
+        this.loginView = loginViewObject;
         this.registerView = registerView;
     }
 
@@ -44,12 +44,12 @@ public class UIObject extends LocalStorage {
         this.settingsView = settingsView;
     }
 
-    public LoginView getLoginView() {
+    public LoginViewObject getLoginView() {
         return loginView;
     }
 
-    public void setLoginView(LoginView loginView) {
-        this.loginView = loginView;
+    public void setLoginView(LoginViewObject loginViewObject) {
+        this.loginView = loginViewObject;
     }
 
     public RegisterView getRegisterView() {

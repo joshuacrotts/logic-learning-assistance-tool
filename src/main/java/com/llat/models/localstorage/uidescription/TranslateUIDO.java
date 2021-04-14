@@ -3,7 +3,7 @@ package com.llat.models.localstorage.uidescription;
 import com.llat.models.gson.GsonIO;
 import com.llat.models.localstorage.uidescription.mainview.*;
 import com.llat.models.localstorage.uidescription.menubar.*;
-import com.llat.models.localstorage.uidescription.settingsview.SettingsView;
+import com.llat.models.localstorage.uidescription.settingsview.*;
 import com.llat.models.symbols.*;
 import com.llat.translate.TranslatorAdaptor;
 
@@ -12,6 +12,7 @@ import java.util.List;
 public class TranslateUIDO {
     private static final String LANG_FROM = "en";
     private String langTo;
+    TranslatorAdaptor ta = new TranslatorAdaptor();
 
     public static void main(String[] args) {
         TranslateUIDO main = new TranslateUIDO("ar");
@@ -28,9 +29,8 @@ public class TranslateUIDO {
         this.langTo = langTo;
     }
 
-    public UIObject translateUIDO(UIObject obj ) {
+    public UIObject translateUIDO(UIObject obj) {
         TranslateUIDO main = new TranslateUIDO(this.langTo);
-        TranslatorAdaptor ta = new TranslatorAdaptor();
 
         // -- Menu Bar --
         MenuBar menuBar = obj.getMenuBar();
@@ -87,42 +87,104 @@ public class TranslateUIDO {
         // General Menu
         GeneralMenu generalMenu = mainViewLabels.getGeneralMenu();
         generalMenu.setLabel(ta.translate(LANG_FROM, langTo, generalMenu.getLabel()));
-        generalMenu.setContent(main.content(generalMenu.getContent()));
+        for (int i = 0; i < generalMenu.getContent().size(); i++) {
+            generalMenu.getContent().get(i).setLabel(ta.translate(LANG_FROM, langTo, generalMenu.getContent().get(i).getLabel()));
+        }
+
         mainViewLabels.setGeneralMenu(generalMenu);
+        // Proposition Menu
+        PropositionalMenu propositionalMenu = mainViewLabels.getPropositionalMenu();
+        propositionalMenu.setLabel(ta.translate(LANG_FROM, langTo, propositionalMenu.getLabel()));
+        for (int i = 0; i < propositionalMenu.getContent().size(); i++) {
+            propositionalMenu.getContent().get(i).setLabel(ta.translate(LANG_FROM, langTo, propositionalMenu.getContent().get(i).getLabel()));
+        }
+
+        mainViewLabels.setPropositionalMenu(propositionalMenu);
+        // Predicate Menu
+        PredicateMenu predicateMenu = mainViewLabels.getPredicateMenu();
+        predicateMenu.setLabel(ta.translate(LANG_FROM, langTo, predicateMenu.getLabel()));
+        for (int i = 0; i < predicateMenu.getContent().size(); i++) {
+            predicateMenu.getContent().get(i).setLabel(ta.translate(LANG_FROM, langTo, predicateMenu.getContent().get(i).getLabel()));
+        }
+
+        mainViewLabels.setPredicateMenu(predicateMenu);
 
         mainView.setMainViewLabels(mainViewLabels);
+
+        obj.setMainView(mainView);
+
         // Settings View
         SettingsView settingsView = obj.getSettingsView();
         settingsView.setCancel(ta.translate(LANG_FROM, langTo, settingsView.getCancel()));
         settingsView.setSave(ta.translate(LANG_FROM, langTo, settingsView.getSave()));
         obj.setSettingsView(settingsView);
         // Categories
-        settingsView.setSave(ta.translate(LANG_FROM, langTo, settingsView.getSave()));
+        Categories categories = settingsView.getCategories();
         // Appearance
-        
-        obj.setMainView(mainView);
+        Appearance appearance = categories.getAppearance();
+        appearance.setLabel(ta.translate(LANG_FROM, langTo, appearance.getLabel()));
+        // Theme
+        Theme theme = appearance.getTheme();
+        theme.setLabel(ta.translate(LANG_FROM, langTo, theme.getLabel()));
+        Applied applied = theme.getApplied();
+        applied.setName(ta.translate(LANG_FROM, langTo, applied.getName()));
+        theme.setApplied(applied);
+        for (int i = 0; i < theme.getAllThemes().size(); i++) {
+            theme.getAllThemes().get(i).setName(ta.translate(LANG_FROM, langTo, theme.getAllThemes().get(i).getName()));
+        }
+        appearance.setTheme(theme);
+        categories.setAppearance(appearance);
+        // Language
+        Language language = categories.getLanguage();
+        language.setLabel(ta.translate(LANG_FROM, langTo, language.getLabel()));
+        categories.setLanguage(language);
+        // Advance
+        Advanced advanced = categories.advanced;
+        advanced.setLabel(ta.translate(LANG_FROM, langTo, advanced.getLabel()));
+        advanced.getTimeOut().setLabel(ta.translate(LANG_FROM, langTo, advanced.getTimeOut().getLabel()));
+        categories.setAdvanced(advanced);
+
+        settingsView.setCategories(categories);
+        obj.setSettingsView(settingsView);
+        // Login
+        LoginViewObject loginViewObject = obj.getLoginView();
+        loginViewObject.setLoginButton(ta.translate(LANG_FROM, langTo, loginViewObject.getLoginButton()));
+        loginViewObject.setReturnButton(ta.translate(LANG_FROM, langTo, loginViewObject.getReturnButton()));
+        loginViewObject.setPasswordLabel(ta.translate(LANG_FROM, langTo, loginViewObject.getPasswordLabel()));
+        loginViewObject.setPasswordPromptText(ta.translate(LANG_FROM, langTo, loginViewObject.getPasswordPromptText()));
+        loginViewObject.setUserNameLabel(ta.translate(LANG_FROM, langTo, loginViewObject.getUserNameLabel()));
+        loginViewObject.setUserNamePromptText(ta.translate(LANG_FROM, langTo, loginViewObject.getUserNamePromptText()));
+
+        obj.setLoginView(loginViewObject);
+
+        // Register
+        RegisterView registerView = obj.getRegisterView();
+        registerView.setRegisterButton(ta.translate(LANG_FROM, langTo, registerView.getRegisterButton()));
+        registerView.setReturnButton(ta.translate(LANG_FROM, langTo, registerView.getReturnButton()));
+        registerView.setPasswordLabel(ta.translate(LANG_FROM, langTo, registerView.getPasswordLabel()));
+        registerView.setPasswordPromptText(ta.translate(LANG_FROM, langTo, registerView.getPasswordPromptText()));
+        registerView.setUserNameLabel(ta.translate(LANG_FROM, langTo, registerView.getUserNameLabel()));
+        registerView.setUserNamePromptText(ta.translate(LANG_FROM, langTo, registerView.getUserNamePromptText()));
+        registerView.setFirstName(ta.translate(LANG_FROM, langTo, registerView.getFirstName()));
+        registerView.setFirstNamePromptText(ta.translate(LANG_FROM, langTo, registerView.getFirstNamePromptText()));
+        registerView.setLastName(ta.translate(LANG_FROM, langTo, registerView.getLastNamePromptText()));
+
+        obj.setRegisterView(registerView);
+
 
         return obj;
     }
-    private List<Content> content(List<Content> obj){
-//        TranslateUIDO main = new TranslateUIDO(this.langTo);
-//        TranslatorAdaptor ta = new TranslatorAdaptor();
 
-//        for (int i = 0; i < obj.size(); i++) {
-//            obj.get(i).setLabel(ta.translate(LANG_FROM, langTo, obj.get(i).getLabel()));
-//            obj.get(i).setContent(main.contentString(obj.get(i).getContent()));
-//
-//            obj.get(i).getContent();
-//
-//        }
-return obj;
-    }
 
-    public MenuBarContent menu(MenuBarContent obj){
-//        TranslatorAdaptor ta = new TranslatorAdaptor();
+    public MenuBarContent menu(MenuBarContent obj) {
+        obj.setLabel(ta.translate(LANG_FROM, langTo, obj.getLabel()));
 
+        for (int i = 0; i < obj.getContent().size(); i++) {
+            obj.getContent().get(i).setLabel(ta.translate(LANG_FROM, langTo, obj.getContent().get(i).getLabel()));
+        }
         return obj;
     }
+
     public Symbol symbol(Symbol s, String langTo) {
         TranslatorAdaptor ta = new TranslatorAdaptor();
 //        com.llat.models.localstorage.Symbol.StringSymbol symbol = s.getSymbol();
@@ -144,9 +206,6 @@ return obj;
 
         String readAs = s.getReadAs();
         s.setReadAs(ta.translate("en", langTo, readAs));
-
-//        String examples = s.get();
-//        s.setReadAs(ta.translate("en", langTo, readAs));
 
         return s;
 

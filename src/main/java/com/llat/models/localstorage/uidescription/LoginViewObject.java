@@ -1,6 +1,6 @@
 package com.llat.models.localstorage.uidescription;
 
-public class LoginView {
+public class LoginViewObject {
     public String userNameLabel;
     public String userNamePromptText;
     public String passwordLabel;
