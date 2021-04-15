@@ -11,7 +11,7 @@ public class MenuBarView {
     /**
      *
      */
-    public static final int MENUBARHEIGHT = 25;
+    public static final int MENU_BAR_HEIGHT = 25;
 
     /**
      *
@@ -27,19 +27,19 @@ public class MenuBarView {
         this.controller = _controller;
 
         // Setting Menu fileMenu properties.
-        this.menuBar.setMinHeight(MenuBarView.MENUBARHEIGHT);
-        this.menuBar.setMaxHeight(MenuBarView.MENUBARHEIGHT);
+        this.menuBar.setMinHeight(MenuBarView.MENU_BAR_HEIGHT);
+        this.menuBar.setMaxHeight(MenuBarView.MENU_BAR_HEIGHT);
 
         // Adding children nodes to their parents nodes.
         this.menuBar.getMenus().addAll(new FileMenu(this.controller).getMenu(),
                 new ExportMenu(this.controller).getMenu(),
                 new HelpMenu(this.controller).getMenu());
         
-        // Check the operating system and adjust eh menubar accordingly
+        // Check the operating system and adjust the menubar accordingly.
         final String os = System.getProperty("os.name");
-        if (os != null && os.startsWith("Mac"))
+        if (os != null && os.startsWith("Mac")) {
             menuBar.useSystemMenuBarProperty().set(true);
-
+        }
     }
 
     public MenuBar getMenuBar() {

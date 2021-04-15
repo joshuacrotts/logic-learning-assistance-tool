@@ -25,13 +25,13 @@ public class RegisterView {
     private final HBox parentPane = new HBox();
     private final VBox registerVBox = new VBox();
     private final Label logoImage = new Label();
-    private final Label userNameInputLabel = new Label("User Name");
-    private final Label firstNameInputLabel = new Label("First Name");
-    private final Label lastNameInputLabel = new Label("Last Name");
-    private final Label passwordInputLabel = new Label("Password");
-    private final Button registerButton = new Button("Register");
-    private final Button returnButton = new Button("Return to Application");
     private final RegisterInterpreter registerInterpreter;
+    private  Label userNameInputLabel ;
+    private  Label firstNameInputLabel ;
+    private  Label lastNameInputLabel ;
+    private  Label passwordInputLabel ;
+    private  Button registerButton ;
+    private  Button returnButton;
     private TextField userNameField = new TextField();
     private TextField firstNameField = new TextField();
     private TextField lastNameField = new TextField();
@@ -39,6 +39,14 @@ public class RegisterView {
 
     public RegisterView(Controller _controller) {
         this.controller = _controller;
+        userNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getUserNameLabel());
+        firstNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getFirstName());
+        lastNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getLastName());
+        passwordInputLabel = new Label(this.controller.getUiObject().getRegisterView().getPasswordLabel());
+
+        registerButton = new Button(this.controller.getUiObject().getRegisterView().getRegisterButton());
+
+        returnButton = new Button(this.controller.getUiObject().getRegisterView().getReturnButton());
 
         // Setting AnchorPane parentPane properties.
         this.parentPane.setId("registerViewParentPane");
@@ -96,7 +104,7 @@ public class RegisterView {
         this.userNameInputLabel.setId("userNameInputLabel");
 
         // Setting TextField userNameField properties.
-        this.userNameField.setPromptText("Enter your User Name.");
+        this.userNameField.setPromptText(this.controller.getUiObject().getRegisterView().getUserNamePromptText());
         this.userNameField.setFocusTraversable(false);
         this.registerVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.userNameField.setMaxWidth(newVal.doubleValue() * .70);
@@ -111,7 +119,7 @@ public class RegisterView {
         this.firstNameInputLabel.setId("firstNameInputLabel");
 
         // Setting TextField firstNameInputField properties.
-        this.firstNameField.setPromptText("Enter your first name.");
+        this.firstNameField.setPromptText(this.controller.getUiObject().getRegisterView().getFirstNamePromptText());
         this.firstNameField.setFocusTraversable(false);
         this.registerVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.firstNameField.setMaxWidth(newVal.doubleValue() * .70);
@@ -121,7 +129,7 @@ public class RegisterView {
         this.lastNameInputLabel.setId("lastNameInputLabel");
 
         // Setting TextField lastNameInputField properties.
-        this.lastNameField.setPromptText("Enter your last name.");
+        this.lastNameField.setPromptText(this.controller.getUiObject().getRegisterView().getLastNamePromptText());
         this.lastNameField.setFocusTraversable(false);
         this.registerVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.lastNameField.setMaxWidth(newVal.doubleValue() * .70);
@@ -136,7 +144,7 @@ public class RegisterView {
         this.passwordInputLabel.setId("passwordInputLabel");
 
         // Setting PasswordField passwordField properties.
-        this.passwordField.setPromptText("Enter your password.");
+        this.passwordField.setPromptText(this.controller.getUiObject().getRegisterView().getPasswordPromptText());
         this.passwordField.setFocusTraversable(false);
         this.registerVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.passwordField.setMaxWidth(newVal.doubleValue() * .70);

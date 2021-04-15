@@ -8,15 +8,17 @@ import com.llat.views.menu.items.ExportLaTeXTruthTreeItem;
 import javafx.scene.control.Menu;
 
 public class ExportMenu {
+
     private final Controller controller;
     private final Menu exportMenu;
     private final ExportMenuInterpreter exportMenuInterpreter;
     private final ExportLaTeXTruthTableItem exportLaTeXTruthTableItem;
     private final ExportLaTeXParseTreeItem exportLaTeXParseTreeItem;
     private final ExportLaTeXTruthTreeItem exportLaTeXTruthTreeItem;
+
     public ExportMenu(Controller controller) {
         this.controller = controller;
-        this.exportMenu = new Menu("Export");
+        this.exportMenu = new Menu(controller.getUiObject().getMenuBar().getFile().getExport().getLabel());
         // Initializing ExportLaTeXTruthTableItem exportLaTeXTruthTableItem.
         this.exportLaTeXTruthTableItem = new ExportLaTeXTruthTableItem(this.controller);
         // Initializing ExportLaTeXParseTreeItem exportLaTeXParseTreeItem

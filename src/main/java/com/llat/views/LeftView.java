@@ -1,4 +1,4 @@
-package com.llat.views.menu;
+package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.views.InputButtonsView;
@@ -9,10 +9,27 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class LeftView {
+
+    /**
+     *
+     */
     private Controller controller;
+
+    /**
+     *
+     */
     private VBox parentPane = new VBox();
+
+    /**
+     *
+     */
     private InputButtonsView inputButtonsView;
+
+    /**
+     *
+     */
     private LLATErrorView llatErrorView;
+
     public LeftView (Controller _controller) {
         this.controller = _controller;
         this.inputButtonsView = new InputButtonsView(this.controller);
