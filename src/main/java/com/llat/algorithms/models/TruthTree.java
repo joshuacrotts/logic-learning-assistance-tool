@@ -12,20 +12,23 @@ import java.util.*;
 /**
  * Class for constructing a TruthTree.
  * <p>
+ *
  * TruthTrees contain three instance objects: a WffTree node, which is its "value",
  * and two children (acting as a binary tree): a left and right pointer to TTs.
  * There is one extra integer, corresponding to a value. This value indicates the
  * precedence of the operator, in increasing order as follows:
- * <p>
+ *
  * NEG_QUANTIFIERS < EXISTENTIAL < DOUBLE_NEG < CONJ < DISJ < IMP < BICOND < PREDICATE < UNIVERSAL
- * <p>
+ *
  * These nodes are stored in a minheap (priority queue), and are ordered such that
  * the truth tree operations are performed in the aforementioned order.
- * <p>
+ *
  * A TruthTree can have either one or two children (same as a binary tree), with the
  * exception that a tree with only one child is a "stacked" subtree, and should be
  * referenced with getCenter() and addCenter(...) calls. So, nodes with two children
  * (left and right) should not use this; it is used for the conjunction operator.
+ *
+ * </p>
  */
 public class TruthTree implements Comparable<TruthTree> {
 
@@ -65,15 +68,16 @@ public class TruthTree implements Comparable<TruthTree> {
      */
     private final Map<Character, Character> SUBSTITUTIONS;
 
-    /**
-     * Order of precedence for this node (as described above).
-     */
-    private final int VALUE;
 
     /**
      * Identifier number of this truth tree node in the tree itself.
      */
     private final int identifierNo;
+
+    /**
+     * Order of precedence for this node (as described above).
+     */
+    private int value;
 
     /**
      * Left pointer.
@@ -109,35 +113,7 @@ public class TruthTree implements Comparable<TruthTree> {
             this.AVAILABLE_CONSTANTS.addAll(_parent.getAvailableConstants());
         }
 
-        // This is kind of ugly, I know...
-        if (_node.isAtom()) {
-            this.VALUE = 0;
-        } else if (_node.isDoubleNegation()) {
-            // Double negations have to have a higher priority.
-            this.VALUE = 3;
-        } else if (_node.isNegation() && !_node.isNegAnd() && !_node.isNegImp() && !_node.isNegOr()) {
-            this.VALUE = 4;
-        } else if (_node.isExistential()) {
-            this.VALUE = 1;
-        } else if (_node.isUniversal()) {
-            // Universal HAS to be the last operation - if not, then we run the risk of applying it before we
-            // have a constant available.
-            this.VALUE = 13;
-        } else if (_node.isAnd()) {
-            this.VALUE = 6;
-        } else if (_node.isNegOr() || _node.isNegImp()) {
-            this.VALUE = 7;
-        } else if (_node.isOr()) {
-            this.VALUE = 8;
-        } else if (_node.isNegAnd()) {
-            this.VALUE = 9;
-        } else if (_node.isImp()) {
-            this.VALUE = 10;
-        } else if (_node.isBicond()) {
-            this.VALUE = 11;
-        } else {
-            this.VALUE = 12;
-        }
+        this.setTruthTreeValue();
     }
 
     @Override
@@ -152,10 +128,10 @@ public class TruthTree implements Comparable<TruthTree> {
 
     @Override
     public int compareTo(TruthTree _o) {
-        if (this.VALUE - _o.VALUE == 0) {
+        if (this.value - _o.value == 0) {
             return this.identifierNo - _o.identifierNo;
         }
-        return (this.VALUE - _o.VALUE);
+        return (this.value - _o.value);
     }
 
     /**
@@ -170,7 +146,14 @@ public class TruthTree implements Comparable<TruthTree> {
     }
 
     /**
-     * TODO Document
+     * Performs existential decomposition on this truth tree.
+     * <p>
+     *     Existential decomposition is applied when we have an existential quantifier
+     *     that binds a variable in some predicate P. We replace all occurrences of the variable
+     *     bound by the quantifier in P with a constant not currently used in that branch of
+     *     the truth tree. Generally, this is 'a', but sometimes if that is already in use,
+     *     we go down the line of constants to find one that we haven't yet used.
+     * </p>
      *
      * @param _existentialTruthTree
      * @param _variableToReplace
@@ -181,6 +164,7 @@ public class TruthTree implements Comparable<TruthTree> {
         // Find the next available constant to use.
         char constant = 'a';
         while (_existentialTruthTree.AVAILABLE_CONSTANTS.contains(constant)) {
+            // This could wrap around...
             constant++;
         }
 
@@ -236,11 +220,11 @@ public class TruthTree implements Comparable<TruthTree> {
     }
 
     /**
-     * TODO Handle replacements e.g. a=b, Fab, ~Faa, add ~Fab or Faa
+     * Performs identity decomposition.
      * <p>
-     * At the leaf, traverse upwards to find any closable wffs that can substitute in a constant for another
-     * constant. If this derives a contr. then close.
-     *
+     *      At the leaf, traverse upwards to find any closable wffs that can substitute in a constant for another
+     *      constant. If this derives a contr. then close.
+     * </p>
      * @param _identityTruthTree
      * @param _leaves
      * @param _queue
@@ -366,6 +350,43 @@ public class TruthTree implements Comparable<TruthTree> {
 
         //String deriveStep = this.DERIVED_PARENT != null ? "\t\t\t(" + this.DERIVED_PARENT.identifierNo + ") " + this.DERIVED_PARENT.getWff().getSymbol() : "";
         return this.getWff().getStringRep() + " " + leafSignal;
+    }
+
+    /**
+     * Assigns the precedence value of this truth tree. This is described in
+     * further detail in the above javadoc.
+     */
+    private void setTruthTreeValue() {
+        WffTree _node = this.NODE;
+        // This is kind of ugly, I know...
+        if (_node.isAtom()) {
+            this.value = 0;
+        } else if (_node.isDoubleNegation()) {
+            // Double negations have to have a higher priority.
+            this.value = 3;
+        } else if (_node.isNegation() && !_node.isNegAnd() && !_node.isNegImp() && !_node.isNegOr()) {
+            this.value = 4;
+        } else if (_node.isExistential()) {
+            this.value = 1;
+        } else if (_node.isUniversal()) {
+            // Universal HAS to be the last operation - if not, then we run the risk of applying it before we
+            // have a constant available.
+            this.value = 13;
+        } else if (_node.isAnd()) {
+            this.value = 6;
+        } else if (_node.isNegOr() || _node.isNegImp()) {
+            this.value = 7;
+        } else if (_node.isOr()) {
+            this.value = 8;
+        } else if (_node.isNegAnd()) {
+            this.value = 9;
+        } else if (_node.isImp()) {
+            this.value = 10;
+        } else if (_node.isBicond()) {
+            this.value = 11;
+        } else {
+            this.value = 12;
+        }
     }
 
     /**

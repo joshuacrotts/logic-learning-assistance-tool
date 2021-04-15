@@ -195,8 +195,8 @@ public class TruthTreeInterpreter implements Listener {
 
         if (_layout.getTree().isLeaf(_truthTree)) {
             if (_truthTree.isClosed()) {
-                branchText = new Text("\u2715");
-                branchLabel = new Label("\u2715");
+                branchText = new Text("✕");
+                branchLabel = new Label("✕");
             } else {
                 branchText = new Text("OPEN");
                 branchLabel = new Label("OPEN");
