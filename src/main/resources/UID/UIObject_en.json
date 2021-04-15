@@ -173,12 +173,12 @@
           },
           "description": "This is the implication button",
           "axioms": {
-            "explanation": "(A ⇒ B) is false when A is true and B is false, but true otherwise. The implication operator is often difficult for students to understand, especially since if A is false and B is false, the conclusion remains true (also called vacuously true). We refer to A as the antecedent of the conditional, and B as the consequent. An important piece of the right-arrow operator is the idea of sufficient and necessary conditions. The antecedent is sufficient for the consequent. The consequent is necessary for the antecedent.",
+            "explanation": "(A ⇒ B) is false when A is true and B is false, but true otherwise. The implication operator is often difficult for students to understand, especially because if A is false and B is false, the conclusion remains true. This is also referred to as being vacuously true. We refer to A as the antecedent of the conditional, and B as the consequent. An important piece of the right-arrow operator is the idea of sufficient and necessary conditions. The antecedent is sufficient for the consequent. The consequent is necessary for the antecedent.",
             "example": [
-              "Suppose A represents the proposition that someone is a bachelor, and B represents the proposition that someone is unmarried. Therefore, (A ⇒ B) reads \"If someone is a bachelor, then they are unmarried\". Since someone cannot be married and a bachelor, it holds true that being unmarried is necessary for being a bachelor (in other words, you cannot be a bachelor if you are married). Since everyone who is a bachelor is unmarried, it makes sense that being a bachelor is sufficient for being unmarried."
+              "1. Suppose A represents the proposition that someone is a bachelor, and B represents the proposition that someone is unmarried. Therefore, (A ⇒ B) reads \"If someone is a bachelor, then they are unmarried\". Since someone cannot be married and a bachelor, it holds true that being unmarried is necessary for being a bachelor (in other words, you cannot be a bachelor if you are married). Since everyone who is a bachelor is unmarried, it makes sense that being a bachelor is sufficient for being unmarried."
             ]
           },
-          "tooltip": "implication",
+          "tooltip": "Implication",
           "readAs": "implies; if ... then"
         },
         "biconditional": {
@@ -195,11 +195,11 @@
           "axioms": {
             "explanation": "(A ⇔ B) is true when A and B are the same. This means that A must be true and B must be true for this sentence to be true. Likewise, A must be false and B must be false for this sentence to be true. When they differ, the sentence is false.",
             "example": [
-              "(A ⇔ B)"
+              "1. (A ⇔ B)"
             ]
           },
-          "tooltip": "equivalence",
-          "readAs": "if and only if; \"iff\"; means the same as"
+          "tooltip": "Equivalence",
+          "readAs": "If and only if; \"iff\"; means the same as"
         },
         "negation": {
           "symbol": {
@@ -212,15 +212,15 @@
           },
           "description": "This is the negation button",
           "axioms": {
-            "explanation": "The negation operator ¬ flips the truth value of some proposition A. So, if A is true, then ¬A is false. Likewise, if ¬A is false, then ¬A is true. The negation operator works across any sentence and distributes over both symbols and operators.",
+            "explanation": "The negation operator (¬) flips the truth value of a proposition A. So, if A is true, then ¬A is false. Likewise, if ¬A is false, then ¬A is true. The negation operator works across any sentence and distributes over both symbols and operators.",
             "example": [
-              "(¬¬A ⇔ A)",
-              "¬(A & B) is equivalent to (¬A ∨ ¬B). The negation operator follows the distributive property from math - we distribute it to everything inside of the parentheses.",
-              "~(A -> ~B) is equivalent to (A & ~~B), which reduces to (A & B). Note that when we use a negation on an implication (also called a negated implication) sentence, we do not double-negate the antecedent; we reduce it to a proposition minus any negations."
+              "1. (¬¬A ⇔ A)",
+              "2. ¬(A & B) is equivalent to (¬A ∨ ¬B). The negation operator follows the distributive property from math - we distribute it to everything inside of the parentheses.",
+              "3. ~(A -> ~B) is equivalent to (A & ~~B), which reduces to (A & B). Note that when we use a negation on an implication (also called a negated implication) sentence, we do not double-negate the antecedent; we reduce it to a proposition minus any negations."
             ]
           },
-          "tooltip": "negation",
-          "readAs": "not"
+          "tooltip": "Negation",
+          "readAs": "Not"
         },
         "conjunction": {
           "symbol": {
@@ -234,13 +234,15 @@
           },
           "description": "This is the conjunction button.",
           "axioms": {
-            "explanation": "The statement (A ∧ B) is true if A and B are both true; otherwise, it is false.",
+            "explanation": "The statement (A ∧ B) is true if A and B are both true. Otherwise, it is false.",
             "example": [
-              "(A ∧ B)"
+              "1. (A ∧ B)",
+              "2. ((A ⊃ B) & (B ⊃ A))",
+              "3. ((A ∨ B) & (A ∨ C))"
             ]
           },
-          "tooltip": "conjunction",
-          "readAs": "and"
+          "tooltip": "Conjunction",
+          "readAs": "And"
         },
         "disjunction": {
           "symbol": {
@@ -253,13 +255,13 @@
           },
           "description": "This is the disjunction button.",
           "axioms": {
-            "explanation": "The statement *A ∨ B) is true if A or B (or both) are true; if both are false, the statement is false.",
+            "explanation": "The statement (A ∨ B) is true if A or B (or both) are true. If both are false, then it is false.",
             "example": [
-              "(A ∨ B)"
+              "1. (A ∨ B)"
             ]
           },
-          "tooltip": "conjunction",
-          "readAs": "or"
+          "tooltip": "Disjunction",
+          "readAs": "Or"
         },
         "exclusiveDisjunction": {
           "symbol": {
@@ -274,11 +276,11 @@
           "axioms": {
             "explanation": "The statement (A ⊕ B) is true when either A or B are true, but not both are true.",
             "example": [
-              "(¬A ⊕ B)"
+              "1. (¬A ⊕ B)"
             ]
           },
-          "tooltip": "exclusive disjunction",
-          "readAs": "xor; either ... or"
+          "tooltip": "Exclusive Disjunction",
+          "readAs": "Either... or; xor"
         },
         "turnstile": {
           "symbol": {
@@ -289,13 +291,13 @@
           },
           "description": "This is the turnstile button.",
           "axioms": {
-            "explanation": "x ⊢ y means x proves (syntactically entails) y.",
+            "explanation": "(x ⊢ y) means x proves (syntactically entails) y.",
             "example": [
-              "(A → B) ⊢ (¬B → ¬A)"
+              "1. (A → B), (B → C) ⊢ (A → C). The two premises syntactically entail the conclusion through hypothetical syllogism."
             ]
           },
-          "tooltip": "turnstile",
-          "readAs": "proves"
+          "tooltip": "Syntactic Entailment",
+          "readAs": "Proves..."
         },
         "doubleTurnstile": {
           "symbol": {
@@ -306,14 +308,14 @@
           },
           "description": "This is the turnstile button.",
           "axioms": {
-            "explanation": "x ⊨ y means x models (semantically entails) y",
+            "explanation": "(x ⊨ y) means x models (semantically entails) y",
             "example": [
               "(A → B) ⊨ (¬B → ¬A)",
               "(A → B) ⊨ (~A | B)"
             ]
           },
-          "tooltip": "double turnstile",
-          "readAs": "models"
+          "tooltip": "Semantic Entailment",
+          "readAs": "Models..."
         }
       },
       "predicate": {
@@ -329,11 +331,11 @@
           "axioms": {
             "explanation": "(∀x)Px or (x)Px means the proposition P holds true for all inputs x in a domain D.",
             "example": [
-              "(∀x)Px"
+              "1. (∀x)Px"
             ]
           },
-          "tooltip": "universal quantification",
-          "readAs": "for all; for any; for each"
+          "tooltip": "Universal Quantification",
+          "readAs": "For all; For any; For each"
         },
         "existential": {
           "symbol": {
@@ -346,11 +348,11 @@
           "axioms": {
             "explanation": "(∃x)Px means there is at least one input x in a domain D that satisfies the proposition P (that makes P true).",
             "example": [
-              "(∃x)Px"
+              "1. (∃x)Px"
             ]
           },
-          "tooltip": "existential quantification",
-          "readAs": "there exists"
+          "tooltip": "Existential Quantification",
+          "readAs": "There exists..."
         }
       }
     }
