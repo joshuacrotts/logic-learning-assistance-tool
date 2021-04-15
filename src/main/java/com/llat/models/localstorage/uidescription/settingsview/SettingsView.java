@@ -6,7 +6,7 @@ public class SettingsView {
     public String save;
 
     public Categories getCategories() {
-        return categories;
+        return this.categories;
     }
 
     public void setCategories(Categories categories) {
@@ -14,7 +14,7 @@ public class SettingsView {
     }
 
     public String getCancel() {
-        return cancel;
+        return this.cancel;
     }
 
     public void setCancel(String cancel) {
@@ -22,7 +22,7 @@ public class SettingsView {
     }
 
     public String getSave() {
-        return save;
+        return this.save;
     }
 
     public void setSave(String save) {
@@ -32,9 +32,9 @@ public class SettingsView {
     @Override
     public String toString() {
         return "SettingsView{" +
-                "categories=" + categories +
-                ", cancel='" + cancel + '\'' +
-                ", save='" + save + '\'' +
+                "categories=" + this.categories +
+                ", cancel='" + this.cancel + '\'' +
+                ", save='" + this.save + '\'' +
                 '}';
     }
 }

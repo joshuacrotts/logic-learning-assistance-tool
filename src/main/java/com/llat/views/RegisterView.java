@@ -26,12 +26,12 @@ public class RegisterView {
     private final VBox registerVBox = new VBox();
     private final Label logoImage = new Label();
     private final RegisterInterpreter registerInterpreter;
-    private  Label userNameInputLabel ;
-    private  Label firstNameInputLabel ;
-    private  Label lastNameInputLabel ;
-    private  Label passwordInputLabel ;
-    private  Button registerButton ;
-    private  Button returnButton;
+    private final Label userNameInputLabel;
+    private final Label firstNameInputLabel;
+    private final Label lastNameInputLabel;
+    private final Label passwordInputLabel;
+    private final Button registerButton;
+    private final Button returnButton;
     private TextField userNameField = new TextField();
     private TextField firstNameField = new TextField();
     private TextField lastNameField = new TextField();
@@ -39,14 +39,14 @@ public class RegisterView {
 
     public RegisterView(Controller _controller) {
         this.controller = _controller;
-        userNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getUserNameLabel());
-        firstNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getFirstName());
-        lastNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getLastName());
-        passwordInputLabel = new Label(this.controller.getUiObject().getRegisterView().getPasswordLabel());
+        this.userNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getUserNameLabel());
+        this.firstNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getFirstName());
+        this.lastNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getLastName());
+        this.passwordInputLabel = new Label(this.controller.getUiObject().getRegisterView().getPasswordLabel());
 
-        registerButton = new Button(this.controller.getUiObject().getRegisterView().getRegisterButton());
+        this.registerButton = new Button(this.controller.getUiObject().getRegisterView().getRegisterButton());
 
-        returnButton = new Button(this.controller.getUiObject().getRegisterView().getReturnButton());
+        this.returnButton = new Button(this.controller.getUiObject().getRegisterView().getReturnButton());
 
         // Setting AnchorPane parentPane properties.
         this.parentPane.setId("registerViewParentPane");

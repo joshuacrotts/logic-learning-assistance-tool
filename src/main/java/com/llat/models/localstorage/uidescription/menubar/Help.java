@@ -5,7 +5,7 @@ public class Help {
     public About about;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -13,7 +13,7 @@ public class Help {
     }
 
     public About getAbout() {
-        return about;
+        return this.about;
     }
 
     public void setAbout(About about) {
@@ -23,8 +23,8 @@ public class Help {
     @Override
     public String toString() {
         return "Help{" +
-                "label='" + label + '\'' +
-                ", about=" + about +
+                "label='" + this.label + '\'' +
+                ", about=" + this.about +
                 '}';
     }
 }

@@ -8,7 +8,7 @@ public class SymbolContextMenu extends ContextMenu {
     /**
      *
      */
-    private SymbolButton symbolButton;
+    private final SymbolButton symbolButton;
 
     public SymbolContextMenu(SymbolButton _button) {
         this.symbolButton = _button;

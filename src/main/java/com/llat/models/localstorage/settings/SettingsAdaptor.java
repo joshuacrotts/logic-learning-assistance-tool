@@ -13,19 +13,19 @@ public class SettingsAdaptor implements SettingsInterface {
     /**
      *
      */
-    SettingsInterface settings = new GsonIO(SETTINGS_FILE_PATH, SettingsObject.class);
+    SettingsInterface settings = new GsonIO(this.SETTINGS_FILE_PATH, SettingsObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
-        settings.update(_obj, _jsonFilePath);
+        this.settings.update(_obj, _jsonFilePath);
     }
 
     public void update(LocalStorage _obj) {
-        settings.update(_obj, SETTINGS_FILE_PATH);
+        this.settings.update(_obj, this.SETTINGS_FILE_PATH);
     }
 
     @Override
     public LocalStorage getData() {
-        return settings.getData();
+        return this.settings.getData();
     }
 }

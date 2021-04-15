@@ -11,7 +11,7 @@ public class File {
     public Exit exit;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -19,7 +19,7 @@ public class File {
     }
 
     public NewProject getNewProject() {
-        return newProject;
+        return this.newProject;
     }
 
     public void setNewProject(NewProject newProject) {
@@ -27,7 +27,7 @@ public class File {
     }
 
     public OpenProject getOpenProject() {
-        return openProject;
+        return this.openProject;
     }
 
     public void setOpenProject(OpenProject openProject) {
@@ -35,7 +35,7 @@ public class File {
     }
 
     public Export getExport() {
-        return export;
+        return this.export;
     }
 
     public void setExport(Export export) {
@@ -43,7 +43,7 @@ public class File {
     }
 
     public Login getLogin() {
-        return login;
+        return this.login;
     }
 
     public void setLogin(Login login) {
@@ -51,7 +51,7 @@ public class File {
     }
 
     public Register getRegister() {
-        return register;
+        return this.register;
     }
 
     public void setRegister(Register register) {
@@ -59,7 +59,7 @@ public class File {
     }
 
     public Settings getSettings() {
-        return settings;
+        return this.settings;
     }
 
     public void setSettings(Settings settings) {
@@ -67,7 +67,7 @@ public class File {
     }
 
     public Exit getExit() {
-        return exit;
+        return this.exit;
     }
 
     public void setExit(Exit exit) {
@@ -77,14 +77,14 @@ public class File {
     @Override
     public String toString() {
         return "File{" +
-                "label='" + label + '\'' +
-                ", newProject=" + newProject +
-                ", openProject=" + openProject +
-                ", export=" + export +
-                ", login=" + login +
-                ", register=" + register +
-                ", settings=" + settings +
-                ", exit=" + exit +
+                "label='" + this.label + '\'' +
+                ", newProject=" + this.newProject +
+                ", openProject=" + this.openProject +
+                ", export=" + this.export +
+                ", login=" + this.login +
+                ", register=" + this.register +
+                ", settings=" + this.settings +
+                ", exit=" + this.exit +
                 '}';
     }
 }

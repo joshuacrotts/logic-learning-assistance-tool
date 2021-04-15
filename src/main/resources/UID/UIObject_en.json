@@ -674,9 +674,9 @@
   },
   "registerView": {
     "userNameLabel": "User Name",
-    "userNamePromptText":"Enter your user name",
-    "firstNamePromptText":"Enter your first name",
-    "lastNamePromptText":"Enter your last name",
+    "userNamePromptText": "Enter your user name",
+    "firstNamePromptText": "Enter your first name",
+    "lastNamePromptText": "Enter your last name",
     "firstName": "First Name",
     "lastName": "Last Name",
     "passwordLabel": "Password",

@@ -20,40 +20,38 @@ public class SymbolDescriptionView {
     private final VBox symbolDetailsVBox = new VBox();
 
     /* Label, button, and view for the symbol name that we're going to use. */
-    private Label symbolNameLabel ;
+    private final Label symbolNameLabel;
     private final Button symbolNameText;
     private final Region belowSymbolNameText = new Region();
 
     /* Label, button, and region for the formal name of the symbol. */
-    private Label formalNameLabel ;
+    private final Label formalNameLabel;
     private final Button formalNameText;
     private final Region belowFormalNameText = new Region();
 
     /* Label, button, and region for the alternative symbols of our symbol. */
-    private Label alternativeSymbolsLabel ;
+    private final Label alternativeSymbolsLabel;
     private final Button alternativeSymbolsText;
     private final Region belowAlternativeSymbolsText = new Region();
-
-    /* Label, button, and region for the explanation that we're going to use. */
-    private Label explanationLabel = new Label("Explanation");
     private final Button explanationText;
     private final Region belowExplanationText = new Region();
-
     /* Label, button, and region for the example that we're going to use. */
-    private Label exampleLabel;
+    private final Label exampleLabel;
     private final ArrayList<Button> exampleText = new ArrayList<>();
     private final Region belowExampleText = new Region();
     private final Controller controller;
+    /* Label, button, and region for the explanation that we're going to use. */
+    private Label explanationLabel = new Label("Explanation");
 
     public SymbolDescriptionView(Controller _controller, Symbol _symbol) {
         this.symbol = _symbol;
         this.controller = _controller;
 
-        symbolNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getSymbolNameLabel());
-        formalNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getFormalNameLabel());
-        alternativeSymbolsLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getAlternativeSymbolsLabel());
-        explanationLabel = new Label("Explanation");
-        exampleLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExamplesLabel());
+        this.symbolNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getSymbolNameLabel());
+        this.formalNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getFormalNameLabel());
+        this.alternativeSymbolsLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getAlternativeSymbolsLabel());
+        this.explanationLabel = new Label("Explanation");
+        this.exampleLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExamplesLabel());
 
 
         // Settings labels id (linked via CSS).

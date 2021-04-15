@@ -41,7 +41,7 @@ public class FormulaInputView {
     /**
      *
      */
-    private Button formulaInputButton;
+    private final Button formulaInputButton;
 
     /**
      *

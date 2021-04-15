@@ -5,7 +5,7 @@ public class SettingsMenuContent {
     public String code;
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -13,7 +13,7 @@ public class SettingsMenuContent {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public void setCode(String code) {
@@ -23,8 +23,8 @@ public class SettingsMenuContent {
     @Override
     public String toString() {
         return "AllLanguage{" +
-                "name='" + name + '\'' +
-                ", code='" + code + '\'' +
+                "name='" + this.name + '\'' +
+                ", code='" + this.code + '\'' +
                 '}';
     }
 }

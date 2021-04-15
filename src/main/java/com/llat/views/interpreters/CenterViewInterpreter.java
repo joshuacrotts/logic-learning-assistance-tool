@@ -12,8 +12,8 @@ import javafx.scene.layout.HBox;
 
 public class CenterViewInterpreter implements Listener {
 
-    private Controller controller;
-    private CenterView centerView;
+    private final Controller controller;
+    private final CenterView centerView;
     private HBox resultHBox;
 
     public CenterViewInterpreter(Controller _controller, CenterView _centerView) {

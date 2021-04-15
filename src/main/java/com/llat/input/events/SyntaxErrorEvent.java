@@ -5,11 +5,11 @@ import com.llat.tools.Event;
 public class SyntaxErrorEvent implements Event {
     String errorMessage;
 
-    public SyntaxErrorEvent (String _errorMessage) {
+    public SyntaxErrorEvent(String _errorMessage) {
         this.errorMessage = _errorMessage;
     }
 
-    public String getErrorMessage () {
+    public String getErrorMessage() {
         return this.errorMessage;
     }
 

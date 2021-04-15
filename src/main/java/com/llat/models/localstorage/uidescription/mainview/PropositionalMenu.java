@@ -1,4 +1,4 @@
 package com.llat.models.localstorage.uidescription.mainview;
 
-public class PropositionalMenu extends MainMenu{
+public class PropositionalMenu extends MainMenu {
 }

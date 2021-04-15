@@ -9,7 +9,7 @@ public class LoginViewObject {
     public String returnButton;
 
     public String getUserNameLabel() {
-        return userNameLabel;
+        return this.userNameLabel;
     }
 
     public void setUserNameLabel(String userNameLabel) {
@@ -17,7 +17,7 @@ public class LoginViewObject {
     }
 
     public String getUserNamePromptText() {
-        return userNamePromptText;
+        return this.userNamePromptText;
     }
 
     public void setUserNamePromptText(String userNamePromptText) {
@@ -25,7 +25,7 @@ public class LoginViewObject {
     }
 
     public String getPasswordLabel() {
-        return passwordLabel;
+        return this.passwordLabel;
     }
 
     public void setPasswordLabel(String passwordLabel) {
@@ -33,7 +33,7 @@ public class LoginViewObject {
     }
 
     public String getPasswordPromptText() {
-        return passwordPromptText;
+        return this.passwordPromptText;
     }
 
     public void setPasswordPromptText(String passwordPromptText) {
@@ -41,7 +41,7 @@ public class LoginViewObject {
     }
 
     public String getLoginButton() {
-        return loginButton;
+        return this.loginButton;
     }
 
     public void setLoginButton(String loginButton) {
@@ -49,7 +49,7 @@ public class LoginViewObject {
     }
 
     public String getReturnButton() {
-        return returnButton;
+        return this.returnButton;
     }
 
     public void setReturnButton(String returnButton) {
@@ -59,12 +59,12 @@ public class LoginViewObject {
     @Override
     public String toString() {
         return "LoginView{" +
-                "userNameLabel='" + userNameLabel + '\'' +
-                ", userNamePromptText='" + userNamePromptText + '\'' +
-                ", passwordLabel='" + passwordLabel + '\'' +
-                ", passwordPromptText='" + passwordPromptText + '\'' +
-                ", loginButton='" + loginButton + '\'' +
-                ", returnButton='" + returnButton + '\'' +
+                "userNameLabel='" + this.userNameLabel + '\'' +
+                ", userNamePromptText='" + this.userNamePromptText + '\'' +
+                ", passwordLabel='" + this.passwordLabel + '\'' +
+                ", passwordPromptText='" + this.passwordPromptText + '\'' +
+                ", loginButton='" + this.loginButton + '\'' +
+                ", returnButton='" + this.returnButton + '\'' +
                 '}';
     }
 }

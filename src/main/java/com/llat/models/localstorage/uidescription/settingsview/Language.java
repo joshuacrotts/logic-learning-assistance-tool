@@ -5,7 +5,7 @@ public class Language {
     public LanguageContent languageContent;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -13,7 +13,7 @@ public class Language {
     }
 
     public LanguageContent getLanguageContent() {
-        return languageContent;
+        return this.languageContent;
     }
 
     public void setLanguageContent(LanguageContent language) {
@@ -23,8 +23,8 @@ public class Language {
     @Override
     public String toString() {
         return "Language{" +
-                "label='" + label + '\'' +
-                ", LangaugeObject=" + languageContent +
+                "label='" + this.label + '\'' +
+                ", LangaugeObject=" + this.languageContent +
                 '}';
     }
 }
