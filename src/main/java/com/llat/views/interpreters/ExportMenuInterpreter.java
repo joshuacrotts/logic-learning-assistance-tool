@@ -5,7 +5,14 @@ import com.llat.views.menu.ExportMenu;
 
 public class ExportMenuInterpreter {
 
+    /**
+     *
+     */
     private final Controller controller;
+
+    /**
+     *
+     */
     private final ExportMenu exportMenu;
 
     public ExportMenuInterpreter(Controller _controller, ExportMenu _exportMenu) {

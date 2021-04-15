@@ -30,14 +30,11 @@ import java.util.*;
 public class TruthTree implements Comparable<TruthTree> {
 
     /**
-     *
+     * Maximum number of iterations that a truth tree can substitute a
+     * variable with a constant when performing identity or universal
+     * decomposition.
      */
-    private static final int THRESHOLD_LIMIT = 100;
-
-    /**
-     *
-     */
-    private static int truthTreeCount = 0;
+    private static final int THRESHOLD_LIMIT = 500;
 
     /**
      * WffTree "value" for the TruthTree.

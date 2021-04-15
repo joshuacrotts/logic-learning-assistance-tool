@@ -15,9 +15,20 @@ import java.util.List;
 
 public class AlgorithmSelectionViewInterpreter implements Listener {
 
+    /**
+     *
+     */
     private Controller controller;
+
+    /**
+     *
+     */
     private AlgorithmSelectionView algorithmSelectionView;
-    private String currentAlgorithm = null;
+
+    /**
+     *
+     */
+    private String currentAlgorithm;
 
     public AlgorithmSelectionViewInterpreter(Controller _controller, AlgorithmSelectionView _algorithmSelectionView) {
         this.controller = _controller;

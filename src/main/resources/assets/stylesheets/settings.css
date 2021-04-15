@@ -53,3 +53,12 @@
     -fx-background-color: derive(silver, 50%);
     -fx-background-radius: 0;
 }
+
+.context-menu-title:disabled:hover {
+    -fx-background-color: white;
+}
+
+.context-menu-title:disabled:hover .label {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}

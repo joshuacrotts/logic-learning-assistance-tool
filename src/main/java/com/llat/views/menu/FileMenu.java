@@ -7,7 +7,14 @@ import javafx.scene.control.SeparatorMenuItem;
 
 public class FileMenu {
 
+    /**
+     *
+     */
     private final Controller controller;
+
+    /**
+     *
+     */
     private final Menu fileMenu;
 
     public FileMenu(Controller controller) {

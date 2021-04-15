@@ -16,7 +16,7 @@ public class FormulaInputView {
     /**
      *
      */
-    public final static int FORMULAINPUTVIEWHEIGHT = 74;
+    public final static int FORMULA_INPUT_VIEW_HEIGHT = 74;
 
     /**
      *
@@ -62,8 +62,8 @@ public class FormulaInputView {
     public FormulaInputView(Controller _controller) {
         this.controller = _controller;
         this.stage = _controller.getStage();
+        this.formulaInputButton = new Button(this.controller.getUiObject().getMainView().getMainViewLabels().getSolveButton());
 
-        formulaInputButton = new Button(this.controller.getUiObject().getMainView().getMainViewLabels().getSolveButton());
         // Setting HBox parentHBox properties.
         this.formulaInputHBox.setId("formulaInputHBox");
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {

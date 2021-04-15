@@ -5,8 +5,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class ApplicationView {
-    Controller controller;
-    BorderPane parentPane = new BorderPane();
+
+    /**
+     *
+     */
+    private Controller controller;
+
+    /**
+     *
+     */
+    private BorderPane parentPane = new BorderPane();
 
     public ApplicationView(Controller _controller) {
         this.controller = _controller;

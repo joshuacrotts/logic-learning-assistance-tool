@@ -25,13 +25,13 @@ public class RegisterView {
     private final HBox parentPane = new HBox();
     private final VBox registerVBox = new VBox();
     private final Label logoImage = new Label();
+    private final RegisterInterpreter registerInterpreter;
     private  Label userNameInputLabel ;
     private  Label firstNameInputLabel ;
     private  Label lastNameInputLabel ;
     private  Label passwordInputLabel ;
     private  Button registerButton ;
     private  Button returnButton;
-    private final RegisterInterpreter registerInterpreter;
     private TextField userNameField = new TextField();
     private TextField firstNameField = new TextField();
     private TextField lastNameField = new TextField();

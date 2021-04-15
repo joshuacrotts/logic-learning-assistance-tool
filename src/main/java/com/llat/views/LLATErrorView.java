@@ -10,12 +10,37 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class LLATErrorView {
+
+    /**
+     *
+     */
     private Controller controller;
+
+    /**
+     *
+     */
     private Label errorLabel = new Label("Errors/Warnings");
+
+    /**
+     *
+     */
     private VBox parentPane = new VBox();
+
+    /**
+     *
+     */
     private ScrollPane logScrollPane = new ScrollPane();
+
+    /**
+     *
+     */
     private VBox logBox = new VBox();
+
+    /**
+     *
+     */
     private LLATErrorViewInterpreter llatErrorViewInterpreter;
+
     public LLATErrorView (Controller _controller) {
         this.controller = _controller;
         // Setting VBox parentPane's properties.

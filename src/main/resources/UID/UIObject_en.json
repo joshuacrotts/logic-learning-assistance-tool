@@ -175,7 +175,9 @@
           "axioms": {
             "explanation": "(A ⇒ B) is false when A is true and B is false, but true otherwise. The implication operator is often difficult for students to understand, especially because if A is false and B is false, the conclusion remains true. This is also referred to as being vacuously true. We refer to A as the antecedent of the conditional, and B as the consequent. An important piece of the right-arrow operator is the idea of sufficient and necessary conditions. The antecedent is sufficient for the consequent. The consequent is necessary for the antecedent.",
             "example": [
-              "1. Suppose A represents the proposition that someone is a bachelor, and B represents the proposition that someone is unmarried. Therefore, (A ⇒ B) reads \"If someone is a bachelor, then they are unmarried\". Since someone cannot be married and a bachelor, it holds true that being unmarried is necessary for being a bachelor (in other words, you cannot be a bachelor if you are married). Since everyone who is a bachelor is unmarried, it makes sense that being a bachelor is sufficient for being unmarried."
+              "1. Suppose A represents the proposition that someone is a bachelor, and B represents the proposition that someone is unmarried. Therefore, (A ⇒ B) reads \"If someone is a bachelor, then they are unmarried\". Since someone cannot be married and a bachelor, it holds true that being unmarried is necessary for being a bachelor (in other words, you cannot be a bachelor if you are married). Since everyone who is a bachelor is unmarried, it makes sense that being a bachelor is sufficient for being unmarried.",
+              "2. Suppose A is true and B is false. Then (A → B) is false.",
+              "3. Suppose A is false and B is false. Then (A → B) is true."
             ]
           },
           "tooltip": "Implication",
@@ -272,11 +274,13 @@
               "≢"
             ]
           },
-          "description": "This is the disjunction button.",
+          "description": "This is the exclusive or button.",
           "axioms": {
             "explanation": "The statement (A ⊕ B) is true when either A or B are true, but not both are true.",
             "example": [
-              "1. (¬A ⊕ B)"
+              "1. A common example of the exclusive or operator comes up when talking about exclusivity among events. In other words, if we have two propositions P and Q, then either P can be true or Q can be true. However, P and Q cannot be true. Also, P and Q cannot be false.",
+              "2. Suppose A is true and B is false. Then (A ⊕ B) is true.",
+              "3. Suppose A is true and B is false. Then ((A → B) ⊕ (B → A)) is true. (A → B) is false, and (B → A) is true. Thus, the operands are different which results in true."
             ]
           },
           "tooltip": "Exclusive Disjunction",
@@ -286,14 +290,16 @@
           "symbol": {
             "applied": "⊢",
             "allSymbols": [
-              "⊢"
+              "⊢",
+              "∴"
             ]
           },
-          "description": "This is the turnstile button.",
+          "description": "This is the \"proves\" button.",
           "axioms": {
             "explanation": "(x ⊢ y) means x proves (syntactically entails) y.",
             "example": [
-              "1. (A → B), (B → C) ⊢ (A → C). The two premises syntactically entail the conclusion through hypothetical syllogism."
+              "1. (A → B), (B → C) ⊢ (A → C). The two premises syntactically entail the conclusion through hypothetical syllogism.",
+              "2. (P ∨ Q), ~P ∴ Q. The two premises syntactically entail the conclusion through disjunctive syllogism."
             ]
           },
           "tooltip": "Syntactic Entailment",
@@ -306,12 +312,12 @@
               "⊨"
             ]
           },
-          "description": "This is the turnstile button.",
+          "description": "This is the \"models\" button.",
           "axioms": {
-            "explanation": "(x ⊨ y) means x models (semantically entails) y",
+            "explanation": "(x ⊨ y) means x models (semantically entails) y. In other words, if we run a test for logical equivalence on x and y, it should result in a contradiction, and thus be equivalent formulas. When looking at the truth table for propositional logic formulas, they should be equivalent in all models.",
             "example": [
-              "(A → B) ⊨ (¬B → ¬A)",
-              "(A → B) ⊨ (~A | B)"
+              "1. (A → B) ⊨ (¬B → ¬A)",
+              "2. (A → B) ⊨ (~A | B)"
             ]
           },
           "tooltip": "Semantic Entailment",
@@ -329,13 +335,13 @@
           },
           "description": "This is the universal quantification button.",
           "axioms": {
-            "explanation": "(∀x)Px or (x)Px means the proposition P holds true for all inputs x in a domain D.",
+            "explanation": "(∀x)Px or (x)Px means the predicate P holds true for all inputs x from some domain D.",
             "example": [
               "1. (∀x)Px"
             ]
           },
           "tooltip": "Universal Quantification",
-          "readAs": "For all; For any; For each"
+          "readAs": "For all; For any; For each; All; Every"
         },
         "existential": {
           "symbol": {
@@ -352,7 +358,7 @@
             ]
           },
           "tooltip": "Existential Quantification",
-          "readAs": "There exists..."
+          "readAs": "There exists; Some; Many; At least one"
         }
       }
     }

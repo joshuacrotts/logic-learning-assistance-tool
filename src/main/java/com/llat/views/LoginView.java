@@ -25,13 +25,13 @@ public class LoginView {
     private final HBox parentPane = new HBox();
     private final VBox loginVBox = new VBox();
     private final Label logoImage = new Label();
-    private Label userNameInputLabel;
     private final TextField userNameField = new TextField();
-    private Label passwordInputLabel = new Label("Password");
     private final PasswordField passwordField = new PasswordField();
+    private final LoginViewInterpreter loginViewInterpreter;
+    private Label userNameInputLabel;
+    private Label passwordInputLabel = new Label("Password");
     private Button loginButton = new Button("Login");
     private Button returnButton = new Button("Return to Application");
-    private final LoginViewInterpreter loginViewInterpreter;
 
     public LoginView(Controller _controller) {
         this.controller = _controller;

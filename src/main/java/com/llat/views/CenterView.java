@@ -9,9 +9,24 @@ import javafx.scene.layout.VBox;
 
 public class CenterView {
 
+    /**
+     *
+     */
     private Controller controller;
+
+    /**
+     *
+     */
     private VBox parentPane = new VBox();
+
+    /**
+     *
+     */
     private TabPane tabPane;
+
+    /**
+     *
+     */
     private CenterViewInterpreter centerViewInterpreter;
 
     public CenterView(Controller _controller) {

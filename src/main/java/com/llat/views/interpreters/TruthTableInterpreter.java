@@ -15,7 +15,14 @@ import javafx.scene.layout.VBox;
 
 public class TruthTableInterpreter implements Listener {
 
+    /**
+     *
+     */
     private final Controller controller;
+
+    /**
+     *
+     */
     private final TruthTableView truthTableView;
 
     public TruthTableInterpreter(Controller _controller, TruthTableView _truthTableView) {
@@ -45,7 +52,11 @@ public class TruthTableInterpreter implements Listener {
         }
     }
 
-    //(A∧B) (A∧(A∧(A∧B)))
+    /**
+     *
+     * @param _wffTree
+     * @param _truthTable
+     */
     public void createTruthTable(WffTree _wffTree, HBox _truthTable) {
         int childSize = _wffTree.getChildrenSize();
         Button wffSymbol = new Button(_wffTree.getStringRep());
@@ -72,5 +83,4 @@ public class TruthTableInterpreter implements Listener {
         HBox.setHgrow(truthColumn, Priority.ALWAYS);
         _truthTable.getChildren().add(truthColumn);
     }
-
 }

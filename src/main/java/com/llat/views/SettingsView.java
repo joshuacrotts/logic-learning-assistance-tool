@@ -320,38 +320,41 @@ public class SettingsView {
 }
 
 class SettingsPane {
-    Controller controller;
-    Stage stage;
-    Pane parentPane = new Pane();
-    VBox newVBox = new VBox();
+
+    private Controller controller;
+    private Stage stage;
+    private Pane parentPane = new Pane();
+    private VBox newVBox = new VBox();
     // labels
     private Label paneTitle = new Label();
 
     public SettingsPane(Controller _controller, String _title) {
         this.controller = _controller;
         this.stage = controller.getStage();
-        paneTitle.setId("categoryTitle");
-        paneTitle.setText(_title);
-
-        newVBox.getChildren().add(paneTitle);
+        this.paneTitle.setId("categoryTitle");
+        this.paneTitle.setText(_title);
+        this.newVBox.getChildren().add(this.paneTitle);
         this.newVBox.setAlignment(Pos.CENTER);
         this.newVBox.widthProperty().addListener(((observable, oldValue, newValue) -> {
             this.newVBox.setMinWidth(WIDTH * 0.7);
         }));
-        newVBox.setId("vBoxTest");
+
+        this.newVBox.setId("vBoxTest");
         this.parentPane.widthProperty().addListener(((observable, oldValue, newValue) -> {
-            this.parentPane.setMinWidth(stage.getScene().getWidth());
+            this.parentPane.setMinWidth(this.stage.getScene().getWidth());
         }));
-        parentPane.getChildren().addAll(newVBox);
+
+        this.parentPane.getChildren().addAll(this.newVBox);
     }
 
     public Pane getParentPane() {
-        return parentPane;
+        return this.parentPane;
     }
 }
 
 class CustomMenuItem extends MenuItem {
-    ItemObject content;
+
+    private ItemObject content;
 
     public CustomMenuItem(ItemObject content) {
         this.setText(content.getName());

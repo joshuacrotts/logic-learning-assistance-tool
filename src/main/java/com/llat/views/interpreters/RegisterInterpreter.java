@@ -12,15 +12,23 @@ import com.llat.views.events.RegistrationStatusEvent;
 
 public class RegisterInterpreter implements Listener {
 
+    /**
+     *
+     */
     private Controller controller;
+
+    /**
+     *
+     */
     private RegisterView registerView;
 
     public RegisterInterpreter(Controller _controller, RegisterView _registerView) {
         this.controller = _controller;
         this.registerView = _registerView;
         this.registerView.getRegisterButton().setOnAction((node) -> {
-            RegisterEvent re = new RegisterEvent(this.registerView.getUserNameField().getText(), this.registerView.getFirstNameField().getText(), this.registerView.getLastNameField().getText()
-                    , this.registerView.getPasswordField().getText());
+            RegisterEvent re = new RegisterEvent(this.registerView.getUserNameField().getText(),
+                    this.registerView.getFirstNameField().getText(), this.registerView.getLastNameField().getText(),
+                    this.registerView.getPasswordField().getText());
             EventBus.throwEvent(re);
         });
         this.registerView.getReturnButton().setOnAction((node) -> {
@@ -45,8 +53,6 @@ public class RegisterInterpreter implements Listener {
                     System.out.println("User name is already exist");
                     break;
             }
-
         }
-
     }
 }

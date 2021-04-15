@@ -12,7 +12,14 @@ import javafx.scene.text.Text;
 
 public class LLATErrorViewInterpreter implements Listener {
 
+    /**
+     *
+     */
     private Controller controller;
+
+    /**
+     *
+     */
     private LLATErrorView llatErrorView;
 
     public LLATErrorViewInterpreter (Controller _controller, LLATErrorView _llatErrorView) {
@@ -28,15 +35,12 @@ public class LLATErrorViewInterpreter implements Listener {
             errorMsg.setFill(Color.RED);
             errorMsg.setId("errorText");
             this.llatErrorView.getLogBox().getChildren().add(errorMsg);
-            System.out.println(((SyntaxErrorEvent) _event).getErrorMessage());
         }
         else if (_event instanceof SyntaxWarningEvent) {
             Text warningMsg = new Text(((SyntaxWarningEvent) _event).getWarningMessage());
             warningMsg.setFill(Color.YELLOW);
             warningMsg.setId("warningText");
             this.llatErrorView.getLogBox().getChildren().add(warningMsg);
-            System.out.println(((SyntaxWarningEvent) _event).getWarningMessage());
         }
     }
-
 }

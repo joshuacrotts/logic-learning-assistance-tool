@@ -51,6 +51,16 @@ public class TruthTreeInterpreter implements Listener {
     /**
      *
      */
+    private final int TREE_LEVEL_GAP = 40;
+
+    /**
+     *
+     */
+    private final int TREE_NODE_GAP = 50;
+
+    /**
+     *
+     */
     private Pane treePane;
 
     public TruthTreeInterpreter(Controller _controller, TruthTreeView _truthTreeView) {
@@ -78,10 +88,8 @@ public class TruthTreeInterpreter implements Listener {
             TreeForTreeLayout<TruthTreeGuiNode> tree = this.convertToAbegoTree(truthTree);
 
             // Setup the tree layout configuration.
-            double gapBetweenLevels = 40;
-            double gapBetweenNodes = 50;
             DefaultConfiguration<TruthTreeGuiNode> configuration = new DefaultConfiguration<>(
-                    gapBetweenLevels, gapBetweenNodes);
+                    this.TREE_LEVEL_GAP, this.TREE_NODE_GAP);
 
             // Create the NodeExtentProvider for TruthTree nodes.
             TruthTreeExtentProvider nodeExtentProvider = new TruthTreeExtentProvider();
