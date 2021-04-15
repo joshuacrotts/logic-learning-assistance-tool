@@ -55,6 +55,7 @@ public class Controller implements Initializable {
         Pane parentPane = this.getView(_viewName);
         this.stage.getScene().setRoot(parentPane);
         this.stage.setWidth(this.stage.getWidth() - 1);
+        this.stage.setWidth(this.stage.getWidth() + 1);
     }
 
     /**
