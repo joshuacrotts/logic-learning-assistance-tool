@@ -13,7 +13,7 @@ public class RegisterView {
     public String returnButton;
 
     public String getUserNameLabel() {
-        return userNameLabel;
+        return this.userNameLabel;
     }
 
     public void setUserNameLabel(String userNameLabel) {
@@ -21,7 +21,7 @@ public class RegisterView {
     }
 
     public String getUserNamePromptText() {
-        return userNamePromptText;
+        return this.userNamePromptText;
     }
 
     public void setUserNamePromptText(String userNamePromptText) {
@@ -29,7 +29,7 @@ public class RegisterView {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -37,7 +37,7 @@ public class RegisterView {
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName) {
@@ -45,7 +45,7 @@ public class RegisterView {
     }
 
     public String getPasswordLabel() {
-        return passwordLabel;
+        return this.passwordLabel;
     }
 
     public void setPasswordLabel(String passwordLabel) {
@@ -53,7 +53,7 @@ public class RegisterView {
     }
 
     public String getPasswordPromptText() {
-        return passwordPromptText;
+        return this.passwordPromptText;
     }
 
     public void setPasswordPromptText(String passwordPromptText) {
@@ -61,7 +61,7 @@ public class RegisterView {
     }
 
     public String getRegisterButton() {
-        return registerButton;
+        return this.registerButton;
     }
 
     public void setRegisterButton(String registerButton) {
@@ -69,7 +69,7 @@ public class RegisterView {
     }
 
     public String getReturnButton() {
-        return returnButton;
+        return this.returnButton;
     }
 
     public void setReturnButton(String returnButton) {
@@ -77,7 +77,7 @@ public class RegisterView {
     }
 
     public String getFirstNamePromptText() {
-        return firstNamePromptText;
+        return this.firstNamePromptText;
     }
 
     public void setFirstNamePromptText(String firstNamePromptText) {
@@ -85,7 +85,7 @@ public class RegisterView {
     }
 
     public String getLastNamePromptText() {
-        return lastNamePromptText;
+        return this.lastNamePromptText;
     }
 
     public void setLastNamePromptText(String lastNamePromptText) {
@@ -95,16 +95,16 @@ public class RegisterView {
     @Override
     public String toString() {
         return "RegisterView{" +
-                "userNameLabel='" + userNameLabel + '\'' +
-                ", userNamePromptText='" + userNamePromptText + '\'' +
-                ", firstNamePromptText='" + firstNamePromptText + '\'' +
-                ", lastNamePromptText='" + lastNamePromptText + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", passwordLabel='" + passwordLabel + '\'' +
-                ", passwordPromptText='" + passwordPromptText + '\'' +
-                ", registerButton='" + registerButton + '\'' +
-                ", returnButton='" + returnButton + '\'' +
+                "userNameLabel='" + this.userNameLabel + '\'' +
+                ", userNamePromptText='" + this.userNamePromptText + '\'' +
+                ", firstNamePromptText='" + this.firstNamePromptText + '\'' +
+                ", lastNamePromptText='" + this.lastNamePromptText + '\'' +
+                ", firstName='" + this.firstName + '\'' +
+                ", lastName='" + this.lastName + '\'' +
+                ", passwordLabel='" + this.passwordLabel + '\'' +
+                ", passwordPromptText='" + this.passwordPromptText + '\'' +
+                ", registerButton='" + this.registerButton + '\'' +
+                ", returnButton='" + this.returnButton + '\'' +
                 '}';
     }
 }

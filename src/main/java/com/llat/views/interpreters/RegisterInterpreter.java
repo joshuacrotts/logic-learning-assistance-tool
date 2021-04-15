@@ -15,12 +15,12 @@ public class RegisterInterpreter implements Listener {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private RegisterView registerView;
+    private final RegisterView registerView;
 
     public RegisterInterpreter(Controller _controller, RegisterView _registerView) {
         this.controller = _controller;

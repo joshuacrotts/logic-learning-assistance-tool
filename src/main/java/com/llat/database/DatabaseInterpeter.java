@@ -28,13 +28,13 @@ public class DatabaseInterpeter implements Listener {
     public void catchEvent(Event _event) {
         if (_event instanceof SolvedFormulaEvent) {
             if (this.controller.getUser() != null) {
-                USERID = this.controller.getUser().getUserId();
+                this.USERID = this.controller.getUser().getUserId();
                 this.test = new ArrayList<>();
                 ((SolvedFormulaEvent) _event).getWffTree().forEach((tree) -> {
                     this.test.add(tree.getStringRep());
                 });
                 String text = this.test.get(0);
-                this.databaseAdapter.InsertQuery(USERID, text);
+                this.databaseAdapter.InsertQuery(this.USERID, text);
             }
 
             if (_event instanceof RegisterEvent) {

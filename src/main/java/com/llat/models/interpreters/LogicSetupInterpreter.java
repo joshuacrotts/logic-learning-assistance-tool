@@ -112,11 +112,9 @@ public class LogicSetupInterpreter implements Listener {
             }
             TexTruthTreePrinter texTruthTreePrinter = new TexTruthTreePrinter(truthTreeGenerator.getTruthTree(), ((ExportLaTeXTruthTreeEvent) _event).getFilePath());
             texTruthTreePrinter.outputToFile();
-        }
-        else if (_event instanceof AlgorithmSelectionViewInitializedEvent) {
+        } else if (_event instanceof AlgorithmSelectionViewInitializedEvent) {
             EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
-        }
-        else if (_event instanceof UnsolvedFormulaEvent) {
+        } else if (_event instanceof UnsolvedFormulaEvent) {
             this.logicSetup.setWffTree(null);
             EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
         }

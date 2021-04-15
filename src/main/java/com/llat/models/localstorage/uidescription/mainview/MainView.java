@@ -5,7 +5,7 @@ public class MainView {
     LogicSymbols logicSymbols;
 
     public MainViewLabels getMainViewLabels() {
-        return mainViewLabels;
+        return this.mainViewLabels;
     }
 
     public void setMainViewLabels(MainViewLabels mainViewLabels) {
@@ -13,7 +13,7 @@ public class MainView {
     }
 
     public LogicSymbols getLogicSymbols() {
-        return logicSymbols;
+        return this.logicSymbols;
     }
 
     public void setLogicSymbols(LogicSymbols logicSymbols) {
@@ -23,8 +23,8 @@ public class MainView {
     @Override
     public String toString() {
         return "MainView{" +
-                "mainViewLabels=" + mainViewLabels +
-                ", logicSymbols=" + logicSymbols +
+                "mainViewLabels=" + this.mainViewLabels +
+                ", logicSymbols=" + this.logicSymbols +
                 '}';
     }
 }

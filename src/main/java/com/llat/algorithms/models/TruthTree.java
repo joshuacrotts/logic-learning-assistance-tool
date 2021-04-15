@@ -12,17 +12,17 @@ import java.util.*;
 /**
  * Class for constructing a TruthTree.
  * <p>
- *
+ * <p>
  * TruthTrees contain three instance objects: a WffTree node, which is its "value",
  * and two children (acting as a binary tree): a left and right pointer to TTs.
  * There is one extra integer, corresponding to a value. This value indicates the
  * precedence of the operator, in increasing order as follows:
- *
+ * <p>
  * NEG_QUANTIFIERS < EXISTENTIAL < DOUBLE_NEG < CONJ < DISJ < IMP < BICOND < PREDICATE < UNIVERSAL
- *
+ * <p>
  * These nodes are stored in a minheap (priority queue), and are ordered such that
  * the truth tree operations are performed in the aforementioned order.
- *
+ * <p>
  * A TruthTree can have either one or two children (same as a binary tree), with the
  * exception that a tree with only one child is a "stacked" subtree, and should be
  * referenced with getCenter() and addCenter(...) calls. So, nodes with two children
@@ -148,11 +148,11 @@ public class TruthTree implements Comparable<TruthTree> {
     /**
      * Performs existential decomposition on this truth tree.
      * <p>
-     *     Existential decomposition is applied when we have an existential quantifier
-     *     that binds a variable in some predicate P. We replace all occurrences of the variable
-     *     bound by the quantifier in P with a constant not currently used in that branch of
-     *     the truth tree. Generally, this is 'a', but sometimes if that is already in use,
-     *     we go down the line of constants to find one that we haven't yet used.
+     * Existential decomposition is applied when we have an existential quantifier
+     * that binds a variable in some predicate P. We replace all occurrences of the variable
+     * bound by the quantifier in P with a constant not currently used in that branch of
+     * the truth tree. Generally, this is 'a', but sometimes if that is already in use,
+     * we go down the line of constants to find one that we haven't yet used.
      * </p>
      *
      * @param _existentialTruthTree
@@ -222,9 +222,10 @@ public class TruthTree implements Comparable<TruthTree> {
     /**
      * Performs identity decomposition.
      * <p>
-     *      At the leaf, traverse upwards to find any closable wffs that can substitute in a constant for another
-     *      constant. If this derives a contr. then close.
+     * At the leaf, traverse upwards to find any closable wffs that can substitute in a constant for another
+     * constant. If this derives a contr. then close.
      * </p>
+     *
      * @param _identityTruthTree
      * @param _leaves
      * @param _queue

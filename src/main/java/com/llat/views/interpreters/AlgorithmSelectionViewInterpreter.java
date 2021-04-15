@@ -18,12 +18,12 @@ public class AlgorithmSelectionViewInterpreter implements Listener {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private AlgorithmSelectionView algorithmSelectionView;
+    private final AlgorithmSelectionView algorithmSelectionView;
 
     /**
      *

@@ -7,7 +7,7 @@ public class Categories {
 
 
     public Appearance getAppearance() {
-        return appearance;
+        return this.appearance;
     }
 
     public void setAppearance(Appearance appearance) {
@@ -15,7 +15,7 @@ public class Categories {
     }
 
     public Language getLanguage() {
-        return language;
+        return this.language;
     }
 
     public void setLanguage(Language language) {
@@ -23,7 +23,7 @@ public class Categories {
     }
 
     public Advanced getAdvanced() {
-        return advanced;
+        return this.advanced;
     }
 
     public void setAdvanced(Advanced advanced) {
@@ -33,9 +33,9 @@ public class Categories {
     @Override
     public String toString() {
         return "Categories{" +
-                "appearance=" + appearance +
-                ", language=" + language +
-                ", advanced=" + advanced +
+                "appearance=" + this.appearance +
+                ", language=" + this.language +
+                ", advanced=" + this.advanced +
                 '}';
     }
 }

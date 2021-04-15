@@ -7,25 +7,25 @@ import com.llat.models.localstorage.settings.SettingsObject;
 
 public class UIObjectAdaptor implements UIObjectInterface {
     SettingsAdaptor sa = new SettingsAdaptor();
-    SettingsObject so = (SettingsObject) sa.getData();
+    SettingsObject so = (SettingsObject) this.sa.getData();
 
-    String code = so.getLanguage().getApplied().getCode();
+    String code = this.so.getLanguage().getApplied().getCode();
 
-    private final String UI_DESCRIPTION = "UID/UIObject_" + code + ".json";
+    private final String UI_DESCRIPTION = "UID/UIObject_" + this.code + ".json";
 
-    UIObjectInterface obj = new GsonIO(UI_DESCRIPTION, UIObject.class);
+    UIObjectInterface obj = new GsonIO(this.UI_DESCRIPTION, UIObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
-        obj.update(_obj, _jsonFilePath);
+        this.obj.update(_obj, _jsonFilePath);
     }
 
     public void update(LocalStorage _obj) {
-        obj.update(_obj, UI_DESCRIPTION);
+        this.obj.update(_obj, this.UI_DESCRIPTION);
     }
 
     @Override
     public LocalStorage getData() {
-        return obj.getData();
+        return this.obj.getData();
     }
 }

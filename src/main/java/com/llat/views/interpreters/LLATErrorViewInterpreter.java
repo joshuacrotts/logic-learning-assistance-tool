@@ -15,14 +15,14 @@ public class LLATErrorViewInterpreter implements Listener {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private LLATErrorView llatErrorView;
+    private final LLATErrorView llatErrorView;
 
-    public LLATErrorViewInterpreter (Controller _controller, LLATErrorView _llatErrorView) {
+    public LLATErrorViewInterpreter(Controller _controller, LLATErrorView _llatErrorView) {
         this.controller = _controller;
         this.llatErrorView = _llatErrorView;
         EventBus.addListener(this);
@@ -35,8 +35,7 @@ public class LLATErrorViewInterpreter implements Listener {
             errorMsg.setFill(Color.RED);
             errorMsg.setId("errorText");
             this.llatErrorView.getLogBox().getChildren().add(errorMsg);
-        }
-        else if (_event instanceof SyntaxWarningEvent) {
+        } else if (_event instanceof SyntaxWarningEvent) {
             Text warningMsg = new Text(((SyntaxWarningEvent) _event).getWarningMessage());
             warningMsg.setFill(Color.YELLOW);
             warningMsg.setId("warningText");

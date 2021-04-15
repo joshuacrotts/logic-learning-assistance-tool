@@ -28,7 +28,7 @@ public class LoginView {
     private final TextField userNameField = new TextField();
     private final PasswordField passwordField = new PasswordField();
     private final LoginViewInterpreter loginViewInterpreter;
-    private Label userNameInputLabel;
+    private final Label userNameInputLabel;
     private Label passwordInputLabel = new Label("Password");
     private Button loginButton = new Button("Login");
     private Button returnButton = new Button("Return to Application");
@@ -37,10 +37,10 @@ public class LoginView {
         this.controller = _controller;
         this.uiLoginObject = this.controller.getUiObject().loginView;
 
-        userNameInputLabel = new Label(this.uiLoginObject.userNameLabel);
-        passwordInputLabel = new Label(this.uiLoginObject.passwordLabel);
-        loginButton = new Button(this.uiLoginObject.loginButton);
-        returnButton = new Button(this.uiLoginObject.returnButton);
+        this.userNameInputLabel = new Label(this.uiLoginObject.userNameLabel);
+        this.passwordInputLabel = new Label(this.uiLoginObject.passwordLabel);
+        this.loginButton = new Button(this.uiLoginObject.loginButton);
+        this.returnButton = new Button(this.uiLoginObject.returnButton);
         // Setting HBox parentPane properties.
         this.parentPane.setId("loginViewParentPane");
         this.parentPane.setAlignment(Pos.CENTER);

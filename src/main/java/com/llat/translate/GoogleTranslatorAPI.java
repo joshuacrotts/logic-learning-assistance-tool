@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class GoogleTranslatorAPI implements TranslatorInterface {
         }
         try {
             urlStr = GOOGLE_TRANSLATE_API +
-                    "?q=" + URLEncoder.encode(text, "UTF-8") +
+                    "?q=" + URLEncoder.encode(text, StandardCharsets.UTF_8) +
                     "&target=" + langTo +
                     "&source=" + langFrom;
 

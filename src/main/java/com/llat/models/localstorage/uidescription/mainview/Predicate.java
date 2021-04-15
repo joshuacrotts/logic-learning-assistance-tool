@@ -14,7 +14,7 @@ public class Predicate extends LocalStorage {
     }
 
     public Universal getUniversal() {
-        return universal;
+        return this.universal;
     }
 
     public void setUniversal(Universal universal) {
@@ -22,7 +22,7 @@ public class Predicate extends LocalStorage {
     }
 
     public Existential getExistential() {
-        return existential;
+        return this.existential;
     }
 
     public void setExistential(Existential existential) {
@@ -32,8 +32,8 @@ public class Predicate extends LocalStorage {
     @Override
     public String toString() {
         return "com.llat.models.localstorage.Predicate{" +
-                "universal=" + universal +
-                ", existential=" + existential +
+                "universal=" + this.universal +
+                ", existential=" + this.existential +
                 '}';
     }
 }

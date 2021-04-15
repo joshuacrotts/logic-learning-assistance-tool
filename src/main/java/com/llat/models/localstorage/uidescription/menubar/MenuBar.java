@@ -5,7 +5,7 @@ public class MenuBar {
     public Help help;
 
     public File getFile() {
-        return file;
+        return this.file;
     }
 
     public void setFile(File file) {
@@ -13,7 +13,7 @@ public class MenuBar {
     }
 
     public Help getHelp() {
-        return help;
+        return this.help;
     }
 
     public void setHelp(Help help) {
@@ -23,8 +23,8 @@ public class MenuBar {
     @Override
     public String toString() {
         return "MenuBar{" +
-                "file=" + file +
-                ", help=" + help +
+                "file=" + this.file +
+                ", help=" + this.help +
                 '}';
     }
 }
