@@ -36,9 +36,8 @@
 #propositionalLogicLabel, #predicateLogicLabel, #symbolNameLabel,
 #formalNameLabel, #alternativeSymbolsLabel, #exampleLabel,
 #explanationLabel, #alternativeSymbolsLabel, #errorLabel {
-    -fx-font-size: 2em;
+    -fx-font-size: 1.75em;
     -fx-underline: true;
-    -fx-font-weight: bold;
 }
 
 #trueLabel, #falseLabel, #resultLabel {
