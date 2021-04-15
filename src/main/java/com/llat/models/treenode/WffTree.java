@@ -394,10 +394,11 @@ public class WffTree implements Copyable, TexPrintable {
     }
 
     /**
-     * TODO Document
+     * Performs a recursive copy of all children in this truth tree.
+     * Applies to the second parameter.
      *
-     * @param _root
-     * @param _newTree
+     * @param _root - root of tree to copy.
+     * @param _newTree - tree to copy into.
      */
     private void copyHelper(WffTree _root, WffTree _newTree) {
         for (WffTree ch : _root.children) {
@@ -406,9 +407,11 @@ public class WffTree implements Copyable, TexPrintable {
     }
 
     /**
-     * TODO Document
+     * Recursive clear highlighting method. This removes all highlighting
+     * performed by the front-end or anything that suggests that *this* node
+     * is the result of some algorithm.
      *
-     * @param _root
+     * @param _root - root of WffTree.
      */
     private void clearHighlightingHelper(WffTree _root) {
         for (WffTree ch : _root.children) {
