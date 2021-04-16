@@ -7,7 +7,7 @@ public class Content {
     public List<String> content;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -15,7 +15,7 @@ public class Content {
     }
 
     public List<String> getContent() {
-        return content;
+        return this.content;
     }
 
     public void setContent(List<String> content) {
@@ -25,8 +25,8 @@ public class Content {
     @Override
     public String toString() {
         return "Content{" +
-                "label='" + label + '\'' +
-                ", content=" + content +
+                "label='" + this.label + '\'' +
+                ", content=" + this.content +
                 '}';
     }
 }

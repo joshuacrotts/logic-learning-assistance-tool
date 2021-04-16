@@ -45,15 +45,13 @@ public class TruthTableInterpreter implements Listener {
 
             this.createTruthTable(((UpdateViewTruthTableEvent) _event).getWffTree().getChild(0), this.truthTableView.getTruthTable());
             this.truthTableView.getTruthTable().setLayoutX((this.truthTableView.getParentPane().getWidth() / 2) - (this.truthTableView.getTruthTable().getWidth() / 2));
-        }
-        else if (_event instanceof UnsolvedFormulaEvent) {
+        } else if (_event instanceof UnsolvedFormulaEvent) {
             this.truthTableView.getTruthTable().getChildren().clear();
             this.truthTableView.getParentPane().getChildren().remove(this.truthTableView.getScrollPane());
         }
     }
 
     /**
-     *
      * @param _wffTree
      * @param _truthTable
      */

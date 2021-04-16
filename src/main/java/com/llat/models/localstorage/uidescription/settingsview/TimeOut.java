@@ -1,11 +1,11 @@
 package com.llat.models.localstorage.uidescription.settingsview;
 
-public class TimeOut{
+public class TimeOut {
     public String label;
     public int value;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -13,7 +13,7 @@ public class TimeOut{
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
     public void setValue(int value) {
@@ -23,8 +23,8 @@ public class TimeOut{
     @Override
     public String toString() {
         return "TimeOut{" +
-                "label='" + label + '\'' +
-                ", value=" + value +
+                "label='" + this.label + '\'' +
+                ", value=" + this.value +
                 '}';
     }
 }

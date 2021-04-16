@@ -4,6 +4,6 @@ import com.llat.tools.Event;
 
 public class AlgorithmSelectionViewInitializedEvent implements Event {
 
-    public AlgorithmSelectionViewInitializedEvent () {
+    public AlgorithmSelectionViewInitializedEvent() {
     }
 }

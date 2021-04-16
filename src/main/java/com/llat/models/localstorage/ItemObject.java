@@ -24,8 +24,8 @@ public abstract class ItemObject {
     @Override
     public String toString() {
         return "ItemObject{" +
-                "name='" + name + '\'' +
-                ", code='" + code + '\'' +
+                "name='" + this.name + '\'' +
+                ", code='" + this.code + '\'' +
                 '}';
     }
 }

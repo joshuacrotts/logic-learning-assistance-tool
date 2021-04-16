@@ -12,7 +12,6 @@ import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.events.FormulaInputEvent;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class LLATParserInterpreter implements Listener {
@@ -34,8 +33,7 @@ public class LLATParserInterpreter implements Listener {
             if (linkedTree != null) {
                 WffTree wffTree = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula()).get(0);
                 EventBus.throwEvent(new SolvedFormulaEvent(linkedTree));
-            }
-            else {
+            } else {
                 EventBus.throwEvent(new UnsolvedFormulaEvent());
             }
         }

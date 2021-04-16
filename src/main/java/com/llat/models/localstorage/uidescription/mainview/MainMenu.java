@@ -7,7 +7,7 @@ public abstract class MainMenu {
     public List<Content> content;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -15,7 +15,7 @@ public abstract class MainMenu {
     }
 
     public List<Content> getContent() {
-        return content;
+        return this.content;
     }
 
     public void setContent(List<Content> content) {
@@ -25,8 +25,8 @@ public abstract class MainMenu {
     @Override
     public String toString() {
         return "MainMenu{" +
-                "label='" + label + '\'' +
-                ", content=" + content +
+                "label='" + this.label + '\'' +
+                ", content=" + this.content +
                 '}';
     }
 }

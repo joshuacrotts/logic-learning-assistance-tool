@@ -12,7 +12,7 @@ public class LogicSymbols extends LocalStorage {
     }
 
     public Propositional getPropositional() {
-        return propositional;
+        return this.propositional;
     }
 
     public void setPropositional(Propositional propositional) {
@@ -20,7 +20,7 @@ public class LogicSymbols extends LocalStorage {
     }
 
     public Predicate getPredicate() {
-        return predicate;
+        return this.predicate;
     }
 
     public void setPredicate(Predicate predicate) {
@@ -30,8 +30,8 @@ public class LogicSymbols extends LocalStorage {
     @Override
     public String toString() {
         return "com.llat.models.localstorage.LogicSymbols{" +
-                "propositional=" + propositional +
-                ", predicate=" + predicate +
+                "propositional=" + this.propositional +
+                ", predicate=" + this.predicate +
                 '}';
     }
 }

@@ -109,8 +109,7 @@ public class ParseTreeInterpreter implements Listener {
             });
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
-        }
-        else if (_event instanceof UnsolvedFormulaEvent) {
+        } else if (_event instanceof UnsolvedFormulaEvent) {
             if (this.treePane != null) {
                 this.parseTreeView.getParentPane().getChildren().remove(this.treePane);
             }

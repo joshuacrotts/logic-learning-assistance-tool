@@ -50,6 +50,20 @@ public class WffTree implements Copyable, TexPrintable {
         this(null, NodeType.ROOT);
     }
 
+    /**
+     * @param _strRep
+     * @return
+     */
+    private static String getStandardizedEquiv(String _strRep) {
+        String s = _strRep.replaceAll("[∼¬!]", "~"); // NEG
+        s = s.replaceAll("[∧]", "&"); // AND
+        s = s.replaceAll("[\\|+\\|\\|]", "∨"); // OR
+        s = s.replaceAll("[→⇒⊃]", "->"); // IMP
+        s = s.replaceAll("[⇔≡↔]", "<->"); // BICOND
+        s = s.replaceAll("[⊻≢⩒↮]", "⊕"); // XOR
+        return s;
+    }
+
     @Override
     public WffTree copy() {
         WffTree t = new WffTree(this.symbol, this.NODE_TYPE);
@@ -379,25 +393,10 @@ public class WffTree implements Copyable, TexPrintable {
     }
 
     /**
-     *
-     * @param _strRep
-     * @return
-     */
-    private static String getStandardizedEquiv(String _strRep) {
-        String s = _strRep.replaceAll("[∼¬!]", "~"); // NEG
-        s = s.replaceAll("[∧]", "&"); // AND
-        s = s.replaceAll("[\\|+\\|\\|]", "∨"); // OR
-        s = s.replaceAll("[→⇒⊃]", "->"); // IMP
-        s = s.replaceAll("[⇔≡↔]", "<->"); // BICOND
-        s = s.replaceAll("[⊻≢⩒↮]", "⊕"); // XOR
-        return s;
-    }
-
-    /**
      * Performs a recursive copy of all children in this truth tree.
      * Applies to the second parameter.
      *
-     * @param _root - root of tree to copy.
+     * @param _root    - root of tree to copy.
      * @param _newTree - tree to copy into.
      */
     private void copyHelper(WffTree _root, WffTree _newTree) {

@@ -12,7 +12,7 @@ public class MenuBar {
     }
 
     public File getFile() {
-        return file;
+        return this.file;
     }
 
     public void setFile(File file) {
@@ -28,7 +28,7 @@ public class MenuBar {
     }
 
     public Help getHelp() {
-        return help;
+        return this.help;
     }
 
     public void setHelp(Help help) {

@@ -1,6 +1,5 @@
 package com.llat.models.localstorage.settings;
 
-import com.llat.models.localstorage.ItemObject;
 import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.localstorage.settings.theme.ThemeObject;
@@ -17,13 +16,13 @@ public class SettingsObject extends LocalStorage {
     private Theme theme;
 
     public SettingsObject(Language language, Theme theme) {
-        SettingsObject.languageObject = (LanguageObject) this.language.applied;
+        SettingsObject.languageObject = this.language.applied;
         this.language = language;
         this.theme = theme;
     }
 
     public Language getLanguage() {
-        return language;
+        return this.language;
     }
 
     public void setLanguage(Language language) {
@@ -31,11 +30,19 @@ public class SettingsObject extends LocalStorage {
     }
 
     public Theme getTheme() {
-        return theme;
+        return this.theme;
     }
 
     public void setTheme(Theme theme) {
         this.theme = theme;
+    }
+
+    @Override
+    public String toString() {
+        return "SettingsObject{" +
+                "language=" + this.language +
+                ", theme=" + this.theme +
+                '}';
     }
 
     /**
@@ -45,11 +52,11 @@ public class SettingsObject extends LocalStorage {
         private ThemeObject applied;
 
         public Theme(ThemeObject applied) {
-            this.applied =  applied;
+            this.applied = applied;
         }
 
         public ThemeObject getApplied() {
-            return applied;
+            return this.applied;
         }
 
         public void setApplied(ThemeObject applied) {
@@ -59,7 +66,7 @@ public class SettingsObject extends LocalStorage {
         @Override
         public String toString() {
             return "Theme{" +
-                    "applied=" + applied +
+                    "applied=" + this.applied +
                     '}';
         }
     }
@@ -75,7 +82,7 @@ public class SettingsObject extends LocalStorage {
         }
 
         public LanguageObject getApplied() {
-            return applied;
+            return this.applied;
         }
 
         public void setApplied(LanguageObject applied) {
@@ -85,16 +92,8 @@ public class SettingsObject extends LocalStorage {
         @Override
         public String toString() {
             return "Language{" +
-                    "applied=" + applied +
+                    "applied=" + this.applied +
                     '}';
         }
-    }
-
-    @Override
-    public String toString() {
-        return "SettingsObject{" +
-                "language=" + language +
-                ", theme=" + theme +
-                '}';
     }
 }

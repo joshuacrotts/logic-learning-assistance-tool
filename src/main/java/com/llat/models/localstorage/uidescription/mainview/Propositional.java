@@ -25,7 +25,7 @@ public class Propositional extends LocalStorage {
     }
 
     public Implication getImplication() {
-        return implication;
+        return this.implication;
     }
 
     public void setImplication(Implication implication) {
@@ -33,7 +33,7 @@ public class Propositional extends LocalStorage {
     }
 
     public Biconditional getBiconditional() {
-        return biconditional;
+        return this.biconditional;
     }
 
     public void setBiconditional(Biconditional biconditional) {
@@ -41,7 +41,7 @@ public class Propositional extends LocalStorage {
     }
 
     public Negation getNegation() {
-        return negation;
+        return this.negation;
     }
 
     public void setNegation(Negation negation) {
@@ -49,7 +49,7 @@ public class Propositional extends LocalStorage {
     }
 
     public Conjunction getConjunction() {
-        return conjunction;
+        return this.conjunction;
     }
 
     public void setConjunction(Conjunction conjunction) {
@@ -57,7 +57,7 @@ public class Propositional extends LocalStorage {
     }
 
     public Disjunction getDisjunction() {
-        return disjunction;
+        return this.disjunction;
     }
 
     public void setDisjunction(Disjunction disjunction) {
@@ -65,7 +65,7 @@ public class Propositional extends LocalStorage {
     }
 
     public ExclusiveDisjunction getExclusiveDisjunction() {
-        return exclusiveDisjunction;
+        return this.exclusiveDisjunction;
     }
 
     public void setExclusiveDisjunction(ExclusiveDisjunction exclusiveDisjunction) {
@@ -73,7 +73,7 @@ public class Propositional extends LocalStorage {
     }
 
     public Turnstile getTurnstile() {
-        return turnstile;
+        return this.turnstile;
     }
 
     public void setTurnstile(Turnstile turnstile) {
@@ -81,7 +81,7 @@ public class Propositional extends LocalStorage {
     }
 
     public DoubleTurnstile getDoubleTurnstile() {
-        return doubleTurnstile;
+        return this.doubleTurnstile;
     }
 
     public void setDoubleTurnstile(DoubleTurnstile doubleTurnstile) {
@@ -91,14 +91,14 @@ public class Propositional extends LocalStorage {
     @Override
     public String toString() {
         return "com.llat.models.localstorage.LogicSymbols{" +
-                "implication=" + implication +
-                ", biconditional=" + biconditional +
-                ", negation=" + negation +
-                ", conjunction=" + conjunction +
-                ", disjunction=" + disjunction +
-                ", exclusiveDisjunction=" + exclusiveDisjunction +
-                ", turnstile=" + turnstile +
-                ", doubleTurnstile=" + doubleTurnstile +
+                "implication=" + this.implication +
+                ", biconditional=" + this.biconditional +
+                ", negation=" + this.negation +
+                ", conjunction=" + this.conjunction +
+                ", disjunction=" + this.disjunction +
+                ", exclusiveDisjunction=" + this.exclusiveDisjunction +
+                ", turnstile=" + this.turnstile +
+                ", doubleTurnstile=" + this.doubleTurnstile +
                 '}';
     }
 

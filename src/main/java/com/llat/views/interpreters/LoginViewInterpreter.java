@@ -14,12 +14,12 @@ public class LoginViewInterpreter implements Listener {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private LoginView loginView;
+    private final LoginView loginView;
 
     public LoginViewInterpreter(Controller _controller, LoginView _registerView) {
         this.controller = _controller;

@@ -2,7 +2,6 @@ package com.llat.models.localstorage.settings;
 
 import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
-import com.llat.models.localstorage.uidescription.UIObject;
 
 public class Main {
     public static void main(String[] args) {

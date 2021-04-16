@@ -5,7 +5,7 @@ public class Advanced {
     public TimeOut timeOut;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -13,7 +13,7 @@ public class Advanced {
     }
 
     public TimeOut getTimeOut() {
-        return timeOut;
+        return this.timeOut;
     }
 
     public void setTimeOut(TimeOut timeOut) {
@@ -23,8 +23,8 @@ public class Advanced {
     @Override
     public String toString() {
         return "Advanced{" +
-                "label='" + label + '\'' +
-                ", timeOut=" + timeOut +
+                "label='" + this.label + '\'' +
+                ", timeOut=" + this.timeOut +
                 '}';
     }
 }

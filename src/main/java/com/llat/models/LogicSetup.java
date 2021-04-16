@@ -10,7 +10,6 @@ import com.llat.models.interpreters.LogicSetupInterpreter;
 import com.llat.models.treenode.WffTree;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,13 +21,7 @@ public class LogicSetup {
     /**
      *
      */
-    private LinkedList<WffTree> wffTree;
-
-    /**
-     *
-     */
     private final LogicSetupInterpreter logicSetupInterpreter;
-
     /**
      *
      */
@@ -41,7 +34,6 @@ public class LogicSetup {
         this.add(AlgorithmType.LOGICALLY_CONTINGENT_DETERMINER);
         this.add(AlgorithmType.LOGICAL_TAUTOLOGY_DETERMINER);
     }};
-
     /**
      *
      */
@@ -53,7 +45,6 @@ public class LogicSetup {
         this.add(AlgorithmType.LOGICALLY_EQUIVALENT_DETERMINER);
         this.add(AlgorithmType.LOGICALLY_IMPLIED_DETERMINER);
     }};
-
     /**
      *
      */
@@ -95,6 +86,10 @@ public class LogicSetup {
         this.add(AlgorithmType.OPEN_SENTENCE_DETERMINER);
         this.add(AlgorithmType.PREDICATE_TRUTH_TREE_GENERATOR);
     }};
+    /**
+     *
+     */
+    private LinkedList<WffTree> wffTree;
 
     public LogicSetup() {
         this.logicSetupInterpreter = new LogicSetupInterpreter(this);
@@ -114,18 +109,17 @@ public class LogicSetup {
      */
     public LogicReturn detectAlgorithm(AlgorithmType _algorithm) {
         if (this.wffTree == null) {
-            switch(_algorithm) {
+            switch (_algorithm) {
                 case RANDOM_PREDICATE_FORMULA:
                     RandomPredicateFormulaGenerator randomPredicateFormulaGenerator = new RandomPredicateFormulaGenerator();
-                    return new LogicFormula (randomPredicateFormulaGenerator.genRandomPredicateFormula());
+                    return new LogicFormula(randomPredicateFormulaGenerator.genRandomPredicateFormula());
                 case RANDOM_PROPOSITIONAL_FORMULA:
                     RandomPropositionalFormulaGenerator randomPropositionalFormulaGenerator = new RandomPropositionalFormulaGenerator();
-                    return new LogicFormula (randomPropositionalFormulaGenerator.genRandomPropositionalFormula());
+                    return new LogicFormula(randomPropositionalFormulaGenerator.genRandomPropositionalFormula());
                 default:
                     return new LogicVoid();
             }
-        }
-        else {
+        } else {
             WffTree rootOne = null;
             WffTree rootTwo = null;
 
@@ -233,10 +227,10 @@ public class LogicSetup {
                     return new LogicParseAndTruthTree(predicateTruthTreeGenerator.getWffTree(), predicateTruthTreeGenerator.getTruthTree());
                 case RANDOM_PREDICATE_FORMULA:
                     RandomPredicateFormulaGenerator randomPredicateFormulaGenerator = new RandomPredicateFormulaGenerator();
-                    return new LogicFormula (randomPredicateFormulaGenerator.genRandomPredicateFormula());
+                    return new LogicFormula(randomPredicateFormulaGenerator.genRandomPredicateFormula());
                 case RANDOM_PROPOSITIONAL_FORMULA:
                     RandomPropositionalFormulaGenerator randomPropositionalFormulaGenerator = new RandomPropositionalFormulaGenerator();
-                    return new LogicFormula (randomPropositionalFormulaGenerator.genRandomPropositionalFormula());
+                    return new LogicFormula(randomPropositionalFormulaGenerator.genRandomPropositionalFormula());
                 default:
                     return new LogicVoid();
             }
@@ -276,8 +270,7 @@ public class LogicSetup {
                 if (this.wffTree.get(0).isPredicateWff()) {
                     availableAlgorithms.add(LogicSetup.this.general1);
                     availableAlgorithms.add(LogicSetup.this.predicate1);
-                }
-                else {
+                } else {
                     availableAlgorithms.add(LogicSetup.this.general1);
                     availableAlgorithms.add(LogicSetup.this.propositional1);
                 }
@@ -294,30 +287,33 @@ public class LogicSetup {
 
     public interface LogicReturn {
     }
+
     /**
      *
      */
     public static class LogicVoid implements LogicReturn {
 
-        public LogicVoid () {
+        public LogicVoid() {
         }
 
     }
+
     /**
      *
      */
     public static class LogicFormula implements LogicReturn {
         private final String formula;
 
-        public LogicFormula (String _formula) {
+        public LogicFormula(String _formula) {
             this.formula = _formula;
         }
 
-        public String getFormula () {
+        public String getFormula() {
             return this.formula;
         }
 
     }
+
     /**
      *
      */
