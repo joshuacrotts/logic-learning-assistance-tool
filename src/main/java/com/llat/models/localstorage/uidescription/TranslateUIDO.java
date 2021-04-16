@@ -73,7 +73,7 @@ public class TranslateUIDO {
         MainViewLabels mainViewLabels = mainView.getMainViewLabels();
         mainViewLabels.setPropositionalLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getPropositionalLabel()));
         mainViewLabels.setPredicateLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getPredicateLabel()));
-        mainViewLabels.setTruthTabelLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getTruthTabelLabel()));
+        mainViewLabels.setTruthTableLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getTruthTableLabel()));
         mainViewLabels.setTruthTreeLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getTruthTreeLabel()));
         mainViewLabels.setSymbolNameLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getSymbolNameLabel()));
         mainViewLabels.setFormalNameLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getSymbolNameLabel()));

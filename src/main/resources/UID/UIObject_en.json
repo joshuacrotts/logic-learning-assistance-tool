@@ -87,7 +87,7 @@
       "propositionalLabel": "Propositional Logic",
       "predicateLabel": "Predicate Logic",
       "errorAndWarningLabel": "Errors/Warnings",
-      "truthTabelLabel": "Truth Tabel",
+      "truthTableLabel": "Truth Table",
       "parseTreeLabel": "Parse Tree",
       "truthTreeLabel": "Truth Tree",
       "symbolNameLabel": "Symbol Name",

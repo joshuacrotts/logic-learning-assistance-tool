@@ -5,7 +5,7 @@ public class MainViewLabels {
     public String propositionalLabel;
     public String predicateLabel;
     public String errorAndWarningLabel;
-    public String truthTabelLabel;
+    public String truthTableLabel;
     public String parseTreeLabel;
     public String truthTreeLabel;
     public String symbolNameLabel;
@@ -21,11 +21,11 @@ public class MainViewLabels {
     public String solveButton;
     public String applyButton;
 
-    public MainViewLabels(String propositionalLabel, String predicateLabel, String errorAndWarningLabel, String truthTabelLabel, String parseTreeLabel, String truthTreeLabel, String symbolNameLabel, String formalNameLabel, String alternativeSymbolsLabel, String explanationLabel, String examplesLabel, GeneralMenu generalMenu, PropositionalMenu propositionalMenu, PredicateMenu predicateMenu, String axiomTabLabel, String historyTabLabel, String solveButton, String applyButton) {
+    public MainViewLabels(String propositionalLabel, String predicateLabel, String errorAndWarningLabel, String truthTableLabel, String parseTreeLabel, String truthTreeLabel, String symbolNameLabel, String formalNameLabel, String alternativeSymbolsLabel, String explanationLabel, String examplesLabel, GeneralMenu generalMenu, PropositionalMenu propositionalMenu, PredicateMenu predicateMenu, String axiomTabLabel, String historyTabLabel, String solveButton, String applyButton) {
         this.propositionalLabel = propositionalLabel;
         this.predicateLabel = predicateLabel;
         this.errorAndWarningLabel = errorAndWarningLabel;
-        this.truthTabelLabel = truthTabelLabel;
+        this.truthTableLabel = truthTableLabel;
         this.parseTreeLabel = parseTreeLabel;
         this.truthTreeLabel = truthTreeLabel;
         this.symbolNameLabel = symbolNameLabel;
@@ -66,12 +66,12 @@ public class MainViewLabels {
         this.errorAndWarningLabel = errorAndWarningLabel;
     }
 
-    public String getTruthTabelLabel() {
-        return this.truthTabelLabel;
+    public String getTruthTableLabel() {
+        return this.truthTableLabel;
     }
 
-    public void setTruthTabelLabel(String truthTabelLabel) {
-        this.truthTabelLabel = truthTabelLabel;
+    public void setTruthTableLabel(String truthTableLabel) {
+        this.truthTableLabel = truthTableLabel;
     }
 
     public String getParseTreeLabel() {
@@ -192,7 +192,7 @@ public class MainViewLabels {
                 "propositionalLabel='" + propositionalLabel + '\'' +
                 ", predicateLabel='" + predicateLabel + '\'' +
                 ", errorAndWarningLabel='" + errorAndWarningLabel + '\'' +
-                ", truthTabelLabel='" + truthTabelLabel + '\'' +
+                ", truthTableLabel='" + truthTableLabel + '\'' +
                 ", parseTreeLabel='" + parseTreeLabel + '\'' +
                 ", truthTreeLabel='" + truthTreeLabel + '\'' +
                 ", symbolNameLabel='" + symbolNameLabel + '\'' +
