@@ -37,7 +37,7 @@ public class TranslateUIDO {
         fileMenu.setLabel(ta.translate(LANG_FROM, langTo, menuBar.getFile().getLabel()));
         fileMenu.setNewProject((NewProject) main.menu(fileMenu.getNewProject()));
         fileMenu.setOpenProject((OpenProject) main.menu(fileMenu.getOpenProject()));
-        fileMenu.setExport((Export) main.menu(fileMenu.getExport()));
+//        fileMenu.setExport((Export) main.menu(fileMenu.getExport()));
         fileMenu.setLogin((Login) main.menu(fileMenu.getLogin()));
         fileMenu.setRegister((Register) main.menu(fileMenu.getRegister()));
         fileMenu.setSettings((Settings) main.menu(fileMenu.getSettings()));

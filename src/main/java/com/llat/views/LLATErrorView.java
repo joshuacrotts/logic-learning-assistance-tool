@@ -19,7 +19,7 @@ public class LLATErrorView {
     /**
      *
      */
-    private Label errorLabel = new Label("Errors/Warnings");
+    private Label errorLabel;
 
     /**
      *
@@ -47,6 +47,7 @@ public class LLATErrorView {
         this.parentPane.setId("errorMessageVBox");
         this.parentPane.setAlignment(Pos.CENTER);
         // Setting Label errorLabel properties.
+        this.errorLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getErrorAndWarningLabel());
         this.errorLabel.setId("errorLabel");
         // Setting ScrollPane logScrollPane's properties.
         this.logScrollPane.setId("errorScrollPane");

@@ -11,6 +11,7 @@ import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.models.localstorage.uidescription.settingsview.AllLanguage;
 import com.llat.models.localstorage.uidescription.settingsview.AllTheme;
+import com.llat.models.localstorage.uidescription.settingsview.Confirmation;
 import com.llat.tools.ViewManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -167,9 +168,9 @@ public class SettingsView {
         });
         saveButton.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Are you sure?");
-            alert.setContentText("Saving the current changes will require the application to restart. Are you sure you want to continue?");
+            alert.setTitle(controller.getUiObject().getSettingsView().getConfirmation().getLabel());
+            alert.setHeaderText(controller.getUiObject().getSettingsView().getConfirmation().getAlertHeader());
+            alert.setContentText(controller.getUiObject().getSettingsView().getConfirmation().getAlertContent());
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {

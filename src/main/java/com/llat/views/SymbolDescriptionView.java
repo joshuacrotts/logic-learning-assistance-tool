@@ -52,7 +52,7 @@ public class SymbolDescriptionView {
         symbolNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getSymbolNameLabel());
         formalNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getFormalNameLabel());
         alternativeSymbolsLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getAlternativeSymbolsLabel());
-        explanationLabel = new Label("Explanation");
+        explanationLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExplanationLabel());
         exampleLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExamplesLabel());
 
 
