@@ -4,11 +4,14 @@ package com.llat.models.localstorage.uidescription.mainview;
 public class MainViewLabels {
     public String propositionalLabel;
     public String predicateLabel;
-    public String truthTabelLabel;
+    public String errorAndWarningLabel;
+    public String truthTableLabel;
+    public String parseTreeLabel;
     public String truthTreeLabel;
     public String symbolNameLabel;
     public String formalNameLabel;
     public String alternativeSymbolsLabel;
+    public String explanationLabel;
     public String examplesLabel;
     public GeneralMenu generalMenu;
     public PropositionalMenu propositionalMenu;
@@ -16,15 +19,19 @@ public class MainViewLabels {
     public String axiomTabLabel;
     public String historyTabLabel;
     public String solveButton;
+    public String applyButton;
 
-    public MainViewLabels(String propositionalLabel, String predicateLabel, String truthTabelLabel, String truthTreeLabel, String symbolNameLabel, String formalNameLabel, String alternativeSymbolsLabel, String examplesLabel, GeneralMenu generalMenu, PropositionalMenu propositionalMenu, PredicateMenu predicateMenu, String axiomTabLabel, String historyTabLabel, String solveButton) {
+    public MainViewLabels(String propositionalLabel, String predicateLabel, String errorAndWarningLabel, String truthTableLabel, String parseTreeLabel, String truthTreeLabel, String symbolNameLabel, String formalNameLabel, String alternativeSymbolsLabel, String explanationLabel, String examplesLabel, GeneralMenu generalMenu, PropositionalMenu propositionalMenu, PredicateMenu predicateMenu, String axiomTabLabel, String historyTabLabel, String solveButton, String applyButton) {
         this.propositionalLabel = propositionalLabel;
         this.predicateLabel = predicateLabel;
-        this.truthTabelLabel = truthTabelLabel;
+        this.errorAndWarningLabel = errorAndWarningLabel;
+        this.truthTableLabel = truthTableLabel;
+        this.parseTreeLabel = parseTreeLabel;
         this.truthTreeLabel = truthTreeLabel;
         this.symbolNameLabel = symbolNameLabel;
         this.formalNameLabel = formalNameLabel;
         this.alternativeSymbolsLabel = alternativeSymbolsLabel;
+        this.explanationLabel = explanationLabel;
         this.examplesLabel = examplesLabel;
         this.generalMenu = generalMenu;
         this.propositionalMenu = propositionalMenu;
@@ -32,10 +39,11 @@ public class MainViewLabels {
         this.axiomTabLabel = axiomTabLabel;
         this.historyTabLabel = historyTabLabel;
         this.solveButton = solveButton;
+        this.applyButton = applyButton;
     }
 
     public String getPropositionalLabel() {
-        return propositionalLabel;
+        return this.propositionalLabel;
     }
 
     public void setPropositionalLabel(String propositionalLabel) {
@@ -43,23 +51,39 @@ public class MainViewLabels {
     }
 
     public String getPredicateLabel() {
-        return predicateLabel;
+        return this.predicateLabel;
     }
 
     public void setPredicateLabel(String predicateLabel) {
         this.predicateLabel = predicateLabel;
     }
 
-    public String getTruthTabelLabel() {
-        return truthTabelLabel;
+    public String getErrorAndWarningLabel() {
+        return errorAndWarningLabel;
     }
 
-    public void setTruthTabelLabel(String truthTabelLabel) {
-        this.truthTabelLabel = truthTabelLabel;
+    public void setErrorAndWarningLabel(String errorAndWarningLabel) {
+        this.errorAndWarningLabel = errorAndWarningLabel;
+    }
+
+    public String getTruthTableLabel() {
+        return this.truthTableLabel;
+    }
+
+    public void setTruthTableLabel(String truthTableLabel) {
+        this.truthTableLabel = truthTableLabel;
+    }
+
+    public String getParseTreeLabel() {
+        return parseTreeLabel;
+    }
+
+    public void setParseTreeLabel(String parseTreeLabel) {
+        this.parseTreeLabel = parseTreeLabel;
     }
 
     public String getTruthTreeLabel() {
-        return truthTreeLabel;
+        return this.truthTreeLabel;
     }
 
     public void setTruthTreeLabel(String truthTreeLabel) {
@@ -67,7 +91,7 @@ public class MainViewLabels {
     }
 
     public String getSymbolNameLabel() {
-        return symbolNameLabel;
+        return this.symbolNameLabel;
     }
 
     public void setSymbolNameLabel(String symbolNameLabel) {
@@ -75,7 +99,7 @@ public class MainViewLabels {
     }
 
     public String getFormalNameLabel() {
-        return formalNameLabel;
+        return this.formalNameLabel;
     }
 
     public void setFormalNameLabel(String formalNameLabel) {
@@ -83,15 +107,23 @@ public class MainViewLabels {
     }
 
     public String getAlternativeSymbolsLabel() {
-        return alternativeSymbolsLabel;
+        return this.alternativeSymbolsLabel;
     }
 
     public void setAlternativeSymbolsLabel(String alternativeSymbolsLabel) {
         this.alternativeSymbolsLabel = alternativeSymbolsLabel;
     }
 
+    public String getExplanationLabel() {
+        return explanationLabel;
+    }
+
+    public void setExplanationLabel(String explanationLabel) {
+        this.explanationLabel = explanationLabel;
+    }
+
     public String getExamplesLabel() {
-        return examplesLabel;
+        return this.examplesLabel;
     }
 
     public void setExamplesLabel(String examplesLabel) {
@@ -99,7 +131,7 @@ public class MainViewLabels {
     }
 
     public GeneralMenu getGeneralMenu() {
-        return generalMenu;
+        return this.generalMenu;
     }
 
     public void setGeneralMenu(GeneralMenu generalMenu) {
@@ -107,7 +139,7 @@ public class MainViewLabels {
     }
 
     public PropositionalMenu getPropositionalMenu() {
-        return propositionalMenu;
+        return this.propositionalMenu;
     }
 
     public void setPropositionalMenu(PropositionalMenu propositionalMenu) {
@@ -115,7 +147,7 @@ public class MainViewLabels {
     }
 
     public PredicateMenu getPredicateMenu() {
-        return predicateMenu;
+        return this.predicateMenu;
     }
 
     public void setPredicateMenu(PredicateMenu predicateMenu) {
@@ -123,7 +155,7 @@ public class MainViewLabels {
     }
 
     public String getAxiomTabLabel() {
-        return axiomTabLabel;
+        return this.axiomTabLabel;
     }
 
     public void setAxiomTabLabel(String axiomTabLabel) {
@@ -131,7 +163,7 @@ public class MainViewLabels {
     }
 
     public String getHistoryTabLabel() {
-        return historyTabLabel;
+        return this.historyTabLabel;
     }
 
     public void setHistoryTabLabel(String historyTabLabel) {
@@ -139,11 +171,19 @@ public class MainViewLabels {
     }
 
     public String getSolveButton() {
-        return solveButton;
+        return this.solveButton;
     }
 
     public void setSolveButton(String solveButton) {
         this.solveButton = solveButton;
+    }
+
+    public String getApplyButton() {
+        return applyButton;
+    }
+
+    public void setApplyButton(String applyButton) {
+        this.applyButton = applyButton;
     }
 
     @Override
@@ -151,11 +191,14 @@ public class MainViewLabels {
         return "MainViewLabels{" +
                 "propositionalLabel='" + propositionalLabel + '\'' +
                 ", predicateLabel='" + predicateLabel + '\'' +
-                ", truthTabelLabel='" + truthTabelLabel + '\'' +
+                ", errorAndWarningLabel='" + errorAndWarningLabel + '\'' +
+                ", truthTableLabel='" + truthTableLabel + '\'' +
+                ", parseTreeLabel='" + parseTreeLabel + '\'' +
                 ", truthTreeLabel='" + truthTreeLabel + '\'' +
                 ", symbolNameLabel='" + symbolNameLabel + '\'' +
                 ", formalNameLabel='" + formalNameLabel + '\'' +
                 ", alternativeSymbolsLabel='" + alternativeSymbolsLabel + '\'' +
+                ", explanationLabel='" + explanationLabel + '\'' +
                 ", examplesLabel='" + examplesLabel + '\'' +
                 ", generalMenu=" + generalMenu +
                 ", propositionalMenu=" + propositionalMenu +
@@ -163,6 +206,7 @@ public class MainViewLabels {
                 ", axiomTabLabel='" + axiomTabLabel + '\'' +
                 ", historyTabLabel='" + historyTabLabel + '\'' +
                 ", solveButton='" + solveButton + '\'' +
+                ", applyButton='" + applyButton + '\'' +
                 '}';
     }
 }

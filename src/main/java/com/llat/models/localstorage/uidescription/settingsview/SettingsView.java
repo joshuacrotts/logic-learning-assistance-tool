@@ -2,19 +2,35 @@ package com.llat.models.localstorage.uidescription.settingsview;
 
 public class SettingsView {
     public Categories categories;
+    public Confirmation confirmation;
     public String cancel;
     public String save;
 
+    public SettingsView(Categories categories, Confirmation confirmation, String cancel, String save) {
+        this.categories = categories;
+        this.confirmation = confirmation;
+        this.cancel = cancel;
+        this.save = save;
+    }
+
     public Categories getCategories() {
-        return categories;
+        return this.categories;
     }
 
     public void setCategories(Categories categories) {
         this.categories = categories;
     }
 
+    public Confirmation getConfirmation() {
+        return confirmation;
+    }
+
+    public void setConfirmation(Confirmation confirmation) {
+        this.confirmation = confirmation;
+    }
+
     public String getCancel() {
-        return cancel;
+        return this.cancel;
     }
 
     public void setCancel(String cancel) {
@@ -22,7 +38,7 @@ public class SettingsView {
     }
 
     public String getSave() {
-        return save;
+        return this.save;
     }
 
     public void setSave(String save) {
@@ -33,6 +49,7 @@ public class SettingsView {
     public String toString() {
         return "SettingsView{" +
                 "categories=" + categories +
+                ", confirmation=" + confirmation +
                 ", cancel='" + cancel + '\'' +
                 ", save='" + save + '\'' +
                 '}';

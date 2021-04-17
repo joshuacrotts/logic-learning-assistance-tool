@@ -1,6 +1,5 @@
 package com.llat.models.localstorage.uidescription.settingsview;
 
-import com.llat.models.localstorage.ItemObject;
 import com.llat.models.localstorage.settings.theme.ThemeObject;
 
 import java.util.List;
@@ -11,7 +10,7 @@ public class Theme {
     public List<ThemeObject> allThemes;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -19,7 +18,7 @@ public class Theme {
     }
 
     public Applied getApplied() {
-        return applied;
+        return this.applied;
     }
 
     public void setApplied(Applied applied) {
@@ -27,7 +26,7 @@ public class Theme {
     }
 
     public List<ThemeObject> getAllThemes() {
-        return allThemes;
+        return this.allThemes;
     }
 
     public void setAllThemes(List<ThemeObject> allThemes) {
@@ -37,9 +36,9 @@ public class Theme {
     @Override
     public String toString() {
         return "Theme{" +
-                "label='" + label + '\'' +
-                ", applied=" + applied +
-                ", allThemes=" + allThemes +
+                "label='" + this.label + '\'' +
+                ", applied=" + this.applied +
+                ", allThemes=" + this.allThemes +
                 '}';
     }
 }

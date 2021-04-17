@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.credentials.CredentialsInterface;
 import com.llat.models.localstorage.settings.SettingsInterface;
+import com.llat.models.localstorage.uidescription.TranslateUIDO;
 import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.models.localstorage.uidescription.UIObjectInterface;
-import com.llat.models.localstorage.uidescription.TranslateUIDO;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -14,9 +14,9 @@ import java.lang.reflect.Type;
 /**
  *
  */
-public class GsonIO implements  SettingsInterface, CredentialsInterface, UIObjectInterface {
+public class GsonIO implements SettingsInterface, CredentialsInterface, UIObjectInterface {
 
-    private static Gson gson = new Gson();
+    private static final Gson gson = new Gson();
     private final static String RESOURCES_PATH = "src/main/resources/";
     private final static String DEFAULT_UIDO_FILE = "UID/UIObject_en.json";
 
@@ -92,7 +92,7 @@ public class GsonIO implements  SettingsInterface, CredentialsInterface, UIObjec
             System.out.println(filePath);
         } catch (NullPointerException e) {
             System.out.println("File is not exist. Empty file will be generated");
-            createMissingFile(_jsonFilePath);
+            this.createMissingFile(_jsonFilePath);
         }
         try {
             Writer writer = new FileWriter(filePath);
@@ -111,12 +111,12 @@ public class GsonIO implements  SettingsInterface, CredentialsInterface, UIObjec
 
     @Override
     public LocalStorage getData() {
-        String jsonString = readJsonFile(json);
-        LocalStorage localStorage = gson.fromJson(jsonString, aClass);
+        String jsonString = readJsonFile(this.json);
+        LocalStorage localStorage = gson.fromJson(jsonString, this.aClass);
         return localStorage;
     }
 
-    private String getLanguageFromFileName(String fileName){
+    private String getLanguageFromFileName(String fileName) {
 
         return fileName.substring(fileName.indexOf("_") + 1, fileName.indexOf("."));
     }

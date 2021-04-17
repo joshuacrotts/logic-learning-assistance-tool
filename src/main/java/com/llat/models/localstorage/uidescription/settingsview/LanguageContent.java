@@ -10,7 +10,7 @@ public class LanguageContent {
     public List<LanguageObject> allLanguages;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -18,7 +18,7 @@ public class LanguageContent {
     }
 
     public Applied getApplied() {
-        return applied;
+        return this.applied;
     }
 
     public void setApplied(Applied applied) {
@@ -26,7 +26,7 @@ public class LanguageContent {
     }
 
     public List<LanguageObject> getAllLanguages() {
-        return allLanguages;
+        return this.allLanguages;
     }
 
     public void setAllLanguages(List<LanguageObject> allLanguages) {
@@ -36,9 +36,9 @@ public class LanguageContent {
     @Override
     public String toString() {
         return "LanguageContnet{" +
-                "label='" + label + '\'' +
-                ", applied=" + applied +
-                ", allLanguages=" + allLanguages +
+                "label='" + this.label + '\'' +
+                ", applied=" + this.applied +
+                ", allLanguages=" + this.allLanguages +
                 '}';
     }
 }

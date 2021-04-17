@@ -12,22 +12,22 @@ public class CenterView {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private VBox parentPane = new VBox();
+    private final VBox parentPane = new VBox();
 
     /**
      *
      */
-    private TabPane tabPane;
+    private final TabPane tabPane;
 
     /**
      *
      */
-    private CenterViewInterpreter centerViewInterpreter;
+    private final CenterViewInterpreter centerViewInterpreter;
 
     public CenterView(Controller _controller) {
         this.controller = _controller;
@@ -36,7 +36,7 @@ public class CenterView {
         // Setting TabPane tabPane properties.
         this.tabPane = new TabPane();
         this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        this.tabPane.getTabs().addAll(new Tab("Truth Tree"), new Tab("Parse Tree"), new Tab("Truth Table"));
+        this.tabPane.getTabs().addAll(new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getTruthTreeLabel()), new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getParseTreeLabel()), new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getTruthTableLabel()));
         this.tabPane.getTabs().get(0).setContent(new TruthTreeView(this.controller).getParentPane());
         this.tabPane.getTabs().get(1).setContent(new ParseTreeView(this.controller).getParentPane());
         this.tabPane.getTabs().get(2).setContent(new TruthTableView(this.controller).getParentPane());

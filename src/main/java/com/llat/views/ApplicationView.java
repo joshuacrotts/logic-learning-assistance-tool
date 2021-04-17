@@ -9,12 +9,12 @@ public class ApplicationView {
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private BorderPane parentPane = new BorderPane();
+    private final BorderPane parentPane = new BorderPane();
 
     public ApplicationView(Controller _controller) {
         this.controller = _controller;

@@ -5,7 +5,7 @@ public class Appearance {
     public Theme theme;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -13,7 +13,7 @@ public class Appearance {
     }
 
     public Theme getTheme() {
-        return theme;
+        return this.theme;
     }
 
     public void setTheme(Theme theme) {
@@ -23,8 +23,8 @@ public class Appearance {
     @Override
     public String toString() {
         return "Appearance{" +
-                "label='" + label + '\'' +
-                ", theme=" + theme +
+                "label='" + this.label + '\'' +
+                ", theme=" + this.theme +
                 '}';
     }
 }

@@ -33,10 +33,10 @@ public class Controller implements Initializable {
     private final Stage stage;
     private final LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
     private final DatabaseAdapter databaseAdapter = new DatabaseAdapter();
-    private final DatabaseInterpeter di = new DatabaseInterpeter(databaseAdapter, this);
-    private final UIObjectAdaptor uiObjectAdaptor =  new UIObjectAdaptor();
-    private UIObject uiObject;
+    private final DatabaseInterpeter di = new DatabaseInterpeter(this.databaseAdapter, this);
+    private final UIObjectAdaptor uiObjectAdaptor = new UIObjectAdaptor();
     private final LogicSetup logicSetup = new LogicSetup();
+    private UIObject uiObject;
     private UserObject user;
     private ApplicationView applicationView;
     private LoginView loginView;
@@ -45,7 +45,7 @@ public class Controller implements Initializable {
     public Controller(Stage _stage) {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
-        this.uiObject = (UIObject) uiObjectAdaptor.getData();
+        this.uiObject = (UIObject) this.uiObjectAdaptor.getData();
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {
@@ -119,8 +119,6 @@ public class Controller implements Initializable {
                             _canvas.setTranslateY(_canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX()));
                             curMouse.setCurY(mouseEvent.getY());
                         }
-
-
                     }
                 });
             }
@@ -228,11 +226,11 @@ public class Controller implements Initializable {
     }
 
     public UIObjectAdaptor getUiObjectAdaptor() {
-        return uiObjectAdaptor;
+        return this.uiObjectAdaptor;
     }
 
     public UIObject getUiObject() {
-        return uiObject;
+        return this.uiObject;
     }
 
     public void setUiObject(UIObject uiObject) {

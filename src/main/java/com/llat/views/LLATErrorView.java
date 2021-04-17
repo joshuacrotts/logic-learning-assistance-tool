@@ -7,51 +7,51 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class LLATErrorView {
 
     /**
      *
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      *
      */
-    private Label errorLabel = new Label("Errors/Warnings");
+    private Label errorLabel;
 
     /**
      *
      */
-    private VBox parentPane = new VBox();
+    private final VBox parentPane = new VBox();
 
     /**
      *
      */
-    private ScrollPane logScrollPane = new ScrollPane();
+    private final ScrollPane logScrollPane = new ScrollPane();
 
     /**
      *
      */
-    private VBox logBox = new VBox();
+    private final VBox logBox = new VBox();
 
     /**
      *
      */
-    private LLATErrorViewInterpreter llatErrorViewInterpreter;
+    private final LLATErrorViewInterpreter llatErrorViewInterpreter;
 
-    public LLATErrorView (Controller _controller) {
+    public LLATErrorView(Controller _controller) {
         this.controller = _controller;
         // Setting VBox parentPane's properties.
         this.parentPane.setId("errorMessageVBox");
         this.parentPane.setAlignment(Pos.CENTER);
         // Setting Label errorLabel properties.
+        this.errorLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getErrorAndWarningLabel());
         this.errorLabel.setId("errorLabel");
         // Setting ScrollPane logScrollPane's properties.
         this.logScrollPane.setId("errorScrollPane");
         this.logScrollPane.setFitToWidth(true);
-        this.parentPane.heightProperty().addListener((obs, oldVal,newVal) -> {
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             this.logScrollPane.setMinHeight(newVal.doubleValue() * .70);
             this.logScrollPane.setMaxHeight(newVal.doubleValue() * .70);
         });
@@ -69,19 +69,19 @@ public class LLATErrorView {
     }
 
     public LLATErrorViewInterpreter getLlatErrorViewInterpreter() {
-        return llatErrorViewInterpreter;
+        return this.llatErrorViewInterpreter;
     }
 
     public VBox getParentPane() {
-        return parentPane;
+        return this.parentPane;
     }
 
     public ScrollPane getLogScrollPane() {
-        return logScrollPane;
+        return this.logScrollPane;
     }
 
     public VBox getLogBox() {
-        return logBox;
+        return this.logBox;
     }
 
 }

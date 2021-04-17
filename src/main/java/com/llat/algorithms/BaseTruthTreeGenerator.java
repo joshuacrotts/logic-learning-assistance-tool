@@ -243,12 +243,11 @@ public abstract class BaseTruthTreeGenerator {
     /**
      * Prints out the TruthTree in the console in a pretty format.
      * <p>
-     *     The reference is here: https://www.baeldung.com/java-print-binary-tree-diagram
-     *     That's really all I can say.
-     *</p>
+     * The reference is here: https://www.baeldung.com/java-print-binary-tree-diagram
+     * That's really all I can say.
+     * </p>
      *
      * @param root - root of the TruthTree.
-     *
      * @return String representation of truth tree to print in console.
      */
     public String print(TruthTree root) {
@@ -550,7 +549,7 @@ public abstract class BaseTruthTreeGenerator {
      * ~(A | B) == (~A & ~B)
      * ~(A & B) == (~A | ~B)
      * ~(A -> B) == (~~A & ~B)
-     *
+     * <p>
      * Each of these equivalences on the rhs of the rule *is* applied when building
      * the tree. This means that there are some redundant steps added. These ought
      * be noted in the final version if time permits.

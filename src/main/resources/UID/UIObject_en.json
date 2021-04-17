@@ -9,7 +9,6 @@
       "openProject": {
         "label": "Open Project",
         "content": [
-          {}
         ]
       },
       "export": {
@@ -38,6 +37,43 @@
         "content": []
       }
     },
+    "export": {
+      "label": "Export",
+      "pdf": {
+        "label": "PDF",
+        "content": [
+          {
+            "label": "Truth Table",
+            "content": []
+          },
+          {
+            "label": "Truth Tree",
+            "content": []
+          },
+          {
+            "label": "Parse Tree",
+            "content": []
+          }
+        ]
+      },
+      "latex": {
+        "label": "LaTeX",
+        "content": [
+          {
+            "label": "Truth Table",
+            "content": []
+          },
+          {
+            "label": "Truth Tree",
+            "content": []
+          },
+          {
+            "label": "Parse Tree",
+            "content": []
+          }
+        ]
+      }
+    },
     "help": {
       "label": "Help",
       "about": {
@@ -50,11 +86,14 @@
     "mainViewLabels": {
       "propositionalLabel": "Propositional Logic",
       "predicateLabel": "Predicate Logic",
-      "truthTabelLabel": "Truth Tabel",
+      "errorAndWarningLabel": "Errors/Warnings",
+      "truthTableLabel": "Truth Table",
+      "parseTreeLabel": "Parse Tree",
       "truthTreeLabel": "Truth Tree",
       "symbolNameLabel": "Symbol Name",
       "formalNameLabel": "Formal Name",
       "alternativeSymbolsLabel": "Alternative Symbols",
+      "explanationLabel": "Explanation",
       "examplesLabel": "Examples",
       "generalMenu": {
         "label": "General",
@@ -157,7 +196,8 @@
       },
       "axiomTabLabel": "Axioms",
       "historyTabLabel": "History",
-      "solveButton": "Solve"
+      "solveButton": "Solve",
+      "applyButton": "Apply"
     },
     "logicSymbols": {
       "propositional": {
@@ -661,6 +701,11 @@
         }
       }
     },
+    "confirmation":{
+      "label":"Confirmation",
+      "alertHeader": "Are you sure",
+      "alertContent": "Saving the current changes will require the application to restart. Are you sure you want to continue?"
+    },
     "cancel": "Cancel",
     "save": "Save"
   },
@@ -674,9 +719,9 @@
   },
   "registerView": {
     "userNameLabel": "User Name",
-    "userNamePromptText":"Enter your user name",
-    "firstNamePromptText":"Enter your first name",
-    "lastNamePromptText":"Enter your last name",
+    "userNamePromptText": "Enter your user name",
+    "firstNamePromptText": "Enter your first name",
+    "lastNamePromptText": "Enter your last name",
     "firstName": "First Name",
     "lastName": "Last Name",
     "passwordLabel": "Password",

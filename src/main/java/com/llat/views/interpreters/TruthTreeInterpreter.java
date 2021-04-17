@@ -4,18 +4,15 @@ import com.llat.algorithms.models.TruthTree;
 import com.llat.controller.Controller;
 import com.llat.input.events.UnsolvedFormulaEvent;
 import com.llat.models.events.UpdateViewTruthTreeEvent;
-import com.llat.models.treenode.WffTree;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.TruthTreeView;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeForTreeLayout;
@@ -24,7 +21,6 @@ import org.abego.treelayout.util.DefaultConfiguration;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -114,8 +110,7 @@ public class TruthTreeInterpreter implements Listener {
 
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
-        }
-        else if (_event instanceof UnsolvedFormulaEvent) {
+        } else if (_event instanceof UnsolvedFormulaEvent) {
             if (this.treePane != null) {
                 this.truthTreeView.getParentPane().getChildren().remove(this.treePane);
             }
@@ -216,7 +211,7 @@ public class TruthTreeInterpreter implements Listener {
     private TreeForTreeLayout<TruthTreeGuiNode> convertToAbegoTree(TruthTree _root) {
         Queue<TruthTreeGuiNode> q = new LinkedList<>();
 
-        TruthTreeGuiNode guiNode = new TruthTreeGuiNode( _root, this.treePane);
+        TruthTreeGuiNode guiNode = new TruthTreeGuiNode(_root, this.treePane);
         TruthTreeGuiNode stackRoot = null;
         TruthTreeGuiNode t = null;
 
@@ -236,7 +231,7 @@ public class TruthTreeInterpreter implements Listener {
                 stackRoot.stackNode(t.getLeft());
                 t = new TruthTreeGuiNode(t.getLeft(), this.treePane);
                 branch = false;
-            } else if (t.getRight() != null){
+            } else if (t.getRight() != null) {
                 // In here we branch and add to the queue.
                 TruthTreeGuiNode left = new TruthTreeGuiNode(t.getLeft(), this.treePane);
                 TruthTreeGuiNode right = new TruthTreeGuiNode(t.getRight(), this.treePane);
@@ -324,7 +319,7 @@ public class TruthTreeInterpreter implements Listener {
             this.PANE = _pane;
             this.text = _tree.getWff().getStringRep() + "\n";
             this.height = 12;
-            this.width = text.length() * 10;
+            this.width = this.text.length() * 10;
         }
 
         /**
@@ -359,7 +354,6 @@ public class TruthTreeInterpreter implements Listener {
         }
 
         /**
-         *
          * @return
          */
         public Tooltip createTooltip() {

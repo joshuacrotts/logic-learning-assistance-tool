@@ -21,7 +21,7 @@ public class UIObject extends LocalStorage {
     }
 
     public MenuBar getMenuBar() {
-        return menuBar;
+        return this.menuBar;
     }
 
     public void setMenuBar(MenuBar menuBar) {
@@ -29,7 +29,7 @@ public class UIObject extends LocalStorage {
     }
 
     public MainView getMainView() {
-        return mainView;
+        return this.mainView;
     }
 
     public void setMainView(MainView mainView) {
@@ -37,7 +37,7 @@ public class UIObject extends LocalStorage {
     }
 
     public SettingsView getSettingsView() {
-        return settingsView;
+        return this.settingsView;
     }
 
     public void setSettingsView(SettingsView settingsView) {
@@ -45,7 +45,7 @@ public class UIObject extends LocalStorage {
     }
 
     public LoginViewObject getLoginView() {
-        return loginView;
+        return this.loginView;
     }
 
     public void setLoginView(LoginViewObject loginViewObject) {
@@ -53,7 +53,7 @@ public class UIObject extends LocalStorage {
     }
 
     public RegisterView getRegisterView() {
-        return registerView;
+        return this.registerView;
     }
 
     public void setRegisterView(RegisterView registerView) {
@@ -63,11 +63,11 @@ public class UIObject extends LocalStorage {
     @Override
     public String toString() {
         return "UIObject{" +
-                "menuBar=" + menuBar +
-                ", mainView=" + mainView +
-                ", settingsView=" + settingsView +
-                ", loginView=" + loginView +
-                ", registerView=" + registerView +
+                "menuBar=" + this.menuBar +
+                ", mainView=" + this.mainView +
+                ", settingsView=" + this.settingsView +
+                ", loginView=" + this.loginView +
+                ", registerView=" + this.registerView +
                 '}';
     }
 }
