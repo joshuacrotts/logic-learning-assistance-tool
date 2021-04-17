@@ -190,6 +190,15 @@ public class Controller implements Initializable {
         });
     }
 
+    public void registerAction(Button _button, TextField _userName, TextField _firstname, TextField _lastname, PasswordField _password) {
+        _button.setOnAction((event) -> {
+            int user = this.databaseAdapter.Register(_userName.getText(),_password.getText(),_firstname.getText(),_lastname.getText());
+            EventBus.throwEvent(new RegistrationStatusEvent(user));
+        });
+    }
+
+
+
     public Stage getStage() {
         return this.stage;
     }

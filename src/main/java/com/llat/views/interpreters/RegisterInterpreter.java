@@ -25,13 +25,8 @@ public class RegisterInterpreter implements Listener {
     public RegisterInterpreter(Controller _controller, RegisterView _registerView) {
         this.controller = _controller;
         this.registerView = _registerView;
-        this.registerView.getRegisterButton().setOnAction((node) -> {
-            RegisterEvent re = new RegisterEvent(this.registerView.getUserNameField().getText(),
-                    this.registerView.getFirstNameField().getText(), this.registerView.getLastNameField().getText(),
-                    this.registerView.getPasswordField().getText());
-            EventBus.throwEvent(re);
-        });
-        this.registerView.getReturnButton().setOnAction((node) -> {
+        this.controller.registerAction(this.registerView.getRegisterButton(),this.registerView.getUserNameField(),this.registerView.getFirstNameField(),this.registerView.getLastNameField(), this.registerView.getPasswordField());
+        this.registerView.getReturnButton().setOnAction((event) -> {
             this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
         });
 
@@ -50,7 +45,7 @@ public class RegisterInterpreter implements Listener {
                     System.out.println("You need to fill all the required fields");
                     break;
                 case DatabaseAdapter.REGISTERED_DUP_USER:
-                    System.out.println("User name is already exist");
+                    System.out.println("User name already exists");
                     break;
             }
         }
