@@ -18,7 +18,7 @@ public class ExportMenu {
 
     public ExportMenu(Controller controller) {
         this.controller = controller;
-        this.exportMenu = new Menu(controller.getUiObject().getMenuBar().getFile().getExport().getLabel());
+        this.exportMenu = new Menu(controller.getUiObject().getMenuBar().getExport().getLabel());
         // Initializing ExportLaTeXTruthTableItem exportLaTeXTruthTableItem.
         this.exportLaTeXTruthTableItem = new ExportLaTeXTruthTableItem(this.controller);
         // Initializing ExportLaTeXParseTreeItem exportLaTeXParseTreeItem

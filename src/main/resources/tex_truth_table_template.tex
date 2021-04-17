@@ -1,14 +1,12 @@
-\documentclass[tikz,border=10pt]{standalone}
-\newcommand*\lif{\mathbin{\to}}% added thanks to egreg's suggestion
-\usepackage{forest}
-\usepackage{amsfonts}
+\documentclass[border=10pt]{standalone}
 \usepackage{amsmath}
 \usepackage{array}
+
 \newcommand{\varlnot}{\mathord{\sim}}
 \newcommand{\varland}{\mathbin{\&}}
 \newcommand{\varliff}{\leftrightarrow}
 \newcommand{\dneg}{\varlnot\varlnot}
-\newcolumntype{C}{>$c<$}
+\newcommand*\lif{\mathbin{\to}}% added thanks to egreg's suggestion
+\newcommand{\ltrue}{\mathrm{true}}
+
 \begin{document}
-\begin{forest}
-[
