@@ -54,6 +54,7 @@ public class SettingsView {
     private final Pane advancePane;
     private SettingsAdaptor sa = new SettingsAdaptor();
     private SettingsObject so = (SettingsObject) this.sa.getData();
+    private DatabaseAdapter db = new DatabaseAdapter();
     private UIObjectAdaptor uioa = new UIObjectAdaptor();
     private UIObject uio = (UIObject) this.uioa.getData();
     private Stage settingsStage;
@@ -171,6 +172,13 @@ public class SettingsView {
                 this.settingsStage.close();
                 this.stage.close();
                 new Window(new Stage());
+                if (this.controller.getUser() != null){
+                    int USERID = this.controller.getUser().getUserId();
+                    String NewTheme = so.getTheme().getApplied().getName();
+                    String NewLanguage = so.getLanguage().getApplied().getCode();
+                    db.UpdateTheme(USERID,NewTheme);
+                    db.UpdateLanguage(USERID, NewLanguage);
+                }
             } else {
                 // ... user chose CANCEL or closed the dialog
             }
