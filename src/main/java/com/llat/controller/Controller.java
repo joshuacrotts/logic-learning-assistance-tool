@@ -182,6 +182,7 @@ public class Controller implements Initializable {
             this.user = this.databaseAdapter.Login(_userName.getText(), _password.getText());
             if (this.user != null) {
                 EventBus.throwEvent(new LoginSuccessEvent());
+                this.changeViewTo(ViewManager.MAINAPPLICATION);
             }
             else {
                 EventBus.throwEvent(new LoginFailEvent());
