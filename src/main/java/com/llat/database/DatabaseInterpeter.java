@@ -33,8 +33,9 @@ public class DatabaseInterpeter implements Listener {
                 ((SolvedFormulaEvent) _event).getWffTree().forEach((tree) -> {
                     this.test.add(tree.getStringRep());
                 });
-                String text = this.test.get(0);
-                this.databaseAdapter.InsertQuery(this.USERID, text);
+
+               String text = this.test.get(0);
+               this.databaseAdapter.InsertQuery(this.USERID, text);
             }
 
             if (_event instanceof RegisterEvent) {
