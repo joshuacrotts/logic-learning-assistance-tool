@@ -24,7 +24,6 @@ public class FormulaInputInterpreter implements Listener {
      *
      */
     private final FormulaInputView formulaInputView;
-
     /**
      *
      */

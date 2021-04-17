@@ -38,6 +38,9 @@ public class Controller implements Initializable {
     private UIObject uiObject;
     private final LogicSetup logicSetup = new LogicSetup();
     private UserObject user;
+    private ApplicationView applicationView;
+    private LoginView loginView;
+    private RegisterView registerView;
 
     public Controller(Stage _stage) {
         this.stage = _stage;
@@ -182,14 +185,32 @@ public class Controller implements Initializable {
         Pane parentPane = new Pane();
         switch (_viewName) {
             case ViewManager.MAINAPPLICATION: {
-                parentPane = (new ApplicationView(this).getParentPane());
+                try {
+                    parentPane = this.applicationView.getParentPane();
+                }
+                catch (Exception e) {
+                    this.applicationView = new ApplicationView(this);
+                    parentPane = this.applicationView.getParentPane();
+                }
                 break;
             }
             case ViewManager.LOGIN:
-                parentPane = (new LoginView(this)).getParentPane();
+                try {
+                    parentPane = this.loginView.getParentPane();
+                }
+                catch (Exception e) {
+                    this.loginView = (new LoginView(this));
+                    parentPane = this.loginView.getParentPane();
+                }
                 break;
             case ViewManager.REGISTER:
-                parentPane = (new RegisterView(this)).getParentPane();
+                try {
+                    parentPane = this.registerView.getParentPane();
+                }
+                catch (Exception e) {
+                    this.registerView = (new RegisterView(this));
+                    parentPane = this.registerView.getParentPane();
+                }
                 break;
             default:
                 // Update this to error view.
