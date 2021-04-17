@@ -23,7 +23,9 @@ public final class EventBus {
             }
         });
     }
-
+    public static void resetListeners() {
+        EventBus.listeners.removeAll(EventBus.getListeners());
+    }
     public static void addListener(Listener _listener) {
         EventBus.listeners.add(_listener);
     }

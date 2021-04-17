@@ -421,6 +421,10 @@
             {
               "name": "Dark",
               "code": "dark.css"
+            },
+            {
+              "name": "Sepia",
+              "code": "sepia.css"
             }
           ]
         }
