@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public interface WffAlgorithm {
 
-    public LinkedList<WffTree> getList(WffTree tree);
+    LinkedList<WffTree> getList(WffTree tree);
 
-    public WffTree get(WffTree tree);
+    WffTree get(WffTree tree);
 }

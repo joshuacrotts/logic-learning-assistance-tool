@@ -4,35 +4,24 @@ import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.localstorage.settings.theme.ThemeObject;
 
-import java.util.List;
-
 /**
  *
  */
 public class SettingsObject extends LocalStorage {
 
-    /**
-     *
-     */
+    //    public String test;
     public static LanguageObject languageObject;
 
-    /**
-     *
-     */
     private Language language;
-
-    /**
-     *
-     */
     private Theme theme;
 
     public SettingsObject(Language language, Theme theme) {
+        SettingsObject.languageObject = this.language.applied;
         this.language = language;
         this.theme = theme;
     }
 
     public Language getLanguage() {
-        SettingsObject.languageObject = this.language.applied;
         return this.language;
     }
 
@@ -48,16 +37,22 @@ public class SettingsObject extends LocalStorage {
         this.theme = theme;
     }
 
+    @Override
+    public String toString() {
+        return "SettingsObject{" +
+                "language=" + this.language +
+                ", theme=" + this.theme +
+                '}';
+    }
+
     /**
      *
      */
     public class Theme {
         private ThemeObject applied;
-        private List<ThemeObject> allThemes;
 
-        public Theme(ThemeObject applied, List<ThemeObject> allThemes) {
+        public Theme(ThemeObject applied) {
             this.applied = applied;
-            this.allThemes = allThemes;
         }
 
         public ThemeObject getApplied() {
@@ -68,12 +63,11 @@ public class SettingsObject extends LocalStorage {
             this.applied = applied;
         }
 
-        public List<ThemeObject> getAllThemes() {
-            return this.allThemes;
-        }
-
-        public void setAllThemes(List<ThemeObject> allThemes) {
-            this.allThemes = allThemes;
+        @Override
+        public String toString() {
+            return "Theme{" +
+                    "applied=" + this.applied +
+                    '}';
         }
     }
 
@@ -82,11 +76,9 @@ public class SettingsObject extends LocalStorage {
      */
     public class Language {
         private LanguageObject applied;
-        private List<LanguageObject> allLanguages;
 
-        public Language(LanguageObject applied, List<LanguageObject> allLanguages) {
+        public Language(LanguageObject applied) {
             this.applied = applied;
-            this.allLanguages = allLanguages;
         }
 
         public LanguageObject getApplied() {
@@ -97,13 +89,11 @@ public class SettingsObject extends LocalStorage {
             this.applied = applied;
         }
 
-        public List<LanguageObject> getAllLanguages() {
-            return this.allLanguages;
-        }
-
-        public void setAllLanguages(List<LanguageObject> allLanguages) {
-            this.allLanguages = allLanguages;
+        @Override
+        public String toString() {
+            return "Language{" +
+                    "applied=" + this.applied +
+                    '}';
         }
     }
-
 }

@@ -28,7 +28,6 @@ public class ViewManager {
     public final static String RESOURCEPATH = "src/main/resources/assets/stylesheets/";
 
     /**
-     *
      * @return
      */
     public static String getDefaultStyle() {
@@ -39,7 +38,6 @@ public class ViewManager {
     }
 
     /**
-     *
      * @param _theme
      * @return
      */
@@ -49,7 +47,6 @@ public class ViewManager {
     }
 
     /**
-     *
      * @return
      */
     public static String getStyle() {

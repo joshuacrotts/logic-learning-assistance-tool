@@ -12,20 +12,24 @@ import com.llat.views.events.RegistrationStatusEvent;
 
 public class RegisterInterpreter implements Listener {
 
-    private Controller controller;
-    private RegisterView registerView;
+    /**
+     *
+     */
+    private final Controller controller;
+
+    /**
+     *
+     */
+    private final RegisterView registerView;
 
     public RegisterInterpreter(Controller _controller, RegisterView _registerView) {
         this.controller = _controller;
         this.registerView = _registerView;
         this.registerView.getRegisterButton().setOnAction((node) -> {
-            DatabaseAdapter ad = new DatabaseAdapter();
-            String userName = this.registerView.getUserNameField().getText();
-            String firstName = this.registerView.getFirstNameField().getText();
-            String lastName = this.registerView.getLastNameField().getText();
-            String pass = this.registerView.getPasswordField().getText();
-            int user = ad.Register(userName, pass, firstName, lastName);
-            EventBus.throwEvent(new RegistrationStatusEvent(user));
+            RegisterEvent re = new RegisterEvent(this.registerView.getUserNameField().getText(),
+                    this.registerView.getFirstNameField().getText(), this.registerView.getLastNameField().getText(),
+                    this.registerView.getPasswordField().getText());
+            EventBus.throwEvent(re);
         });
         this.registerView.getReturnButton().setOnAction((node) -> {
             this.controller.changeViewTo(ViewManager.MAINAPPLICATION);

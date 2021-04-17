@@ -54,32 +54,20 @@ public class RandomPredicateFormulaGenerator {
     /**
      *
      */
-    private double predicateProbability = 1.0;
+    private final double predicateProbability = 1.0;
 
     /**
      *
      */
-    private double predicateDeltaProbability = 0.10;
+    private final double predicateDeltaProbability = 0.10;
 
-    /**
-     *
-     */
-    private double usedPredicateProbability = 0.25;
-
-    /**
-     *
-     */
+    private final double usedPredicateProbability = 0.25;
+    private final double negDeltaProbability = 0.20;
+    private final double binopDeltaProbability = 0.50;
+    private final double quantifierDeltaProbability = 0.25;
     private double negProbability = 0.50;
-    private double negDeltaProbability = 0.20;
     private double binopProbability = 1.0;
-    private double binopDeltaProbability = 0.50;
     private double quantifierProbability = 0.50;
-    private double quantifierDeltaProbability = 0.25;
-
-    public static void main(String[] args) {
-        RandomPredicateFormulaGenerator gen = new RandomPredicateFormulaGenerator();
-        System.out.println(gen.genRandomPredicateFormula());
-    }
 
     public RandomPredicateFormulaGenerator() {
         this.predicatesNotUsed = new ArrayList<>();
@@ -113,8 +101,12 @@ public class RandomPredicateFormulaGenerator {
         this.binaryOperators.add("∨");
     }
 
+    public static void main(String[] args) {
+        RandomPredicateFormulaGenerator gen = new RandomPredicateFormulaGenerator();
+        System.out.println(gen.genRandomPredicateFormula());
+    }
+
     /**
-     *
      * @return
      */
     public String genRandomPredicateFormula() {
@@ -124,7 +116,6 @@ public class RandomPredicateFormulaGenerator {
     }
 
     /**
-     *
      * @param _sb
      */
     private void genWff(StringBuilder _sb) {
@@ -143,7 +134,6 @@ public class RandomPredicateFormulaGenerator {
     }
 
     /**
-     *
      * @param _sb
      */
     private void genNeg(StringBuilder _sb) {
@@ -152,7 +142,6 @@ public class RandomPredicateFormulaGenerator {
     }
 
     /**
-     *
      * @param _sb
      */
     private void genQuantifier(StringBuilder _sb) {
@@ -174,7 +163,6 @@ public class RandomPredicateFormulaGenerator {
     }
 
     /**
-     *
      * @param _sb
      */
     private void genBinaryOp(StringBuilder _sb) {
@@ -195,7 +183,6 @@ public class RandomPredicateFormulaGenerator {
     }
 
     /**
-     *
      * @param _sb
      */
     private void genPredicate(StringBuilder _sb) {
@@ -229,7 +216,6 @@ public class RandomPredicateFormulaGenerator {
     }
 
     /**
-     *
      * @return
      */
     private Character getRandomVariable() {
@@ -247,7 +233,6 @@ public class RandomPredicateFormulaGenerator {
     }
 
     /**
-     *
      * @return
      */
     private Character getRandomConstant() {
@@ -265,7 +250,6 @@ public class RandomPredicateFormulaGenerator {
     }
 
     /**
-     *
      * @return
      */
     private String getRandomBinaryOp() {

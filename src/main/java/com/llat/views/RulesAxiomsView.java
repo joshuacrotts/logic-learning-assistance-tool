@@ -16,7 +16,6 @@ public class RulesAxiomsView {
     private final ScrollPane scrollPane = new ScrollPane();
     private final VBox rulesAxiomsVBox = new VBox();
     private final Region topFiller = new Region();
-
     private final RulesAxiomsInterpreter rulesAxiomsInterpreter;
 
     public RulesAxiomsView(Controller _controller) {

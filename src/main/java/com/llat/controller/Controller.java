@@ -5,6 +5,8 @@ import com.llat.database.DatabaseInterpeter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.models.LogicSetup;
+import com.llat.models.localstorage.uidescription.UIObject;
+import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.tools.EventBus;
 import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
@@ -31,13 +33,16 @@ public class Controller implements Initializable {
     private final Stage stage;
     private final LLATParserInterpreter llatParserInterpreter = new LLATParserInterpreter();
     private final DatabaseAdapter databaseAdapter = new DatabaseAdapter();
-    private final DatabaseInterpeter di = new DatabaseInterpeter(databaseAdapter, this);
+    private final DatabaseInterpeter di = new DatabaseInterpeter(this.databaseAdapter, this);
+    private final UIObjectAdaptor uiObjectAdaptor = new UIObjectAdaptor();
     private final LogicSetup logicSetup = new LogicSetup();
+    private UIObject uiObject;
     private UserObject user;
 
     public Controller(Stage _stage) {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
+        this.uiObject = (UIObject) this.uiObjectAdaptor.getData();
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {
@@ -49,6 +54,8 @@ public class Controller implements Initializable {
     public void changeViewTo(int _viewName) {
         Pane parentPane = this.getView(_viewName);
         this.stage.getScene().setRoot(parentPane);
+        this.stage.setWidth(this.stage.getWidth() - 1);
+        this.stage.setWidth(this.stage.getWidth() + 1);
     }
 
     /**
@@ -191,8 +198,6 @@ public class Controller implements Initializable {
         return parentPane;
     }
 
-
-
     public UserObject getUser() {
         return this.user;
     }
@@ -201,4 +206,15 @@ public class Controller implements Initializable {
         this.user = user;
     }
 
+    public UIObjectAdaptor getUiObjectAdaptor() {
+        return this.uiObjectAdaptor;
+    }
+
+    public UIObject getUiObject() {
+        return this.uiObject;
+    }
+
+    public void setUiObject(UIObject uiObject) {
+        this.uiObject = uiObject;
+    }
 }

@@ -46,6 +46,16 @@ public class ParseTreeInterpreter implements Listener {
     /**
      *
      */
+    private final int TREE_LEVEL_GAP = 20;
+
+    /**
+     *
+     */
+    private final int TREE_NODE_GAP = 20;
+
+    /**
+     *
+     */
     private Pane treePane;
 
     public ParseTreeInterpreter(Controller _controller, ParseTreeView _truthTreeView) {
@@ -65,6 +75,7 @@ public class ParseTreeInterpreter implements Listener {
                 this.treePane = new Pane();
             }
 
+            // If the event is empty just bail out.
             if (((UpdateViewParseTreeEvent) _event).isEmpty()) {
                 return;
             }
@@ -74,10 +85,8 @@ public class ParseTreeInterpreter implements Listener {
             TreeForTreeLayout<WffTree> tree = this.convertToAbegoTree(wff);
 
             // Setup the tree layout configuration.
-            double gapBetweenLevels = 20;
-            double gapBetweenNodes = 20;
             DefaultConfiguration<WffTree> configuration = new DefaultConfiguration<WffTree>(
-                    gapBetweenLevels, gapBetweenNodes);
+                    this.TREE_LEVEL_GAP, this.TREE_NODE_GAP);
 
             // Create the NodeExtentProvider for WffTree nodes.
             WffTreeExtentProvider nodeExtentProvider = new WffTreeExtentProvider();
@@ -100,8 +109,7 @@ public class ParseTreeInterpreter implements Listener {
             });
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
-        }
-        else if (_event instanceof UnsolvedFormulaEvent) {
+        } else if (_event instanceof UnsolvedFormulaEvent) {
             if (this.treePane != null) {
                 this.parseTreeView.getParentPane().getChildren().remove(this.treePane);
             }

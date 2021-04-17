@@ -1,19 +1,33 @@
-package com.llat.views.menu;
+package com.llat.views;
 
 import com.llat.controller.Controller;
-import com.llat.views.InputButtonsView;
-import com.llat.views.LLATErrorView;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class LeftView {
-    private Controller controller;
-    private VBox parentPane = new VBox();
-    private InputButtonsView inputButtonsView;
-    private LLATErrorView llatErrorView;
-    public LeftView (Controller _controller) {
+
+    /**
+     *
+     */
+    private final Controller controller;
+
+    /**
+     *
+     */
+    private final VBox parentPane = new VBox();
+
+    /**
+     *
+     */
+    private final InputButtonsView inputButtonsView;
+
+    /**
+     *
+     */
+    private final LLATErrorView llatErrorView;
+
+    public LeftView(Controller _controller) {
         this.controller = _controller;
         this.inputButtonsView = new InputButtonsView(this.controller);
         this.llatErrorView = new LLATErrorView(this.controller);
@@ -34,23 +48,24 @@ public class LeftView {
             this.llatErrorView.getParentPane().setMinWidth(newVal.doubleValue());
             this.llatErrorView.getParentPane().setMaxWidth(newVal.doubleValue());
         });
-        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {});
+        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        });
         VBox.setVgrow(this.llatErrorView.getParentPane(), Priority.ALWAYS);
         // Adding children nodes to their parents.
-        parentPane.getChildren().addAll(this.inputButtonsView.getParentPane(), this.llatErrorView.getParentPane());
+        this.parentPane.getChildren().addAll(this.inputButtonsView.getParentPane(), this.llatErrorView.getParentPane());
 
     }
 
     public VBox getParentPane() {
-        return parentPane;
+        return this.parentPane;
     }
 
     public InputButtonsView getInputButtonsView() {
-        return inputButtonsView;
+        return this.inputButtonsView;
     }
 
     public LLATErrorView getLlatErrorView() {
-        return llatErrorView;
+        return this.llatErrorView;
     }
 
 }

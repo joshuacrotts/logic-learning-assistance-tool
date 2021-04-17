@@ -1,0 +1,732 @@
+{
+  "menuBar": {
+    "file": {
+      "label": "File",
+      "newProject": {
+        "label": "New Project",
+        "content": []
+      },
+      "openProject": {
+        "label": "Open Project",
+        "content": [
+        ]
+      },
+      "export": {
+        "label": "Export",
+        "content": [
+          {
+            "label": "Latex",
+            "content": []
+          }
+        ]
+      },
+      "login": {
+        "label": "Login",
+        "content": []
+      },
+      "register": {
+        "label": "Register",
+        "content": []
+      },
+      "settings": {
+        "label": "Settings",
+        "content": []
+      },
+      "exit": {
+        "label": "Exit",
+        "content": []
+      }
+    },
+    "export": {
+      "label": "Export",
+      "pdf": {
+        "label": "PDF",
+        "content": [
+          {
+            "label": "Truth Table",
+            "content": []
+          },
+          {
+            "label": "Truth Tree",
+            "content": []
+          },
+          {
+            "label": "Parse Tree",
+            "content": []
+          }
+        ]
+      },
+      "latex": {
+        "label": "LaTeX",
+        "content": [
+          {
+            "label": "Truth Table",
+            "content": []
+          },
+          {
+            "label": "Truth Tree",
+            "content": []
+          },
+          {
+            "label": "Parse Tree",
+            "content": []
+          }
+        ]
+      }
+    },
+    "help": {
+      "label": "Help",
+      "about": {
+        "label": "About",
+        "content": []
+      }
+    }
+  },
+  "mainView": {
+    "mainViewLabels": {
+      "propositionalLabel": "Propositional Logic",
+      "predicateLabel": "Predicate Logic",
+      "errorAndWarningLabel": "Errors/Warnings",
+      "truthTableLabel": "Truth Table",
+      "parseTreeLabel": "Parse Tree",
+      "truthTreeLabel": "Truth Tree",
+      "symbolNameLabel": "Symbol Name",
+      "formalNameLabel": "Formal Name",
+      "alternativeSymbolsLabel": "Alternative Symbols",
+      "explanationLabel": "Explanation",
+      "examplesLabel": "Examples",
+      "generalMenu": {
+        "label": "General",
+        "content": [
+          {
+            "label": "Argument Truth Tree Validator",
+            "content": []
+          },
+          {
+            "label": "Closed Tree Determiner",
+            "content": []
+          },
+          {
+            "label": "Logical Falsehood Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Consistent Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Contingent Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Contradictory Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Contrary Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Equivalent Determiner",
+            "content": []
+          },
+          {
+            "label": "Logically Implied Determiner",
+            "content": []
+          },
+          {
+            "label": "Logical Tautology Determiner",
+            "content": []
+          },
+          {
+            "label": "Main operator detector",
+            "content": []
+          },
+          {
+            "label": "Open Tree Determiner",
+            "content": []
+          }
+        ]
+      },
+      "propositionalMenu": {
+        "label": "Propositional",
+        "content": [
+          {
+            "label": "Propositional Truth Tree Generator",
+            "content": []
+          },
+          {
+            "label": "Random Formula generation",
+            "content": []
+          },
+          {
+            "label": "Truth Table Generator",
+            "content": []
+          }
+        ]
+      },
+      "predicateMenu": {
+        "label": "Predicate",
+        "content": [
+          {
+            "label": "Bound Variable Detector",
+            "content": []
+          },
+          {
+            "label": "Closed Sentence Determiner",
+            "content": []
+          },
+          {
+            "label": "Free Variable Detector",
+            "content": []
+          },
+          {
+            "label": "Ground Sentence Determiner",
+            "content": []
+          },
+          {
+            "label": "Open Sentence Determiner",
+            "content": []
+          },
+          {
+            "label": "Predicate Truth Tree Generator",
+            "content": []
+          }
+        ]
+      },
+      "axiomTabLabel": "Axioms",
+      "historyTabLabel": "History",
+      "solveButton": "Solve",
+      "applyButton": "Apply"
+    },
+    "logicSymbols": {
+      "propositional": {
+        "implication": {
+          "symbol": {
+            "applied": "⇒",
+            "allSymbols": [
+              "⇒",
+              "→",
+              "⊃",
+              "->"
+            ]
+          },
+          "description": "This is the implication button",
+          "axioms": {
+            "explanation": "(A ⇒ B) is false when A is true and B is false, but true otherwise. The implication operator is often difficult for students to understand, especially because if A is false and B is false, the conclusion remains true. This is also referred to as being vacuously true. We refer to A as the antecedent of the conditional, and B as the consequent. An important piece of the right-arrow operator is the idea of sufficient and necessary conditions. The antecedent is sufficient for the consequent. The consequent is necessary for the antecedent.",
+            "example": [
+              "1. Suppose A represents the proposition that someone is a bachelor, and B represents the proposition that someone is unmarried. Therefore, (A ⇒ B) reads \"If someone is a bachelor, then they are unmarried\". Since someone cannot be married and a bachelor, it holds true that being unmarried is necessary for being a bachelor (in other words, you cannot be a bachelor if you are married). Since everyone who is a bachelor is unmarried, it makes sense that being a bachelor is sufficient for being unmarried.",
+              "2. Suppose A is true and B is false. Then (A → B) is false.",
+              "3. Suppose A is false and B is false. Then (A → B) is true."
+            ]
+          },
+          "tooltip": "Implication",
+          "readAs": "implies; if ... then"
+        },
+        "biconditional": {
+          "symbol": {
+            "applied": "⇔",
+            "allSymbols": [
+              "⇔",
+              "≡",
+              "↔",
+              "<->"
+            ]
+          },
+          "description": "This is the equivalence button",
+          "axioms": {
+            "explanation": "(A ⇔ B) is true when A and B are the same. This means that A must be true and B must be true for this sentence to be true. Likewise, A must be false and B must be false for this sentence to be true. When they differ, the sentence is false.",
+            "example": [
+              "1. (A ⇔ B)"
+            ]
+          },
+          "tooltip": "Equivalence",
+          "readAs": "If and only if; \"iff\"; means the same as"
+        },
+        "negation": {
+          "symbol": {
+            "applied": "¬",
+            "allSymbols": [
+              "¬",
+              "˜",
+              "!"
+            ]
+          },
+          "description": "This is the negation button",
+          "axioms": {
+            "explanation": "The negation operator (¬) flips the truth value of a proposition A. So, if A is true, then ¬A is false. Likewise, if ¬A is false, then ¬A is true. The negation operator works across any sentence and distributes over both symbols and operators.",
+            "example": [
+              "1. (¬¬A ⇔ A)",
+              "2. ¬(A & B) is equivalent to (¬A ∨ ¬B). The negation operator follows the distributive property from math - we distribute it to everything inside of the parentheses.",
+              "3. ~(A -> ~B) is equivalent to (A & ~~B), which reduces to (A & B). Note that when we use a negation on an implication (also called a negated implication) sentence, we do not double-negate the antecedent; we reduce it to a proposition minus any negations."
+            ]
+          },
+          "tooltip": "Negation",
+          "readAs": "Not"
+        },
+        "conjunction": {
+          "symbol": {
+            "applied": "∧",
+            "allSymbols": [
+              "∧",
+              "^",
+              "·",
+              "&"
+            ]
+          },
+          "description": "This is the conjunction button.",
+          "axioms": {
+            "explanation": "The statement (A ∧ B) is true if A and B are both true. Otherwise, it is false.",
+            "example": [
+              "1. (A ∧ B)",
+              "2. ((A ⊃ B) & (B ⊃ A))",
+              "3. ((A ∨ B) & (A ∨ C))"
+            ]
+          },
+          "tooltip": "Conjunction",
+          "readAs": "And"
+        },
+        "disjunction": {
+          "symbol": {
+            "applied": "∨",
+            "allSymbols": [
+              "∨",
+              "∥",
+              "|"
+            ]
+          },
+          "description": "This is the disjunction button.",
+          "axioms": {
+            "explanation": "The statement (A ∨ B) is true if A or B (or both) are true. If both are false, then it is false.",
+            "example": [
+              "1. (A ∨ B)"
+            ]
+          },
+          "tooltip": "Disjunction",
+          "readAs": "Or"
+        },
+        "exclusiveDisjunction": {
+          "symbol": {
+            "applied": "⊕",
+            "allSymbols": [
+              "⊕",
+              "⊻",
+              "≢"
+            ]
+          },
+          "description": "This is the exclusive or button.",
+          "axioms": {
+            "explanation": "The statement (A ⊕ B) is true when either A or B are true, but not both are true.",
+            "example": [
+              "1. A common example of the exclusive or operator comes up when talking about exclusivity among events. In other words, if we have two propositions P and Q, then either P can be true or Q can be true. However, P and Q cannot be true. Also, P and Q cannot be false.",
+              "2. Suppose A is true and B is false. Then (A ⊕ B) is true.",
+              "3. Suppose A is true and B is false. Then ((A → B) ⊕ (B → A)) is true. (A → B) is false, and (B → A) is true. Thus, the operands are different which results in true."
+            ]
+          },
+          "tooltip": "Exclusive Disjunction",
+          "readAs": "Either... or; xor"
+        },
+        "turnstile": {
+          "symbol": {
+            "applied": "⊢",
+            "allSymbols": [
+              "⊢",
+              "∴"
+            ]
+          },
+          "description": "This is the \"proves\" button.",
+          "axioms": {
+            "explanation": "(x ⊢ y) means x proves (syntactically entails) y.",
+            "example": [
+              "1. (A → B), (B → C) ⊢ (A → C). The two premises syntactically entail the conclusion through hypothetical syllogism.",
+              "2. (P ∨ Q), ~P ∴ Q. The two premises syntactically entail the conclusion through disjunctive syllogism."
+            ]
+          },
+          "tooltip": "Syntactic Entailment",
+          "readAs": "Proves..."
+        },
+        "doubleTurnstile": {
+          "symbol": {
+            "applied": "⊨",
+            "allSymbols": [
+              "⊨"
+            ]
+          },
+          "description": "This is the \"models\" button.",
+          "axioms": {
+            "explanation": "(x ⊨ y) means x models (semantically entails) y. In other words, if we run a test for logical equivalence on x and y, it should result in a contradiction, and thus be equivalent formulas. When looking at the truth table for propositional logic formulas, they should be equivalent in all models.",
+            "example": [
+              "1. (A → B) ⊨ (¬B → ¬A)",
+              "2. (A → B) ⊨ (~A | B)"
+            ]
+          },
+          "tooltip": "Semantic Entailment",
+          "readAs": "Models..."
+        }
+      },
+      "predicate": {
+        "universal": {
+          "symbol": {
+            "applied": "∀",
+            "allSymbols": [
+              "∀",
+              "()"
+            ]
+          },
+          "description": "This is the universal quantification button.",
+          "axioms": {
+            "explanation": "(∀x)Px or (x)Px means the predicate P holds true for all inputs x from some domain D.",
+            "example": [
+              "1. (∀x)Px"
+            ]
+          },
+          "tooltip": "Universal Quantification",
+          "readAs": "For all; For any; For each; All; Every"
+        },
+        "existential": {
+          "symbol": {
+            "applied": "∃",
+            "allSymbols": [
+              "∃"
+            ]
+          },
+          "description": "This is the existential quantification button.",
+          "axioms": {
+            "explanation": "(∃x)Px means there is at least one input x in a domain D that satisfies the proposition P (that makes P true).",
+            "example": [
+              "1. (∃x)Px"
+            ]
+          },
+          "tooltip": "Existential Quantification",
+          "readAs": "There exists; Some; Many; At least one"
+        }
+      }
+    }
+  },
+  "settingsView": {
+    "categories": {
+      "appearance": {
+        "label": "Appearance",
+        "theme": {
+          "label": "Theme",
+          "applied": {
+            "name": "Default",
+            "code": "default.css"
+          },
+          "allThemes": [
+            {
+              "name": "Default",
+              "code": "default.css"
+            },
+            {
+              "name": "Dark",
+              "code": "dark.css"
+            }
+          ]
+        }
+      },
+      "language": {
+        "label": "Language",
+        "languageContent": {
+          "label": "Language",
+          "applied": {
+            "name": "عربى",
+            "code": "ar"
+          },
+          "allLanguages": [
+            {
+              "name": "Afrikaans",
+              "code": "af"
+            },
+            {
+              "name": "Azərbaycan",
+              "code": "az"
+            },
+            {
+              "name": "bahasa Indonesia",
+              "code": "id"
+            },
+            {
+              "name": "català",
+              "code": "ca"
+            },
+            {
+              "name": "čeština",
+              "code": "cs"
+            },
+            {
+              "name": "Cymraeg",
+              "code": "cy"
+            },
+            {
+              "name": "dansk",
+              "code": "da"
+            },
+            {
+              "name": "Deutsche",
+              "code": "de"
+            },
+            {
+              "name": "eesti",
+              "code": "et"
+            },
+            {
+              "name": "English",
+              "code": "en"
+            },
+            {
+              "name": "español",
+              "code": "es"
+            },
+            {
+              "name": "Esperanto",
+              "code": "eo"
+            },
+            {
+              "name": "Euskal",
+              "code": "eu"
+            },
+            {
+              "name": "Français",
+              "code": "fr"
+            },
+            {
+              "name": "Gaeilge",
+              "code": "ga"
+            },
+            {
+              "name": "galego",
+              "code": "gl"
+            },
+            {
+              "name": "Hrvatski",
+              "code": "hr"
+            },
+            {
+              "name": "icelandic",
+              "code": "is"
+            },
+            {
+              "name": "italiano",
+              "code": "it"
+            },
+            {
+              "name": "Kiswahili",
+              "code": "sw"
+            },
+            {
+              "name": "kreyòl ayisyen",
+              "code": "ht"
+            },
+            {
+              "name": "Latine",
+              "code": "la"
+            },
+            {
+              "name": "Latvijas",
+              "code": "lv"
+            },
+            {
+              "name": "Lietuvos",
+              "code": "lt"
+            },
+            {
+              "name": "Magyar",
+              "code": "hu"
+            },
+            {
+              "name": "Malay",
+              "code": "ms"
+            },
+            {
+              "name": "Malti",
+              "code": "mt"
+            },
+            {
+              "name": "Nederlands",
+              "code": "nl"
+            },
+            {
+              "name": "norsk",
+              "code": "no"
+            },
+            {
+              "name": "Pilipino",
+              "code": "tl"
+            },
+            {
+              "name": "Polskie",
+              "code": "pl"
+            },
+            {
+              "name": "português",
+              "code": "pt"
+            },
+            {
+              "name": "Română",
+              "code": "ro"
+            },
+            {
+              "name": "shqiptar",
+              "code": "sq"
+            },
+            {
+              "name": "Slovenščina",
+              "code": "sl"
+            },
+            {
+              "name": "slovenský",
+              "code": "sk"
+            },
+            {
+              "name": "Suomalainen",
+              "code": "fi"
+            },
+            {
+              "name": "svenska",
+              "code": "sv"
+            },
+            {
+              "name": "Tiếng Việt",
+              "code": "vi"
+            },
+            {
+              "name": "Türk",
+              "code": "tr"
+            },
+            {
+              "name": "Ελληνικά",
+              "code": "el"
+            },
+            {
+              "name": "беларускі",
+              "code": "be"
+            },
+            {
+              "name": "български",
+              "code": "bg"
+            },
+            {
+              "name": "Македонски",
+              "code": "mk"
+            },
+            {
+              "name": "русский",
+              "code": "ru"
+            },
+            {
+              "name": "Српски",
+              "code": "sr"
+            },
+            {
+              "name": "український",
+              "code": "uk"
+            },
+            {
+              "name": "ქართული",
+              "code": "ka"
+            },
+            {
+              "name": "ייִדיש",
+              "code": "yi"
+            },
+            {
+              "name": "עִברִית",
+              "code": "iw"
+            },
+            {
+              "name": "اردو",
+              "code": "ur"
+            },
+            {
+              "name": "عربى",
+              "code": "ar"
+            },
+            {
+              "name": "فارسی",
+              "code": "fa"
+            },
+            {
+              "name": "हिन्दी",
+              "code": "hi"
+            },
+            {
+              "name": "বাংলা",
+              "code": "bn"
+            },
+            {
+              "name": "ગુજરાતી",
+              "code": "gu"
+            },
+            {
+              "name": "தமிழ்",
+              "code": "ta"
+            },
+            {
+              "name": "తెలుగు",
+              "code": "te"
+            },
+            {
+              "name": "ಕನ್ನಡ",
+              "code": "kn"
+            },
+            {
+              "name": "ไทย",
+              "code": "th"
+            },
+            {
+              "name": "한국어",
+              "code": "ko"
+            },
+            {
+              "name": "中國傳統的",
+              "code": "zh-TW"
+            },
+            {
+              "name": "日本語",
+              "code": "ja"
+            },
+            {
+              "name": "简体中文",
+              "code": "zh-CN"
+            }
+          ]
+        }
+      },
+      "advanced": {
+        "label": "Advanced",
+        "timeOut": {
+          "label": "Time Out",
+          "value": 1000
+        }
+      }
+    },
+    "confirmation":{
+      "label":"Confirmation",
+      "alertHeader": "Are you sure",
+      "alertContent": "Saving the current changes will require the application to restart. Are you sure you want to continue?"
+    },
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "loginView": {
+    "userNameLabel": "User Name",
+    "userNamePromptText": "Enter your user name",
+    "passwordLabel": "Password",
+    "passwordPromptText": "Enter your password",
+    "loginButton": "Login",
+    "returnButton": "Return to Application"
+  },
+  "registerView": {
+    "userNameLabel": "User Name",
+    "userNamePromptText": "Enter your user name",
+    "firstNamePromptText": "Enter your first name",
+    "lastNamePromptText": "Enter your last name",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "passwordLabel": "Password",
+    "passwordPromptText": "Enter your password",
+    "registerButton": "Register",
+    "returnButton": "Return to Application"
+  }
+}

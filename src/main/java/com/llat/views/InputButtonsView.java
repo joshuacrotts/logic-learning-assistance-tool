@@ -1,8 +1,7 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
-import com.llat.models.localstorage.uidescription.UIDescriptionAdaptor;
-import com.llat.models.localstorage.uidescription.UIDescriptionObject;
+import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.views.interpreters.InputButtonInterpreter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -14,42 +13,60 @@ import java.util.ArrayList;
 public class InputButtonsView {
 
     private final Controller controller;
-    private final UIDescriptionObject obj = (UIDescriptionObject) new UIDescriptionAdaptor().getData();
+    //    private final UIDescriptionObject obj = (UIDescriptionObject) new UIDescriptionAdaptor().getData();
+    private final UIObject obj;
     private final VBox inputButtonVBox = new VBox();
     private final Region abovePropositionalLogicLabel = new Region();
-    private final Label propositionalLogicLabel = new Label("Propositional Logic");
     private final GridPane propositionalLogicPane = new GridPane();
-    private final SymbolButton conjunctionButton = new SymbolButton(this.obj.getConjunction());
-    private final SymbolButton disjunctionButton = new SymbolButton(this.obj.getDisjunction());
-    private final SymbolButton negationButton = new SymbolButton(this.obj.getNegation());
-    private final SymbolButton exclusiveDisjunctionButton = new SymbolButton(this.obj.getExclusiveDisjunction());
-    private final SymbolButton equivalenceButton = new SymbolButton(this.obj.getBiconditional());
-    private final SymbolButton implicationButton = new SymbolButton(this.obj.getImplication());
-    private final SymbolButton turnstileButton = new SymbolButton(this.obj.getTurnstile());
-    private final SymbolButton doubleTurnstileButton = new SymbolButton(this.obj.getDoubleTurnstile());
-    private final ArrayList<SymbolButton> propositionalLogicButtons = new ArrayList<SymbolButton>() {{
-        this.add(InputButtonsView.this.conjunctionButton);
-        this.add(InputButtonsView.this.disjunctionButton);
-        this.add(InputButtonsView.this.negationButton);
-        this.add(InputButtonsView.this.exclusiveDisjunctionButton);
-        this.add(InputButtonsView.this.equivalenceButton);
-        this.add(InputButtonsView.this.implicationButton);
-        this.add(InputButtonsView.this.turnstileButton);
-        this.add(InputButtonsView.this.doubleTurnstileButton);
-    }};
+    private final SymbolButton conjunctionButton;
+    private final SymbolButton disjunctionButton;
+    private final SymbolButton negationButton;
+    private final SymbolButton exclusiveDisjunctionButton;
+    private final SymbolButton equivalenceButton;
+    private final SymbolButton implicationButton;
+    private final SymbolButton turnstileButton;
+    private final SymbolButton doubleTurnstileButton;
+    private final ArrayList<SymbolButton> propositionalLogicButtons;
     private final Region belowPropositionalLogicPane = new Region();
-    private final Label predicateLogicLabel = new Label("Predicate Logic");
     private final GridPane predicateLogicPane = new GridPane();
-    private final SymbolButton existentialQuantifierButton = new SymbolButton(this.obj.getExistential());
-    private final SymbolButton universalQuantifierButton = new SymbolButton(this.obj.getUniversal());
-    private final ArrayList<SymbolButton> predicateLogicButtons = new ArrayList<SymbolButton>() {{
-        this.add(InputButtonsView.this.existentialQuantifierButton);
-        this.add(InputButtonsView.this.universalQuantifierButton);
-    }};
+    private final SymbolButton existentialQuantifierButton;
+    private final SymbolButton universalQuantifierButton;
+    private final ArrayList<SymbolButton> predicateLogicButtons;
     private final InputButtonInterpreter inputButtonInterpreter;
+    private Label propositionalLogicLabel = new Label("Propositional Logic");
+    private Label predicateLogicLabel = new Label("Predicate Logic");
 
     public InputButtonsView(Controller _controller) {
         this.controller = _controller;
+        this.obj = this.controller.getUiObject();
+
+        this.propositionalLogicLabel = new Label(this.obj.getMainView().getMainViewLabels().getPropositionalLabel());
+        this.predicateLogicLabel = new Label(this.obj.getMainView().getMainViewLabels().getPredicateLabel());
+
+        this.conjunctionButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getConjunction());
+        this.disjunctionButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getDisjunction());
+        this.negationButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getNegation());
+        this.exclusiveDisjunctionButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getExclusiveDisjunction());
+        this.equivalenceButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getBiconditional());
+        this.implicationButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getImplication());
+        this.turnstileButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getTurnstile());
+        this.doubleTurnstileButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPropositional().getDoubleTurnstile());
+        this.propositionalLogicButtons = new ArrayList<SymbolButton>() {{
+            this.add(InputButtonsView.this.conjunctionButton);
+            this.add(InputButtonsView.this.disjunctionButton);
+            this.add(InputButtonsView.this.negationButton);
+            this.add(InputButtonsView.this.exclusiveDisjunctionButton);
+            this.add(InputButtonsView.this.equivalenceButton);
+            this.add(InputButtonsView.this.implicationButton);
+            this.add(InputButtonsView.this.turnstileButton);
+            this.add(InputButtonsView.this.doubleTurnstileButton);
+        }};
+        this.existentialQuantifierButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPredicate().getExistential());
+        this.universalQuantifierButton = new SymbolButton(this.obj.getMainView().getLogicSymbols().getPredicate().getUniversal());
+        this.predicateLogicButtons = new ArrayList<SymbolButton>() {{
+            this.add(InputButtonsView.this.existentialQuantifierButton);
+            this.add(InputButtonsView.this.universalQuantifierButton);
+        }};
 
         // Setting VBox inputButtonVBox properties.
         this.inputButtonVBox.setId("inputButtonVBox");
@@ -90,6 +107,7 @@ public class InputButtonsView {
             curButton.setId("propositionalLogicButton");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             curButton.setTooltip(new Tooltip(curButton.getDefaultSymbol().getTooltip()));
+            curButton.setContextMenu(new SymbolContextMenu(curButton));
             GridPane.setRowIndex(curButton, rowCount / 4);
             GridPane.setColumnIndex(curButton, rowCount % 4);
             this.propositionalLogicPane.getChildren().add(curButton);

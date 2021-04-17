@@ -1,10 +1,9 @@
-package com.llat.models.localstorage.uidescription;
+package com.llat.models.localstorage.uidescription.mainview;
 
 import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.symbols.*;
 
-public class UIDescriptionObject extends LocalStorage {
-
+public class Propositional extends LocalStorage {
     private Implication implication;
     private Biconditional biconditional;
     private Negation negation;
@@ -13,12 +12,8 @@ public class UIDescriptionObject extends LocalStorage {
     private ExclusiveDisjunction exclusiveDisjunction;
     private Turnstile turnstile;
     private DoubleTurnstile doubleTurnstile;
-    private Universal universal;
-    private Existential existential;
 
-    public UIDescriptionObject(Implication implication, Biconditional biconditional, Negation negation,
-                               Conjunction conjunction, Disjunction disjunction, ExclusiveDisjunction exclusiveDisjunction,
-                               Turnstile turnstile, DoubleTurnstile doubleTurnstile, Universal universal, Existential existential) {
+    public Propositional(Implication implication, Biconditional biconditional, Negation negation, Conjunction conjunction, Disjunction disjunction, ExclusiveDisjunction exclusiveDisjunction, Turnstile turnstile, DoubleTurnstile doubleTurnstile) {
         this.implication = implication;
         this.biconditional = biconditional;
         this.negation = negation;
@@ -27,8 +22,6 @@ public class UIDescriptionObject extends LocalStorage {
         this.exclusiveDisjunction = exclusiveDisjunction;
         this.turnstile = turnstile;
         this.doubleTurnstile = doubleTurnstile;
-        this.universal = universal;
-        this.existential = existential;
     }
 
     public Implication getImplication() {
@@ -95,25 +88,9 @@ public class UIDescriptionObject extends LocalStorage {
         this.doubleTurnstile = doubleTurnstile;
     }
 
-    public Universal getUniversal() {
-        return this.universal;
-    }
-
-    public void setUniversal(Universal universal) {
-        this.universal = universal;
-    }
-
-    public Existential getExistential() {
-        return this.existential;
-    }
-
-    public void setExistential(Existential existential) {
-        this.existential = existential;
-    }
-
     @Override
     public String toString() {
-        return "UIDescriptionObject{" +
+        return "com.llat.models.localstorage.LogicSymbols{" +
                 "implication=" + this.implication +
                 ", biconditional=" + this.biconditional +
                 ", negation=" + this.negation +
@@ -122,8 +99,7 @@ public class UIDescriptionObject extends LocalStorage {
                 ", exclusiveDisjunction=" + this.exclusiveDisjunction +
                 ", turnstile=" + this.turnstile +
                 ", doubleTurnstile=" + this.doubleTurnstile +
-                ", universal=" + this.universal +
-                ", existential=" + this.existential +
                 '}';
     }
+
 }

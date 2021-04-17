@@ -45,11 +45,7 @@ public class FormulaInputInterpreter implements Listener {
         });
 
         this.formulaInputView.getFormulaInputField().textProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal.equals(this.lastValidWff) && this.algorithmSelected) {
-                this.formulaInputView.getAlgorithmApplyButton().setDisable(false);
-            } else {
-                this.formulaInputView.getAlgorithmApplyButton().setDisable(true);
-            }
+            this.formulaInputView.getAlgorithmApplyButton().setDisable(!newVal.equals(this.lastValidWff) || !this.algorithmSelected);
         });
 
         EventBus.addListener(this);
@@ -75,8 +71,7 @@ public class FormulaInputInterpreter implements Listener {
             this.formulaInputView.getAlgorithmApplyButton().setDisable(false);
         } else if (_event instanceof SolvedFormulaEvent) {
             this.lastValidWff = this.formulaInputView.getFormulaInputField().getText();
-        }
-        else if (_event instanceof RandomGeneratedFormulaEvent) {
+        } else if (_event instanceof RandomGeneratedFormulaEvent) {
             if (!((RandomGeneratedFormulaEvent) _event).isEmpty()) {
                 this.formulaInputView.getFormulaInputField().setText(((RandomGeneratedFormulaEvent) _event).getFormula());
             }

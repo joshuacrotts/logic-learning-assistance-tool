@@ -30,7 +30,7 @@ public class RulesAxiomsInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof SymbolDescriptionEvent) {
-            VBox symbolDescriptionVBox = new SymbolDescriptionView(((SymbolDescriptionEvent) _event).getSymbol()).getParentPane();
+            VBox symbolDescriptionVBox = new SymbolDescriptionView(this.controller, ((SymbolDescriptionEvent) _event).getSymbol()).getParentPane();
             symbolDescriptionVBox.getChildren().add(0, this.rulesAxiomsView.getTopFiller());
             this.rulesAxiomsView.getScrollPane().setContent(symbolDescriptionVBox);
         }

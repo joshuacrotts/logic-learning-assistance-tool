@@ -16,7 +16,7 @@ public class SettingsItem {
     public SettingsItem(Controller controller) {
         this.controller = controller;
         this.stage = this.controller.getStage();
-        this.openItem = new MenuItem("Settings");
+        this.openItem = new MenuItem(controller.getUiObject().getMenuBar().getFile().getSettings().getLabel());
         this.openItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

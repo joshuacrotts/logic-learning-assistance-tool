@@ -11,8 +11,15 @@ import com.llat.views.LoginView;
 
 public class LoginViewInterpreter implements Listener {
 
-    private Controller controller;
-    private LoginView loginView;
+    /**
+     *
+     */
+    private final Controller controller;
+
+    /**
+     *
+     */
+    private final LoginView loginView;
 
     public LoginViewInterpreter(Controller _controller, LoginView _registerView) {
         this.controller = _controller;
@@ -27,7 +34,7 @@ public class LoginViewInterpreter implements Listener {
                 this.controller.setUser(user);
                 this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
             } else {
-                System.out.println("pass or email is wrong");
+                System.out.println("Password or email is wrong");
             }
         }));
 

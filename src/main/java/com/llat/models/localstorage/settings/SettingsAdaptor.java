@@ -8,12 +8,12 @@ public class SettingsAdaptor implements SettingsInterface {
     /**
      *
      */
-    private final String jsonFileName = "settings.json";
+    private final String SETTINGS_FILE_PATH = "settings.json";
 
     /**
      *
      */
-    private final SettingsInterface settings = new GsonIO(this.jsonFileName, SettingsObject.class);
+    SettingsInterface settings = new GsonIO(this.SETTINGS_FILE_PATH, SettingsObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
@@ -21,7 +21,7 @@ public class SettingsAdaptor implements SettingsInterface {
     }
 
     public void update(LocalStorage _obj) {
-        this.settings.update(_obj, this.jsonFileName);
+        this.settings.update(_obj, this.SETTINGS_FILE_PATH);
     }
 
     @Override

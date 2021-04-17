@@ -36,9 +36,8 @@
 #propositionalLogicLabel, #predicateLogicLabel, #symbolNameLabel,
 #formalNameLabel, #alternativeSymbolsLabel, #exampleLabel,
 #explanationLabel, #alternativeSymbolsLabel, #errorLabel {
-    -fx-font-size: 2em;
+    -fx-font-size: 1.75em;
     -fx-underline: true;
-    -fx-font-weight: bold;
 }
 
 #trueLabel, #falseLabel, #resultLabel {
@@ -98,9 +97,10 @@
     -fx-border-size: 10;
 }
 
-#rulesAxiomsScrollPane > .viewport, #treeTableScrollPane > .viewport, #truthTableScrollPane > .viewport  {
+#rulesAxiomsScrollPane > .viewport, #treeTableScrollPane > .viewport, #truthTableScrollPane > .viewport {
     -fx-background-color: transparent;
 }
+
 #errorScrollPane > .viewport {
     -fx-background-color: derive(silver, 50%);
 }

@@ -4,7 +4,7 @@ import com.llat.tools.Event;
 
 public class UnsolvedFormulaEvent implements Event {
 
-    public UnsolvedFormulaEvent () {
+    public UnsolvedFormulaEvent() {
     }
 
 }

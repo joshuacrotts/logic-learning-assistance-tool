@@ -2,11 +2,13 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.main.Window;
-import com.llat.models.localstorage.settings.ItemObject;
+import com.llat.models.localstorage.ItemObject;
 import com.llat.models.localstorage.settings.SettingsAdaptor;
 import com.llat.models.localstorage.settings.SettingsObject;
 import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.localstorage.settings.theme.ThemeObject;
+import com.llat.models.localstorage.uidescription.UIObject;
+import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.tools.ViewManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,6 +31,7 @@ import java.util.Optional;
 import static com.llat.views.SettingsView.WIDTH;
 
 public class SettingsView {
+
     public static final int WIDTH = 750;
     public static final int HEIGHT = 500;
     // view id
@@ -42,36 +45,39 @@ public class SettingsView {
     private final HBox hBox = new HBox();
     private final VBox vBox1 = new VBox();
     private final VBox vBox2 = new VBox();
-    private final Button appearanceButton = new Button("Appearance");
-    private final Button languageButton = new Button("Language");
-    private final Button advanceButton = new Button("Advance");
-    private final ArrayList<Button> categoryButtonsList = new ArrayList<Button>() {
-        {
-            {
-                this.add(SettingsView.this.appearanceButton);
-                this.add(SettingsView.this.languageButton);
-                this.add(SettingsView.this.advanceButton);
-            }
-        }
-    };
-    private final Button cancelButton = new Button("Cancel");
-    private final Button saveButton = new Button("Save");
-    // pane
-    private final List<Pane> paneList = new ArrayList<>();
+    private final Button appearanceButton;
+    private final Button languageButton;
+    private final Button advanceButton;
+    private final ArrayList<Button> categoryButtonsList;
     private final Pane appearancePane;
     private final Pane languagePane;
     private final Pane advancePane;
-    DatabaseAdapter db = new DatabaseAdapter();
-    SettingsAdaptor sa = new SettingsAdaptor();
-    SettingsObject so = (SettingsObject) this.sa.getData();
+    private SettingsAdaptor sa = new SettingsAdaptor();
+    private SettingsObject so = (SettingsObject) this.sa.getData();
+    private UIObjectAdaptor uioa = new UIObjectAdaptor();
+    private UIObject uio = (UIObject) this.uioa.getData();
     private Stage settingsStage;
 
     public SettingsView(Controller controller) {
         this.controller = controller;
         this.stage = this.controller.getStage();
-        this.appearancePane = new SettingsPane(this.controller, "Appearance").getParentPane();
-        this.languagePane = new SettingsPane(this.controller, "Language").getParentPane();
-        this.advancePane = new SettingsPane(this.controller, "Advance").getParentPane();
+        this.appearancePane = new SettingsPane(this.controller, this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getLabel()).getParentPane();
+        this.languagePane = new SettingsPane(this.controller, this.controller.getUiObject().getSettingsView().getCategories().getLanguage().getLabel()).getParentPane();
+        this.advancePane = new SettingsPane(this.controller, this.controller.getUiObject().getSettingsView().getCategories().getAdvanced().getLabel()).getParentPane();
+        this.appearanceButton = new Button(this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getLabel());
+        this.languageButton = new Button(this.controller.getUiObject().getSettingsView().getCategories().getLanguage().getLabel());
+        this.advanceButton = new Button(this.controller.getUiObject().getSettingsView().getCategories().getAdvanced().getLabel());
+        this.categoryButtonsList = new ArrayList<Button>() {
+            {
+                {
+                    this.add(SettingsView.this.appearanceButton);
+                    this.add(SettingsView.this.languageButton);
+                    this.add(SettingsView.this.advanceButton);
+                }
+            }
+        };
+        Button cancelButton = new Button(this.controller.getUiObject().getSettingsView().getCancel());
+        Button saveButton = new Button(this.controller.getUiObject().getSettingsView().getSave());
         // setting the vBox size
         this.hBox.widthProperty().addListener(((observable, oldValue, newValue) -> {
             this.hBox.setMinWidth(this.stage.getWidth());
@@ -100,15 +106,16 @@ public class SettingsView {
 
         this.appearanceSetUp();
         this.languageSetUp();
-        // adding the view panes to the list
-        this.paneList.add(this.appearancePane);
-        this.paneList.add(this.languagePane);
-        this.paneList.add(this.advancePane);
+        // adding the view panes to the list pane.
+        List<Pane> paneList = new ArrayList<>();
+        paneList.add(this.appearancePane);
+        paneList.add(this.languagePane);
+        paneList.add(this.advancePane);
 
         this.leftPane.heightProperty().addListener(((observable, oldValue, newValue) -> {
             this.leftPane.setMinHeight(this.stage.getScene().getHeight() * 0.454);
         }));
-        this.hBox.getChildren().addAll(this.leftPane, this.paneList.get(APPEARANCE_ID));
+        this.hBox.getChildren().addAll(this.leftPane, paneList.get(APPEARANCE_ID));
         this.languageButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -135,34 +142,27 @@ public class SettingsView {
 
             }
         });
+
         Pane bottomPane = new Pane();
         HBox bottomPaneHbox = new HBox();
         bottomPane.setStyle("-fx-background-color: black");
 
-        // adding buttons to the vBox
+        // Adding buttons to the vBox.
         this.vBox2.getChildren().addAll(this.appearanceButton, this.languageButton, this.advanceButton);
-
         this.leftPane.getChildren().addAll(this.vBox2);
 
+        // Bottom pane buttons.
+        cancelButton.setId("bottonPaneButtons");
+        saveButton.setId("bottonPaneButtons");
 
-//        bottomPaneHbox.widthProperty().addListener(((observable, oldValue, newValue) -> {
-//            bottomPaneHbox.setMinWidth(bottomPane.getLayoutBounds().getWidth());
-//        }));
-//        bottomPaneHbox.setStyle("-fx-background-color: black");
-
-        // bottom pane buttons
-        this.cancelButton.setId("bottonPaneButtons");
-        this.saveButton.setId("bottonPaneButtons");
-
-        this.cancelButton.setOnAction(e -> {
+        cancelButton.setOnAction(e -> {
             this.settingsStage.close();
         });
-        this.saveButton.setOnAction(e -> {
-
+        saveButton.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Are you sure?");
-            alert.setContentText("Saving the current changes will require the application to restart. Are you sure you want to continue?");
+            alert.setTitle(controller.getUiObject().getSettingsView().getConfirmation().getLabel());
+            alert.setHeaderText(controller.getUiObject().getSettingsView().getConfirmation().getAlertHeader());
+            alert.setContentText(controller.getUiObject().getSettingsView().getConfirmation().getAlertContent());
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
@@ -177,15 +177,14 @@ public class SettingsView {
         });
 
         bottomPaneHbox.setSpacing(10);
-        HBox.setMargin(this.cancelButton, new Insets(5, 10, 10, 550));
-        HBox.setMargin(this.saveButton, new Insets(5, 20, 10, 20));
+        HBox.setMargin(cancelButton, new Insets(5, 10, 10, 550));
+        HBox.setMargin(saveButton, new Insets(5, 20, 10, 20));
         bottomPaneHbox.setId("bottomPaneHbox");
-        bottomPaneHbox.getChildren().addAll(this.cancelButton, this.saveButton);
-//        bottomPane.getChildren().add(bottomPaneHbox);
+        bottomPaneHbox.getChildren().addAll(cancelButton, saveButton);
 
-        this.vBox1.getChildren().addAll(this.hBox, bottomPaneHbox);
-        this.parentPane.getChildren().addAll(this.vBox1);
-
+        VBox vBox1 = new VBox();
+        vBox1.getChildren().addAll(this.hBox, bottomPaneHbox);
+        this.parentPane.getChildren().addAll(vBox1);
 
         Scene secondScene = new Scene(this.parentPane, 720, 500);
         secondScene.getStylesheets().add(ViewManager.getDefaultStyle("settings.css"));
@@ -201,23 +200,25 @@ public class SettingsView {
         // Specifies the owner Window (parent) for new window
         this.settingsStage.initOwner(this.stage);
         this.settingsStage.setResizable(false);
-
+        this.settingsStage.centerOnScreen();
     }
 
     private void updateLocalStorage() {
         this.sa.update(this.so);
     }
 
-
+    /**
+     * @param btn
+     * @param pane
+     */
     public void onPress(Button btn, Pane pane) {
         this.hBox.getChildren().remove(1);
         this.hBox.getChildren().add(pane);
-        for (int i = 0; i < this.categoryButtonsList.size(); i++) {
-            if (btn == this.categoryButtonsList.get(i)) {
-                this.categoryButtonsList.get(i).setId("settingsCategoryOnPress");
+        for (Button button : this.categoryButtonsList) {
+            if (btn == button) {
+                button.setId("settingsCategoryOnPress");
             } else {
-                this.categoryButtonsList.get(i).setId("settingsCategory");
-
+                button.setId("settingsCategory");
             }
         }
     }
@@ -231,16 +232,18 @@ public class SettingsView {
         return this.settingsStage;
     }
 
+    /**
+     *
+     */
     public void appearanceSetUp() {
         String appliedTheme = this.so.getTheme().getApplied().getName();
-        List<ThemeObject> themeList = this.so.getTheme().getAllThemes();
-        Label themeLabel = new Label("Theme");
+        List<ThemeObject> themeList = this.uio.getSettingsView().getCategories().getAppearance().getTheme().getAllThemes();
+        Label themeLabel = new Label(this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getTheme().getLabel());
         HBox appearanceHBox = new HBox();
         MenuButton themeMenu = new MenuButton(appliedTheme);
-        DatabaseAdapter db = new DatabaseAdapter();
-        // populate the theme menu
-        for (int i = 0; i < themeList.size(); i++) {
-            CustomMenuItem menuItem = new CustomMenuItem(themeList.get(i));
+        // Populate the theme menu.
+        for (ThemeObject themeObject : themeList) {
+            CustomMenuItem menuItem = new CustomMenuItem(themeObject);
             themeMenu.getItems().add(menuItem);
 
             menuItem.setOnAction(e -> {
@@ -252,27 +255,29 @@ public class SettingsView {
         themeLabel.setId("themeLabel");
         themeMenu.setId("themeMenu");
 
-
-        //Setting the space between the nodes of a VBox pane
+        // Setting the space between the nodes of a VBox pane.
         appearanceHBox.setSpacing(10);
-        //Setting the margin to the nodes
+        // Setting the margin to the nodes.
         HBox.setMargin(themeLabel, new Insets(150, 20, 20, 20));
         HBox.setMargin(themeMenu, new Insets(150, 20, 20, 20));
 
-//        appearanceHBox.setStyle("-fx-background-color: black");
         appearanceHBox.getChildren().addAll(themeLabel, themeMenu);
         this.appearancePane.getChildren().addAll(appearanceHBox);
     }
 
+    /**
+     *
+     */
     public void languageSetUp() {
         String appliedLang = this.so.getLanguage().getApplied().getName();
-        List<LanguageObject> langList = this.so.getLanguage().getAllLanguages();
-        Label langLabel = new Label("Language");
+        List<LanguageObject> langList = this.uio.getSettingsView().getCategories().getLanguage().getLanguageContent().getAllLanguages();
+
+        Label langLabel = new Label(this.controller.getUiObject().getSettingsView().getCategories().getLanguage().getLabel());
         HBox langHBox = new HBox();
         MenuButton langMenu = new MenuButton(appliedLang);
-        // populate the theme menu
-        for (int i = 0; i < langList.size(); i++) {
-            CustomMenuItem menuItem = new CustomMenuItem(langList.get(i));
+        // Populate the theme menu.
+        for (LanguageObject languageObject : langList) {
+            CustomMenuItem menuItem = new CustomMenuItem(languageObject);
             langMenu.getItems().add(menuItem);
 
             menuItem.setOnAction(e -> {
@@ -286,10 +291,9 @@ public class SettingsView {
         langLabel.setId("langLabel");
         langMenu.setId("langMenu");
 
-
-        //Setting the space between the nodes of a VBox pane
+        // Setting the space between the nodes of a VBox pane.
         langHBox.setSpacing(10);
-        //Setting the margin to the nodes
+        // Setting the margin to the nodes.
         HBox.setMargin(langLabel, new Insets(150, 20, 20, 20));
         HBox.setMargin(langMenu, new Insets(150, 20, 20, 20));
 
@@ -297,55 +301,65 @@ public class SettingsView {
         this.languagePane.getChildren().addAll(langHBox);
     }
 
+    /**
+     *
+     */
     public void advanceSetUp() {
-
-    }
-}
-
-class SettingsPane {
-    // labels
-    private final Label paneTitle = new Label();
-    Controller controller;
-    Stage stage;
-    Pane parentPane = new Pane();
-    VBox newVBox = new VBox();
-
-    public SettingsPane(Controller _controller, String _title) {
-        this.controller = _controller;
-        this.stage = this.controller.getStage();
-        this.paneTitle.setId("categoryTitle");
-        this.paneTitle.setText(_title);
-
-        this.newVBox.getChildren().add(this.paneTitle);
-        this.newVBox.setAlignment(Pos.CENTER);
-        this.newVBox.widthProperty().addListener(((observable, oldValue, newValue) -> {
-            this.newVBox.setMinWidth(WIDTH * 0.7);
-        }));
-        this.newVBox.setId("vBoxTest");
-        this.parentPane.widthProperty().addListener(((observable, oldValue, newValue) -> {
-            this.parentPane.setMinWidth(this.stage.getScene().getWidth());
-        }));
-        this.parentPane.getChildren().addAll(this.newVBox);
     }
 
-    public Pane getParentPane() {
-        return this.parentPane;
+    /**
+     *
+     */
+    private static class SettingsPane {
+
+        private final Controller controller;
+        private final Stage stage;
+        private final Pane parentPane = new Pane();
+        private final VBox newVBox = new VBox();
+        private final Label paneTitle = new Label();
+
+        public SettingsPane(Controller _controller, String _title) {
+            this.controller = _controller;
+            this.stage = this.controller.getStage();
+            this.paneTitle.setId("categoryTitle");
+            this.paneTitle.setText(_title);
+            this.newVBox.getChildren().add(this.paneTitle);
+            this.newVBox.setAlignment(Pos.CENTER);
+            this.newVBox.widthProperty().addListener(((observable, oldValue, newValue) -> {
+                this.newVBox.setMinWidth(WIDTH * 0.7);
+            }));
+
+            this.newVBox.setId("vBoxTest");
+            this.parentPane.widthProperty().addListener(((observable, oldValue, newValue) -> {
+                this.parentPane.setMinWidth(this.stage.getScene().getWidth());
+            }));
+
+            this.parentPane.getChildren().addAll(this.newVBox);
+        }
+
+        public Pane getParentPane() {
+            return this.parentPane;
+        }
     }
-}
 
-class CustomMenuItem extends MenuItem {
-    ItemObject content;
+    /**
+     *
+     */
+    private static class CustomMenuItem extends MenuItem {
 
-    public CustomMenuItem(ItemObject content) {
-        this.setText(content.getName());
-        this.content = content;
-    }
+        private ItemObject content;
 
-    public ItemObject getContent() {
-        return this.content;
-    }
+        public CustomMenuItem(ItemObject content) {
+            this.setText(content.getName());
+            this.content = content;
+        }
 
-    public void setContent(ItemObject content) {
-        this.content = content;
+        public ItemObject getContent() {
+            return this.content;
+        }
+
+        public void setContent(ItemObject content) {
+            this.content = content;
+        }
     }
 }

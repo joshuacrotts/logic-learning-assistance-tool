@@ -39,10 +39,10 @@ public class RightView {
             this.tabPane.setTabMaxHeight(newVal.doubleValue());
         });
         // Setting Tab axiomsTab properties.
-        this.axiomsTab = new Tab("Axioms", this.rulesAxiomsView.getParentPane());
+        this.axiomsTab = new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getAxiomTabLabel(), this.rulesAxiomsView.getParentPane());
         this.axiomsTab.setClosable(false);
         // Setting Tab historyTab properties.
-        this.historyTab = new Tab("History", this.historyView.getParentPane());
+        this.historyTab = new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getHistoryTabLabel(), this.historyView.getParentPane());
         this.historyTab.setClosable(false);
         // Setting VBox rulesAxiomsView properties.
         this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {

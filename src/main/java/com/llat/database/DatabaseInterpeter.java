@@ -24,18 +24,26 @@ public class DatabaseInterpeter implements Listener {
         EventBus.addListener(this);
     }
 
-
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof SolvedFormulaEvent) {
             if (this.controller.getUser() != null) {
-                USERID = this.controller.getUser().getUserId();
+                this.USERID = this.controller.getUser().getUserId();
                 this.test = new ArrayList<>();
                 ((SolvedFormulaEvent) _event).getWffTree().forEach((tree) -> {
                     this.test.add(tree.getStringRep());
                 });
                 String text = this.test.get(0);
-                this.databaseAdapter.InsertQuery(USERID, text);
+                this.databaseAdapter.InsertQuery(this.USERID, text);
+            }
+
+            if (_event instanceof RegisterEvent) {
+                String userName = ((RegisterEvent) _event).getUser().getUserName();
+                String firstName = ((RegisterEvent) _event).getUser().getFname();
+                String lastName = ((RegisterEvent) _event).getUser().getLname();
+                String pass = ((RegisterEvent) _event).getUser().getPword();
+                int user = this.databaseAdapter.Register(userName, pass, firstName, lastName);
+                EventBus.throwEvent(new RegistrationStatusEvent(user));
             }
         }
     }

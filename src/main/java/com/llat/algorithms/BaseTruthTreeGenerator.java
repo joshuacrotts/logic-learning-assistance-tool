@@ -230,9 +230,9 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
-     * TODO Document
+     * Returns the truth tree generated.
      *
-     * @return
+     * @return new TruthTree object constructed from the WffTree.
      */
     public TruthTree getTruthTree() {
         TruthTree ttn = new TruthTree(this.tree.getChild(0), null, null);
@@ -241,11 +241,14 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
-     * TODO Document
+     * Prints out the TruthTree in the console in a pretty format.
      * <p>
-     * https://www.baeldung.com/java-print-binary-tree-diagram
+     * The reference is here: https://www.baeldung.com/java-print-binary-tree-diagram
+     * That's really all I can say.
+     * </p>
      *
-     * @param root
+     * @param root - root of the TruthTree.
+     * @return String representation of truth tree to print in console.
      */
     public String print(TruthTree root) {
         if (root == null) {
@@ -503,11 +506,12 @@ public abstract class BaseTruthTreeGenerator {
     }
 
     /**
-     * Distributes a negation to a biconditional node in the form of
-     * ~(A <-> B)
+     * Distributes a negation to a biconditional node in the form of ~(A <-> B)
+     *
      * <p>
      * The negation is applied such that it branches, with the lhs containing
      * ~A, B stacked, and the rhs contains ~B, A.
+     * </p>
      *
      * @param _negRoot - TruthTree node such that its WffTree instance is a negated node and its child is a bicond.
      * @param _leaves  - list of leaf nodes.
@@ -549,6 +553,7 @@ public abstract class BaseTruthTreeGenerator {
      * Each of these equivalences on the rhs of the rule *is* applied when building
      * the tree. This means that there are some redundant steps added. These ought
      * be noted in the final version if time permits.
+     * </p>
      *
      * @param _negRoot - negation node itself.
      * @param _leaves  - linked list of leave nodes for this current TruthTree node.

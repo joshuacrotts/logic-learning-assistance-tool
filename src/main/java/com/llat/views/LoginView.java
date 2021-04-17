@@ -1,6 +1,7 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
+import com.llat.models.localstorage.uidescription.LoginViewObject;
 import com.llat.views.interpreters.LoginViewInterpreter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 public class LoginView {
 
     private final Controller controller;
+    private final LoginViewObject uiLoginObject;
     private final Region aboveLogoRegion = new Region();
     private final Region belowLogoRegion = new Region();
     private final Region belowUserNameRegion = new Region();
@@ -23,16 +25,22 @@ public class LoginView {
     private final HBox parentPane = new HBox();
     private final VBox loginVBox = new VBox();
     private final Label logoImage = new Label();
-    private final Label userNameInputLabel = new Label("Username");
     private final TextField userNameField = new TextField();
-    private final Label passwordInputLabel = new Label("Password");
     private final PasswordField passwordField = new PasswordField();
-    private final Button loginButton = new Button("Login");
-    private final Button returnButton = new Button("Return to Application");
     private final LoginViewInterpreter loginViewInterpreter;
+    private final Label userNameInputLabel;
+    private Label passwordInputLabel = new Label("Password");
+    private Button loginButton = new Button("Login");
+    private Button returnButton = new Button("Return to Application");
 
     public LoginView(Controller _controller) {
         this.controller = _controller;
+        this.uiLoginObject = this.controller.getUiObject().loginView;
+
+        this.userNameInputLabel = new Label(this.uiLoginObject.userNameLabel);
+        this.passwordInputLabel = new Label(this.uiLoginObject.passwordLabel);
+        this.loginButton = new Button(this.uiLoginObject.loginButton);
+        this.returnButton = new Button(this.uiLoginObject.returnButton);
         // Setting HBox parentPane properties.
         this.parentPane.setId("loginViewParentPane");
         this.parentPane.setAlignment(Pos.CENTER);
@@ -90,7 +98,7 @@ public class LoginView {
         this.userNameInputLabel.setId("emailInputLabel");
 
         // Setting TextField emailField properties.
-        this.userNameField.setPromptText("Enter your Username.");
+        this.userNameField.setPromptText(this.uiLoginObject.userNamePromptText);
         this.userNameField.setFocusTraversable(false);
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.userNameField.setMaxWidth(newVal.doubleValue() * .70);
@@ -105,7 +113,7 @@ public class LoginView {
         this.passwordInputLabel.setId("passwordInputLabel");
 
         // Setting PasswordField passwordField properties.
-        this.passwordField.setPromptText("Enter your password.");
+        this.passwordField.setPromptText(this.uiLoginObject.passwordPromptText);
         this.passwordField.setFocusTraversable(false);
         this.loginVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.passwordField.setMaxWidth(newVal.doubleValue() * .70);

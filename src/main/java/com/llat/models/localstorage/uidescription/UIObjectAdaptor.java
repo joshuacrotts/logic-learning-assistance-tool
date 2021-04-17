@@ -5,32 +5,15 @@ import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.settings.SettingsAdaptor;
 import com.llat.models.localstorage.settings.SettingsObject;
 
-public class UIDescriptionAdaptor implements UIDescriptionInterface {
+public class UIObjectAdaptor implements UIObjectInterface {
+    SettingsAdaptor sa = new SettingsAdaptor();
+    SettingsObject so = (SettingsObject) this.sa.getData();
 
-    /**
-     *
-     */
-    private final SettingsAdaptor sa = new SettingsAdaptor();
+    String code = this.so.getLanguage().getApplied().getCode();
 
-    /**
-     *
-     */
-    private final SettingsObject so = (SettingsObject) this.sa.getData();
+    private final String UI_DESCRIPTION = "UID/UIObject_" + this.code + ".json";
 
-    /**
-     *
-     */
-    private final String code = this.so.getLanguage().getApplied().getCode();
-
-    /**
-     *
-     */
-    private final String UI_DESCRIPTION = "UID/UIDescription_" + this.code + ".json";
-
-    /**
-     *
-     */
-    private final UIDescriptionInterface obj = new GsonIO(this.UI_DESCRIPTION, UIDescriptionObject.class);
+    UIObjectInterface obj = new GsonIO(this.UI_DESCRIPTION, UIObject.class);
 
     @Override
     public void update(LocalStorage _obj, String _jsonFilePath) {
