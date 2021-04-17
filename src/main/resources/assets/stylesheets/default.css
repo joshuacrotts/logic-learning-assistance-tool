@@ -10,9 +10,14 @@
     -fx-alignment: center;
 }
 
+ #userNameInputLabel, #firstNameInputLabel, #lastNameInputLabel, #passwordInputLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 2em;
+}
+
 .text-field {
     -fx-background-color: silver;
-    -fx-border-width: 5;
+    -fx-border-width: 2.5;
     -fx-border-color: black;
     -fx-text-color: black;
     -fx-alignment: center;
@@ -75,7 +80,7 @@
     -fx-border-size: 10;
 }
 
-#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox, #errorMessageVBox {
+#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox, #errorMessageVBox, #historyViewVBox {
     -fx-background-color: silver;
 }
 

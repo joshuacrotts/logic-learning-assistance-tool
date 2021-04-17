@@ -17,6 +17,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -171,6 +173,18 @@ public class Controller implements Initializable {
                 case LATEX_TRUTH_TABLE:
                     EventBus.throwEvent(new ExportLaTeXTruthTableEvent(filePath));
                     break;
+            }
+        });
+    }
+
+    public void loginOnAction(Button _button, TextField _userName, PasswordField _password) {
+        _button.setOnAction((event) -> {
+            this.user = this.databaseAdapter.Login(_userName.getText(), _password.getText());
+            if (this.user != null) {
+                EventBus.throwEvent(new LoginSuccessEvent());
+            }
+            else {
+                EventBus.throwEvent(new LoginFailEvent());
             }
         });
     }

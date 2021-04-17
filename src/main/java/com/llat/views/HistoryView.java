@@ -1,12 +1,14 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
+import com.llat.views.interpreters.HistoryViewInterpreter;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,43 +25,34 @@ public class HistoryView {
     /**
      *
      */
-    private final Stage stage;
-
-    /**
-     *
-     */
     private final VBox parentPane = new VBox();
 
     /**
      *
      */
     private TableView<String> table = new TableView();
-
+    private final HistoryViewInterpreter historyViewInterpreter;
     public HistoryView(Controller _controller) {
         this.controller = _controller;
-        this.stage = this.controller.getStage();
-        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.table.setMinHeight(newVal.doubleValue());
-            this.table.setMinHeight(newVal.doubleValue());
-        });
-
-        if (this.controller.getUser() != null && this.controller.getUser().getHistory() != null) {
-            List<String> history = this.controller.getUser().getHistory();
-            ObservableList<String> names = FXCollections.observableArrayList(history);
-            TableView<String> tv = new TableView(FXCollections.observableArrayList(new ArrayList<String>(history)));
-            TableColumn<String, String> formulaColumn = new TableColumn<>("Formula");
-            this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-                formulaColumn.setMinWidth(newVal.doubleValue() * .18);
-            });
-            formulaColumn.setCellValueFactory((p) -> new ReadOnlyStringWrapper(p.getValue()));
-            tv.getColumns().add(formulaColumn);
-            this.table = tv;
-        }
-
+        this.parentPane.setStyle("-fx-background-color: yellow");
+        VBox.setVgrow(this.table, Priority.ALWAYS);
         this.parentPane.getChildren().add(this.table);
+        this.historyViewInterpreter = new HistoryViewInterpreter(this.controller, this);
     }
 
     public Pane getParentPane() {
         return this.parentPane;
     }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public void setTable(TableView<String> _table) {
+        this.parentPane.getChildren().remove(this.table);
+        this.parentPane.getChildren().add(_table);
+        this.table = _table;
+        VBox.setVgrow(this.table, Priority.ALWAYS);
+    }
+
 }

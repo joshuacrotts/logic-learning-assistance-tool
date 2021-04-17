@@ -43,9 +43,7 @@ public class RegisterView {
         this.firstNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getFirstName());
         this.lastNameInputLabel = new Label(this.controller.getUiObject().getRegisterView().getLastName());
         this.passwordInputLabel = new Label(this.controller.getUiObject().getRegisterView().getPasswordLabel());
-
         this.registerButton = new Button(this.controller.getUiObject().getRegisterView().getRegisterButton());
-
         this.returnButton = new Button(this.controller.getUiObject().getRegisterView().getReturnButton());
 
         // Setting AnchorPane parentPane properties.
@@ -125,6 +123,10 @@ public class RegisterView {
             this.firstNameField.setMaxWidth(newVal.doubleValue() * .70);
         });
 
+        // Setting Region belowEmailRegion properties.
+        this.registerVBox.heightProperty().addListener(((obs, oldVal, newVal) -> {
+            this.belowFirstNameRegion.setMinHeight(newVal.doubleValue() * .01);
+        }));
         // Setting Label lastNameInputLabel properties.
         this.lastNameInputLabel.setId("lastNameInputLabel");
 
