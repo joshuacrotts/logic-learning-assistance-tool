@@ -47,3 +47,5 @@ gen/
 latex_parse_tree.tex
 latex_truth_table.tex
 latex_truth_tree.tex
+.pdf*
+.pdf

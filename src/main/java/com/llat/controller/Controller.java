@@ -192,12 +192,22 @@ public class Controller implements Initializable {
             this.user = this.databaseAdapter.Login(_userName.getText(), _password.getText());
             if (this.user != null) {
                 EventBus.throwEvent(new LoginSuccessEvent());
+                this.changeViewTo(ViewManager.MAINAPPLICATION);
             }
             else {
                 EventBus.throwEvent(new LoginFailEvent());
             }
         });
     }
+
+    public void registerAction(Button _button, TextField _userName, TextField _firstname, TextField _lastname, PasswordField _password) {
+        _button.setOnAction((event) -> {
+            int user = this.databaseAdapter.Register(_userName.getText(),_password.getText(),_firstname.getText(),_lastname.getText());
+            EventBus.throwEvent(new RegistrationStatusEvent(user));
+        });
+    }
+
+
 
     public Stage getStage() {
         return this.stage;
