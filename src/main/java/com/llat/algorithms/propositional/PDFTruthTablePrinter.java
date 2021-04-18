@@ -1,4 +1,4 @@
-package com.llat.algorithms;
+package com.llat.algorithms.propositional;
 
 import com.llat.algorithms.PDFPrinter;
 import com.llat.algorithms.TexPrinter;
@@ -18,19 +18,19 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
-public final class PDFTablePrinter extends PDFPrinter {
+public final class PDFTruthTablePrinter extends PDFPrinter {
 
     /**
      * Template location to read from.
      */
     private static final String TEX_TABLE_TEMPLATE = "src/main/resources/tex_truth_table_template.tex";
 
-    public PDFTablePrinter(WffTree _tree, String _outputFile) {
+    public PDFTruthTablePrinter(WffTree _tree, String _outputFile) {
         super(_tree, _outputFile);
     }
 
     /**
-     * Outputs the truth table for a propositional logic formula in LaTeX to a file.
+     * Outputs the truth table for a propositional logic formula in LaTeX to a pdf.
      * We first create a TruthTableGenerator algorithm, then traverse its contents
      * for the truth values. These [nodes] are inserted in post-order, so atomic/
      * non-complex sentences are inserted first. The ordering isn't guaranteed to

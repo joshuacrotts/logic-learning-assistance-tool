@@ -5,7 +5,7 @@ import com.llat.LLATParser;
 import com.llat.algorithms.*;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
-import com.llat.algorithms.PDFTablePrinter;
+import com.llat.algorithms.propositional.PDFTruthTablePrinter;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.LLATErrorListener;
@@ -99,7 +99,7 @@ public class ParserTest {
                 truthTreeGenerator = new PropositionalTruthTreeGenerator(result);
 
                 // Print the truth table to a PDF.
-                PDFPrinter pdfTruthTablePrinter = new PDFTablePrinter(result, "latex_truth_table.pdf");
+                PDFPrinter pdfTruthTablePrinter = new PDFTruthTablePrinter(result, "latex_truth_table.pdf");
                 pdfTruthTablePrinter.outputToFile();
             }
             // Generate the truth tree and print it to the console.
