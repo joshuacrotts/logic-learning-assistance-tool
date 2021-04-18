@@ -1,7 +1,8 @@
-package com.llat.algorithms.propositional;
+package com.llat.algorithms;
 
 import com.llat.algorithms.PDFPrinter;
 import com.llat.algorithms.TexPrinter;
+import com.llat.algorithms.propositional.TruthTableGenerator;
 import com.llat.models.treenode.WffTree;
 
 import java.io.*;
@@ -59,13 +60,12 @@ public final class PDFTablePrinter extends PDFPrinter {
             // Append the table code to this request.
             httpTex.append(this.getTexTable(postOrderTraversal));
             httpTex.append("\n\\end{tabular}\n\n\\end{document}\n");
+
             // Build the URL and HTTP request.
-            String texURL = "https://latexonline.cc/compile?text=";
+            String texURL = "https://latex.ytotech.com/builds/sync?content=";
             String paramURL = URLEncoder.encode(httpTex.toString(), "UTF-8");
-            System.out.println(texURL + paramURL);
-            downloadFile(new URL("https://latexonline.cc/compile?text=%5Cdocumentclass%5Bborder%3D10pt%5D%7Bstandalone%7D%0D%0A%5Cusepackage%7Bamsmath%7D%0D%0A%5Cusepackage%7Barray%7D%0D%0A%0D%0A%5Cnewcommand%7B%5Cvarlnot%7D%7B%5Cmathord%7B%5Csim%7D%7D%0D%0A%5Cnewcommand%7B%5Cvarland%7D%7B%5Cmathbin%7B%5C%26%7D%7D%0D%0A%5Cnewcommand%7B%5Cvarliff%7D%7B%5Cleftrightarrow%7D%0D%0A%5Cnewcommand%7B%5Cdneg%7D%7B%5Cvarlnot%5Cvarlnot%7D%0D%0A%5Cnewcommand*%5Clif%7B%5Cmathbin%7B%5Cto%7D%7D%25%20added%20thanks%20to%20egreg%27s%20suggestion%0D%0A%5Cnewcommand%7B%5Cltrue%7D%7B%5Cmathrm%7Btrue%7D%7D%0D%0A%0D%0A%5Cbegin%7Bdocument%7D%0D%0A%5Cbegin%7Btabular%7D%7Bc%7Cc%7Cc%7D%0A%24%5Cmathrm%7BA%7D%24%20%26%20%24%5Cmathrm%7BB%7D%24%20%26%20%24(%5Cmathrm%7BA%7D%20%5Cmathbin%7B%5C%26%7D%20%5Cmathrm%7BB%7D)%24%5C%5C%0A%5Chline%0Atrue%20%26%20true%20%26%20true%20%5C%5C%20%0Atrue%20%26%20false%20%26%20false%20%5C%5C%20%0Afalse%20%26%20true%20%26%20false%20%5C%5C%20%0Afalse%20%26%20false%20%26%20false%20%5C%5C%20%0A%5Cend%7Btabular%7D%0A%0A%5Cend%7Bdocument%7D%0A&trackId=1618711349802"), "test.pdf");
-        } catch (IOException e) {
-            e.printStackTrace();
+            URL url = new URL(texURL + paramURL);
+            PDFPrinter.downloadFile(url, getOutputFile());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,11 +114,5 @@ public final class PDFTablePrinter extends PDFPrinter {
             }
         }
         return sb.toString();
-    }
-
-    public static void downloadFile(URL url, String fileName) throws Exception {
-        try (InputStream in = url.openStream()) {
-            Files.copy(in, Paths.get(fileName), StandardCopyOption.REPLACE_EXISTING);
-        }
     }
 }

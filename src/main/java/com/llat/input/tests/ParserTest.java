@@ -5,7 +5,7 @@ import com.llat.LLATParser;
 import com.llat.algorithms.*;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
-import com.llat.algorithms.propositional.PDFTablePrinter;
+import com.llat.algorithms.PDFTablePrinter;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.LLATErrorListener;
@@ -80,6 +80,10 @@ public class ParserTest {
             TexPrinter texParseTreePrinter = new TexParseTreePrinter(result, "latex_parse_tree.tex");
             texParseTreePrinter.outputToFile();
 
+            // Prints the parse tree to a PDF.
+            PDFPrinter pdfParseTreePrinter = new PDFParseTreePrinter(result, "pdf_parse_tree.pdf");
+            pdfParseTreePrinter.outputToFile();
+
             BaseTruthTreeGenerator truthTreeGenerator;
             if (result.isPredicateWff()) {
                 System.out.println("Bound variables: " + new BoundVariableDetector(result).getBoundVariables());
@@ -94,7 +98,7 @@ public class ParserTest {
                 texTruthTablePrinter.outputToFile();
                 truthTreeGenerator = new PropositionalTruthTreeGenerator(result);
 
-                // Print the truth table in LaTeX.
+                // Print the truth table to a PDF.
                 PDFPrinter pdfTruthTablePrinter = new PDFTablePrinter(result, "latex_truth_table.pdf");
                 pdfTruthTablePrinter.outputToFile();
             }
@@ -105,6 +109,10 @@ public class ParserTest {
             // Print the truth tree in LaTeX.
             TexPrinter texTruthTreePrinter = new TexTruthTreePrinter(truthTree, "latex_truth_tree.tex");
             texTruthTreePrinter.outputToFile();
+
+            // Prints the truth tree to a PDF.
+            PDFPrinter pdfTruthTreePrinter = new PDFTruthTreePrinter(truthTree, "latex_truth_tree.pdf");
+            pdfTruthTreePrinter.outputToFile();
 
             // Display the main operator.
             System.out.println("Main operator: " + new MainOperatorDetector(result).get());
