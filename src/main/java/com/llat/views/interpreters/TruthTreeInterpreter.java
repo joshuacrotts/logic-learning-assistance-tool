@@ -317,7 +317,8 @@ public class TruthTreeInterpreter implements Listener {
             this.truthTrees = new LinkedList<>();
             this.truthTrees.add(_tree);
             this.PANE = _pane;
-            this.text = _tree.getWff().getStringRep() + "\n";
+            this.text = _tree.getWff().getStringRep() + "\n" +
+                    "";
             this.height = 12;
             this.width = this.text.length() * 10;
         }

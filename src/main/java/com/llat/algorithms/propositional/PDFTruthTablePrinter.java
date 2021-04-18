@@ -1,25 +1,36 @@
 package com.llat.algorithms.propositional;
 
+import com.llat.algorithms.PDFPrinter;
 import com.llat.algorithms.TexPrinter;
+import com.llat.algorithms.propositional.TruthTableGenerator;
 import com.llat.models.treenode.WffTree;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
-public final class TexTablePrinter extends TexPrinter {
+public final class PDFTruthTablePrinter extends PDFPrinter {
 
     /**
      * Template location to read from.
      */
     private static final String TEX_TABLE_TEMPLATE = "src/main/resources/tex_truth_table_template.tex";
 
-    public TexTablePrinter(WffTree _tree, String _outputFile) {
+    public PDFTruthTablePrinter(WffTree _tree, String _outputFile) {
         super(_tree, _outputFile);
     }
 
     /**
-     * Outputs the truth table for a propositional logic formula in LaTeX to a file.
+     * Outputs the truth table for a propositional logic formula in LaTeX to a pdf.
      * We first create a TruthTableGenerator algorithm, then traverse its contents
      * for the truth values. These [nodes] are inserted in post-order, so atomic/
      * non-complex sentences are inserted first. The ordering isn't guaranteed to
@@ -34,24 +45,28 @@ public final class TexTablePrinter extends TexPrinter {
         }
         LinkedHashSet<WffTree> postOrderTraversal = ttg.postorder();
 
-        // Now, print it out in TeX.
         try {
             this.setBufferedReader(new BufferedReader(new FileReader(TEX_TABLE_TEMPLATE)));
-            this.setBufferedWriter(new BufferedWriter(new FileWriter(this.getOutputFile())));
+            StringBuilder httpTex = new StringBuilder();
 
             // First copy the template over.
             int ch = this.getBufferedReader().read();
             while (ch != -1) {
-                this.getBufferedWriter().write(ch);
+                httpTex.append((char) ch);
                 ch = this.getBufferedReader().read();
             }
-            this.getBufferedWriter().write(this.getTexTable(postOrderTraversal));
-
-            // Output the closing latex commands.
-            this.getBufferedWriter().write("\n\\end{tabular}\n\n\\end{document}\n");
-            this.getBufferedWriter().close();
             this.getBufferedReader().close();
-        } catch (IOException e) {
+
+            // Append the table code to this request.
+            httpTex.append(this.getTexTable(postOrderTraversal));
+            httpTex.append("\n\\end{tabular}\n\n\\end{document}\n");
+
+            // Build the URL and HTTP request.
+            String texURL = "https://latex.ytotech.com/builds/sync?content=";
+            String paramURL = URLEncoder.encode(httpTex.toString(), "UTF-8");
+            URL url = new URL(texURL + paramURL);
+            PDFPrinter.downloadFile(url, getOutputFile());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
