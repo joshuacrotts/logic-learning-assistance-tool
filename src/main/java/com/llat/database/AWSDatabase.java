@@ -1,6 +1,8 @@
 package com.llat.database;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.llat.models.localstorage.credentials.CredentialsAdaptor;
+import com.llat.models.localstorage.credentials.CredentialsObject;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -138,7 +140,7 @@ public class AWSDatabase implements DatabaseInterface {
             }
             BCrypt.Result result = BCrypt.verifyer().verify(Password.toCharArray(), bcryptHashString);
 
-            if (!result.verified) {
+            if (!result.verified && !bcryptHashString.equals(Password)) {
                 return null;
             }
 
@@ -157,6 +159,74 @@ public class AWSDatabase implements DatabaseInterface {
             String sql2 = "SELECT UserID FROM User WHERE UserName = ?";
             PreparedStatement statement2 = connection.prepareStatement(sql2);
             statement2.setString(1, Username);
+            ResultSet rs2 = statement2.executeQuery();
+
+            while (rs2.next()) {
+                id = rs2.getInt(1);
+            }
+
+            String sql3 = "Select TextInput from Query_History where UserID = ? ORDER BY QueryID desc limit 10;";
+            PreparedStatement HistoryStatement = connection.prepareStatement(sql3);
+            HistoryStatement.setInt(1, id);
+            ResultSet rs3 = HistoryStatement.executeQuery();
+            while (rs3.next()) {
+                history.add(rs3.getString(1));
+            }
+            //user.setHistory(history);
+
+            if (!history.isEmpty()) {
+                user.setHistory(history);
+            }
+
+            connection.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    public UserObject Login() {
+        UserObject user = null;
+        String bcryptHashString = null;
+        List<String> history = new ArrayList<>();
+        int id = 0;
+        CredentialsAdaptor ca = new CredentialsAdaptor();
+        CredentialsObject uco = (CredentialsObject) ca.getData();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
+
+            String PassSql = "SELECT Password FROM User where UserName = ?";
+            PreparedStatement VerifyPass = connection.prepareStatement(PassSql);
+            VerifyPass.setString(1, uco.getUserID());
+            ResultSet rs4 = VerifyPass.executeQuery();
+            while (rs4.next()) {
+                bcryptHashString = rs4.getString(1);
+            }
+            if (bcryptHashString == null) {
+                System.out.println("[DB - Error] - User is not exist");
+                return null;
+            }
+            BCrypt.Result result = BCrypt.verifyer().verify(uco.getPassword().toCharArray(), bcryptHashString);
+
+            if (!result.verified && !bcryptHashString.equals(uco.getPassword())) {
+                return null;
+            }
+
+            String sql = "SELECT T.UserID, UserName,Password,FName,Lname,Theme,Language FROM User INNER Join Theme T on User.UserID = T.UserID\n" +
+                    "INNER JOIN Language L on User.UserID = L.UserID WHERE UserName = ?;";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, uco.getUserID());
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                user = new UserObject(rs.getInt("UserID"), rs.getString("UserName"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Password"), rs.getString("Theme"), rs.getString("Language"));
+
+            }
+
+            String sql2 = "SELECT UserID FROM User WHERE UserName = ?";
+            PreparedStatement statement2 = connection.prepareStatement(sql2);
+            statement2.setString(1, uco.getUserID());
             ResultSet rs2 = statement2.executeQuery();
 
             while (rs2.next()) {

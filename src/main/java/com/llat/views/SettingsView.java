@@ -171,7 +171,11 @@ public class SettingsView {
                 this.updateLocalStorage();
                 this.settingsStage.close();
                 this.stage.close();
-                new Window(new Stage());
+                if (this.controller.getUiObject() == null){
+                    new Window(new Stage());
+                }else{
+                    new Window(new Stage(), true);
+                }
                 if (this.controller.getUser() != null){
                     int USERID = this.controller.getUser().getUserId();
                     String NewTheme = so.getTheme().getApplied().getCode();

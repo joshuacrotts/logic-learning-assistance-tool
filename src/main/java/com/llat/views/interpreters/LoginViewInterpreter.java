@@ -1,7 +1,11 @@
 package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
+import com.llat.database.DatabaseAdapter;
 import com.llat.database.UserObject;
+import com.llat.models.localstorage.LocalStorage;
+import com.llat.models.localstorage.credentials.CredentialsAdaptor;
+import com.llat.models.localstorage.credentials.CredentialsObject;
 import com.llat.models.localstorage.settings.SettingsAdaptor;
 import com.llat.models.localstorage.settings.SettingsObject;
 import com.llat.tools.Event;
@@ -13,6 +17,8 @@ import com.llat.views.events.LoginFailEvent;
 import com.llat.views.events.LoginSuccessEvent;
 import com.llat.views.events.UpdateHistoryEvent;
 import com.llat.main.Window;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class LoginViewInterpreter implements Listener {
@@ -50,14 +56,13 @@ public class LoginViewInterpreter implements Listener {
             so.getLanguage().getApplied().setCode(UserLanguage);
 
             sa.update(so);
-
+            CredentialsAdaptor ca = new CredentialsAdaptor();
+            CredentialsObject co = (CredentialsObject) ca.getData();
+            co.setUserID(this.controller.getUser().getUserName());
+            co.setPassword(this.controller.getUser().getPword());
+            ca.update(co);
             this.controller.getStage().close();
-            UserObject x = this.controller.getUser();
-            Stage st = new Stage();
-            Controller c = new Controller(st);
-            c.setUser(x);
-            new Window(c);
-
+            new Window(new Stage(), true);
 
         }
         if (_event instanceof LoginFailEvent) {

@@ -185,20 +185,28 @@ public class Controller implements Initializable {
             if (this.user != null) {
                 EventBus.throwEvent(new LoginSuccessEvent());
                 this.changeViewTo(ViewManager.MAINAPPLICATION);
-            }
-            else {
+            } else {
                 EventBus.throwEvent(new LoginFailEvent());
             }
         });
     }
 
+    public void LocalUser() {
+        this.user = this.databaseAdapter.Login();
+        if (this.user != null) {
+            EventBus.throwEvent(new LoginSuccessEvent());
+            this.changeViewTo(ViewManager.MAINAPPLICATION);
+        } else {
+            EventBus.throwEvent(new LoginFailEvent());
+        }
+    }
+
     public void registerAction(Button _button, TextField _userName, TextField _firstname, TextField _lastname, PasswordField _password) {
         _button.setOnAction((event) -> {
-            int user = this.databaseAdapter.Register(_userName.getText(),_password.getText(),_firstname.getText(),_lastname.getText());
+            int user = this.databaseAdapter.Register(_userName.getText(), _password.getText(), _firstname.getText(), _lastname.getText());
             EventBus.throwEvent(new RegistrationStatusEvent(user));
         });
     }
-
 
 
     public Stage getStage() {
@@ -211,8 +219,7 @@ public class Controller implements Initializable {
             case ViewManager.MAINAPPLICATION: {
                 try {
                     parentPane = this.applicationView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.applicationView = new ApplicationView(this);
                     parentPane = this.applicationView.getParentPane();
                 }
@@ -221,8 +228,7 @@ public class Controller implements Initializable {
             case ViewManager.LOGIN:
                 try {
                     parentPane = this.loginView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.loginView = (new LoginView(this));
                     parentPane = this.loginView.getParentPane();
                 }
@@ -230,8 +236,7 @@ public class Controller implements Initializable {
             case ViewManager.REGISTER:
                 try {
                     parentPane = this.registerView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.registerView = (new RegisterView(this));
                     parentPane = this.registerView.getParentPane();
                 }

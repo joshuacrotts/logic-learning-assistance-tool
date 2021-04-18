@@ -15,11 +15,13 @@ public class Window {
         _stage.show();
     }
 
-    public Window(Controller _controller) {
+    public Window(Stage _stage, boolean isLoggedIn) {
         App app = new App();
         EventBus.resetListeners();
-        app.setStageSettings(_controller.getStage());
-        _controller.changeViewTo(ViewManager.MAINAPPLICATION);
-        _controller.getStage().show();
+        app.setStageSettings(_stage);
+        Controller controller = new Controller(_stage);
+        controller.changeViewTo(ViewManager.MAINAPPLICATION);
+        controller.LocalUser();
+        _stage.show();
     }
 }
