@@ -24,20 +24,7 @@ public class LoginViewInterpreter implements Listener {
     public LoginViewInterpreter(Controller _controller, LoginView _registerView) {
         this.controller = _controller;
         this.loginView = _registerView;
-        this.loginView.getLoginButton().setOnAction((event1 -> {
-            DatabaseAdapter ad = new DatabaseAdapter();
-            String email = this.loginView.getUserNameField().getText();
-            String pass = this.loginView.getPasswordField().getText();
-            UserObject user = ad.Login(email, pass);
-            if (user != null) {
-                System.out.println("User logged");
-                this.controller.setUser(user);
-                this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
-            } else {
-                System.out.println("Password or email is wrong");
-            }
-        }));
-
+        this.controller.loginOnAction(this.loginView.getLoginButton(), this.loginView.getUserNameField(), this.loginView.getPasswordField());
         this.loginView.getReturnButton().setOnAction((event) -> {
             this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
         });
@@ -47,6 +34,6 @@ public class LoginViewInterpreter implements Listener {
 
     @Override
     public void catchEvent(Event _event) {
-
     }
+
 }

@@ -17,6 +17,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -38,6 +40,9 @@ public class Controller implements Initializable {
     private final LogicSetup logicSetup = new LogicSetup();
     private UIObject uiObject;
     private UserObject user;
+    private ApplicationView applicationView;
+    private LoginView loginView;
+    private RegisterView registerView;
 
     public Controller(Stage _stage) {
         this.stage = _stage;
@@ -174,6 +179,18 @@ public class Controller implements Initializable {
         });
     }
 
+    public void loginOnAction(Button _button, TextField _userName, PasswordField _password) {
+        _button.setOnAction((event) -> {
+            this.user = this.databaseAdapter.Login(_userName.getText(), _password.getText());
+            if (this.user != null) {
+                EventBus.throwEvent(new LoginSuccessEvent());
+            }
+            else {
+                EventBus.throwEvent(new LoginFailEvent());
+            }
+        });
+    }
+
     public Stage getStage() {
         return this.stage;
     }
@@ -182,14 +199,32 @@ public class Controller implements Initializable {
         Pane parentPane = new Pane();
         switch (_viewName) {
             case ViewManager.MAINAPPLICATION: {
-                parentPane = (new ApplicationView(this).getParentPane());
+                try {
+                    parentPane = this.applicationView.getParentPane();
+                }
+                catch (Exception e) {
+                    this.applicationView = new ApplicationView(this);
+                    parentPane = this.applicationView.getParentPane();
+                }
                 break;
             }
             case ViewManager.LOGIN:
-                parentPane = (new LoginView(this)).getParentPane();
+                try {
+                    parentPane = this.loginView.getParentPane();
+                }
+                catch (Exception e) {
+                    this.loginView = (new LoginView(this));
+                    parentPane = this.loginView.getParentPane();
+                }
                 break;
             case ViewManager.REGISTER:
-                parentPane = (new RegisterView(this)).getParentPane();
+                try {
+                    parentPane = this.registerView.getParentPane();
+                }
+                catch (Exception e) {
+                    this.registerView = (new RegisterView(this));
+                    parentPane = this.registerView.getParentPane();
+                }
                 break;
             default:
                 // Update this to error view.

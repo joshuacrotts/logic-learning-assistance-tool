@@ -244,7 +244,14 @@ public class SettingsView {
      *
      */
     public void appearanceSetUp() {
-        String appliedTheme = this.so.getTheme().getApplied().getName();
+        String appliedTheme = null;
+        List<ThemeObject> s = this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getTheme().getAllThemes();
+        for (ThemeObject theme:s) {
+            if(theme.getCode().equals(this.so.getTheme().getApplied().getCode()) ){
+                appliedTheme = theme.getName();
+                break;
+            }
+        }
         List<ThemeObject> themeList = this.uio.getSettingsView().getCategories().getAppearance().getTheme().getAllThemes();
         Label themeLabel = new Label(this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getTheme().getLabel());
         HBox appearanceHBox = new HBox();

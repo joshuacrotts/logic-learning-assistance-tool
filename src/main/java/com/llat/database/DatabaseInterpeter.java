@@ -31,11 +31,11 @@ public class DatabaseInterpeter implements Listener {
                 this.USERID = this.controller.getUser().getUserId();
                 this.test = new ArrayList<>();
                 ((SolvedFormulaEvent) _event).getWffTree().forEach((tree) -> {
-                    String Input = tree.getStringRep();
+                    this.test.add(tree.getStringRep());
                 });
 
-/*                String text = this.test.get(0);
-                this.databaseAdapter.InsertQuery(this.USERID, text);*/
+               String text = this.test.get(0);
+               this.databaseAdapter.InsertQuery(this.USERID, text);
             }
 
             if (_event instanceof RegisterEvent) {

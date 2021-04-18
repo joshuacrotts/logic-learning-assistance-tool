@@ -48,8 +48,6 @@ public class LeftView {
             this.llatErrorView.getParentPane().setMinWidth(newVal.doubleValue());
             this.llatErrorView.getParentPane().setMaxWidth(newVal.doubleValue());
         });
-        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-        });
         VBox.setVgrow(this.llatErrorView.getParentPane(), Priority.ALWAYS);
         // Adding children nodes to their parents.
         this.parentPane.getChildren().addAll(this.inputButtonsView.getParentPane(), this.llatErrorView.getParentPane());
