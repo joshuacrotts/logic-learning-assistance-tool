@@ -18,8 +18,12 @@ import com.llat.views.events.LoginSuccessEvent;
 import com.llat.views.events.UpdateHistoryEvent;
 import com.llat.main.Window;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class LoginViewInterpreter implements Listener {
 
@@ -66,7 +70,12 @@ public class LoginViewInterpreter implements Listener {
 
         }
         if (_event instanceof LoginFailEvent) {
-            System.out.println("Username or Password is Wrong");
+            Alert alert = new Alert(Alert.AlertType.NONE, "Username or Password is Wrong", ButtonType.OK);
+            alert.setTitle("Warning");
+            alert.show();
+
+
+
 
         }
     }

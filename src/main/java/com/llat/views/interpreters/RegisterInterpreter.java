@@ -9,6 +9,8 @@ import com.llat.tools.ViewManager;
 import com.llat.views.RegisterView;
 import com.llat.views.events.RegisterEvent;
 import com.llat.views.events.RegistrationStatusEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class RegisterInterpreter implements Listener {
 
@@ -36,16 +38,20 @@ public class RegisterInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof RegistrationStatusEvent) {
+            Alert alert = new Alert(Alert.AlertType.NONE, "", ButtonType.OK);
+            alert.setTitle("Warning");
             switch (((RegistrationStatusEvent) _event).getStatus()) {
                 case DatabaseAdapter.REGISTERED_SUCCESSFULLY:
                     System.out.println("User Registered");
                     this.controller.changeViewTo(ViewManager.LOGIN);
                     break;
                 case DatabaseAdapter.REGISTERED_EMPTY_INPUT:
-                    System.out.println("You need to fill all the required fields");
+                    alert.setContentText("You need to fill all the required fields");
+                    alert.show();
                     break;
                 case DatabaseAdapter.REGISTERED_DUP_USER:
-                    System.out.println("User name already exists");
+                    alert.setContentText("User name already exists");
+                    alert.show();
                     break;
             }
 
