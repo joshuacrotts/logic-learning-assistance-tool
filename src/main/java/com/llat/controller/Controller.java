@@ -5,6 +5,7 @@ import com.llat.database.DatabaseInterpeter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.models.LogicSetup;
+import com.llat.models.localstorage.credentials.CredentialsAdaptor;
 import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.tools.EventBus;
@@ -37,6 +38,7 @@ public class Controller implements Initializable {
     private final DatabaseAdapter databaseAdapter = new DatabaseAdapter();
     private final DatabaseInterpeter di = new DatabaseInterpeter(this.databaseAdapter, this);
     private final UIObjectAdaptor uiObjectAdaptor = new UIObjectAdaptor();
+    private final CredentialsAdaptor credentialsAdaptor = new CredentialsAdaptor();
     private final LogicSetup logicSetup = new LogicSetup();
     private UIObject uiObject;
     private UserObject user;
@@ -48,6 +50,8 @@ public class Controller implements Initializable {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
         this.uiObject = (UIObject) this.uiObjectAdaptor.getData();
+        LocalUser();
+
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {
@@ -195,7 +199,6 @@ public class Controller implements Initializable {
         this.user = this.databaseAdapter.Login();
         if (this.user != null) {
             EventBus.throwEvent(new LoginSuccessEvent());
-            this.changeViewTo(ViewManager.MAINAPPLICATION);
         } else {
             EventBus.throwEvent(new LoginFailEvent());
         }
