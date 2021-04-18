@@ -174,7 +174,7 @@ public class SettingsView {
                 new Window(new Stage());
                 if (this.controller.getUser() != null){
                     int USERID = this.controller.getUser().getUserId();
-                    String NewTheme = so.getTheme().getApplied().getName();
+                    String NewTheme = so.getTheme().getApplied().getCode();
                     String NewLanguage = so.getLanguage().getApplied().getCode();
                     db.UpdateTheme(USERID,NewTheme);
                     db.UpdateLanguage(USERID, NewLanguage);

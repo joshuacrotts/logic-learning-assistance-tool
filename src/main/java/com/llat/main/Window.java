@@ -14,4 +14,12 @@ public class Window {
         (new Controller(_stage)).changeViewTo(ViewManager.MAINAPPLICATION);
         _stage.show();
     }
+
+    public Window(Controller _controller) {
+        App app = new App();
+        EventBus.resetListeners();
+        app.setStageSettings(_controller.getStage());
+        _controller.changeViewTo(ViewManager.MAINAPPLICATION);
+        _controller.getStage().show();
+    }
 }

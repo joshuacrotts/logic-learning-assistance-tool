@@ -55,12 +55,12 @@ public class AWSDatabase implements DatabaseInterface {
                 id = rs2.getInt(1);
             }
 
-            String Def_language = "INSERT INTO Language (UserID, Language)  VALUES ( ?, 'En')";
+            String Def_language = "INSERT INTO Language (UserID, Language)  VALUES ( ?, 'en')";
             PreparedStatement statement3 = connection.prepareStatement(Def_language);
             statement3.setInt(1, id);
             statement3.executeUpdate();
 
-            String Def_Theme = "INSERT INTO Theme (UserID, Theme)  VALUES ( ?, 'Default')";
+            String Def_Theme = "INSERT INTO Theme (UserID, Theme)  VALUES ( ?, 'default.css')";
             PreparedStatement statement4 = connection.prepareStatement(Def_Theme);
             statement4.setInt(1, id);
             statement4.executeUpdate();
