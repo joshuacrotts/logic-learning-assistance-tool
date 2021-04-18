@@ -1,10 +1,9 @@
 package com.llat.models.interpreters;
 
 
-import com.llat.algorithms.BaseTruthTreeGenerator;
-import com.llat.algorithms.TexParseTreePrinter;
-import com.llat.algorithms.TexTruthTreePrinter;
+import com.llat.algorithms.*;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
+import com.llat.algorithms.propositional.PDFTruthTablePrinter;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.events.SolvedFormulaEvent;
@@ -96,6 +95,22 @@ public class LogicSetupInterpreter implements Listener {
             EventBus.throwEvent(updateViewParseTreeEvent);
             EventBus.throwEvent(updateViewTruthTreeEvent);
             EventBus.throwEvent(updateViewTruthTableEvent);
+        } else if (_event instanceof ExportPDFParseTreeEvent) {
+            PDFPrinter pdfParseTreePrinter = new PDFParseTreePrinter(this.logicSetup.getWffTree().get(0), ((ExportPDFParseTreeEvent) _event).getFilePath());
+            pdfParseTreePrinter.outputToFile();
+        } else if (_event instanceof ExportPDFTruthTableEvent) {
+            PDFPrinter pdfTruthTablePrinter = new PDFTruthTablePrinter(this.logicSetup.getWffTree().get(0), ((ExportPDFTruthTableEvent) _event).getFilePath());
+            pdfTruthTablePrinter.outputToFile();
+        } else if (_event instanceof ExportPDFTruthTreeEvent) {
+            WffTree wffTree = this.logicSetup.getWffTree().get(0);
+            BaseTruthTreeGenerator truthTreeGenerator;
+            if (wffTree.isPropositionalWff()) {
+                truthTreeGenerator = new PropositionalTruthTreeGenerator(wffTree);
+            } else {
+                truthTreeGenerator = new PredicateTruthTreeGenerator(wffTree);
+            }
+            PDFTruthTreePrinter pdfTruthTreePrinter = new PDFTruthTreePrinter(truthTreeGenerator.getTruthTree(), ((ExportPDFTruthTreeEvent) _event).getFilePath());
+            pdfTruthTreePrinter.outputToFile();
         } else if (_event instanceof ExportLaTeXParseTreeEvent) {
             TexParseTreePrinter texParseTreePrinter = new TexParseTreePrinter(this.logicSetup.getWffTree().get(0), ((ExportLaTeXParseTreeEvent) _event).getFilePath());
             texParseTreePrinter.outputToFile();
