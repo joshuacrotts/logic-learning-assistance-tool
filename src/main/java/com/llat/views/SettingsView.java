@@ -22,15 +22,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import com.llat.database.DatabaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.llat.views.SettingsView.WIDTH;
+
 public class SettingsView {
 
     public static final int WIDTH = 750;
     public static final int HEIGHT = 500;
+    // view id
     private final static int APPEARANCE_ID = 0;
     private final static int LANGUAGE_ID = 1;
     private final static int ADVANCE_ID = 2;
@@ -39,6 +43,7 @@ public class SettingsView {
     private final Stage stage;
     private final Pane leftPane = new Pane();
     private final HBox hBox = new HBox();
+    private final VBox vBox1 = new VBox();
     private final VBox vBox2 = new VBox();
     private final Button appearanceButton;
     private final Button languageButton;
@@ -49,6 +54,7 @@ public class SettingsView {
     private final Pane advancePane;
     private SettingsAdaptor sa = new SettingsAdaptor();
     private SettingsObject so = (SettingsObject) this.sa.getData();
+    private DatabaseAdapter db = new DatabaseAdapter();
     private UIObjectAdaptor uioa = new UIObjectAdaptor();
     private UIObject uio = (UIObject) this.uioa.getData();
     private Stage settingsStage;
@@ -134,6 +140,7 @@ public class SettingsView {
                 SettingsView.this.hBox.getChildren().remove(1);
                 SettingsView.this.hBox.getChildren().add(SettingsView.this.advancePane);
                 SettingsView.this.onPress(SettingsView.this.advanceButton, SettingsView.this.advancePane);
+
             }
         });
 
@@ -164,7 +171,18 @@ public class SettingsView {
                 this.updateLocalStorage();
                 this.settingsStage.close();
                 this.stage.close();
-                new Window(new Stage());
+                if (this.controller.getUiObject() == null){
+                    new Window(new Stage());
+                }else{
+                    new Window(new Stage(), true);
+                }
+                if (this.controller.getUser() != null){
+                    int USERID = this.controller.getUser().getUserId();
+                    String NewTheme = so.getTheme().getApplied().getCode();
+                    String NewLanguage = so.getLanguage().getApplied().getCode();
+                    db.UpdateTheme(USERID,NewTheme);
+                    db.UpdateLanguage(USERID, NewLanguage);
+                }
             } else {
                 // ... user chose CANCEL or closed the dialog
             }
@@ -216,6 +234,7 @@ public class SettingsView {
             }
         }
     }
+
 
     public AnchorPane getParentPane() {
         return this.parentPane;
@@ -282,7 +301,9 @@ public class SettingsView {
 
             menuItem.setOnAction(e -> {
                 langMenu.setText(menuItem.getText());
+                langMenu.setText(menuItem.getText());
                 this.so.getLanguage().setApplied((LanguageObject) menuItem.getContent());
+
             });
         }
 

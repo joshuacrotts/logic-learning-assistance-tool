@@ -5,6 +5,7 @@ import com.llat.database.DatabaseInterpeter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.models.LogicSetup;
+import com.llat.models.localstorage.credentials.CredentialsAdaptor;
 import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.tools.EventBus;
@@ -38,6 +39,7 @@ public class Controller implements Initializable {
     private final DatabaseAdapter databaseAdapter = new DatabaseAdapter();
     private final DatabaseInterpeter di = new DatabaseInterpeter(this.databaseAdapter, this);
     private final UIObjectAdaptor uiObjectAdaptor = new UIObjectAdaptor();
+    private final CredentialsAdaptor credentialsAdaptor = new CredentialsAdaptor();
     private final LogicSetup logicSetup = new LogicSetup();
     private UIObject uiObject;
     private UserObject user;
@@ -49,6 +51,8 @@ public class Controller implements Initializable {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
         this.uiObject = (UIObject) this.uiObjectAdaptor.getData();
+        LocalUser();
+
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {
@@ -122,6 +126,8 @@ public class Controller implements Initializable {
                             _canvas.setTranslateY(_canvas.getTranslateY() + (curMouse.getCurY() - mouseEvent.getY()) / (2 / _canvas.getScaleX()));
                             curMouse.setCurY(mouseEvent.getY());
                         }
+
+
                     }
                 });
             }
@@ -193,20 +199,27 @@ public class Controller implements Initializable {
             if (this.user != null) {
                 EventBus.throwEvent(new LoginSuccessEvent());
                 this.changeViewTo(ViewManager.MAINAPPLICATION);
-            }
-            else {
+            } else {
                 EventBus.throwEvent(new LoginFailEvent());
             }
         });
     }
 
+    public void LocalUser() {
+        this.user = this.databaseAdapter.Login();
+        if (this.user != null) {
+            EventBus.throwEvent(new LoginSuccessEvent());
+        } else {
+            EventBus.throwEvent(new LoginFailEvent());
+        }
+    }
+
     public void registerAction(Button _button, TextField _userName, TextField _firstname, TextField _lastname, PasswordField _password) {
         _button.setOnAction((event) -> {
-            int user = this.databaseAdapter.Register(_userName.getText(),_password.getText(),_firstname.getText(),_lastname.getText());
+            int user = this.databaseAdapter.Register(_userName.getText(), _password.getText(), _firstname.getText(), _lastname.getText());
             EventBus.throwEvent(new RegistrationStatusEvent(user));
         });
     }
-
 
 
     public Stage getStage() {
@@ -219,8 +232,7 @@ public class Controller implements Initializable {
             case ViewManager.MAINAPPLICATION: {
                 try {
                     parentPane = this.applicationView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.applicationView = new ApplicationView(this);
                     parentPane = this.applicationView.getParentPane();
                 }
@@ -229,8 +241,7 @@ public class Controller implements Initializable {
             case ViewManager.LOGIN:
                 try {
                     parentPane = this.loginView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.loginView = (new LoginView(this));
                     parentPane = this.loginView.getParentPane();
                 }
@@ -238,8 +249,7 @@ public class Controller implements Initializable {
             case ViewManager.REGISTER:
                 try {
                     parentPane = this.registerView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.registerView = (new RegisterView(this));
                     parentPane = this.registerView.getParentPane();
                 }

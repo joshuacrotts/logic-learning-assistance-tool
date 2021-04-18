@@ -38,6 +38,7 @@ public class HistoryView {
         VBox.setVgrow(this.table, Priority.ALWAYS);
         this.parentPane.getChildren().add(this.table);
         this.historyViewInterpreter = new HistoryViewInterpreter(this.controller, this);
+        historyViewInterpreter.updateHistory();
     }
 
     public Pane getParentPane() {

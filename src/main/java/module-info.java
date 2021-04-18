@@ -9,6 +9,7 @@ module LLAT {
     requires java.desktop;
 
     opens com.llat.models.localstorage;
+    opens com.llat.models.localstorage.credentials;
     opens com.llat.models.localstorage.settings;
     opens com.llat.models.localstorage.settings.language;
     opens com.llat.models.localstorage.settings.theme;
@@ -16,7 +17,6 @@ module LLAT {
     opens com.llat.models.localstorage.uidescription.menubar;
     opens com.llat.models.localstorage.uidescription.settingsview;
     opens com.llat.models.localstorage.uidescription.mainview;
-    opens com.llat.models.localstorage.credentials;
     opens com.llat.models.symbols;
     opens com.llat.models.gson;
     opens com.llat.tools;
