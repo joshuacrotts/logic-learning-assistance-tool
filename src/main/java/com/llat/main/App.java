@@ -26,11 +26,10 @@ public class App extends Application {
     public void setStageSettings(Stage _stage) {
         _stage.setScene(new Scene(new Pane()));
         _stage.setTitle("Logic Learning Assistance Tool");
-        _stage.setMaximized(true);
         _stage.setFullScreen(false);
+        _stage.setMaximized(true);
         _stage.setMinHeight(720);
         _stage.setMinWidth(1280);
-        _stage.setMaximized(true);
         _stage.getIcons().add(new Image(App.class.getResourceAsStream("/assets/images/LogoStatic.png")));
     }
 }

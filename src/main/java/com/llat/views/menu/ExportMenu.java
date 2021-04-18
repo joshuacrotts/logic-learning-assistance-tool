@@ -6,6 +6,7 @@ import com.llat.views.menu.items.ExportLaTeXParseTreeItem;
 import com.llat.views.menu.items.ExportLaTeXTruthTableItem;
 import com.llat.views.menu.items.ExportLaTeXTruthTreeItem;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 
 public class ExportMenu {
 
@@ -15,6 +16,9 @@ public class ExportMenu {
     private final ExportLaTeXTruthTableItem exportLaTeXTruthTableItem;
     private final ExportLaTeXParseTreeItem exportLaTeXParseTreeItem;
     private final ExportLaTeXTruthTreeItem exportLaTeXTruthTreeItem;
+    private final MenuItem exportPDFTruthTableMenuItem = new MenuItem("PDF Truth Table (.pdf)");
+    private final MenuItem exportPDFParseTreeMenuItem = new MenuItem("PDF Parse Tree (.pdf)");
+    private final MenuItem exportPDFTruthTreeMenuItem = new MenuItem("PDF Truth Tree (.pdf)");
 
     public ExportMenu(Controller controller) {
         this.controller = controller;
@@ -25,8 +29,10 @@ public class ExportMenu {
         this.exportLaTeXParseTreeItem = new ExportLaTeXParseTreeItem(this.controller);
         // Initializing ExportLaTeXTruthTreeItem exportLaTeXTruthTreeItem
         this.exportLaTeXTruthTreeItem = new ExportLaTeXTruthTreeItem(this.controller);
+        // Setting
         // Adding children nodes to their parents nodes.
-        this.exportMenu.getItems().addAll(this.exportLaTeXTruthTableItem.getItem(), this.exportLaTeXParseTreeItem.getItem(), this.exportLaTeXTruthTreeItem.getItem());
+        this.exportMenu.getItems().addAll(this.exportLaTeXTruthTableItem.getItem(), this.exportLaTeXParseTreeItem.getItem(), this.exportLaTeXTruthTreeItem.getItem(),
+                                          this.exportPDFTruthTableMenuItem, this.exportPDFParseTreeMenuItem, this.exportPDFTruthTreeMenuItem);
         // Creating interpreter to handle events and actions.
         this.exportMenuInterpreter = new ExportMenuInterpreter(this.controller, this);
     }
@@ -47,10 +53,16 @@ public class ExportMenu {
         return this.exportLaTeXTruthTreeItem;
     }
 
-    public enum ExportType {
-        LATEX_TRUTH_TABLE,
-        LATEX_PARSE_TREE,
-        LATEX_TRUTH_TREE
+    public MenuItem getExportPDFTruthTableMenuItem() {
+        return exportPDFTruthTableMenuItem;
+    }
+
+    public MenuItem getExportPDFParseTreeMenuItem() {
+        return exportPDFParseTreeMenuItem;
+    }
+
+    public MenuItem getExportPDFTruthTreeMenuItem() {
+        return exportPDFTruthTreeMenuItem;
     }
 
 }

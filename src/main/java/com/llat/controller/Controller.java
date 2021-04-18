@@ -13,6 +13,7 @@ import com.llat.tools.ViewManager;
 import com.llat.views.*;
 import com.llat.views.events.*;
 import com.llat.views.menu.ExportMenu;
+import com.llat.views.menu.ExportType;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -146,34 +147,43 @@ public class Controller implements Initializable {
         });
     }
 
+    public void throwExportEvent(ExportType _exportType, String _filePath) {
+        switch (_exportType) {
+            case LATEX_PARSE_TREE:
+                EventBus.throwEvent(new ExportLaTeXParseTreeEvent(_filePath));
+                break;
+            case LATEX_TRUTH_TREE:
+                EventBus.throwEvent(new ExportLaTeXTruthTreeEvent(_filePath));
+                break;
+            case LATEX_TRUTH_TABLE:
+                EventBus.throwEvent(new ExportLaTeXTruthTableEvent(_filePath));
+                break;
+            case PDF_PARSE_TREE:
+                EventBus.throwEvent(new ExportPDFParseTreeEvent(_filePath));
+                break;
+            case PDF_TRUTH_TREE:
+                EventBus.throwEvent(new ExportPDFTruthTreeEvent(_filePath));
+                break;
+            case PDF_TRUTH_TABLE:
+                EventBus.throwEvent(new ExportPDFTruthTableEvent(_filePath));
+                break;
+        }
+    }
     /**
      * @param _menuItem
      * @param _exportType
      */
-    public void setExportLatexOnAction(MenuItem _menuItem, ExportMenu.ExportType _exportType) {
+    public void setExportOnAction(MenuItem _menuItem, ExportType _exportType) {
         _menuItem.setOnAction((event) -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Export to LaTeX");
-            FileChooser.ExtensionFilter texExtension = new FileChooser.ExtensionFilter("LaTeX files (*.tex)", "*.tex");
-            fileChooser.getExtensionFilters().add(texExtension);
+            fileChooser.setTitle("Export " + _exportType.getType());
+            fileChooser.getExtensionFilters().add(_exportType.getExtensionFilter());
             File file = fileChooser.showSaveDialog(this.getStage());
-
             if (file == null) {
                 return;
             }
-
             String filePath = file.getAbsolutePath();
-            switch (_exportType) {
-                case LATEX_PARSE_TREE:
-                    EventBus.throwEvent(new ExportLaTeXParseTreeEvent(filePath));
-                    break;
-                case LATEX_TRUTH_TREE:
-                    EventBus.throwEvent(new ExportLaTeXTruthTreeEvent(filePath));
-                    break;
-                case LATEX_TRUTH_TABLE:
-                    EventBus.throwEvent(new ExportLaTeXTruthTableEvent(filePath));
-                    break;
-            }
+            this.throwExportEvent(_exportType, filePath);
         });
     }
 
