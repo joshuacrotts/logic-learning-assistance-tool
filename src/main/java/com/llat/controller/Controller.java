@@ -9,6 +9,7 @@ import com.llat.models.localstorage.credentials.CredentialsAdaptor;
 import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.tools.EventBus;
+import com.llat.tools.LLATUtils;
 import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
 import com.llat.views.*;
@@ -46,13 +47,14 @@ public class Controller implements Initializable {
     private ApplicationView applicationView;
     private LoginView loginView;
     private RegisterView registerView;
+    private boolean hasNetworkConnection;
 
     public Controller(Stage _stage) {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
         this.uiObject = (UIObject) this.uiObjectAdaptor.getData();
+        this.hasNetworkConnection = LLATUtils.connectedToNet();
         LocalUser();
-
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {
@@ -279,5 +281,9 @@ public class Controller implements Initializable {
 
     public void setUiObject(UIObject uiObject) {
         this.uiObject = uiObject;
+    }
+
+    public boolean hasNetworkConnection() {
+        return this.hasNetworkConnection;
     }
 }

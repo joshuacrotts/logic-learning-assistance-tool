@@ -1,6 +1,7 @@
 package com.llat.views.menu;
 
 import com.llat.controller.Controller;
+import com.llat.tools.LLATUtils;
 import com.llat.views.interpreters.ExportMenuInterpreter;
 import com.llat.views.menu.items.*;
 import javafx.scene.control.Menu;
@@ -45,6 +46,9 @@ public class ExportMenu {
 
         // Creating interpreter to handle events and actions.
         this.exportMenuInterpreter = new ExportMenuInterpreter(this.controller, this);
+
+        // Disable the PDF exporter if we don't have an internet connection.
+        this.exportPDFMenu.setDisable(!this.controller.hasNetworkConnection());
     }
 
     public Menu getMenu() {

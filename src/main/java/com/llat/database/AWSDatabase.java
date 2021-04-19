@@ -14,8 +14,16 @@ public class AWSDatabase implements DatabaseInterface {
      *
      */
     public static final String CREDENTIALS_STRING = "jdbc:mysql://llat-instance-1.cux0wahd0k8a.us-east-2.rds.amazonaws.com:3306/llat";
-    String DBUser = "admin";
-    String DBPass = "SeniorCapstone490";
+
+    /**
+     * These should absolutely be removed!
+     */
+    private String DBUser = "admin";
+
+    /**
+     *
+     */
+    private String DBPass = "SeniorCapstone490";
 
     /**
      *
@@ -108,8 +116,6 @@ public class AWSDatabase implements DatabaseInterface {
             statement.setInt(2, id);
             statement.executeUpdate();
             connection.close();
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
