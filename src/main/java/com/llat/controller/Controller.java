@@ -4,6 +4,7 @@ import com.llat.database.DatabaseAdapter;
 import com.llat.database.DatabaseInterpeter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
+import com.llat.main.Window;
 import com.llat.models.LogicSetup;
 import com.llat.models.localstorage.credentials.CredentialsAdaptor;
 import com.llat.models.localstorage.uidescription.UIObject;
@@ -200,7 +201,7 @@ public class Controller implements Initializable {
             this.user = this.databaseAdapter.Login(_userName.getText(), _password.getText());
             if (this.user != null) {
                 EventBus.throwEvent(new LoginSuccessEvent());
-                this.changeViewTo(ViewManager.MAINAPPLICATION);
+                this.resetApplication();
             } else {
                 EventBus.throwEvent(new LoginFailEvent());
             }
@@ -216,10 +217,18 @@ public class Controller implements Initializable {
         }
     }
 
+    private void resetApplication() {
+        this.getStage().close();
+        new Window(new Stage(), true);
+    }
+
     public void registerAction(Button _button, TextField _userName, TextField _firstname, TextField _lastname, PasswordField _password) {
         _button.setOnAction((event) -> {
             int user = this.databaseAdapter.Register(_userName.getText(), _password.getText(), _firstname.getText(), _lastname.getText());
             EventBus.throwEvent(new RegistrationStatusEvent(user));
+            if(user == 0){
+                this.changeViewTo(ViewManager.LOGIN);
+            }
         });
     }
 

@@ -43,7 +43,6 @@ public class RegisterInterpreter implements Listener {
             switch (((RegistrationStatusEvent) _event).getStatus()) {
                 case DatabaseAdapter.REGISTERED_SUCCESSFULLY:
                     System.out.println("User Registered");
-                    this.controller.changeViewTo(ViewManager.LOGIN);
                     break;
                 case DatabaseAdapter.REGISTERED_EMPTY_INPUT:
                     alert.setContentText("You need to fill all the required fields");

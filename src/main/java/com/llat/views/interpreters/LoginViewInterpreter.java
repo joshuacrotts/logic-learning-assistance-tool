@@ -65,8 +65,6 @@ public class LoginViewInterpreter implements Listener {
             co.setUserID(this.controller.getUser().getUserName());
             co.setPassword(this.controller.getUser().getPword());
             ca.update(co);
-            this.controller.getStage().close();
-            new Window(new Stage(), true);
         }
 
         if (_event instanceof LoginFailEvent) {
