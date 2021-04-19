@@ -2,6 +2,7 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.main.Window;
+import com.llat.tools.EventBus;
 import com.llat.models.localstorage.ItemObject;
 import com.llat.models.localstorage.settings.SettingsAdaptor;
 import com.llat.models.localstorage.settings.SettingsObject;
@@ -164,6 +165,7 @@ public class SettingsView {
                 this.updateLocalStorage();
                 this.settingsStage.close();
                 this.stage.close();
+                EventBus.resetListeners();
                 new Window(new Stage());
             } else {
                 // ... user chose CANCEL or closed the dialog
