@@ -165,7 +165,6 @@ public class SettingsView {
                 this.updateLocalStorage();
                 this.settingsStage.close();
                 this.stage.close();
-                EventBus.resetListeners();
                 new Window(new Stage());
             } else {
                 // ... user chose CANCEL or closed the dialog
