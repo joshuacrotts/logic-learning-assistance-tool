@@ -26,7 +26,7 @@ COMMA      : ',';
 SEMICOLON  : ';';
 
 /* Binary and unary operators for propositional logic. */
-AND     : '&' | '∧'  ;
+AND     : '&' | '∧' | '^' | '⋅' ;
 OR      : '|' | '∨' | '+' | '||'  ;
 IMP     : '->' | '→' | '⇒' | '⊃'  ;
 BICOND  : '<->' | '⇔' | '≡' | '↔' ;
@@ -50,10 +50,15 @@ UNIVERSAL: '∀';
 /* Conclusion Indicator Symbols. */
 THEREFORE: '⊢' | '∴' | '=>';
 
+/* Semantic entailment (models). */
+SEMANTIC_ENTAILMENT: '⊧' | '⊨';
+
 //=========== Parser rules. ==============
 
 program: (predProof EOF)
        | (propProof EOF)
+       | (predSemanticEntailment EOF)
+       | (propSemanticEntailment EOF)
        | (propositionalWff COMMA propositionalWff EOF)
        | (predicateWff COMMA predicateWff EOF)
        | (propositionalWff EOF)
@@ -119,3 +124,9 @@ predProof: predPremise+ THEREFORE predConclusion;
 propPremise: ((propositionalWff (COMMA|SEMICOLON)) | propositionalWff);
 propConclusion: propositionalWff;
 propProof: propPremise+ THEREFORE propConclusion;
+
+/* Semantic entailment for predicate logic. */
+predSemanticEntailment: (predicateWff SEMANTIC_ENTAILMENT predicateWff);
+
+/* Semantic entailment for propositional logic. */
+propSemanticEntailment: (propositionalWff SEMANTIC_ENTAILMENT propositionalWff);
