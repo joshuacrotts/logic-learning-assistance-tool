@@ -5,8 +5,6 @@ import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
-import com.llat.views.events.LoginSuccessEvent;
-import com.llat.views.events.RegistrationStatusEvent;
 import com.llat.views.events.UpdateHistoryEvent;
 
 import java.util.ArrayList;
@@ -35,8 +33,8 @@ public class DatabaseInterpeter implements Listener {
                     this.test.add(tree.getStringRep());
                 });
 
-               String text = this.test.get(0);
-               this.databaseAdapter.InsertQuery(this.USERID, text);
+                String text = this.test.get(0);
+                this.databaseAdapter.InsertQuery(this.USERID, text);
                 List<String> history = this.databaseAdapter.UpdateHistory(this.USERID);
                 this.controller.getUser().setHistory(history);
                 EventBus.throwEvent(new UpdateHistoryEvent());

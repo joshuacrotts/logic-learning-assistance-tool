@@ -1,6 +1,7 @@
 package com.llat.views;
 
 import com.llat.controller.Controller;
+import com.llat.database.DatabaseAdapter;
 import com.llat.main.Window;
 import com.llat.models.localstorage.ItemObject;
 import com.llat.models.localstorage.settings.SettingsAdaptor;
@@ -22,19 +23,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import com.llat.database.DatabaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.llat.views.SettingsView.WIDTH;
-
 public class SettingsView {
 
     public static final int WIDTH = 750;
     public static final int HEIGHT = 500;
-    // view id
     private final static int APPEARANCE_ID = 0;
     private final static int LANGUAGE_ID = 1;
     private final static int ADVANCE_ID = 2;
@@ -52,11 +49,11 @@ public class SettingsView {
     private final Pane appearancePane;
     private final Pane languagePane;
     private final Pane advancePane;
-    private SettingsAdaptor sa = new SettingsAdaptor();
-    private SettingsObject so = (SettingsObject) this.sa.getData();
-    private DatabaseAdapter db = new DatabaseAdapter();
-    private UIObjectAdaptor uioa = new UIObjectAdaptor();
-    private UIObject uio = (UIObject) this.uioa.getData();
+    private final SettingsAdaptor sa = new SettingsAdaptor();
+    private final SettingsObject so = (SettingsObject) this.sa.getData();
+    private final DatabaseAdapter db = new DatabaseAdapter();
+    private final UIObjectAdaptor uioa = new UIObjectAdaptor();
+    private final UIObject uio = (UIObject) this.uioa.getData();
     private Stage settingsStage;
 
     public SettingsView(Controller controller) {
@@ -171,17 +168,17 @@ public class SettingsView {
                 this.updateLocalStorage();
                 this.settingsStage.close();
                 this.stage.close();
-                if (this.controller.getUiObject() == null){
+                if (this.controller.getUiObject() == null) {
                     new Window(new Stage());
-                }else{
+                } else {
                     new Window(new Stage(), true);
                 }
-                if (this.controller.getUser() != null){
+                if (this.controller.getUser() != null) {
                     int USERID = this.controller.getUser().getUserId();
-                    String NewTheme = so.getTheme().getApplied().getCode();
-                    String NewLanguage = so.getLanguage().getApplied().getCode();
-                    db.UpdateTheme(USERID,NewTheme);
-                    db.UpdateLanguage(USERID, NewLanguage);
+                    String NewTheme = this.so.getTheme().getApplied().getCode();
+                    String NewLanguage = this.so.getLanguage().getApplied().getCode();
+                    this.db.UpdateTheme(USERID, NewTheme);
+                    this.db.UpdateLanguage(USERID, NewLanguage);
                 }
             } else {
                 // ... user chose CANCEL or closed the dialog
@@ -250,8 +247,8 @@ public class SettingsView {
     public void appearanceSetUp() {
         String appliedTheme = null;
         List<ThemeObject> s = this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getTheme().getAllThemes();
-        for (ThemeObject theme:s) {
-            if(theme.getCode().equals(this.so.getTheme().getApplied().getCode()) ){
+        for (ThemeObject theme : s) {
+            if (theme.getCode().equals(this.so.getTheme().getApplied().getCode())) {
                 appliedTheme = theme.getName();
                 break;
             }

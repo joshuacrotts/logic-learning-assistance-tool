@@ -7,7 +7,6 @@ import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.tools.ViewManager;
 import com.llat.views.RegisterView;
-import com.llat.views.events.RegisterEvent;
 import com.llat.views.events.RegistrationStatusEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -27,7 +26,7 @@ public class RegisterInterpreter implements Listener {
     public RegisterInterpreter(Controller _controller, RegisterView _registerView) {
         this.controller = _controller;
         this.registerView = _registerView;
-        this.controller.registerAction(this.registerView.getRegisterButton(),this.registerView.getUserNameField(),this.registerView.getFirstNameField(),this.registerView.getLastNameField(), this.registerView.getPasswordField());
+        this.controller.registerAction(this.registerView.getRegisterButton(), this.registerView.getUserNameField(), this.registerView.getFirstNameField(), this.registerView.getLastNameField(), this.registerView.getPasswordField());
         this.registerView.getReturnButton().setOnAction((event) -> {
             this.controller.changeViewTo(ViewManager.MAINAPPLICATION);
         });
@@ -53,8 +52,6 @@ public class RegisterInterpreter implements Listener {
                     alert.show();
                     break;
             }
-
         }
-
     }
 }

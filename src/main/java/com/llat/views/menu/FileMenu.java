@@ -22,7 +22,7 @@ public class FileMenu {
         this.fileMenu = new Menu(controller.getUiObject().getMenuBar().getFile().getLabel());
 
         // Setting Menu fileMenu properties.
-        if (this.controller.getUser() == null){
+        if (this.controller.getUser() == null) {
             this.fileMenu.getItems().addAll(
                     new NewProjectItem(this.controller).getItem(),
                     new OpenItem(this.controller).getItem(),
@@ -33,7 +33,7 @@ public class FileMenu {
                     new SettingsItem(this.controller).getItem(),
                     new SeparatorMenuItem(),
                     new ExitItem(this.controller).getItem());
-        }else{
+        } else {
             this.fileMenu.getItems().addAll(
                     new NewProjectItem(this.controller).getItem(),
                     new OpenItem(this.controller).getItem(),

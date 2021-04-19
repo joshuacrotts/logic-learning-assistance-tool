@@ -1,7 +1,6 @@
 package com.llat.views.menu.items;
 
 import com.llat.controller.Controller;
-import com.llat.tools.LLATUtils;
 import com.llat.tools.ViewManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

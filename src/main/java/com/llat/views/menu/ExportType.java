@@ -30,7 +30,7 @@ public enum ExportType {
     }
 
     public FileChooser.ExtensionFilter getExtensionFilter() {
-        return extensionFilter;
+        return this.extensionFilter;
     }
 
 }

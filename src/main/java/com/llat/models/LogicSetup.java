@@ -160,9 +160,9 @@ public class LogicSetup {
 
                 case MAIN_OPERATOR_DETECTOR:
                     MainOperatorDetector mainOperatorDetector = new MainOperatorDetector(rootOne);
-                    WffTree mainOp = mainOperatorDetector.get();
+                    WffTree mainOp = mainOperatorDetector.getMainOperator();
                     mainOp.setHighlighted(true);
-                    return new LogicTree(mainOperatorDetector.get());
+                    return new LogicTree(mainOperatorDetector.getMainOperator());
 
                 case OPEN_TREE_DETERMINER:
                     OpenTreeDeterminer openTreeDeterminer = new OpenTreeDeterminer(rootOne);

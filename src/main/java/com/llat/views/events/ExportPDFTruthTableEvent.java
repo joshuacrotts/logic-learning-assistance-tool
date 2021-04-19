@@ -6,7 +6,7 @@ public class ExportPDFTruthTableEvent implements Event {
 
     private final String filePath;
 
-    public ExportPDFTruthTableEvent (String _filePath) {
+    public ExportPDFTruthTableEvent(String _filePath) {
         this.filePath = _filePath;
     }
 

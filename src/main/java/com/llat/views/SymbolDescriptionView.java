@@ -47,11 +47,11 @@ public class SymbolDescriptionView {
         this.symbol = _symbol;
         this.controller = _controller;
 
-        symbolNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getSymbolNameLabel());
-        formalNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getFormalNameLabel());
-        alternativeSymbolsLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getAlternativeSymbolsLabel());
-        explanationLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExplanationLabel());
-        exampleLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExamplesLabel());
+        this.symbolNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getSymbolNameLabel());
+        this.formalNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getFormalNameLabel());
+        this.alternativeSymbolsLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getAlternativeSymbolsLabel());
+        this.explanationLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExplanationLabel());
+        this.exampleLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExamplesLabel());
 
 
         // Settings labels id (linked via CSS).

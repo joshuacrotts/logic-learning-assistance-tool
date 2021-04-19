@@ -14,21 +14,18 @@ public class AWSDatabase implements DatabaseInterface {
      *
      */
     public static final String CREDENTIALS_STRING = "jdbc:mysql://llat-instance-1.cux0wahd0k8a.us-east-2.rds.amazonaws.com:3306/llat";
-
-    /**
-     * These should absolutely be removed!
-     */
-    private String DBUser = "admin";
-
-    /**
-     *
-     */
-    private String DBPass = "SeniorCapstone490";
-
     /**
      *
      */
     private static Connection connection = null;
+    /**
+     * These should absolutely be removed!
+     */
+    private final String DBUser = "admin";
+    /**
+     *
+     */
+    private final String DBPass = "SeniorCapstone490";
 
     //Method that creates a user Account and stores in database and sets default values to theme and language.
     public int Register(String _userName, String _password, String _firstName, String _lastName) {
@@ -37,7 +34,7 @@ public class AWSDatabase implements DatabaseInterface {
         String bcryptHashString = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, this.DBUser, this.DBPass);
 
             if (_password == null || _userName == null) {
                 Message = "You must enter in a username and password.";
@@ -91,7 +88,7 @@ public class AWSDatabase implements DatabaseInterface {
     public void UpdateTheme(int id, String Theme) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, this.DBUser, this.DBPass);
             String sql = "UPDATE Theme SET Theme = ? WHERE UserID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, Theme);
@@ -109,7 +106,7 @@ public class AWSDatabase implements DatabaseInterface {
     public void UpdateLanguage(int id, String Language) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, this.DBUser, this.DBPass);
             String sql = "UPDATE Language SET Language = ?  WHERE UserID = ? ;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, Language);
@@ -131,7 +128,7 @@ public class AWSDatabase implements DatabaseInterface {
         int id = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, this.DBUser, this.DBPass);
 
             String PassSql = "SELECT Password FROM User where UserName = ?";
             PreparedStatement VerifyPass = connection.prepareStatement(PassSql);
@@ -190,6 +187,7 @@ public class AWSDatabase implements DatabaseInterface {
         }
         return user;
     }
+
     public UserObject Login() {
         UserObject user = null;
         String bcryptHashString = null;
@@ -199,7 +197,7 @@ public class AWSDatabase implements DatabaseInterface {
         CredentialsObject uco = (CredentialsObject) ca.getData();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, this.DBUser, this.DBPass);
 
             String PassSql = "SELECT Password FROM User where UserName = ?";
             PreparedStatement VerifyPass = connection.prepareStatement(PassSql);
@@ -265,7 +263,7 @@ public class AWSDatabase implements DatabaseInterface {
     public void InsertQuery(int id, String Text) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, this.DBUser, this.DBPass);
             String sql = "INSERT INTO Query_History(USERID, TEXTINPUT) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -303,7 +301,7 @@ public class AWSDatabase implements DatabaseInterface {
         List<String> history = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
+            connection = DriverManager.getConnection(CREDENTIALS_STRING, this.DBUser, this.DBPass);
             String sql = "SELECT TextInput FROM Query_History WHERE UserID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);

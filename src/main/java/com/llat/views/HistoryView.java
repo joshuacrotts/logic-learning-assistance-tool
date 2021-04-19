@@ -2,18 +2,10 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.views.interpreters.HistoryViewInterpreter;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HistoryView {
 
@@ -30,15 +22,20 @@ public class HistoryView {
     /**
      *
      */
-    private TableView<String> table = new TableView();
     private final HistoryViewInterpreter historyViewInterpreter;
+
+    /**
+     *
+     */
+    private TableView<String> table = new TableView();
+
     public HistoryView(Controller _controller) {
         this.controller = _controller;
         this.parentPane.setStyle("-fx-background-color: yellow");
         VBox.setVgrow(this.table, Priority.ALWAYS);
         this.parentPane.getChildren().add(this.table);
         this.historyViewInterpreter = new HistoryViewInterpreter(this.controller, this);
-        historyViewInterpreter.updateHistory();
+        this.historyViewInterpreter.updateHistory();
     }
 
     public Pane getParentPane() {
@@ -46,7 +43,7 @@ public class HistoryView {
     }
 
     public Controller getController() {
-        return controller;
+        return this.controller;
     }
 
     public void setTable(TableView<String> _table) {
@@ -55,5 +52,4 @@ public class HistoryView {
         this.table = _table;
         VBox.setVgrow(this.table, Priority.ALWAYS);
     }
-
 }

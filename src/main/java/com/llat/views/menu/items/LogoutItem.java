@@ -4,7 +4,6 @@ import com.llat.controller.Controller;
 import com.llat.main.Window;
 import com.llat.models.localstorage.credentials.CredentialsAdaptor;
 import com.llat.models.localstorage.credentials.CredentialsObject;
-import com.llat.tools.ViewManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;

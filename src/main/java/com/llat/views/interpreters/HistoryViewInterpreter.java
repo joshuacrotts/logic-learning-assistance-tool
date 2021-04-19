@@ -1,7 +1,6 @@
 package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
-import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
@@ -18,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class HistoryViewInterpreter implements Listener {
+
     private final Controller controller;
     private final HistoryView historyView;
 
@@ -30,19 +29,17 @@ public class HistoryViewInterpreter implements Listener {
     }
 
 
-
     @Override
     public void catchEvent(Event _event) {
-        if (_event instanceof LoginSuccessEvent)  {
-                updateHistory();
-            }
-
-
-        if (_event instanceof UpdateHistoryEvent)  {
-                updateHistory();
-            }
+        if (_event instanceof LoginSuccessEvent) {
+            this.updateHistory();
         }
 
+
+        if (_event instanceof UpdateHistoryEvent) {
+            this.updateHistory();
+        }
+    }
 
     public void updateHistory() {
         if (this.controller.getUser() != null && this.controller.getUser().getHistory() != null) {
@@ -55,5 +52,4 @@ public class HistoryViewInterpreter implements Listener {
             this.historyView.setTable(tv);
         }
     }
-
 }

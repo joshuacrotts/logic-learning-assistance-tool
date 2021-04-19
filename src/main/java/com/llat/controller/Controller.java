@@ -48,14 +48,14 @@ public class Controller implements Initializable {
     private ApplicationView applicationView;
     private LoginView loginView;
     private RegisterView registerView;
-    private boolean hasNetworkConnection;
+    private final boolean hasNetworkConnection;
 
     public Controller(Stage _stage) {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
         this.uiObject = (UIObject) this.uiObjectAdaptor.getData();
         this.hasNetworkConnection = LLATUtils.connectedToNet();
-        LocalUser();
+        this.LocalUser();
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {

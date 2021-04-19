@@ -13,7 +13,7 @@ public class CredentialsObject extends LocalStorage {
     }
 
     public String getUserID() {
-        return userID;
+        return this.userID;
     }
 
     public void setUserID(String userID) {
@@ -21,7 +21,7 @@ public class CredentialsObject extends LocalStorage {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -31,8 +31,8 @@ public class CredentialsObject extends LocalStorage {
     @Override
     public String toString() {
         return "UserCredentialsObject{" +
-                "userID='" + userID + '\'' +
-                ", password='" + password + '\'' +
+                "userID='" + this.userID + '\'' +
+                ", password='" + this.password + '\'' +
                 '}';
     }
 }

@@ -1,11 +1,9 @@
 package com.llat.views.menu;
 
 import com.llat.controller.Controller;
-import com.llat.tools.LLATUtils;
 import com.llat.views.interpreters.ExportMenuInterpreter;
 import com.llat.views.menu.items.*;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 
 /**
  *
@@ -76,15 +74,15 @@ public class ExportMenu {
     }
 
     public ExportPDFTruthTableItem getExportPDFTruthTableMenuItem() {
-        return exportPDFTruthTableMenuItem;
+        return this.exportPDFTruthTableMenuItem;
     }
 
     public ExportPDFParseTreeItem getExportPDFParseTreeMenuItem() {
-        return exportPDFParseTreeMenuItem;
+        return this.exportPDFParseTreeMenuItem;
     }
 
     public ExportPDFTruthTreeItem getExportPDFTruthTreeMenuItem() {
-        return exportPDFTruthTreeMenuItem;
+        return this.exportPDFTruthTreeMenuItem;
     }
 
 }

@@ -5,6 +5,7 @@ import com.llat.models.treenode.WffTree;
 import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -44,9 +45,9 @@ public class PDFParseTreePrinter extends PDFPrinter {
 
             // Build the URL and HTTP request.
             String texURL = "https://latex.ytotech.com/builds/sync?content=";
-            String paramURL = URLEncoder.encode(httpTex.toString(), "UTF-8");
+            String paramURL = URLEncoder.encode(httpTex.toString(), StandardCharsets.UTF_8);
             URL url = new URL(texURL + paramURL);
-            PDFPrinter.downloadFile(url, getOutputFile());
+            PDFPrinter.downloadFile(url, this.getOutputFile());
         } catch (Exception e) {
             e.printStackTrace();
         }

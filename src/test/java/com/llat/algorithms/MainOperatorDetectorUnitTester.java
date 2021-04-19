@@ -118,7 +118,7 @@ public class MainOperatorDetectorUnitTester {
             throw new AssertionFailedError("Failed reading test input file " + inName);
         WffTree syntaxTree = parser.getSyntaxTrees().get(0);
         mainOperatorDetector = new MainOperatorDetector(syntaxTree);
-        System.out.println(mainOperatorDetector.get().getSymbol());
+        System.out.println(mainOperatorDetector.getMainOperator().getSymbol());
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();

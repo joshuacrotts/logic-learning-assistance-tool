@@ -1,9 +1,6 @@
 package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
-import com.llat.database.DatabaseAdapter;
-import com.llat.database.UserObject;
-import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.credentials.CredentialsAdaptor;
 import com.llat.models.localstorage.credentials.CredentialsObject;
 import com.llat.models.localstorage.settings.SettingsAdaptor;
@@ -15,15 +12,8 @@ import com.llat.tools.ViewManager;
 import com.llat.views.LoginView;
 import com.llat.views.events.LoginFailEvent;
 import com.llat.views.events.LoginSuccessEvent;
-import com.llat.views.events.UpdateHistoryEvent;
-import com.llat.main.Window;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-
-import java.util.Optional;
 
 public class LoginViewInterpreter implements Listener {
 

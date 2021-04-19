@@ -4,7 +4,7 @@ import com.llat.controller.Controller;
 
 import java.util.List;
 
-public class DatabaseAdapter implements DatabaseInterface  {
+public class DatabaseAdapter implements DatabaseInterface {
 
     public static final int REGISTERED_SUCCESSFULLY = 0;
     public static final int REGISTERED_EMPTY_INPUT = 1;
@@ -22,10 +22,12 @@ public class DatabaseAdapter implements DatabaseInterface  {
     public UserObject Login(String Username, String Password) {
         return this.db.Login(Username, Password);
     }
+
     @Override
     public UserObject Login() {
         return this.db.Login();
     }
+
     @Override
     public int Register(String _userName, String _password, String _firstName, String _lastName) {
         return this.db.Register(_userName, _password, _firstName, _lastName);
