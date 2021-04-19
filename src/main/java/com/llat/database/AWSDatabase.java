@@ -32,7 +32,7 @@ public class AWSDatabase implements DatabaseInterface {
             connection = DriverManager.getConnection(CREDENTIALS_STRING, DBUser, DBPass);
 
             if (_password == null || _userName == null) {
-                Message = "You must enter in a Username or Password.";
+                Message = "You must enter in a username and password.";
                 return DatabaseAdapter.REGISTERED_EMPTY_INPUT;
             }
 

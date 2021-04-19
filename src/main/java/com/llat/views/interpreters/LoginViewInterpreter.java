@@ -67,17 +67,12 @@ public class LoginViewInterpreter implements Listener {
             ca.update(co);
             this.controller.getStage().close();
             new Window(new Stage(), true);
-
         }
+
         if (_event instanceof LoginFailEvent) {
-            Alert alert = new Alert(Alert.AlertType.NONE, "Username or Password is Wrong", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.NONE, "Username or password is wrong. Please try again.", ButtonType.OK);
             alert.setTitle("Warning");
             alert.show();
-
-
-
-
         }
     }
-
 }

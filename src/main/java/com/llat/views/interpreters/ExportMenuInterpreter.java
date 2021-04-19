@@ -24,8 +24,9 @@ public class ExportMenuInterpreter {
         this.controller.setExportOnAction(this.exportMenu.getExportLaTeXParseTreeItem().getItem(), ExportType.LATEX_PARSE_TREE);
         this.controller.setExportOnAction(this.exportMenu.getExportLaTeXTruthTreeItem().getItem(), ExportType.LATEX_TRUTH_TREE);
         this.controller.setExportOnAction(this.exportMenu.getExportLaTeXTruthTableItem().getItem(), ExportType.LATEX_TRUTH_TABLE);
-        this.controller.setExportOnAction(this.exportMenu.getExportPDFParseTreeMenuItem(), ExportType.PDF_PARSE_TREE);
-        this.controller.setExportOnAction(this.exportMenu.getExportPDFTruthTreeMenuItem(), ExportType.PDF_TRUTH_TREE);
-        this.controller.setExportOnAction(this.exportMenu.getExportPDFTruthTableMenuItem(), ExportType.PDF_TRUTH_TABLE);
+        this.controller.setExportOnAction(this.exportMenu.getExportPDFParseTreeMenuItem().getItem(), ExportType.PDF_PARSE_TREE);
+        this.controller.setExportOnAction(this.exportMenu.getExportPDFTruthTreeMenuItem().getItem(), ExportType.PDF_TRUTH_TREE);
+        this.controller.setExportOnAction(this.exportMenu.getExportPDFTruthTableMenuItem().getItem(), ExportType.PDF_TRUTH_TABLE);
     }
 }
+
