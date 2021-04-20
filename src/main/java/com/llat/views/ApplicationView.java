@@ -18,6 +18,7 @@ public class ApplicationView {
 
     public ApplicationView(Controller _controller) {
         this.controller = _controller;
+        this.parentPane.setId("mainViewParentPane");
         this.parentPane.setCenter(new CenterView(this.controller).getParentPane());
         this.parentPane.setTop(new MenuBarView(this.controller).getMenuBar());
         this.parentPane.setLeft(new LeftView(this.controller).getParentPane());

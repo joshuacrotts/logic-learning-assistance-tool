@@ -425,6 +425,14 @@
             {
               "name": "Sepia",
               "code": "sepia.css"
+            },
+            {
+              "name": "Teal",
+              "code": "teal.css"
+            },
+            {
+              "name": "Tan",
+              "code": "tan.css"
             }
           ]
         }

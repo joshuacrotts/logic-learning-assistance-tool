@@ -1,0 +1,57 @@
+
+#userNameInputLabel, #passwordInputLabel {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-font-size: 2em;
+}
+/* Begin Login & Register  */
+#loginLogoLabel, #registerLogoLabel {
+    -fx-background-image: url("../images/LogoStatic.png");
+    -fx-background-size: 100% 100%;
+    -fx-alignment: center;
+}
+
+#loginViewParentPane, #registerViewParentPane {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 90%, silver, derive(gray, -50%));
+    /*-fx-background-color: linear-gradient(to right, gray 0%, silver 50%, gray 100%);*/
+    -fx-alignment: center;
+}
+
+#loginVBox, #registerVBox {
+    -fx-background-color: radial-gradient(center 50% 25%, radius 90%, silver, derive(black, 50%));
+    -fx-alignment: top-center;
+    -fx-spacing: 0;
+    -fx-border-width: 0 10;
+    -fx-border-color: rgba(0, 0, 0, 1);
+}
+
+/* End Login & Register  */
+
+
+#rulesAxiomsVBox .button {
+
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-font-weight: normal;
+}
+
+
+#propositionalLogicLabel, #predicateLogicLabel, #symbolNameLabel,
+#formalNameLabel, #alternativeSymbolsLabel, #exampleLabel,
+#explanationLabel, #alternativeSymbolsLabel, #errorLabel {
+    -fx-font-size: 1.75em;
+    -fx-underline: true;
+}
+
+#trueLabel, #falseLabel, #resultLabel {
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
+}
+
+
+#inputButtonVBox, #rulesAxiomsVBox, #errorMessageVBox, #comboHBox {
+    -fx-background-color: derive(-primary-color, 10%);
+    -fx-border-color: -border-color;
+    -fx-border-style: solid solid solid solid;
+
+}

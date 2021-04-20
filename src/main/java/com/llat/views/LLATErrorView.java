@@ -51,9 +51,10 @@ public class LLATErrorView {
         // Setting ScrollPane logScrollPane's properties.
         this.logScrollPane.setId("errorScrollPane");
         this.logScrollPane.setFitToWidth(true);
+
         this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.logScrollPane.setMinHeight(newVal.doubleValue() * .70);
-            this.logScrollPane.setMaxHeight(newVal.doubleValue() * .70);
+            this.logScrollPane.setMinHeight(newVal.doubleValue() * .65);
+            this.logScrollPane.setMaxHeight(newVal.doubleValue() * .65);
         });
         this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.logScrollPane.setMinWidth(newVal.doubleValue() * .80);

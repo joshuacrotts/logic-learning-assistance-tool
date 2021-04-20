@@ -1,0 +1,12 @@
+@import "component/layout.css";
+
+.root {
+    -primary-color: #EADDA6;
+    -secondary-color: #FFFAE2;
+    -tertiary-color: #92977E;
+
+    -text-color: #4d2820;
+    -border-color: #92977E;
+}
+
+

@@ -67,7 +67,7 @@ public class AWSDatabase implements DatabaseInterface {
             statement3.setInt(1, id);
             statement3.executeUpdate();
 
-            String Def_Theme = "INSERT INTO Theme (UserID, Theme)  VALUES ( ?, 'default.css')";
+            String Def_Theme = "INSERT INTO Theme (UserID, Theme)  VALUES ( ?, 'teal.css')";
             PreparedStatement statement4 = connection.prepareStatement(Def_Theme);
             statement4.setInt(1, id);
             statement4.executeUpdate();

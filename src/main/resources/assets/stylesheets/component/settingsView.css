@@ -1,26 +1,25 @@
-* {
-    -fx-font-family: 'Arial';
-}
+/* Start Settings */
 
-.context-menu-title:disabled:hover {
-    -fx-background-color: white;
-}
+/*#settingsParentPane .context-menu-title:disabled:hover {*/
+/*    -fx-background-color: black;*/
+/*}*/
 
-.context-menu-title:disabled:hover .label {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-}
+/*#settingsParentPane .context-menu-title:disabled:hover .label {*/
+/*    -fx-background-color: white;*/
+/*    -fx-text-fill: black;*/
+/*}*/
 
-#settingsParentPane {
-    -fx-background-color: silver;
-}
+/*#settingsParentPane {*/
+/*    -fx-background-color: silver;*/
+/*}*/
 
 #categoryVBox {
-    -fx-background-color: derive(black, 50%);
+    -fx-background-color: derive(-primary-color, 10%);
 }
 
 #settingsCategoryButton {
-    -fx-background-color: #292826;
+    -fx-border-color: transparent;
+    -fx-background-color: derive(-primary-color, 10%);
     -fx-font-size: 20;
     -fx-text-fill: gray;
     -fx-background-radius: 0;
@@ -32,26 +31,32 @@
 }
 
 #settingsCategoryButton:focused {
-    -fx-background-color: silver;
+    -fx-background-color: derive(-secondary-color, 20%) ;
     -fx-font-weight: bold;
 }
 
 #selectedCategoryVBox {
-    -fx-background-color: silver;
+    -fx-background-color: derive(-secondary-color, 20%) ;
 }
 
 #categoryTitle {
+    -fx-fill: -text-color;
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
+#settignsMenuButton{
+    -fx-fill: -text-color;
+    -fx-background-color: -secondary-color;
+}
 #comboBoxLabel {
+    -fx-fill: -text-color;
     -fx-font-weight: bold;
     -fx-font-size: 12;
 }
 
 #bottomHBox {
-    -fx-background-color: derive(black, 50%);
+    -fx-background-color: -primary-color;
 }
 
 #cancelButton, #saveButton {
@@ -74,3 +79,6 @@
 #cancelButton:focused, #saveButton:focused {
     -fx-background-insets: 0;
 }
+
+/* End Settings */
+

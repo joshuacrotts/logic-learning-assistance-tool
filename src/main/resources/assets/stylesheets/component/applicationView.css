@@ -1,0 +1,106 @@
+
+
+.label, .text {
+    /*-fx-font-weight: bold;*/
+    -fx-text-fill: -text-color;
+    /*-fx-font-size: 2em;*/
+}
+
+#mainViewParentPane .text-field {
+    -fx-background-color: silver;
+    -fx-border-width: 5;
+    -fx-border-color: black;
+    -fx-text-color: black;
+    -fx-alignment: center;
+    -fx-prompt-text-fill: black;
+    -fx-font-size: 2em;
+}
+
+/* Begin bottom (formula)*/
+#formulaInputHBox {
+    -fx-background-color: -primary-color;
+    -fx-border-color: -border-color;
+    -fx-border-style: solid hidden hidden hidden;
+}
+
+/* End bottom (formula)*/
+
+
+#rulesAxiomsScrollPane, #treeTableScrollPane, #truthTableScrollPane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Begin Error*/
+#errorScrollPane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: black;
+    -fx-border-size: 10;
+}
+
+#errorScrollPane > .viewport {
+    -fx-background-color: derive(-secondary-color, 20%) ;
+}
+
+#errorMessageVBox {
+    -fx-text-fill: white;
+}
+/* End Error*/
+#rulesAxiomsScrollPane > .viewport, #treeTableScrollPane > .viewport, #truthTableScrollPane > .viewport {
+    -fx-background-color: transparent;
+}
+
+
+#rulesAxiomsScrollPane:vertical, #treeTableScrollPane:vertical, #errorScrollPane:vertical {
+    -fx-min-width: 10;
+}
+
+#rulesAxiomsScrollPane:focused, #treeTableScrollPane:focused, #truthTableScrollPane:focused, errorScrollPane:focused {
+    -fx-background-insets: 0;
+}
+
+#rulesAxiomsScrollPane .corner, #treeTableScrollPane .corner, errorScrollPane .corner, #truthTableScrollPane .corner {
+    -fx-background-insets: 0;
+}
+
+#truthTableScrollPane:horizontal {
+    -fx-min-height: 10;
+}
+
+#rulesAxiomsText, #exampleText, #explanationText {
+    -fx-font-size: 1.5em;
+}
+
+#rulesAxiomsText {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+}
+
+#rulesAxiomsText:focused {
+    -fx-background-insets: 0;
+}
+
+#rulesAxiomsText:disabled {
+    -fx-text-fill: black;
+    -fx-opacity: 1.0;
+}
+
+#truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
+    -fx-background-color: derive(-secondary-color, 20%) ;
+
+}
+
+#parseTreeVBox, #truthTreeVBox {
+    /*-fx-background-color: derive(black, 90%);*/
+}
+
+#truthTableLabel, #truthTreeLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+}
+
