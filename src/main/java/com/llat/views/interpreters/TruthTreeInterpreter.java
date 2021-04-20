@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
@@ -289,6 +290,16 @@ public class TruthTreeInterpreter implements Listener {
         private static final int RESIZE_HEIGHT_DELTA = 12;
 
         /**
+         *
+         */
+        private static final double TOOLTIP_SHOW_DURATION = 15;
+
+        /**
+         *
+         */
+        private static final double TOOLTIP_SHOW_DELAY = 0.2;
+
+        /**
          * Pane to attach this TruthTreeGuiNode to and its border children (lines).
          */
         private final Pane PANE;
@@ -317,8 +328,7 @@ public class TruthTreeInterpreter implements Listener {
             this.truthTrees = new LinkedList<>();
             this.truthTrees.add(_tree);
             this.PANE = _pane;
-            this.text = _tree.getWff().getStringRep() + "\n" +
-                    "";
+            this.text = _tree.getWff().getStringRep() + "\n" + "";
             this.height = 12;
             this.width = this.text.length() * 10;
         }
@@ -372,8 +382,10 @@ public class TruthTreeInterpreter implements Listener {
                 sb.append("\n");
             }
 
-            return new Tooltip(sb.toString());
+            Tooltip tooltip = new Tooltip(sb.toString());
+            tooltip.setShowDelay(Duration.seconds(TruthTreeGuiNode.TOOLTIP_SHOW_DELAY));
+            tooltip.setShowDuration(Duration.seconds(TruthTreeGuiNode.TOOLTIP_SHOW_DURATION));
+            return tooltip;
         }
     }
 }
-

@@ -36,8 +36,8 @@
 
 .button {
     -fx-wrap-text: true;
-    -fx-font-weight: bold;
     -fx-font-size: 2em;
+    -fx-min-width: 4em;
     -fx-background-color: derive(silver, 0%);
     -fx-border-color: black;
     -fx-border-width: 2.5;
