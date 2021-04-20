@@ -79,7 +79,7 @@ public class TranslateUIDO {
         mainViewLabels.setTruthTreeLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getTruthTreeLabel()));
         mainViewLabels.setParseTreeLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getParseTreeLabel()));
         mainViewLabels.setSymbolNameLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getSymbolNameLabel()));
-        mainViewLabels.setFormalNameLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getSymbolNameLabel()));
+        mainViewLabels.setFormalNameLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getFormalNameLabel()));
         mainViewLabels.setAlternativeSymbolsLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getAlternativeSymbolsLabel()));
         mainViewLabels.setExamplesLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getExamplesLabel()));
         mainViewLabels.setAxiomTabLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getAxiomTabLabel()));
