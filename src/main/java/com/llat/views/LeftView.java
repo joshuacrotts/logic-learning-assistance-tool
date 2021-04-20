@@ -32,6 +32,7 @@ public class LeftView {
         this.inputButtonsView = new InputButtonsView(this.controller);
         this.llatErrorView = new LLATErrorView(this.controller);
         // Setting VBox parentPane's properties.
+        this.parentPane.setId("leftView");
         this.controller.getStage().widthProperty().addListener((obs, oldVal, newVal) -> {
             this.parentPane.setMinWidth(newVal.doubleValue() * .20);
             this.parentPane.setMaxWidth(newVal.doubleValue() * .20);

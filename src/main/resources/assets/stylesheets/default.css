@@ -80,7 +80,15 @@
     -fx-border-size: 10;
 }
 
-#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox, #errorMessageVBox, #historyViewVBox {
+#inputButtonVBox, #rulesAxiomsVBox, #symbolDetailsVBox, #historyViewVBox {
+    -fx-background-color: transparent;
+}
+
+#errorMessageVBox {
+    -fx-border-width: 0 1 0 1;
+}
+
+#leftView, #rightView {
     -fx-background-color: silver;
 }
 

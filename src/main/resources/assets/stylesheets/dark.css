@@ -112,13 +112,37 @@
 }
 
 
-#inputButtonVBox, #rulesAxiomsVBox, #errorMessageVBox, #comboHBox {
+#inputButtonVBox {
     -fx-background-color: -primary-color;
     -fx-border-color: -border-color;
-    -fx-border-style: solid solid solid solid;
-
+    -fx-border-width: 0 1 1 1;
 }
 
+#rulesAxiomsVBox {
+    -fx-background-color: -primary-color;
+    -fx-border-color: -border-color;
+    -fx-border-width: 1 0 0 0;
+}
+
+#comboHBox {
+    -fx-background-color: -primary-color;
+    -fx-border-color: -border-color;
+    -fx-border-width: 0 0 1 0;
+}
+
+#errorMessageVBox {
+    -fx-background-color: -primary-color;
+    -fx-border-color: -border-color;
+    -fx-border-width: 0 1 0 1;
+}
+#rightView {
+    -fx-background-color: -primary-color;
+    -fx-border-color: -border-color;
+    -fx-border-width: 0 1 0 1;
+}
+#leftView {
+    -fx-background-color: -primary-color;
+}
 
 /* Begin bottom (formula)*/
 #formulaInputHBox {
