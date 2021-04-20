@@ -1,8 +1,12 @@
 package com.llat.models.localstorage.settings;
 
+import com.llat.database.UserObject;
 import com.llat.models.localstorage.LocalStorage;
 import com.llat.models.localstorage.settings.language.LanguageObject;
 import com.llat.models.localstorage.settings.theme.ThemeObject;
+import com.llat.models.localstorage.uidescription.UIObject;
+
+import java.util.List;
 
 /**
  *
@@ -69,6 +73,15 @@ public class SettingsObject extends LocalStorage {
                     "applied=" + this.applied +
                     '}';
         }
+    }
+    public String getAppliedTheme (UIObject _UIObject) {
+        List<ThemeObject> themes = _UIObject.getSettingsView().getCategories().getAppearance().getTheme().getAllThemes();
+        for (ThemeObject theme : themes) {
+            if (this.getTheme().getApplied().getCode().equals(theme.getCode())) {
+                return theme.getName();
+            }
+        }
+        return null;
     }
 
     /**

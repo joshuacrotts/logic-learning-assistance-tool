@@ -20,11 +20,11 @@ public class SettingsItem {
         this.openItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Stage settingsStage = new SettingsView(controller).getStage();
+                Stage settingsStage = new SettingsView(controller).getSettingsStage();
                 // Set position of second window, related to primary window.
-                settingsStage.setX(SettingsItem.this.stage.getX() + 200);
-                settingsStage.setY(SettingsItem.this.stage.getY() + 100);
-                settingsStage.show();
+                //settingsStage.setX(SettingsItem.this.stage.getX() + 200);
+                //settingsStage.setY(SettingsItem.this.stage.getY() + 100);
+                settingsStage.showAndWait();
             }
         });
     }

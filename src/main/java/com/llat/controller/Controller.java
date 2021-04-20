@@ -4,7 +4,12 @@ import com.llat.database.DatabaseAdapter;
 import com.llat.database.DatabaseInterpeter;
 import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
+import com.llat.main.Window;
 import com.llat.models.LogicSetup;
+import com.llat.models.localstorage.settings.SettingsAdaptor;
+import com.llat.models.localstorage.settings.SettingsObject;
+import com.llat.models.localstorage.settings.language.LanguageObject;
+import com.llat.models.localstorage.settings.theme.ThemeObject;
 import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.tools.EventBus;
@@ -27,8 +32,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -44,11 +51,14 @@ public class Controller implements Initializable {
     private ApplicationView applicationView;
     private LoginView loginView;
     private RegisterView registerView;
+    private SettingsAdaptor settingsAdaptor = new SettingsAdaptor();
+    private SettingsObject settingsObject;
 
     public Controller(Stage _stage) {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
         this.uiObject = (UIObject) this.uiObjectAdaptor.getData();
+        this.settingsObject = (SettingsObject) this.settingsAdaptor.getData();
     }
 
     public void initialize(URL _url, ResourceBundle _rb) {
@@ -200,6 +210,11 @@ public class Controller implements Initializable {
         });
     }
 
+    public void restartApplication() {
+        this.getStage().close();
+        new Window(new Stage());
+    }
+
     public void registerAction(Button _button, TextField _userName, TextField _firstname, TextField _lastname, PasswordField _password) {
         _button.setOnAction((event) -> {
             int user = this.databaseAdapter.Register(_userName.getText(),_password.getText(),_firstname.getText(),_lastname.getText());
@@ -207,10 +222,32 @@ public class Controller implements Initializable {
         });
     }
 
+    public void updateLocalStorage () {
+        this.settingsAdaptor.update(this.settingsObject);
+    }
 
+    public void setAppliedTheme (ThemeObject _theme) {
+        this.settingsObject.getTheme().setApplied(_theme);
+    }
 
-    public Stage getStage() {
-        return this.stage;
+    public String getAppliedTheme () {
+        return this.settingsObject.getAppliedTheme(this.uiObject);
+    }
+
+    public List<ThemeObject> getAllThemes () {
+        return this.uiObject.getSettingsView().getCategories().getAppearance().getTheme().getAllThemes();
+    }
+
+    public void setAppliedLanguage (LanguageObject _language) {
+        this.settingsObject.getLanguage().setApplied(_language);
+    }
+
+    public String getAppliedLanguage () {
+        return this.settingsObject.getLanguage().getApplied().getName();
+    }
+
+    public List<LanguageObject> getAllLanguages () {
+        return this.uiObject.getSettingsView().getCategories().getLanguage().getLanguageContent().getAllLanguages();
     }
 
     private Pane getView(int _viewName) {
@@ -251,23 +288,84 @@ public class Controller implements Initializable {
         return parentPane;
     }
 
+    public Stage getStage() {
+        return this.stage;
+    }
+
+    public LLATParserInterpreter getLlatParserInterpreter() {
+        return llatParserInterpreter;
+    }
+
+    public DatabaseAdapter getDatabaseAdapter() {
+        return databaseAdapter;
+    }
+
+    public DatabaseInterpeter getDi() {
+        return di;
+    }
+
+    public UIObjectAdaptor getUiObjectAdaptor() {
+        return uiObjectAdaptor;
+    }
+
+    public LogicSetup getLogicSetup() {
+        return logicSetup;
+    }
+
+    public UIObject getUiObject() {
+        return uiObject;
+    }
+
     public UserObject getUser() {
-        return this.user;
+        return user;
+    }
+
+    public ApplicationView getApplicationView() {
+        return applicationView;
+    }
+
+    public LoginView getLoginView() {
+        return loginView;
+    }
+
+    public RegisterView getRegisterView() {
+        return registerView;
+    }
+
+    public SettingsAdaptor getSettingsAdaptor() {
+        return settingsAdaptor;
+    }
+
+    public SettingsObject getSettingsObject() {
+        return settingsObject;
+    }
+
+    public void setUiObject(UIObject uiObject) {
+        this.uiObject = uiObject;
     }
 
     public void setUser(UserObject user) {
         this.user = user;
     }
 
-    public UIObjectAdaptor getUiObjectAdaptor() {
-        return this.uiObjectAdaptor;
+    public void setApplicationView(ApplicationView applicationView) {
+        this.applicationView = applicationView;
     }
 
-    public UIObject getUiObject() {
-        return this.uiObject;
+    public void setLoginView(LoginView loginView) {
+        this.loginView = loginView;
     }
 
-    public void setUiObject(UIObject uiObject) {
-        this.uiObject = uiObject;
+    public void setRegisterView(RegisterView registerView) {
+        this.registerView = registerView;
     }
+
+    public void setSettingsAdaptor(SettingsAdaptor settingsAdaptor) {
+        this.settingsAdaptor = settingsAdaptor;
+    }
+
+    public void setSettingsObject(SettingsObject settingsObject) {
+        this.settingsObject = settingsObject;
+    }
+
 }

@@ -2,35 +2,41 @@
     -fx-font-family: 'Arial';
 }
 
-/*Settings*/
-#settingsCategory {
-    -fx-pref-width: 10em;
-    -fx-pref-height: 4em;
-    -fx-font-size: 20;
-    -fx-background-color: #292826;
-    -fx-text-fill: gray;
+.context-menu-title:disabled:hover {
+    -fx-background-color: white;
 }
 
-#settingsCategory:hover {
-    -fx-pref-width: 10em;
-    -fx-pref-height: 4em;
-    -fx-font-size: 20;
-    -fx-background-color: #324241;
-    -fx-font-weight: Bold;
+.context-menu-title:disabled:hover .label {
+    -fx-background-color: white;
+    -fx-text-fill: black;
 }
 
-#settingsCategoryOnPress {
-    -fx-pref-width: 10em;
-    -fx-pref-height: 4em;
-    -fx-font-size: 20;
+#settingsParentPane {
     -fx-background-color: silver;
 }
 
-#leftPane {
+#categoryVBox {
     -fx-background-color: derive(black, 50%);
 }
 
-#settingsMainPane {
+#settingsCategoryButton {
+    -fx-background-color: #292826;
+    -fx-font-size: 20;
+    -fx-text-fill: gray;
+    -fx-background-radius: 0;
+}
+
+#settingsCategoryButton:hover {
+    -fx-background-color: #324241;
+    -fx-font-weight: bold;
+}
+
+#settingsCategoryButton:focused {
+    -fx-background-color: silver;
+    -fx-font-weight: bold;
+}
+
+#selectedCategoryVBox {
     -fx-background-color: silver;
 }
 
@@ -39,26 +45,32 @@
     -fx-font-weight: bold;
 }
 
-#langLabel, #themeLabel {
+#comboBoxLabel {
     -fx-font-weight: bold;
     -fx-font-size: 12;
-
 }
 
-#bottomPaneHbox {
+#bottomHBox {
     -fx-background-color: derive(black, 50%);
 }
 
-#bottonPaneButtons {
-    -fx-background-color: derive(silver, 50%);
+#cancelButton, #saveButton {
+    -fx-font-size: 2em;
+    -fx-background-color: derive(silver, 0%);
     -fx-background-radius: 0;
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-background-insets: 0;
+}
+#cancelButton:hover, #saveButton:hover {
+    -fx-background-color: derive(silver, 80%);
 }
 
-.context-menu-title:disabled:hover {
-    -fx-background-color: white;
+#cancelButton:pressed, #saveButton:pressed {
+    -fx-background-color: #add8e6;
 }
 
-.context-menu-title:disabled:hover .label {
-    -fx-background-color: white;
-    -fx-text-fill: black;
+#cancelButton:focused, #saveButton:focused {
+    -fx-background-insets: 0;
 }
