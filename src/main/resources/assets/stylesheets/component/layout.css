@@ -41,7 +41,7 @@
     -fx-text-fill: black;
     -fx-font-size: 1.5em;
     -fx-border-color: black;
-    -fx-border-size: 10;
+    -fx-border-size: 10px;
 }
 
 /* End root */
@@ -87,7 +87,7 @@
 .context-menu {
     /*-fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";*/
     -fx-background-color: -secondary-color;
-    -fx-border-width: 0.2px;
+    -fx-border-width: 0px;
 }
 
 /* End Menubar*/
