@@ -10,7 +10,7 @@ public class ExportPDFTruthTreeItem {
 
     public ExportPDFTruthTreeItem(Controller controller) {
         this.controller = controller;
-        this.pdfTruthTree = new MenuItem("LaTeX Truth Table");
+        this.pdfTruthTree = new MenuItem("LaTeX Truth Tree");
     }
 
     public MenuItem getItem() {
