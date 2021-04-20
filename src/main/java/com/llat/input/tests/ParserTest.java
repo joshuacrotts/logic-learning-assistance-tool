@@ -115,7 +115,7 @@ public class ParserTest {
             pdfTruthTreePrinter.outputToFile();
 
             // Display the main operator.
-            System.out.println("Main operator: " + new MainOperatorDetector(result).get());
+            System.out.println("Main operator: " + new MainOperatorDetector(result).getMainOperator());
 
             // Determine if it's a tautology.
             LogicalTautologyDeterminer tautologyDet = new LogicalTautologyDeterminer(result);

@@ -1,7 +1,5 @@
 package com.llat.tools;
 
-import com.llat.main.App;
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;

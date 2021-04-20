@@ -10,7 +10,7 @@ public class ExportLaTeXParseTreeItem {
 
     public ExportLaTeXParseTreeItem(Controller controller) {
         this.controller = controller;
-        this.latexParseTree = new MenuItem("LaTeX Parse Tree (.tex)");
+        this.latexParseTree = new MenuItem("LaTeX Parse Tree");
     }
 
     public MenuItem getItem() {

@@ -63,9 +63,9 @@ public final class PDFTruthTablePrinter extends PDFPrinter {
 
             // Build the URL and HTTP request.
             String texURL = "https://latex.ytotech.com/builds/sync?content=";
-            String paramURL = URLEncoder.encode(httpTex.toString(), "UTF-8");
+            String paramURL = URLEncoder.encode(httpTex.toString(), StandardCharsets.UTF_8);
             URL url = new URL(texURL + paramURL);
-            PDFPrinter.downloadFile(url, getOutputFile());
+            PDFPrinter.downloadFile(url, this.getOutputFile());
         } catch (Exception e) {
             e.printStackTrace();
         }

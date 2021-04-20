@@ -18,11 +18,6 @@ public class LLATErrorView {
     /**
      *
      */
-    private Label errorLabel;
-
-    /**
-     *
-     */
     private final VBox parentPane = new VBox();
 
     /**
@@ -39,6 +34,11 @@ public class LLATErrorView {
      *
      */
     private final LLATErrorViewInterpreter llatErrorViewInterpreter;
+
+    /**
+     *
+     */
+    private final Label errorLabel;
 
     public LLATErrorView(Controller _controller) {
         this.controller = _controller;
@@ -83,5 +83,4 @@ public class LLATErrorView {
     public VBox getLogBox() {
         return this.logBox;
     }
-
 }

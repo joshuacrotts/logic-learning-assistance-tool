@@ -96,7 +96,7 @@
       "explanationLabel": "Explanation",
       "examplesLabel": "Examples",
       "generalMenu": {
-        "label": "General",
+        "label": "General Algorithms",
         "content": [
           {
             "label": "Argument Truth Tree Validator",
@@ -149,7 +149,7 @@
         ]
       },
       "propositionalMenu": {
-        "label": "Propositional",
+        "label": "Propositional Logic Algorithms",
         "content": [
           {
             "label": "Propositional Truth Tree Generator",
@@ -166,7 +166,7 @@
         ]
       },
       "predicateMenu": {
-        "label": "Predicate",
+        "label": "Predicate Logic Algorithms",
         "content": [
           {
             "label": "Bound Variable Detector",

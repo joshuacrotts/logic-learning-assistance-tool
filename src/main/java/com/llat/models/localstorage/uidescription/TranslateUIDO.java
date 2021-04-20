@@ -114,7 +114,6 @@ public class TranslateUIDO {
         }
 
 
-
         mainViewLabels.setPredicateMenu(predicateMenu);
 
         mainView.setMainViewLabels(mainViewLabels);

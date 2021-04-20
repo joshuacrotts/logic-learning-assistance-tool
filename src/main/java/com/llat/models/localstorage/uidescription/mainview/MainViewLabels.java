@@ -59,7 +59,7 @@ public class MainViewLabels {
     }
 
     public String getErrorAndWarningLabel() {
-        return errorAndWarningLabel;
+        return this.errorAndWarningLabel;
     }
 
     public void setErrorAndWarningLabel(String errorAndWarningLabel) {
@@ -75,7 +75,7 @@ public class MainViewLabels {
     }
 
     public String getParseTreeLabel() {
-        return parseTreeLabel;
+        return this.parseTreeLabel;
     }
 
     public void setParseTreeLabel(String parseTreeLabel) {
@@ -115,7 +115,7 @@ public class MainViewLabels {
     }
 
     public String getExplanationLabel() {
-        return explanationLabel;
+        return this.explanationLabel;
     }
 
     public void setExplanationLabel(String explanationLabel) {
@@ -179,7 +179,7 @@ public class MainViewLabels {
     }
 
     public String getApplyButton() {
-        return applyButton;
+        return this.applyButton;
     }
 
     public void setApplyButton(String applyButton) {
@@ -189,24 +189,24 @@ public class MainViewLabels {
     @Override
     public String toString() {
         return "MainViewLabels{" +
-                "propositionalLabel='" + propositionalLabel + '\'' +
-                ", predicateLabel='" + predicateLabel + '\'' +
-                ", errorAndWarningLabel='" + errorAndWarningLabel + '\'' +
-                ", truthTableLabel='" + truthTableLabel + '\'' +
-                ", parseTreeLabel='" + parseTreeLabel + '\'' +
-                ", truthTreeLabel='" + truthTreeLabel + '\'' +
-                ", symbolNameLabel='" + symbolNameLabel + '\'' +
-                ", formalNameLabel='" + formalNameLabel + '\'' +
-                ", alternativeSymbolsLabel='" + alternativeSymbolsLabel + '\'' +
-                ", explanationLabel='" + explanationLabel + '\'' +
-                ", examplesLabel='" + examplesLabel + '\'' +
-                ", generalMenu=" + generalMenu +
-                ", propositionalMenu=" + propositionalMenu +
-                ", predicateMenu=" + predicateMenu +
-                ", axiomTabLabel='" + axiomTabLabel + '\'' +
-                ", historyTabLabel='" + historyTabLabel + '\'' +
-                ", solveButton='" + solveButton + '\'' +
-                ", applyButton='" + applyButton + '\'' +
+                "propositionalLabel='" + this.propositionalLabel + '\'' +
+                ", predicateLabel='" + this.predicateLabel + '\'' +
+                ", errorAndWarningLabel='" + this.errorAndWarningLabel + '\'' +
+                ", truthTableLabel='" + this.truthTableLabel + '\'' +
+                ", parseTreeLabel='" + this.parseTreeLabel + '\'' +
+                ", truthTreeLabel='" + this.truthTreeLabel + '\'' +
+                ", symbolNameLabel='" + this.symbolNameLabel + '\'' +
+                ", formalNameLabel='" + this.formalNameLabel + '\'' +
+                ", alternativeSymbolsLabel='" + this.alternativeSymbolsLabel + '\'' +
+                ", explanationLabel='" + this.explanationLabel + '\'' +
+                ", examplesLabel='" + this.examplesLabel + '\'' +
+                ", generalMenu=" + this.generalMenu +
+                ", propositionalMenu=" + this.propositionalMenu +
+                ", predicateMenu=" + this.predicateMenu +
+                ", axiomTabLabel='" + this.axiomTabLabel + '\'' +
+                ", historyTabLabel='" + this.historyTabLabel + '\'' +
+                ", solveButton='" + this.solveButton + '\'' +
+                ", applyButton='" + this.applyButton + '\'' +
                 '}';
     }
 }

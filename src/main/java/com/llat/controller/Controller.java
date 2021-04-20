@@ -6,6 +6,7 @@ import com.llat.database.UserObject;
 import com.llat.input.interpreters.LLATParserInterpreter;
 import com.llat.main.Window;
 import com.llat.models.LogicSetup;
+import com.llat.models.localstorage.credentials.CredentialsAdaptor;
 import com.llat.models.localstorage.settings.SettingsAdaptor;
 import com.llat.models.localstorage.settings.SettingsObject;
 import com.llat.models.localstorage.settings.language.LanguageObject;
@@ -13,6 +14,7 @@ import com.llat.models.localstorage.settings.theme.ThemeObject;
 import com.llat.models.localstorage.uidescription.UIObject;
 import com.llat.models.localstorage.uidescription.UIObjectAdaptor;
 import com.llat.tools.EventBus;
+import com.llat.tools.LLATUtils;
 import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
 import com.llat.views.*;
@@ -32,7 +34,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -45,12 +46,14 @@ public class Controller implements Initializable {
     private final DatabaseAdapter databaseAdapter = new DatabaseAdapter();
     private final DatabaseInterpeter di = new DatabaseInterpeter(this.databaseAdapter, this);
     private final UIObjectAdaptor uiObjectAdaptor = new UIObjectAdaptor();
+    private final CredentialsAdaptor credentialsAdaptor = new CredentialsAdaptor();
     private final LogicSetup logicSetup = new LogicSetup();
     private UIObject uiObject;
     private UserObject user;
     private ApplicationView applicationView;
     private LoginView loginView;
     private RegisterView registerView;
+    private final boolean hasNetworkConnection;
     private SettingsAdaptor settingsAdaptor = new SettingsAdaptor();
     private SettingsObject settingsObject;
 
@@ -58,6 +61,8 @@ public class Controller implements Initializable {
         this.stage = _stage;
         this.stage.getScene().getStylesheets().add(ViewManager.getDefaultStyle());
         this.uiObject = (UIObject) this.uiObjectAdaptor.getData();
+        this.hasNetworkConnection = LLATUtils.connectedToNet();
+        this.LocalUser();
         this.settingsObject = (SettingsObject) this.settingsAdaptor.getData();
     }
 
@@ -202,9 +207,8 @@ public class Controller implements Initializable {
             this.user = this.databaseAdapter.Login(_userName.getText(), _password.getText());
             if (this.user != null) {
                 EventBus.throwEvent(new LoginSuccessEvent());
-                this.changeViewTo(ViewManager.MAINAPPLICATION);
-            }
-            else {
+                this.restartApplication();
+            } else {
                 EventBus.throwEvent(new LoginFailEvent());
             }
         });
@@ -215,10 +219,22 @@ public class Controller implements Initializable {
         new Window(new Stage());
     }
 
+    public void LocalUser() {
+        this.user = this.databaseAdapter.Login();
+        if (this.user != null) {
+            EventBus.throwEvent(new LoginSuccessEvent());
+        } else {
+            EventBus.throwEvent(new LoginFailEvent());
+        }
+    }
+
     public void registerAction(Button _button, TextField _userName, TextField _firstname, TextField _lastname, PasswordField _password) {
         _button.setOnAction((event) -> {
-            int user = this.databaseAdapter.Register(_userName.getText(),_password.getText(),_firstname.getText(),_lastname.getText());
+            int user = this.databaseAdapter.Register(_userName.getText(), _password.getText(), _firstname.getText(), _lastname.getText());
             EventBus.throwEvent(new RegistrationStatusEvent(user));
+            if(user == 0){
+                this.changeViewTo(ViewManager.LOGIN);
+            }
         });
     }
 
@@ -256,8 +272,7 @@ public class Controller implements Initializable {
             case ViewManager.MAINAPPLICATION: {
                 try {
                     parentPane = this.applicationView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.applicationView = new ApplicationView(this);
                     parentPane = this.applicationView.getParentPane();
                 }
@@ -266,8 +281,7 @@ public class Controller implements Initializable {
             case ViewManager.LOGIN:
                 try {
                     parentPane = this.loginView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.loginView = (new LoginView(this));
                     parentPane = this.loginView.getParentPane();
                 }
@@ -275,8 +289,7 @@ public class Controller implements Initializable {
             case ViewManager.REGISTER:
                 try {
                     parentPane = this.registerView.getParentPane();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.registerView = (new RegisterView(this));
                     parentPane = this.registerView.getParentPane();
                 }
@@ -342,6 +355,10 @@ public class Controller implements Initializable {
 
     public void setUiObject(UIObject uiObject) {
         this.uiObject = uiObject;
+    }
+
+    public boolean hasNetworkConnection() {
+        return this.hasNetworkConnection;
     }
 
     public void setUser(UserObject user) {

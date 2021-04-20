@@ -1,9 +1,7 @@
 package com.llat.views.menu.items;
 
 import com.llat.controller.Controller;
-import com.llat.main.App;
 import com.llat.main.Window;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
@@ -18,7 +16,7 @@ public class NewProjectItem {
         this.controller = controller;
         this.newProjectItem = new MenuItem(controller.getUiObject().getMenuBar().getFile().getNewProject().getLabel());
 
-        this.newProjectItem.setOnAction(new EventHandler<ActionEvent>() {
+        this.newProjectItem.setOnAction(new EventHandler<>() {
             public void handle(ActionEvent event) {
                 controller.getStage().close();
                 new Window(new Stage());

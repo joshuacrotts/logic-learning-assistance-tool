@@ -24,7 +24,7 @@ public final class MainOperatorDetector {
      *
      * @return String symbol of main operator.
      */
-    public WffTree get() {
+    public WffTree getMainOperator() {
         return this.getMainOpHelper(this.wffTree);
     }
 

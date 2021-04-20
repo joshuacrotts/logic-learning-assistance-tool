@@ -22,7 +22,7 @@ public class SettingsView {
     }
 
     public Confirmation getConfirmation() {
-        return confirmation;
+        return this.confirmation;
     }
 
     public void setConfirmation(Confirmation confirmation) {
@@ -48,10 +48,10 @@ public class SettingsView {
     @Override
     public String toString() {
         return "SettingsView{" +
-                "categories=" + categories +
-                ", confirmation=" + confirmation +
-                ", cancel='" + cancel + '\'' +
-                ", save='" + save + '\'' +
+                "categories=" + this.categories +
+                ", confirmation=" + this.confirmation +
+                ", cancel='" + this.cancel + '\'' +
+                ", save='" + this.save + '\'' +
                 '}';
     }
 }

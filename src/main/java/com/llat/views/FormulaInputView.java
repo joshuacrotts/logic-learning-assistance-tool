@@ -63,8 +63,8 @@ public class FormulaInputView {
         this.controller = _controller;
         this.stage = _controller.getStage();
         this.formulaInputButton = new Button(this.controller.getUiObject().getMainView().getMainViewLabels().getSolveButton());
+        this.algorithmApplyButton = new Button(this.controller.getUiObject().getMainView().getMainViewLabels().getApplyButton());
 
-        algorithmApplyButton = new Button(this.controller.getUiObject().getMainView().getMainViewLabels().getApplyButton());
         // Setting HBox parentHBox properties.
         this.formulaInputHBox.setId("formulaInputHBox");
         this.stage.widthProperty().addListener((obs, oldVal, newVal) -> {

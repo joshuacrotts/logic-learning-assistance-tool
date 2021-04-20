@@ -19,6 +19,7 @@ public class GsonIO implements SettingsInterface, CredentialsInterface, UIObject
     private static final Gson gson = new Gson();
     private final static String RESOURCES_PATH = "src/main/resources/";
     private final static String DEFAULT_UIDO_FILE = "UID/UIObject_en.json";
+    private final static String CREDENTIALS = "/";
 
     /**
      *

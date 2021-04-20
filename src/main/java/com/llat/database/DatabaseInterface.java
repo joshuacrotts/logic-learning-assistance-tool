@@ -6,6 +6,8 @@ public interface DatabaseInterface {
 
     UserObject Login(String Username, String Password);
 
+    UserObject Login();
+
     int Register(String _userName, String _password, String _firstName, String _lastName);
 
     void UpdateTheme(int id, String Theme);
