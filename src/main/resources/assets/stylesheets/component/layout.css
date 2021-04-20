@@ -9,18 +9,6 @@
 
 /*!* Begin root *!*/
 
-
-
-/*.text-field {*/
-/*    -fx-background-color: silver;*/
-/*    -fx-border-width: 5;*/
-/*    -fx-border-color: black;*/
-/*    -fx-text-color: black;*/
-/*    -fx-alignment: center;*/
-/*    -fx-prompt-text-fill: black;*/
-/*    -fx-font-size: 2em;*/
-/*}*/
-
 .text-field:focused {
     -fx-background-color: derive(silver, 80%);
     -fx-background-insets: 0 0 0 0;
