@@ -245,18 +245,19 @@
         },
         "negation": {
           "symbol": {
-            "applied": "¬",
+            "applied": "~",
             "allSymbols": [
               "¬",
               "˜",
+              "~",
               "!"
             ]
           },
           "description": "This is the negation button",
           "axioms": {
-            "explanation": "The negation operator (¬) flips the truth value of a proposition A. So, if A is true, then ¬A is false. Likewise, if ¬A is false, then ¬A is true. The negation operator works across any sentence and distributes over both symbols and operators.",
+            "explanation": "The negation operator (~) flips the truth value of a proposition A. So, if A is true, then ~A is false. Likewise, if ~A is false, then ~A is true. The negation operator works across any sentence and distributes over both symbols and operators.",
             "example": [
-              "1. (¬¬A ⇔ A)",
+              "1. (~~A ⇔ A)",
               "2. ¬(A & B) is equivalent to (¬A ∨ ¬B). The negation operator follows the distributive property from math - we distribute it to everything inside of the parentheses.",
               "3. ~(A -> ~B) is equivalent to (A & ~~B), which reduces to (A & B). Note that when we use a negation on an implication (also called a negated implication) sentence, we do not double-negate the antecedent; we reduce it to a proposition minus any negations."
             ]
@@ -311,7 +312,10 @@
             "allSymbols": [
               "⊕",
               "⊻",
-              "≢"
+              "≢",
+              "⩒",
+              "↮",
+              "⩛"
             ]
           },
           "description": "This is the exclusive or button.",
@@ -349,7 +353,8 @@
           "symbol": {
             "applied": "⊨",
             "allSymbols": [
-              "⊨"
+              "⊨",
+              "⊧"
             ]
           },
           "description": "This is the \"models\" button.",

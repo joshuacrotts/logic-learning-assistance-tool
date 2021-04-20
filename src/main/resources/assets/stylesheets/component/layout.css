@@ -24,6 +24,16 @@
     -fx-background-insets: 0;
 }
 
+#symbol_button {
+    -fx-font-size: 2.15em;
+    -fx-min-width: 4.5em;
+    -fx-min-height: 4.5em;
+    -fx-background-color: derive(silver, 0%);
+    -fx-border-color: black;
+    -fx-border-width: 2.5;
+    -fx-background-insets: 0;
+}
+
 .button:hover {
     -fx-background-color: derive(silver, 80%);
 }
