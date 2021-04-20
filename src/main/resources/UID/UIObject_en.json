@@ -203,12 +203,12 @@
       "propositional": {
         "implication": {
           "symbol": {
-            "applied": "⇒",
+            "applied": "→",
             "allSymbols": [
               "⇒",
-              "→",
               "⊃",
-              "->"
+              "->",
+              "→"
             ]
           },
           "description": "This is the implication button",
@@ -225,12 +225,12 @@
         },
         "biconditional": {
           "symbol": {
-            "applied": "⇔",
+            "applied": "↔",
             "allSymbols": [
               "⇔",
               "≡",
-              "↔",
-              "<->"
+              "<->",
+              "↔"
             ]
           },
           "description": "This is the equivalence button",
@@ -248,9 +248,9 @@
             "applied": "~",
             "allSymbols": [
               "¬",
+              "!",
               "˜",
-              "~",
-              "!"
+              "~"
             ]
           },
           "description": "This is the negation button",
@@ -269,10 +269,10 @@
           "symbol": {
             "applied": "∧",
             "allSymbols": [
-              "∧",
-              "^",
+              "&",
               "·",
-              "&"
+              "^",
+              "∧"
             ]
           },
           "description": "This is the conjunction button.",
@@ -291,10 +291,10 @@
           "symbol": {
             "applied": "∨",
             "allSymbols": [
-              "∨",
-              "∥",
               "|",
-              "+"
+              "+",
+              "||",
+              "∨"
             ]
           },
           "description": "This is the disjunction button.",
@@ -311,12 +311,12 @@
           "symbol": {
             "applied": "⊕",
             "allSymbols": [
-              "⊕",
               "⊻",
               "≢",
               "⩒",
               "↮",
-              "⩛"
+              "⩛",
+              "⊕"
             ]
           },
           "description": "This is the exclusive or button.",
@@ -335,8 +335,8 @@
           "symbol": {
             "applied": "⊢",
             "allSymbols": [
-              "⊢",
-              "∴"
+              "∴",
+              "⊢"
             ]
           },
           "description": "This is the \"proves\" button.",
@@ -354,8 +354,8 @@
           "symbol": {
             "applied": "⊨",
             "allSymbols": [
-              "⊨",
-              "⊧"
+              "⊧",
+              "⊨"
             ]
           },
           "description": "This is the \"models\" button.",
@@ -383,7 +383,8 @@
           "axioms": {
             "explanation": "(∀x)Px or (x)Px means the predicate P holds true for all inputs x from some domain D.",
             "example": [
-              "1. (∀x)Px"
+              "1. (∀x)Px",
+              "2. (y)(Py & Qay)"
             ]
           },
           "tooltip": "Universal Quantification",
