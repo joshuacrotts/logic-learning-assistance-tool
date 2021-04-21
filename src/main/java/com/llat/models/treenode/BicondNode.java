@@ -10,7 +10,7 @@ public class BicondNode extends WffTree {
      * as the default symbol if none is provided.
      * This should, ideally, only happen in internal algorithms.
      */
-    private static final String DEFAULT_SYMBOL = "<->";
+    private static final String DEFAULT_SYMBOL = "↔";
 
     /**
      * The default TeX symbol is a custom symbol I made. It's just

@@ -360,10 +360,9 @@
           },
           "description": "This is the \"models\" button.",
           "axioms": {
-            "explanation": "(x ⊨ y) means x models (semantically entails) y. In other words, if we run a test for logical equivalence on x and y, it should result in a contradiction, and thus be equivalent formulas. When looking at the truth table for propositional logic formulas, they should be equivalent in all models.",
+            "explanation": "(x ⊨ y) means x models (semantically entails) y. In other words, the well-formed formula x ought to imply y, but the converse should not be true. The sentences x and y must also not be equivalent.",
             "example": [
-              "1. (A → B) ⊨ (¬B → ¬A)",
-              "2. (A → B) ⊨ (~A | B)"
+              "1. P ⊨ (P ∨ Q)"
             ]
           },
           "tooltip": "Semantic Entailment",
@@ -722,7 +721,7 @@
     },
     "confirmation":{
       "label":"Confirmation",
-      "alertHeader": "Are you sure",
+      "alertHeader": "Are you sure?",
       "alertContent": "Saving the current changes will require the application to restart. Are you sure you want to continue?"
     },
     "cancel": "Cancel",

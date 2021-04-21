@@ -51,6 +51,7 @@ public class LogicSetup {
     private final List<Object> generalMore = new ArrayList() {{
         this.add(AlgorithmType.GENERAL);
         this.add(AlgorithmType.ARGUMENT_TRUTH_TREE_VALIDATOR);
+        this.add(AlgorithmType.SEMANTIC_ENTAILMENT_DETERMINER);
     }};
     /**
      *
@@ -148,7 +149,7 @@ public class LogicSetup {
 
                 case LOGICAL_FALSEHOOD_DETERMINER:
                     LogicalFalsehoodDeterminer logicalFalsehoodDeterminer = new LogicalFalsehoodDeterminer(rootOne);
-                    return new LogicTruthAndParseTree(logicalFalsehoodDeterminer.isFalsehood(), logicalFalsehoodDeterminer.getTree());
+                    return new LogicTruthParseAndTruthTree(logicalFalsehoodDeterminer.isFalsehood(), logicalFalsehoodDeterminer.getWffTree(), logicalFalsehoodDeterminer.getTruthTree());
 
                 case LOGICALLY_CONTINGENT_DETERMINER:
                     LogicallyContingentDeterminer logicallyContingentDeterminer = new LogicallyContingentDeterminer(rootOne);
@@ -156,7 +157,7 @@ public class LogicSetup {
 
                 case LOGICAL_TAUTOLOGY_DETERMINER:
                     LogicalTautologyDeterminer logicalTautologyDeterminer = new LogicalTautologyDeterminer(rootOne);
-                    return new LogicTruthAndParseTree(logicalTautologyDeterminer.isTautology(), logicalTautologyDeterminer.getTree());
+                    return new LogicTruthParseAndTruthTree(logicalTautologyDeterminer.isTautology(), logicalTautologyDeterminer.getWffTree(), logicalTautologyDeterminer.getTruthTree());
 
                 case MAIN_OPERATOR_DETECTOR:
                     MainOperatorDetector mainOperatorDetector = new MainOperatorDetector(rootOne);
@@ -170,7 +171,7 @@ public class LogicSetup {
 
                 case LOGICALLY_CONTRADICTORY_DETERMINER:
                     LogicallyContradictoryDeterminer logicallyContradictoryDeterminer = new LogicallyContradictoryDeterminer(rootOne, rootTwo);
-                    return new LogicTruthAndParseTree(logicallyContradictoryDeterminer.isContradictory(), logicallyContradictoryDeterminer.getCombinedTree());
+                    return new LogicTruthParseAndTruthTree(logicallyContradictoryDeterminer.isContradictory(), logicallyContradictoryDeterminer.getCombinedTree(), logicallyContradictoryDeterminer.getTruthTree());
 
                 case LOGICALLY_CONSISTENT_DETERMINER:
                     LogicallyConsistentDeterminer logicallyConsistentDeterminer = new LogicallyConsistentDeterminer(rootOne, rootTwo);
@@ -182,15 +183,19 @@ public class LogicSetup {
 
                 case LOGICALLY_EQUIVALENT_DETERMINER:
                     LogicallyEquivalentDeterminer logicallyEquivalentDeterminer = new LogicallyEquivalentDeterminer(rootOne, rootTwo);
-                    return new LogicTruthAndParseTree(logicallyEquivalentDeterminer.isEquivalent(), logicallyEquivalentDeterminer.getCombinedTree());
+                    return new LogicTruthParseAndTruthTree(logicallyEquivalentDeterminer.isEquivalent(), logicallyEquivalentDeterminer.getCombinedTree(), logicallyEquivalentDeterminer.getTruthTree());
 
                 case LOGICALLY_IMPLIED_DETERMINER:
                     LogicallyImpliedDeterminer logicallyImpliedDeterminer = new LogicallyImpliedDeterminer(rootOne, rootTwo);
-                    return new LogicTruthAndParseTree(logicallyImpliedDeterminer.isImplied(), logicallyImpliedDeterminer.getCombinedTree());
+                    return new LogicTruthParseAndTruthTree(logicallyImpliedDeterminer.isImplied(), logicallyImpliedDeterminer.getCombinedTree(), logicallyImpliedDeterminer.getTruthTree());
 
                 case ARGUMENT_TRUTH_TREE_VALIDATOR:
                     ArgumentTruthTreeValidator argumentTruthTreeValidator = new ArgumentTruthTreeValidator(this.wffTree);
                     return new LogicTruthParseAndTruthTree(argumentTruthTreeValidator.isValid(), argumentTruthTreeValidator.getCombinedTree(), argumentTruthTreeValidator.getTruthTree());
+
+                case SEMANTIC_ENTAILMENT_DETERMINER:
+                    SemanticEntailmentDeterminer semanticEntailmentDeterminer = new SemanticEntailmentDeterminer(this.wffTree);
+                    return new LogicTruthParseAndTruthTree(semanticEntailmentDeterminer.isSemanticallyEntailing(), semanticEntailmentDeterminer.getCombinedTree(), semanticEntailmentDeterminer.getTruthTree());
 
                 case PROPOSITIONAL_TRUTH_TREE_GENERATOR:
                     PropositionalTruthTreeGenerator propositionalTruthTreeGenerator = new PropositionalTruthTreeGenerator(rootOne);

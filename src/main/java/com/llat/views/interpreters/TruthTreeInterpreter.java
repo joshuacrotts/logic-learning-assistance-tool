@@ -207,7 +207,17 @@ public class TruthTreeInterpreter implements Listener {
     }
 
     /**
+     * Converts a WffTree and its children into the tree required by the Tree
+     * building library Abego. The root is added to the tree in the above method
+     * so we start off by enqueueing it, then traversing through its children in BFS
+     * fashion. Each child is added to this queue and added to the tree at the same
+     * time. We use a BFS because we have to tell the library which parent each
+     * node belongs to.
      *
+     * Note that, to add a node to the Abego tree, it has to be a different node
+     * altogether, meaning that if you want to add a node that has the same string
+     * representation of another (e.g. A = (P & Q), B = (P & Q)), you have to
+     * deep copy the WffTree node by calling .copy() beforehand.
      */
     private TreeForTreeLayout<TruthTreeGuiNode> convertToAbegoTree(TruthTree _root) {
         Queue<TruthTreeGuiNode> q = new LinkedList<>();

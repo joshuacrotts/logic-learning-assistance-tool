@@ -9,7 +9,7 @@ public class ImpNode extends WffTree {
      * Uses the dash, greater than (->) as the default symbol if none is provided.
      * This should, ideally, only happen in internal algorithms.
      */
-    private static final String DEFAULT_SYMBOL = "->";
+    private static final String DEFAULT_SYMBOL = "→";
 
     /**
      * The default TeX symbol is just the simple right-arrow.
