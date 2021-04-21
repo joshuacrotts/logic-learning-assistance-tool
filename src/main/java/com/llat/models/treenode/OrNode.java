@@ -16,12 +16,21 @@ public class OrNode extends WffTree {
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\lor";
 
+    /**
+     * Keeps track of the symbol currently used. Whatever symbol is last used
+     * is stored in this variable. This makes sure that, if the notation from
+     * the user is consistent, there are no incidents like "~ not A" to represent
+     * a double-negated atom.
+     */
+    private static String currentlyUsedSymbol;
+
     public OrNode(String _symbol) {
         super(_symbol, NodeType.OR);
+        currentlyUsedSymbol = _symbol;
     }
 
     public OrNode() {
-        this(DEFAULT_SYMBOL);
+        this(currentlyUsedSymbol == null ? DEFAULT_SYMBOL : currentlyUsedSymbol);
     }
 
     @Override

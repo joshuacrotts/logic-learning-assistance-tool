@@ -1,33 +1,33 @@
 ((y)(Cy → (Py & Ky)) ↔ ∼(x)((Px & Kx) → Cx))
 ├── (y)(Cy → (Py & Ky))
 │  └── ∼(x)((Px & Kx) → Cx)
-│     └── (∃x)~((Px & Kx) → Cx)
-│        └── ~((Pa & Ka) → Ca)
+│     └── (∃x)∼((Px & Kx) → Cx)
+│        └── ∼((Pa & Ka) → Ca)
 │           └── (Pa & Ka)
-│              └── ~Ca
+│              └── ∼Ca
 │                 └── Pa
 │                    └── Ka
 │                       └── (Ca → (Pa & Ka))
-│                          ├── ~Ca open
+│                          ├── ∼Ca open
 │                          └── (Pa & Ka)
 │                             └── Pa
 │                                └── Ka open
-└── ~(y)(Cy → (Py & Ky))
-   └── ~∼(x)((Px & Kx) → Cx)
+└── ∼(y)(Cy → (Py & Ky))
+   └── ∼∼(x)((Px & Kx) → Cx)
       └── (x)((Px & Kx) → Cx)
-         └── (∃y)~(Cy → (Py & Ky))
-            └── ~(Ca → (Pa & Ka))
+         └── (∃y)∼(Cy → (Py & Ky))
+            └── ∼(Ca → (Pa & Ka))
                └── Ca
-                  └── ~(Pa & Ka)
-                     ├── ~Pa
+                  └── ∼(Pa & Ka)
+                     ├── ∼Pa
                      │  └── ((Pa & Ka) → Ca)
-                     │     ├── ~(Pa & Ka)
-                     │     │  ├── ~Pa open
-                     │     │  └── ~Ka open
+                     │     ├── ∼(Pa & Ka)
+                     │     │  ├── ∼Pa open
+                     │     │  └── ∼Ka open
                      │     └── Ca open
-                     └── ~Ka
+                     └── ∼Ka
                         └── ((Pa & Ka) → Ca)
-                           ├── ~(Pa & Ka)
-                           │  ├── ~Pa open
-                           │  └── ~Ka open
+                           ├── ∼(Pa & Ka)
+                           │  ├── ∼Pa open
+                           │  └── ∼Ka open
                            └── Ca open
