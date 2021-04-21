@@ -28,6 +28,22 @@
     -fx-border-width: 2.5;
     -fx-background-insets: 0;
 }
+#inputButtonVBox .button:hover,
+#formulaInputHBox .button:hover,
+#truthTableParentPane .button:hover {
+    -fx-background-color: derive(silver, 80%);
+}
+#inputButtonVBox .button:pressed,
+#formulaInputHBox .button:pressed,
+#truthTableParentPane .button:pressed {
+    -fx-background-color: #add8e6;
+}
+#inputButtonVBox .button:focused,
+#formulaInputHBox .button:focused,
+#truthTableParentPane .button:focused {
+    -fx-background-insets: 0;
+}
+
 
 #symbolButton {
     -fx-wrap-text: true;

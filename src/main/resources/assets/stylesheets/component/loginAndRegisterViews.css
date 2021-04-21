@@ -34,6 +34,21 @@
     -fx-border-width: 2.5;
     -fx-background-insets: 0;
 }
+#registerViewParentPane .button:hover ,
+#loginViewParentPane .button:hover
+{
+    -fx-background-color: derive(silver, 80%);
+}
+#registerViewParentPane .button:pressed  ,
+#loginViewParentPane .button:pressed
+{
+    -fx-background-color: #add8e6;
+}
+#registerViewParentPane .button:focused  ,
+#loginViewParentPane .button:focused
+{
+    -fx-background-insets: 0;
+}
 
 #registerViewParentPane .text-field,
 #loginViewParentPane .text-field{

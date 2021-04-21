@@ -8,10 +8,6 @@
 
 }
 
-.dialog-pane {
-    -fx-font-family: 'Arial';
-}
-
 /* Start Menubar*/
 .menu-bar {
     -fx-background-color: -menubar-color;
