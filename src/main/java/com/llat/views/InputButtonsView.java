@@ -104,7 +104,7 @@ public class InputButtonsView {
         // Setting Buttons propositionalLogicButtons properties.
         int rowCount = 0;
         for (SymbolButton curButton : this.propositionalLogicButtons) {
-            curButton.setId("propositionalLogicButton");
+            curButton.setId("symbol_button");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             curButton.setTooltip(new Tooltip(curButton.getDefaultSymbol().getTooltip()));
             curButton.setContextMenu(new SymbolContextMenu(curButton));
@@ -145,7 +145,7 @@ public class InputButtonsView {
         // Setting Buttons predicateLogicButtons properties.
         rowCount = 0;
         for (SymbolButton curButton : this.predicateLogicButtons) {
-            curButton.setId("predicateLogicButton");
+            curButton.setId("symbol_button");
             curButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             curButton.setTooltip(new Tooltip(curButton.getDefaultSymbol().getTooltip()));
             GridPane.setRowIndex(curButton, rowCount / 4);

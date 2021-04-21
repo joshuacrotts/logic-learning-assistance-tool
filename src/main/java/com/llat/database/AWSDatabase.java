@@ -13,7 +13,7 @@ public class AWSDatabase implements DatabaseInterface {
     /**
      *
      */
-    public static final String CREDENTIALS_STRING = "jdbc:mysql://llat-instance-1.cux0wahd0k8a.us-east-2.rds.amazonaws.com:3306/llat";
+    public static final String CREDENTIALS_STRING = "jdbc:mysql://llat-instance-1.cux0wahd0k8a.us-east-2.rds.amazonaws.com:3306/llat?useUnicode=true&characterEncoding=UTF-8";
     /**
      *
      */
