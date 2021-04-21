@@ -60,7 +60,8 @@ public class WffTree implements Copyable, TexPrintable {
      * @return
      */
     private static String getStandardizedEquiv(String _strRep) {
-        String s = _strRep.replaceAll("[~¬!]|(not|NOT)", "~"); // NEG
+        String s = _strRep.replaceAll(" ", "");
+        s = s.replaceAll("[~¬!]|(not|NOT)", "~"); // NEG
         s = s.replaceAll("[∧^⋅]|(and|AND)", "&"); // AND
         s = s.replaceAll("[\\|+\\|\\|]|(or|OR)", "∨"); // OR
         s = s.replaceAll("[→⇒⊃>]|(implies|IMPLIES)", "→"); // IMP
