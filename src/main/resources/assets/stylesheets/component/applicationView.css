@@ -5,10 +5,17 @@
 }
 
 /* reset the right view background */
-#rightTabPane  .button,
-#rulesAxiomsVBox *
+#rightTabPane  .button
 {
     -fx-background-color: transparent;
+}
+#rulesAxiomsScrollPane .viewport,
+#rulesAxiomsScrollPane:selected
+{
+    -fx-background-color: -left-right-color;
+    -fx-border-color: transparent;
+    -fx-border-style: hidden hidden hidden hidden;
+
 }
 #titleLabel,
 #resultHBox .label{

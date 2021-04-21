@@ -13,10 +13,10 @@
     -left-right-color: #C0C0C0;
     -bottom-color: -primary-color;
 
-    -selected-tab: derive(-primary-color, 20%);
+    -selected-tab: derive(-primary-color, 80%);
     -center-view: #ffffff;
     -error-box: #ffffff;
-    -hovered-tab: -tertiary-color;
+    -hovered-tab: derive(-tertiary-color, 50%);
 
 
     /*    text field    */
@@ -28,7 +28,7 @@
 
     -history-table-column-text-color: -title-color;
     -history-table-hover: derive(-primary-color, 80%);
-    -history-column-header: -primary-color;
+    -history-column-header: derive(-primary-color, 40%);
     -history-even-row: derive(-primary-color, 70%);
     -history-odd-row: derive(-primary-color, 100%);
     -history-selected-row: -tertiary-color;
