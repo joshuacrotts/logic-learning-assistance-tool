@@ -67,7 +67,6 @@ public class SettingsView {
         this.settingsStage.toFront();
         this.settingsStage.initModality(Modality.WINDOW_MODAL);
         this.settingsStage.initOwner(this.controller.getStage().getScene().getWindow());
-        this.settingsStage.centerOnScreen();
         // Setting Scene settingsScene properties.
         this.settingsScene.getStylesheets().add(ViewManager.getDefaultStyle("settings.css"));
         // Setting VBox parentPane properties.
