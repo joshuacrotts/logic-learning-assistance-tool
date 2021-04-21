@@ -5,38 +5,58 @@
 
 #settingsCategoryButton {
     -fx-border-color: transparent;
-    -fx-background-color: derive(-primary-color, 10%);
+    -fx-background-color: -primary-color;
     -fx-font-size: 20;
-    -fx-text-fill: gray;
+    -fx-text-fill: -text-color;
     -fx-background-radius: 0;
 }
 
 #settingsCategoryButton:hover {
-    -fx-background-color: #324241;
+    -fx-background-color: -tertiary-color;
     -fx-font-weight: bold;
 }
 
-#settingsCategoryButton:focused {
-    -fx-background-color: derive(-secondary-color, 20%) ;
+#settingsCategoryButtonOnPress {
+    -fx-background-color: -center-view;
+    -fx-font-size: 20;
+    -fx-text-fill: -text-color;
     -fx-font-weight: bold;
 }
 
 #selectedCategoryVBox {
-    -fx-background-color: derive(-secondary-color, 20%) ;
+    -fx-background-color: -center-view;
 }
 
-#categoryTitle {
-    -fx-fill: -text-color;
+#categoryTitle, #categoryPaneLabels {
+    -fx-text-fill: -text-color;
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
-#settignsMenuButton{
-    -fx-fill: -text-color;
-    -fx-background-color: -secondary-color;
+#categoryPaneTitle, #categoryPaneLabels {
+    -fx-text-fill: -text-color;
 }
-#comboBoxLabel {
+
+#settignsMenuButton {
     -fx-fill: -text-color;
+    -fx-background-color: -primary-color;
+    -fx-min-width: 5em;
+}
+
+#settignsMenuButton .label {
+    -fx-text-fill: -text-color;
+}
+
+#settignsMenuButton .menu-item {
+    -fx-text-fill: -text-color;
+}
+
+#settignsMenuButton .context-menu {
+    -fx-background-color: -primary-color;
+}
+
+#comboBoxLabel {
+    -fx-text-fill: -text-color;
     -fx-font-weight: bold;
     -fx-font-size: 12;
 }
@@ -54,6 +74,7 @@
     -fx-border-width: 1;
     -fx-background-insets: 0;
 }
+
 #cancelButton:hover, #saveButton:hover {
     -fx-background-color: derive(silver, 80%);
 }

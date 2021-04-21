@@ -8,7 +8,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
@@ -54,6 +53,7 @@ public class SettingsView {
 
     public SettingsView(Controller _controller) {
         this.controller = _controller;
+        com.llat.models.localstorage.uidescription.settingsview.SettingsView settingsView = this.controller.getUiObject().getSettingsView();
         // Setting Stage settingsStage properties.
         this.settingsStage.setTitle("Settings");
         this.settingsStage.getIcons().add(new Image(App.class.getResourceAsStream("/assets/images/LogoStatic.png")));
@@ -69,6 +69,16 @@ public class SettingsView {
         this.settingsStage.initModality(Modality.WINDOW_MODAL);
         this.settingsStage.initOwner(this.controller.getStage().getScene().getWindow());
         this.settingsStage.centerOnScreen();
+        appearanceButton = new Button(settingsView.getCategories().getAppearance().getLabel());
+        languageButton = new Button(settingsView.getCategories().getLanguage().getLabel());
+        advanceButton = new Button(settingsView.getCategories().getAdvanced().getLabel());
+        appearanceTitle = new Label(settingsView.getCategories().getAppearance().getLabel());
+        themeLabel = new Label(settingsView.getCategories().getAppearance().getTheme().getLabel() + ":");
+        languageTitle = new Label(settingsView.getCategories().getLanguage().getLabel());
+        languageLabel = new Label(settingsView.getCategories().getLanguage().getLabel() + ":");
+        advanceTitle = new Label(settingsView.getCategories().getAdvanced().getLabel());
+        cancelButton = new Button(settingsView.getCancel());
+        saveButton = new Button(settingsView.getSave());
 
         this.themeMenuButton.setId("settignsMenuButton");
         this.languageMenuButton.setId("settignsMenuButton");
@@ -91,7 +101,7 @@ public class SettingsView {
         });
         // Setting Button appearanceButton properties.
         this.appearanceButton.requestFocus();
-        this.appearanceButton.setId("settingsCategoryButton");
+        this.appearanceButton.setId("settingsCategoryButtonOnPress");
         this.appearanceButton.setMinHeight(this.categoryVBox.getHeight() * BUTTONHIGHT);
         this.appearanceButton.setMaxHeight(this.categoryVBox.getHeight() * BUTTONHIGHT);
         this.categoryVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -197,6 +207,7 @@ public class SettingsView {
         this.settingsStage.getScene().setRoot(this.parentPane);
         this.settingsViewInterpreter = new SettingsViewInterpreter(this.controller, this);
     }
+
 
     public int getMINWIDTH() {
         return MINWIDTH;
