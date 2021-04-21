@@ -46,6 +46,8 @@ public class HistoryViewInterpreter implements Listener {
             List<String> history = this.controller.getUser().getHistory();
             ObservableList<String> names = FXCollections.observableArrayList(history);
             TableView<String> tv = new TableView(FXCollections.observableArrayList(new ArrayList<String>(history)));
+            tv.setId("historyView");
+            tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             TableColumn<String, String> formulaColumn = new TableColumn<>("Formula");
             formulaColumn.setCellValueFactory((p) -> new ReadOnlyStringWrapper(p.getValue()));
             tv.getColumns().add(formulaColumn);

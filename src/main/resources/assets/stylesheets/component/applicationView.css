@@ -5,12 +5,13 @@
 }
 
 /* reset the right view background */
-#rightTabPane * {
+#rightTabPane  .button,
+#rulesAxiomsVBox *
+{
     -fx-background-color: transparent;
 }
-
 #titleLabel,
-#resultHBox .label {
+#resultHBox .label{
     -fx-font-size: 1.5em;
     -fx-padding: 1em 0 1em 0;
     -fx-text-fill: -title-color;
@@ -19,7 +20,7 @@
 
 #inputButtonVBox .button,
 #formulaInputHBox .button,
-#truthTableParentPane .button {
+#truthTableParentPane .button{
     -fx-wrap-text: true;
     -fx-font-size: 1.5em;
     -fx-min-width: 4.5em;
@@ -75,7 +76,7 @@
     -fx-background-insets: 0 0 0 0;
 }
 
-#rightView .button {
+#rightView .button{
     -fx-text-fill: -text-color;
     -fx-font-size: 1.5em;
 }
@@ -87,14 +88,12 @@
     -fx-background-color: -left-right-color;
 
 }
-
-#rightTabPane *.tab-header-background {
+#rightTabPane *.tab-header-background{
     -fx-border-color: -border-color;
     -fx-border-style: hidden hidden solid hidden;
 }
-
 #rightTabPane .tab,
-#centerTabPane .tab {
+#centerTabPane .tab{
     -fx-background-color: -left-right-color;
     -fx-pref-height: 31;
     -fx-focus-color: transparent;
@@ -102,7 +101,7 @@
 }
 
 #rightTabPane .tab:hover,
-#centerTabPane .tab:hover {
+#centerTabPane .tab:hover{
     -fx-background-color: -hovered-tab;
 }
 
@@ -117,7 +116,7 @@
     -fx-text-fill: -text-color;
 }
 
-#rulesAxiomsVBox {
+#rulesAxiomsVBox{
     -fx-background-color: -left-right-color;
 }
 
@@ -148,13 +147,12 @@
 
 
 /* End ComboBox (Algorithm selection) */
-#resultHBox {
+#resultHBox{
     -fx-background-color: -menubar-color;
     -fx-border-color: -border-color;
     -fx-border-style: hidden hidden solid hidden;
 }
-
-#comboHBox {
+#comboHBox{
     -fx-background-color: -combo-box;
     -fx-border-color: -border-color;
     -fx-border-style: hidden hidden solid hidden;
@@ -179,3 +177,52 @@
 }
 
 /* End Error*/
+
+
+
+#historyView{
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+}
+#historyView .column-header-background{
+    -fx-background-color: -history-column-header;
+}
+
+#historyView .column-header {
+    -fx-background-color: transparent;
+}
+#historyView .column-header .label{
+    -fx-text-fill: -history-table-column-text-color;
+}
+
+#historyView .table-cell{
+    -fx-border-color: transparent;
+    -fx-text-fill: -text-color;
+    -fx-font-size: 1em;
+    -fx-text-alignment: center;
+}
+
+#historyView:hover,
+#historyView:focused
+{
+    -fx-color: -fx-base;
+    /*-fx-text-background-color: red;*/
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-style: hidden hidden hidden hidden;
+
+}
+#historyView .table-row-cell{
+    -fx-background-color: -left-right-color;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: -border-color;
+    -fx-padding: 0.0em;
+}
+
+
+
+
+#historyView .table-row-cell:selected{
+    -fx-background-color: -history-selected-row;
+}
+

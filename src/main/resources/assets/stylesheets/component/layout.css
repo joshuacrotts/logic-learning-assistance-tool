@@ -34,7 +34,7 @@
 }
 
 .menu-item .label {
-    -fx-font-size: 1.25em;
+    /*-fx-font-size: 1.25em;*/
     -fx-text-fill: -text-color;
 }
 

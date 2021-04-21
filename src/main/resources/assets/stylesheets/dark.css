@@ -30,6 +30,11 @@
     -menubar-color: -primary-color;
     -combo-box: derive(-primary-color, 20%);
 
+    -history-table-column-text-color: -title-color;
+    -history-table-hover: derive(-primary-color, 80%);
+    -history-column-header: -secondary-color;
+    -history-even-row: derive(-primary-color, 70%);
+    -history-odd-row: derive(-primary-color, 100%);
+    -history-selected-row: -tertiary-color;
+    -history-table-view: derive(-primary-color, 80%);
 }
-
-
