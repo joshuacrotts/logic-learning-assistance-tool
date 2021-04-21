@@ -1,18 +1,4 @@
 /* Start Settings */
-
-/*#settingsParentPane .context-menu-title:disabled:hover {*/
-/*    -fx-background-color: black;*/
-/*}*/
-
-/*#settingsParentPane .context-menu-title:disabled:hover .label {*/
-/*    -fx-background-color: white;*/
-/*    -fx-text-fill: black;*/
-/*}*/
-
-/*#settingsParentPane {*/
-/*    -fx-background-color: silver;*/
-/*}*/
-
 #categoryVBox {
     -fx-background-color: derive(-primary-color, 10%);
 }

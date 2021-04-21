@@ -6,7 +6,27 @@
     -tertiary-color: #285E61;
 
     -text-color: black;
+    -title-color: black;
     -border-color: #319795;
+
+
+
+    -left-right-color: derive(-primary-color, 20%);
+    -bottom-color: -primary-color;
+
+    -selected-tab: derive(-primary-color, 20%);
+    -center-view: derive(-primary-color, 50%);
+    -error-box: derive(-primary-color, 50%);
+    -hovered-tab: -tertiary-color;
+
+
+    /*    text field    */
+    -text-field-focussed: derive(silver, 80%);
+    -text-field: silver;
+
+    -menubar-color: -primary-color;
+    -combo-box: -left-right-color;
+
 }
 
 

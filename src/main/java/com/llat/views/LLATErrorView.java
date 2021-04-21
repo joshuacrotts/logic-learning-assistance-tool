@@ -47,7 +47,7 @@ public class LLATErrorView {
         this.parentPane.setAlignment(Pos.CENTER);
         // Setting Label errorLabel properties.
         this.errorLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getErrorAndWarningLabel());
-        this.errorLabel.setId("errorLabel");
+        this.errorLabel.setId("titleLabel");
         // Setting ScrollPane logScrollPane's properties.
         this.logScrollPane.setId("errorScrollPane");
         this.logScrollPane.setFitToWidth(true);

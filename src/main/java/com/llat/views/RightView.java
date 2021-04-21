@@ -28,7 +28,9 @@ public class RightView {
             this.parentPane.setMaxWidth(newVal.doubleValue() * .20);
         });
         // Setting TabPane tabPane properties.
-        this.tabPane.setId("rightView");
+        this.parentPane.setId("rightView");
+        this.tabPane.setId("rightTabPane");
+
         this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.tabPane.setMinWidth(newVal.doubleValue());
             this.tabPane.setMaxWidth(newVal.doubleValue());
@@ -62,6 +64,8 @@ public class RightView {
             this.historyView.getParentPane().setMinHeight(newVal.doubleValue());
             this.historyView.getParentPane().setMaxHeight(newVal.doubleValue());
         });
+        this.historyTab.setId("rightTabChildren");
+        this.axiomsTab.setId("rightTabChildren");
         // Adding children nodes to their parents.
         this.tabPane.getTabs().addAll(this.axiomsTab, this.historyTab);
         this.parentPane.getChildren().addAll(this.tabPane);

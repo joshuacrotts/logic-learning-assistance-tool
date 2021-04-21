@@ -35,6 +35,7 @@ public class CenterView {
         this.parentPane.setId("centerView");
         // Setting TabPane tabPane properties.
         this.tabPane = new TabPane();
+        this.tabPane.setId("centerTabPane");
         this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         this.tabPane.getTabs().addAll(new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getTruthTreeLabel()), new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getParseTreeLabel()), new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getTruthTableLabel()));
         this.tabPane.getTabs().get(0).setContent(new TruthTreeView(this.controller).getParentPane());

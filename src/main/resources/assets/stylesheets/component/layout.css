@@ -5,55 +5,14 @@
 
 * {
     -fx-font-family: 'Arial';
+
 }
-
-/*!* Begin root *!*/
-
-.text-field:focused {
-    -fx-background-color: derive(silver, 80%);
-    -fx-background-insets: 0 0 0 0;
-}
-
-.button {
-    -fx-wrap-text: true;
-    -fx-font-weight: bold;
-    -fx-font-size: 2em;
-    -fx-background-color: derive(silver, 0%);
-    -fx-border-color: black;
-    -fx-border-width: 2.5;
-    -fx-background-insets: 0;
-}
-
-.button:hover {
-    -fx-background-color: derive(silver, 80%);
-}
-
-.button:pressed {
-    -fx-background-color: #add8e6;
-}
-
-.button:focused {
-    -fx-background-insets: 0;
-}
-
-.tooltip {
-    -fx-background-color: derive(silver, 50%);
-    -fx-text-fill: black;
-    -fx-font-size: 1.5em;
-    -fx-border-color: black;
-    -fx-border-size: 10px;
-}
-
-/* End root */
-
 
 
 
 /* Start Menubar*/
 .menu-bar {
-    /*-fx-background-color: -primary-color;*/
-    -fx-background-color: derive(-primary-color, 10%); ;
-
+    -fx-background-color: -menubar-color;
     -fx-border-color: -border-color;
     -fx-border-style: hidden hidden solid hidden;
 
@@ -63,19 +22,21 @@
     -fx-text-fill: -text-color;
 }
 
-.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+.menu-bar .menu-button:hover,
+.menu-bar .menu-button:focused,
+.menu-bar .menu-button:showing {
     -fx-background: -tertiary-color;
     -fx-text-fill: -text-color;
 }
 
 .menu-item {
-    /*-fx-padding: 0.0em 0.0em 0.0em 0.0em;*/
+    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
     -fx-text-fill: black;
-    -fx-background: -tertiary-color;
+    -fx-background: darkgray;
 }
 
 .menu-item .label {
-    /*-fx-font-size: 12.0pt;*/
+    -fx-font-size: 1.25em;
     -fx-text-fill: -text-color;
 }
 
@@ -87,46 +48,10 @@
 .context-menu {
     /*-fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";*/
     -fx-background-color: -secondary-color;
-    -fx-border-width: 0px;
+    -fx-border-width: 0.2px;
 }
 
 /* End Menubar*/
-
-/* Begin Tabs */
-.tab-header-background {
-    /*-fx-background-color: -primary-color;*/
-    -fx-background-color: derive(-primary-color, 10%); ;
-
-
-}
-
-.tab-pane .tab {
-    /*-fx-background-color: -primary-color;*/
-    -fx-background-color: derive(-primary-color, 10%); ;
-
-    -fx-pref-height: 31;
-
-}
-
-.tab-pane .tab:hover {
-    -fx-background-color: -tertiary-color;
-}
-
-.tab-pane .tab:selected {
-    -fx-background-color: -secondary-color;
-    -fx-border-color: transparent;
-}
-
-.tab {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-}
-
-.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
-    -fx-text-fill: -text-color;
-}
-
-/* End Tabs*/
 
 /* Start Scrollbar */
 .scroll-bar:horizontal .track,
@@ -179,24 +104,3 @@
     -fx-background-insets: 2.0, 0.0, 0.0;
     -fx-background-radius: 2.0em;
 }
-
-/* End Scrollbar */
-
-/* Start ComboBox (Algorithm selection) */
-.combo-box, .list-view, .list-cell {
-    -fx-background-color: -secondary-color;
-
-}
-
-.list-cell:hover {
-    -fx-background-color: -tertiary-color;
-
-}
-
-
-.combo-box-base .text {
-    -fx-fill: -text-color;
-}
-
-/* End ComboBox (Algorithm selection) */
-

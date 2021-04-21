@@ -1,36 +1,137 @@
-
-
-.label, .text {
-    /*-fx-font-weight: bold;*/
-    -fx-text-fill: -text-color;
-    /*-fx-font-size: 2em;*/
+#leftView, #rightView{
+    -fx-background-color: -left-right-color;
+    -fx-border-color: -border-color;
+    -fx-border-style: hidden solid hidden solid;
 }
 
-#mainViewParentPane .text-field {
-    -fx-background-color: silver;
-    -fx-border-width: 5;
+/* reset the right view background */
+#rightTabPane  *{
+    -fx-background-color: transparent;
+}
+
+#titleLabel,
+#resultHBox .label{
+    -fx-font-size: 1.5em;
+    -fx-padding: 1em 0 1em 0;
+    -fx-text-fill: -title-color;
+    -fx-font-weight: bolder;
+}
+
+#inputButtonVBox .button,
+#formulaInputHBox .button,
+#truthTableParentPane .button{
+    -fx-wrap-text: true;
+    -fx-font-size: 1.5em;
+    -fx-min-width: 5em;
+    -fx-background-color: derive(silver, 0%);
+    -fx-border-color: black;
+    -fx-border-width: 2.5;
+    -fx-background-insets: 0;
+}
+
+#formulaInputHBox {
+    -fx-background-color: -bottom-color;
+    -fx-border-color: -border-color;
+}
+
+#formulaInputHBox .text-field {
+    -fx-background-color: -text-field;
+    -fx-border-width: 2.5;
     -fx-border-color: black;
     -fx-text-color: black;
     -fx-alignment: center;
     -fx-prompt-text-fill: black;
-    -fx-font-size: 2em;
+    -fx-font-size: 1.5em;
 }
 
-/* Begin bottom (formula)*/
-#formulaInputHBox {
-    -fx-background-color: -primary-color;
+#formulaInputHBox .text-field:focused {
+    -fx-background-color: -text-field-focussed;
+    -fx-background-insets: 0 0 0 0;
+}
+
+#rightView .button{
+    -fx-text-fill: -text-color;
+    -fx-font-size: 1.5em;
+}
+
+
+
+
+    /* Begin Tabs */
+#rightTabPane *.tab-header-background,
+#centerTabPane *.tab-header-background {
+    -fx-background-color: -left-right-color;
+
+}
+#rightTabPane *.tab-header-background{
     -fx-border-color: -border-color;
-    -fx-border-style: solid hidden hidden hidden;
+    -fx-border-style: hidden hidden solid hidden;
+}
+#rightTabPane .tab,
+#centerTabPane .tab{
+    -fx-background-color: -left-right-color;
+    -fx-pref-height: 31;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
-/* End bottom (formula)*/
-
-
-#rulesAxiomsScrollPane, #treeTableScrollPane, #truthTableScrollPane {
-    -fx-background-color: transparent;
-    -fx-background-insets: 0;
-    -fx-padding: 0;
+#rightTabPane .tab:hover,
+#centerTabPane .tab:hover{
+    -fx-background-color: -hovered-tab;
 }
+
+#rightTabPane .tab:selected,
+#centerTabPane .tab:selected {
+    -fx-background-color: -selected-tab;
+    -fx-border-color: transparent;
+}
+
+#rightTabPane > *.tab-header-area > *.headers-region > *.tab > *.tab-container > *.tab-label,
+#centerTabPane > *.tab-header-area > *.headers-region > *.tab > *.tab-container > *.tab-label {
+    -fx-text-fill: -text-color;
+}
+
+#rulesAxiomsVBox{
+    -fx-background-color: -left-right-color;
+}
+/* End Tabs*/
+
+
+/*  Center View */
+#truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
+    -fx-background-color: -center-view;
+}
+
+
+/* Start ComboBox (Algorithm selection) */
+.combo-box, .list-view, .list-cell {
+    -fx-background-color: -secondary-color;
+
+}
+
+.list-cell:hover {
+    -fx-background-color: -tertiary-color;
+
+}
+
+
+.combo-box-base .text {
+    -fx-fill: -text-color;
+}
+
+
+/* End ComboBox (Algorithm selection) */
+#resultHBox{
+    -fx-background-color: -menubar-color;
+    -fx-border-color: -border-color;
+    -fx-border-style: hidden hidden solid hidden;
+}
+#comboHBox{
+    -fx-background-color: -combo-box;
+    -fx-border-color: -border-color;
+    -fx-border-style: hidden hidden solid hidden;
+}
+
 
 /* Begin Error*/
 #errorScrollPane {
@@ -42,65 +143,11 @@
 }
 
 #errorScrollPane > .viewport {
-    -fx-background-color: derive(-secondary-color, 20%) ;
+    -fx-background-color: -error-box;
 }
 
 #errorMessageVBox {
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
+
 /* End Error*/
-#rulesAxiomsScrollPane > .viewport, #treeTableScrollPane > .viewport, #truthTableScrollPane > .viewport {
-    -fx-background-color: transparent;
-}
-
-
-#rulesAxiomsScrollPane:vertical, #treeTableScrollPane:vertical, #errorScrollPane:vertical {
-    -fx-min-width: 10;
-}
-
-#rulesAxiomsScrollPane:focused, #treeTableScrollPane:focused, #truthTableScrollPane:focused, errorScrollPane:focused {
-    -fx-background-insets: 0;
-}
-
-#rulesAxiomsScrollPane .corner, #treeTableScrollPane .corner, errorScrollPane .corner, #truthTableScrollPane .corner {
-    -fx-background-insets: 0;
-}
-
-#truthTableScrollPane:horizontal {
-    -fx-min-height: 10;
-}
-
-#rulesAxiomsText, #exampleText, #explanationText {
-    -fx-font-size: 1.5em;
-}
-
-#rulesAxiomsText {
-    -fx-border-width: 0;
-    -fx-background-color: transparent;
-    -fx-background-insets: 0;
-    -fx-opacity: 1;
-}
-
-#rulesAxiomsText:focused {
-    -fx-background-insets: 0;
-}
-
-#rulesAxiomsText:disabled {
-    -fx-text-fill: black;
-    -fx-opacity: 1.0;
-}
-
-#truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
-    -fx-background-color: derive(-secondary-color, 20%) ;
-
-}
-
-#parseTreeVBox, #truthTreeVBox {
-    /*-fx-background-color: derive(black, 90%);*/
-}
-
-#truthTableLabel, #truthTreeLabel {
-    -fx-font-weight: bold;
-    -fx-font-size: 20;
-}
-

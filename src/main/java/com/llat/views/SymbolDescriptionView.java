@@ -55,11 +55,11 @@ public class SymbolDescriptionView {
 
 
         // Settings labels id (linked via CSS).
-        this.symbolNameLabel.setId("symbolNameLabel");
-        this.formalNameLabel.setId("formalNameLabel");
-        this.explanationLabel.setId("explanationLabel");
-        this.exampleLabel.setId("exampleLabel");
-        this.alternativeSymbolsLabel.setId("alternativeSymbolsLabel");
+        this.symbolNameLabel.setId("titleLabel");
+        this.formalNameLabel.setId("titleLabel");
+        this.explanationLabel.setId("titleLabel");
+        this.exampleLabel.setId("titleLabel");
+        this.alternativeSymbolsLabel.setId("titleLabel");
 
         // Setting VBox symbolDetailsVBox properties.
         this.symbolDetailsVBox.setId("symbolDetailsVBox");

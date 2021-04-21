@@ -29,7 +29,7 @@ public class MenuBarView {
         // Setting Menu fileMenu properties.
         this.menuBar.setMinHeight(MenuBarView.MENU_BAR_HEIGHT);
         this.menuBar.setMaxHeight(MenuBarView.MENU_BAR_HEIGHT);
-
+        this.menuBar.setId("topMenuBar");
         // Adding children nodes to their parents nodes.
         this.menuBar.getMenus().addAll(new FileMenu(this.controller).getMenu(),
                 new ExportMenu(this.controller).getMenu(),

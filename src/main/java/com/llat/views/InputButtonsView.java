@@ -80,7 +80,7 @@ public class InputButtonsView {
         });
 
         // Setting Label propositionalLogicLabel settings.
-        this.propositionalLogicLabel.setId("propositionalLogicLabel");
+        this.propositionalLogicLabel.setId("titleLabel");
 
         // Setting GridPane propositionalLogicPane settings.
         this.propositionalLogicPane.setHgap(4);
@@ -140,7 +140,7 @@ public class InputButtonsView {
         this.predicateLogicPane.setAlignment(Pos.TOP_CENTER);
 
         // Setting Label predicateLogicLabel settings.
-        this.predicateLogicLabel.setId("predicateLogicLabel");
+        this.predicateLogicLabel.setId("titleLabel");
 
         // Setting Buttons predicateLogicButtons properties.
         rowCount = 0;

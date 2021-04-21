@@ -7,5 +7,25 @@
     /*-quaternary-color: #cee5d0;*/
 
     -text-color: #cee5d0;
+
+    -title-color: #4d2820;
     -border-color: black;
+
+
+    -left-right-color: derive(-primary-color, 20%);
+    -bottom-color: -primary-color;
+
+    -selected-tab: derive(-primary-color, 20%);
+    -center-view: derive(-primary-color, 50%);
+    -error-box: derive(-primary-color, 50%);
+    -hovered-tab: -tertiary-color;
+
+
+
+    /*    text field    */
+    -text-field-focussed: derive(silver, 80%);
+    -text-field: silver;
+
+    -menubar-color: -primary-color;
+    -combo-box: -left-right-color;
 }

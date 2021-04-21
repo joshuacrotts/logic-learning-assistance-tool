@@ -1,10 +1,35 @@
 @import "component/layout.css";
 
 .root {
+
     -primary-color: #2b2b2b;
     -secondary-color: #3C3F41;
     -tertiary-color: #3B4754;
 
+
+
+
+
+    -left-right-color: derive(-primary-color, 20%);
+    -bottom-color: -primary-color;
+
+    -selected-tab: -primary-color;
+    -center-view: derive(-primary-color, 50%);
+    -error-box: derive(-primary-color, 50%);
+    -hovered-tab: -tertiary-color;
+
+    -title-color: white;
+
     -text-color: white;
     -border-color: #515151;
+
+    /*    text field    */
+    -text-field-focussed: derive(silver, 80%);
+    -text-field: silver;
+
+    -menubar-color: -primary-color;
+    -combo-box: derive(-primary-color, 20%);
+
 }
+
+

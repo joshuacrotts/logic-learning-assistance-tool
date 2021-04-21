@@ -31,7 +31,6 @@ public class HistoryView {
 
     public HistoryView(Controller _controller) {
         this.controller = _controller;
-        this.parentPane.setStyle("-fx-background-color: yellow");
         VBox.setVgrow(this.table, Priority.ALWAYS);
         this.parentPane.getChildren().add(this.table);
         this.historyViewInterpreter = new HistoryViewInterpreter(this.controller, this);
