@@ -52,6 +52,7 @@
 /* End Menubar*/
 
 /* Start Scrollbar */
+
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track {
     -fx-background-color: transparent;

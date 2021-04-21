@@ -33,6 +33,7 @@ public class HistoryView {
         this.controller = _controller;
         VBox.setVgrow(this.table, Priority.ALWAYS);
         this.parentPane.getChildren().add(this.table);
+        this.table.setId("historyView");
         this.historyViewInterpreter = new HistoryViewInterpreter(this.controller, this);
         this.historyViewInterpreter.updateHistory();
     }
