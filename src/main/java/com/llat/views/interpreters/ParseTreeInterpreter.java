@@ -99,14 +99,14 @@ public class ParseTreeInterpreter implements Listener {
 
             // Adding children nodes to their parents nodes.
             this.parseTreeView.getParentPane().getChildren().add(this.treePane);
-            this.treePane.setTranslateX((this.parseTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getWidth() / 2)));
-            this.treePane.setTranslateY((this.parseTreeView.getParentPane().getHeight() / 2) - ((this.treePane.getHeight() / 2)));
             this.parseTreeView.getParentPane().widthProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateX((newVal.doubleValue() / 2) - (this.treePane.getWidth() / 2));
             });
             this.parseTreeView.getParentPane().heightProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateY((newVal.doubleValue() / 2) - (this.treePane.getHeight() / 2));
             });
+            this.treePane.setTranslateX((this.parseTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getBoundsInParent().getWidth()/ 2)));
+            this.treePane.setTranslateY((this.parseTreeView.getParentPane().getHeight() / 2) - ((this.treePane.getBoundsInParent().getHeight() / 2)));
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
         } else if (_event instanceof UnsolvedFormulaEvent) {
