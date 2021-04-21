@@ -49,15 +49,10 @@ public class LogicSetupInterpreter implements Listener {
                         EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
                         break;
                     case CLOSED_TREE_DETERMINER:
-                    case LOGICAL_FALSEHOOD_DETERMINER:
                     case LOGICALLY_CONTINGENT_DETERMINER:
-                    case LOGICAL_TAUTOLOGY_DETERMINER:
                     case OPEN_TREE_DETERMINER:
-                    case LOGICALLY_CONTRADICTORY_DETERMINER:
                     case LOGICALLY_CONSISTENT_DETERMINER:
                     case LOGICALLY_CONTRARY_DETERMINER:
-                    case LOGICALLY_EQUIVALENT_DETERMINER:
-                    case LOGICALLY_IMPLIED_DETERMINER:
                     case GROUND_SENTENCE_DETERMINER:
                     case CLOSED_SENTENCE_DETERMINER:
                     case OPEN_SENTENCE_DETERMINER:
@@ -82,12 +77,17 @@ public class LogicSetupInterpreter implements Listener {
                         updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicParseAndTruthTree) logicReturn).getTruthTree());
                         break;
 
+                    case LOGICAL_TAUTOLOGY_DETERMINER:
+                    case LOGICALLY_IMPLIED_DETERMINER:
+                    case LOGICAL_FALSEHOOD_DETERMINER:
+                    case LOGICALLY_CONTRADICTORY_DETERMINER:
+                    case LOGICALLY_EQUIVALENT_DETERMINER:
                     case ARGUMENT_TRUTH_TREE_VALIDATOR:
+                    case SEMANTIC_ENTAILMENT_DETERMINER:
                         updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthValue());
                         updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree());
                         updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthTree());
                         break;
-
                 }
             }
             EventBus.throwEvent(randomGeneratedFormulaEvent);

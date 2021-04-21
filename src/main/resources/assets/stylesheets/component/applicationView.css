@@ -1,0 +1,228 @@
+#leftView, #rightView {
+    -fx-background-color: -left-right-color;
+    -fx-border-color: -border-color;
+    -fx-border-style: hidden solid hidden solid;
+}
+
+/* reset the right view background */
+#rightTabPane  .button,
+#rulesAxiomsVBox *
+{
+    -fx-background-color: transparent;
+}
+#titleLabel,
+#resultHBox .label{
+    -fx-font-size: 1.5em;
+    -fx-padding: 1em 0 1em 0;
+    -fx-text-fill: -title-color;
+    -fx-font-weight: bolder;
+}
+
+#inputButtonVBox .button,
+#formulaInputHBox .button,
+#truthTableParentPane .button{
+    -fx-wrap-text: true;
+    -fx-font-size: 1.5em;
+    -fx-min-width: 4.5em;
+    -fx-background-color: derive(silver, 0%);
+    -fx-border-color: black;
+    -fx-border-width: 2.5;
+    -fx-background-insets: 0;
+}
+#inputButtonVBox .button:hover,
+#formulaInputHBox .button:hover,
+#truthTableParentPane .button:hover {
+    -fx-background-color: derive(silver, 80%);
+}
+#inputButtonVBox .button:pressed,
+#formulaInputHBox .button:pressed,
+#truthTableParentPane .button:pressed {
+    -fx-background-color: #add8e6;
+}
+#inputButtonVBox .button:focused,
+#formulaInputHBox .button:focused,
+#truthTableParentPane .button:focused {
+    -fx-background-insets: 0;
+}
+
+
+#symbolButton {
+    -fx-wrap-text: true;
+    -fx-font-size: 1.5em;
+    -fx-min-width: 4em;
+    -fx-background-color: derive(silver, 0%);
+    -fx-border-color: black;
+    -fx-border-width: 2.5;
+    -fx-background-insets: 0;
+}
+
+#formulaInputHBox {
+    -fx-background-color: -bottom-color;
+    -fx-border-color: -border-color;
+}
+
+#formulaInputHBox .text-field {
+    -fx-background-color: -text-field;
+    -fx-border-width: 2.5;
+    -fx-border-color: black;
+    -fx-text-color: black;
+    -fx-alignment: center;
+    -fx-prompt-text-fill: black;
+    -fx-font-size: 1.5em;
+}
+
+#formulaInputHBox .text-field:focused {
+    -fx-background-color: -text-field-focussed;
+    -fx-background-insets: 0 0 0 0;
+}
+
+#rightView .button{
+    -fx-text-fill: -text-color;
+    -fx-font-size: 1.5em;
+}
+
+
+/* Begin Tabs */
+#rightTabPane *.tab-header-background,
+#centerTabPane *.tab-header-background {
+    -fx-background-color: -left-right-color;
+
+}
+#rightTabPane *.tab-header-background{
+    -fx-border-color: -border-color;
+    -fx-border-style: hidden hidden solid hidden;
+}
+#rightTabPane .tab,
+#centerTabPane .tab{
+    -fx-background-color: -left-right-color;
+    -fx-pref-height: 31;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+#rightTabPane .tab:hover,
+#centerTabPane .tab:hover{
+    -fx-background-color: -hovered-tab;
+}
+
+#rightTabPane .tab:selected,
+#centerTabPane .tab:selected {
+    -fx-background-color: -selected-tab;
+    -fx-border-color: transparent;
+}
+
+#rightTabPane > *.tab-header-area > *.headers-region > *.tab > *.tab-container > *.tab-label,
+#centerTabPane > *.tab-header-area > *.headers-region > *.tab > *.tab-container > *.tab-label {
+    -fx-text-fill: -text-color;
+}
+
+#rulesAxiomsVBox{
+    -fx-background-color: -left-right-color;
+}
+
+/* End Tabs*/
+
+
+/*  Center View */
+#truthTableParentPane, #parseTreeVBox, #truthTreeVBox, #centerView {
+    -fx-background-color: -center-view;
+}
+
+
+/* Start ComboBox (Algorithm selection) */
+.combo-box, .list-view, .list-cell {
+    -fx-background-color: -secondary-color;
+
+}
+
+.list-cell:hover {
+    -fx-background-color: -tertiary-color;
+
+}
+
+
+.combo-box-base .text {
+    -fx-fill: -text-color;
+}
+
+
+/* End ComboBox (Algorithm selection) */
+#resultHBox{
+    -fx-background-color: -menubar-color;
+    -fx-border-color: -border-color;
+    -fx-border-style: hidden hidden solid hidden;
+}
+#comboHBox{
+    -fx-background-color: -combo-box;
+    -fx-border-color: -border-color;
+    -fx-border-style: hidden hidden solid hidden;
+}
+
+
+/* Begin Error*/
+#errorScrollPane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: black;
+    -fx-border-size: 10;
+}
+
+#errorScrollPane > .viewport {
+    -fx-background-color: -error-box;
+}
+
+#errorMessageVBox {
+    -fx-text-fill: -text-color;
+}
+
+/* End Error*/
+
+
+
+#historyView{
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+}
+#historyView .column-header-background{
+    -fx-background-color: -history-column-header;
+}
+
+#historyView .column-header {
+    -fx-background-color: transparent;
+}
+#historyView .column-header .label{
+    -fx-text-fill: -history-table-column-text-color;
+}
+
+#historyView .table-cell{
+    -fx-border-color: transparent;
+    -fx-text-fill: -text-color;
+    -fx-font-size: 1em;
+    -fx-text-alignment: center;
+}
+
+#historyView:hover,
+#historyView:focused
+{
+    -fx-color: -fx-base;
+    /*-fx-text-background-color: red;*/
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-style: hidden hidden hidden hidden;
+
+}
+#historyView .table-row-cell{
+    -fx-background-color: -left-right-color;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: -border-color;
+    -fx-padding: 0.0em;
+}
+
+
+
+
+#historyView .table-row-cell:selected{
+    -fx-background-color: -history-selected-row;
+}
+

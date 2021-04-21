@@ -6,22 +6,37 @@ import com.llat.models.localstorage.settings.theme.ThemeObject;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
+import com.llat.tools.ViewManager;
 import com.llat.views.SettingsView;
 import com.llat.views.menu.items.CustomMenuItem;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsViewInterpreter implements Listener {
     private Controller controller;
     private final SettingsView settingsView;
     private VBox selectedCategory = null;
-    public SettingsViewInterpreter (Controller _controller, SettingsView _settingsView) {
+    private ArrayList<Button> categoryButtonsList;
+
+    public SettingsViewInterpreter(Controller _controller, SettingsView _settingsView) {
         this.controller = _controller;
         this.settingsView = _settingsView;
+        this.categoryButtonsList = new ArrayList<Button>() {
+            {
+                {
+                    this.add(settingsView.getAppearanceButton());
+                    this.add(settingsView.getLanguageButton());
+                    this.add(settingsView.getAdvanceButton());
+                }
+            }
+        };
+        this.settingsView.getSettingsScene().getStylesheets().add(ViewManager.getDefaultStyle(this.controller.getSettingsObject().getTheme().getApplied().getCode()));
         // Setting the text so that it matches the user's selected language.
         this.settingsView.getAppearanceButton().setText(this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getLabel());
         this.settingsView.getAppearanceTitle().setText(this.controller.getUiObject().getSettingsView().getCategories().getAppearance().getLabel());
@@ -48,59 +63,76 @@ public class SettingsViewInterpreter implements Listener {
         this.showSelectedCategory(this.settingsView.getLanguageButton(), this.settingsView.getLanguageVBox());
         this.showSelectedCategory(this.settingsView.getAdvanceButton(), this.settingsView.getAdvanceVBox());
         // Setting the actions of the cancel button.
-        this.settingsView.getCancelButton().setOnAction((event) -> {this.settingsView.getSettingsStage().close();});
+        this.settingsView.getCancelButton().setOnAction((event) -> {
+            this.settingsView.getSettingsStage().close();
+        });
         // Setting the actions of the save button.
         this.onActionSaveAlert(this.settingsView.getSaveButton());
         EventBus.addListener(this);
     }
 
     @Override
-    public void catchEvent (Event _event) {
+    public void catchEvent(Event _event) {
     }
-    public void showSelectedCategory (Button _button, VBox _categoryVBox) {
+
+    public void showSelectedCategory(Button _button, VBox _categoryVBox) {
         _button.setOnAction((event) -> {
             this.settingsView.getCategoryAndSelectionHBox().getChildren().remove(this.selectedCategory);
             this.selectedCategory = _categoryVBox;
             this.settingsView.getCategoryAndSelectionHBox().getChildren().add(this.selectedCategory);
+            for (Button button : this.categoryButtonsList) {
+                if (_button == button) {
+                    button.setId("settingsCategoryButtonOnPress");
+                } else {
+                    button.setId("settingsCategoryButton");
+                }
+            }
         });
     }
 
-    public void onActionSaveAlert (Button _button) {
+    public void onActionSaveAlert(Button _button) {
         _button.setOnAction((event) -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle(this.controller.getUiObject().getSettingsView().getConfirmation().getLabel());
             alert.setHeaderText(this.controller.getUiObject().getSettingsView().getConfirmation().getAlertHeader());
             alert.setContentText(this.controller.getUiObject().getSettingsView().getConfirmation().getAlertContent());
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(ViewManager.getDefaultStyle());
+            alert.widthProperty().addListener((obs, oldVal, newVal) -> {
+                alert.setX((this.settingsView.getSettingsStage().getX()) + this.settingsView.getSettingsStage().getScene().getX() + (this.settingsView.getSettingsStage().getWidth() / 2) - (alert.getWidth() / 2));
+            });
+            alert.heightProperty().addListener((obs, oldVal, newVal) -> {
+                alert.setY((this.settingsView.getSettingsStage().getY()) + this.settingsView.getSettingsStage().getScene().getY() +  (this.settingsView.getSettingsStage().getHeight() / 2) - (alert.getHeight() / 2));
+            });
             if ((alert.showAndWait()).get() == ButtonType.OK) {
                 this.controller.updateLocalStorage();
                 this.settingsView.getSettingsStage().close();
                 this.controller.getStage().close();
                 this.controller.restartApplication();
-            }
-            else {
+            } else {
                 alert.close();
             }
         });
     }
 
-    public void populateThemes () {
-        this.settingsView.getThemeMenuButton().setText( this.controller.getAppliedTheme());
+    public void populateThemes() {
+        this.settingsView.getThemeMenuButton().setText(this.controller.getAppliedTheme());
         List<ThemeObject> themesList = this.controller.getAllThemes();
         themesList.forEach((theme) -> {
             this.settingsView.getThemeMenuButton().getItems().add(new CustomMenuItem(theme));
         });
     }
 
-    public void onActionSetTheme () {
+    public void onActionSetTheme() {
         this.settingsView.getThemeMenuButton().getItems().forEach((menuItem) -> {
             menuItem.setOnAction((event) -> {
                 this.settingsView.getThemeMenuButton().setText(menuItem.getText());
-                this.controller.setAppliedTheme((ThemeObject)((CustomMenuItem)menuItem).getContent());
+                this.controller.setAppliedTheme((ThemeObject) ((CustomMenuItem) menuItem).getContent());
             });
         });
     }
 
-    public void populateLanguages () {
+    public void populateLanguages() {
         this.settingsView.getLanguageMenuButton().setText(this.controller.getAppliedLanguage());
         List<LanguageObject> languageList = this.controller.getAllLanguages();
         languageList.forEach((language) -> {
@@ -108,11 +140,11 @@ public class SettingsViewInterpreter implements Listener {
         });
     }
 
-    public void onActionSetLanguage () {
+    public void onActionSetLanguage() {
         this.settingsView.getLanguageMenuButton().getItems().forEach((menuItem) -> {
             menuItem.setOnAction((event) -> {
                 this.settingsView.getLanguageMenuButton().setText(menuItem.getText());
-                this.controller.setAppliedLanguage((LanguageObject)((CustomMenuItem)menuItem).getContent());
+                this.controller.setAppliedLanguage((LanguageObject) ((CustomMenuItem) menuItem).getContent());
             });
         });
     }

@@ -1,15 +1,14 @@
 @import "component/layout.css";
 
 .root {
-    -primary-color: #544e4d;
-    -secondary-color: #333;
-    -tertiary-color: #dbc1ac;
-    /*-quaternary-color: #cee5d0;*/
+    -primary-color: #1D4044;
+    -secondary-color: #234E52;
+    -tertiary-color: #285E61;
 
-    -text-color: #cee5d0;
+    -text-color: black;
+    -title-color: black;
+    -border-color: #319795;
 
-    -title-color: #4d2820;
-    -border-color: black;
 
 
     -left-right-color: derive(-primary-color, 20%);
@@ -19,7 +18,6 @@
     -center-view: derive(-primary-color, 50%);
     -error-box: derive(-primary-color, 50%);
     -hovered-tab: -tertiary-color;
-
 
 
     /*    text field    */
@@ -38,3 +36,5 @@
     -history-table-view: derive(-primary-color, 80%);
 
 }
+
+

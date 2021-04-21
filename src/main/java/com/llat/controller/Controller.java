@@ -182,6 +182,7 @@ public class Controller implements Initializable {
             case PDF_TRUTH_TABLE:
                 EventBus.throwEvent(new ExportPDFTruthTableEvent(_filePath));
                 break;
+            default: throw new IllegalArgumentException("Invalid export type!");
         }
     }
     /**

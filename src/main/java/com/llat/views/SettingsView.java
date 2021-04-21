@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 public class SettingsView {
     private final int MINWIDTH = 750;
     private final int MINHEIGHT = 500;
+    private final Double BUTTONHEIGHT = 0.2;
     private Controller controller;
     private Stage settingsStage = new Stage();
     private Scene settingsScene = new Scene(new Pane());
@@ -68,7 +69,6 @@ public class SettingsView {
         this.settingsStage.initModality(Modality.WINDOW_MODAL);
         this.settingsStage.initOwner(this.controller.getStage().getScene().getWindow());
         // Setting Scene settingsScene properties.
-        this.settingsScene.getStylesheets().add(ViewManager.getDefaultStyle("settings.css"));
         // Setting VBox parentPane properties.
         this.parentPane.setId("settingsParentPane");
         this.parentPane.setMinWidth(this.settingsStage.getWidth());
@@ -81,36 +81,42 @@ public class SettingsView {
         this.categoryVBox.setId("categoryVBox");
         //VBox.setVgrow(this.categoryVBox, Priority.ALWAYS);
         this.parentPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.categoryVBox.setMinWidth(newVal.doubleValue() * .5);
-            this.categoryVBox.setMaxWidth(newVal.doubleValue() * .5);
+            this.categoryVBox.setMinWidth(newVal.doubleValue() * .3);
+            this.categoryVBox.setMaxWidth(newVal.doubleValue() * .3);
         });
         // Setting Button appearanceButton properties.
         this.appearanceButton.requestFocus();
-        this.appearanceButton.setId("settingsCategoryButton");
-        this.appearanceButton.setMaxHeight(this.categoryVBox.getHeight() * .10);
+        this.appearanceButton.setId("settingsCategoryButtonOnPress");
+        this.appearanceButton.setMinHeight(this.categoryVBox.getHeight() * BUTTONHEIGHT);
+        this.appearanceButton.setMaxHeight(this.categoryVBox.getHeight() * BUTTONHEIGHT);
         this.categoryVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.appearanceButton.setMaxWidth(newVal.doubleValue());
         });
         this.categoryVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.appearanceButton.setMaxHeight(newVal.doubleValue() * .10);
+            this.appearanceButton.setMinHeight(newVal.doubleValue() * BUTTONHEIGHT);
+            this.appearanceButton.setMaxHeight(newVal.doubleValue() * BUTTONHEIGHT);
         });
         // Setting Button languageButton properties.
         this.languageButton.setId("settingsCategoryButton");
-        this.languageButton.setMaxHeight(this.categoryVBox.getHeight() * .10);
+        this.languageButton.setMinHeight(this.categoryVBox.getHeight() * BUTTONHEIGHT);
+        this.languageButton.setMaxHeight(this.categoryVBox.getHeight() * BUTTONHEIGHT);
         this.categoryVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.languageButton.setMaxWidth(newVal.doubleValue());
         });
         this.categoryVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.languageButton.setMaxHeight(newVal.doubleValue() * .10);
+            this.languageButton.setMinHeight(newVal.doubleValue() * BUTTONHEIGHT);
+            this.languageButton.setMaxHeight(newVal.doubleValue() * BUTTONHEIGHT);
         });
         // Setting Button advanceButton properties.
         this.advanceButton.setId("settingsCategoryButton");
-        this.advanceButton.setMaxHeight(this.categoryVBox.getHeight() * .10);
+        this.advanceButton.setMinHeight(this.categoryVBox.getHeight() * BUTTONHEIGHT);
+        this.advanceButton.setMaxHeight(this.categoryVBox.getHeight() * BUTTONHEIGHT);
         this.categoryVBox.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.advanceButton.setMaxWidth(newVal.doubleValue());
         });
         this.categoryVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.advanceButton.setMaxHeight(newVal.doubleValue() * .10);
+            this.advanceButton.setMinHeight(newVal.doubleValue() * BUTTONHEIGHT);
+            this.advanceButton.setMaxHeight(newVal.doubleValue() * BUTTONHEIGHT);
         });
         // Setting VBox appearanceVBox properties.
         this.appearanceVBox.setId("selectedCategoryVBox");

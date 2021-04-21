@@ -1,5 +1,6 @@
 package com.llat.algorithms;
 
+import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.models.treenode.BicondNode;
@@ -15,6 +16,11 @@ public final class LogicallyEquivalentDeterminer {
     /**
      *
      */
+    private final TruthTree truthTree;
+
+    /**
+     *
+     */
     private final WffTree combinedTree;
 
     public LogicallyEquivalentDeterminer(WffTree _wffTreeOne, WffTree _wffTreeTwo) {
@@ -26,22 +32,29 @@ public final class LogicallyEquivalentDeterminer {
         this.combinedTree.setFlags(_wffTreeOne.isPropositionalWff() ? NodeFlag.PROPOSITIONAL : NodeFlag.PREDICATE);
         this.combinedTree.addChild(new NegNode());
         this.combinedTree.getChild(0).addChild(bicond);
-    }
 
-    /**
-     * @return
-     */
-    public boolean isEquivalent() {
         BaseTruthTreeGenerator treeGenerator;
         if (this.combinedTree.isPropositionalWff()) {
             treeGenerator = new PropositionalTruthTreeGenerator(this.combinedTree);
         } else {
             treeGenerator = new PredicateTruthTreeGenerator(this.combinedTree);
         }
-        return new ClosedTreeDeterminer(treeGenerator.getTruthTree()).hasAllClosed();
+
+        this.truthTree = treeGenerator.getTruthTree();
+    }
+
+    /**
+     * @return
+     */
+    public boolean isEquivalent() {
+        return new ClosedTreeDeterminer(this.truthTree).hasAllClosed();
     }
 
     public WffTree getCombinedTree() {
         return this.combinedTree;
+    }
+
+    public TruthTree getTruthTree() {
+        return this.truthTree;
     }
 }

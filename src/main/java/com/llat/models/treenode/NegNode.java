@@ -38,6 +38,10 @@ public class NegNode extends WffTree {
     @Override
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
+        // If there's the literal word, then we want to return a space between.
+        if (this.getSymbol().equalsIgnoreCase("not")) {
+            return this.getSymbol() + " " + ch1.getStringRep();
+        }
         return this.getSymbol() + ch1.getStringRep();
     }
 

@@ -68,7 +68,6 @@ public class TruthTree implements Comparable<TruthTree> {
      */
     private final Map<Character, Character> SUBSTITUTIONS;
 
-
     /**
      * Identifier number of this truth tree node in the tree itself.
      */
