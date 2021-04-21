@@ -125,7 +125,7 @@ public class SymbolDescriptionView {
         });
 
         // Setting Region belowExampleText properties.
-        this.belowExampleText.setMinHeight(25);
+        this.belowExampleText.setMinHeight(50);
         // Adding children nodes to their parents nodes.
         this.symbolDetailsVBox.getChildren().addAll(this.symbolNameLabel, this.symbolNameText, this.belowSymbolNameText,
                 this.formalNameLabel, this.formalNameText, this.belowFormalNameText,
