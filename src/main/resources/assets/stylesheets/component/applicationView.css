@@ -5,18 +5,35 @@
 }
 
 /* reset the right view background */
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: -left-right-color;
+}
+#rulesAxiomsScrollPane > .viewport {
+    -fx-background-color: transparent;
+}
+#rulesAxiomsScrollPane{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
 #rightTabPane  .button
 {
     -fx-background-color: transparent;
+    -fx-background-insets: 0;
 }
+
 #rulesAxiomsScrollPane .viewport,
 #rulesAxiomsScrollPane:selected
+
 {
     -fx-background-color: -left-right-color;
     -fx-border-color: transparent;
     -fx-border-style: hidden hidden hidden hidden;
 
 }
+
 #titleLabel,
 #resultHBox .label{
     -fx-font-size: 1.5em;
