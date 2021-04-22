@@ -242,6 +242,12 @@ public class Controller implements Initializable {
     public void updateLocalStorage () {
         this.settingsAdaptor.update(this.settingsObject);
     }
+    public void updateDatabase () {
+        if (this.user != null) {
+            this.databaseAdapter.UpdateTheme(this.user.getUserId(), this.settingsObject.getTheme().getApplied().getCode());
+            this.databaseAdapter.UpdateLanguage(this.user.getUserId(), this.settingsObject.getLanguage().getApplied().getCode());
+        }
+    }
 
     public void setAppliedTheme (ThemeObject _theme) {
         this.settingsObject.getTheme().setApplied(_theme);

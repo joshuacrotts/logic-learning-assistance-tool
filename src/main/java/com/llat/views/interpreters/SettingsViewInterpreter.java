@@ -106,6 +106,7 @@ public class SettingsViewInterpreter implements Listener {
             });
             if ((alert.showAndWait()).get() == ButtonType.OK) {
                 this.controller.updateLocalStorage();
+                this.controller.updateDatabase();
                 this.settingsView.getSettingsStage().close();
                 this.controller.getStage().close();
                 this.controller.restartApplication();

@@ -53,6 +53,10 @@
 
 /* Start Scrollbar */
 
+#rulesAxiomsScrollPane {
+    -fx-background-color: transparent;
+}
+
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track {
     -fx-background-color: transparent;
@@ -60,7 +64,6 @@
     -fx-background-radius: 0.0em;
     -fx-border-radius: 2.0em;
 }
-
 
 .scroll-bar:horizontal .increment-button,
 .scroll-bar:horizontal .decrement-button {
