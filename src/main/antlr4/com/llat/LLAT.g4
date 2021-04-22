@@ -35,7 +35,7 @@ COMMA      : ',';
 SEMICOLON  : ';';
 
 /* Binary and unary operators for propositional logic. */
-AND     : '&' | '∧' | '^' | '⋅' | AND_LIT;
+AND     : '&' | '∧' | '^' | '·' | AND_LIT;
 OR      : '|' | '∨' | '+' | '||' | OR_LIT;
 IMP     : '->' | '→' | '⇒' | '⊃' | '>' | IMP_LIT;
 BICOND  : '<->' | '⇔' | '≡' | '↔' | '<>' | BICOND_LIT ;
