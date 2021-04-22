@@ -39,7 +39,7 @@ AND     : '&' | '∧' | '^' | '·' | AND_LIT;
 OR      : '|' | '∨' | '+' | '||' | OR_LIT;
 IMP     : '->' | '→' | '⇒' | '⊃' | '>' | IMP_LIT;
 BICOND  : '<->' | '⇔' | '≡' | '↔' | '<>' | BICOND_LIT ;
-NEG     : '~' | '∼' | '¬' | '!' | NEG_LIT ;
+NEG     : '˜' | '~' | '¬' | '!' | NEG_LIT ;
 XOR     : '⊕' | '⊻' | '≢' | '⩒' | '↮' | XOR_LIT ;
 IDENTITY: '=' | IDENTITY_LIT;
 
