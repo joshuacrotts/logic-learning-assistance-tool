@@ -3,10 +3,7 @@ package com.llat.algorithms;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
-import com.llat.models.treenode.AndNode;
-import com.llat.models.treenode.ImpNode;
-import com.llat.models.treenode.OrNode;
-import com.llat.models.treenode.WffTree;
+import com.llat.models.treenode.*;
 
 import java.util.LinkedList;
 import java.util.Stack;
@@ -81,21 +78,25 @@ public class SemanticEntailmentDeterminer {
         this.entailee.setFlags(_wffTreeList.getFirst().getFlags());
         this.entailee.addChild(_wffTreeList.get(_wffTreeList.size() - 1).getChild(0).copy());
 
-        // Create (A -> B).
+        // Create ~(A -> B).
+        NegNode negImpLHS = new NegNode();
         ImpNode impLHS = new ImpNode();
         impLHS.addChild(this.entailer.getChild(0).copy());
         impLHS.addChild(this.entailee.getChild(0).copy());
+        negImpLHS.addChild(impLHS);
 
-        // Creates (B -> A).
+        // Creates ~(B -> A).
+        NegNode negImpRHS = new NegNode();
         ImpNode impRHS = new ImpNode();
         impRHS.addChild(this.entailee.getChild(0).copy());
         impRHS.addChild(this.entailer.getChild(0).copy());
+        negImpRHS.addChild(impRHS);
 
         // Takes the logical disjunction of the two to see
         // if one logically entails the other.
         OrNode orNode = new OrNode();
-        orNode.addChild(impLHS);
-        orNode.addChild(impRHS);
+        orNode.addChild(negImpLHS);
+        orNode.addChild(negImpRHS);
 
         // Add the OR node to the combined tree.
         this.combinedTree.addChild(orNode);
