@@ -12,20 +12,19 @@ public class ExportMenu {
 
     private final Controller controller;
     private final Menu exportMenu;
-    private final ExportMenuInterpreter exportMenuInterpreter;
     private final ExportLaTeXTruthTableItem exportLaTeXTruthTableItem;
     private final ExportLaTeXParseTreeItem exportLaTeXParseTreeItem;
     private final ExportLaTeXTruthTreeItem exportLaTeXTruthTreeItem;
     private final ExportPDFTruthTableItem exportPDFTruthTableMenuItem;
     private final ExportPDFParseTreeItem exportPDFParseTreeMenuItem;
     private final ExportPDFTruthTreeItem exportPDFTruthTreeMenuItem;
-
     private final Menu exportLaTeXMenu;
     private final Menu exportPDFMenu;
+    private final ExportMenuInterpreter exportMenuInterpreter;
 
     public ExportMenu(Controller controller) {
         this.controller = controller;
-        this.exportMenu = new Menu(controller.getUiObject().getMenuBar().getExport().getLabel());
+        this.exportMenu = new Menu();
         this.exportLaTeXMenu = new Menu("Export as LaTeX (.tex)");
         this.exportPDFMenu = new Menu("Export as PDF (.pdf)");
         this.exportLaTeXTruthTableItem = new ExportLaTeXTruthTableItem(this.controller);
@@ -44,9 +43,6 @@ public class ExportMenu {
 
         // Creating interpreter to handle events and actions.
         this.exportMenuInterpreter = new ExportMenuInterpreter(this.controller, this);
-
-        // Disable the PDF exporter if we don't have an internet connection.
-        this.exportPDFMenu.setDisable(!this.controller.hasNetworkConnection());
     }
 
     public Menu getMenu() {
