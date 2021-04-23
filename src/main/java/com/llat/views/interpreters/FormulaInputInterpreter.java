@@ -44,6 +44,7 @@ public class FormulaInputInterpreter implements Listener {
 
         this.formulaInputView.getFormulaInputField().textProperty().addListener((obs, oldVal, newVal) -> {
             this.formulaInputView.getAlgorithmApplyButton().setDisable(!newVal.equals(this.lastValidWff) || !this.algorithmSelected);
+            this.formulaInputView.getFormulaInputButton().setDisable(false);
         });
 
         EventBus.addListener(this);

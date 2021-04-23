@@ -48,6 +48,7 @@ public class LogicSetupInterpreter implements Listener {
                         randomGeneratedFormulaEvent = new RandomGeneratedFormulaEvent(((LogicSetup.LogicFormula) (logicReturn)).getFormula());
                         EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
                         break;
+
                     case CLOSED_TREE_DETERMINER:
                     case LOGICALLY_CONTINGENT_DETERMINER:
                     case OPEN_TREE_DETERMINER:
@@ -84,12 +85,15 @@ public class LogicSetupInterpreter implements Listener {
                     case LOGICALLY_EQUIVALENT_DETERMINER:
                     case ARGUMENT_TRUTH_TREE_VALIDATOR:
                     case SEMANTIC_ENTAILMENT_DETERMINER:
+                        this.logicSetup.getWffTree().clear();
+                        this.logicSetup.getWffTree().add((((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree()));
                         updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthValue());
                         updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree());
                         updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthTree());
                         break;
                 }
             }
+
             EventBus.throwEvent(randomGeneratedFormulaEvent);
             EventBus.throwEvent(updateViewTruthEvent);
             EventBus.throwEvent(updateViewParseTreeEvent);
