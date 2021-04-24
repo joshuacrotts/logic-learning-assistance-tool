@@ -163,7 +163,7 @@ public class LogicSetup {
                     MainOperatorDetector mainOperatorDetector = new MainOperatorDetector(rootOne);
                     WffTree mainOp = mainOperatorDetector.getMainOperator();
                     mainOp.setHighlighted(true);
-                    return new LogicTree(mainOperatorDetector.getMainOperator());
+                    return new LogicTree(rootOne);
 
                 case OPEN_TREE_DETERMINER:
                     OpenTreeDeterminer openTreeDeterminer = new OpenTreeDeterminer(rootOne);
@@ -230,12 +230,15 @@ public class LogicSetup {
                 case PREDICATE_TRUTH_TREE_GENERATOR:
                     PredicateTruthTreeGenerator predicateTruthTreeGenerator = new PredicateTruthTreeGenerator(rootOne);
                     return new LogicParseAndTruthTree(predicateTruthTreeGenerator.getWffTree(), predicateTruthTreeGenerator.getTruthTree());
+
                 case RANDOM_PREDICATE_FORMULA:
                     RandomPredicateFormulaGenerator randomPredicateFormulaGenerator = new RandomPredicateFormulaGenerator();
                     return new LogicFormula(randomPredicateFormulaGenerator.genRandomPredicateFormula());
+
                 case RANDOM_PROPOSITIONAL_FORMULA:
                     RandomPropositionalFormulaGenerator randomPropositionalFormulaGenerator = new RandomPropositionalFormulaGenerator();
                     return new LogicFormula(randomPropositionalFormulaGenerator.genRandomPropositionalFormula());
+
                 default:
                     return new LogicVoid();
             }
@@ -290,6 +293,9 @@ public class LogicSetup {
         }
     }
 
+    /**
+     *
+     */
     public interface LogicReturn {
     }
 
@@ -300,7 +306,6 @@ public class LogicSetup {
 
         public LogicVoid() {
         }
-
     }
 
     /**
@@ -316,7 +321,19 @@ public class LogicSetup {
         public String getFormula() {
             return this.formula;
         }
+    }
 
+    /**
+     *
+     */
+    public static class LogicTreeResult implements LogicReturn {
+        private final WffTree result;
+        private final WffTree wffTree;
+
+        public LogicTreeResult(WffTree _result, WffTree _wffTree) {
+            this.result = _result;
+            this.wffTree = _wffTree;
+        }
     }
 
     /**

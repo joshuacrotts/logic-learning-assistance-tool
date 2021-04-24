@@ -91,6 +91,7 @@ public class LogicSetupInterpreter implements Listener {
                     case ARGUMENT_TRUTH_TREE_VALIDATOR:
                     case SEMANTIC_ENTAILMENT_DETERMINER:
                         this.outputTree = ((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree();
+                        this.outputTree.setFlags(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree().getFlags());
                         updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthValue());
                         updateViewParseTreeEvent = new UpdateViewParseTreeEvent(this.outputTree);
                         updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthTree());
@@ -111,6 +112,7 @@ public class LogicSetupInterpreter implements Listener {
         } else if (_event instanceof ExportPDFTruthTreeEvent) {
             BaseTruthTreeGenerator truthTreeGenerator;
             truthTreeGenerator = (this.outputTree.isPropositionalWff()) ? new PropositionalTruthTreeGenerator(this.outputTree): new PredicateTruthTreeGenerator(this.outputTree);
+            System.out.println(this.outputTree.isPropositionalWff() + ", " + this.outputTree.isPredicateWff());
             PDFTruthTreePrinter pdfTruthTreePrinter = new PDFTruthTreePrinter(truthTreeGenerator.getTruthTree(), ((ExportPDFTruthTreeEvent) _event).getFilePath());
             pdfTruthTreePrinter.outputToFile();
         } else if (_event instanceof ExportLaTeXParseTreeEvent) {
