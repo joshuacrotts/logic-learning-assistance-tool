@@ -22,6 +22,7 @@ public class LogicSetupInterpreter implements Listener {
      *
      */
     private final LogicSetup logicSetup;
+    private WffTree outputTree;
 
     public LogicSetupInterpreter(LogicSetup _logicSetup) {
         this.logicSetup = _logicSetup;
@@ -45,6 +46,7 @@ public class LogicSetupInterpreter implements Listener {
                     case RANDOM_PREDICATE_FORMULA:
                     case RANDOM_PROPOSITIONAL_FORMULA:
                         this.logicSetup.setWffTree(null);
+                        this.outputTree = null;
                         randomGeneratedFormulaEvent = new RandomGeneratedFormulaEvent(((LogicSetup.LogicFormula) (logicReturn)).getFormula());
                         EventBus.throwEvent(new SetAlgorithmInputEvent(this.logicSetup.getAvailableAlgorithms()));
                         break;
@@ -57,24 +59,28 @@ public class LogicSetupInterpreter implements Listener {
                     case GROUND_SENTENCE_DETERMINER:
                     case CLOSED_SENTENCE_DETERMINER:
                     case OPEN_SENTENCE_DETERMINER:
+                        this.outputTree = ((LogicSetup.LogicTruthAndParseTree) logicReturn).getWffTree();
                         updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthAndParseTree) logicReturn).getTruthValue());
-                        updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthAndParseTree) logicReturn).getWffTree());
+                        updateViewParseTreeEvent = new UpdateViewParseTreeEvent(this.outputTree);
                         break;
 
                     case TRUTH_TABLE_GENERATOR:
+                        this.outputTree = ((LogicSetup.LogicTruthAndParseTree) logicReturn).getWffTree();
                         updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthAndParseTree) logicReturn).getTruthValue());
-                        updateViewTruthTableEvent = new UpdateViewTruthTableEvent(((LogicSetup.LogicTruthAndParseTree) logicReturn).getWffTree());
+                        updateViewTruthTableEvent = new UpdateViewTruthTableEvent(this.outputTree);
                         break;
 
                     case MAIN_OPERATOR_DETECTOR:
                     case BOUND_VARIABLE_DETECTOR:
                     case FREE_VARIABLE_DETECTOR:
-                        updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTree) logicReturn).getWffTree());
+                        this.outputTree = ((LogicSetup.LogicTree) logicReturn).getWffTree();
+                        updateViewParseTreeEvent = new UpdateViewParseTreeEvent(this.outputTree);
                         break;
 
                     case PREDICATE_TRUTH_TREE_GENERATOR:
                     case PROPOSITIONAL_TRUTH_TREE_GENERATOR:
-                        updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicParseAndTruthTree) logicReturn).getWffTree());
+                        this.outputTree = ((LogicSetup.LogicParseAndTruthTree) logicReturn).getWffTree();
+                        updateViewParseTreeEvent = new UpdateViewParseTreeEvent(this.outputTree);
                         updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicParseAndTruthTree) logicReturn).getTruthTree());
                         break;
 
@@ -85,10 +91,10 @@ public class LogicSetupInterpreter implements Listener {
                     case LOGICALLY_EQUIVALENT_DETERMINER:
                     case ARGUMENT_TRUTH_TREE_VALIDATOR:
                     case SEMANTIC_ENTAILMENT_DETERMINER:
-                        this.logicSetup.getWffTree().clear();
-                        this.logicSetup.getWffTree().add((((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree()));
+                        this.outputTree = ((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree();
+                        this.outputTree.setFlags(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree().getFlags());
                         updateViewTruthEvent = new UpdateViewTruthEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthValue());
-                        updateViewParseTreeEvent = new UpdateViewParseTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getWffTree());
+                        updateViewParseTreeEvent = new UpdateViewParseTreeEvent(this.outputTree);
                         updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthTree());
                         break;
                 }
@@ -100,35 +106,25 @@ public class LogicSetupInterpreter implements Listener {
             EventBus.throwEvent(updateViewTruthTreeEvent);
             EventBus.throwEvent(updateViewTruthTableEvent);
         } else if (_event instanceof ExportPDFParseTreeEvent) {
-            PDFPrinter pdfParseTreePrinter = new PDFParseTreePrinter(this.logicSetup.getWffTree().get(0), ((ExportPDFParseTreeEvent) _event).getFilePath());
+            PDFPrinter pdfParseTreePrinter = new PDFParseTreePrinter(this.outputTree, ((ExportPDFParseTreeEvent) _event).getFilePath());
             pdfParseTreePrinter.outputToFile();
         } else if (_event instanceof ExportPDFTruthTableEvent) {
-            PDFPrinter pdfTruthTablePrinter = new PDFTruthTablePrinter(this.logicSetup.getWffTree().get(0), ((ExportPDFTruthTableEvent) _event).getFilePath());
+            PDFPrinter pdfTruthTablePrinter = new PDFTruthTablePrinter(this.outputTree, ((ExportPDFTruthTableEvent) _event).getFilePath());
             pdfTruthTablePrinter.outputToFile();
         } else if (_event instanceof ExportPDFTruthTreeEvent) {
-            WffTree wffTree = this.logicSetup.getWffTree().get(0);
             BaseTruthTreeGenerator truthTreeGenerator;
-            if (wffTree.isPropositionalWff()) {
-                truthTreeGenerator = new PropositionalTruthTreeGenerator(wffTree);
-            } else {
-                truthTreeGenerator = new PredicateTruthTreeGenerator(wffTree);
-            }
+            truthTreeGenerator = (this.outputTree.isPropositionalWff()) ? new PropositionalTruthTreeGenerator(this.outputTree): new PredicateTruthTreeGenerator(this.outputTree);
             PDFTruthTreePrinter pdfTruthTreePrinter = new PDFTruthTreePrinter(truthTreeGenerator.getTruthTree(), ((ExportPDFTruthTreeEvent) _event).getFilePath());
             pdfTruthTreePrinter.outputToFile();
         } else if (_event instanceof ExportLaTeXParseTreeEvent) {
-            TexParseTreePrinter texParseTreePrinter = new TexParseTreePrinter(this.logicSetup.getWffTree().get(0), ((ExportLaTeXParseTreeEvent) _event).getFilePath());
+            TexParseTreePrinter texParseTreePrinter = new TexParseTreePrinter(this.outputTree, ((ExportLaTeXParseTreeEvent) _event).getFilePath());
             texParseTreePrinter.outputToFile();
         } else if (_event instanceof ExportLaTeXTruthTableEvent) {
-            TexTablePrinter texTablePrinter = new TexTablePrinter(this.logicSetup.getWffTree().get(0), ((ExportLaTeXTruthTableEvent) _event).getFilePath());
+            TexTablePrinter texTablePrinter = new TexTablePrinter(this.outputTree, ((ExportLaTeXTruthTableEvent) _event).getFilePath());
             texTablePrinter.outputToFile();
         } else if (_event instanceof ExportLaTeXTruthTreeEvent) {
-            WffTree wffTree = this.logicSetup.getWffTree().get(0);
             BaseTruthTreeGenerator truthTreeGenerator;
-            if (wffTree.isPropositionalWff()) {
-                truthTreeGenerator = new PropositionalTruthTreeGenerator(wffTree);
-            } else {
-                truthTreeGenerator = new PredicateTruthTreeGenerator(wffTree);
-            }
+            truthTreeGenerator = (this.outputTree.isPropositionalWff()) ? new PropositionalTruthTreeGenerator(this.outputTree) : new PredicateTruthTreeGenerator(this.outputTree);
             TexTruthTreePrinter texTruthTreePrinter = new TexTruthTreePrinter(truthTreeGenerator.getTruthTree(), ((ExportLaTeXTruthTreeEvent) _event).getFilePath());
             texTruthTreePrinter.outputToFile();
         } else if (_event instanceof AlgorithmSelectionViewInitializedEvent) {
