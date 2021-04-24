@@ -3,6 +3,8 @@ package com.llat.views.interpreters;
 import com.llat.controller.Controller;
 import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.input.events.UnsolvedFormulaEvent;
+import com.llat.models.AlgorithmType;
+import com.llat.models.events.RandomGeneratedFormulaEvent;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
@@ -43,7 +45,14 @@ public class ExportMenuInterpreter implements Listener {
     public void catchEvent(Event _event) {
 
         if (_event instanceof ApplyAlgorithmEvent) {
-            this.enableMenuItems();
+            switch (AlgorithmType.getEnum(((ApplyAlgorithmEvent) _event).getAlgorithmType())) {
+                case RANDOM_PREDICATE_FORMULA:
+                case RANDOM_PROPOSITIONAL_FORMULA:
+                    this.disableMenuItems();
+                    break;
+                default:
+                    this.enableMenuItems();
+            }
         }
         if (_event instanceof SolveButtonEvent) {
             this.disableMenuItems();
