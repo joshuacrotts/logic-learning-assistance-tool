@@ -32,25 +32,15 @@ public final class LogicallyContraryDeterminer {
      * @return
      */
     public boolean isContrary() {
-        BaseTruthTreeGenerator consistentBranchTreeGenerator;
-        BaseTruthTreeGenerator inconsistentBranchTreeGenerator;
-
-        // Create the ROOTs for the two trees.
-        WffTree leftSubTree = new WffTree();
-        WffTree rightSubTree = new WffTree();
-        leftSubTree.addChild(this.combinedTree.getChild(0).getChild(0));
-        rightSubTree.addChild(this.combinedTree.getChild(0).getChild(1));
-
+        BaseTruthTreeGenerator truthTreeGenerator;
         if (this.combinedTree.isPropositionalWff()) {
-            consistentBranchTreeGenerator = new PropositionalTruthTreeGenerator(leftSubTree);
-            inconsistentBranchTreeGenerator = new PropositionalTruthTreeGenerator(rightSubTree);
+            truthTreeGenerator = new PropositionalTruthTreeGenerator(this.combinedTree);
         } else {
-            consistentBranchTreeGenerator = new PredicateTruthTreeGenerator(leftSubTree);
-            inconsistentBranchTreeGenerator = new PredicateTruthTreeGenerator(rightSubTree);
+            truthTreeGenerator = new PredicateTruthTreeGenerator(this.combinedTree);
         }
 
-        TruthTree consistentTree = consistentBranchTreeGenerator.getTruthTree();
-        TruthTree inconsistentTree = inconsistentBranchTreeGenerator.getTruthTree();
+        TruthTree consistentTree = truthTreeGenerator.getTruthTree().getLeft();
+        TruthTree inconsistentTree = truthTreeGenerator.getTruthTree().getRight();
 
         // The consistency branch must close, and the right must have at least one open branch.
         return (new ClosedTreeDeterminer(consistentTree).hasAllClosed())
