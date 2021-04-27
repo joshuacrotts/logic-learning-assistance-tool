@@ -65,7 +65,7 @@ public class GsonIO implements SettingsInterface, CredentialsInterface, UIObject
             obj = tuido.translateUIDO(obj);
             g.update(obj, "UID/UIObject" + "_" + code + ".json");
             try {
-                BufferedReader br = new BufferedReader(new FileReader(RESOURCES_PATH + _fileName));
+                BufferedReader br = new BufferedReader(new FileReader(RESOURCES_PATH + _fileName, StandardCharsets.UTF_8));
                 StringBuilder sb = new StringBuilder();
                 String line = br.readLine();
                 while (line != null) {
