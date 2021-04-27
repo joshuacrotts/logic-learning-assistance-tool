@@ -10,6 +10,7 @@ import com.llat.models.localstorage.uidescription.UIObjectInterface;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -42,7 +43,7 @@ public class GsonIO implements SettingsInterface, CredentialsInterface, UIObject
     public static String readJsonFile(String _fileName) {
         String result = "";
         try {
-            BufferedReader br = new BufferedReader(new FileReader(RESOURCES_PATH + _fileName));
+            BufferedReader br = new BufferedReader(new FileReader(RESOURCES_PATH + _fileName, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
             while (line != null) {
