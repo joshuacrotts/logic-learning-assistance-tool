@@ -175,11 +175,11 @@ public class LogicSetup {
 
                 case LOGICALLY_CONSISTENT_DETERMINER:
                     LogicallyConsistentDeterminer logicallyConsistentDeterminer = new LogicallyConsistentDeterminer(rootOne, rootTwo);
-                    return new LogicTruthAndParseTree(logicallyConsistentDeterminer.isConsistent(), logicallyConsistentDeterminer.getCombinedTree());
+                    return new LogicTruthParseAndTruthTree(logicallyConsistentDeterminer.isConsistent(), logicallyConsistentDeterminer.getCombinedTree(), logicallyConsistentDeterminer.getCombinedTruthTree());
 
                 case LOGICALLY_CONTRARY_DETERMINER:
                     LogicallyContraryDeterminer logicallyContraryDeterminer = new LogicallyContraryDeterminer(rootOne, rootTwo);
-                    return new LogicTruthAndParseTree(logicallyContraryDeterminer.isContrary(), logicallyContraryDeterminer.getCombinedTree());
+                    return new LogicTruthParseAndTruthTree(logicallyContraryDeterminer.isContrary(), logicallyContraryDeterminer.getCombinedTree(), logicallyContraryDeterminer.getCombinedTruthTree());
 
                 case LOGICALLY_EQUIVALENT_DETERMINER:
                     LogicallyEquivalentDeterminer logicallyEquivalentDeterminer = new LogicallyEquivalentDeterminer(rootOne, rootTwo);
