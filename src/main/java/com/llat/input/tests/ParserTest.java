@@ -154,6 +154,9 @@ public class ParserTest {
         if (resultList.size() >= 2) {
             ArgumentTruthTreeValidator validator = new ArgumentTruthTreeValidator(resultList);
             System.out.println("Deductively valid: " + validator.isValid());
+
+            PDFPrinter ttp = new PDFTruthTreePrinter(validator.getTruthTree(), "latex-truth-tree.pdf");
+            ttp.outputToFile();
         }
     }
 
