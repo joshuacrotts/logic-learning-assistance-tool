@@ -250,7 +250,7 @@ public class TruthTree implements Comparable<TruthTree> {
                     WffTree currWff = curr.getWff().copy();
                     // If the node we find is closable AND it's not an identity operator, we can
                     // try to replace the constant we found.
-                    if (currWff.isClosable() && !currWff.isIdentity() && !currWff.isNegIdentity()) {
+                    if (currWff.isClosable()) {
                         this.replaceSymbol(currWff, constantOne, constantTwo);
                         if (!currWff.stringEquals(curr.getWff())) {
                             // Add to the tree and the queue.
