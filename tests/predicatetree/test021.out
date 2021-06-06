@@ -3,7 +3,7 @@
 │  └── ~Pn
 │     └── n = o
 │        └── Po
-│           └── ~Po X
+│           └── Pn X
 └── ~(n = o & Po)
    └── Pn
       ├── ~n = o open

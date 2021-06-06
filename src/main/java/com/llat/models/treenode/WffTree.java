@@ -358,6 +358,17 @@ public class WffTree implements Copyable, TexPrintable {
         }
     }
 
+    public boolean isPalindromeWff() {
+        String s = this.getStringRep();
+        int n = s.length();
+        for (int i = 0; i < (n/2); ++i) {
+            if (s.charAt(i) != s.charAt(n - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * @return
      */
