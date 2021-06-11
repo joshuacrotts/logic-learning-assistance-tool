@@ -15,8 +15,10 @@ public class NewProjectItem {
     public NewProjectItem(Controller controller) {
         this.controller = controller;
         this.newProjectItem = new MenuItem(controller.getUiObject().getMenuBar().getFile().getNewProject().getLabel());
-        this.newProjectItem.setOnAction(new EventHandler<ActionEvent>() {
+
+        this.newProjectItem.setOnAction(new EventHandler<>() {
             public void handle(ActionEvent event) {
+                controller.getStage().close();
                 new Window(new Stage());
             }
         });

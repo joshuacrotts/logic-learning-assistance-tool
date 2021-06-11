@@ -99,14 +99,14 @@ public class ParseTreeInterpreter implements Listener {
 
             // Adding children nodes to their parents nodes.
             this.parseTreeView.getParentPane().getChildren().add(this.treePane);
-            this.treePane.setTranslateX((this.parseTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getWidth() / 2)));
-            this.treePane.setTranslateY((this.parseTreeView.getParentPane().getHeight() / 2) - ((this.treePane.getHeight() / 2)));
             this.parseTreeView.getParentPane().widthProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateX((newVal.doubleValue() / 2) - (this.treePane.getWidth() / 2));
             });
             this.parseTreeView.getParentPane().heightProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateY((newVal.doubleValue() / 2) - (this.treePane.getHeight() / 2));
             });
+            this.treePane.setTranslateX((this.parseTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getBoundsInParent().getWidth()/ 2)));
+            this.treePane.setTranslateY((this.parseTreeView.getParentPane().getHeight() / 2) - ((this.treePane.getBoundsInParent().getHeight() / 2)));
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
         } else if (_event instanceof UnsolvedFormulaEvent) {
@@ -188,6 +188,11 @@ public class ParseTreeInterpreter implements Listener {
      * fashion. Each child is added to this queue and added to the tree at the same
      * time. We use a BFS because we have to tell the library which parent each
      * node belongs to.
+     *
+     * Note that, to add a node to the Abego tree, it has to be a different node
+     * altogether, meaning that if you want to add a node that has the same string
+     * representation of another (e.g. A = (P & Q), B = (P & Q)), you have to
+     * deep copy the WffTree node by calling .copy() beforehand.
      *
      * @param _root - root of WffTree.
      * @return TreeForTreeLayout<WffTree> constructed tree from Abego library.

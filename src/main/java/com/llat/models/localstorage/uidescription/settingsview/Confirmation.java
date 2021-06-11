@@ -6,7 +6,7 @@ public class Confirmation {
     String alertContent;
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -14,7 +14,7 @@ public class Confirmation {
     }
 
     public String getAlertHeader() {
-        return alertHeader;
+        return this.alertHeader;
     }
 
     public void setAlertHeader(String alertHeader) {
@@ -22,7 +22,7 @@ public class Confirmation {
     }
 
     public String getAlertContent() {
-        return alertContent;
+        return this.alertContent;
     }
 
     public void setAlertContent(String alertContent) {

@@ -19,6 +19,15 @@ fragment TAB            : '\t'                                             ;
 fragment NULL_CHAR      : '\\0'                                            ;
 fragment ESCAPED_CHAR   : ('\\' .)                                         ;
 
+/* Word literals for logic (if they want to type it out). */
+fragment AND_LIT: 'AND' | 'and';
+fragment OR_LIT: 'OR' | 'or';
+fragment IMP_LIT: 'IMPLIES' | 'implies';
+fragment BICOND_LIT: 'IFF' | 'iff';
+fragment NEG_LIT: 'NOT' | 'not';
+fragment XOR_LIT: 'XOR' | 'xor';
+fragment IDENTITY_LIT: 'EQUIVALENT' | 'equivalent';
+
 /* Other symbols. */
 OPEN_PAREN : '(';
 CLOSE_PAREN: ')';
@@ -26,13 +35,13 @@ COMMA      : ',';
 SEMICOLON  : ';';
 
 /* Binary and unary operators for propositional logic. */
-AND     : '&' | '∧'  ;
-OR      : '|' | '∨' | '+' | '||'  ;
-IMP     : '->' | '→' | '⇒' | '⊃'  ;
-BICOND  : '<->' | '⇔' | '≡' | '↔' ;
-NEG     : '~' | '∼' | '¬' | '!'   ;
-XOR     : '⊕' | '⊻' | '≢' | '⩒' | '↮' ;
-IDENTITY: '=';
+AND     : '&' | '∧' | '^' | '·' | AND_LIT;
+OR      : '|' | '∨' | '+' | '||' | OR_LIT;
+IMP     : '->' | '→' | '⇒' | '⊃' | '>' | IMP_LIT;
+BICOND  : '<->' | '⇔' | '≡' | '↔' | '<>' | BICOND_LIT ;
+NEG     : '˜' | '\u007e' | '\uff5e' | '\u223c' | '¬' | '!' | NEG_LIT ;
+XOR     : '⊕' | '⊻' | '≢' | '⩒' | '↮' | XOR_LIT ;
+IDENTITY: '=' | IDENTITY_LIT;
 
 /* Atoms. */
 ATOM: UPPER_CASE_LTR;
@@ -50,10 +59,15 @@ UNIVERSAL: '∀';
 /* Conclusion Indicator Symbols. */
 THEREFORE: '⊢' | '∴' | '=>';
 
+/* Semantic entailment (models). */
+SEMANTIC_ENTAILMENT: '⊧' | '⊨';
+
 //=========== Parser rules. ==============
 
 program: (predProof EOF)
        | (propProof EOF)
+       | (predSemanticEntailment EOF)
+       | (propSemanticEntailment EOF)
        | (propositionalWff COMMA propositionalWff EOF)
        | (predicateWff COMMA predicateWff EOF)
        | (propositionalWff EOF)
@@ -119,3 +133,9 @@ predProof: predPremise+ THEREFORE predConclusion;
 propPremise: ((propositionalWff (COMMA|SEMICOLON)) | propositionalWff);
 propConclusion: propositionalWff;
 propProof: propPremise+ THEREFORE propConclusion;
+
+/* Semantic entailment for predicate logic. */
+predSemanticEntailment: predPremise+ SEMANTIC_ENTAILMENT predicateWff;
+
+/* Semantic entailment for propositional logic. */
+propSemanticEntailment: propPremise+ SEMANTIC_ENTAILMENT propositionalWff;

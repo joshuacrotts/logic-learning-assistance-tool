@@ -51,16 +51,22 @@ public class WffTree implements Copyable, TexPrintable {
     }
 
     /**
+     * Replaces all instances of the customized symbols to a standard
+     * notation so the equivalence checker has some uniformity.
+     *
+     * We should probably replace these as static regex compilers...
+     *
      * @param _strRep
      * @return
      */
     private static String getStandardizedEquiv(String _strRep) {
-        String s = _strRep.replaceAll("[∼¬!]", "~"); // NEG
-        s = s.replaceAll("[∧]", "&"); // AND
-        s = s.replaceAll("[\\|+\\|\\|]", "∨"); // OR
-        s = s.replaceAll("[→⇒⊃]", "->"); // IMP
-        s = s.replaceAll("[⇔≡↔]", "<->"); // BICOND
-        s = s.replaceAll("[⊻≢⩒↮]", "⊕"); // XOR
+        String s = _strRep.replaceAll(" ", "");
+        s = s.replaceAll("[~¬!]|(not|NOT)", "~"); // NEG
+        s = s.replaceAll("[∧^⋅]|(and|AND)", "&"); // AND
+        s = s.replaceAll("[\\|+\\|\\|]|(or|OR)", "∨"); // OR
+        s = s.replaceAll("[→⇒⊃>]|(implies|IMPLIES)", "→"); // IMP
+        s = s.replaceAll("[⇔≡↔]|(<>|iff|IFF)", "↔"); // BICOND
+        s = s.replaceAll("[⊻≢⩒↮]|(xor|XOR)", "⊕"); // XOR
         return s;
     }
 
@@ -350,6 +356,17 @@ public class WffTree implements Copyable, TexPrintable {
         } else {
             this.flags &= ~NodeFlag.HIGHLIGHT;
         }
+    }
+
+    public boolean isPalindromeWff() {
+        String s = this.getStringRep();
+        int n = s.length();
+        for (int i = 0; i < (n/2); ++i) {
+            if (s.charAt(i) != s.charAt(n - i - 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

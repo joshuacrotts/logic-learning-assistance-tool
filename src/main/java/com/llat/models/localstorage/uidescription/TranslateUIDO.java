@@ -37,12 +37,14 @@ public class TranslateUIDO {
         fileMenu.setLabel(this.ta.translate(LANG_FROM, this.langTo, menuBar.getFile().getLabel()));
         fileMenu.setNewProject((NewProject) main.menu(fileMenu.getNewProject()));
         fileMenu.setOpenProject((OpenProject) main.menu(fileMenu.getOpenProject()));
-//        fileMenu.setExport((Export) main.menu(fileMenu.getExport()));
         fileMenu.setLogin((Login) main.menu(fileMenu.getLogin()));
         fileMenu.setRegister((Register) main.menu(fileMenu.getRegister()));
         fileMenu.setSettings((Settings) main.menu(fileMenu.getSettings()));
         fileMenu.setExit((Exit) main.menu(fileMenu.getExit()));
         menuBar.setFile(fileMenu);
+        // Export menu
+        menuBar.getExport().setLabel(this.ta.translate(LANG_FROM, this.langTo, menuBar.getExport().getLabel()));
+
         // Help menu
         Help helpMenu = menuBar.getHelp();
         helpMenu.setLabel(this.ta.translate(LANG_FROM, this.langTo, helpMenu.getLabel()));
@@ -75,13 +77,19 @@ public class TranslateUIDO {
         mainViewLabels.setPredicateLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getPredicateLabel()));
         mainViewLabels.setTruthTableLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getTruthTableLabel()));
         mainViewLabels.setTruthTreeLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getTruthTreeLabel()));
+        mainViewLabels.setParseTreeLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getParseTreeLabel()));
         mainViewLabels.setSymbolNameLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getSymbolNameLabel()));
-        mainViewLabels.setFormalNameLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getSymbolNameLabel()));
+        mainViewLabels.setFormalNameLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getFormalNameLabel()));
         mainViewLabels.setAlternativeSymbolsLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getAlternativeSymbolsLabel()));
         mainViewLabels.setExamplesLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getExamplesLabel()));
         mainViewLabels.setAxiomTabLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getAxiomTabLabel()));
         mainViewLabels.setHistoryTabLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getHistoryTabLabel()));
         mainViewLabels.setSolveButton(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getSolveButton()));
+        mainViewLabels.setApplyButton(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getApplyButton()));
+        mainViewLabels.setExplanationLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getExplanationLabel()));
+        // Errors/Warnings
+        mainViewLabels.setErrorAndWarningLabel(this.ta.translate(LANG_FROM, this.langTo, mainViewLabels.getErrorAndWarningLabel()));
+
         // General Menu
         GeneralMenu generalMenu = mainViewLabels.getGeneralMenu();
         generalMenu.setLabel(this.ta.translate(LANG_FROM, this.langTo, generalMenu.getLabel()));
@@ -104,6 +112,7 @@ public class TranslateUIDO {
         for (int i = 0; i < predicateMenu.getContent().size(); i++) {
             predicateMenu.getContent().get(i).setLabel(this.ta.translate(LANG_FROM, this.langTo, predicateMenu.getContent().get(i).getLabel()));
         }
+
 
         mainViewLabels.setPredicateMenu(predicateMenu);
 
@@ -141,6 +150,12 @@ public class TranslateUIDO {
         advanced.setLabel(this.ta.translate(LANG_FROM, this.langTo, advanced.getLabel()));
         advanced.getTimeOut().setLabel(this.ta.translate(LANG_FROM, this.langTo, advanced.getTimeOut().getLabel()));
         categories.setAdvanced(advanced);
+        // Confirmation
+        Confirmation confirmation = settingsView.getConfirmation();
+        confirmation.setLabel(this.ta.translate(LANG_FROM, this.langTo, confirmation.getLabel()));
+        confirmation.setAlertHeader(this.ta.translate(LANG_FROM, this.langTo, confirmation.getAlertHeader()));
+        confirmation.setAlertContent(this.ta.translate(LANG_FROM, this.langTo, confirmation.getAlertContent()));
+        settingsView.setConfirmation(confirmation);
 
         settingsView.setCategories(categories);
         obj.setSettingsView(settingsView);

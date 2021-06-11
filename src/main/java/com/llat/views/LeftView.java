@@ -31,7 +31,9 @@ public class LeftView {
         this.controller = _controller;
         this.inputButtonsView = new InputButtonsView(this.controller);
         this.llatErrorView = new LLATErrorView(this.controller);
+        this.parentPane.setId("leftView");
         // Setting VBox parentPane's properties.
+        this.parentPane.setId("leftView");
         this.controller.getStage().widthProperty().addListener((obs, oldVal, newVal) -> {
             this.parentPane.setMinWidth(newVal.doubleValue() * .20);
             this.parentPane.setMaxWidth(newVal.doubleValue() * .20);
@@ -48,10 +50,9 @@ public class LeftView {
             this.llatErrorView.getParentPane().setMinWidth(newVal.doubleValue());
             this.llatErrorView.getParentPane().setMaxWidth(newVal.doubleValue());
         });
-        this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-        });
         VBox.setVgrow(this.llatErrorView.getParentPane(), Priority.ALWAYS);
         // Adding children nodes to their parents.
+//        this.parentPane.getChildren().addAll(this.inputButtonsView.getParentPane());
         this.parentPane.getChildren().addAll(this.inputButtonsView.getParentPane(), this.llatErrorView.getParentPane());
 
     }

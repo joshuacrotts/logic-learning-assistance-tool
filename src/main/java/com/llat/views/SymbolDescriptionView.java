@@ -47,19 +47,19 @@ public class SymbolDescriptionView {
         this.symbol = _symbol;
         this.controller = _controller;
 
-        symbolNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getSymbolNameLabel());
-        formalNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getFormalNameLabel());
-        alternativeSymbolsLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getAlternativeSymbolsLabel());
-        explanationLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExplanationLabel());
-        exampleLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExamplesLabel());
+        this.symbolNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getSymbolNameLabel());
+        this.formalNameLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getFormalNameLabel());
+        this.alternativeSymbolsLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getAlternativeSymbolsLabel());
+        this.explanationLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExplanationLabel());
+        this.exampleLabel = new Label(this.controller.getUiObject().getMainView().getMainViewLabels().getExamplesLabel());
 
 
         // Settings labels id (linked via CSS).
-        this.symbolNameLabel.setId("symbolNameLabel");
-        this.formalNameLabel.setId("formalNameLabel");
-        this.explanationLabel.setId("explanationLabel");
-        this.exampleLabel.setId("exampleLabel");
-        this.alternativeSymbolsLabel.setId("alternativeSymbolsLabel");
+        this.symbolNameLabel.setId("titleLabel");
+        this.formalNameLabel.setId("titleLabel");
+        this.explanationLabel.setId("titleLabel");
+        this.exampleLabel.setId("titleLabel");
+        this.alternativeSymbolsLabel.setId("titleLabel");
 
         // Setting VBox symbolDetailsVBox properties.
         this.symbolDetailsVBox.setId("symbolDetailsVBox");
@@ -125,7 +125,7 @@ public class SymbolDescriptionView {
         });
 
         // Setting Region belowExampleText properties.
-        this.belowExampleText.setMinHeight(25);
+        this.belowExampleText.setMinHeight(50);
         // Adding children nodes to their parents nodes.
         this.symbolDetailsVBox.getChildren().addAll(this.symbolNameLabel, this.symbolNameText, this.belowSymbolNameText,
                 this.formalNameLabel, this.formalNameText, this.belowFormalNameText,

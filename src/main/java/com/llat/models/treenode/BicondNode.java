@@ -10,7 +10,7 @@ public class BicondNode extends WffTree {
      * as the default symbol if none is provided.
      * This should, ideally, only happen in internal algorithms.
      */
-    private static final String DEFAULT_SYMBOL = "<->";
+    private static final String DEFAULT_SYMBOL = "↔";
 
     /**
      * The default TeX symbol is a custom symbol I made. It's just
@@ -18,12 +18,21 @@ public class BicondNode extends WffTree {
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\varliff";
 
+    /**
+     * Keeps track of the symbol currently used. Whatever symbol is last used
+     * is stored in this variable. This makes sure that, if the notation from
+     * the user is consistent, there are no incidents like "~ not A" to represent
+     * a double-negated atom.
+     */
+    private static String currentlyUsedSymbol;
+
     public BicondNode(String _symbol) {
         super(_symbol, NodeType.BICOND);
+        currentlyUsedSymbol = _symbol;
     }
 
     public BicondNode() {
-        this(DEFAULT_SYMBOL);
+        this(currentlyUsedSymbol == null ? DEFAULT_SYMBOL : currentlyUsedSymbol);
     }
 
     @Override

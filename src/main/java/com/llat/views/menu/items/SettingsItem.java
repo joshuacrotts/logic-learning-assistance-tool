@@ -17,15 +17,11 @@ public class SettingsItem {
         this.controller = controller;
         this.stage = this.controller.getStage();
         this.openItem = new MenuItem(controller.getUiObject().getMenuBar().getFile().getSettings().getLabel());
-        this.openItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Stage settingsStage = new SettingsView(controller).getStage();
-                // Set position of second window, related to primary window.
-                settingsStage.setX(SettingsItem.this.stage.getX() + 200);
-                settingsStage.setY(SettingsItem.this.stage.getY() + 100);
-                settingsStage.show();
-            }
+        this.openItem.setOnAction((event) -> {
+            Stage settingsStage = new SettingsView(controller).getSettingsStage();
+            settingsStage.setX((this.stage.getX()) + this.stage.getScene().getX() + (this.stage.getWidth() / 2) - (settingsStage.getWidth() / 2));
+            settingsStage.setY((this.stage.getY()) + this.stage.getScene().getY() +  (this.stage.getHeight() / 2) - (settingsStage.getHeight() / 2));
+            settingsStage.showAndWait();
         });
     }
 

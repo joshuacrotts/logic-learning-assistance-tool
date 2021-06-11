@@ -14,13 +14,18 @@ public class DatabaseAdapter implements DatabaseInterface {
     private Controller controller;
     private UserObject user;
 
-    public Controller Controller() {
-        return this.controller;
+    public UserObject Controller() {
+        return this.controller.getUser();
     }
 
     @Override
     public UserObject Login(String Username, String Password) {
         return this.db.Login(Username, Password);
+    }
+
+    @Override
+    public UserObject Login() {
+        return this.db.Login();
     }
 
     @Override

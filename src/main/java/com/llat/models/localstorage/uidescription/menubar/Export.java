@@ -1,6 +1,6 @@
 package com.llat.models.localstorage.uidescription.menubar;
 
-public class Export  {
+public class Export {
     public String label;
     public PDF pdf;
     public Latex latex;
@@ -12,7 +12,7 @@ public class Export  {
     }
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -20,7 +20,7 @@ public class Export  {
     }
 
     public PDF getPdf() {
-        return pdf;
+        return this.pdf;
     }
 
     public void setPdf(PDF pdf) {
@@ -28,7 +28,7 @@ public class Export  {
     }
 
     public Latex getLatex() {
-        return latex;
+        return this.latex;
     }
 
     public void setLatex(Latex latex) {
@@ -38,9 +38,9 @@ public class Export  {
     @Override
     public String toString() {
         return "Export{" +
-                "label='" + label + '\'' +
-                ", pdf=" + pdf +
-                ", latex=" + latex +
+                "label='" + this.label + '\'' +
+                ", pdf=" + this.pdf +
+                ", latex=" + this.latex +
                 '}';
     }
 

@@ -14,6 +14,7 @@ public class LoginItem {
     public LoginItem(Controller controller) {
         this.controller = controller;
         this.loginItem = new MenuItem(controller.getUiObject().getMenuBar().getFile().getLogin().getLabel());
+        this.loginItem.setDisable(!this.controller.hasNetworkConnection());
         this.loginItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.changeViewTo(ViewManager.LOGIN);

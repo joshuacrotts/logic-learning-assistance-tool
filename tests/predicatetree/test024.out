@@ -38,11 +38,6 @@
                               │                          └── La
                               │                             └── Ld open
                               └── (x)Lx
-                                 └── d = d
-                                    └── d = d
-                                       └── d = d
-                                          └── d = d
-                                             └── La
-                                                └── Ld
-                                                   └── La
-                                                      └── Ld open
+                                 └── La
+                                    └── Ld
+                                       └── La open

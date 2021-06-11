@@ -21,18 +21,6 @@ public class App extends Application {
     _stage.show();
   }
 
-<<<<<<< Updated upstream
-    public void setStageSettings(Stage _stage) {
-        _stage.setScene(new Scene(new Pane()));
-        _stage.setTitle("Logic Learning Assistance Tool");
-        _stage.setMaximized(true);
-        _stage.setFullScreen(false);
-        _stage.setMinHeight(720);
-        _stage.setMinWidth(1280);
-        _stage.setMaximized(true);
-        _stage.getIcons().add(new Image(App.class.getResourceAsStream("/assets/images/LogoStatic.png")));
-    }
-=======
   public void setStageSettings(Stage _stage) {
     _stage.setScene(new Scene(new Pane()));
     _stage.setTitle("Logic Learning Assistance Tool");
@@ -42,5 +30,4 @@ public class App extends Application {
     _stage.setMinWidth(1280);
     _stage.getIcons().add(new Image(App.class.getResourceAsStream("/assets/images/LogoStatic.png")));
   }
->>>>>>> Stashed changes
 }

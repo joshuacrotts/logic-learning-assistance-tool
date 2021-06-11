@@ -68,7 +68,6 @@ public class TruthTree implements Comparable<TruthTree> {
      */
     private final Map<Character, HashSet<Character>> SUBSTITUTIONS;
 
-
     /**
      * Identifier number of this truth tree node in the tree itself.
      */
@@ -176,10 +175,12 @@ public class TruthTree implements Comparable<TruthTree> {
                 this.replaceSymbol(_newRoot, _variableToReplace, constant);
 
                 // Add to the tree and the queue.
-                TruthTree truthTreeRoot = new TruthTree(_newRoot, leaf, _existentialTruthTree);
-                leaf.addCenter(truthTreeRoot);
-                truthTreeRoot.AVAILABLE_CONSTANTS.add(constant);
-                _queue.add(leaf.getCenter());
+                if (!this.treeContains(leaf, _newRoot)) {
+                    TruthTree truthTreeRoot = new TruthTree(_newRoot, leaf, _existentialTruthTree);
+                    leaf.addCenter(truthTreeRoot);
+                    truthTreeRoot.AVAILABLE_CONSTANTS.add(constant);
+                    _queue.add(leaf.getCenter());
+                }
             }
         }
     }
@@ -204,16 +205,18 @@ public class TruthTree implements Comparable<TruthTree> {
                     WffTree _newRoot = _universalTruthTree.getWff().getChild(0).copy();
                     this.replaceSymbol(_newRoot, _variableToReplace, c);
 
-                    // Add to the tree and the queue.
-                    TruthTree _newRootTT = new TruthTree(_newRoot, leaf, _universalTruthTree);
-                    l.addCenter(_newRootTT);
-                    _queue.add(_newRootTT);
+                    if (!this.treeContains(l, _newRoot)) {
+                        // Add to the tree and the queue.
+                        TruthTree _newRootTT = new TruthTree(_newRoot, leaf, _universalTruthTree);
+                        l.addCenter(_newRootTT);
+                        _queue.add(_newRootTT);
 
-                    // Set the traversing child to the next node added, get the leaves of it
-                    // and then recursively close the branches if any contradictions are found.
-                    l = l.getCenter();
-                    LinkedList<TruthTree> ttl = BaseTruthTreeGenerator.getLeaves(_universalTruthTree);
-                    BaseTruthTreeGenerator.computeClosedBranches(ttl);
+                        // Set the traversing child to the next node added, get the leaves of it
+                        // and then recursively close the branches if any contradictions are found.
+                        l = l.getCenter();
+                        LinkedList<TruthTree> ttl = BaseTruthTreeGenerator.getLeaves(_newRootTT);
+                        BaseTruthTreeGenerator.computeClosedBranches(ttl);
+                    }
                 }
             }
         }
@@ -232,38 +235,73 @@ public class TruthTree implements Comparable<TruthTree> {
      */
     public void addIdentityConstant(TruthTree _identityTruthTree, LinkedList<TruthTree> _leaves,
                                     PriorityQueue<TruthTree> _queue) {
-        char constantOne = _identityTruthTree.getWff().getChild(0).getSymbol().charAt(0);
-        char constantTwo = _identityTruthTree.getWff().getChild(1).getSymbol().charAt(0);
+        String constantOne = _identityTruthTree.getWff().getChild(0).getSymbol();
+        String constantTwo = _identityTruthTree.getWff().getChild(1).getSymbol();
 
         // If the constants are the same, then there's really nothing we can do.
-        if (constantOne == constantTwo) {
+        if (constantOne.equalsIgnoreCase(constantTwo)) {
             return;
         }
 
-        // Go from the leaf up.
-        for (TruthTree leaf : _leaves) {
-            if (!leaf.isClosed()) {
-                TruthTree curr = leaf.getParent();
-                TruthTree l = leaf;
-                // From the leaf, find a possible contradiction.
-                while (curr != null) {
-                    WffTree currWff = curr.getWff().copy();
-                    // If the node we find is closable AND it's not an identity operator, we can
-                    // try to replace the constant we found.
-                    if (currWff.isClosable()) {
-                        this.replaceSymbol(currWff, constantOne, constantTwo);
-                        if (!currWff.stringEquals(curr.getWff())) {
-                            // Add to the tree and the queue.
-                            TruthTree _newRootTT = new TruthTree(currWff, l, _identityTruthTree);
-                            l.addCenter(_newRootTT);
-                            _queue.add(_newRootTT);
-                            l = l.getCenter();
+        for (TruthTree l : _leaves) {
+            TruthTree curr = l;
+            // If the leaf is closed then we can't add to it.
+            while (curr != null && !curr.isClosed()) {
+                WffTree wff = curr.getWff();
+                if (wff.isClosable()) {
+                    WffTree newLeaf = wff.copy();
+                    if (newLeaf.getStringRep().contains(constantOne)) {
+                        this.replaceSymbol(newLeaf, constantOne.charAt(0), constantTwo.charAt(0));
+                    } else if (newLeaf.getStringRep().contains(constantTwo)) {
+                        this.replaceSymbol(newLeaf, constantTwo.charAt(0), constantOne.charAt(0));
+                    } else {
+                        // If this leaf has no instances of replacable constants, just continue going up.
+                        curr = curr.getParent();
+                        continue;
+                    }
+
+                    // If the Wff is just x = x, then we don't need to add it since it's redundant and serves no purpose.
+                    if (!this.treeContains(l, newLeaf) && !newLeaf.isPalindromeWff()) {
+                        TruthTree _newRootTT = new TruthTree(newLeaf, l, _identityTruthTree);
+
+                        // Compute the closed branches.
+                        LinkedList<TruthTree> ttl = BaseTruthTreeGenerator.getLeaves(_newRootTT);
+                        BaseTruthTreeGenerator.computeClosedBranches(ttl);
+                        l.addCenter(_newRootTT);
+                        _queue.add(_newRootTT);
+                        l = l.getCenter();
+                        if (_newRootTT.isClosed()) {
+                            break;
                         }
                     }
-                    curr = curr.getParent();
                 }
+
+                curr = curr.getParent();
             }
         }
+    }
+
+    /**
+     * Determines whether a leaf has a WffTree as its ancestor. Useful for
+     * determining whether a node should be inserted into a branch. A Wff
+     * should only be inserted once on any particular branch, so if there's
+     * an identical ancestor, it shouldn't be added there.
+     *
+     * @param _leaf
+     * @param _searchWff
+     * @return
+     */
+    public boolean treeContains(TruthTree _leaf, WffTree _searchWff) {
+        TruthTree curr = _leaf.getParent();
+
+        while (curr != null) {
+            if (_searchWff.stringEquals(curr.getWff())) {
+                return true;
+            }
+            curr = curr.getParent();
+        }
+
+        return false;
     }
 
     public int getIdentityNumber() {
@@ -439,9 +477,9 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _constant          - constant to replace variable with.
      */
     private void replaceSymbol(WffTree _newRoot, char _variableToReplace, char _constant) {
-        if (this.universalCount > THRESHOLD_LIMIT) {
-            System.err.println("Error - universal constant has reached the upper limit of 100.");
-            EventBus.throwEvent(new SyntaxErrorEvent("Error - universal constant has reached the upper limit of 100."));
+        if (this.universalCount >= THRESHOLD_LIMIT) {
+            System.err.println("Error - universal constant has reached the upper limit of " + THRESHOLD_LIMIT + ".");
+            EventBus.throwEvent(new SyntaxErrorEvent("Error - universal constant has reached the upper limit of " + THRESHOLD_LIMIT + "."));
         }
 
         for (int i = 0; i < _newRoot.getChildrenSize(); i++) {

@@ -1,0 +1,71 @@
+/* Begin Login & Register  */
+#loginLogoLabel, #registerLogoLabel {
+    -fx-background-image: url("../images/LogoStatic.png");
+    -fx-background-size: 100% 100%;
+    -fx-alignment: center;
+}
+
+#loginViewParentPane, #registerViewParentPane {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 90%, silver, derive(gray, -50%));
+    /*-fx-background-color: linear-gradient(to right, gray 0%, silver 50%, gray 100%);*/
+    -fx-alignment: center;
+    -fx-text-fill: -title;
+}
+
+#loginVBox, #registerVBox {
+    -fx-background-color: radial-gradient(center 50% 25%, radius 90%, silver, derive(black, 50%));
+    -fx-alignment: top-center;
+    -fx-spacing: 0;
+    -fx-border-width: 0 10;
+    -fx-border-color: rgba(0, 0, 0, 1);
+}
+
+/* End Login & Register  */
+
+
+#registerViewParentPane .button,
+#loginViewParentPane .button
+{
+    -fx-wrap-text: true;
+    -fx-font-size: 1.5em;
+    /*-fx-min-width: 5em;*/
+    -fx-background-color: derive(silver, 0%);
+    -fx-border-color: black;
+    -fx-border-width: 2.5;
+    -fx-background-insets: 0;
+}
+#registerViewParentPane .button:hover ,
+#loginViewParentPane .button:hover
+{
+    -fx-background-color: derive(silver, 80%);
+}
+#registerViewParentPane .button:pressed  ,
+#loginViewParentPane .button:pressed
+{
+    -fx-background-color: #add8e6;
+}
+#registerViewParentPane .button:focused  ,
+#loginViewParentPane .button:focused
+{
+    -fx-background-insets: 0;
+}
+
+#registerViewParentPane .text-field,
+#loginViewParentPane .text-field{
+    -fx-background-color: -text-field;
+    -fx-border-width: 5;
+    -fx-border-color: black;
+    -fx-text-color: black;
+    -fx-alignment: center;
+    -fx-prompt-text-fill: black;
+    -fx-font-size: 1.5em;
+}
+
+
+#registerViewParentPane .label,
+#loginViewParentPane .label{
+    -fx-font-size: 1.5em;
+    -fx-padding: 1em 0 1em 0;
+    -fx-text-fill: black;
+    -fx-font-weight: bolder;
+}

@@ -17,12 +17,21 @@ public class NegNode extends WffTree {
      */
     private static final String DEFAULT_TEX_SYMBOL = "\\varlnot";
 
+    /**
+     * Keeps track of the symbol currently used. Whatever symbol is last used
+     * is stored in this variable. This makes sure that, if the notation from
+     * the user is consistent, there are no incidents like "~ not A" to represent
+     * a double-negated atom.
+     */
+    private static String currentlyUsedSymbol;
+
     public NegNode(String _symbol) {
         super(_symbol, NodeType.NEG);
+        currentlyUsedSymbol = _symbol;
     }
 
     public NegNode() {
-        this(DEFAULT_SYMBOL);
+        this(currentlyUsedSymbol == null ? DEFAULT_SYMBOL : currentlyUsedSymbol);
     }
 
     @Override
@@ -38,6 +47,10 @@ public class NegNode extends WffTree {
     @Override
     public String getStringRep() {
         WffTree ch1 = this.getChild(0);
+        // If there's the literal word, then we want to return a space between.
+        if (this.getSymbol().equalsIgnoreCase("not")) {
+            return this.getSymbol() + " " + ch1.getStringRep();
+        }
         return this.getSymbol() + ch1.getStringRep();
     }
 

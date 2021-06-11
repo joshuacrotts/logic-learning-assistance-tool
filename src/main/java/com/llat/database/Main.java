@@ -17,7 +17,7 @@ public class Main {
 
         UserObject User = Adapter.Login("Bob98", "12345");
         if (User == null) {
-            System.out.println("Wrong UserName or Password");
+            System.out.println("Wrong username or password.");
         } else {
             System.out.println(User);
             UserID = User.getUserId();

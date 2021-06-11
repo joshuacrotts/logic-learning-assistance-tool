@@ -15,6 +15,7 @@ public enum AlgorithmType {
     LOGICALLY_EQUIVALENT_DETERMINER("Logically Equivalent Determiner"),
     LOGICALLY_IMPLIED_DETERMINER("Logically Implied Determiner"),
     ARGUMENT_TRUTH_TREE_VALIDATOR("Argument Truth Tree Validator"),
+    SEMANTIC_ENTAILMENT_DETERMINER("Semantic Entailment Determiner"),
 
     // Propositional ONLY algorithms.
     PROPOSITIONAL("PROPOSITIONAL"),

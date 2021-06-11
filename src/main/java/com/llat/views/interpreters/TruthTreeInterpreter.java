@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
@@ -98,16 +99,14 @@ public class TruthTreeInterpreter implements Listener {
 
             // Adding children nodes to their parents nodes.
             this.truthTreeView.getParentPane().getChildren().add(this.treePane);
-            this.treePane.setTranslateX((this.truthTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getWidth() / 2)));
-            this.treePane.setTranslateY((this.truthTreeView.getParentPane().getHeight() / 2) - ((this.treePane.getHeight() / 2)));
             this.truthTreeView.getParentPane().widthProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateX((newVal.doubleValue() / 2) - (this.treePane.getWidth() / 2));
             });
-
             this.truthTreeView.getParentPane().heightProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateY((newVal.doubleValue() / 2) - (this.treePane.getHeight() / 2));
             });
-
+            this.treePane.setTranslateX((this.truthTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getBoundsInParent().getWidth() / 2)));
+            this.treePane.setTranslateY((this.truthTreeView.getParentPane().getHeight() / 2) - ((this.treePane.getBoundsInParent().getHeight() / 2)));
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
         } else if (_event instanceof UnsolvedFormulaEvent) {
@@ -206,7 +205,17 @@ public class TruthTreeInterpreter implements Listener {
     }
 
     /**
+     * Converts a WffTree and its children into the tree required by the Tree
+     * building library Abego. The root is added to the tree in the above method
+     * so we start off by enqueueing it, then traversing through its children in BFS
+     * fashion. Each child is added to this queue and added to the tree at the same
+     * time. We use a BFS because we have to tell the library which parent each
+     * node belongs to.
      *
+     * Note that, to add a node to the Abego tree, it has to be a different node
+     * altogether, meaning that if you want to add a node that has the same string
+     * representation of another (e.g. A = (P & Q), B = (P & Q)), you have to
+     * deep copy the WffTree node by calling .copy() beforehand.
      */
     private TreeForTreeLayout<TruthTreeGuiNode> convertToAbegoTree(TruthTree _root) {
         Queue<TruthTreeGuiNode> q = new LinkedList<>();
@@ -289,6 +298,16 @@ public class TruthTreeInterpreter implements Listener {
         private static final int RESIZE_HEIGHT_DELTA = 12;
 
         /**
+         *
+         */
+        private static final double TOOLTIP_SHOW_DURATION = 15;
+
+        /**
+         *
+         */
+        private static final double TOOLTIP_SHOW_DELAY = 0.2;
+
+        /**
          * Pane to attach this TruthTreeGuiNode to and its border children (lines).
          */
         private final Pane PANE;
@@ -317,7 +336,7 @@ public class TruthTreeInterpreter implements Listener {
             this.truthTrees = new LinkedList<>();
             this.truthTrees.add(_tree);
             this.PANE = _pane;
-            this.text = _tree.getWff().getStringRep() + "\n";
+            this.text = _tree.getWff().getStringRep() + "\n" + "";
             this.height = 12;
             this.width = this.text.length() * 10;
         }
@@ -371,8 +390,10 @@ public class TruthTreeInterpreter implements Listener {
                 sb.append("\n");
             }
 
-            return new Tooltip(sb.toString());
+            Tooltip tooltip = new Tooltip(sb.toString());
+            tooltip.setShowDelay(Duration.seconds(TruthTreeGuiNode.TOOLTIP_SHOW_DELAY));
+            tooltip.setShowDuration(Duration.seconds(TruthTreeGuiNode.TOOLTIP_SHOW_DURATION));
+            return tooltip;
         }
     }
 }
-

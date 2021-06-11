@@ -5,8 +5,7 @@ import com.llat.input.events.SolvedFormulaEvent;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
-import com.llat.views.events.RegisterEvent;
-import com.llat.views.events.RegistrationStatusEvent;
+import com.llat.views.events.UpdateHistoryEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +32,12 @@ public class DatabaseInterpeter implements Listener {
                 ((SolvedFormulaEvent) _event).getWffTree().forEach((tree) -> {
                     this.test.add(tree.getStringRep());
                 });
+
                 String text = this.test.get(0);
                 this.databaseAdapter.InsertQuery(this.USERID, text);
-            }
-
-            if (_event instanceof RegisterEvent) {
-                String userName = ((RegisterEvent) _event).getUser().getUserName();
-                String firstName = ((RegisterEvent) _event).getUser().getFname();
-                String lastName = ((RegisterEvent) _event).getUser().getLname();
-                String pass = ((RegisterEvent) _event).getUser().getPword();
-                int user = this.databaseAdapter.Register(userName, pass, firstName, lastName);
-                EventBus.throwEvent(new RegistrationStatusEvent(user));
+                List<String> history = this.databaseAdapter.UpdateHistory(this.USERID);
+                this.controller.getUser().setHistory(history);
+                EventBus.throwEvent(new UpdateHistoryEvent());
             }
         }
     }

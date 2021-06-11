@@ -95,7 +95,7 @@ public class LoginView {
         });
 
         // Setting Label emailInputLabel properties.
-        this.userNameInputLabel.setId("emailInputLabel");
+        this.userNameInputLabel.setId("userNameInputLabel");
 
         // Setting TextField emailField properties.
         this.userNameField.setPromptText(this.uiLoginObject.userNamePromptText);
@@ -106,7 +106,7 @@ public class LoginView {
 
         // Setting Region belowEmailRegion properties.
         this.loginVBox.heightProperty().addListener(((obs, oldVal, newVal) -> {
-            this.belowUserNameRegion.setMinHeight(newVal.doubleValue() * .10);
+            this.belowUserNameRegion.setMinHeight(newVal.doubleValue() * .01);
         }));
 
         // Setting Label passwordInputLabel properties.
@@ -166,7 +166,7 @@ public class LoginView {
         return this.userNameField;
     }
 
-    public TextField getPasswordField() {
+    public PasswordField getPasswordField() {
         return this.passwordField;
     }
 }

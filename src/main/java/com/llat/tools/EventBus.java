@@ -35,4 +35,9 @@ public final class EventBus {
     public static ArrayList<Listener> getListeners() {
         return EventBus.listeners;
     }
+
+    public static void resetListeners() {
+        EventBus.listeners.removeAll(EventBus.getListeners());
+    }
+
 }

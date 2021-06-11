@@ -1,0 +1,40 @@
+@import "component/layout.css";
+
+.root {
+    -primary-color: #1D4044;
+    -secondary-color: #234E52;
+    -tertiary-color: #285E61;
+
+    -text-color: black;
+    -title-color: black;
+    -border-color: #319795;
+
+
+
+    -left-right-color: derive(-primary-color, 20%);
+    -bottom-color: -primary-color;
+
+    -selected-tab: derive(-primary-color, 20%);
+    -center-view: derive(-primary-color, 50%);
+    -error-box: derive(-primary-color, 50%);
+    -hovered-tab: -tertiary-color;
+
+
+    /*    text field    */
+    -text-field-focussed: derive(silver, 80%);
+    -text-field: silver;
+
+    -menubar-color: -primary-color;
+    -combo-box: -left-right-color;
+
+    -history-table-column-text-color: -title-color;
+    -history-table-hover: derive(-primary-color, 80%);
+    -history-column-header: -secondary-color;
+    -history-even-row: derive(-primary-color, 70%);
+    -history-odd-row: derive(-primary-color, 100%);
+    -history-selected-row: -tertiary-color;
+    -history-table-view: derive(-primary-color, 80%);
+
+}
+
+

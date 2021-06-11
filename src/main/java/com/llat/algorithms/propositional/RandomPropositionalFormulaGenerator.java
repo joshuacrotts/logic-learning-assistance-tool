@@ -122,8 +122,8 @@ public class RandomPropositionalFormulaGenerator {
         this.unaryOperators.add("~");
 
         // Now add all binary ops.
-        this.binaryOperators.add("->");
-        this.binaryOperators.add("<->");
+        this.binaryOperators.add("→");
+        this.binaryOperators.add("↔");
         this.binaryOperators.add("&");
         this.binaryOperators.add("∨");
     }

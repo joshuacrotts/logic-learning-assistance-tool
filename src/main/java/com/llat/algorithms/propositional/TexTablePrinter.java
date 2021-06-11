@@ -45,13 +45,12 @@ public final class TexTablePrinter extends TexPrinter {
                 this.getBufferedWriter().write(ch);
                 ch = this.getBufferedReader().read();
             }
-            this.getBufferedReader().close();
-
             this.getBufferedWriter().write(this.getTexTable(postOrderTraversal));
 
             // Output the closing latex commands.
-            this.getBufferedWriter().write("\n\\end{array}\n$\n]\n\\end{forest}\n\\end{document}\n");
+            this.getBufferedWriter().write("\n\\end{tabular}\n\n\\end{document}\n");
             this.getBufferedWriter().close();
+            this.getBufferedReader().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,18 +71,18 @@ public final class TexTablePrinter extends TexPrinter {
         int rows = list.get(0).getTruthValues().size();
 
         // Print the preamble stuff.
-        sb.append("$\\begin{array}{");
-        sb.append("C|".repeat(_set.size() - 1));
-        sb.append("C}\n");
+        sb.append("\\begin{tabular}{");
+        sb.append("c|".repeat(_set.size() - 1));
+        sb.append("c}\n");
 
         // First print the headers.
         for (int i = 0; i < list.size() - 1; i++) {
-            sb.append(list.get(i).getTexCommand());
+            sb.append("$" + list.get(i).getTexCommand() + "$");
             sb.append(" & ");
         }
 
         // Output the hline separator.
-        sb.append(list.get(list.size() - 1).getTexCommand());
+        sb.append("$" + list.get(list.size() - 1).getTexCommand() + "$");
         sb.append("\\\\\n\\hline\n");
 
         // Now print the truth values.

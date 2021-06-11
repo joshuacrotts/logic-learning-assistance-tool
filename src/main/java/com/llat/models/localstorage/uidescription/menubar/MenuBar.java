@@ -20,7 +20,7 @@ public class MenuBar {
     }
 
     public Export getExport() {
-        return export;
+        return this.export;
     }
 
     public void setExport(Export export) {
@@ -38,9 +38,9 @@ public class MenuBar {
     @Override
     public String toString() {
         return "MenuBar{" +
-                "file=" + file +
-                ", export=" + export +
-                ", help=" + help +
+                "file=" + this.file +
+                ", export=" + this.export +
+                ", help=" + this.help +
                 '}';
     }
 }

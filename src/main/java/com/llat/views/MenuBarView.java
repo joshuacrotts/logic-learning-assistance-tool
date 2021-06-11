@@ -11,11 +11,6 @@ public class MenuBarView {
     /**
      *
      */
-    public static final int MENU_BAR_HEIGHT = 25;
-
-    /**
-     *
-     */
     private final Controller controller;
 
     /**
@@ -26,12 +21,10 @@ public class MenuBarView {
     public MenuBarView(Controller _controller) {
         this.controller = _controller;
 
-        // Setting Menu fileMenu properties.
-        this.menuBar.setMinHeight(MenuBarView.MENU_BAR_HEIGHT);
-        this.menuBar.setMaxHeight(MenuBarView.MENU_BAR_HEIGHT);
-
+        this.menuBar.setId("topMenuBar");
         // Adding children nodes to their parents nodes.
-        this.menuBar.getMenus().addAll(new FileMenu(this.controller).getMenu(),
+        this.menuBar.getMenus().addAll(
+                new FileMenu(this.controller).getMenu(),
                 new ExportMenu(this.controller).getMenu(),
                 new HelpMenu(this.controller).getMenu());
 

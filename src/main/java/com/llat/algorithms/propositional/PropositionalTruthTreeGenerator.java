@@ -49,7 +49,10 @@ public final class PropositionalTruthTreeGenerator extends BaseTruthTreeGenerato
             leaves = BaseTruthTreeGenerator.getLeaves(tree);
             BaseTruthTreeGenerator.computeClosedBranches(leaves);
 
-            if (curr.isNegation() && curr.getChild(0).isBicond()) {
+            // If the tree is closed then we don't need to continue...
+            if (tree.isClosed()) {
+                continue;
+            } else if (curr.isNegation() && curr.getChild(0).isBicond()) {
                 // We handle biconditional negations differently since they're harder.
                 this.branchNegationBiconditional(tree, leaves, queue);
             } else if (curr.isNegation() && curr.getChild(0).isImp()) {
