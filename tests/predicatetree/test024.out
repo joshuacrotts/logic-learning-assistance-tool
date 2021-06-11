@@ -27,10 +27,22 @@
                         └── a = d
                            └── (x)Lx
                               ├── a = d
-                              │  └── La
-                              │     └── Ld open
+                              │  └── d = d
+                              │     └── d = d
+                              │        └── d = d
+                              │           └── d = d
+                              │              └── d = d
+                              │                 └── d = d
+                              │                    └── d = d
+                              │                       └── d = d
+                              │                          └── La
+                              │                             └── Ld open
                               └── (x)Lx
-                                 └── La
-                                    └── Ld
-                                       └── La
-                                          └── Ld open
+                                 └── d = d
+                                    └── d = d
+                                       └── d = d
+                                          └── d = d
+                                             └── La
+                                                └── Ld
+                                                   └── La
+                                                      └── Ld open
