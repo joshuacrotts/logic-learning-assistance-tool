@@ -3,10 +3,7 @@ package com.llat.algorithms;
 import com.llat.algorithms.models.NDFlag;
 import com.llat.algorithms.models.NDStep;
 import com.llat.algorithms.models.NDWffTree;
-import com.llat.models.treenode.FalseNode;
-import com.llat.models.treenode.ImpNode;
-import com.llat.models.treenode.NodeType;
-import com.llat.models.treenode.WffTree;
+import com.llat.models.treenode.*;
 
 import java.util.LinkedList;
 
@@ -18,7 +15,7 @@ public final class ArgumentNaturalDeductionValidator {
     /**
      *
      */
-    private static final int TIMEOUT = 1000;
+    private static final int TIMEOUT = 100;
 
     /**
      *
@@ -38,7 +35,7 @@ public final class ArgumentNaturalDeductionValidator {
     public ArgumentNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
         this.ORIGINAL_WFFTREE_LIST = _wffTreeList;
         this.PREMISES_LIST = new LinkedList<>();
-        this.CONCLUSION_WFF = new NDWffTree(_wffTreeList.getLast(), NDStep.C);
+        this.CONCLUSION_WFF = new NDWffTree(_wffTreeList.getLast().getChild(0), NDStep.C);
 
         for (int i = 0; i < _wffTreeList.size() - 1; i++) {
             WffTree wff = _wffTreeList.get(i).getNodeType() == NodeType.ROOT ? _wffTreeList.get(i).getChild(0) : _wffTreeList.get(i);
@@ -58,16 +55,18 @@ public final class ArgumentNaturalDeductionValidator {
         // We'll either find the conclusion or time out first.
         int currIteration = 0;
         for (currIteration = 0; currIteration <= ArgumentNaturalDeductionValidator.TIMEOUT && !this.findConclusion(); currIteration++) {
-            boolean mod = this.findSimplifications();
-            mod = this.findModusPonens();
-            mod = this.findModusTollens();
-            mod = this.findDisjunctiveSyllogisms();
-            mod = this.findHypotheticalSyllogisms();
-            mod = this.findDoubleNegations();
-            mod = this.findContradictions();
-            if (!mod) { mod = this.findEquivalences(); }
-            if (!mod) { mod = this.appendConjunctions(); }
-            if (!mod) { mod = this.appendDisjunctions(); }
+            boolean mod1 = false;
+            // If any of these return true we won't do the extra steps.
+            mod1 = mod1 || this.findSimplifications();
+            mod1 = mod1 || this.findModusPonens();
+            mod1 = mod1 || this.findModusTollens();
+            mod1 = mod1 || this.findDisjunctiveSyllogisms();
+            mod1 = mod1 || this.findHypotheticalSyllogisms();
+            mod1 = mod1 || this.findDoubleNegations();
+            mod1 = mod1 || this.findContradictions();
+            if (!mod1) { mod1 = mod1 || this.findEquivalences(); }
+            if (!mod1) { mod1 = mod1 ||  this.appendConjunctions(); }
+            if (!mod1) { mod1 = mod1 || this.appendDisjunctions(); }
         }
 
         // If we timed out, just return null.
@@ -130,15 +129,15 @@ public final class ArgumentNaturalDeductionValidator {
                     NDWffTree wffOne = this.PREMISES_LIST.get(i);
                     NDWffTree wffTwo = this.PREMISES_LIST.get(j);
                     // First check to see if the first wff is actually an implication.
-                    if (wffOne.getWffTree().isImp() || wffTwo.getWffTree().isImp()
+                    if ((wffOne.getWffTree().isImp() || wffTwo.getWffTree().isImp())
                             && (!wffOne.isMPActive() || !wffTwo.isMPActive())) {
                         NDWffTree impNode = wffOne.getWffTree().isImp() ? wffOne : wffTwo;
                         NDWffTree othNode = wffOne.getWffTree().isImp() ? wffTwo : wffOne;
                         // Now check to see if the antecedents match.
                         if (impNode.getWffTree().getChild(0).stringEquals(othNode.getWffTree())) {
                             changed = true;
-                            wffOne.setFlags(NDFlag.ACTIVE);
-                            wffTwo.setFlags(NDFlag.ACTIVE);
+                            wffOne.setFlags(NDFlag.ACTIVE | NDFlag.MP);
+                            wffTwo.setFlags(NDFlag.ACTIVE | NDFlag.MP);
                             WffTree consequent = impNode.getWffTree().getChild(1);
                             this.addPremise(new NDWffTree(consequent, NDStep.MP, impNode, othNode));
                         }
@@ -187,8 +186,8 @@ public final class ArgumentNaturalDeductionValidator {
      * @return
      */
     private boolean findDisjunctiveSyllogisms() {
-
-        return false;
+        boolean changed = false;
+        return changed;
     }
 
     /**
@@ -202,7 +201,7 @@ public final class ArgumentNaturalDeductionValidator {
                     NDWffTree wffOne = this.PREMISES_LIST.get(i);
                     NDWffTree wffTwo = this.PREMISES_LIST.get(j);
                     // The formulas need to be implications and they can't have already done a HS step.
-                    if (wffOne.getWffTree().isImp() && wffTwo.getWffTree().isImp()
+                    if ((wffOne.getWffTree().isImp() && wffTwo.getWffTree().isImp())
                             && (!wffOne.isHSActive() || !wffTwo.isHSActive())) {
                         // X == Y && Y == Z OR Y == Z && X == Y check to see if the antecedent of one
                         // is equal to the consequent of the other.
@@ -244,8 +243,23 @@ public final class ArgumentNaturalDeductionValidator {
      * @return
      */
     private boolean appendConjunctions() {
+        int sz = this.PREMISES_LIST.size();
+        boolean changed = false;
+        for (int i = 0; i < sz; i++) {
+            for (int j = i + 1; j < sz; j++) {
+                if (i != j) {
+                    changed = true;
+                    NDWffTree wffOne = this.PREMISES_LIST.get(i);
+                    NDWffTree wffTwo = this.PREMISES_LIST.get(j);
+                    AndNode andNode = new AndNode();
+                    andNode.addChild(wffOne.getWffTree());
+                    andNode.addChild(wffTwo.getWffTree());
+                    this.addPremise(new NDWffTree(andNode, NDStep.AND_I, wffOne, wffTwo));
+                }
+            }
+        }
 
-        return false;
+        return changed;
     }
 
     /**
@@ -265,6 +279,7 @@ public final class ArgumentNaturalDeductionValidator {
                 if (i != j) {
                     NDWffTree wffOne = this.PREMISES_LIST.get(i);
                     NDWffTree wffTwo = this.PREMISES_LIST.get(j);
+
                     // Compute the negated of one of the nodes and see if they're equivalent.
                     if (BaseTruthTreeGenerator.getFlippedNode(wffOne.getWffTree()).stringEquals(wffTwo.getWffTree())) {
                         wffOne.setFlags(NDFlag.ACTIVE);
@@ -288,11 +303,31 @@ public final class ArgumentNaturalDeductionValidator {
     private boolean findConclusion() {
         for (NDWffTree ndWffTree : this.PREMISES_LIST) {
             if (ndWffTree.getWffTree().stringEquals(this.CONCLUSION_WFF.getWffTree())) {
-                ndWffTree.setFlags(NDFlag.ACTIVE);
+                // Make sure the conclusion and its parents are marked as active.
+                this.activateLinks(ndWffTree);
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     *
+     * @param _conclusionNode
+     */
+    private void activateLinks(NDWffTree _conclusionNode) {
+        if (_conclusionNode == null
+                || _conclusionNode.isActive()
+                || _conclusionNode.getDerivedParents().isEmpty()) {
+            return;
+        }
+
+        _conclusionNode.setFlags(NDFlag.ACTIVE);
+        for (NDWffTree ndWffTree : _conclusionNode.getDerivedParents()) {
+            if (!ndWffTree.isActive()) {
+                this.activateLinks(ndWffTree);
+            }
+        }
     }
 
     /**

@@ -25,4 +25,9 @@ public class NDFlag {
      */
     public static final int MT = 0x00000008;
 
+    /**
+     *
+     */
+    public static final int AND_I = 0x00000010;
+
 }

@@ -61,7 +61,8 @@ public class NDWffTree {
     @Override
     public boolean equals(Object o) {
         NDWffTree otherTree = (NDWffTree) o;
-        return this.getWffTree().equals(otherTree.getWffTree());
+        return this.getWffTree().equals(otherTree.getWffTree())
+                || this.getWffTree().stringEquals(otherTree.getWffTree());
     }
 
     public LinkedList<NDWffTree> getDerivedParents() {
@@ -127,4 +128,6 @@ public class NDWffTree {
     public boolean isMTActive() {
         return (this.flags & NDFlag.MT) != 0;
     }
+
+    public boolean isAndIActive() { return (this.flags & NDFlag.AND_I) != 0; }
 }
