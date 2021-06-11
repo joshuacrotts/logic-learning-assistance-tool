@@ -3,6 +3,7 @@ package com.llat.input.tests;
 import com.llat.LLATLexer;
 import com.llat.LLATParser;
 import com.llat.algorithms.*;
+import com.llat.algorithms.models.NDWffTree;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
@@ -141,6 +142,22 @@ public class ParserTest {
         if (resultList.size() >= 2) {
             ArgumentTruthTreeValidator validator = new ArgumentTruthTreeValidator(resultList);
             System.out.println("Deductively valid: " + validator.isValid());
+
+            ArgumentNaturalDeductionValidator ndValidator = new ArgumentNaturalDeductionValidator(resultList);
+            System.out.println("Natural deduction:");
+            LinkedList<NDWffTree> ndArgs = ndValidator.getNaturalDeductionProof();
+            if (ndArgs == null) {
+                System.err.println("Either the argument is invalid (check the above result) or it timed out!");
+            } else {
+                for (int i = 0; i < ndArgs.size() - 1; i++) {
+                    NDWffTree wff = ndArgs.get(i);
+                    System.out.println((i + 1) + ": " + wff);
+                }
+                System.out.println("∴ " + ndArgs.getLast().getWffTree().getStringRep() + "\t\t■");
+            }
+
+            PDFPrinter ttp = new PDFTruthTreePrinter(validator.getTruthTree(), "latex-truth-tree.pdf");
+            ttp.outputToFile();
         }
     }
 

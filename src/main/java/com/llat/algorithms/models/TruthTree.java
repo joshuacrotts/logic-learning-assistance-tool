@@ -66,7 +66,7 @@ public class TruthTree implements Comparable<TruthTree> {
      * a = b exists. Then, for any occurrence of a in a closable node, we can
      * substitute this for b, and vice versa.
      */
-    private final Map<Character, Character> SUBSTITUTIONS;
+    private final Map<Character, HashSet<Character>> SUBSTITUTIONS;
 
 
     /**

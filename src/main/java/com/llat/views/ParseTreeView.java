@@ -14,7 +14,7 @@ public class ParseTreeView {
     /**
      *
      */
-    public static double MINSCALE = .5;
+    public static double MINSCALE = 0.25;
 
     /**
      *
