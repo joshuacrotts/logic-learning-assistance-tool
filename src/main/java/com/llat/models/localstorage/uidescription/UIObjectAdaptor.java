@@ -11,7 +11,7 @@ public class UIObjectAdaptor implements UIObjectInterface {
 
     String code = this.so.getLanguage().getApplied().getCode();
 
-    private final String UI_DESCRIPTION = "UID/UIObject_" + this.code + ".json";
+    private final String UI_DESCRIPTION = "/UID/UIObject_" + this.code + ".json";
 
     UIObjectInterface obj = new GsonIO(this.UI_DESCRIPTION, UIObject.class);
 

@@ -21,7 +21,7 @@ public class TranslateUIDO {
     public static void main(String[] args) {
         TranslateUIDO main = new TranslateUIDO("ar");
         String langTo = "ar";
-        GsonIO g = new GsonIO("UID/UIObject_en.json", UIObject.class);
+        GsonIO g = new GsonIO("/UID/UIObject_en.json", UIObject.class);
         UIObject obj = (UIObject) g.getData();
         obj = main.translateUIDO(obj);
         g.update(obj, "UIObject" + "_" + langTo + ".json");

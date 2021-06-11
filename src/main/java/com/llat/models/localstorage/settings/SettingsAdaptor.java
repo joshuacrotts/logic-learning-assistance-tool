@@ -8,7 +8,7 @@ public class SettingsAdaptor implements SettingsInterface {
     /**
      *
      */
-    private final String SETTINGS_FILE_PATH = "settings.json";
+    private final String SETTINGS_FILE_PATH = "/settings.json";
 
     /**
      *
