@@ -12,6 +12,7 @@ public enum NDStep {
     C("C", "Conclusion"),
     DS("DS", "Disjunctive Syllogism"),
     AND_E("&E", "Conjunction Elimination"),
+    AND_I("&I", "Conjunction Introduction"),
     FALSE_I("⊥I", "Contradiction"),
     FALSE_E("⊥E", "Contradiction Elimination"),
     OR_I("∨", "Disjunction Introduction");
