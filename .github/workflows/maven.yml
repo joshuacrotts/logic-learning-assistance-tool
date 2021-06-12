@@ -20,4 +20,4 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run tests with Maven
-        run: mvn test -Dtest=AbstractSyntaxTreeUnitTester,MainOperatorDetectorUnitTester,BoundVariableDetectorUnitTester,FreeVariableDetectorUnitTester,PropositionalTruthTreeGeneratorUnitTester,PredicateTruthTreeGeneratorUnitTester,ArgumentTruthTreeValidatorUnitTester
+        run: mvn test -Dtest=AbstractSyntaxTreeUnitTester,MainOperatorDetectorUnitTester,BoundVariableDetectorUnitTester,FreeVariableDetectorUnitTester,PropositionalTruthTreeGeneratorUnitTester,PredicateTruthTreeGeneratorUnitTester,ArgumentTruthTreeValidatorUnitTester,PropositionalNaturalDeductionValidatorUnitTester

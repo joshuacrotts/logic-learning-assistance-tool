@@ -104,9 +104,9 @@ public class WffTree implements Copyable, TexPrintable {
      * distinction is that this method does NOT compare object references - the equals method
      * does this. This ONLY compares the strings that make up this Wff.
      *
-     * Also, note that this DOES try to flip the operands if and ONLY if they are a symmetric
-     * operator e.g., AND, OR, and BICOND. All others are non-symmetric. Identity is a
-     * separate check.
+//     * Also, note that this DOES ***NOT*** try to flip the operands if and ONLY if they are a symmetric
+//     * operator e.g., AND, OR, and BICOND. All others are non-symmetric. Identity is a
+//     * separate check.
      *
      * @param _obj - WffTree object to compare against.
      * @return true if the string representations match, false otherwise.
@@ -118,15 +118,15 @@ public class WffTree implements Copyable, TexPrintable {
 
         WffTree o = (WffTree) _obj;
 
-        // First try to swap the operands and see if they are the same.
-        if (this.isAnd() || this.isOr() || this.isBicond()) {
-            if (this.getNodeType() == o.getNodeType()) {
-                if (this.getChild(0).stringEquals(o.getChild(1)) &&
-                    this.getChild(1).stringEquals(o.getChild(0))) {
-                    return true;
-                }
-            }
-        }
+//        // First try to swap the operands and see if they are the same.
+//        if (this.isAnd() || this.isOr() || this.isBicond()) {
+//            if (this.getNodeType() == o.getNodeType()) {
+//                if (this.getChild(0).stringEquals(o.getChild(1)) &&
+//                    this.getChild(1).stringEquals(o.getChild(0))) {
+//                    return true;
+//                }
+//            }
+//        }
 
         String wff1Equiv = WffTree.getStandardizedEquiv(this.getStringRep());
         String wff2Equiv = WffTree.getStandardizedEquiv(o.getStringRep());
@@ -139,8 +139,8 @@ public class WffTree implements Copyable, TexPrintable {
         StringBuilder w2 = new StringBuilder(wff2Equiv);
 
         // Check to see if both are identity operators and if so, reverse them.
-        if (w1.compareTo(w2.reverse()) == 0 || w1.reverse().compareTo(w2.reverse()) == 0
-            || w1.reverse().compareTo(w2) == 0) {
+        if ((this.isIdentity() && o.isIdentity()) && (w1.compareTo(w2.reverse()) == 0 || w1.reverse().compareTo(w2.reverse()) == 0
+            || w1.reverse().compareTo(w2) == 0)) {
             return true;
         } else {
             // This is a bit ugly but hopefully it works...

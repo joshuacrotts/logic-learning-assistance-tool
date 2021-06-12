@@ -1,0 +1,4 @@
+1: (P -> ~Q)                     P
+2: Q                             P
+3: ~P                            Derived from [(P -> ~Q), Q], MT
+∴ ~P		■

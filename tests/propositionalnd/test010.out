@@ -1,0 +1,8 @@
+1: (A | ~B)                      P                             
+2: ~A                            P                             
+3: (C -> B)                      P                             
+4: ~B                            Derived from [(A | ~B), ~A], DS
+5: ~C                            Derived from [(C -> B), ~B], MT
+6: (~C & ~A)                     Derived from [~A, ~C], &I
+7: ((~C & ~A) | Q)               Derived from [(~C & ~A)], ∨I
+∴ ((~C & ~A) | Q)		■

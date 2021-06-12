@@ -1,0 +1,4 @@
+1: (A -> B)                      P
+2: A                             P
+3: B                             Derived from [(A -> B), A], MP
+∴ B		■

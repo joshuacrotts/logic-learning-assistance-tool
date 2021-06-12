@@ -33,6 +33,11 @@ public class NDFlag {
     /**
      *
      */
-    public static final int DS = 0x00000020;
+    public static final int OR_I = 0x00000020;
+
+    /**
+     *
+     */
+    public static final int DS = 0x00000040;
 
 }

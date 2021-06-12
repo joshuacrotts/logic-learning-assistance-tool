@@ -15,7 +15,7 @@ public enum NDStep {
     AND_I("&I", "Conjunction Introduction"),
     FALSE_I("⊥I", "Contradiction"),
     FALSE_E("⊥E", "Contradiction Elimination"),
-    OR_I("∨", "Disjunction Introduction");
+    OR_I("∨I", "Disjunction Introduction");
 
     /**
      *

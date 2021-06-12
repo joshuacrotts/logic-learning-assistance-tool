@@ -30,27 +30,25 @@ public class NDWffTree {
      */
     private int flags;
 
-    public NDWffTree(WffTree _wffTree, boolean _active, NDStep _derivationStep, NDWffTree... _derivedParents) {
+    public NDWffTree(WffTree _wffTree, int _flags, NDStep _derivationStep, NDWffTree... _derivedParents) {
         this.wffTree = _wffTree;
         this.derivationStep = _derivationStep;
         this.derivedParents = new LinkedList<>();
-        this.flags |= _active ? NDFlag.ACTIVE : 0;
+        this.flags = _flags;
 
-        if (_derivedParents != null) {
-            Collections.addAll(this.derivedParents, _derivedParents);
-        }
+        if (_derivedParents != null) { Collections.addAll(this.derivedParents, _derivedParents); }
     }
 
     public NDWffTree(WffTree _wffTree, NDStep _derivationStep, NDWffTree... _derivedParents) {
-        this(_wffTree, false, _derivationStep, _derivedParents);
+        this(_wffTree, 0, _derivationStep, _derivedParents);
     }
 
     public NDWffTree(WffTree _wffTree, NDStep _derivationStep, NDWffTree _derivedParent) {
-        this(_wffTree, false, _derivationStep, _derivedParent);
+        this(_wffTree, 0, _derivationStep, _derivedParent);
     }
 
     public NDWffTree(WffTree _wffTree, NDStep _derivationStep) {
-        this(_wffTree, false, _derivationStep);
+        this(_wffTree, 0, _derivationStep);
     }
 
     @Override
@@ -92,12 +90,12 @@ public class NDWffTree {
     @Override
     public String toString() {
         if ((this.derivedParents == null || this.derivedParents.isEmpty())
-                && (this.derivationStep == NDStep.C|| this.derivationStep == NDStep.P)) {
-            return this.wffTree.getStringRep() + "\t\t" + this.derivationStep;
+                && (this.derivationStep == NDStep.C || this.derivationStep == NDStep.P)) {
+            return String.format("%-30s%-30s", this.wffTree.getStringRep(), this.derivationStep);
         } else {
             // It's a little ugly but it works.
-            StringBuilder sb = new StringBuilder(this.wffTree.getStringRep());
-            sb.append("\t\tDerived from [");
+            StringBuilder sb = new StringBuilder(String.format("%-30s", this.wffTree.getStringRep()));
+            sb.append("Derived from [");
             for (int i = 0; i < this.derivedParents.size() - 1; i++) {
                 sb.append(this.derivedParents.get(i).getWffTree().getStringRep());
                 sb.append(", ");

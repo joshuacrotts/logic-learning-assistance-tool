@@ -156,7 +156,7 @@ public class ParserTest {
             ArgumentTruthTreeValidator validator = new ArgumentTruthTreeValidator(resultList);
             System.out.println("Deductively valid: " + validator.isValid());
 
-            ArgumentNaturalDeductionValidator ndValidator = new ArgumentNaturalDeductionValidator(resultList);
+            PropositionalNaturalDeductionValidator ndValidator = new PropositionalNaturalDeductionValidator(resultList);
             System.out.println("Natural deduction:");
             LinkedList<NDWffTree> ndArgs = ndValidator.getNaturalDeductionProof();
             if (ndArgs == null) {
