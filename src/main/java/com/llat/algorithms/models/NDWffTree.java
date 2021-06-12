@@ -129,5 +129,7 @@ public class NDWffTree {
         return (this.flags & NDFlag.MT) != 0;
     }
 
+    public boolean isDSActive() { return (this.flags & NDFlag.DS) != 0; }
+
     public boolean isAndIActive() { return (this.flags & NDFlag.AND_I) != 0; }
 }

@@ -187,6 +187,38 @@ public final class ArgumentNaturalDeductionValidator {
      */
     private boolean findDisjunctiveSyllogisms() {
         boolean changed = false;
+        for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
+            for (int j = i + 1; j < this.PREMISES_LIST.size(); j++) {
+                if (i != j) {
+                    NDWffTree wffOne = this.PREMISES_LIST.get(i);
+                    NDWffTree wffTwo = this.PREMISES_LIST.get(j);
+
+                    if ((wffOne.getWffTree().isOr() || wffTwo.getWffTree().isOr())
+                            && (!wffOne.isDSActive() || !wffTwo.isDSActive())) {
+                        NDWffTree disjNode = wffOne.getWffTree().isOr() ? wffOne : wffTwo;
+                        NDWffTree othNode = wffOne.getWffTree().isOr() ? wffTwo : wffOne;
+
+                        // Now see if the othNode is the negation of either disj child.
+                        // If so, append the OPPOSITE child.
+                        WffTree negDisjNode = BaseTruthTreeGenerator.getFlippedNode(othNode.getWffTree());
+                        WffTree dsNode = null;
+                        if (negDisjNode.stringEquals(disjNode.getWffTree().getChild(0))) {
+                            dsNode = disjNode.getWffTree().getChild(1);
+                        } else if (negDisjNode.stringEquals(disjNode.getWffTree().getChild(1))) {
+                            dsNode = disjNode.getWffTree().getChild(0);
+                        }
+
+                        if (dsNode != null) {
+                            changed = true;
+                            disjNode.setFlags(NDFlag.ACTIVE | NDFlag.DS);
+                            othNode.setFlags(NDFlag.ACTIVE | NDFlag.DS);
+                            this.addPremise(new NDWffTree(dsNode, NDStep.DS, disjNode, othNode));
+                        }
+                    }
+                }
+            }
+        }
+
         return changed;
     }
 

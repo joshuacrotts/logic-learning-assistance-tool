@@ -30,4 +30,9 @@ public class NDFlag {
      */
     public static final int AND_I = 0x00000010;
 
+    /**
+     *
+     */
+    public static final int DS = 0x00000020;
+
 }

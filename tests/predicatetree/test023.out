@@ -20,11 +20,7 @@
                      └── ~(x)Lx
                         └── (∃x)~Lx
                            └── ~Lb
-                              ├── a = d
-                              │  └── d = d
-                              │     └── d = d
-                              │        └── d = d open
+                              ├── a = d open
                               └── (x)Lx
-                                 └── d = d
-                                    └── La
-                                       └── Lb X
+                                 └── La
+                                    └── Lb X
