@@ -230,5 +230,62 @@ public class PropositionalNaturalDeductionValidatorUnitTester {
         goodFileTest("test018");
     }
 
-
+//    @Test
+//    public void test019() {
+//        goodFileTest("test019");
+//    }
+//
+//    @Test
+//    public void test020() {
+//        goodFileTest("test020");
+//    }
+//
+//    @Test
+//    public void test021() {
+//        goodFileTest("test021");
+//    }
+//
+//    @Test
+//    public void test022() {
+//        goodFileTest("test022");
+//    }
+//
+//    @Test
+//    public void test023() {
+//        goodFileTest("test023");
+//    }
+//
+//    @Test
+//    public void test024() {
+//        goodFileTest("test024");
+//    }
+//
+//    @Test
+//    public void test025() {
+//        goodFileTest("test025");
+//    }
+//
+//    @Test
+//    public void test026() {
+//        goodFileTest("test026");
+//    }
+//
+//    @Test
+//    public void test027() {
+//        goodFileTest("test027");
+//    }
+//    @Test
+//    public void test028() {
+//        goodFileTest("test028");
+//    }
+//
+//    @Test
+//    public void test029() {
+//        goodFileTest("test029");
+//    }
+//
+//    @Test
+//    public void test030() {
+//        goodFileTest("test030");
+//    }
 }
