@@ -144,7 +144,7 @@ public abstract class BaseTruthTreeGenerator {
      * @throws IllegalArgumentException if tree is not an OrNode, ImpNode, or AndNode.
      */
     protected static WffTree getNegatedBinaryNode(WffTree _tree) {
-        if (_tree.isOr()) {
+        if (_tree.isOr() || _tree.isImp()) {
             return new AndNode();
         } else if (_tree.isAnd()) {
             return new OrNode();

@@ -1,0 +1,5 @@
+1: A                             P                             
+2: ~A                            P                             
+3: ⊥                             Derived from [A, ~A], ⊥I
+4: Z                             Derived from [⊥], ⊥E
+∴ Z  ■

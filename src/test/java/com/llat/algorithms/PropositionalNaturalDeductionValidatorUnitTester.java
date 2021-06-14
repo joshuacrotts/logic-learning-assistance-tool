@@ -122,7 +122,7 @@ public class PropositionalNaturalDeductionValidatorUnitTester {
             throw new AssertionFailedError("Failed reading test input file " + inName);
         naturalDeductionValidator = new PropositionalNaturalDeductionValidator(parser.getSyntaxTrees());
         LinkedList<NDWffTree> ndArgs = naturalDeductionValidator.getNaturalDeductionProof();
-        for (int i = 0; i < ndArgs.size() - 1; i++) {
+        for (int i = 0; i < ndArgs.size(); i++) {
             NDWffTree wff = ndArgs.get(i);
             System.out.println((i + 1) + ": " + wff);
         }
@@ -189,4 +189,46 @@ public class PropositionalNaturalDeductionValidatorUnitTester {
     public void test010() {
         goodFileTest("test010");
     }
+
+    @Test
+    public void test011() {
+        goodFileTest("test011");
+    }
+
+    @Test
+    public void test012() {
+        goodFileTest("test012");
+    }
+
+    @Test
+    public void test013() {
+        goodFileTest("test013");
+    }
+
+    @Test
+    public void test014() {
+        goodFileTest("test014");
+    }
+
+    @Test
+    public void test015() {
+        goodFileTest("test015");
+    }
+
+    @Test
+    public void test016() {
+        goodFileTest("test016");
+    }
+
+    @Test
+    public void test017() {
+        goodFileTest("test017");
+    }
+
+    @Test
+    public void test018() {
+        goodFileTest("test018");
+    }
+
+
 }

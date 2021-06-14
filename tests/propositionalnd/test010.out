@@ -5,4 +5,4 @@
 5: ~C                            Derived from [(C -> B), ~B], MT
 6: (~C & ~A)                     Derived from [~A, ~C], &I
 7: ((~C & ~A) | Q)               Derived from [(~C & ~A)], ∨I
-∴ ((~C & ~A) | Q)		■
+∴ ((~C & ~A) | Q)  ■

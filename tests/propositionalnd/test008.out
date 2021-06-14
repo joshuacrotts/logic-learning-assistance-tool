@@ -5,4 +5,4 @@
 5: (C & D)                       Derived from [(B & (C & D))], &E
 6: E                             Derived from [((C & D) -> E), (C & D)], MP
 7: (A & E)                       Derived from [A, E], &I
-∴ (A & E)		■
+∴ (A & E)  ■

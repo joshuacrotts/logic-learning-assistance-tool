@@ -1,0 +1,8 @@
+1: (A & (B & ~C))                P                             
+2: (~C -> ~D)                    P                             
+3: A                             Derived from [(A & (B & ~C))], &E
+4: (B & ~C)                      Derived from [(A & (B & ~C))], &E
+5: ~C                            Derived from [(B & ~C)], &E
+6: ~D                            Derived from [(~C -> ~D), ~C], MP
+7: (A & ~D)                      Derived from [A, ~D], &I
+∴ (A & ~D)  ■

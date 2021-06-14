@@ -162,11 +162,11 @@ public class ParserTest {
             if (ndArgs == null) {
                 System.err.println("Either the argument is invalid (check the above result) or it timed out!");
             } else {
-                for (int i = 0; i < ndArgs.size() - 1; i++) {
+                for (int i = 0; i < ndArgs.size(); i++) {
                     NDWffTree wff = ndArgs.get(i);
                     System.out.println((i + 1) + ": " + wff);
                 }
-                System.out.println("∴ " + ndArgs.getLast().getWffTree().getStringRep() + "\t\t■");
+                System.out.println("∴ " + ndArgs.getLast().getWffTree().getStringRep() + "  ■");
             }
 
             PDFPrinter ttp = new PDFTruthTreePrinter(validator.getTruthTree(), "latex-truth-tree.pdf");

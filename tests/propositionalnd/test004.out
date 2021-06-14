@@ -4,4 +4,4 @@
 4: N                             Derived from [(~N -> ~M), M], MT
 5: (N & M)                       Derived from [M, N], &I
 6: ((N & M) | ~M)                Derived from [(N & M)], ∨I
-∴ ((N & M) | ~M)		■
+∴ ((N & M) | ~M)  ■

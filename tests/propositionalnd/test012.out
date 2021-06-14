@@ -1,0 +1,3 @@
+1: ~(A -> B)                     P                             
+2: (A & ~B)                      Derived from [~(A -> B)], DeM
+∴ (A & ~B)  ■

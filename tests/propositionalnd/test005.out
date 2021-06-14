@@ -2,10 +2,9 @@
 2: (P -> (Q & ~R))               P
 3: (~P | (~S & T))               P
 4: ((T & ~S) -> ~U)              P
-5: (Q & ~R)                      Derived from [(P -> (Q & ~R)), P], MP
-6: (~S & T)                      Derived from [(~P | (~S & T)), P], DS
-7: ~S                            Derived from [(~S & T)], &E
-8: T                             Derived from [(~S & T)], &E
-9: (T & ~S)                      Derived from [~S, T], &I
-10: ~U                            Derived from [((T & ~S) -> ~U), (T & ~S)], MP
-∴ ~U		■
+5: (~S & T)                      Derived from [(~P | (~S & T)), P], DS
+6: ~S                            Derived from [(~S & T)], &E
+7: T                             Derived from [(~S & T)], &E
+8: (T & ~S)                      Derived from [~S, T], &I
+9: ~U                            Derived from [((T & ~S) -> ~U), (T & ~S)], MP
+∴ ~U  ■

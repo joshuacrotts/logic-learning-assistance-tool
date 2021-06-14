@@ -36,7 +36,9 @@ public class NDWffTree {
         this.derivedParents = new LinkedList<>();
         this.flags = _flags;
 
-        if (_derivedParents != null) { Collections.addAll(this.derivedParents, _derivedParents); }
+        if (_derivedParents != null) {
+            Collections.addAll(this.derivedParents, _derivedParents);
+        }
     }
 
     public NDWffTree(WffTree _wffTree, NDStep _derivationStep, NDWffTree... _derivedParents) {
@@ -111,6 +113,14 @@ public class NDWffTree {
         this.flags |= _flags;
     }
 
+    public void setActive(boolean _b) {
+        if (_b) {
+            this.flags |= NDFlag.ACTIVE;
+        } else {
+            this.flags &= ~NDFlag.ACTIVE;
+        }
+    }
+
     public boolean isActive() {
         return (this.flags & NDFlag.ACTIVE) != 0;
     }
@@ -127,7 +137,25 @@ public class NDWffTree {
         return (this.flags & NDFlag.MT) != 0;
     }
 
-    public boolean isDSActive() { return (this.flags & NDFlag.DS) != 0; }
+    public boolean isDSActive() {
+        return (this.flags & NDFlag.DS) != 0;
+    }
 
-    public boolean isAndIActive() { return (this.flags & NDFlag.AND_I) != 0; }
+    public boolean isAndIActive() {
+        return (this.flags & NDFlag.AND_I) != 0;
+    }
+
+    public boolean isAndEActive() { return (this.flags & NDFlag.AND_E) != 0; }
+
+    public boolean isDEMActive() {
+        return (this.flags & NDFlag.DEM) != 0;
+    }
+
+    public boolean isBCActive() {
+        return (this.flags & NDFlag.BC) != 0;
+    }
+
+    public boolean isMIActive() {
+        return (this.flags & NDFlag.MI) != 0;
+    }
 }

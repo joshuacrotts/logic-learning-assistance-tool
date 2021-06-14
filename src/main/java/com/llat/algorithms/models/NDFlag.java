@@ -40,4 +40,24 @@ public class NDFlag {
      */
     public static final int DS = 0x00000040;
 
+    /**
+     *
+     */
+    public static final int DEM = 0x00000080;
+
+    /**
+     *
+     */
+    public static final int BC = 0x00000100;
+
+    /**
+     *
+     */
+    public static final int MI = 0x00000200;
+
+    /**
+     *
+     */
+    public static final int AND_E = 0x00000400;
+
 }

@@ -1,0 +1,4 @@
+1: (A -> B)                      P                             
+2: (B -> A)                      P                             
+3: (A <-> B)                     Derived from [(A -> B), (B -> A)], ↔I
+∴ (A <-> B)  ■

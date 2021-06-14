@@ -15,7 +15,12 @@ public enum NDStep {
     AND_I("&I", "Conjunction Introduction"),
     FALSE_I("⊥I", "Contradiction"),
     FALSE_E("⊥E", "Contradiction Elimination"),
-    OR_I("∨I", "Disjunction Introduction");
+    OR_I("∨I", "Disjunction Introduction"),
+    DEM("DeM", "De Morgan"),
+    BCI("↔I", "Biconditional Introduction"),
+    BCE("↔E", "Biconditional Elimination"),
+    MI("MI", "Material Implication");
+
 
     /**
      *

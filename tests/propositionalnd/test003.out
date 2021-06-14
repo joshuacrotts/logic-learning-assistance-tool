@@ -4,4 +4,4 @@
 4: P                             Derived from [(P | Q), ~Q], DS
 5: R                             Derived from [(~R -> ~P), P], MT
 6: (~Q & R)                      Derived from [~Q, R], &I
-∴ (~Q & R)		■
+∴ (~Q & R)  ■
