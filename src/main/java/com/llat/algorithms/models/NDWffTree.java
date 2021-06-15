@@ -158,4 +158,8 @@ public class NDWffTree {
     public boolean isMIActive() {
         return (this.flags & NDFlag.MI) != 0;
     }
+
+    public boolean isImpIActive() {
+        return (this.flags & NDFlag.IMP_I) != 0;
+    }
 }

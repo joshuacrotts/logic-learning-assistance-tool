@@ -4,7 +4,7 @@ grammar LLAT;
 
 /* Miscellaneous and skippable lexemes. */
 WHITESPACE              : [ \r\n\t]+                               -> skip ;
-COMMENT                 : '//'(.)*?NEWLINE                         -> skip ; // Match any text that has // preceding.
+COMMENT                 : '//' (~ [\r\n])* NEWLINE                 -> skip ; // Match any text that has // preceding.
 fragment DIGIT          : [0-9]                                            ;
 fragment LOWER_CASE_LTR : [a-z]                                            ;
 fragment UPPER_CASE_LTR : [A-Z]                                            ;

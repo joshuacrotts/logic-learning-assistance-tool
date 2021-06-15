@@ -1,0 +1,10 @@
+1: (~X -> (Y -> ~Z))             P
+2: (~M -> (~Z -> X))             P
+3: (~M & ~X)                     P
+4: ~M                            Derived from [(~M & ~X)], &E
+5: ~X                            Derived from [(~M & ~X)], &E
+6: (Y -> ~Z)                     Derived from [(~X -> (Y -> ~Z)), ~X], MP
+7: (~Z -> X)                     Derived from [(~M -> (~Z -> X)), ~M], MP
+8: Z                             Derived from [(~Z -> X), ~X], MT
+9: ~Y                            Derived from [(Y -> ~Z), Z], MT
+∴ ~Y  ■

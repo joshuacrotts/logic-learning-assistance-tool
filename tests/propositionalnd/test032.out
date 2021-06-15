@@ -1,0 +1,6 @@
+1: (C -> (D & M))                P
+2: (~C -> ~H)                    P
+3: H                             P
+4: C                             Derived from [(~C -> ~H), H], MT
+5: (D & M)                       Derived from [(C -> (D & M)), C], MP
+∴ (D & M)  ■

@@ -1,0 +1,7 @@
+1: ((P & Q) & R)                 P
+2: (S & T)                       P
+3: (P & Q)                       Derived from [((P & Q) & R)], &E
+4: S                             Derived from [(S & T)], &E
+5: Q                             Derived from [(P & Q)], &E
+6: (Q & S)                       Derived from [S, Q], &I
+∴ (Q & S)  ■

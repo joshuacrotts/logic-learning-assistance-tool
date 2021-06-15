@@ -60,4 +60,9 @@ public class NDFlag {
      */
     public static final int AND_E = 0x00000400;
 
+    /**
+     *
+     */
+    public static final int IMP_I = 0x00000800;
+
 }

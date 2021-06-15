@@ -7,6 +7,7 @@ import com.llat.algorithms.models.NDWffTree;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
 import com.llat.algorithms.propositional.PDFTruthTablePrinter;
+import com.llat.algorithms.propositional.PropositionalNaturalDeductionValidator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.algorithms.propositional.TexTablePrinter;
 import com.llat.input.LLATErrorListener;
@@ -155,9 +156,15 @@ public class ParserTest {
         if (resultList.size() >= 2) {
             ArgumentTruthTreeValidator validator = new ArgumentTruthTreeValidator(resultList);
             System.out.println("Deductively valid: " + validator.isValid());
+            BaseNaturalDeductionValidator ndValidator = null;
+            if (resultList.get(0).isPropositionalWff()) {
+                System.out.println("PL Natural Deduction:");
+                ndValidator = new PropositionalNaturalDeductionValidator(resultList);
+            } else if (resultList.get(0).isPredicateWff()) {
+                System.out.println("FOPL Natural Deduction:");
+                ndValidator = new PredicateNaturalDeductionValidator(resultList);
+            }
 
-            PropositionalNaturalDeductionValidator ndValidator = new PropositionalNaturalDeductionValidator(resultList);
-            System.out.println("Natural deduction:");
             LinkedList<NDWffTree> ndArgs = ndValidator.getNaturalDeductionProof();
             if (ndArgs == null) {
                 System.err.println("Either the argument is invalid (check the above result) or it timed out!");

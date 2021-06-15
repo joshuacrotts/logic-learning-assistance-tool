@@ -1,0 +1,7 @@
+1: ~Be                           P
+2: (~(Be | Cc) -> ~Dd)           P
+3: ~Cc                           P
+4: (~Be & ~Cc)                   Derived from [~Be, ~Cc], &I
+5: ~(Be | Cc)                    Derived from [(~Be & ~Cc)], DeM
+6: ~Dd                           Derived from [(~(Be | Cc) -> ~Dd), ~(Be | Cc)], MP
+∴ ~Dd  ■

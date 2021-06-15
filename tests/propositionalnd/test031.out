@@ -1,0 +1,5 @@
+1: (~B -> ~A)                    P
+2: ~B                            P
+3: ~A                            Derived from [(~B -> ~A), ~B], MP
+4: (~A | (K <-> C))              Derived from [~A], ∨I
+∴ (~A | (K <-> C))  ■

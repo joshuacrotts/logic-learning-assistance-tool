@@ -7,32 +7,29 @@ import com.llat.models.treenode.*;
 
 import java.util.LinkedList;
 
-/**
- *
- */
-public final class PropositionalNaturalDeductionValidator {
+public abstract class BaseNaturalDeductionValidator {
 
     /**
      *
      */
-    private static final int TIMEOUT = 100;
+    protected static final int APPEND_CHILD_TIMEOUT = 4;
 
     /**
      *
      */
-    private final LinkedList<WffTree> ORIGINAL_WFFTREE_LIST;
+    protected final LinkedList<WffTree> ORIGINAL_WFFTREE_LIST;
 
     /**
      *
      */
-    private final LinkedList<NDWffTree> PREMISES_LIST;
+    protected final LinkedList<NDWffTree> PREMISES_LIST;
 
     /**
      *
      */
-    private final NDWffTree CONCLUSION_WFF;
+    protected final NDWffTree CONCLUSION_WFF;
 
-    public PropositionalNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
+    public BaseNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
         this.ORIGINAL_WFFTREE_LIST = _wffTreeList;
         this.PREMISES_LIST = new LinkedList<>();
         this.CONCLUSION_WFF = new NDWffTree(_wffTreeList.getLast().getChild(0), NDStep.C);
@@ -45,61 +42,19 @@ public final class PropositionalNaturalDeductionValidator {
     }
 
     /**
-     * Computes a natural deduction proof for a propositional logic formula. We use a couple of heuristics to ensure
-     * the runtime/search space isn't COMPLETELY insane (those being that we only apply certain rules if others fail
-     * to produce meaningful results, etc.).
+     * Computes a natural deduction proof for a logic formula. The details should be listed in the
+     * subclasses for FOPL and PL respectively.
      *
      * @return list of NDWffTree "args". These serve as the premises, with the last element in the list being
      * the conclusion.
      */
-    public LinkedList<NDWffTree> getNaturalDeductionProof() {
-        ArgumentTruthTreeValidator truthTreeValidator = new ArgumentTruthTreeValidator(this.ORIGINAL_WFFTREE_LIST);
-        if (!truthTreeValidator.isValid()) { return null; }
-
-        // We'll either find the conclusion or time out first.
-        int currIteration = 0;
-        for (currIteration = 0; currIteration <= PropositionalNaturalDeductionValidator.TIMEOUT
-                && !this.findConclusion() && !this.findContradictions(); currIteration++) {
-            boolean mod1 = false;
-            // If any of these return true we won't do the extra steps.
-            mod1 = this.findSimplifications() || mod1;
-            mod1 = this.findModusPonens() || mod1;
-            mod1 = this.findModusTollens() || mod1;
-            mod1 = this.findDisjunctiveSyllogisms() || mod1;
-            mod1 = this.findHypotheticalSyllogisms() || mod1;
-            mod1 = this.findDoubleNegations() || mod1;
-            mod1 = this.findBiconditionalEquivalences() || mod1;
-
-            if (!mod1) { this.appendConjunctions(); }
-            if (!mod1) { mod1 = this.findMaterialImplicationEquivalences(); }
-            if (!mod1) { this.findDeMorganEquivalences(); }
-            this.appendDisjunctions();
-        }
-
-        // If we timed out, just return null.
-        if (currIteration > PropositionalNaturalDeductionValidator.TIMEOUT) { return null; }
-
-        // Backtrack from the conclusion to mark all those nodes that were used in the proof.
-        this.activateLinks(this.CONCLUSION_WFF);
-
-        // Add the premises that were actually used in the argument.
-        LinkedList<NDWffTree> args = new LinkedList<>();
-        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
-            if (ndWffTree.isActive()) {
-                args.add(ndWffTree);
-            }
-        }
-
-        // Finally, add the conclusion IF it wasn't derived through a contradiction.
-        if (!this.findContradictions()) { args.add(this.CONCLUSION_WFF); }
-        return args;
-    }
+    public abstract LinkedList<NDWffTree> getNaturalDeductionProof();
 
     /**
      * TODO implementation.
      * @return
      */
-    public boolean findIndirectProof() {
+    protected boolean findIndirectProof() {
         return false;
     }
 
@@ -107,7 +62,7 @@ public final class PropositionalNaturalDeductionValidator {
      * TODO implementation.
      * @return
      */
-    public boolean findConditionalProof() {
+    protected boolean findConditionalProof() {
         return false;
     }
 
@@ -123,7 +78,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if a DeMorgan's equivalence was found, false otherwise.
      */
-    private boolean findDeMorganEquivalences() {
+    protected boolean findDeMorganEquivalences() {
         int sz = this.PREMISES_LIST.size();
         boolean found = false;
         for (int i = 0; i < sz; i++) {
@@ -165,7 +120,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if a biconditional manipulation rule was used, false otherwise.
      */
-    private boolean findBiconditionalEquivalences() {
+    protected boolean findBiconditionalEquivalences() {
         int sz = this.PREMISES_LIST.size();
         boolean found = false;
         // First try to find (A <-> B).
@@ -194,10 +149,10 @@ public final class PropositionalNaturalDeductionValidator {
 
                     // First check to see if they're implicatons (and haven't been previously used).
                     if (ndWffTreeOne.getWffTree().isImp() && ndWffTreeTwo.getWffTree().isImp()
-                    && !ndWffTreeOne.isBCActive() && !ndWffTreeTwo.isBCActive()) {
+                            && !ndWffTreeOne.isBCActive() && !ndWffTreeTwo.isBCActive()) {
                         // Now check to see that their children match.
                         if (ndWffTreeOne.getWffTree().getChild(0).stringEquals(ndWffTreeTwo.getWffTree().getChild(1))
-                        && ndWffTreeTwo.getWffTree().getChild(0).stringEquals(ndWffTreeOne.getWffTree().getChild(1))) {
+                                && ndWffTreeTwo.getWffTree().getChild(0).stringEquals(ndWffTreeOne.getWffTree().getChild(1))) {
                             found = true;
                             BicondNode bicondNode = new BicondNode();
                             bicondNode.addChild(ndWffTreeOne.getWffTree().getChild(0));
@@ -220,7 +175,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if a material implication equivalence was found, false otherwise.
      */
-    private boolean findMaterialImplicationEquivalences() {
+    protected boolean findMaterialImplicationEquivalences() {
         int sz = this.PREMISES_LIST.size();
         boolean found = false;
         for (int i = 0; i < sz; i++) {
@@ -259,7 +214,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if a &E rule was found and used, false otherwise.
      */
-    private boolean findSimplifications() {
+    protected boolean findSimplifications() {
         boolean changed = false;
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             NDWffTree ndWffTree = this.PREMISES_LIST.get(i);
@@ -284,7 +239,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if a modus ponens rule was found, false otherwise.
      */
-    private boolean findModusPonens() {
+    protected boolean findModusPonens() {
         boolean changed = false;
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             for (int j = i + 1; j < this.PREMISES_LIST.size(); j++) {
@@ -319,7 +274,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if a modus tollens rule was found, false otherwise.
      */
-    private boolean findModusTollens() {
+    protected boolean findModusTollens() {
         boolean changed = false;
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             for (int j = i + 1; j < this.PREMISES_LIST.size(); j++) {
@@ -353,7 +308,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if we found an example of DS, false otherwise.
      */
-    private boolean findDisjunctiveSyllogisms() {
+    protected boolean findDisjunctiveSyllogisms() {
         boolean changed = false;
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             for (int j = i + 1; j < this.PREMISES_LIST.size(); j++) {
@@ -395,7 +350,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if we found an example of HS, false otherwise.
      */
-    private boolean findHypotheticalSyllogisms() {
+    protected boolean findHypotheticalSyllogisms() {
         boolean changed = false;
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             for (int j = i + 1; j < this.PREMISES_LIST.size(); j++) {
@@ -435,9 +390,41 @@ public final class PropositionalNaturalDeductionValidator {
     /**
      * @return
      */
-    private boolean findDoubleNegations() {
+    protected boolean findDoubleNegations() {
         return false;
     }
+
+//    /**
+//     *
+//     * @return
+//     */
+//    protected boolean appendImplications() {
+//        int sz = this.PREMISES_LIST.size();
+//        boolean changed = false;
+//        for (int i = 0; i < sz; i++) {
+//            for (int j = i + 1; j < sz; j++) {
+//                if (i != j) {
+//                    NDWffTree wffOne = this.PREMISES_LIST.get(i);
+//                    NDWffTree wffTwo = this.PREMISES_LIST.get(j);
+//                    // Heuristic.
+//                    if (wffOne.getWffTree().allChildSizeCount() > BaseNaturalDeductionValidator.CONJ_CHILD_TIMEOUT
+//                    && wffTwo.getWffTree().allChildSizeCount() > BaseNaturalDeductionValidator.CONJ_CHILD_TIMEOUT) { continue; }
+//                    if (!wffOne.isImpIActive() || !wffTwo.isImpIActive()) {
+//                        changed = true;
+//                        ImpNode impNode = new ImpNode();
+//                        impNode.addChild(wffOne.getWffTree());
+//                        impNode.addChild(wffTwo.getWffTree());
+//
+//                        // Conjunction is communative, so we have to add both.
+//                        wffOne.setFlags(NDFlag.IMP_I);
+//                        wffTwo.setFlags(NDFlag.IMP_I);
+//                        this.addPremise(new NDWffTree(impNode, NDFlag.IMP_I | NDFlag.MP, NDStep.AND_I, wffOne, wffTwo));
+//                    }
+//                }
+//            }
+//        }
+//        return changed;
+//    }
 
     /**
      * Appends paired premises together to form conjunctions. If the two attempted premises have been deduced from
@@ -448,7 +435,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if a conjunction was found, and false otherwise.
      */
-    private boolean appendConjunctions() {
+    protected boolean appendConjunctions() {
         int sz = this.PREMISES_LIST.size();
         boolean changed = false;
         for (int i = 0; i < sz; i++) {
@@ -456,6 +443,9 @@ public final class PropositionalNaturalDeductionValidator {
                 if (i != j) {
                     NDWffTree wffOne = this.PREMISES_LIST.get(i);
                     NDWffTree wffTwo = this.PREMISES_LIST.get(j);
+                    // Heuristic.
+                    if (wffOne.getWffTree().allChildSizeCount() > BaseNaturalDeductionValidator.APPEND_CHILD_TIMEOUT
+                            && wffTwo.getWffTree().allChildSizeCount() > BaseNaturalDeductionValidator.APPEND_CHILD_TIMEOUT) { break; }
                     if ((!wffOne.isAndEActive() && !wffTwo.isAndEActive())) {
                         changed = true;
                         AndNode andNodeOne = new AndNode();
@@ -470,7 +460,6 @@ public final class PropositionalNaturalDeductionValidator {
                         // Conjunction is communative, so we have to add both.
                         wffOne.setFlags(NDFlag.AND_I);
                         wffTwo.setFlags(NDFlag.AND_I);
-
                         this.addPremise(new NDWffTree(andNodeOne, NDFlag.AND_I, NDStep.AND_I, wffOne, wffTwo));
                         this.addPremise(new NDWffTree(andNodeTwo, NDFlag.AND_I, NDStep.AND_I, wffOne, wffTwo));
                     }
@@ -487,7 +476,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if there is a disjunction introduction that finds the conclusion, false otherwise.
      */
-    private boolean appendDisjunctions() {
+    protected boolean appendDisjunctions() {
         if (!this.CONCLUSION_WFF.getWffTree().isOr()) { return false; }
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             NDWffTree wff = this.PREMISES_LIST.get(i);
@@ -523,7 +512,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if a contradiction is found (and thus the proof is complete), false otherwise.
      */
-    private boolean findContradictions() {
+    protected boolean findContradictions() {
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             for (int j = i + 1; j < this.PREMISES_LIST.size(); j++) {
                 if (i != j) {
@@ -553,7 +542,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if the premise list has the conclusion, false otherwise.
      */
-    private boolean findConclusion() {
+    protected boolean findConclusion() {
         for (NDWffTree ndWffTree : this.PREMISES_LIST) {
             if (ndWffTree.getWffTree().stringEquals(this.CONCLUSION_WFF.getWffTree())) {
                 this.CONCLUSION_WFF.setDerivedParents(ndWffTree.getDerivedParents());
@@ -571,7 +560,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @param _conclusionNode - conclusion WFF.
      */
-    private void activateLinks(NDWffTree _conclusionNode) {
+    protected void activateLinks(NDWffTree _conclusionNode) {
         if (_conclusionNode == null) { return; }
         _conclusionNode.setActive(true);
         for (NDWffTree ndWffTree : _conclusionNode.getDerivedParents()) {
@@ -586,7 +575,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @param _ndWffTree NDWffTree to insert as a premise.
      */
-    private void addPremise(NDWffTree _ndWffTree) {
+    protected void addPremise(NDWffTree _ndWffTree) {
         // THIS NEEDS TO BE ADAPTED TO WORK WITH CONTRADICTIONS SINCE THOSE WILL FAIL!!!!!!!
         if (!this.PREMISES_LIST.contains(_ndWffTree) && !this.isRedundantTree(_ndWffTree)) {
             this.PREMISES_LIST.add(_ndWffTree);
@@ -600,7 +589,7 @@ public final class PropositionalNaturalDeductionValidator {
      *
      * @return true if the node is redundant, false otherwise.
      */
-    private boolean isRedundantTree(NDWffTree _ndWffTree) {
+    protected boolean isRedundantTree(NDWffTree _ndWffTree) {
         return _ndWffTree.getWffTree().isBinaryOp() && _ndWffTree.getWffTree().getChild(0).stringEquals(_ndWffTree.getWffTree().getChild(1));
     }
 }

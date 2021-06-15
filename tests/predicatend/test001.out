@@ -1,0 +1,4 @@
+1: (Aa -> Ba)                    P
+2: Aa                            P
+3: Ba                            Derived from [(Aa -> Ba), Aa], MP
+∴ Ba  ■

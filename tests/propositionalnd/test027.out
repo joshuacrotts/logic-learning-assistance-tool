@@ -1,0 +1,9 @@
+1: (A -> (B -> (C -> (D -> E)))) P
+2: (~G & ~F)                     P
+3: (~F -> A)                     P
+4: ~G                            Derived from [(~G & ~F)], &E
+5: ~F                            Derived from [(~G & ~F)], &E
+6: A                             Derived from [(~F -> A), ~F], MP
+7: (B -> (C -> (D -> E)))        Derived from [(A -> (B -> (C -> (D -> E)))), A], MP
+8: ((B -> (C -> (D -> E))) & ~G) Derived from [~G, (B -> (C -> (D -> E)))], &I
+∴ ((B -> (C -> (D -> E))) & ~G)  ■

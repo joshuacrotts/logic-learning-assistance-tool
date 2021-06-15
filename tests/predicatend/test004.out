@@ -1,0 +1,4 @@
+1: (~Ljr -> Cjr)                 P
+2: ~Cjr                          P
+3: Ljr                           Derived from [(~Ljr -> Cjr), ~Cjr], MT
+∴ Ljr  ■

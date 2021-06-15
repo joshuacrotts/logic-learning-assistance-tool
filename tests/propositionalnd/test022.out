@@ -1,0 +1,14 @@
+1: D                             P
+2: ((D & E) -> ~F)               P
+3: (F | G)                       P
+4: (G -> ((A -> B) -> C))        P
+5: (E & ~H)                      P
+6: E                             Derived from [(E & ~H)], &E
+7: (D & E)                       Derived from [D, E], &I
+8: (~F -> G)                     Derived from [(F | G)], MI
+9: (~G | ((A -> B) -> C))        Derived from [(G -> ((A -> B) -> C))], MI
+10: ~F                            Derived from [((D & E) -> ~F), (D & E)], MP
+11: G                             Derived from [(~F -> G), ~F], MP
+12: ((A -> B) -> C)               Derived from [(~G | ((A -> B) -> C)), G], DS
+13: (((A -> B) -> C) | P)         Derived from [((A -> B) -> C)], ∨I
+∴ (((A -> B) -> C) | P)  ■

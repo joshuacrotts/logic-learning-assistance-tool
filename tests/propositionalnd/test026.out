@@ -1,0 +1,6 @@
+1: ((P & Q) -> (R -> S))         P
+2: (A & ~(R -> S))               P
+3: ~(R -> S)                     Derived from [(A & ~(R -> S))], &E
+4: ~(P & Q)                      Derived from [((P & Q) -> (R -> S)), ~(R -> S)], MT
+5: (~P | ~Q)                     Derived from [~(P & Q)], DeM
+∴ (~P | ~Q)  ■

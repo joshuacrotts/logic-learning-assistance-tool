@@ -213,6 +213,19 @@ public class WffTree implements Copyable, TexPrintable {
         }
     }
 
+    public int allChildSizeCount() {
+        return allChildSizeCountHelper(this);
+    }
+
+    private int allChildSizeCountHelper(WffTree _tree) {
+        int size = 0;
+        for (int i = 0; i < _tree.children.size(); i++) {
+            size += _tree.getChild(i).getChildrenSize() + this.allChildSizeCountHelper(_tree.getChild(i));
+        }
+
+        return size;
+    }
+
     public int getChildrenSize() {
         return this.children.size();
     }
