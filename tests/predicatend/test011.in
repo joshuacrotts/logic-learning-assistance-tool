@@ -1,0 +1,1 @@
+Pa, Qa, (∃x)(Px | Qx), (x)(Px -> Kx), (x)(Qx -> Kx) => (∃x)Kx

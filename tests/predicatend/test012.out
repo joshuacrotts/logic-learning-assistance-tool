@@ -1,0 +1,9 @@
+1: (x)(Cx -> ~Bx)                P
+2: (∃x)Bx                        P
+3: Bd                            P
+4: Cd                            P
+5: (Cd -> ~Bd)                   Derived from [(x)(Cx -> ~Bx)], UE
+6: ~Bd                           Derived from [(Cd -> ~Bd), Cd], MP
+7: ⊥                             Derived from [Bd, ~Bd], ⊥I
+8: (∃x)~Cx                       Derived from [⊥], ⊥E
+∴ (∃x)~Cx  ■

@@ -1,0 +1,9 @@
+1: Pa                            P
+2: Qa                            P
+3: (∃x)(Px | Qx)                 P
+4: (x)(Px -> Kx)                 P
+5: (x)(Qx -> Kx)                 P
+6: (Pa -> Ka)                    Derived from [(x)(Px -> Kx)], UE
+7: Ka                            Derived from [(Pa -> Ka), Pa], MP
+8: (∃x)Kx                        Derived from [Ka], EI
+∴ (∃x)Kx  ■

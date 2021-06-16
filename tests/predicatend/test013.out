@@ -1,0 +1,11 @@
+1: (x)(Rx | Cx)                  P
+2: (x)(Cx -> Sx)                 P
+3: ~Ra                           P
+4: (Ra | Ca)                     Derived from [(x)(Rx | Cx)], UE
+5: (Ca -> Sa)                    Derived from [(x)(Cx -> Sx)], UE
+6: Ca                            Derived from [(Ra | Ca), ~Ra], DS
+7: Sa                            Derived from [(Ca -> Sa), Ca], MP
+8: (~Ra & Sa)                    Derived from [~Ra, Sa], &I
+9: (∃x)(~Rx & Sx)                Derived from [(~Ra & Sa)], EI
+10: ((∃x)(~Rx & Sx) | Fbc)        Derived from [(∃x)(~Rx & Sx)], ∨I
+∴ ((∃x)(~Rx & Sx) | Fbc)  ■

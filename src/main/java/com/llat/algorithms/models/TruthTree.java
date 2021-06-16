@@ -207,7 +207,7 @@ public class TruthTree implements Comparable<TruthTree> {
 
                     if (!this.treeContains(l, _newRoot)) {
                         // Add to the tree and the queue.
-                        TruthTree _newRootTT = new TruthTree(_newRoot, leaf, _universalTruthTree);
+                        TruthTree _newRootTT = new TruthTree(_newRoot, l, _universalTruthTree);
                         l.addCenter(_newRootTT);
                         _queue.add(_newRootTT);
 

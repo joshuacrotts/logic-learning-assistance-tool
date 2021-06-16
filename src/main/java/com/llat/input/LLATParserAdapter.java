@@ -27,8 +27,7 @@ public class LLATParserAdapter {
         CharStream charStream = CharStreams.fromString(_wff);
         LLATParserListener parser = LLATParserAdapter.parseStream(charStream);
         // For now, the errors are just printed in the tester class - if
-        // JUnit is integrated, these should be removed so they align with
-        // the tests.
+        // JUnit is integrated, these should be removed so they align with the tests.
         LLATErrorListener.printErrors();
         LLATErrorListener.printWarnings();
         return parser.getSyntaxTrees();
@@ -36,8 +35,8 @@ public class LLATParserAdapter {
 
     /**
      * Runs the parser and syntax tree constructor for the provided input stream.
-     * The returned object can be used to access the syntax tree and the symbol table
-     * for either further processing or for checking results in automated tests.
+     * The returned object can be used to access the syntax tree for either further
+     * processing or for checking results in automated tests.
      *
      * @param input an initialized CharStream
      */

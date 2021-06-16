@@ -178,31 +178,31 @@ public class PredicateNaturalDeductionValidatorUnitTester {
     public void test008() {
         goodFileTest("test008");
     }
-//
-//    @Test
-//    public void test009() {
-//        goodFileTest("test009");
-//    }
-//
-//    @Test
-//    public void test010() {
-//        goodFileTest("test010");
-//    }
-//
-//    @Test
-//    public void test011() {
-//        goodFileTest("test011");
-//    }
-//
-//    @Test
-//    public void test012() {
-//        goodFileTest("test012");
-//    }
-//
-//    @Test
-//    public void test013() {
-//        goodFileTest("test013");
-//    }
+
+    @Test
+    public void test009() {
+        goodFileTest("test009");
+    }
+
+    @Test
+    public void test010() {
+        goodFileTest("test010");
+    }
+
+    @Test
+    public void test011() {
+        goodFileTest("test011");
+    }
+
+    @Test
+    public void test012() {
+        goodFileTest("test012");
+    }
+
+    @Test
+    public void test013() {
+        goodFileTest("test013");
+    }
 //
 //    @Test
 //    public void test014() {

@@ -7,6 +7,9 @@ import com.llat.models.treenode.*;
 
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public abstract class BaseNaturalDeductionValidator {
 
     /**
@@ -34,6 +37,8 @@ public abstract class BaseNaturalDeductionValidator {
         this.PREMISES_LIST = new LinkedList<>();
         this.CONCLUSION_WFF = new NDWffTree(_wffTreeList.getLast().getChild(0), NDStep.C);
 
+        // Add all premises to the list. The invariant is that the last element is guaranteed
+        // to be the conclusion.
         for (int i = 0; i < _wffTreeList.size() - 1; i++) {
             // Trim ROOT off the node if it's still there from ANTLR processing.
             WffTree wff = _wffTreeList.get(i).getNodeType() == NodeType.ROOT ? _wffTreeList.get(i).getChild(0) : _wffTreeList.get(i);

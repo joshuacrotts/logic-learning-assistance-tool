@@ -1,0 +1,8 @@
+1: (z)(Mz <-> Nz)                P
+2: (Ma & Bb)                     P
+3: Ma                            Derived from [(Ma & Bb)], &E
+4: (Ma <-> Na)                   Derived from [(z)(Mz <-> Nz)], UE
+5: (Ma -> Na)                     Derived from [(Ma <-> Na)], ↔E
+6: Na                            Derived from [(Ma -> Na), Ma], MP
+7: (∃x)Nx                        Derived from [Na], EI
+∴ (∃x)Nx  ■

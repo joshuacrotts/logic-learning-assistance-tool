@@ -2,16 +2,14 @@ package com.llat.algorithms.predicate;
 
 import com.llat.algorithms.ArgumentTruthTreeValidator;
 import com.llat.algorithms.BaseNaturalDeductionValidator;
-import com.llat.algorithms.BaseTruthTreeGenerator;
 import com.llat.algorithms.models.NDFlag;
 import com.llat.algorithms.models.NDStep;
 import com.llat.algorithms.models.NDWffTree;
-import com.llat.algorithms.models.TruthTree;
-import com.llat.input.events.SyntaxErrorEvent;
 import com.llat.models.treenode.*;
-import com.llat.tools.EventBus;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 /**
  *
@@ -21,7 +19,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     /**
      *
      */
-    protected static final int TIMEOUT = 100;
+    private static final int TIMEOUT = 100;
 
     /**
      *
@@ -33,15 +31,25 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      */
     private final HashSet<Character> CONCLUSION_CONSTANTS;
 
+    /**
+     *
+     */
+    private int containsFlags;
+
     public PredicateNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
         super(_wffTreeList);
         // Get all constants and conclusion constants...
         this.CONSTANTS = new HashSet<>();
         this.CONCLUSION_CONSTANTS = new HashSet<>();
+        this.containsFlags = 0;
 
         for (int i = 0; i < _wffTreeList.size() - 1; i++)
-            this.addAllConstants(_wffTreeList.get(i), this.CONSTANTS);
-        this.addAllConstants(_wffTreeList.getLast(), this.CONCLUSION_CONSTANTS);
+            this.addAllConstantsToSet(_wffTreeList.get(i), this.CONSTANTS);
+        this.addAllConstantsToSet(_wffTreeList.getLast(), this.CONCLUSION_CONSTANTS);
+
+        // Since a lot of these operations are computationally expensive, it's worthwhile to see
+        // if we even need to do some of them.
+        this.computeFlags();
     }
 
     /**
@@ -60,21 +68,23 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         int currIteration = 0;
         boolean foundConclusion = false;
         boolean foundContradiction = false;
-        for (currIteration = 0; currIteration <= PredicateNaturalDeductionValidator.TIMEOUT;
+        for (currIteration = 0;
+             currIteration <= PredicateNaturalDeductionValidator.TIMEOUT;
              currIteration++) {
             boolean mod1 = false;
-            // If any of these return true we won't do the extra steps.
-            mod1 = this.findExistentialQuantifiers();
-            mod1 = this.findSimplifications() || mod1;
-            mod1 = this.findModusPonens() || mod1;
-            mod1 = this.findModusTollens() || mod1;
-            mod1 = this.findDisjunctiveSyllogisms() || mod1;
-            mod1 = this.findHypotheticalSyllogisms() || mod1;
-            mod1 = this.findDoubleNegations() || mod1;
-            mod1 = this.findBiconditionalEquivalences() || mod1;
-            mod1 = this.findUniversalQuantifiers() || mod1;
 
-            this.appendDisjunctions();
+            // If any of these return true we won't do the extra steps.
+            mod1 = this.findDoubleNegations() || mod1;
+            if ((this.containsFlags & NDFlag.EXIS) != 0) { mod1 = this.findExistentialQuantifiers(); }
+            if ((this.containsFlags & NDFlag.AND_I) != 0) { mod1 = this.findSimplifications() || mod1; }
+            if ((this.containsFlags & (NDFlag.BC | NDFlag.IMP_I)) != 0) { mod1 = this.findModusPonens() || mod1; }
+            if ((this.containsFlags & (NDFlag.BC | NDFlag.IMP_I)) != 0) { mod1 = this.findModusTollens() || mod1; }
+            if ((this.containsFlags & (NDFlag.BC | NDFlag.IMP_I)) != 0) { mod1 = this.findHypotheticalSyllogisms() || mod1; }
+            if ((this.containsFlags & (NDFlag.BC | NDFlag.IMP_I)) != 0) { mod1 = this.findBiconditionalEquivalences() || mod1; }
+            if ((this.containsFlags & NDFlag.OR_I) != 0) { mod1 = this.findDisjunctiveSyllogisms() || mod1; }
+            if ((this.containsFlags & NDFlag.UNIV) != 0) { mod1 = this.findUniversalQuantifiers() || mod1; }
+            if ((this.containsFlags & NDFlag.OR_I) != 0) { this.appendDisjunctions(); }
+
             if (!mod1) { this.appendConjunctions(); }
             if (!mod1) { mod1 = this.findMaterialImplicationEquivalences(); }
             if (!mod1) { this.findDeMorganEquivalences(); }
@@ -104,12 +114,19 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
+     * Existential quantifiers can be added to natural deduction proofs, and retracted.
+     * <p>
+     * Retracting an existential quantifier is done through replacing one and its variable
+     * with a constant that is not in use nor is it in the conclusion.
+     * <p>
+     * Adding an existential quantifier is done through replacing a constant in a Wff (all
+     * occurrences of ONLY that constant) with a variable and the existential quantifier.
      *
-     * @return
+     * @return true if we found a retractable or added an existential quantifier, false otherwise.
      */
     private boolean findExistentialQuantifiers() {
         boolean changed = false;
-       // First try to eliminate the quantifiers by replacing them with new constants.
+        // First try to eliminate the quantifiers by replacing them with new constants.
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             NDWffTree ndWffTree = this.PREMISES_LIST.get(i);
             if (ndWffTree.getWffTree().isExistential() && !ndWffTree.isExisActive() && !ndWffTree.isUnivActive()) {
@@ -126,7 +143,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
             if (!ndWffTree.getWffTree().isQuantifier() && !ndWffTree.isExisActive() && !ndWffTree.isUnivActive()) {
                 // First find all constants in the node.
                 HashSet<Character> ndWffConstants = new HashSet<>();
-                this.addAllConstants(ndWffTree.getWffTree(), ndWffConstants);
+                this.addAllConstantsToSet(ndWffTree.getWffTree(), ndWffConstants);
 
                 // Now replace all of them.
                 for (Character ch : ndWffConstants) {
@@ -139,8 +156,15 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
+     * Universal quantifiers can be retracted and added, but generally won't be added since
+     * that makes a lot of arguments invalid.
+     * <p>
+     * Retracting a universal quantifier involves replacing the quantifier and its bounded
+     * variable with all constants currently used.
+     * <p>
+     * Adding a UQ is still in progress.
      *
-     * @return
+     * @return true if we found a retractable universal quantifier, false otherwise.
      */
     private boolean findUniversalQuantifiers() {
         boolean changed = false;
@@ -174,7 +198,8 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
-     *
+     * @param _existentialNDWffTree
+     * @param _variableToReplace
      */
     private void addExistentialConstant(NDWffTree _existentialNDWffTree, char _variableToReplace) {
         // Find the next available constant to use.
@@ -192,7 +217,8 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
-     *
+     * @param _ndWffTree
+     * @param _constantToReplace
      */
     private void removeExistentialConstant(NDWffTree _ndWffTree, char _constantToReplace) {
         // Replace all occurrences of _constantToReplace with a variable.
@@ -205,6 +231,8 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
+     * @param _universalNDWffTree
+     * @param _variableToReplace
      */
     private void addUniversalConstants(NDWffTree _universalNDWffTree, char _variableToReplace) {
         // Add a default constant if one is not available to the universal quantifier.
@@ -220,6 +248,9 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         }
     }
 
+    /**
+     * @param _predicateNDWffTree
+     */
     private void removeUniversalConstants(NDWffTree _predicateNDWffTree) {
 
     }
@@ -228,18 +259,21 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      * Replaces a variable or a constant with a constant node in a WffTree. This is used when performing
      * existential, universal decomposition, or identity decomposition.
      *
-     * @param _newRoot           - root of WffTree to modify.
-     * @param _symbolToReplace   - constant or variable that we want to replace e.g. (x) = x
-     * @param _symbol            - symbol to replace _symbolToReplace with.
-     * @param _type
+     * @param _newRoot         - root of WffTree to modify.
+     * @param _symbolToReplace - constant or variable that we want to replace e.g. (x) = x
+     * @param _symbol          - symbol to replace _symbolToReplace with.
+     * @param _type            - type of node to insert to the tree. This should either be ReplaceType.CONSTANT or ReplaceType.VARIABLE.
      */
     private void replaceSymbol(WffTree _newRoot, char _symbolToReplace, char _symbol, ReplaceType _type) {
         for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
             if (_newRoot.getChild(i).isVariable() || _newRoot.getChild(0).isConstant()) {
-                char v = _newRoot.getChild(i).getSymbol().charAt(0);
-                if (v == _symbolToReplace) {
-                    if (_type == ReplaceType.CONSTANT) { _newRoot.setChild(i, new ConstantNode("" + _symbol)); }
-                    else if (_type == ReplaceType.VARIABLE) { _newRoot.setChild(i, new VariableNode("" + _symbol)); }
+                char s = _newRoot.getChild(i).getSymbol().charAt(0);
+                if (s == _symbolToReplace) {
+                    if (_type == ReplaceType.CONSTANT) {
+                        _newRoot.setChild(i, new ConstantNode("" + _symbol));
+                    } else if (_type == ReplaceType.VARIABLE) {
+                        _newRoot.setChild(i, new VariableNode("" + _symbol));
+                    }
                 }
             }
             this.replaceSymbol(_newRoot.getChild(i), _symbolToReplace, _symbol, _type);
@@ -247,25 +281,53 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
+     * Recursively adds all constants found in a WffTree to a HashSet. The constants
+     * should be listed as a ConstantNode.
      *
-     * @param _tree
-     * @param _charSet
+     * @param _tree - WffTree to recursively check.
+     * @param _charSet - HashSet of characters to add the discovered constants to.
      */
-    private void addAllConstants(WffTree _tree, HashSet<Character> _charSet) {
+    private void addAllConstantsToSet(WffTree _tree, HashSet<Character> _charSet) {
         if (_tree != null && _tree.isConstant()) {
-            _charSet.add(((ConstantNode) _tree).getSymbol().charAt(0));
+            _charSet.add(_tree.getSymbol().charAt(0));
         }
 
         for (WffTree child : _tree.getChildren()) {
-            this.addAllConstants(child, _charSet);
+            this.addAllConstantsToSet(child, _charSet);
         }
     }
 
     /**
      *
      */
+    private void computeFlags() {
+        for (WffTree wffTree : this.ORIGINAL_WFFTREE_LIST) {
+            this.computeFlagsHelper(wffTree);
+        }
+    }
+
+    /**
+     *
+     * @param wff
+     */
+    private void computeFlagsHelper(WffTree wff) {
+        if (wff.isImp()) this.containsFlags |= NDFlag.IMP_I;
+        else if (wff.isAnd()) this.containsFlags |= NDFlag.AND_I;
+        else if (wff.isExistential()) this.containsFlags |= NDFlag.EXIS;
+        else if (wff.isUniversal()) this.containsFlags |= NDFlag.UNIV;
+        else if (wff.isOr()) this.containsFlags |= NDFlag.OR_I;
+        else if (wff.isBicond()) this.containsFlags |= NDFlag.BC;
+        for (WffTree child : wff.getChildren()) {
+            this.computeFlagsHelper(child);
+        }
+    }
+
+    /**
+     * ReplaceType enum for the replaceSymbols method. More details are found there.
+     */
     private enum ReplaceType {
         VARIABLE,
         CONSTANT
     }
+
 }

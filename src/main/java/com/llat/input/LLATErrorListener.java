@@ -109,7 +109,6 @@ public class LLATErrorListener extends BaseErrorListener {
      * Prints error messages generated through parsing the syntax tree to standard
      * error.
      *
-     * @param void.
      * @return void.
      */
     public static void printErrors() {
@@ -125,7 +124,6 @@ public class LLATErrorListener extends BaseErrorListener {
      * Prints warning messages generated through parsing the syntax tree to standard
      * out.
      *
-     * @param void.
      * @return void.
      */
     public static void printWarnings() {
@@ -216,7 +214,9 @@ public class LLATErrorListener extends BaseErrorListener {
         @Override
         public boolean equals(Object msg) {
             Message oMsg = (Message) msg;
-            return this.text.equals(oMsg.text) && this.lineNo == oMsg.lineNo && this.colNo == oMsg.colNo;
+            return this.text.equals(oMsg.text)
+                    && this.lineNo == oMsg.lineNo
+                    && this.colNo == oMsg.colNo;
         }
 
         @Override
