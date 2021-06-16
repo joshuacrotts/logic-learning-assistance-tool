@@ -1,6 +1,7 @@
 package com.llat.models.treenode;
 
 import com.llat.tools.TexPrintable;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.LinkedList;
 
@@ -167,7 +168,8 @@ public class WffTree implements Copyable, TexPrintable {
 
     @Override
     public int hashCode() {
-        return this.getStringRep().hashCode();
+        System.out.println(this.getStringRep());
+        return this.getStringRep().hashCode() ^ (int) System.currentTimeMillis();
     }
 
     /**

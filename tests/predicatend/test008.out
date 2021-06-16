@@ -1,0 +1,11 @@
+1: (y)(~Vy -> By)                P
+2: (x)~(Fxr & Bx)                P
+3: Fir                           P
+4: ~Vi                           P
+5: (~Vi -> Bi)                   Derived from [(y)(~Vy -> By)], UE
+6: ~(Fir & Bi)                   Derived from [(x)~(Fxr & Bx)], UE
+7: Bi                            Derived from [(~Vi -> Bi), ~Vi], MP
+8: (Fir & Bi)                    Derived from [Fir, Bi], &I
+9: ⊥                             Derived from [~(Fir & Bi), (Fir & Bi)], ⊥I
+10: ~Bi                           Derived from [⊥], ⊥E
+∴ ~Bi  ■

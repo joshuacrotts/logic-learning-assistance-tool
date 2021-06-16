@@ -1,0 +1,8 @@
+1: Hab                           P
+2: (Hab -> (z)(Jz -> Kz))        P
+3: ((z)(Jz -> Kz) -> (∃y)Py)     P
+4: ((∃y)Py -> Bb)                P
+5: (z)(Jz -> Kz)                 Derived from [(Hab -> (z)(Jz -> Kz)), Hab], MP
+6: (∃y)Py                        Derived from [((z)(Jz -> Kz) -> (∃y)Py), (z)(Jz -> Kz)], MP
+7: Bb                            Derived from [((∃y)Py -> Bb), (∃y)Py], MP
+∴ Bb  ■

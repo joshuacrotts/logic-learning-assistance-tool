@@ -53,14 +53,14 @@ CONSTANT: [a-t];
 VARIABLE: [u-z];
 
 /* Quantifiers. */
-EXISTENTIAL: '∃';
-UNIVERSAL: '∀';
+EXISTENTIAL: '∃' ;
+UNIVERSAL: '∀' ;
 
 /* Conclusion Indicator Symbols. */
 THEREFORE: '⊢' | '∴' | '=>';
 
 /* Semantic entailment (models). */
-SEMANTIC_ENTAILMENT: '⊧' | '⊨';
+SEMANTIC_ENTAILMENT: '⊧' | '⊨' ;
 
 //=========== Parser rules. ==============
 

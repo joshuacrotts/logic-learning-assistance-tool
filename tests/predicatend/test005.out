@@ -1,0 +1,12 @@
+1: (z)(Zzss -> Cz)               P
+2: (Zsss & Dst)                  P
+3: (y)(~Dyt | Ay)                P
+4: Zsss                          Derived from [(Zsss & Dst)], &E
+5: Dst                           Derived from [(Zsss & Dst)], &E
+6: (Zsss -> Cs)                  Derived from [(z)(Zzss -> Cz)], UE
+7: (~Dst | As)                   Derived from [(y)(~Dyt | Ay)], UE
+8: Cs                            Derived from [(Zsss -> Cs), Zsss], MP
+9: As                            Derived from [(~Dst | As), Dst], DS
+10: (As & Cs)                     Derived from [Cs, As], &I
+11: (∃x)(Ax & Cx)                 Derived from [(As & Cs)], EI
+∴ (∃x)(Ax & Cx)  ■

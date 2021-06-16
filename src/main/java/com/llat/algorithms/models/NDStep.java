@@ -19,7 +19,11 @@ public enum NDStep {
     DEM("DeM", "De Morgan"),
     BCI("↔I", "Biconditional Introduction"),
     BCE("↔E", "Biconditional Elimination"),
-    MI("MI", "Material Implication");
+    MI("MI", "Material Implication"),
+    EI("EI", "Existential Introduction"),
+    EE("EE", "Existential Elimination"),
+    UI("UI", "Universal Introduction"),
+    UE("UE", "Universal Elimination");
 
 
     /**

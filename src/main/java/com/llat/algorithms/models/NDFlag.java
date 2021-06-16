@@ -65,4 +65,14 @@ public class NDFlag {
      */
     public static final int IMP_I = 0x00000800;
 
+    /**
+     *
+     */
+    public static final int EXIS = 0x00001000;
+
+    /**
+     *
+     */
+    public static final int UNIV = 0x00002000;
+
 }

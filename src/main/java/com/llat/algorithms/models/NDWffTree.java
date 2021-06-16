@@ -162,4 +162,12 @@ public class NDWffTree {
     public boolean isImpIActive() {
         return (this.flags & NDFlag.IMP_I) != 0;
     }
+
+    public boolean isExisActive() {
+        return (this.flags & NDFlag.EXIS) != 0;
+    }
+
+    public boolean isUnivActive() {
+        return (this.flags & NDFlag.UNIV) != 0;
+    }
 }
