@@ -28,12 +28,12 @@ public class NDFlag {
     /**
      *
      */
-    public static final int AND_I = 0x00000010;
+    public static final int AI = 0x00000010;
 
     /**
      *
      */
-    public static final int OR_I = 0x00000020;
+    public static final int OI = 0x00000020;
 
     /**
      *
@@ -58,21 +58,23 @@ public class NDFlag {
     /**
      *
      */
-    public static final int AND_E = 0x00000400;
+    public static final int AE = 0x00000400;
 
     /**
      *
      */
-    public static final int IMP_I = 0x00000800;
+    public static final int II = 0x00000800;
 
     /**
      *
      */
-    public static final int EXIS = 0x00001000;
+    public static final int EX = 0x00001000;
 
     /**
      *
      */
-    public static final int UNIV = 0x00002000;
+    public static final int UN = 0x00002000;
+
+    public static final int SAT = 0x80000000;
 
 }

@@ -2,9 +2,12 @@ package com.llat.algorithms.propositional;
 
 import com.llat.algorithms.ArgumentTruthTreeValidator;
 import com.llat.algorithms.BaseNaturalDeductionValidator;
+import com.llat.algorithms.models.NDFlag;
 import com.llat.algorithms.models.NDWffTree;
 import com.llat.models.treenode.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -33,34 +36,18 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
         ArgumentTruthTreeValidator truthTreeValidator = new ArgumentTruthTreeValidator(this.ORIGINAL_WFFTREE_LIST);
         if (!truthTreeValidator.isValid()) { return null; }
 
-        // We'll either find the conclusion or time out first.
-        int currIteration = 0;
-        boolean foundConclusion = false;
-        boolean foundContradiction = false;
-        for (currIteration = 0; currIteration <= PropositionalNaturalDeductionValidator.TIMEOUT;
-             currIteration++) {
-            boolean mod1 = false;
-            // If any of these return true we won't do the extra steps.
-            mod1 = this.findSimplifications();
-            mod1 = this.findModusPonens() || mod1;
-            mod1 = this.findModusTollens() || mod1;
-            mod1 = this.findDisjunctiveSyllogisms() || mod1;
-            mod1 = this.findHypotheticalSyllogisms() || mod1;
-            mod1 = this.findDoubleNegations() || mod1;
-            mod1 = this.findBiconditionalEquivalences() || mod1;
+        while (!this.findConclusion()) {
+            for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
+                NDWffTree premise = this.PREMISES_LIST.get(i);
+                if (!premise.isSatisfied()) {
+                    if (this.satisfy(premise.getWffTree(), premise)) {
+                        premise.setFlags(NDFlag.SAT);
+                    }
+                }
+            }
 
-            this.appendDisjunctions();
-            if (!mod1) { this.appendConjunctions(); }
-            if (!mod1) { mod1 = this.findMaterialImplicationEquivalences(); }
-            if (!mod1) { this.findDeMorganEquivalences(); }
-
-            // If we found a conclusion or contradiction, quit.
-            if ((foundConclusion = this.findConclusion())) break;
-            if ((foundContradiction = this.findContradictions())) break;
+            this.satisfy(this.CONCLUSION_WFF.getWffTree(), this.CONCLUSION_WFF);
         }
-
-        // If we timed out, just return null.
-        if (currIteration > PropositionalNaturalDeductionValidator.TIMEOUT) { return null; }
 
         // Backtrack from the conclusion to mark all those nodes that were used in the proof.
         this.activateLinks(this.CONCLUSION_WFF);
@@ -73,8 +60,8 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
             }
         }
 
-        // Finally, add the conclusion IF it wasn't derived through a contradiction.
-        if (!foundContradiction) { args.add(this.CONCLUSION_WFF); }
+        // Finally, add the conclusion.
+        args.add(this.CONCLUSION_WFF);
         return args;
     }
 }

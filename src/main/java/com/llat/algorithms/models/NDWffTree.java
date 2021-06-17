@@ -142,10 +142,10 @@ public class NDWffTree {
     }
 
     public boolean isAndIActive() {
-        return (this.flags & NDFlag.AND_I) != 0;
+        return (this.flags & NDFlag.AI) != 0;
     }
 
-    public boolean isAndEActive() { return (this.flags & NDFlag.AND_E) != 0; }
+    public boolean isAndEActive() { return (this.flags & NDFlag.AE) != 0; }
 
     public boolean isDEMActive() {
         return (this.flags & NDFlag.DEM) != 0;
@@ -160,14 +160,16 @@ public class NDWffTree {
     }
 
     public boolean isImpIActive() {
-        return (this.flags & NDFlag.IMP_I) != 0;
+        return (this.flags & NDFlag.II) != 0;
     }
 
     public boolean isExisActive() {
-        return (this.flags & NDFlag.EXIS) != 0;
+        return (this.flags & NDFlag.EX) != 0;
     }
 
     public boolean isUnivActive() {
-        return (this.flags & NDFlag.UNIV) != 0;
+        return (this.flags & NDFlag.UN) != 0;
     }
+
+    public boolean isSatisfied() { return (this.flags & NDFlag.SAT) != 0; }
 }

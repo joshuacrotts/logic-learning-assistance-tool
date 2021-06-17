@@ -8,6 +8,7 @@ public enum NDStep {
     HS("HS", "Hypothetical Syllogism"),
     MT("MT", "Modus Tollens"),
     MP("MP", "Modus Ponens"),
+    II("II", "Implication Introduction"),
     P("P", "Premise"),
     C("C", "Conclusion"),
     DS("DS", "Disjunctive Syllogism"),
