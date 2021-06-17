@@ -118,23 +118,10 @@ public class WffTree implements Copyable, TexPrintable {
         }
 
         WffTree o = (WffTree) _obj;
-
-//        // First try to swap the operands and see if they are the same.
-//        if (this.isAnd() || this.isOr() || this.isBicond()) {
-//            if (this.getNodeType() == o.getNodeType()) {
-//                if (this.getChild(0).stringEquals(o.getChild(1)) &&
-//                    this.getChild(1).stringEquals(o.getChild(0))) {
-//                    return true;
-//                }
-//            }
-//        }
-
         String wff1Equiv = WffTree.getStandardizedEquiv(this.getStringRep());
         String wff2Equiv = WffTree.getStandardizedEquiv(o.getStringRep());
 
-        if (wff1Equiv.equals(wff2Equiv)) {
-            return true;
-        }
+        if (wff1Equiv.equals(wff2Equiv)) { return true; }
 
         StringBuilder w1 = new StringBuilder(wff1Equiv);
         StringBuilder w2 = new StringBuilder(wff2Equiv);

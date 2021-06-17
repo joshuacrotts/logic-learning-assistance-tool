@@ -2,6 +2,6 @@
 2: M                             Derived from [(M & (~N -> ~M))], &E
 3: (~N -> ~M)                    Derived from [(M & (~N -> ~M))], &E
 4: N                             Derived from [(~N -> ~M), M], MT
-5: (N & M)                       Derived from [M, N], &I
-6: ((N & M) | ~M)                Derived from [(N & M)], ∨I
+5: (N & M)                       Derived from [N, M], &I
+6: ((N & M) | ~M)                Derived from [(N & M), ~M], ∨I
 ∴ ((N & M) | ~M)  ■

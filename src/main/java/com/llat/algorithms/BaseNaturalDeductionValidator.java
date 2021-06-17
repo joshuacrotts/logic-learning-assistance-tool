@@ -16,11 +16,6 @@ public abstract class BaseNaturalDeductionValidator {
     /**
      *
      */
-    protected static final int APPEND_CHILD_TIMEOUT = 4;
-
-    /**
-     *
-     */
     protected final LinkedList<WffTree> ORIGINAL_WFFTREE_LIST;
 
     /**
@@ -56,97 +51,315 @@ public abstract class BaseNaturalDeductionValidator {
      */
     public abstract LinkedList<NDWffTree> getNaturalDeductionProof();
 
-    protected boolean satisfy(WffTree _tree, NDWffTree _parent) {
-        System.out.println("Goal: " + _tree.getStringRep());
-        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
-            if (ndWffTree.getWffTree().stringEquals(_tree)) {
-                return true;
-            }
-        }
-
-        // If it's an implication node then we need to try to construct it if it's unsatisfied.
-        if (_tree.isImp()) {
-            boolean lhs = this.satisfy(_tree.getChild(0), _parent);
-            boolean rhs = this.satisfy(_tree.getChild(1), _parent);
-            if (lhs && rhs) {
-                ImpNode impNode = new ImpNode();
-                impNode.addChild(_tree.getChild(0));
-                impNode.addChild(_tree.getChild(1));
-                this.addPremise(new NDWffTree(impNode, NDFlag.II, NDStep.II,
-                                                        this.getPremiseNDWffTree(_tree.getChild(0)),
-                                                        this.getPremiseNDWffTree(_tree.getChild(1))));
-                return true;
-            }
-            // If the parent is not the conclusion then we can attempt to do other rules on it.
-            else if (!this.isConclusion(_parent)) {
-                System.out.println("Obv here");
-                boolean mp = this.findMP(_tree, _parent);
-                boolean mt = this.findMT(_tree, _parent);
-                return mp || mt;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Looks through our list of premises to determine if we have found the conclusion yet. We also assign the
-     * derived parents of that node and the derivation step to the conclusion wff object (since they aren't the same
-     * reference). This is used in the activateLinks method.
-     *
-     * @return true if the premise list has the conclusion, false otherwise.
-     */
-    protected boolean findConclusion() {
-        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
-            if (ndWffTree.getWffTree().stringEquals(this.CONCLUSION_WFF.getWffTree())) {
-                this.CONCLUSION_WFF.setActive(true);
-                this.CONCLUSION_WFF.setDerivedParents(ndWffTree.getDerivedParents());
-                this.CONCLUSION_WFF.setDerivationStep(ndWffTree.getDerivationStep());
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
      *
      * @param _tree
      * @param _parent
      * @return
      */
-    protected boolean findMP(WffTree _tree, NDWffTree _parent) {
+    protected boolean satisfy(WffTree _tree, NDWffTree _parent) {
+        //System.out.println("Goal: " + _tree.getStringRep());
+        if (_tree.isImp()) { return this.satisfyImplication(_tree, _parent); }
+        else if (_tree.isAnd()) { return this.satisfyConjunction(_tree, _parent); }
+        else if (_tree.isOr()) { return this.satisfyDisjunction(_tree, _parent); }
+        else if (_tree.isBicond()) { return this.satisfyBiconditional(_tree, _parent); }
+        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
+            if (ndWffTree.getWffTree().stringEquals(_tree)) {
+                return true; }
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     * @param _impNode
+     * @param _parent
+     * @return
+     */
+    protected boolean satisfyImplication(WffTree _impNode, NDWffTree _parent) {
+        // If the parent is not the conclusion then we can attempt to do other rules on it.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isImp()) {
+            boolean mp = this.findModusPonens(_impNode, _parent);
+            boolean mt = this.findModusTollens(_impNode, _parent);
+            boolean hs = this.findHypotheticalSyllogism(_impNode, _parent);
+            if (mp || mt || hs) return true;
+        }
+
+        // Otherwise, try to construct an implication node.
+        boolean lhs = this.satisfy(_impNode.getChild(0), _parent);
+        boolean rhs = this.satisfy(_impNode.getChild(1), _parent);
+        if (lhs && rhs) {
+            ImpNode impNode = new ImpNode();
+            impNode.addChild(_impNode.getChild(0));
+            impNode.addChild(_impNode.getChild(1));
+            this.addPremise(new NDWffTree(impNode, NDFlag.II, NDStep.II,
+                    this.getPremiseNDWffTree(_impNode.getChild(0)),
+                    this.getPremiseNDWffTree(_impNode.getChild(1))));
+            return true;
+        }
+
+        // Finally, check to see if this wff is a premise somewhere.
+
+        return this.isPremise(_impNode);
+    }
+
+    /**
+     *
+     * @param _conjTree
+     * @param _parent
+     * @return
+     */
+    protected boolean satisfyConjunction(WffTree _conjTree, NDWffTree _parent) {
+        // First try to simplify if the root is a conjunction.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isAnd()) {
+            boolean simp = this.findSimplification(_conjTree, _parent);
+            if (simp) return true;
+        }
+
+        // Then try to create a conjunction if it's a goal.
+        boolean lhs = this.satisfy(_conjTree.getChild(0), _parent);
+        boolean rhs = this.satisfy(_conjTree.getChild(1), _parent);
+        if (lhs && rhs) {
+            AndNode andNode = new AndNode();
+            andNode.addChild(_conjTree.getChild(0));
+            andNode.addChild(_conjTree.getChild(1));
+            this.addPremise(new NDWffTree(andNode, NDFlag.AI, NDStep.AI,
+                    this.getPremiseNDWffTree(_conjTree.getChild(0)),
+                    this.getPremiseNDWffTree(_conjTree.getChild(1))));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param _disjTree
+     * @param _parent
+     * @return
+     */
+    protected boolean satisfyDisjunction(WffTree _disjTree, NDWffTree _parent) {
+        // First try to perform DS if the root is a disjunction.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isOr()) {
+            boolean ds = this.findDisjunctiveSyllogism(_disjTree, _parent);
+            if (ds) return true;
+        }
+        // Then try to create a conjunction if it's a goal.
+        boolean lhs = this.satisfy(_disjTree.getChild(0), _parent);
+        boolean rhs = this.satisfy(_disjTree.getChild(1), _parent);
+        if (lhs || rhs) {
+            // There's two conditions: we're either adding from the conclusion or from
+            // another premise. If the parent is the conclusion, then we're adding from
+            // that (obviously) and one of the nodes won't be retrievable via getPremise....
+            OrNode orNode = new OrNode();
+            orNode.addChild(_disjTree.getChild(0));
+            orNode.addChild(_disjTree.getChild(1));
+
+            // Find out which operand is null (if any).
+            NDWffTree lhsDisj = this.getPremiseNDWffTree(_disjTree.getChild(0));
+            NDWffTree rhsDisj = this.getPremiseNDWffTree(_disjTree.getChild(1));
+            if (this.isConclusion(_parent)) {
+                if (lhsDisj == null) {
+                    lhsDisj = new NDWffTree(_disjTree.getChild(0), NDStep.OI);
+                } else {
+                    rhsDisj = new NDWffTree(_disjTree.getChild(1), NDStep.OI);
+                }
+            }
+            this.addPremise(new NDWffTree(orNode, NDFlag.OI, NDStep.OI, lhsDisj, rhsDisj));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param _bicondTree
+     * @param _parent
+     * @return
+     */
+    protected boolean satisfyBiconditional(WffTree _bicondTree, NDWffTree _parent) {
+        // First check to see if we can break any biconditionals down.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isBicond()) {
+            boolean bc = this.findBiconditionalElimination(_bicondTree, _parent);
+            if (bc) return true;
+        }
+
+        // We first have a subgoal of X -> Y and Y -> X.
+        ImpNode impLhs = new ImpNode();
+        ImpNode impRhs = new ImpNode();
+        impLhs.addChild(_bicondTree.getChild(0));
+        impLhs.addChild(_bicondTree.getChild(1));
+        impRhs.addChild(_bicondTree.getChild(1));
+        impRhs.addChild(_bicondTree.getChild(0));
+        boolean lhs = this.satisfy(impLhs, _parent);
+        boolean rhs = this.satisfy(impRhs, _parent);
+        if (lhs && rhs) {
+            BicondNode bicondNode = new BicondNode();
+            bicondNode.addChild(_bicondTree.getChild(0));
+            bicondNode.addChild(_bicondTree.getChild(1));
+            this.addPremise(new NDWffTree(bicondNode, NDFlag.BC, NDStep.BCI,
+                    this.getPremiseNDWffTree(impLhs),
+                    this.getPremiseNDWffTree(impRhs)));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param _mpTree
+     * @param _parent
+     * @return
+     */
+    protected boolean findModusPonens(WffTree _mpTree, NDWffTree _parent) {
         if (!_parent.isMPActive()) {
             for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
                 NDWffTree ndWffTree = this.PREMISES_LIST.get(i);
                 // Check to see if we have the antecedent satisfied.
-                if (ndWffTree.getWffTree().stringEquals(_tree.getChild(0))) {
-                    NDWffTree consequentNode = new NDWffTree(_tree.getChild(0), NDStep.MP, _parent, ndWffTree);
-                    this.PREMISES_LIST.add(consequentNode);
+                if (ndWffTree.getWffTree().stringEquals(_mpTree.getChild(0))) {
+                    NDWffTree consequentNode = new NDWffTree(_mpTree.getChild(1), NDStep.MP, _parent, ndWffTree);
+                    this.addPremise(consequentNode);
                     return true;
                 }
             }
         }
-
         return false;
     }
 
-    protected boolean findMT(WffTree _tree, NDWffTree _parent) {
+    /**
+     *
+     * @param _mtTree
+     * @param _parent
+     * @return
+     */
+    protected boolean findModusTollens(WffTree _mtTree, NDWffTree _parent) {
         if (!_parent.isMTActive()) {
             for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
                 NDWffTree ndWffTree = this.PREMISES_LIST.get(i);
                 // Check to see if we have the negated consequent satisfied.
-                if (_tree.getChild(1).stringEquals(BaseTruthTreeGenerator.getFlippedNode(ndWffTree.getWffTree()))) {
-                    WffTree flippedWff = BaseTruthTreeGenerator.getFlippedNode(ndWffTree.getWffTree());
+                if (_mtTree.getChild(1).stringEquals(BaseTruthTreeGenerator.getFlippedNode(ndWffTree.getWffTree()))) {
+                    WffTree flippedWff = BaseTruthTreeGenerator.getFlippedNode(_mtTree.getChild(0));
                     NDWffTree flippedNode = new NDWffTree(flippedWff, NDStep.MT, _parent, ndWffTree);
-                    this.PREMISES_LIST.add(flippedNode);
+                    this.addPremise(flippedNode);
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param _andTree
+     * @param _parent
+     * @return
+     */
+    protected boolean findSimplification(WffTree _andTree, NDWffTree _parent) {
+        if (!_parent.isAndEActive()) {
+            _parent.setFlags(NDFlag.AE);
+            NDWffTree andLhs = new NDWffTree(_andTree.getChild(0), NDStep.AE, _parent);
+            NDWffTree andRhs = new NDWffTree(_andTree.getChild(1), NDStep.AE, _parent);
+            this.addPremise(andLhs);
+            this.addPremise(andRhs);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param _disjTree
+     * @param _parent
+     * @return
+     */
+    protected boolean findDisjunctiveSyllogism(WffTree _disjTree, NDWffTree _parent) {
+        if (!_parent.isDSActive()) {
+            WffTree flippedLhs = BaseTruthTreeGenerator.getFlippedNode(_disjTree.getChild(0));
+            WffTree flippedRhs = BaseTruthTreeGenerator.getFlippedNode(_disjTree.getChild(1));
+            boolean lhs = this.satisfy(flippedLhs, _parent);
+            boolean rhs = this.satisfy(flippedRhs, _parent);
+
+            // If we do not satisfy one of them but do satisfy the other, then we can perform DS.
+            if (Boolean.logicalXor(lhs, rhs)) {
+                if (lhs) {
+                    NDWffTree w1 = new NDWffTree(_disjTree.getChild(1), NDStep.DS, _parent, this.getPremiseNDWffTree(flippedLhs));
+                    this.addPremise(w1);
+                }
+                else {
+                    NDWffTree w2 =new NDWffTree(_disjTree.getChild(0), NDStep.DS, _parent, this.getPremiseNDWffTree(flippedRhs));
+                    this.addPremise(w2); }
+
+                _parent.setFlags(NDFlag.DS);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param _impNode
+     * @param _parent
+     * @return
+     */
+    protected boolean findHypotheticalSyllogism(WffTree _impNode, NDWffTree _parent) {
+        for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
+            NDWffTree othNdWffTree = this.PREMISES_LIST.get(i);
+            WffTree othImp = othNdWffTree.getWffTree();
+            if (_parent != othNdWffTree && othImp.isImp()
+                    && !_parent.isHSActive() && !othNdWffTree.isHSActive()) {
+                // X == Y && Y == Z OR Y == Z && X == Y check to see if the antecedent of one
+                // is equal to the consequent of the other.
+                ImpNode impNode = null;
+                if (_impNode.getChild(1).stringEquals(othImp.getChild(0))) {
+                    impNode = new ImpNode();
+                    impNode.addChild(_impNode.getChild(0));
+                    impNode.addChild(othImp.getChild(1));
+                } else if (othImp.getChild(1).stringEquals(_impNode.getChild(0))) {
+                    impNode = new ImpNode();
+                    impNode.addChild(othImp.getChild(0));
+                    impNode.addChild(_impNode.getChild(1));
+                }
+
+                // If we found one, then we add it.
+                if (impNode != null) {
+                    _parent.setFlags(NDFlag.HS);
+                    othNdWffTree.setFlags(NDFlag.HS);
+                    this.addPremise(new NDWffTree(impNode, NDStep.HS, _parent, othNdWffTree));
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param _bicondTree
+     * @param _parent
+     * @return
+     */
+    protected boolean findBiconditionalElimination(WffTree _bicondTree, NDWffTree _parent) {
+        if (!_parent.isBCActive()) {
+            ImpNode impLhs = new ImpNode();
+            ImpNode impRhs = new ImpNode();
+            impLhs.addChild(_bicondTree.getChild(0));
+            impLhs.addChild(_bicondTree.getChild(1));
+            impRhs.addChild(_bicondTree.getChild(1));
+            impRhs.addChild(_bicondTree.getChild(0));
+            this.addPremise(new NDWffTree(impLhs, NDStep.BCE, _parent));
+            this.addPremise(new NDWffTree(impRhs, NDStep.BCE, _parent));
+            _parent.setFlags(NDFlag.BC);
+            return true;
         }
 
         return false;
     }
 
+    /**
+     *
+     * @param _conclusionNode
+     */
     protected void activateLinks(NDWffTree _conclusionNode) {
         if (_conclusionNode == null) { return; }
         _conclusionNode.setActive(true);
@@ -154,7 +367,6 @@ public abstract class BaseNaturalDeductionValidator {
             this.activateLinks(ndWffTree);
         }
     }
-
 
     /**
      * Attempts to add a premise (NDWffTree) to our running list of premises. A premise is NOT added if there is already
@@ -180,6 +392,11 @@ public abstract class BaseNaturalDeductionValidator {
         return _ndWffTree.getWffTree().isBinaryOp() && _ndWffTree.getWffTree().getChild(0).stringEquals(_ndWffTree.getWffTree().getChild(1));
     }
 
+    /**
+     *
+     * @param _tree
+     * @return
+     */
     protected NDWffTree getPremiseNDWffTree(WffTree _tree) {
         for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
             NDWffTree ndWffTree = this.PREMISES_LIST.get(i);
@@ -190,13 +407,47 @@ public abstract class BaseNaturalDeductionValidator {
         return null;
     }
 
-    protected boolean isPremise(NDWffTree _ndWffTree) {
-        return this.PREMISES_LIST.contains(_ndWffTree);
+    /**
+     * Looks through our list of premises to determine if we have found the conclusion yet. We also assign the
+     * derived parents of that node and the derivation step to the conclusion wff object (since they aren't the same
+     * reference). This is used in the activateLinks method.
+     *
+     * @return true if the premise list has the conclusion, false otherwise.
+     */
+    protected boolean findConclusion() {
+        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
+            if (ndWffTree.getWffTree().stringEquals(this.CONCLUSION_WFF.getWffTree())) {
+                this.CONCLUSION_WFF.setActive(true);
+                this.CONCLUSION_WFF.setDerivedParents(ndWffTree.getDerivedParents());
+                this.CONCLUSION_WFF.setDerivationStep(ndWffTree.getDerivationStep());
+                return true;
+            }
+        }
+        return false;
     }
 
+    /**
+     *
+     * @param _tree
+     * @return
+     */
+    protected boolean isPremise(WffTree _tree) {
+        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
+            if (ndWffTree.getWffTree().stringEquals(_tree)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     * @param _ndWffTree
+     * @return
+     */
     protected boolean isConclusion(NDWffTree _ndWffTree) {
         return this.CONCLUSION_WFF.getWffTree().stringEquals(_ndWffTree.getWffTree())
                 || this.CONCLUSION_WFF == _ndWffTree;
     }
 }
-//A,B=>(A -> B)

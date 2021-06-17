@@ -39,10 +39,8 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
         while (!this.findConclusion()) {
             for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
                 NDWffTree premise = this.PREMISES_LIST.get(i);
-                if (!premise.isSatisfied()) {
-                    if (this.satisfy(premise.getWffTree(), premise)) {
-                        premise.setFlags(NDFlag.SAT);
-                    }
+                if (this.satisfy(premise.getWffTree(), premise)) {
+                    premise.setFlags(NDFlag.SAT);
                 }
             }
 

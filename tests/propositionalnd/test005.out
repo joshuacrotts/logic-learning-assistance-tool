@@ -5,6 +5,6 @@
 5: (~S & T)                      Derived from [(~P | (~S & T)), P], DS
 6: ~S                            Derived from [(~S & T)], &E
 7: T                             Derived from [(~S & T)], &E
-8: (T & ~S)                      Derived from [~S, T], &I
+8: (T & ~S)                      Derived from [T, ~S], &I
 9: ~U                            Derived from [((T & ~S) -> ~U), (T & ~S)], MP
 ∴ ~U  ■
