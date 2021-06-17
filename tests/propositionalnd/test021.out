@@ -6,11 +6,11 @@
 6: (~E | (~F | ~G))              P
 7: F                             P
 8: (A | C)                       Derived from [((A | B) & (A | C))], &E
-9: A                             Derived from [(A | C), ~C], DS
-10: B                             Derived from [(A -> B), A], MP
-11: ~D                            Derived from [(B -> ~D), B], MP
+9: (A -> ~D)                     Derived from [(A -> B), (B -> ~D)], HS
+10: A                             Derived from [(A | C), ~C], DS
+11: ~D                            Derived from [(A -> ~D), A], MP
 12: E                             Derived from [(~E -> D), ~D], MT
 13: (~F | ~G)                     Derived from [(~E | (~F | ~G)), E], DS
 14: ~G                            Derived from [(~F | ~G), F], DS
-15: (~G | H)                      Derived from [~G], ∨I
+15: (~G | H)                      Derived from [~G, H], ∨I
 ∴ (~G | H)  ■

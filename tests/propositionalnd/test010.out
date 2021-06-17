@@ -3,6 +3,6 @@
 3: (C -> B)                      P                             
 4: ~B                            Derived from [(A | ~B), ~A], DS
 5: ~C                            Derived from [(C -> B), ~B], MT
-6: (~C & ~A)                     Derived from [~A, ~C], &I
-7: ((~C & ~A) | Q)               Derived from [(~C & ~A)], ∨I
+6: (~C & ~A)                     Derived from [~C, ~A], &I
+7: ((~C & ~A) | Q)               Derived from [(~C & ~A), Q], ∨I
 ∴ ((~C & ~A) | Q)  ■

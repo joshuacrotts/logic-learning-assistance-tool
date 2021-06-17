@@ -36,7 +36,7 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
         ArgumentTruthTreeValidator truthTreeValidator = new ArgumentTruthTreeValidator(this.ORIGINAL_WFFTREE_LIST);
         if (!truthTreeValidator.isValid()) { return null; }
 
-        while (!this.findConclusion()) {
+        while (!this.findConclusion() && !this.findContradictions()) {
             for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
                 NDWffTree premise = this.PREMISES_LIST.get(i);
                 if (this.satisfy(premise.getWffTree(), premise)) {
@@ -63,3 +63,4 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
         return args;
     }
 }
+

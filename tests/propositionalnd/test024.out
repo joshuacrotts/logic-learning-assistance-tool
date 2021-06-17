@@ -3,5 +3,5 @@
 3: (P & Q)                       Derived from [((P & Q) & R)], &E
 4: S                             Derived from [(S & T)], &E
 5: Q                             Derived from [(P & Q)], &E
-6: (Q & S)                       Derived from [S, Q], &I
+6: (Q & S)                       Derived from [Q, S], &I
 ∴ (Q & S)  ■

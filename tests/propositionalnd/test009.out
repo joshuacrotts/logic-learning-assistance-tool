@@ -2,6 +2,6 @@
 2: (Q -> R)                      P
 3: (Q -> S)                      P
 4: (S -> T)                      P
-5: (P -> S)                      Derived from [(P -> Q), (Q -> S)], HS
-6: (P -> T)                      Derived from [(S -> T), (P -> S)], HS
+5: (P -> S)                      Derived from [(Q -> S), (P -> Q)], HS
+6: (P -> T)                      Derived from [(P -> S), (S -> T)], HS
 ∴ (P -> T)  ■
