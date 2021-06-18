@@ -1,9 +1,13 @@
 package com.llat.algorithms;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.llat.models.treenode.WffTree;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -53,16 +57,42 @@ public abstract class PDFPrinter {
     /**
      * Opens a URL stream and downloads the data from it to the fileName provided.
      *
-     * @param url - URL to download from.
-     * @param fileName - filename to save data from url to.
+     * @param _url - URL to download from.
+     * @param _fileName - filename to save data from url to.
+     * @param _payload - tex data to upload via POST.
      * @throws Exception - exception thrown if something occurs.
      */
-    public static void downloadFile(URL url, String fileName) throws Exception {
-        try (InputStream in = url.openStream()) {
-            Files.copy(in, Paths.get(fileName), StandardCopyOption.REPLACE_EXISTING);
+    public static void downloadFile(String _url, String _fileName, String _payload) throws Exception {
+        HttpURLConnection connection = (HttpURLConnection) new URL(_url).openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        connection.setRequestProperty("Accept", "application/pdf");
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+
+        try (OutputStream os = connection.getOutputStream()) {
+            os.write(createJsonInput(_payload));
+            os.flush();
+        }
+
+        try (InputStream in = connection.getInputStream()) {
+            Files.copy(in, Paths.get(_fileName), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private static byte[] createJsonInput(String _payload) {
+        JsonObject mainObj = new JsonObject();
+        JsonArray resourcesArray = new JsonArray();
+        JsonObject mainAndContentFields = new JsonObject();
+
+        mainAndContentFields.addProperty("main", true);
+        mainAndContentFields.addProperty("content",_payload);
+        resourcesArray.add(mainAndContentFields);
+        mainObj.addProperty("compiler", "pdflatex");
+        mainObj.add("resources", resourcesArray);
+        return mainObj.toString().getBytes(StandardCharsets.UTF_8);
     }
 
     protected BufferedReader getBufferedReader() {

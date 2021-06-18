@@ -51,10 +51,8 @@ public class PDFTruthTreePrinter extends PDFPrinter {
             httpTex.append("\n\\end{forest}\n\\end{document}\n");
 
             // Build the URL and HTTP request.
-            String texURL = "https://latex.ytotech.com/builds/sync?content=";
-            String paramURL = URLEncoder.encode(httpTex.toString(), StandardCharsets.UTF_8);
-            URL url = new URL(texURL + paramURL);
-            PDFPrinter.downloadFile(url, this.getOutputFile());
+            String texURL = "https://latex.ytotech.com/builds/sync";
+            PDFPrinter.downloadFile(texURL, this.getOutputFile(), httpTex.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
