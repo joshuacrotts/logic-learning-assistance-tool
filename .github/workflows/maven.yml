@@ -5,6 +5,7 @@ name: tests
 on: push
 jobs:
   run_tests:
+    timeout-minutes: 2
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository

@@ -2,9 +2,7 @@ package com.llat.algorithms;
 
 import com.llat.models.treenode.WffTree;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -48,9 +46,14 @@ public abstract class PDFPrinter {
     }
 
     /**
+     * Outputs the algorithm or whatever subclass extends this to the output file.
+     */
+    public abstract void outputToFile();
+
+    /**
      * Opens a URL stream and downloads the data from it to the fileName provided.
      *
-     * @param url      - URL to download from.
+     * @param url - URL to download from.
      * @param fileName - filename to save data from url to.
      * @throws Exception - exception thrown if something occurs.
      */
@@ -61,11 +64,6 @@ public abstract class PDFPrinter {
             ex.printStackTrace();
         }
     }
-
-    /**
-     * Outputs the algorithm or whatever subclass extends this to the output file.
-     */
-    public abstract void outputToFile();
 
     protected BufferedReader getBufferedReader() {
         return this.reader;

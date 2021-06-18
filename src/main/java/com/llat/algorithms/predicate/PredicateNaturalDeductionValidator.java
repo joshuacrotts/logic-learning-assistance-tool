@@ -4,9 +4,7 @@ import com.llat.algorithms.BaseNaturalDeductionValidator;
 import com.llat.algorithms.models.NDFlag;
 import com.llat.algorithms.models.NDStep;
 import com.llat.algorithms.models.NDWffTree;
-import com.llat.models.treenode.AndNode;
-import com.llat.models.treenode.ExistentialQuantifierNode;
-import com.llat.models.treenode.WffTree;
+import com.llat.models.treenode.*;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -52,10 +50,12 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     @Override
     public LinkedList<NDWffTree> getNaturalDeductionProof() {
         while (!this.findConclusion() && !this.findContradictions()) {
-            this.satisfy(this.CONCLUSION_WFF.getWffTree(), this.CONCLUSION_WFF);
-            for (NDWffTree premise : this.PREMISES_LIST) {
+            for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
+                NDWffTree premise = this.PREMISES_LIST.get(i);
                 this.satisfy(premise.getWffTree(), premise);
             }
+
+            this.satisfy(this.CONCLUSION_WFF.getWffTree(), this.CONCLUSION_WFF);
         }
 
         // Backtrack from the conclusion to mark all those nodes that were used in the proof.
@@ -83,10 +83,18 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         NDWffTree satisfiedNDWffTree = null;
         if (_tree.isPredicate() || _tree.isNegPredicate()) {
             satisfiedNDWffTree = this.satisfyPredicate(_tree, _parent);
+        } else if (_tree.isImp()) {
+            satisfiedNDWffTree = this.satisfyImplication(_tree, _parent);
         } else if (_tree.isAnd()) {
             satisfiedNDWffTree = this.satisfyConjunction(_tree, _parent);
+        } else if (_tree.isOr()) {
+            satisfiedNDWffTree = this.satisfyDisjunction(_tree, _parent);
+        } else if (_tree.isBicond()) {
+            satisfiedNDWffTree = this.satisfyBiconditional(_tree, _parent);
         } else if (_tree.isExistential()) {
             satisfiedNDWffTree = this.satisfyExistential(_tree, _parent);
+        } else if (_tree.isUniversal()) {
+            satisfiedNDWffTree = this.satisfyUniversal(_tree, _parent);
         }
 
         // If we couldn't find anything to deduce/reduce the proposition with,
@@ -142,6 +150,39 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
+     * @param _impNode
+     * @param _parent
+     * @return
+     */
+    private NDWffTree satisfyImplication(WffTree _impNode, NDWffTree _parent) {
+        // If the parent is not the conclusion then we can attempt to do other rules on it.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isImp()) {
+            if (this.findModusPonens(_impNode, _parent)
+                    || this.findModusTollens(_impNode, _parent)
+                    || this.findHypotheticalSyllogism(_impNode, _parent)) {
+                return null;
+            }
+        }
+
+        // Otherwise, try to construct an implication node - see if both sides are satisfiable.
+        NDWffTree lhsNDWffTree = this.satisfy(_impNode.getChild(0), _parent);
+        NDWffTree rhsNDWffTree = this.satisfy(_impNode.getChild(1), _parent);
+        if (lhsNDWffTree != null && rhsNDWffTree != null) {
+            ImpNode impNode = new ImpNode();
+            impNode.addChild(_impNode.getChild(0));
+            impNode.addChild(_impNode.getChild(1));
+            NDWffTree impNDWffTree = new NDWffTree(impNode, NDFlag.II, NDStep.II,
+                    this.getPremiseNDWffTree(_impNode.getChild(0)),
+                    this.getPremiseNDWffTree(_impNode.getChild(1)));
+            this.addPremise(impNDWffTree);
+            return impNDWffTree;
+        }
+
+        // Finally, check to see if this wff is a premise somewhere.
+        return null;
+    }
+
+    /**
      * @param _tree
      * @param _parent
      * @return
@@ -169,6 +210,83 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
+     * @param _disjTree
+     * @param _parent
+     * @return true if we can satisfy the disjunction goal, false otherwise.
+     */
+    private NDWffTree satisfyDisjunction(WffTree _disjTree, NDWffTree _parent) {
+        // First try to perform DS if the root is a disjunction.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isOr()) {
+            if (this.findDisjunctiveSyllogism(_disjTree, _parent)
+                    && _disjTree.stringEquals(_parent.getWffTree())) {
+                return null;
+            }
+        }
+
+        // Then try to create a conjunction if it's a goal and one of the two children are satisfied.
+        NDWffTree lhsNDWffTree = this.satisfy(_disjTree.getChild(0), _parent);
+        NDWffTree rhsNDWffTree = this.satisfy(_disjTree.getChild(1), _parent);
+        if (lhsNDWffTree != null && rhsNDWffTree != null) {
+            // There's two conditions: we're either adding from the conclusion or from
+            // another premise. If the parent is the conclusion, then we're adding from
+            // that (obviously) and one of the nodes won't be retrievable via getPremise....
+            OrNode orNode = new OrNode();
+            orNode.addChild(_disjTree.getChild(0));
+            orNode.addChild(_disjTree.getChild(1));
+
+            // Find out which operand is null (if any).
+            NDWffTree lhsDisj = this.getPremiseNDWffTree(_disjTree.getChild(0));
+            NDWffTree rhsDisj = this.getPremiseNDWffTree(_disjTree.getChild(1));
+            if (this.isConclusion(_parent)) {
+                if (lhsDisj == null) {
+                    lhsDisj = new NDWffTree(_disjTree.getChild(0), NDStep.OI);
+                } else {
+                    rhsDisj = new NDWffTree(_disjTree.getChild(1), NDStep.OI);
+                }
+            }
+            NDWffTree orNDWffTree = new NDWffTree(orNode, NDFlag.OI, NDStep.OI, lhsDisj, rhsDisj);
+            this.addPremise(orNDWffTree);
+            return orNDWffTree;
+        }
+        return null;
+    }
+
+    /**
+     * @param _bicondTree
+     * @param _parent
+     * @return true if we can satisfy the biconditional goal, false otherwise.
+     */
+    private NDWffTree satisfyBiconditional(WffTree _bicondTree, NDWffTree _parent) {
+        // First check to see if we can break any biconditionals down.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isBicond()) {
+            if (this.findBiconditionalElimination(_bicondTree, _parent)
+                    && _bicondTree.stringEquals(_parent.getWffTree())) return null;
+        }
+        // We first have a subgoal of X -> Y and Y -> X.
+        ImpNode impLhs = new ImpNode();
+        ImpNode impRhs = new ImpNode();
+        impLhs.addChild(_bicondTree.getChild(0));
+        impLhs.addChild(_bicondTree.getChild(1));
+        impRhs.addChild(_bicondTree.getChild(1));
+        impRhs.addChild(_bicondTree.getChild(0));
+
+        // Check to see if both implications are satisfied.
+        NDWffTree lhsNDWffTree = this.satisfy(impLhs, _parent);
+        NDWffTree rhsNDWffTree = this.satisfy(impRhs, _parent);
+        if (lhsNDWffTree != null && rhsNDWffTree != null) {
+            BicondNode bicondNode = new BicondNode();
+            bicondNode.addChild(_bicondTree.getChild(0));
+            bicondNode.addChild(_bicondTree.getChild(1));
+            NDWffTree bicondNDWffTree = new NDWffTree(bicondNode, NDFlag.BC, NDStep.BCI,
+                    this.getPremiseNDWffTree(impLhs),
+                    this.getPremiseNDWffTree(impRhs));
+            this.addPremise(bicondNDWffTree);
+            return bicondNDWffTree;
+        }
+        return null;
+    }
+
+    /**
      * @param _tree
      * @param _parent
      * @return
@@ -176,11 +294,12 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     private NDWffTree satisfyExistential(WffTree _tree, NDWffTree _parent) {
         // Try to eliminate the existential if it's not a conclusion.
         if (!_parent.isExisActive() && !this.isConclusion(_parent)) {
-            throw new UnsupportedOperationException("Haven't done this yet...");
+            this.addExistentialConstant(_parent, ((ExistentialQuantifierNode) _parent.getWffTree()).getVariableSymbolChar());
+            return null;
         }
 
-        NDWffTree child = this.satisfy(_tree.getChild(0), _parent);
         // If we find a satisfiable NDWffTree, then we can add it.
+        NDWffTree child = this.satisfy(_tree.getChild(0), _parent);
         if (child != null) {
             String v = ((ExistentialQuantifierNode) _tree).getVariableSymbol();
             ExistentialQuantifierNode existentialQuantifierNode = new ExistentialQuantifierNode(v);
@@ -191,6 +310,65 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         }
 
         return null;
+    }
+
+    /**
+     *
+     * @param _univTree
+     * @param _parent
+     * @return
+     */
+    private NDWffTree satisfyUniversal(WffTree _univTree, NDWffTree _parent) {
+        // Try to eliminate the universal if it's not a conclusion. We need to apply the elimination to all constants... right?
+        if (!_parent.isUnivActive() && !this.isConclusion(_parent)) {
+            return null;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param _existentialNDWffTree
+     * @param _variableToReplace
+     */
+    private void addExistentialConstant(NDWffTree _existentialNDWffTree, char _variableToReplace) {
+        // Find the next available constant to use.
+        char constant = 'a';
+        while (this.CONSTANTS.contains(constant) || this.CONCLUSION_CONSTANTS.contains(constant)) {
+            // This could wrap around...
+            constant++;
+        }
+
+        // Replace all variables found with the constant.
+        WffTree _newRoot = _existentialNDWffTree.getWffTree().getChild(0).copy();
+        this.replaceSymbol(_newRoot, _variableToReplace, constant, ReplaceType.CONSTANT);
+        this.addPremise(new NDWffTree(_newRoot, NDFlag.EX, NDStep.EE, _existentialNDWffTree));
+        this.CONSTANTS.add(constant);
+    }
+
+    /**
+     * Replaces a variable or a constant with a constant node in a WffTree. This is used when performing
+     * existential, universal decomposition, or identity decomposition.
+     *
+     * @param _newRoot         - root of WffTree to modify.
+     * @param _symbolToReplace - constant or variable that we want to replace e.g. (x) = x
+     * @param _symbol          - symbol to replace _symbolToReplace with.
+     * @param _type            - type of node to insert to the tree. This should either be ReplaceType.CONSTANT or ReplaceType.VARIABLE.
+     */
+    private void replaceSymbol(WffTree _newRoot, char _symbolToReplace, char _symbol, ReplaceType _type) {
+        for (int i = 0; i < _newRoot.getChildrenSize(); i++) {
+            if (_newRoot.getChild(i).isVariable() || _newRoot.getChild(0).isConstant()) {
+                char s = _newRoot.getChild(i).getSymbol().charAt(0);
+                if (s == _symbolToReplace) {
+                    if (_type == ReplaceType.CONSTANT) {
+                        _newRoot.setChild(i, new ConstantNode("" + _symbol));
+                    } else if (_type == ReplaceType.VARIABLE) {
+                        _newRoot.setChild(i, new VariableNode("" + _symbol));
+                    }
+                }
+            }
+            this.replaceSymbol(_newRoot.getChild(i), _symbolToReplace, _symbol, _type);
+        }
     }
 
     /**
@@ -208,5 +386,13 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         for (WffTree child : _tree.getChildren()) {
             this.addAllConstantsToSet(child, _charSet);
         }
+    }
+
+    /**
+     * ReplaceType enum for the replaceSymbols method. More details are found there.
+     */
+    private enum ReplaceType {
+        VARIABLE,
+        CONSTANT
     }
 }
