@@ -1,4 +1,10 @@
-1: (~Ljr -> Cjr)                 P
-2: ~Cjr                          P
-3: Ljr                           Derived from [(~Ljr -> Cjr), ~Cjr], MT
-∴ Ljr  ■
+1: Aa                            P
+2: Ba                            P
+3: Cc                            P
+4: Dc                            P
+5: (Aa & Ba)                     Derived from [Aa, Ba], &I
+6: (∃x)(Ax & Bx)                 Derived from [(Aa & Ba)], ∃I
+7: (Cc & Dc)                     Derived from [Cc, Dc], &I
+8: (∃y)(Cy & Dy)                 Derived from [(Cc & Dc)], ∃I
+9: ((∃x)(Ax & Bx) & (∃y)(Cy & Dy))Derived from [(∃x)(Ax & Bx), (∃y)(Cy & Dy)], &I
+∴ ((∃x)(Ax & Bx) & (∃y)(Cy & Dy))  ■

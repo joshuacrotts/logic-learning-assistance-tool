@@ -4,7 +4,9 @@ import com.llat.algorithms.BaseNaturalDeductionValidator;
 import com.llat.algorithms.models.NDFlag;
 import com.llat.algorithms.models.NDStep;
 import com.llat.algorithms.models.NDWffTree;
-import com.llat.models.treenode.*;
+import com.llat.models.treenode.AndNode;
+import com.llat.models.treenode.ExistentialQuantifierNode;
+import com.llat.models.treenode.WffTree;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -109,39 +111,29 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
             return this.getPremiseNDWffTree(_tree);
         }
 
-        // If it is a quantifier, then we know _tree has a variable that may need replacing/substituting.
-        // that may need replacing/substituting.
-        if (_parent.getWffTree().isQuantifier()) {
-            QuantifierNode qn = (QuantifierNode) _parent.getWffTree();
-            char variable = qn.getVariableSymbolChar();
-            // Loop through each other premise.
-            for (NDWffTree othNDWffTree : this.PREMISES_LIST) {
-                if (_tree.getNodeType() == othNDWffTree.getWffTree().getNodeType()) {
-                    // If the two are negated, then we need to truncate it.
-                    WffTree w1 = _tree.isNegation() ? _tree.getChild(0) : _tree;
-                    WffTree w2 = othNDWffTree.getWffTree().isNegation() ? othNDWffTree.getWffTree().getChild(0)
-                            : othNDWffTree.getWffTree();
-                    if (w1.getChildrenSize() == w2.getChildrenSize()) {
-                        // Now check to see if the children are the same OR
-                        // if the former is a matching variable while the latter is a constant.
-                        boolean found = true;
-                        for (int i = 0; i < w1.getChildrenSize() && found; i++) {
-                            WffTree ch1 = w1.getChild(i);
-                            WffTree ch2 = w2.getChild(i);
-                            if (ch1.stringEquals(ch2)) {
-                                continue;
-                            } else if (ch1.isVariable() && ch2.isConstant()) {
-                                // Finally, make sure the variable matches the one in the quantifier.
-                                VariableNode vn = (VariableNode) ch1;
-                                if (variable != vn.getSymbol().charAt(0)) {
-                                    found = false;
-                                }
-                            } else {
-                                found = false;
-                            }
+        // Loop through each other premise.
+        for (NDWffTree othNDWffTree : this.PREMISES_LIST) {
+            if (_tree.getNodeType() == othNDWffTree.getWffTree().getNodeType()
+                && _tree.getSymbol().equals(othNDWffTree.getWffTree().getSymbol())) {
+                // If the two are negated, then we need to truncate it.
+                WffTree w1 = _tree.isNegation() ? _tree.getChild(0) : _tree;
+                WffTree w2 = othNDWffTree.getWffTree().isNegation() ? othNDWffTree.getWffTree().getChild(0)
+                        : othNDWffTree.getWffTree();
+                if (w1.getChildrenSize() == w2.getChildrenSize()) {
+                    // Now check to see if the children are the same OR
+                    // if the former is a matching variable while the latter is a constant.
+                    boolean found = true;
+                    for (int i = 0; i < w1.getChildrenSize() && found; i++) {
+                        WffTree ch1 = w1.getChild(i);
+                        WffTree ch2 = w2.getChild(i);
+                        if (ch1.stringEquals(ch2) || (ch1.isVariable() && ch2.isConstant())) {
+                            continue;
+                        } else {
+                            found = false;
                         }
-                        if (found)
-                            return othNDWffTree;
+                    }
+                    if (found) {
+                        return othNDWffTree;
                     }
                 }
             }
@@ -190,7 +182,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         NDWffTree child = this.satisfy(_tree.getChild(0), _parent);
         // If we find a satisfiable NDWffTree, then we can add it.
         if (child != null) {
-            String v = ((ExistentialQuantifierNode) _parent.getWffTree()).getVariableSymbol();
+            String v = ((ExistentialQuantifierNode) _tree).getVariableSymbol();
             ExistentialQuantifierNode existentialQuantifierNode = new ExistentialQuantifierNode(v);
             existentialQuantifierNode.addChild(_tree.getChild(0));
             NDWffTree existentialNDWffTree = new NDWffTree(existentialQuantifierNode, NDFlag.EX, NDStep.EI, child);
@@ -205,7 +197,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      * Recursively adds all constants found in a WffTree to a HashSet. The constants
      * should be listed as a ConstantNode.
      *
-     * @param _tree - WffTree to recursively check.
+     * @param _tree    - WffTree to recursively check.
      * @param _charSet - HashSet of characters to add the discovered constants to.
      */
     private void addAllConstantsToSet(WffTree _tree, HashSet<Character> _charSet) {
