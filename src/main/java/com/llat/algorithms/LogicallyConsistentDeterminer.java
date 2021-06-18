@@ -3,7 +3,6 @@ package com.llat.algorithms;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
-import com.llat.models.treenode.AndNode;
 import com.llat.models.treenode.BicondNode;
 import com.llat.models.treenode.NodeFlag;
 import com.llat.models.treenode.WffTree;

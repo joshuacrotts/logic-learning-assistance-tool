@@ -1,9 +1,9 @@
 package com.llat.algorithms;
 
 import com.llat.algorithms.models.TruthTree;
-import com.llat.models.treenode.WffTree;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

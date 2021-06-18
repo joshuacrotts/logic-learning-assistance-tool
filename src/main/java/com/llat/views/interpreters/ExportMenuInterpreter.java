@@ -1,10 +1,7 @@
 package com.llat.views.interpreters;
 
 import com.llat.controller.Controller;
-import com.llat.input.events.SolvedFormulaEvent;
-import com.llat.input.events.UnsolvedFormulaEvent;
 import com.llat.models.AlgorithmType;
-import com.llat.models.events.RandomGeneratedFormulaEvent;
 import com.llat.tools.Event;
 import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
@@ -59,13 +56,13 @@ public class ExportMenuInterpreter implements Listener {
         }
     }
 
-    public void disableMenuItems () {
-        this.exportMenu.getMenu().getItems().forEach( (item) -> {
+    public void disableMenuItems() {
+        this.exportMenu.getMenu().getItems().forEach((item) -> {
             item.setDisable(true);
         });
     }
 
-    public void enableMenuItems () {
+    public void enableMenuItems() {
         this.exportMenu.getExportLaTeXMenu().setDisable(false);
         this.exportMenu.getExportPDFMenu().setDisable(!this.controller.hasNetworkConnection());
     }

@@ -1,7 +1,6 @@
 package com.llat.input.tests;
 
 import com.llat.LLATLexer;
-import com.llat.models.treenode.WffTree;
 import org.antlr.v4.runtime.*;
 
 import java.io.IOException;

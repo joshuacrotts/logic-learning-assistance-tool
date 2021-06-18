@@ -1,20 +1,13 @@
 package com.llat.algorithms.propositional;
 
 import com.llat.algorithms.PDFPrinter;
-import com.llat.algorithms.TexPrinter;
-import com.llat.algorithms.propositional.TruthTableGenerator;
 import com.llat.models.treenode.WffTree;
 
-import java.io.*;
-import java.net.HttpURLConnection;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 

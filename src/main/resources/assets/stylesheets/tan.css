@@ -20,8 +20,7 @@
     -hovered-tab: -tertiary-color;
 
 
-
-/*    text field    */
+    /*    text field    */
     -text-field-focussed: derive(silver, 80%);
     -text-field: silver;
     -menubar-color: -primary-color;

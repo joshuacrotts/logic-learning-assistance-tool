@@ -1,7 +1,5 @@
-1: (s = g | ~Dga)                P
-2: (s = g -> As)                 P
-3: Dga                           P
-4: s = g                         Derived from [(s = g | ~Dga), Dga], DS
-5: As                            Derived from [(s = g -> As), s = g], MP
-6: (Ps | As)                     Derived from [As], ∨I
-∴ (Ps | As)  ■
+1: ~Dga                          P
+2: Fgbcdefghij                   P
+3: (~Dga & Fgbcdefghij)          Derived from [~Dga, Fgbcdefghij], &I
+4: (∃x)(~Dxa & Fxbcdefghij)      Derived from [(~Dga & Fgbcdefghij)], ∃I
+∴ (∃x)(~Dxa & Fxbcdefghij)  ■

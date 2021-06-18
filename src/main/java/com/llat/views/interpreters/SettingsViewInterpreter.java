@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsViewInterpreter implements Listener {
-    private Controller controller;
     private final SettingsView settingsView;
+    private final Controller controller;
+    private final ArrayList<Button> categoryButtonsList;
     private VBox selectedCategory = null;
-    private ArrayList<Button> categoryButtonsList;
 
     public SettingsViewInterpreter(Controller _controller, SettingsView _settingsView) {
         this.controller = _controller;
@@ -102,7 +102,7 @@ public class SettingsViewInterpreter implements Listener {
                 alert.setX((this.settingsView.getSettingsStage().getX()) + this.settingsView.getSettingsStage().getScene().getX() + (this.settingsView.getSettingsStage().getWidth() / 2) - (alert.getWidth() / 2));
             });
             alert.heightProperty().addListener((obs, oldVal, newVal) -> {
-                alert.setY((this.settingsView.getSettingsStage().getY()) + this.settingsView.getSettingsStage().getScene().getY() +  (this.settingsView.getSettingsStage().getHeight() / 2) - (alert.getHeight() / 2));
+                alert.setY((this.settingsView.getSettingsStage().getY()) + this.settingsView.getSettingsStage().getScene().getY() + (this.settingsView.getSettingsStage().getHeight() / 2) - (alert.getHeight() / 2));
             });
             if ((alert.showAndWait()).get() == ButtonType.OK) {
                 this.controller.updateLocalStorage();

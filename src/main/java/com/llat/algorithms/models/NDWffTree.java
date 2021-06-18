@@ -113,16 +113,16 @@ public class NDWffTree {
         this.flags |= _flags;
     }
 
+    public boolean isActive() {
+        return (this.flags & NDFlag.ACTIVE) != 0;
+    }
+
     public void setActive(boolean _b) {
         if (_b) {
             this.flags |= NDFlag.ACTIVE;
         } else {
             this.flags &= ~NDFlag.ACTIVE;
         }
-    }
-
-    public boolean isActive() {
-        return (this.flags & NDFlag.ACTIVE) != 0;
     }
 
     public boolean isHSActive() {
@@ -145,7 +145,9 @@ public class NDWffTree {
         return (this.flags & NDFlag.AI) != 0;
     }
 
-    public boolean isAndEActive() { return (this.flags & NDFlag.AE) != 0; }
+    public boolean isAndEActive() {
+        return (this.flags & NDFlag.AE) != 0;
+    }
 
     public boolean isDEMActive() {
         return (this.flags & NDFlag.DEM) != 0;
@@ -171,5 +173,7 @@ public class NDWffTree {
         return (this.flags & NDFlag.UN) != 0;
     }
 
-    public boolean isSatisfied() { return (this.flags & NDFlag.SAT) != 0; }
+    public boolean isSatisfied() {
+        return (this.flags & NDFlag.SAT) != 0;
+    }
 }

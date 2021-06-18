@@ -3,7 +3,7 @@ package com.llat.views.menu.items;
 import com.llat.models.localstorage.ItemObject;
 import javafx.scene.control.MenuItem;
 
- public class CustomMenuItem extends MenuItem {
+public class CustomMenuItem extends MenuItem {
 
     private ItemObject content;
 

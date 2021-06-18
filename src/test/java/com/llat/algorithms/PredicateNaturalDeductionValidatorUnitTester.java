@@ -2,7 +2,6 @@ package com.llat.algorithms;
 
 import com.llat.algorithms.models.NDWffTree;
 import com.llat.algorithms.predicate.PredicateNaturalDeductionValidator;
-import com.llat.algorithms.propositional.PropositionalNaturalDeductionValidator;
 import com.llat.input.LLATParserListener;
 import com.llat.input.tests.ParserTest;
 import org.junit.jupiter.api.Test;

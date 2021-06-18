@@ -2,13 +2,11 @@ package com.llat.views;
 
 import com.llat.controller.Controller;
 import com.llat.main.App;
-import com.llat.tools.ViewManager;
 import com.llat.views.interpreters.SettingsViewInterpreter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
@@ -21,36 +19,36 @@ public class SettingsView {
     private final int MINWIDTH = 750;
     private final int MINHEIGHT = 500;
     private final Double BUTTONHEIGHT = 0.2;
-    private Controller controller;
-    private Stage settingsStage = new Stage();
-    private Scene settingsScene = new Scene(new Pane());
-    private VBox parentPane = new VBox();
-    private HBox categoryAndSelectionHBox = new HBox();
-    private VBox categoryVBox = new VBox();
-    private Button appearanceButton = new Button("Appearance");
-    private Button languageButton = new Button("Language");
-    private Button advanceButton = new Button("Advance");
+    private final Controller controller;
+    private final Stage settingsStage = new Stage();
+    private final Scene settingsScene = new Scene(new Pane());
+    private final VBox parentPane = new VBox();
+    private final HBox categoryAndSelectionHBox = new HBox();
+    private final VBox categoryVBox = new VBox();
+    private final Button appearanceButton = new Button("Appearance");
+    private final Button languageButton = new Button("Language");
+    private final Button advanceButton = new Button("Advance");
     // Appearance settings VBox.
-    private VBox appearanceVBox = new VBox();
-    private Label appearanceTitle = new Label("Appearance");
-    private HBox themeHBox = new HBox();
-    private Label themeLabel = new Label("Theme:");
-    private MenuButton themeMenuButton = new MenuButton();
+    private final VBox appearanceVBox = new VBox();
+    private final Label appearanceTitle = new Label("Appearance");
+    private final HBox themeHBox = new HBox();
+    private final Label themeLabel = new Label("Theme:");
+    private final MenuButton themeMenuButton = new MenuButton();
     // Language settings VBox.
-    private VBox languageVBox = new VBox();
-    private Label languageTitle = new Label("Language");
-    private HBox languageHBox = new HBox();
-    private Label languageLabel = new Label("Language");
-    private MenuButton languageMenuButton = new MenuButton();
+    private final VBox languageVBox = new VBox();
+    private final Label languageTitle = new Label("Language");
+    private final HBox languageHBox = new HBox();
+    private final Label languageLabel = new Label("Language");
+    private final MenuButton languageMenuButton = new MenuButton();
     // Advance settings VBox.
-    private VBox advanceVBox = new VBox();
-    private Label advanceTitle = new Label("Advance");
+    private final VBox advanceVBox = new VBox();
+    private final Label advanceTitle = new Label("Advance");
     // Bottom settings HBox.
-    private HBox bottomHBox = new HBox();
-    private Region emptyRegion = new Region();
-    private Button cancelButton = new Button("Cancel");
-    private Button saveButton = new Button("Save");
-    private SettingsViewInterpreter settingsViewInterpreter;
+    private final HBox bottomHBox = new HBox();
+    private final Region emptyRegion = new Region();
+    private final Button cancelButton = new Button("Cancel");
+    private final Button saveButton = new Button("Save");
+    private final SettingsViewInterpreter settingsViewInterpreter;
 
     public SettingsView(Controller _controller) {
         this.controller = _controller;

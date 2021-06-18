@@ -1,4 +1,5 @@
-1: (Aa -> Ba)                    P
-2: Aa                            P
-3: Ba                            Derived from [(Aa -> Ba), Aa], MP
-∴ Ba  ■
+1: Pac                           P
+2: Qbc                           P
+3: (Pac & Qbc)                   Derived from [Pac, Qbc], &I
+4: (∃x)(Pax & Qbx)               Derived from [(Pac & Qbc)], ∃I
+∴ (∃x)(Pax & Qbx)  ■

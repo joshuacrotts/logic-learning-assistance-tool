@@ -211,7 +211,7 @@ public class TruthTreeInterpreter implements Listener {
      * fashion. Each child is added to this queue and added to the tree at the same
      * time. We use a BFS because we have to tell the library which parent each
      * node belongs to.
-     *
+     * <p>
      * Note that, to add a node to the Abego tree, it has to be a different node
      * altogether, meaning that if you want to add a node that has the same string
      * representation of another (e.g. A = (P & Q), B = (P & Q)), you have to

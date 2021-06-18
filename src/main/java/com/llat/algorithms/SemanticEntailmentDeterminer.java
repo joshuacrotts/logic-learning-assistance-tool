@@ -10,13 +10,13 @@ import java.util.Stack;
 
 /**
  * This should be a relatively easy algorithm to implement:
- *
+ * <p>
  * Two wffs A and B, we have the relationship A |= B if and only if
  * (A OR B) results in a tautology.
- *
+ * <p>
  * The idea is as follows: A needs to imply B, OR B needs to imply A,
  * but not both. The two statements also cannot be logically equivalent.
- *
+ * <p>
  * So, we can do the following: run a test for equivalence on
  * A and B, then run a test for tautology on ((A -> B) OR (B -> A)). If
  * the two are not equivalent, and the tautology test returns true,
@@ -38,12 +38,12 @@ public class SemanticEntailmentDeterminer {
     /**
      *
      */
-    private WffTree entailer;
+    private final WffTree entailer;
 
     /**
      *
      */
-    private WffTree entailee;
+    private final WffTree entailee;
 
     public SemanticEntailmentDeterminer(LinkedList<WffTree> _wffTreeList/*WffTree _treeOne, WffTree _treeTwo*/) {
         this.combinedTree = new WffTree();

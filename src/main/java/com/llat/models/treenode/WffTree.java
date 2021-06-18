@@ -1,7 +1,6 @@
 package com.llat.models.treenode;
 
 import com.llat.tools.TexPrintable;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.LinkedList;
 
@@ -54,7 +53,7 @@ public class WffTree implements Copyable, TexPrintable {
     /**
      * Replaces all instances of the customized symbols to a standard
      * notation so the equivalence checker has some uniformity.
-     *
+     * <p>
      * We should probably replace these as static regex compilers...
      *
      * @param _strRep
@@ -104,10 +103,10 @@ public class WffTree implements Copyable, TexPrintable {
      * Returns whether or not the string representations of two Wffs are equivalent. The important
      * distinction is that this method does NOT compare object references - the equals method
      * does this. This ONLY compares the strings that make up this Wff.
-     *
-//     * Also, note that this DOES ***NOT*** try to flip the operands if and ONLY if they are a symmetric
-//     * operator e.g., AND, OR, and BICOND. All others are non-symmetric. Identity is a
-//     * separate check.
+     * <p>
+     * //     * Also, note that this DOES ***NOT*** try to flip the operands if and ONLY if they are a symmetric
+     * //     * operator e.g., AND, OR, and BICOND. All others are non-symmetric. Identity is a
+     * //     * separate check.
      *
      * @param _obj - WffTree object to compare against.
      * @return true if the string representations match, false otherwise.
@@ -128,7 +127,7 @@ public class WffTree implements Copyable, TexPrintable {
 
         // Check to see if both are identity operators and if so, reverse them.
         if ((this.isIdentity() && o.isIdentity()) && (w1.compareTo(w2.reverse()) == 0 || w1.reverse().compareTo(w2.reverse()) == 0
-            || w1.reverse().compareTo(w2) == 0)) {
+                || w1.reverse().compareTo(w2) == 0)) {
             return true;
         } else {
             // This is a bit ugly but hopefully it works...
@@ -242,6 +241,11 @@ public class WffTree implements Copyable, TexPrintable {
     public boolean isDoubleNegation() {
         return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
                 this.getChild(0).NODE_TYPE == NodeType.NEG;
+    }
+
+    public boolean isNegPredicate() {
+        return this.NODE_TYPE == NodeType.NEG && this.getChild(0) != null &&
+                this.getChild(0).NODE_TYPE == NodeType.PREDICATE;
     }
 
     public boolean isNegImp() {
@@ -380,7 +384,7 @@ public class WffTree implements Copyable, TexPrintable {
     public boolean isPalindromeWff() {
         String s = this.getStringRep();
         int n = s.length();
-        for (int i = 0; i < (n/2); ++i) {
+        for (int i = 0; i < (n / 2); ++i) {
             if (s.charAt(i) != s.charAt(n - i - 1)) {
                 return false;
             }

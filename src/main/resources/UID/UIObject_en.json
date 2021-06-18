@@ -719,8 +719,8 @@
         }
       }
     },
-    "confirmation":{
-      "label":"Confirmation",
+    "confirmation": {
+      "label": "Confirmation",
       "alertHeader": "Are you sure?",
       "alertContent": "Saving the current changes will require the application to restart. Are you sure you want to continue?"
     },

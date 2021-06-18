@@ -1,7 +1,10 @@
-1: ~Be                           P
-2: (~(Be | Cc) -> ~Dd)           P
-3: ~Cc                           P
-4: (~Be & ~Cc)                   Derived from [~Be, ~Cc], &I
-5: ~(Be | Cc)                    Derived from [(~Be & ~Cc)], DeM
-6: ~Dd                           Derived from [(~(Be | Cc) -> ~Dd), ~(Be | Cc)], MP
-∴ ~Dd  ■
+1: ~Bea                          P
+2: ~Ped                          P
+3: Febcq                         P
+4: Ge                            P
+5: ~Gh                           P
+6: (~Bea & ~Ped)                 Derived from [~Bea, ~Ped], &I
+7: (Febcq & Ge)                  Derived from [Febcq, Ge], &I
+8: ((~Bea & ~Ped) & (Febcq & Ge))Derived from [(~Bea & ~Ped), (Febcq & Ge)], &I
+9: (∃x)((~Bxa & ~Pxd) & (Fxbcq & Gx))Derived from [((~Bea & ~Ped) & (Febcq & Ge))], ∃I
+∴ (∃x)((~Bxa & ~Pxd) & (Fxbcq & Gx))  ■

@@ -113,7 +113,7 @@ public class LogicSetupInterpreter implements Listener {
             pdfTruthTablePrinter.outputToFile();
         } else if (_event instanceof ExportPDFTruthTreeEvent) {
             BaseTruthTreeGenerator truthTreeGenerator;
-            truthTreeGenerator = (this.outputTree.isPropositionalWff()) ? new PropositionalTruthTreeGenerator(this.outputTree): new PredicateTruthTreeGenerator(this.outputTree);
+            truthTreeGenerator = (this.outputTree.isPropositionalWff()) ? new PropositionalTruthTreeGenerator(this.outputTree) : new PredicateTruthTreeGenerator(this.outputTree);
             PDFTruthTreePrinter pdfTruthTreePrinter = new PDFTruthTreePrinter(truthTreeGenerator.getTruthTree(), ((ExportPDFTruthTreeEvent) _event).getFilePath());
             pdfTruthTreePrinter.outputToFile();
         } else if (_event instanceof ExportLaTeXParseTreeEvent) {

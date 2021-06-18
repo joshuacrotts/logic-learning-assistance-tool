@@ -3,22 +3,16 @@ package com.llat.algorithms.propositional;
 import com.llat.algorithms.ArgumentTruthTreeValidator;
 import com.llat.algorithms.BaseNaturalDeductionValidator;
 import com.llat.algorithms.models.NDFlag;
+import com.llat.algorithms.models.NDStep;
 import com.llat.algorithms.models.NDWffTree;
 import com.llat.models.treenode.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  *
  */
 public final class PropositionalNaturalDeductionValidator extends BaseNaturalDeductionValidator {
-
-    /**
-     *
-     */
-    protected static final int TIMEOUT = 100;
 
     public PropositionalNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
         super(_wffTreeList);
@@ -32,6 +26,7 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
      * @return list of NDWffTree "args". These serve as the premises, with the last element in the list being
      * the conclusion.
      */
+    @Override
     public LinkedList<NDWffTree> getNaturalDeductionProof() {
         ArgumentTruthTreeValidator truthTreeValidator = new ArgumentTruthTreeValidator(this.ORIGINAL_WFFTREE_LIST);
         if (!truthTreeValidator.isValid()) { return null; }
@@ -61,6 +56,186 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
         // Finally, add the conclusion.
         args.add(this.CONCLUSION_WFF);
         return args;
+    }
+
+
+    /**
+     * Determines if we can "satisfy" a premise Wff W. W is satisfied when it is used in
+     * the reduction or expansion of another Wff W'. In other words, if W is used to construct
+     * W', W is satisfied. The idea is to recursively compute "goals" for a premise, then
+     * by determining if those goals are satisfied, we can construct the overall goal.
+     * <p>
+     * For example, suppose the goal is (A & B). The subgoals are then A and B. If A and B are
+     * premises, these goals are satisfied by default. Thus, the overarching goal is satisfied.
+     * Different rules apply for different operators.
+     * <p>
+     * We pass both the parent NDWffTree as well as the WffTree since we cannot break down the
+     * parent NDwffTree's WffTree - we can only recursively pass the children of _tree.
+     *
+     * @param _tree   - WffTree object to recursively check for satisfaction.
+     * @param _parent - NDWffTree "parent" of _tree; any children of _tree will be temporary "children" of _parent.
+     * @return
+     */
+    private boolean satisfy(WffTree _tree, NDWffTree _parent) {
+        boolean satisfied = false;
+        if (this.findDeMorganEquivalence(_tree, _parent)) {
+            return true;
+        } else if (this.findMaterialImplication(_tree, _parent)) {
+            return true;
+        } else if (_tree.isImp()) {
+            satisfied = this.satisfyImplication(_tree, _parent);
+        } else if (_tree.isAnd()) {
+            satisfied = this.satisfyConjunction(_tree, _parent);
+        } else if (_tree.isOr()) {
+            satisfied = this.satisfyDisjunction(_tree, _parent);
+        } else if (_tree.isBicond()) {
+            satisfied = this.satisfyBiconditional(_tree, _parent);
+        }
+
+        // If we couldn't find anything to deduce/reduce the proposition with,
+        // try to search for it in the premises list.
+        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
+            if (ndWffTree.getWffTree().stringEquals(_tree)) {
+                return true;
+            }
+        }
+
+        return satisfied;
+    }
+
+    /**
+     * Satisfying an implication nodes comes through for primary methods:
+     * <p>
+     * 1. Modus Ponens (P -> Q), P therefore Q
+     * 2. Modus Tollens (P -> Q), ~Q therefore ~P
+     * 3. Hypothetical Syllogism (P->Q), (Q->R) therefore (P->R)
+     * 4. Construction of (P -> Q) from P and Q.
+     *
+     * @param _impNode - implication node to check for satisfaction.
+     * @param _parent  - parent NDWffTree.
+     * @return true if we can satisfy the implication goal, false otherwise.
+     */
+    private boolean satisfyImplication(WffTree _impNode, NDWffTree _parent) {
+        // If the parent is not the conclusion then we can attempt to do other rules on it.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isImp()) {
+            if (this.findModusPonens(_impNode, _parent)
+                    || this.findModusTollens(_impNode, _parent)
+                    || this.findHypotheticalSyllogism(_impNode, _parent)) {
+                return true;
+            }
+        }
+
+        // Otherwise, try to construct an implication node - see if both sides are satisfiable.
+        if (this.satisfy(_impNode.getChild(0), _parent) && this.satisfy(_impNode.getChild(1), _parent)) {
+            ImpNode impNode = new ImpNode();
+            impNode.addChild(_impNode.getChild(0));
+            impNode.addChild(_impNode.getChild(1));
+            this.addPremise(new NDWffTree(impNode, NDFlag.II, NDStep.II,
+                    this.getPremiseNDWffTree(_impNode.getChild(0)),
+                    this.getPremiseNDWffTree(_impNode.getChild(1))));
+            return true;
+        }
+
+        // Finally, check to see if this wff is a premise somewhere.
+        return false;
+    }
+
+    /**
+     * @param _conjTree
+     * @param _parent
+     * @return true if we can satisfy the conjunction goal, false otherwise.
+     */
+    private boolean satisfyConjunction(WffTree _conjTree, NDWffTree _parent) {
+        // First try to simplify if the root is a conjunction.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isAnd()) {
+            if (this.findSimplification(_conjTree, _parent)
+                    && _conjTree.stringEquals(_parent.getWffTree())) {
+                return true;
+            }
+        }
+
+        // Then try to create a conjunction if it's a goal and satisfied on both sides.
+        if (this.satisfy(_conjTree.getChild(0), _parent) && this.satisfy(_conjTree.getChild(1), _parent)) {
+            AndNode andNode = new AndNode();
+            andNode.addChild(_conjTree.getChild(0));
+            andNode.addChild(_conjTree.getChild(1));
+            this.addPremise(new NDWffTree(andNode, NDFlag.AI, NDStep.AI,
+                    this.getPremiseNDWffTree(_conjTree.getChild(0)),
+                    this.getPremiseNDWffTree(_conjTree.getChild(1))));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param _disjTree
+     * @param _parent
+     * @return true if we can satisfy the disjunction goal, false otherwise.
+     */
+    private boolean satisfyDisjunction(WffTree _disjTree, NDWffTree _parent) {
+        // First try to perform DS if the root is a disjunction.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isOr()) {
+            if (this.findDisjunctiveSyllogism(_disjTree, _parent)
+                    && _disjTree.stringEquals(_parent.getWffTree())) {
+                return true;
+            }
+        }
+
+        // Then try to create a conjunction if it's a goal and one of the two children are satisfied.
+        if (this.satisfy(_disjTree.getChild(0), _parent) || this.satisfy(_disjTree.getChild(1), _parent)) {
+            // There's two conditions: we're either adding from the conclusion or from
+            // another premise. If the parent is the conclusion, then we're adding from
+            // that (obviously) and one of the nodes won't be retrievable via getPremise....
+            OrNode orNode = new OrNode();
+            orNode.addChild(_disjTree.getChild(0));
+            orNode.addChild(_disjTree.getChild(1));
+
+            // Find out which operand is null (if any).
+            NDWffTree lhsDisj = this.getPremiseNDWffTree(_disjTree.getChild(0));
+            NDWffTree rhsDisj = this.getPremiseNDWffTree(_disjTree.getChild(1));
+            if (this.isConclusion(_parent)) {
+                if (lhsDisj == null) {
+                    lhsDisj = new NDWffTree(_disjTree.getChild(0), NDStep.OI);
+                } else {
+                    rhsDisj = new NDWffTree(_disjTree.getChild(1), NDStep.OI);
+                }
+            }
+            this.addPremise(new NDWffTree(orNode, NDFlag.OI, NDStep.OI, lhsDisj, rhsDisj));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param _bicondTree
+     * @param _parent
+     * @return true if we can satisfy the biconditional goal, false otherwise.
+     */
+    private boolean satisfyBiconditional(WffTree _bicondTree, NDWffTree _parent) {
+        // First check to see if we can break any biconditionals down.
+        if (!this.isConclusion(_parent) && _parent.getWffTree().isBicond()) {
+            if (this.findBiconditionalElimination(_bicondTree, _parent)
+                    && _bicondTree.stringEquals(_parent.getWffTree())) return true;
+        }
+        // We first have a subgoal of X -> Y and Y -> X.
+        ImpNode impLhs = new ImpNode();
+        ImpNode impRhs = new ImpNode();
+        impLhs.addChild(_bicondTree.getChild(0));
+        impLhs.addChild(_bicondTree.getChild(1));
+        impRhs.addChild(_bicondTree.getChild(1));
+        impRhs.addChild(_bicondTree.getChild(0));
+
+        // Check to see if both implications are satisfied.
+        if (this.satisfy(impLhs, _parent) && this.satisfy(impRhs, _parent)) {
+            BicondNode bicondNode = new BicondNode();
+            bicondNode.addChild(_bicondTree.getChild(0));
+            bicondNode.addChild(_bicondTree.getChild(1));
+            this.addPremise(new NDWffTree(bicondNode, NDFlag.BC, NDStep.BCI,
+                    this.getPremiseNDWffTree(impLhs),
+                    this.getPremiseNDWffTree(impRhs)));
+            return true;
+        }
+        return false;
     }
 }
 

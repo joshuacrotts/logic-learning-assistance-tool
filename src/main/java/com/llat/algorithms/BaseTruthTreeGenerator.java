@@ -143,7 +143,7 @@ public abstract class BaseTruthTreeGenerator {
      * @return WffTree node instance of the corresponding negative type.
      * @throws IllegalArgumentException if tree is not an OrNode, ImpNode, or AndNode.
      */
-    protected static WffTree getNegatedBinaryNode(WffTree _tree) {
+    public static WffTree getNegatedBinaryNode(WffTree _tree) {
         if (_tree.isOr() || _tree.isImp()) {
             return new AndNode();
         } else if (_tree.isAnd()) {
@@ -163,7 +163,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _wff - WffTree object to negate.
      * @return negated version of WffTree.
      */
-    protected static WffTree getFlippedNode(WffTree _wff) {
+    public static WffTree getFlippedNode(WffTree _wff) {
         WffTree negWff;
         if (_wff.isNegation()) {
             negWff = _wff.getChild(0);

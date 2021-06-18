@@ -1,1 +1,743 @@
-{"menuBar":{"file":{"label":"Déposer","newProject":{"label":"Nouveau projet","content":[]},"openProject":{"label":"Projet ouvert","content":[]},"export":{"label":"Export"},"login":{"label":"Connexion","content":[]},"register":{"label":"S\u0027inscrire","content":[]},"settings":{"label":"Paramètres","content":[]},"exit":{"label":"Sortir","content":[]}},"export":{"label":"Exportation","pdf":{"label":"PDF","content":[{"label":"Truth Table","content":[]},{"label":"Truth Tree","content":[]},{"label":"Parse Tree","content":[]}]},"latex":{"label":"LaTeX","content":[{"label":"Truth Table","content":[]},{"label":"Truth Tree","content":[]},{"label":"Parse Tree","content":[]}]}},"help":{"label":"Aider","about":{"label":"À propos","content":[]}}},"mainView":{"mainViewLabels":{"propositionalLabel":"Logique propositionnelle","predicateLabel":"Prédis la logique","errorAndWarningLabel":"Erreurs / avertissements","truthTableLabel":"Table de vérité","parseTreeLabel":"Analyser l\u0027arbre","truthTreeLabel":"Arbre de la vérité","symbolNameLabel":"Nom du symbole","formalNameLabel":"Nom officiel","alternativeSymbolsLabel":"Symboles alternatifs","explanationLabel":"Explication","examplesLabel":"Exemples","generalMenu":{"label":"Algorithmes généraux","content":[{"label":"Validateur d\u0027arbre de vérité d\u0027argument","content":[]},{"label":"Détermination d\u0027arbre fermé","content":[]},{"label":"Déterminateur logique du mensonge","content":[]},{"label":"Déterminateur logiquement cohérent","content":[]},{"label":"Déterminateur logiquement contingent","content":[]},{"label":"Déterminateur logiquement contradictoire","content":[]},{"label":"Déterminant logiquement contraire","content":[]},{"label":"Détermination logiquement équivalente","content":[]},{"label":"Déterminateur logiquement implicite","content":[]},{"label":"Déterminateur de tautologie logique","content":[]},{"label":"Détecteur d\u0027opérateur principal","content":[]},{"label":"Open Tree Determiner","content":[]}]},"propositionalMenu":{"label":"Algorithmes de logique propositionnelle","content":[{"label":"Générateur d\u0027arbre de vérité propositionnel","content":[]},{"label":"Génération de formules aléatoires","content":[]},{"label":"Générateur de table de vérité","content":[]}]},"predicateMenu":{"label":"Algorithmes de logique de prédicat","content":[{"label":"Détecteur de variable lié","content":[]},{"label":"Détermination de la peine fermée","content":[]},{"label":"Détecteur variable gratuit","content":[]},{"label":"Détermination de la peine au sol","content":[]},{"label":"Déterminer la phrase ouverte","content":[]},{"label":"Générateur d\u0027arbre de vérité des prédicats","content":[]}]},"axiomTabLabel":"Axiomes","historyTabLabel":"Histoire","solveButton":"Résoudre","applyButton":"Appliquer"},"logicSymbols":{"propositional":{"implication":{"symbol":{"applied":"→","allSymbols":["⇒","⊃","-\u003e","→"]},"description":"C\u0027est le bouton d\u0027implication","axioms":{"explanation":"(A ⇒ B) est faux quand A est vrai et B est faux, mais vrai sinon. L\u0027opérateur d\u0027implication est souvent difficile à comprendre pour les étudiants, en particulier parce que si A est faux et B est faux, la conclusion reste vraie. Ceci est également appelé vacueusement vrai. Nous nous référons à A comme l\u0027antécédent du conditionnel et B comme le conséquent. Un élément important de l\u0027opérateur flèche droite est l\u0027idée de conditions suffisantes et nécessaires. L\u0027antécédent est suffisant pour le conséquent. Le conséquent est nécessaire pour l\u0027antécédent.","example":["1. Supposons que A représente la proposition que quelqu\u0027un est célibataire, et B représente la proposition que quelqu\u0027un n\u0027est pas marié. Par conséquent, (A ⇒ B) se lit comme suit: «Si quelqu\u0027un est célibataire, alors il n\u0027est pas marié». Puisque quelqu\u0027un ne peut pas être marié et célibataire, il est vrai que le fait d\u0027être célibataire est nécessaire pour être célibataire (en d\u0027autres termes, vous ne pouvez pas être célibataire si vous êtes marié). Étant donné que toute personne célibataire n\u0027est pas mariée, il est logique qu\u0027être célibataire soit suffisant pour être célibataire.","2. Supposons que A est vrai et B est faux. Alors (A → B) est faux.","3. Supposons que A est faux et B est faux. Alors (A → B) est vrai."]},"tooltip":"Implication","readAs":"implique; si donc"},"biconditional":{"symbol":{"applied":"↔","allSymbols":["⇔","≡","\u003c-\u003e","↔"]},"description":"C\u0027est le bouton d\u0027équivalence","axioms":{"explanation":"(A ⇔ B) est vrai lorsque A et B sont identiques. Cela signifie que A doit être vrai et B doit être vrai pour que cette phrase soit vraie. De même, A doit être faux et B doit être faux pour que cette phrase soit vraie. Quand ils diffèrent, la phrase est fausse.","example":["1. (A ⇔ B)"]},"tooltip":"Équivalence","readAs":"Si et seulement si; \"iff\"; signifie la même chose que"},"negation":{"symbol":{"applied":"~","allSymbols":["¬","!","˜","~"]},"description":"C\u0027est le bouton de négation","axioms":{"explanation":"L\u0027opérateur de négation (~) retourne la valeur de vérité d\u0027une proposition A. Donc, si A est vrai, alors ~ A est faux. De même, si ~ A est faux, alors ~ A est vrai. L\u0027opérateur de négation fonctionne sur n\u0027importe quelle phrase et distribue à la fois les symboles et les opérateurs.","example":["1. (~~ A ⇔ A)","2. ¬ (A \u0026 B) équivaut à (¬A ∨ ¬B). L\u0027opérateur de négation suit la propriété distributive des mathématiques - nous la distribuons à tout ce qui se trouve à l\u0027intérieur des parenthèses.","3. ~ (A -\u003e ~ B) équivaut à (A \u0026 ~~ B), qui se réduit à (A \u0026 B). Notez que lorsque nous utilisons une négation sur une phrase d\u0027implication (également appelée implication niée), nous ne double-négons pas l\u0027antécédent; nous le réduisons à une proposition moins toute négation."]},"tooltip":"Négation","readAs":"Pas"},"conjunction":{"symbol":{"applied":"∧","allSymbols":["\u0026","·","^","∧"]},"description":"C\u0027est le bouton de conjonction.","axioms":{"explanation":"L\u0027énoncé (A ∧ B) est vrai si A et B sont tous les deux vrais. Sinon, c\u0027est faux.","example":["1. (A ∧ B)","2. ((A ⊃ B) et (B ⊃ A))","3. ((A ∨ B) et (A ∨ C))"]},"tooltip":"Conjonction","readAs":"Et"},"disjunction":{"symbol":{"applied":"∨","allSymbols":["|","+","||","∨"]},"description":"C\u0027est le bouton de disjonction.","axioms":{"explanation":"L\u0027énoncé (A ∨ B) est vrai si A ou B (ou les deux) sont vrais. Si les deux sont faux, alors c\u0027est faux.","example":["1. (A ∨ B)"]},"tooltip":"Disjonction","readAs":"Ou alors"},"exclusiveDisjunction":{"symbol":{"applied":"⊕","allSymbols":["⊻","≢","⩒","↮","⩛","⊕"]},"description":"Ceci est le bouton exclusif ou.","axioms":{"explanation":"L\u0027énoncé (A ⊕ B) est vrai lorsque A ou B sont vrais, mais les deux ne sont pas vrais.","example":["1. Un exemple courant d\u0027exclusivité ou d\u0027opérateur apparaît lorsque l\u0027on parle d\u0027exclusivité parmi les événements. En d\u0027autres termes, si nous avons deux propositions P et Q, alors soit P peut être vrai, soit Q peut être vrai. Cependant, P et Q ne peuvent pas être vrais. De plus, P et Q ne peuvent pas être faux.","2. Supposons que A est vrai et B est faux. Alors (A ⊕ B) est vrai.","3. Supposons que A est vrai et B est faux. Alors ((A → B) ⊕ (B → A)) est vrai. (A → B) est faux et (B → A) est vrai. Ainsi, les opérandes sont différents, ce qui donne vrai."]},"tooltip":"Disjonction exclusive","readAs":"Soit ... soit; xor"},"turnstile":{"symbol":{"applied":"⊢","allSymbols":["∴","⊢"]},"description":"C\u0027est le bouton \"prouve\".","axioms":{"explanation":"(x ⊢ y) signifie que x prouve (implique syntaxiquement) y.","example":["1. (A → B), (B → C) ⊢ (A → C). Les deux prémisses impliquent syntaxiquement la conclusion à travers un syllogisme hypothétique.","2. (P ∨ Q), ~ P ​​∴ Q. Les deux prémisses impliquent syntaxiquement la conclusion par syllogisme disjonctif."]},"tooltip":"Implication syntaxique","readAs":"Prouve ..."},"doubleTurnstile":{"symbol":{"applied":"⊨","allSymbols":["⊧","⊨"]},"description":"C\u0027est le bouton \"modèles\".","axioms":{"explanation":"(x ⊨ y) signifie x modèles (implique sémantiquement) y. En d\u0027autres termes, la formule x bien formée devrait impliquer y, mais l\u0027inverse ne devrait pas être vrai. Les phrases x et y ne doivent pas non plus être équivalentes.","example":["1. P ⊨ (P ∨ Q)"]},"tooltip":"Implication sémantique","readAs":"Des modèles..."}},"predicate":{"universal":{"symbol":{"applied":"∀","allSymbols":["∀","()"]},"description":"C\u0027est le bouton de quantification universel.","axioms":{"explanation":"(∀x) Px ou (x) Px signifie que le prédicat P est vrai pour toutes les entrées x d\u0027un domaine D.","example":["1. (∀x) Px","2. (y) (Py \u0026 Qay)"]},"tooltip":"Quantification universelle","readAs":"Pour tous; Pour toute; Pour chaque; Tout; Tous"},"existential":{"symbol":{"applied":"∃","allSymbols":["∃"]},"description":"C\u0027est le bouton de quantification existentielle.","axioms":{"explanation":"(∃x) Px signifie qu\u0027il y a au moins une entrée x dans un domaine D qui satisfait la proposition P (qui rend P vrai).","example":["1. (∃x) Px"]},"tooltip":"Quantification existentielle","readAs":"Il existe; Quelque; Beaucoup; Au moins un"}}}},"settingsView":{"categories":{"appearance":{"label":"Apparence","theme":{"label":"Thème","applied":{"name":"Défaut","code":"default.css"},"allThemes":[{"name":"Défaut","code":"default.css"},{"name":"Sombre","code":"dark.css"},{"name":"Sépia","code":"sepia.css"},{"name":"Sarcelle","code":"teal.css"},{"name":"bronzer","code":"tan.css"}]}},"language":{"label":"Langue","languageContent":{"label":"Language","applied":{"name":"عربى","code":"ar"},"allLanguages":[{"name":"Afrikaans","code":"af"},{"name":"Azərbaycan","code":"az"},{"name":"bahasa Indonesia","code":"id"},{"name":"català","code":"ca"},{"name":"čeština","code":"cs"},{"name":"Cymraeg","code":"cy"},{"name":"dansk","code":"da"},{"name":"Deutsche","code":"de"},{"name":"eesti","code":"et"},{"name":"English","code":"en"},{"name":"español","code":"es"},{"name":"Esperanto","code":"eo"},{"name":"Euskal","code":"eu"},{"name":"Français","code":"fr"},{"name":"Gaeilge","code":"ga"},{"name":"galego","code":"gl"},{"name":"Hrvatski","code":"hr"},{"name":"icelandic","code":"is"},{"name":"italiano","code":"it"},{"name":"Kiswahili","code":"sw"},{"name":"kreyòl ayisyen","code":"ht"},{"name":"Latine","code":"la"},{"name":"Latvijas","code":"lv"},{"name":"Lietuvos","code":"lt"},{"name":"Magyar","code":"hu"},{"name":"Malay","code":"ms"},{"name":"Malti","code":"mt"},{"name":"Nederlands","code":"nl"},{"name":"norsk","code":"no"},{"name":"Pilipino","code":"tl"},{"name":"Polskie","code":"pl"},{"name":"português","code":"pt"},{"name":"Română","code":"ro"},{"name":"shqiptar","code":"sq"},{"name":"Slovenščina","code":"sl"},{"name":"slovenský","code":"sk"},{"name":"Suomalainen","code":"fi"},{"name":"svenska","code":"sv"},{"name":"Tiếng Việt","code":"vi"},{"name":"Türk","code":"tr"},{"name":"Ελληνικά","code":"el"},{"name":"беларускі","code":"be"},{"name":"български","code":"bg"},{"name":"Македонски","code":"mk"},{"name":"русский","code":"ru"},{"name":"Српски","code":"sr"},{"name":"український","code":"uk"},{"name":"ქართული","code":"ka"},{"name":"ייִדיש","code":"yi"},{"name":"עִברִית","code":"iw"},{"name":"اردو","code":"ur"},{"name":"عربى","code":"ar"},{"name":"فارسی","code":"fa"},{"name":"हिन्दी","code":"hi"},{"name":"বাংলা","code":"bn"},{"name":"ગુજરાતી","code":"gu"},{"name":"தமிழ்","code":"ta"},{"name":"తెలుగు","code":"te"},{"name":"ಕನ್ನಡ","code":"kn"},{"name":"ไทย","code":"th"},{"name":"한국어","code":"ko"},{"name":"中國傳統的","code":"zh-TW"},{"name":"日本語","code":"ja"},{"name":"简体中文","code":"zh-CN"}]}},"advanced":{"label":"Avancée","timeOut":{"label":"Temps libre","value":1000}}},"confirmation":{"label":"Confirmation","alertHeader":"Êtes-vous sûr?","alertContent":"L\u0027enregistrement des modifications actuelles nécessitera le redémarrage de l\u0027application. Es-tu sur de vouloir continuer?"},"cancel":"Annuler","save":"Sauvegarder"},"loginView":{"userNameLabel":"Nom d\u0027utilisateur","userNamePromptText":"Entrez votre nom d\u0027utilisateur","passwordLabel":"Mot de passe","passwordPromptText":"Tapez votre mot de passe","loginButton":"Connexion","returnButton":"Revenir à l\u0027application"},"registerView":{"userNameLabel":"Nom d\u0027utilisateur","userNamePromptText":"Entrez votre nom d\u0027utilisateur","firstNamePromptText":"Entrez votre prénom","lastNamePromptText":"Enter your last name","firstName":"Prénom","lastName":"Entrez votre nom de famille","passwordLabel":"Mot de passe","passwordPromptText":"Tapez votre mot de passe","registerButton":"S\u0027inscrire","returnButton":"Revenir à l\u0027application"}}
+{
+  "menuBar": {
+    "file": {
+      "label": "Déposer",
+      "newProject": {
+        "label": "Nouveau projet",
+        "content": []
+      },
+      "openProject": {
+        "label": "Projet ouvert",
+        "content": []
+      },
+      "export": {
+        "label": "Export"
+      },
+      "login": {
+        "label": "Connexion",
+        "content": []
+      },
+      "register": {
+        "label": "S\u0027inscrire",
+        "content": []
+      },
+      "settings": {
+        "label": "Paramètres",
+        "content": []
+      },
+      "exit": {
+        "label": "Sortir",
+        "content": []
+      }
+    },
+    "export": {
+      "label": "Exportation",
+      "pdf": {
+        "label": "PDF",
+        "content": [
+          {
+            "label": "Truth Table",
+            "content": []
+          },
+          {
+            "label": "Truth Tree",
+            "content": []
+          },
+          {
+            "label": "Parse Tree",
+            "content": []
+          }
+        ]
+      },
+      "latex": {
+        "label": "LaTeX",
+        "content": [
+          {
+            "label": "Truth Table",
+            "content": []
+          },
+          {
+            "label": "Truth Tree",
+            "content": []
+          },
+          {
+            "label": "Parse Tree",
+            "content": []
+          }
+        ]
+      }
+    },
+    "help": {
+      "label": "Aider",
+      "about": {
+        "label": "À propos",
+        "content": []
+      }
+    }
+  },
+  "mainView": {
+    "mainViewLabels": {
+      "propositionalLabel": "Logique propositionnelle",
+      "predicateLabel": "Prédis la logique",
+      "errorAndWarningLabel": "Erreurs / avertissements",
+      "truthTableLabel": "Table de vérité",
+      "parseTreeLabel": "Analyser l\u0027arbre",
+      "truthTreeLabel": "Arbre de la vérité",
+      "symbolNameLabel": "Nom du symbole",
+      "formalNameLabel": "Nom officiel",
+      "alternativeSymbolsLabel": "Symboles alternatifs",
+      "explanationLabel": "Explication",
+      "examplesLabel": "Exemples",
+      "generalMenu": {
+        "label": "Algorithmes généraux",
+        "content": [
+          {
+            "label": "Validateur d\u0027arbre de vérité d\u0027argument",
+            "content": []
+          },
+          {
+            "label": "Détermination d\u0027arbre fermé",
+            "content": []
+          },
+          {
+            "label": "Déterminateur logique du mensonge",
+            "content": []
+          },
+          {
+            "label": "Déterminateur logiquement cohérent",
+            "content": []
+          },
+          {
+            "label": "Déterminateur logiquement contingent",
+            "content": []
+          },
+          {
+            "label": "Déterminateur logiquement contradictoire",
+            "content": []
+          },
+          {
+            "label": "Déterminant logiquement contraire",
+            "content": []
+          },
+          {
+            "label": "Détermination logiquement équivalente",
+            "content": []
+          },
+          {
+            "label": "Déterminateur logiquement implicite",
+            "content": []
+          },
+          {
+            "label": "Déterminateur de tautologie logique",
+            "content": []
+          },
+          {
+            "label": "Détecteur d\u0027opérateur principal",
+            "content": []
+          },
+          {
+            "label": "Open Tree Determiner",
+            "content": []
+          }
+        ]
+      },
+      "propositionalMenu": {
+        "label": "Algorithmes de logique propositionnelle",
+        "content": [
+          {
+            "label": "Générateur d\u0027arbre de vérité propositionnel",
+            "content": []
+          },
+          {
+            "label": "Génération de formules aléatoires",
+            "content": []
+          },
+          {
+            "label": "Générateur de table de vérité",
+            "content": []
+          }
+        ]
+      },
+      "predicateMenu": {
+        "label": "Algorithmes de logique de prédicat",
+        "content": [
+          {
+            "label": "Détecteur de variable lié",
+            "content": []
+          },
+          {
+            "label": "Détermination de la peine fermée",
+            "content": []
+          },
+          {
+            "label": "Détecteur variable gratuit",
+            "content": []
+          },
+          {
+            "label": "Détermination de la peine au sol",
+            "content": []
+          },
+          {
+            "label": "Déterminer la phrase ouverte",
+            "content": []
+          },
+          {
+            "label": "Générateur d\u0027arbre de vérité des prédicats",
+            "content": []
+          }
+        ]
+      },
+      "axiomTabLabel": "Axiomes",
+      "historyTabLabel": "Histoire",
+      "solveButton": "Résoudre",
+      "applyButton": "Appliquer"
+    },
+    "logicSymbols": {
+      "propositional": {
+        "implication": {
+          "symbol": {
+            "applied": "→",
+            "allSymbols": [
+              "⇒",
+              "⊃",
+              "-\u003e",
+              "→"
+            ]
+          },
+          "description": "C\u0027est le bouton d\u0027implication",
+          "axioms": {
+            "explanation": "(A ⇒ B) est faux quand A est vrai et B est faux, mais vrai sinon. L\u0027opérateur d\u0027implication est souvent difficile à comprendre pour les étudiants, en particulier parce que si A est faux et B est faux, la conclusion reste vraie. Ceci est également appelé vacueusement vrai. Nous nous référons à A comme l\u0027antécédent du conditionnel et B comme le conséquent. Un élément important de l\u0027opérateur flèche droite est l\u0027idée de conditions suffisantes et nécessaires. L\u0027antécédent est suffisant pour le conséquent. Le conséquent est nécessaire pour l\u0027antécédent.",
+            "example": [
+              "1. Supposons que A représente la proposition que quelqu\u0027un est célibataire, et B représente la proposition que quelqu\u0027un n\u0027est pas marié. Par conséquent, (A ⇒ B) se lit comme suit: «Si quelqu\u0027un est célibataire, alors il n\u0027est pas marié». Puisque quelqu\u0027un ne peut pas être marié et célibataire, il est vrai que le fait d\u0027être célibataire est nécessaire pour être célibataire (en d\u0027autres termes, vous ne pouvez pas être célibataire si vous êtes marié). Étant donné que toute personne célibataire n\u0027est pas mariée, il est logique qu\u0027être célibataire soit suffisant pour être célibataire.",
+              "2. Supposons que A est vrai et B est faux. Alors (A → B) est faux.",
+              "3. Supposons que A est faux et B est faux. Alors (A → B) est vrai."
+            ]
+          },
+          "tooltip": "Implication",
+          "readAs": "implique; si donc"
+        },
+        "biconditional": {
+          "symbol": {
+            "applied": "↔",
+            "allSymbols": [
+              "⇔",
+              "≡",
+              "\u003c-\u003e",
+              "↔"
+            ]
+          },
+          "description": "C\u0027est le bouton d\u0027équivalence",
+          "axioms": {
+            "explanation": "(A ⇔ B) est vrai lorsque A et B sont identiques. Cela signifie que A doit être vrai et B doit être vrai pour que cette phrase soit vraie. De même, A doit être faux et B doit être faux pour que cette phrase soit vraie. Quand ils diffèrent, la phrase est fausse.",
+            "example": [
+              "1. (A ⇔ B)"
+            ]
+          },
+          "tooltip": "Équivalence",
+          "readAs": "Si et seulement si; \"iff\"; signifie la même chose que"
+        },
+        "negation": {
+          "symbol": {
+            "applied": "~",
+            "allSymbols": [
+              "¬",
+              "!",
+              "˜",
+              "~"
+            ]
+          },
+          "description": "C\u0027est le bouton de négation",
+          "axioms": {
+            "explanation": "L\u0027opérateur de négation (~) retourne la valeur de vérité d\u0027une proposition A. Donc, si A est vrai, alors ~ A est faux. De même, si ~ A est faux, alors ~ A est vrai. L\u0027opérateur de négation fonctionne sur n\u0027importe quelle phrase et distribue à la fois les symboles et les opérateurs.",
+            "example": [
+              "1. (~~ A ⇔ A)",
+              "2. ¬ (A \u0026 B) équivaut à (¬A ∨ ¬B). L\u0027opérateur de négation suit la propriété distributive des mathématiques - nous la distribuons à tout ce qui se trouve à l\u0027intérieur des parenthèses.",
+              "3. ~ (A -\u003e ~ B) équivaut à (A \u0026 ~~ B), qui se réduit à (A \u0026 B). Notez que lorsque nous utilisons une négation sur une phrase d\u0027implication (également appelée implication niée), nous ne double-négons pas l\u0027antécédent; nous le réduisons à une proposition moins toute négation."
+            ]
+          },
+          "tooltip": "Négation",
+          "readAs": "Pas"
+        },
+        "conjunction": {
+          "symbol": {
+            "applied": "∧",
+            "allSymbols": [
+              "\u0026",
+              "·",
+              "^",
+              "∧"
+            ]
+          },
+          "description": "C\u0027est le bouton de conjonction.",
+          "axioms": {
+            "explanation": "L\u0027énoncé (A ∧ B) est vrai si A et B sont tous les deux vrais. Sinon, c\u0027est faux.",
+            "example": [
+              "1. (A ∧ B)",
+              "2. ((A ⊃ B) et (B ⊃ A))",
+              "3. ((A ∨ B) et (A ∨ C))"
+            ]
+          },
+          "tooltip": "Conjonction",
+          "readAs": "Et"
+        },
+        "disjunction": {
+          "symbol": {
+            "applied": "∨",
+            "allSymbols": [
+              "|",
+              "+",
+              "||",
+              "∨"
+            ]
+          },
+          "description": "C\u0027est le bouton de disjonction.",
+          "axioms": {
+            "explanation": "L\u0027énoncé (A ∨ B) est vrai si A ou B (ou les deux) sont vrais. Si les deux sont faux, alors c\u0027est faux.",
+            "example": [
+              "1. (A ∨ B)"
+            ]
+          },
+          "tooltip": "Disjonction",
+          "readAs": "Ou alors"
+        },
+        "exclusiveDisjunction": {
+          "symbol": {
+            "applied": "⊕",
+            "allSymbols": [
+              "⊻",
+              "≢",
+              "⩒",
+              "↮",
+              "⩛",
+              "⊕"
+            ]
+          },
+          "description": "Ceci est le bouton exclusif ou.",
+          "axioms": {
+            "explanation": "L\u0027énoncé (A ⊕ B) est vrai lorsque A ou B sont vrais, mais les deux ne sont pas vrais.",
+            "example": [
+              "1. Un exemple courant d\u0027exclusivité ou d\u0027opérateur apparaît lorsque l\u0027on parle d\u0027exclusivité parmi les événements. En d\u0027autres termes, si nous avons deux propositions P et Q, alors soit P peut être vrai, soit Q peut être vrai. Cependant, P et Q ne peuvent pas être vrais. De plus, P et Q ne peuvent pas être faux.",
+              "2. Supposons que A est vrai et B est faux. Alors (A ⊕ B) est vrai.",
+              "3. Supposons que A est vrai et B est faux. Alors ((A → B) ⊕ (B → A)) est vrai. (A → B) est faux et (B → A) est vrai. Ainsi, les opérandes sont différents, ce qui donne vrai."
+            ]
+          },
+          "tooltip": "Disjonction exclusive",
+          "readAs": "Soit ... soit; xor"
+        },
+        "turnstile": {
+          "symbol": {
+            "applied": "⊢",
+            "allSymbols": [
+              "∴",
+              "⊢"
+            ]
+          },
+          "description": "C\u0027est le bouton \"prouve\".",
+          "axioms": {
+            "explanation": "(x ⊢ y) signifie que x prouve (implique syntaxiquement) y.",
+            "example": [
+              "1. (A → B), (B → C) ⊢ (A → C). Les deux prémisses impliquent syntaxiquement la conclusion à travers un syllogisme hypothétique.",
+              "2. (P ∨ Q), ~ P ​​∴ Q. Les deux prémisses impliquent syntaxiquement la conclusion par syllogisme disjonctif."
+            ]
+          },
+          "tooltip": "Implication syntaxique",
+          "readAs": "Prouve ..."
+        },
+        "doubleTurnstile": {
+          "symbol": {
+            "applied": "⊨",
+            "allSymbols": [
+              "⊧",
+              "⊨"
+            ]
+          },
+          "description": "C\u0027est le bouton \"modèles\".",
+          "axioms": {
+            "explanation": "(x ⊨ y) signifie x modèles (implique sémantiquement) y. En d\u0027autres termes, la formule x bien formée devrait impliquer y, mais l\u0027inverse ne devrait pas être vrai. Les phrases x et y ne doivent pas non plus être équivalentes.",
+            "example": [
+              "1. P ⊨ (P ∨ Q)"
+            ]
+          },
+          "tooltip": "Implication sémantique",
+          "readAs": "Des modèles..."
+        }
+      },
+      "predicate": {
+        "universal": {
+          "symbol": {
+            "applied": "∀",
+            "allSymbols": [
+              "∀",
+              "()"
+            ]
+          },
+          "description": "C\u0027est le bouton de quantification universel.",
+          "axioms": {
+            "explanation": "(∀x) Px ou (x) Px signifie que le prédicat P est vrai pour toutes les entrées x d\u0027un domaine D.",
+            "example": [
+              "1. (∀x) Px",
+              "2. (y) (Py \u0026 Qay)"
+            ]
+          },
+          "tooltip": "Quantification universelle",
+          "readAs": "Pour tous; Pour toute; Pour chaque; Tout; Tous"
+        },
+        "existential": {
+          "symbol": {
+            "applied": "∃",
+            "allSymbols": [
+              "∃"
+            ]
+          },
+          "description": "C\u0027est le bouton de quantification existentielle.",
+          "axioms": {
+            "explanation": "(∃x) Px signifie qu\u0027il y a au moins une entrée x dans un domaine D qui satisfait la proposition P (qui rend P vrai).",
+            "example": [
+              "1. (∃x) Px"
+            ]
+          },
+          "tooltip": "Quantification existentielle",
+          "readAs": "Il existe; Quelque; Beaucoup; Au moins un"
+        }
+      }
+    }
+  },
+  "settingsView": {
+    "categories": {
+      "appearance": {
+        "label": "Apparence",
+        "theme": {
+          "label": "Thème",
+          "applied": {
+            "name": "Défaut",
+            "code": "default.css"
+          },
+          "allThemes": [
+            {
+              "name": "Défaut",
+              "code": "default.css"
+            },
+            {
+              "name": "Sombre",
+              "code": "dark.css"
+            },
+            {
+              "name": "Sépia",
+              "code": "sepia.css"
+            },
+            {
+              "name": "Sarcelle",
+              "code": "teal.css"
+            },
+            {
+              "name": "bronzer",
+              "code": "tan.css"
+            }
+          ]
+        }
+      },
+      "language": {
+        "label": "Langue",
+        "languageContent": {
+          "label": "Language",
+          "applied": {
+            "name": "عربى",
+            "code": "ar"
+          },
+          "allLanguages": [
+            {
+              "name": "Afrikaans",
+              "code": "af"
+            },
+            {
+              "name": "Azərbaycan",
+              "code": "az"
+            },
+            {
+              "name": "bahasa Indonesia",
+              "code": "id"
+            },
+            {
+              "name": "català",
+              "code": "ca"
+            },
+            {
+              "name": "čeština",
+              "code": "cs"
+            },
+            {
+              "name": "Cymraeg",
+              "code": "cy"
+            },
+            {
+              "name": "dansk",
+              "code": "da"
+            },
+            {
+              "name": "Deutsche",
+              "code": "de"
+            },
+            {
+              "name": "eesti",
+              "code": "et"
+            },
+            {
+              "name": "English",
+              "code": "en"
+            },
+            {
+              "name": "español",
+              "code": "es"
+            },
+            {
+              "name": "Esperanto",
+              "code": "eo"
+            },
+            {
+              "name": "Euskal",
+              "code": "eu"
+            },
+            {
+              "name": "Français",
+              "code": "fr"
+            },
+            {
+              "name": "Gaeilge",
+              "code": "ga"
+            },
+            {
+              "name": "galego",
+              "code": "gl"
+            },
+            {
+              "name": "Hrvatski",
+              "code": "hr"
+            },
+            {
+              "name": "icelandic",
+              "code": "is"
+            },
+            {
+              "name": "italiano",
+              "code": "it"
+            },
+            {
+              "name": "Kiswahili",
+              "code": "sw"
+            },
+            {
+              "name": "kreyòl ayisyen",
+              "code": "ht"
+            },
+            {
+              "name": "Latine",
+              "code": "la"
+            },
+            {
+              "name": "Latvijas",
+              "code": "lv"
+            },
+            {
+              "name": "Lietuvos",
+              "code": "lt"
+            },
+            {
+              "name": "Magyar",
+              "code": "hu"
+            },
+            {
+              "name": "Malay",
+              "code": "ms"
+            },
+            {
+              "name": "Malti",
+              "code": "mt"
+            },
+            {
+              "name": "Nederlands",
+              "code": "nl"
+            },
+            {
+              "name": "norsk",
+              "code": "no"
+            },
+            {
+              "name": "Pilipino",
+              "code": "tl"
+            },
+            {
+              "name": "Polskie",
+              "code": "pl"
+            },
+            {
+              "name": "português",
+              "code": "pt"
+            },
+            {
+              "name": "Română",
+              "code": "ro"
+            },
+            {
+              "name": "shqiptar",
+              "code": "sq"
+            },
+            {
+              "name": "Slovenščina",
+              "code": "sl"
+            },
+            {
+              "name": "slovenský",
+              "code": "sk"
+            },
+            {
+              "name": "Suomalainen",
+              "code": "fi"
+            },
+            {
+              "name": "svenska",
+              "code": "sv"
+            },
+            {
+              "name": "Tiếng Việt",
+              "code": "vi"
+            },
+            {
+              "name": "Türk",
+              "code": "tr"
+            },
+            {
+              "name": "Ελληνικά",
+              "code": "el"
+            },
+            {
+              "name": "беларускі",
+              "code": "be"
+            },
+            {
+              "name": "български",
+              "code": "bg"
+            },
+            {
+              "name": "Македонски",
+              "code": "mk"
+            },
+            {
+              "name": "русский",
+              "code": "ru"
+            },
+            {
+              "name": "Српски",
+              "code": "sr"
+            },
+            {
+              "name": "український",
+              "code": "uk"
+            },
+            {
+              "name": "ქართული",
+              "code": "ka"
+            },
+            {
+              "name": "ייִדיש",
+              "code": "yi"
+            },
+            {
+              "name": "עִברִית",
+              "code": "iw"
+            },
+            {
+              "name": "اردو",
+              "code": "ur"
+            },
+            {
+              "name": "عربى",
+              "code": "ar"
+            },
+            {
+              "name": "فارسی",
+              "code": "fa"
+            },
+            {
+              "name": "हिन्दी",
+              "code": "hi"
+            },
+            {
+              "name": "বাংলা",
+              "code": "bn"
+            },
+            {
+              "name": "ગુજરાતી",
+              "code": "gu"
+            },
+            {
+              "name": "தமிழ்",
+              "code": "ta"
+            },
+            {
+              "name": "తెలుగు",
+              "code": "te"
+            },
+            {
+              "name": "ಕನ್ನಡ",
+              "code": "kn"
+            },
+            {
+              "name": "ไทย",
+              "code": "th"
+            },
+            {
+              "name": "한국어",
+              "code": "ko"
+            },
+            {
+              "name": "中國傳統的",
+              "code": "zh-TW"
+            },
+            {
+              "name": "日本語",
+              "code": "ja"
+            },
+            {
+              "name": "简体中文",
+              "code": "zh-CN"
+            }
+          ]
+        }
+      },
+      "advanced": {
+        "label": "Avancée",
+        "timeOut": {
+          "label": "Temps libre",
+          "value": 1000
+        }
+      }
+    },
+    "confirmation": {
+      "label": "Confirmation",
+      "alertHeader": "Êtes-vous sûr?",
+      "alertContent": "L\u0027enregistrement des modifications actuelles nécessitera le redémarrage de l\u0027application. Es-tu sur de vouloir continuer?"
+    },
+    "cancel": "Annuler",
+    "save": "Sauvegarder"
+  },
+  "loginView": {
+    "userNameLabel": "Nom d\u0027utilisateur",
+    "userNamePromptText": "Entrez votre nom d\u0027utilisateur",
+    "passwordLabel": "Mot de passe",
+    "passwordPromptText": "Tapez votre mot de passe",
+    "loginButton": "Connexion",
+    "returnButton": "Revenir à l\u0027application"
+  },
+  "registerView": {
+    "userNameLabel": "Nom d\u0027utilisateur",
+    "userNamePromptText": "Entrez votre nom d\u0027utilisateur",
+    "firstNamePromptText": "Entrez votre prénom",
+    "lastNamePromptText": "Enter your last name",
+    "firstName": "Prénom",
+    "lastName": "Entrez votre nom de famille",
+    "passwordLabel": "Mot de passe",
+    "passwordPromptText": "Tapez votre mot de passe",
+    "registerButton": "S\u0027inscrire",
+    "returnButton": "Revenir à l\u0027application"
+  }
+}

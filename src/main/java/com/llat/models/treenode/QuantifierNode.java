@@ -19,10 +19,12 @@ public abstract class QuantifierNode extends WffTree {
         return this.variableSymbol;
     }
 
-    public char getVariableSymbolChar() { return this.variableSymbol.charAt(0); }
-
     public void setVariableSymbol(String _s) {
         this.variableSymbol = _s;
+    }
+
+    public char getVariableSymbolChar() {
+        return this.variableSymbol.charAt(0);
     }
 
     @Override

@@ -19,7 +19,6 @@ import com.llat.tools.MouseManager;
 import com.llat.tools.ViewManager;
 import com.llat.views.*;
 import com.llat.views.events.*;
-import com.llat.views.menu.ExportMenu;
 import com.llat.views.menu.ExportType;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -48,12 +47,12 @@ public class Controller implements Initializable {
     private final UIObjectAdaptor uiObjectAdaptor = new UIObjectAdaptor();
     private final CredentialsAdaptor credentialsAdaptor = new CredentialsAdaptor();
     private final LogicSetup logicSetup = new LogicSetup();
+    private final boolean hasNetworkConnection;
     private UIObject uiObject;
     private UserObject user;
     private ApplicationView applicationView;
     private LoginView loginView;
     private RegisterView registerView;
-    private final boolean hasNetworkConnection;
     private SettingsAdaptor settingsAdaptor = new SettingsAdaptor();
     private SettingsObject settingsObject;
 
@@ -182,9 +181,11 @@ public class Controller implements Initializable {
             case PDF_TRUTH_TABLE:
                 EventBus.throwEvent(new ExportPDFTruthTableEvent(_filePath));
                 break;
-            default: throw new IllegalArgumentException("Invalid export type!");
+            default:
+                throw new IllegalArgumentException("Invalid export type!");
         }
     }
+
     /**
      * @param _menuItem
      * @param _exportType
@@ -233,43 +234,44 @@ public class Controller implements Initializable {
         _button.setOnAction((event) -> {
             int user = this.databaseAdapter.Register(_userName.getText(), _password.getText(), _firstname.getText(), _lastname.getText());
             EventBus.throwEvent(new RegistrationStatusEvent(user));
-            if(user == 0){
+            if (user == 0) {
                 this.changeViewTo(ViewManager.LOGIN);
             }
         });
     }
 
-    public void updateLocalStorage () {
+    public void updateLocalStorage() {
         this.settingsAdaptor.update(this.settingsObject);
     }
-    public void updateDatabase () {
+
+    public void updateDatabase() {
         if (this.user != null) {
             this.databaseAdapter.UpdateTheme(this.user.getUserId(), this.settingsObject.getTheme().getApplied().getCode());
             this.databaseAdapter.UpdateLanguage(this.user.getUserId(), this.settingsObject.getLanguage().getApplied().getCode());
         }
     }
 
-    public void setAppliedTheme (ThemeObject _theme) {
-        this.settingsObject.getTheme().setApplied(_theme);
-    }
-
-    public String getAppliedTheme () {
+    public String getAppliedTheme() {
         return this.settingsObject.getAppliedTheme(this.uiObject);
     }
 
-    public List<ThemeObject> getAllThemes () {
+    public void setAppliedTheme(ThemeObject _theme) {
+        this.settingsObject.getTheme().setApplied(_theme);
+    }
+
+    public List<ThemeObject> getAllThemes() {
         return this.uiObject.getSettingsView().getCategories().getAppearance().getTheme().getAllThemes();
     }
 
-    public void setAppliedLanguage (LanguageObject _language) {
-        this.settingsObject.getLanguage().setApplied(_language);
-    }
-
-    public String getAppliedLanguage () {
+    public String getAppliedLanguage() {
         return this.settingsObject.getLanguage().getApplied().getName();
     }
 
-    public List<LanguageObject> getAllLanguages () {
+    public void setAppliedLanguage(LanguageObject _language) {
+        this.settingsObject.getLanguage().setApplied(_language);
+    }
+
+    public List<LanguageObject> getAllLanguages() {
         return this.uiObject.getSettingsView().getCategories().getLanguage().getLanguageContent().getAllLanguages();
     }
 
@@ -336,60 +338,60 @@ public class Controller implements Initializable {
         return uiObject;
     }
 
-    public UserObject getUser() {
-        return user;
-    }
-
-    public ApplicationView getApplicationView() {
-        return applicationView;
-    }
-
-    public LoginView getLoginView() {
-        return loginView;
-    }
-
-    public RegisterView getRegisterView() {
-        return registerView;
-    }
-
-    public SettingsAdaptor getSettingsAdaptor() {
-        return settingsAdaptor;
-    }
-
-    public SettingsObject getSettingsObject() {
-        return settingsObject;
-    }
-
     public void setUiObject(UIObject uiObject) {
         this.uiObject = uiObject;
     }
 
-    public boolean hasNetworkConnection() {
-        return this.hasNetworkConnection;
+    public UserObject getUser() {
+        return user;
     }
 
     public void setUser(UserObject user) {
         this.user = user;
     }
 
+    public ApplicationView getApplicationView() {
+        return applicationView;
+    }
+
     public void setApplicationView(ApplicationView applicationView) {
         this.applicationView = applicationView;
+    }
+
+    public LoginView getLoginView() {
+        return loginView;
     }
 
     public void setLoginView(LoginView loginView) {
         this.loginView = loginView;
     }
 
+    public RegisterView getRegisterView() {
+        return registerView;
+    }
+
     public void setRegisterView(RegisterView registerView) {
         this.registerView = registerView;
+    }
+
+    public SettingsAdaptor getSettingsAdaptor() {
+        return settingsAdaptor;
     }
 
     public void setSettingsAdaptor(SettingsAdaptor settingsAdaptor) {
         this.settingsAdaptor = settingsAdaptor;
     }
 
+    public SettingsObject getSettingsObject() {
+        return settingsObject;
+    }
+
     public void setSettingsObject(SettingsObject settingsObject) {
         this.settingsObject = settingsObject;
+    }
+
+    public boolean hasNetworkConnection() {
+        return this.hasNetworkConnection;
     }
 
 }

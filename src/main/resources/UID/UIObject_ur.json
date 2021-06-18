@@ -1,1 +1,743 @@
-{"menuBar":{"file":{"label":"فائل","newProject":{"label":"نیا کام","content":[]},"openProject":{"label":"اوپن پروجیکٹ","content":[]},"export":{"label":"Export"},"login":{"label":"لاگ ان کریں","content":[]},"register":{"label":"رجسٹر کریں","content":[]},"settings":{"label":"ترتیبات","content":[]},"exit":{"label":"باہر نکلیں","content":[]}},"export":{"label":"برآمد کریں","pdf":{"label":"PDF","content":[{"label":"Truth Table","content":[]},{"label":"Truth Tree","content":[]},{"label":"Parse Tree","content":[]}]},"latex":{"label":"LaTeX","content":[{"label":"Truth Table","content":[]},{"label":"Truth Tree","content":[]},{"label":"Parse Tree","content":[]}]}},"help":{"label":"مدد","about":{"label":"کے بارے میں","content":[]}}},"mainView":{"mainViewLabels":{"propositionalLabel":"تجویز کردہ منطق","predicateLabel":"پیش گوئی کی منطق","errorAndWarningLabel":"نقائص / انتباہات","truthTableLabel":"حقیقت ٹیبل","parseTreeLabel":"پارس درخت","truthTreeLabel":"سچ کا درخت","symbolNameLabel":"علامت کا نام","formalNameLabel":"رسمی نام","alternativeSymbolsLabel":"متبادل علامتیں","explanationLabel":"وضاحت","examplesLabel":"مثالیں","generalMenu":{"label":"جنرل الگورتھم","content":[{"label":"دلیل سچ کے درخت کی تصدیق کرنے والا","content":[]},{"label":"بند درخت کا تعین کرنے والا","content":[]},{"label":"منطقی باطل کا تعین کرنے والا","content":[]},{"label":"منطقی طور پر مستقل جانچنے والا","content":[]},{"label":"منطقی طور پر تعی .ن کا تعین کرنے والا","content":[]},{"label":"منطقی طور پر متضاد کا تعین کرنے والا","content":[]},{"label":"منطقی طور پر متضاد کا تعین کرنے والا","content":[]},{"label":"منطقی طور پر مساوی تشخیص کنندہ","content":[]},{"label":"منطقی طور پر امپایل ڈیٹرمینر","content":[]},{"label":"منطقی تیوٹولوجی کا تعین کرنے والا","content":[]},{"label":"مین آپریٹر کا پتہ لگانے والا","content":[]},{"label":"درخت کا تعین کرنے والا کھلا","content":[]}]},"propositionalMenu":{"label":"مجوزہ منطق الگورتھم","content":[{"label":"پروجیکشنل ٹریچ ٹری جنریٹر","content":[]},{"label":"بے ترتیب فارمولہ نسل","content":[]},{"label":"سچ ٹیبل جنریٹر","content":[]}]},"predicateMenu":{"label":"منطق الگورتھم کی پیش گوئی کریں","content":[{"label":"پابند متغیر کا پتہ لگانے والا","content":[]},{"label":"بند سزا کا تعین کرنے والا","content":[]},{"label":"مفت متغیر کا پتہ لگانے والا","content":[]},{"label":"زمینی سزا کا تعین کرنے والا","content":[]},{"label":"کھولیں سزا کا تعین کرنے والا","content":[]},{"label":"پیش گوئ سچ ٹری جنریٹر","content":[]}]},"axiomTabLabel":"محور","historyTabLabel":"تاریخ","solveButton":"حل","applyButton":"درخواست دیں"},"logicSymbols":{"propositional":{"implication":{"symbol":{"applied":"→","allSymbols":["⇒","⊃","-\u003e","→"]},"description":"اس کا مطلب بٹن ہے","axioms":{"explanation":"(A ⇒ B) غلط ہے جب A سچ ہے اور B جھوٹا ہے ، لیکن دوسری صورت میں سچ ہے۔ اس کا مطلب یہ ہے کہ طلبہ کو سمجھنا اکثر مشکل ہوتا ہے ، خاص طور پر اگر اگر A جھوٹا ہے اور B جھوٹا ہے تو ، یہ نتیجہ درست ہی رہتا ہے۔ اسے خالی طور پر سچ ہونے کا بھی حوالہ دیا جاتا ہے۔ ہم A کو مشروط کے ماقبل کے طور پر ، اور اس کے نتیجے میں B کا حوالہ دیتے ہیں۔ دائیں تیر آپریٹر کا ایک اہم ٹکڑا کافی اور ضروری شرائط کا خیال ہے۔ سابقہ ​​نتیجہ کے ل sufficient کافی ہے۔ اس کا نتیجہ سابقہ ​​کے لئے ضروری ہے۔","example":["1. فرض کریں کہ اے اس تجویز کی نمائندگی کرتا ہے کہ کوئی بیچلر ہے ، اور بی اس پیش کش کی نمائندگی کرتا ہے کہ کوئی غیر شادی شدہ ہے۔ لہذا ، (A ⇒ B) پڑھتا ہے \"اگر کوئی بیچلر ہے تو وہ غیر شادی شدہ ہیں\"۔ چونکہ کسی کی شادی اور بیچلر نہیں ہوسکتا ہے ، اس لئے یہ سچ ہے کہ بیچلر ہونے کے لئے غیر شادی شدہ ہونا ضروری ہے (دوسرے لفظوں میں ، اگر آپ شادی شدہ ہیں تو آپ بیچلر نہیں ہوسکتے ہیں)۔ چونکہ ہر وہ شخص جو بیچلر ہے غیر شادی شدہ ہے ، لہذا یہ سمجھتا ہے کہ بیچلر ہونا غیر شادی شدہ ہونے کے لئے کافی ہے۔","2. فرض کریں کہ A سچ ہے اور B غلط ہے۔ پھر (A → B) غلط ہے۔","3. فرض کریں کہ A جھوٹا ہے اور B جھوٹا ہے۔ پھر (A → B) سچ ہے۔"]},"tooltip":"مضمر","readAs":"مطلب پھر اگر"},"biconditional":{"symbol":{"applied":"↔","allSymbols":["⇔","≡","\u003c-\u003e","↔"]},"description":"یہ مساوات کا بٹن ہے","axioms":{"explanation":"(A ⇔ B) درست ہوتا ہے جب A اور B ایک جیسے ہوتے ہیں۔ اس کا مطلب یہ ہے کہ A کو سچ ہونا چاہئے اور بی کو اس جملے کے سچ ہونے کے لئے صحیح ہونا چاہئے۔ اسی طرح ، A کو جھوٹا ہونا چاہئے اور بی کو اس جملے کو سچ ہونے کے ل false غلط ہونا چاہئے۔ جب ان میں اختلاف ہے تو ، سزا غلط ہے۔","example":["1. (A ⇔ B)"]},"tooltip":"مساوات","readAs":"صرف اور صرف اس صورت میں؛ \"اگر\"؛ جس کا مطلب ہے وہی"},"negation":{"symbol":{"applied":"~","allSymbols":["¬","!","˜","~"]},"description":"یہ نفی کا بٹن ہے","axioms":{"explanation":"نفی کرنے والا آپریٹر (~) کسی پروپوزل کی صحیح قدر کو پلٹ دیتا ہے۔ لہذا ، اگر A سچ ہے ، تو ~ A غلط ہے۔ اسی طرح ، اگر ~ A غلط ہے ، تو ~ A سچ ہے۔ نفی آپریٹر کسی بھی جملے میں کام کرتا ہے اور علامتوں اور آپریٹرز دونوں پر تقسیم کرتا ہے۔","example":["1. (~~ A ⇔ A)","2. ¬ (A \u0026 B) (¬A ∨ ¬B) کے برابر ہے۔ نفی کرنے والا آپریٹر ریاضی سے تقسیم ہونے والی جائیداد کی پیروی کرتا ہے۔ ہم اسے قوسین کے اندر ہر چیز میں بانٹ دیتے ہیں۔","3. ~ (A -\u003e ~ B) (A \u0026 ~~ B) کے برابر ہے ، جو (A \u0026 B) کو کم کرتا ہے۔ نوٹ کریں کہ جب ہم کسی مفہوم پر نفی کا استعمال کرتے ہیں۔ ہم اسے کسی تجویز سے منفی تجویز کرتے ہیں۔"]},"tooltip":"بات چیت","readAs":"نہیں"},"conjunction":{"symbol":{"applied":"∧","allSymbols":["\u0026","·","^","∧"]},"description":"یہ کونجیکشن بٹن ہے۔","axioms":{"explanation":"بیان (A ∧ B) درست ہے اگر A اور B دونوں سچ ہیں۔ بصورت دیگر ، یہ غلط ہے۔","example":["1. (A ∧ B)","2. ((A ⊃ B) اور (B ⊃ A))","3. ((A ∨ B) اور (A ∨ C)"]},"tooltip":"مجموعہ","readAs":"اور"},"disjunction":{"symbol":{"applied":"∨","allSymbols":["|","+","||","∨"]},"description":"یہ تزئین کا بٹن ہے۔","axioms":{"explanation":"اگر A یا B (یا دونوں) درست ہیں تو بیان (A ∨ B) درست ہے۔ اگر دونوں جھوٹے ہیں ، تو یہ غلط ہے۔","example":["1. (A ∨ B)"]},"tooltip":"تغیر","readAs":"یا"},"exclusiveDisjunction":{"symbol":{"applied":"⊕","allSymbols":["⊻","≢","⩒","↮","⩛","⊕"]},"description":"یہ خصوصی یا بٹن ہے۔","axioms":{"explanation":"بیان (A ⊕ B) درست ہے جب A یا B سچ ہیں ، لیکن دونوں ہی سچ نہیں ہیں۔","example":["1. جب واقعات میں غیر معمولی بات کی جائے تو خصوصی یا آپریٹر کی ایک عام مثال سامنے آتی ہے۔ دوسرے لفظوں میں ، اگر ہمارے پاس دو تجویزات P اور Q ہیں ، تو یا تو P سچا ہوسکتا ہے یا Q سچ ہوسکتا ہے۔ تاہم ، P اور Q سچ نہیں ہوسکتے ہیں۔ نیز ، P اور Q غلط نہیں ہو سکتے۔","2. فرض کریں کہ A سچ ہے اور B غلط ہے۔ پھر (A ⊕ B) سچ ہے۔","3. فرض کریں کہ A سچ ہے اور B غلط ہے۔ پھر ((A → B) ⊕ (B → A)) سچ ہے۔ (A → B) غلط ہے ، اور (B → A) سچ ہے۔ اس طرح ، آپریینڈز مختلف ہیں جس کا نتیجہ سچ ثابت ہوتا ہے۔"]},"tooltip":"خصوصی امتیاز","readAs":"ہاں یا؛ xor"},"turnstile":{"symbol":{"applied":"⊢","allSymbols":["∴","⊢"]},"description":"یہ \"ثابت شدہ\" بٹن ہے۔","axioms":{"explanation":"(x ⊢ y) کا مطلب ہے x ثابت (مصنوعی طور پر شامل) y۔","example":["1. (A → B) ، (B → C) ⊢ (A → C) دو احاطے مصنوعی طور پر فرضی sylogism کے ذریعے نتیجہ اخذ کرنے کی کوشش کرتے ہیں۔","2. (P ∨ Q) ، ~ P ∴ Q. دو احاطے مصنوعی طور پر اختتامی sylogism کے ذریعے نتیجہ اخذ کرنے کی کوشش کرتے ہیں۔"]},"tooltip":"مصنوعی پابندی","readAs":"ثابت کرتا ہے ..."},"doubleTurnstile":{"symbol":{"applied":"⊨","allSymbols":["⊧","⊨"]},"description":"یہ \"ماڈل\" کا بٹن ہے۔","axioms":{"explanation":"(x ⊨ y) کے معنی ہیں x ماڈل (semantically entails) y۔ دوسرے لفظوں میں ، اچھی طرح سے تشکیل شدہ فارمولہ x کو y کا مطلب لگانا چاہئے ، لیکن بات چیت درست نہیں ہونی چاہئے۔ X اور y جملے بھی برابر نہیں ہونا چاہئے۔","example":["1. P ⊨ (P ∨ Q)"]},"tooltip":"معقول قید","readAs":"ماڈل ..."}},"predicate":{"universal":{"symbol":{"applied":"∀","allSymbols":["∀","()"]},"description":"یہ عالمگیر تعدد بٹن ہے۔","axioms":{"explanation":"(∀x) Px یا (x) Px کا مطلب ہے پیش گو P P کو کسی ڈومین D سے حاصل تمام ان پٹ کے لئے درست رکھتا ہے۔","example":["1. (∀x) Px","2. (y) (پی اے اور قی)"]},"tooltip":"آفاقی مقدار","readAs":"سب کے لیے؛ کسی کے لئے؛ ہر ایک کے لئے؛ سب؛ ہر کوئی"},"existential":{"symbol":{"applied":"∃","allSymbols":["∃"]},"description":"یہ وجودی مقدار کا بٹن ہے۔","axioms":{"explanation":".","example":["1. (∃x) Px"]},"tooltip":"وجودی مقدار","readAs":"وہاں موجود ہے؛ کچھ؛ بہت؛ کم از کم ایک"}}}},"settingsView":{"categories":{"appearance":{"label":"ظہور","theme":{"label":"خیالیہ","applied":{"name":"پہلے سے طے شدہ","code":"default.css"},"allThemes":[{"name":"پہلے سے طے شدہ","code":"default.css"},{"name":"گہرا","code":"dark.css"},{"name":"سیپیا","code":"sepia.css"},{"name":"ٹیل","code":"teal.css"},{"name":"ٹین","code":"tan.css"}]}},"language":{"label":"زبان","languageContent":{"label":"Language","applied":{"name":"عربى","code":"ar"},"allLanguages":[{"name":"Afrikaans","code":"af"},{"name":"Azərbaycan","code":"az"},{"name":"bahasa Indonesia","code":"id"},{"name":"català","code":"ca"},{"name":"čeština","code":"cs"},{"name":"Cymraeg","code":"cy"},{"name":"dansk","code":"da"},{"name":"Deutsche","code":"de"},{"name":"eesti","code":"et"},{"name":"English","code":"en"},{"name":"español","code":"es"},{"name":"Esperanto","code":"eo"},{"name":"Euskal","code":"eu"},{"name":"Français","code":"fr"},{"name":"Gaeilge","code":"ga"},{"name":"galego","code":"gl"},{"name":"Hrvatski","code":"hr"},{"name":"icelandic","code":"is"},{"name":"italiano","code":"it"},{"name":"Kiswahili","code":"sw"},{"name":"kreyòl ayisyen","code":"ht"},{"name":"Latine","code":"la"},{"name":"Latvijas","code":"lv"},{"name":"Lietuvos","code":"lt"},{"name":"Magyar","code":"hu"},{"name":"Malay","code":"ms"},{"name":"Malti","code":"mt"},{"name":"Nederlands","code":"nl"},{"name":"norsk","code":"no"},{"name":"Pilipino","code":"tl"},{"name":"Polskie","code":"pl"},{"name":"português","code":"pt"},{"name":"Română","code":"ro"},{"name":"shqiptar","code":"sq"},{"name":"Slovenščina","code":"sl"},{"name":"slovenský","code":"sk"},{"name":"Suomalainen","code":"fi"},{"name":"svenska","code":"sv"},{"name":"Tiếng Việt","code":"vi"},{"name":"Türk","code":"tr"},{"name":"Ελληνικά","code":"el"},{"name":"беларускі","code":"be"},{"name":"български","code":"bg"},{"name":"Македонски","code":"mk"},{"name":"русский","code":"ru"},{"name":"Српски","code":"sr"},{"name":"український","code":"uk"},{"name":"ქართული","code":"ka"},{"name":"ייִדיש","code":"yi"},{"name":"עִברִית","code":"iw"},{"name":"اردو","code":"ur"},{"name":"عربى","code":"ar"},{"name":"فارسی","code":"fa"},{"name":"हिन्दी","code":"hi"},{"name":"বাংলা","code":"bn"},{"name":"ગુજરાતી","code":"gu"},{"name":"தமிழ்","code":"ta"},{"name":"తెలుగు","code":"te"},{"name":"ಕನ್ನಡ","code":"kn"},{"name":"ไทย","code":"th"},{"name":"한국어","code":"ko"},{"name":"中國傳統的","code":"zh-TW"},{"name":"日本語","code":"ja"},{"name":"简体中文","code":"zh-CN"}]}},"advanced":{"label":"اعلی درجے کی","timeOut":{"label":"وقت ختم","value":1000}}},"confirmation":{"label":"تصدیق","alertHeader":"کیا تمہیں یقین ہے؟","alertContent":"موجودہ تبدیلیوں کو محفوظ کرنے کے لئے درخواست کو دوبارہ شروع کرنا ہوگا۔ کیا آپ واقعی جاری رکھنا چاہتے ہیں؟"},"cancel":"منسوخ کریں","save":"محفوظ کریں"},"loginView":{"userNameLabel":"صارف کا نام","userNamePromptText":"اپنے یوزر نام کا اندراج کرو","passwordLabel":"پاس ورڈ","passwordPromptText":"اپنا پاس ورڈ درج کریں","loginButton":"لاگ ان کریں","returnButton":"درخواست پر واپس جائیں"},"registerView":{"userNameLabel":"صارف کا نام","userNamePromptText":"اپنے یوزر نام کا اندراج کرو","firstNamePromptText":"اپنا پہلا نام درج کریں","lastNamePromptText":"Enter your last name","firstName":"پہلا نام","lastName":"اپنا آخری نام درج کریں","passwordLabel":"پاس ورڈ","passwordPromptText":"اپنا پاس ورڈ درج کریں","registerButton":"رجسٹر کریں","returnButton":"درخواست پر واپس جائیں"}}
+{
+  "menuBar": {
+    "file": {
+      "label": "فائل",
+      "newProject": {
+        "label": "نیا کام",
+        "content": []
+      },
+      "openProject": {
+        "label": "اوپن پروجیکٹ",
+        "content": []
+      },
+      "export": {
+        "label": "Export"
+      },
+      "login": {
+        "label": "لاگ ان کریں",
+        "content": []
+      },
+      "register": {
+        "label": "رجسٹر کریں",
+        "content": []
+      },
+      "settings": {
+        "label": "ترتیبات",
+        "content": []
+      },
+      "exit": {
+        "label": "باہر نکلیں",
+        "content": []
+      }
+    },
+    "export": {
+      "label": "برآمد کریں",
+      "pdf": {
+        "label": "PDF",
+        "content": [
+          {
+            "label": "Truth Table",
+            "content": []
+          },
+          {
+            "label": "Truth Tree",
+            "content": []
+          },
+          {
+            "label": "Parse Tree",
+            "content": []
+          }
+        ]
+      },
+      "latex": {
+        "label": "LaTeX",
+        "content": [
+          {
+            "label": "Truth Table",
+            "content": []
+          },
+          {
+            "label": "Truth Tree",
+            "content": []
+          },
+          {
+            "label": "Parse Tree",
+            "content": []
+          }
+        ]
+      }
+    },
+    "help": {
+      "label": "مدد",
+      "about": {
+        "label": "کے بارے میں",
+        "content": []
+      }
+    }
+  },
+  "mainView": {
+    "mainViewLabels": {
+      "propositionalLabel": "تجویز کردہ منطق",
+      "predicateLabel": "پیش گوئی کی منطق",
+      "errorAndWarningLabel": "نقائص / انتباہات",
+      "truthTableLabel": "حقیقت ٹیبل",
+      "parseTreeLabel": "پارس درخت",
+      "truthTreeLabel": "سچ کا درخت",
+      "symbolNameLabel": "علامت کا نام",
+      "formalNameLabel": "رسمی نام",
+      "alternativeSymbolsLabel": "متبادل علامتیں",
+      "explanationLabel": "وضاحت",
+      "examplesLabel": "مثالیں",
+      "generalMenu": {
+        "label": "جنرل الگورتھم",
+        "content": [
+          {
+            "label": "دلیل سچ کے درخت کی تصدیق کرنے والا",
+            "content": []
+          },
+          {
+            "label": "بند درخت کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "منطقی باطل کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "منطقی طور پر مستقل جانچنے والا",
+            "content": []
+          },
+          {
+            "label": "منطقی طور پر تعی .ن کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "منطقی طور پر متضاد کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "منطقی طور پر متضاد کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "منطقی طور پر مساوی تشخیص کنندہ",
+            "content": []
+          },
+          {
+            "label": "منطقی طور پر امپایل ڈیٹرمینر",
+            "content": []
+          },
+          {
+            "label": "منطقی تیوٹولوجی کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "مین آپریٹر کا پتہ لگانے والا",
+            "content": []
+          },
+          {
+            "label": "درخت کا تعین کرنے والا کھلا",
+            "content": []
+          }
+        ]
+      },
+      "propositionalMenu": {
+        "label": "مجوزہ منطق الگورتھم",
+        "content": [
+          {
+            "label": "پروجیکشنل ٹریچ ٹری جنریٹر",
+            "content": []
+          },
+          {
+            "label": "بے ترتیب فارمولہ نسل",
+            "content": []
+          },
+          {
+            "label": "سچ ٹیبل جنریٹر",
+            "content": []
+          }
+        ]
+      },
+      "predicateMenu": {
+        "label": "منطق الگورتھم کی پیش گوئی کریں",
+        "content": [
+          {
+            "label": "پابند متغیر کا پتہ لگانے والا",
+            "content": []
+          },
+          {
+            "label": "بند سزا کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "مفت متغیر کا پتہ لگانے والا",
+            "content": []
+          },
+          {
+            "label": "زمینی سزا کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "کھولیں سزا کا تعین کرنے والا",
+            "content": []
+          },
+          {
+            "label": "پیش گوئ سچ ٹری جنریٹر",
+            "content": []
+          }
+        ]
+      },
+      "axiomTabLabel": "محور",
+      "historyTabLabel": "تاریخ",
+      "solveButton": "حل",
+      "applyButton": "درخواست دیں"
+    },
+    "logicSymbols": {
+      "propositional": {
+        "implication": {
+          "symbol": {
+            "applied": "→",
+            "allSymbols": [
+              "⇒",
+              "⊃",
+              "-\u003e",
+              "→"
+            ]
+          },
+          "description": "اس کا مطلب بٹن ہے",
+          "axioms": {
+            "explanation": "(A ⇒ B) غلط ہے جب A سچ ہے اور B جھوٹا ہے ، لیکن دوسری صورت میں سچ ہے۔ اس کا مطلب یہ ہے کہ طلبہ کو سمجھنا اکثر مشکل ہوتا ہے ، خاص طور پر اگر اگر A جھوٹا ہے اور B جھوٹا ہے تو ، یہ نتیجہ درست ہی رہتا ہے۔ اسے خالی طور پر سچ ہونے کا بھی حوالہ دیا جاتا ہے۔ ہم A کو مشروط کے ماقبل کے طور پر ، اور اس کے نتیجے میں B کا حوالہ دیتے ہیں۔ دائیں تیر آپریٹر کا ایک اہم ٹکڑا کافی اور ضروری شرائط کا خیال ہے۔ سابقہ ​​نتیجہ کے ل sufficient کافی ہے۔ اس کا نتیجہ سابقہ ​​کے لئے ضروری ہے۔",
+            "example": [
+              "1. فرض کریں کہ اے اس تجویز کی نمائندگی کرتا ہے کہ کوئی بیچلر ہے ، اور بی اس پیش کش کی نمائندگی کرتا ہے کہ کوئی غیر شادی شدہ ہے۔ لہذا ، (A ⇒ B) پڑھتا ہے \"اگر کوئی بیچلر ہے تو وہ غیر شادی شدہ ہیں\"۔ چونکہ کسی کی شادی اور بیچلر نہیں ہوسکتا ہے ، اس لئے یہ سچ ہے کہ بیچلر ہونے کے لئے غیر شادی شدہ ہونا ضروری ہے (دوسرے لفظوں میں ، اگر آپ شادی شدہ ہیں تو آپ بیچلر نہیں ہوسکتے ہیں)۔ چونکہ ہر وہ شخص جو بیچلر ہے غیر شادی شدہ ہے ، لہذا یہ سمجھتا ہے کہ بیچلر ہونا غیر شادی شدہ ہونے کے لئے کافی ہے۔",
+              "2. فرض کریں کہ A سچ ہے اور B غلط ہے۔ پھر (A → B) غلط ہے۔",
+              "3. فرض کریں کہ A جھوٹا ہے اور B جھوٹا ہے۔ پھر (A → B) سچ ہے۔"
+            ]
+          },
+          "tooltip": "مضمر",
+          "readAs": "مطلب پھر اگر"
+        },
+        "biconditional": {
+          "symbol": {
+            "applied": "↔",
+            "allSymbols": [
+              "⇔",
+              "≡",
+              "\u003c-\u003e",
+              "↔"
+            ]
+          },
+          "description": "یہ مساوات کا بٹن ہے",
+          "axioms": {
+            "explanation": "(A ⇔ B) درست ہوتا ہے جب A اور B ایک جیسے ہوتے ہیں۔ اس کا مطلب یہ ہے کہ A کو سچ ہونا چاہئے اور بی کو اس جملے کے سچ ہونے کے لئے صحیح ہونا چاہئے۔ اسی طرح ، A کو جھوٹا ہونا چاہئے اور بی کو اس جملے کو سچ ہونے کے ل false غلط ہونا چاہئے۔ جب ان میں اختلاف ہے تو ، سزا غلط ہے۔",
+            "example": [
+              "1. (A ⇔ B)"
+            ]
+          },
+          "tooltip": "مساوات",
+          "readAs": "صرف اور صرف اس صورت میں؛ \"اگر\"؛ جس کا مطلب ہے وہی"
+        },
+        "negation": {
+          "symbol": {
+            "applied": "~",
+            "allSymbols": [
+              "¬",
+              "!",
+              "˜",
+              "~"
+            ]
+          },
+          "description": "یہ نفی کا بٹن ہے",
+          "axioms": {
+            "explanation": "نفی کرنے والا آپریٹر (~) کسی پروپوزل کی صحیح قدر کو پلٹ دیتا ہے۔ لہذا ، اگر A سچ ہے ، تو ~ A غلط ہے۔ اسی طرح ، اگر ~ A غلط ہے ، تو ~ A سچ ہے۔ نفی آپریٹر کسی بھی جملے میں کام کرتا ہے اور علامتوں اور آپریٹرز دونوں پر تقسیم کرتا ہے۔",
+            "example": [
+              "1. (~~ A ⇔ A)",
+              "2. ¬ (A \u0026 B) (¬A ∨ ¬B) کے برابر ہے۔ نفی کرنے والا آپریٹر ریاضی سے تقسیم ہونے والی جائیداد کی پیروی کرتا ہے۔ ہم اسے قوسین کے اندر ہر چیز میں بانٹ دیتے ہیں۔",
+              "3. ~ (A -\u003e ~ B) (A \u0026 ~~ B) کے برابر ہے ، جو (A \u0026 B) کو کم کرتا ہے۔ نوٹ کریں کہ جب ہم کسی مفہوم پر نفی کا استعمال کرتے ہیں۔ ہم اسے کسی تجویز سے منفی تجویز کرتے ہیں۔"
+            ]
+          },
+          "tooltip": "بات چیت",
+          "readAs": "نہیں"
+        },
+        "conjunction": {
+          "symbol": {
+            "applied": "∧",
+            "allSymbols": [
+              "\u0026",
+              "·",
+              "^",
+              "∧"
+            ]
+          },
+          "description": "یہ کونجیکشن بٹن ہے۔",
+          "axioms": {
+            "explanation": "بیان (A ∧ B) درست ہے اگر A اور B دونوں سچ ہیں۔ بصورت دیگر ، یہ غلط ہے۔",
+            "example": [
+              "1. (A ∧ B)",
+              "2. ((A ⊃ B) اور (B ⊃ A))",
+              "3. ((A ∨ B) اور (A ∨ C)"
+            ]
+          },
+          "tooltip": "مجموعہ",
+          "readAs": "اور"
+        },
+        "disjunction": {
+          "symbol": {
+            "applied": "∨",
+            "allSymbols": [
+              "|",
+              "+",
+              "||",
+              "∨"
+            ]
+          },
+          "description": "یہ تزئین کا بٹن ہے۔",
+          "axioms": {
+            "explanation": "اگر A یا B (یا دونوں) درست ہیں تو بیان (A ∨ B) درست ہے۔ اگر دونوں جھوٹے ہیں ، تو یہ غلط ہے۔",
+            "example": [
+              "1. (A ∨ B)"
+            ]
+          },
+          "tooltip": "تغیر",
+          "readAs": "یا"
+        },
+        "exclusiveDisjunction": {
+          "symbol": {
+            "applied": "⊕",
+            "allSymbols": [
+              "⊻",
+              "≢",
+              "⩒",
+              "↮",
+              "⩛",
+              "⊕"
+            ]
+          },
+          "description": "یہ خصوصی یا بٹن ہے۔",
+          "axioms": {
+            "explanation": "بیان (A ⊕ B) درست ہے جب A یا B سچ ہیں ، لیکن دونوں ہی سچ نہیں ہیں۔",
+            "example": [
+              "1. جب واقعات میں غیر معمولی بات کی جائے تو خصوصی یا آپریٹر کی ایک عام مثال سامنے آتی ہے۔ دوسرے لفظوں میں ، اگر ہمارے پاس دو تجویزات P اور Q ہیں ، تو یا تو P سچا ہوسکتا ہے یا Q سچ ہوسکتا ہے۔ تاہم ، P اور Q سچ نہیں ہوسکتے ہیں۔ نیز ، P اور Q غلط نہیں ہو سکتے۔",
+              "2. فرض کریں کہ A سچ ہے اور B غلط ہے۔ پھر (A ⊕ B) سچ ہے۔",
+              "3. فرض کریں کہ A سچ ہے اور B غلط ہے۔ پھر ((A → B) ⊕ (B → A)) سچ ہے۔ (A → B) غلط ہے ، اور (B → A) سچ ہے۔ اس طرح ، آپریینڈز مختلف ہیں جس کا نتیجہ سچ ثابت ہوتا ہے۔"
+            ]
+          },
+          "tooltip": "خصوصی امتیاز",
+          "readAs": "ہاں یا؛ xor"
+        },
+        "turnstile": {
+          "symbol": {
+            "applied": "⊢",
+            "allSymbols": [
+              "∴",
+              "⊢"
+            ]
+          },
+          "description": "یہ \"ثابت شدہ\" بٹن ہے۔",
+          "axioms": {
+            "explanation": "(x ⊢ y) کا مطلب ہے x ثابت (مصنوعی طور پر شامل) y۔",
+            "example": [
+              "1. (A → B) ، (B → C) ⊢ (A → C) دو احاطے مصنوعی طور پر فرضی sylogism کے ذریعے نتیجہ اخذ کرنے کی کوشش کرتے ہیں۔",
+              "2. (P ∨ Q) ، ~ P ∴ Q. دو احاطے مصنوعی طور پر اختتامی sylogism کے ذریعے نتیجہ اخذ کرنے کی کوشش کرتے ہیں۔"
+            ]
+          },
+          "tooltip": "مصنوعی پابندی",
+          "readAs": "ثابت کرتا ہے ..."
+        },
+        "doubleTurnstile": {
+          "symbol": {
+            "applied": "⊨",
+            "allSymbols": [
+              "⊧",
+              "⊨"
+            ]
+          },
+          "description": "یہ \"ماڈل\" کا بٹن ہے۔",
+          "axioms": {
+            "explanation": "(x ⊨ y) کے معنی ہیں x ماڈل (semantically entails) y۔ دوسرے لفظوں میں ، اچھی طرح سے تشکیل شدہ فارمولہ x کو y کا مطلب لگانا چاہئے ، لیکن بات چیت درست نہیں ہونی چاہئے۔ X اور y جملے بھی برابر نہیں ہونا چاہئے۔",
+            "example": [
+              "1. P ⊨ (P ∨ Q)"
+            ]
+          },
+          "tooltip": "معقول قید",
+          "readAs": "ماڈل ..."
+        }
+      },
+      "predicate": {
+        "universal": {
+          "symbol": {
+            "applied": "∀",
+            "allSymbols": [
+              "∀",
+              "()"
+            ]
+          },
+          "description": "یہ عالمگیر تعدد بٹن ہے۔",
+          "axioms": {
+            "explanation": "(∀x) Px یا (x) Px کا مطلب ہے پیش گو P P کو کسی ڈومین D سے حاصل تمام ان پٹ کے لئے درست رکھتا ہے۔",
+            "example": [
+              "1. (∀x) Px",
+              "2. (y) (پی اے اور قی)"
+            ]
+          },
+          "tooltip": "آفاقی مقدار",
+          "readAs": "سب کے لیے؛ کسی کے لئے؛ ہر ایک کے لئے؛ سب؛ ہر کوئی"
+        },
+        "existential": {
+          "symbol": {
+            "applied": "∃",
+            "allSymbols": [
+              "∃"
+            ]
+          },
+          "description": "یہ وجودی مقدار کا بٹن ہے۔",
+          "axioms": {
+            "explanation": ".",
+            "example": [
+              "1. (∃x) Px"
+            ]
+          },
+          "tooltip": "وجودی مقدار",
+          "readAs": "وہاں موجود ہے؛ کچھ؛ بہت؛ کم از کم ایک"
+        }
+      }
+    }
+  },
+  "settingsView": {
+    "categories": {
+      "appearance": {
+        "label": "ظہور",
+        "theme": {
+          "label": "خیالیہ",
+          "applied": {
+            "name": "پہلے سے طے شدہ",
+            "code": "default.css"
+          },
+          "allThemes": [
+            {
+              "name": "پہلے سے طے شدہ",
+              "code": "default.css"
+            },
+            {
+              "name": "گہرا",
+              "code": "dark.css"
+            },
+            {
+              "name": "سیپیا",
+              "code": "sepia.css"
+            },
+            {
+              "name": "ٹیل",
+              "code": "teal.css"
+            },
+            {
+              "name": "ٹین",
+              "code": "tan.css"
+            }
+          ]
+        }
+      },
+      "language": {
+        "label": "زبان",
+        "languageContent": {
+          "label": "Language",
+          "applied": {
+            "name": "عربى",
+            "code": "ar"
+          },
+          "allLanguages": [
+            {
+              "name": "Afrikaans",
+              "code": "af"
+            },
+            {
+              "name": "Azərbaycan",
+              "code": "az"
+            },
+            {
+              "name": "bahasa Indonesia",
+              "code": "id"
+            },
+            {
+              "name": "català",
+              "code": "ca"
+            },
+            {
+              "name": "čeština",
+              "code": "cs"
+            },
+            {
+              "name": "Cymraeg",
+              "code": "cy"
+            },
+            {
+              "name": "dansk",
+              "code": "da"
+            },
+            {
+              "name": "Deutsche",
+              "code": "de"
+            },
+            {
+              "name": "eesti",
+              "code": "et"
+            },
+            {
+              "name": "English",
+              "code": "en"
+            },
+            {
+              "name": "español",
+              "code": "es"
+            },
+            {
+              "name": "Esperanto",
+              "code": "eo"
+            },
+            {
+              "name": "Euskal",
+              "code": "eu"
+            },
+            {
+              "name": "Français",
+              "code": "fr"
+            },
+            {
+              "name": "Gaeilge",
+              "code": "ga"
+            },
+            {
+              "name": "galego",
+              "code": "gl"
+            },
+            {
+              "name": "Hrvatski",
+              "code": "hr"
+            },
+            {
+              "name": "icelandic",
+              "code": "is"
+            },
+            {
+              "name": "italiano",
+              "code": "it"
+            },
+            {
+              "name": "Kiswahili",
+              "code": "sw"
+            },
+            {
+              "name": "kreyòl ayisyen",
+              "code": "ht"
+            },
+            {
+              "name": "Latine",
+              "code": "la"
+            },
+            {
+              "name": "Latvijas",
+              "code": "lv"
+            },
+            {
+              "name": "Lietuvos",
+              "code": "lt"
+            },
+            {
+              "name": "Magyar",
+              "code": "hu"
+            },
+            {
+              "name": "Malay",
+              "code": "ms"
+            },
+            {
+              "name": "Malti",
+              "code": "mt"
+            },
+            {
+              "name": "Nederlands",
+              "code": "nl"
+            },
+            {
+              "name": "norsk",
+              "code": "no"
+            },
+            {
+              "name": "Pilipino",
+              "code": "tl"
+            },
+            {
+              "name": "Polskie",
+              "code": "pl"
+            },
+            {
+              "name": "português",
+              "code": "pt"
+            },
+            {
+              "name": "Română",
+              "code": "ro"
+            },
+            {
+              "name": "shqiptar",
+              "code": "sq"
+            },
+            {
+              "name": "Slovenščina",
+              "code": "sl"
+            },
+            {
+              "name": "slovenský",
+              "code": "sk"
+            },
+            {
+              "name": "Suomalainen",
+              "code": "fi"
+            },
+            {
+              "name": "svenska",
+              "code": "sv"
+            },
+            {
+              "name": "Tiếng Việt",
+              "code": "vi"
+            },
+            {
+              "name": "Türk",
+              "code": "tr"
+            },
+            {
+              "name": "Ελληνικά",
+              "code": "el"
+            },
+            {
+              "name": "беларускі",
+              "code": "be"
+            },
+            {
+              "name": "български",
+              "code": "bg"
+            },
+            {
+              "name": "Македонски",
+              "code": "mk"
+            },
+            {
+              "name": "русский",
+              "code": "ru"
+            },
+            {
+              "name": "Српски",
+              "code": "sr"
+            },
+            {
+              "name": "український",
+              "code": "uk"
+            },
+            {
+              "name": "ქართული",
+              "code": "ka"
+            },
+            {
+              "name": "ייִדיש",
+              "code": "yi"
+            },
+            {
+              "name": "עִברִית",
+              "code": "iw"
+            },
+            {
+              "name": "اردو",
+              "code": "ur"
+            },
+            {
+              "name": "عربى",
+              "code": "ar"
+            },
+            {
+              "name": "فارسی",
+              "code": "fa"
+            },
+            {
+              "name": "हिन्दी",
+              "code": "hi"
+            },
+            {
+              "name": "বাংলা",
+              "code": "bn"
+            },
+            {
+              "name": "ગુજરાતી",
+              "code": "gu"
+            },
+            {
+              "name": "தமிழ்",
+              "code": "ta"
+            },
+            {
+              "name": "తెలుగు",
+              "code": "te"
+            },
+            {
+              "name": "ಕನ್ನಡ",
+              "code": "kn"
+            },
+            {
+              "name": "ไทย",
+              "code": "th"
+            },
+            {
+              "name": "한국어",
+              "code": "ko"
+            },
+            {
+              "name": "中國傳統的",
+              "code": "zh-TW"
+            },
+            {
+              "name": "日本語",
+              "code": "ja"
+            },
+            {
+              "name": "简体中文",
+              "code": "zh-CN"
+            }
+          ]
+        }
+      },
+      "advanced": {
+        "label": "اعلی درجے کی",
+        "timeOut": {
+          "label": "وقت ختم",
+          "value": 1000
+        }
+      }
+    },
+    "confirmation": {
+      "label": "تصدیق",
+      "alertHeader": "کیا تمہیں یقین ہے؟",
+      "alertContent": "موجودہ تبدیلیوں کو محفوظ کرنے کے لئے درخواست کو دوبارہ شروع کرنا ہوگا۔ کیا آپ واقعی جاری رکھنا چاہتے ہیں؟"
+    },
+    "cancel": "منسوخ کریں",
+    "save": "محفوظ کریں"
+  },
+  "loginView": {
+    "userNameLabel": "صارف کا نام",
+    "userNamePromptText": "اپنے یوزر نام کا اندراج کرو",
+    "passwordLabel": "پاس ورڈ",
+    "passwordPromptText": "اپنا پاس ورڈ درج کریں",
+    "loginButton": "لاگ ان کریں",
+    "returnButton": "درخواست پر واپس جائیں"
+  },
+  "registerView": {
+    "userNameLabel": "صارف کا نام",
+    "userNamePromptText": "اپنے یوزر نام کا اندراج کرو",
+    "firstNamePromptText": "اپنا پہلا نام درج کریں",
+    "lastNamePromptText": "Enter your last name",
+    "firstName": "پہلا نام",
+    "lastName": "اپنا آخری نام درج کریں",
+    "passwordLabel": "پاس ورڈ",
+    "passwordPromptText": "اپنا پاس ورڈ درج کریں",
+    "registerButton": "رجسٹر کریں",
+    "returnButton": "درخواست پر واپس جائیں"
+  }
+}

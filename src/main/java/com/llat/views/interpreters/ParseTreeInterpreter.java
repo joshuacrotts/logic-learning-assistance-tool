@@ -105,7 +105,7 @@ public class ParseTreeInterpreter implements Listener {
             this.parseTreeView.getParentPane().heightProperty().addListener((obs, oldVal, newVal) -> {
                 this.treePane.setTranslateY((newVal.doubleValue() / 2) - (this.treePane.getHeight() / 2));
             });
-            this.treePane.setTranslateX((this.parseTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getBoundsInParent().getWidth()/ 2)));
+            this.treePane.setTranslateX((this.parseTreeView.getParentPane().getWidth() / 2) - ((this.treePane.getBoundsInParent().getWidth() / 2)));
             this.treePane.setTranslateY((this.parseTreeView.getParentPane().getHeight() / 2) - ((this.treePane.getBoundsInParent().getHeight() / 2)));
             this.controller.setPaneToPannable(this.treePane);
             this.controller.setPaneToZoomable(this.treePane);
@@ -188,7 +188,7 @@ public class ParseTreeInterpreter implements Listener {
      * fashion. Each child is added to this queue and added to the tree at the same
      * time. We use a BFS because we have to tell the library which parent each
      * node belongs to.
-     *
+     * <p>
      * Note that, to add a node to the Abego tree, it has to be a different node
      * altogether, meaning that if you want to add a node that has the same string
      * representation of another (e.g. A = (P & Q), B = (P & Q)), you have to

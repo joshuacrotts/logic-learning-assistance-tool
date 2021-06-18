@@ -24,8 +24,7 @@
 
 
 #registerViewParentPane .button,
-#loginViewParentPane .button
-{
+#loginViewParentPane .button {
     -fx-wrap-text: true;
     -fx-font-size: 1.5em;
     /*-fx-min-width: 5em;*/
@@ -34,24 +33,24 @@
     -fx-border-width: 2.5;
     -fx-background-insets: 0;
 }
-#registerViewParentPane .button:hover ,
-#loginViewParentPane .button:hover
-{
+
+#registerViewParentPane .button:hover,
+#loginViewParentPane .button:hover {
     -fx-background-color: derive(silver, 80%);
 }
-#registerViewParentPane .button:pressed  ,
-#loginViewParentPane .button:pressed
-{
+
+#registerViewParentPane .button:pressed,
+#loginViewParentPane .button:pressed {
     -fx-background-color: #add8e6;
 }
-#registerViewParentPane .button:focused  ,
-#loginViewParentPane .button:focused
-{
+
+#registerViewParentPane .button:focused,
+#loginViewParentPane .button:focused {
     -fx-background-insets: 0;
 }
 
 #registerViewParentPane .text-field,
-#loginViewParentPane .text-field{
+#loginViewParentPane .text-field {
     -fx-background-color: -text-field;
     -fx-border-width: 5;
     -fx-border-color: black;
@@ -63,7 +62,7 @@
 
 
 #registerViewParentPane .label,
-#loginViewParentPane .label{
+#loginViewParentPane .label {
     -fx-font-size: 1.5em;
     -fx-padding: 1em 0 1em 0;
     -fx-text-fill: black;
