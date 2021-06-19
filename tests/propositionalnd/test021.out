@@ -1,16 +1,16 @@
-1: ((A | B) & (A | C))           P
-2: ~C                            P
-3: (A -> B)                      P
-4: (B -> ~D)                     P
-5: (~E -> D)                     P
-6: (~E | (~F | ~G))              P
-7: F                             P
-8: (A | C)                       Derived from [((A | B) & (A | C))], &E
-9: (A -> ~D)                     Derived from [(A -> B), (B -> ~D)], HS
-10: A                             Derived from [(A | C), ~C], DS
-11: ~D                            Derived from [(A -> ~D), A], MP
-12: E                             Derived from [(~E -> D), ~D], MT
-13: (~F | ~G)                     Derived from [(~E | (~F | ~G)), E], DS
-14: ~G                            Derived from [(~F | ~G), F], DS
-15: (~G | H)                      Derived from [~G, H], ∨I
+1: ((A | B) & (A | C))                               Ass.
+2: ~C                                                Ass.
+3: (A -> B)                                          Ass.
+4: (B -> ~D)                                         Ass.
+5: (~E -> D)                                         Ass.
+6: (~E | (~F | ~G))                                  Ass.
+7: F                                                 Ass.
+8: (A | C)                                           &E, ((A | B) & (A | C))
+9: (A -> ~D)                                         HS, (A -> B), (B -> ~D)
+10: A                                                 DS, (A | C), ~C
+11: ~D                                                MP, (A -> ~D), A
+12: E                                                 MT, (~E -> D), ~D
+13: (~F | ~G)                                         DS, (~E | (~F | ~G)), E
+14: ~G                                                DS, (~F | ~G), F
+15: (~G | H)                                          ∨I, ~G, H
 ∴ (~G | H)  ■

@@ -1,6 +1,6 @@
-1: ((P & Q) | (X -> Y))          P
-2: ~(P & Q)                      P
-3: ~Y                            P
-4: (X -> Y)                      Derived from [((P & Q) | (X -> Y)), ~(P & Q)], DS
-5: ~X                            Derived from [(X -> Y), ~Y], MT
+1: ((P & Q) | (X -> Y))                              Ass.
+2: ~(P & Q)                                          Ass.
+3: ~Y                                                Ass.
+4: (X -> Y)                                          DS, ((P & Q) | (X -> Y)), ~(P & Q)
+5: ~X                                                MT, (X -> Y), ~Y
 ∴ ~X  ■

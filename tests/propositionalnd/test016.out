@@ -1,5 +1,5 @@
-1: (A <-> B)                     P                             
-2: (A -> B)                      Derived from [(A <-> B)], ↔E
-3: (B -> A)                      Derived from [(A <-> B)], ↔E
-4: ((A -> B) & (B -> A))         Derived from [(A -> B), (B -> A)], &I
+1: (A <-> B)                                         Ass.
+2: (A -> B)                                          ↔E, (A <-> B)
+3: (B -> A)                                          ↔E, (A <-> B)
+4: ((A -> B) & (B -> A))                             &I, (A -> B), (B -> A)
 ∴ ((A -> B) & (B -> A))  ■

@@ -1,4 +1,4 @@
-1: (A -> B)                      P                             
-2: (B -> A)                      P                             
-3: (A <-> B)                     Derived from [(A -> B), (B -> A)], ↔I
+1: (A -> B)                                          Ass.
+2: (B -> A)                                          Ass.
+3: (A <-> B)                                         ↔I, (A -> B), (B -> A)
 ∴ (A <-> B)  ■

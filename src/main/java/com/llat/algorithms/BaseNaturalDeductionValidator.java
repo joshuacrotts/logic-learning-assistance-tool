@@ -209,9 +209,8 @@ public abstract class BaseNaturalDeductionValidator {
             WffTree flippedRhs = BaseTruthTreeGenerator.getFlippedNode(_disjTree.getChild(1));
             boolean lhs = this.isGoal(flippedLhs);
             boolean rhs = this.isGoal(flippedRhs);
-
             // If we do not satisfy one of them but do satisfy the other, then we can perform DS.
-            if (Boolean.logicalXor(lhs, rhs)) {
+            if (Boolean.logicalOr(lhs, rhs)) {
                 NDWffTree ndWffTree = null;
                 if (lhs) {
                     ndWffTree = new NDWffTree(_disjTree.getChild(1), NDStep.DS, _parent, this.getPremiseNDWffTree(flippedLhs));

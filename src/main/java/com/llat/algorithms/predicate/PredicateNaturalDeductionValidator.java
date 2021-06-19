@@ -1,9 +1,11 @@
 package com.llat.algorithms.predicate;
 
 import com.llat.algorithms.BaseNaturalDeductionValidator;
+import com.llat.algorithms.BaseTruthTreeGenerator;
 import com.llat.algorithms.models.NDFlag;
 import com.llat.algorithms.models.NDStep;
 import com.llat.algorithms.models.NDWffTree;
+import com.llat.models.symbols.Universal;
 import com.llat.models.treenode.*;
 
 import java.util.HashSet;
@@ -17,7 +19,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     /**
      *
      */
-    private static final int TIMEOUT = 100;
+    private static final int TIMEOUT = 1000;
 
     /**
      *
@@ -49,13 +51,19 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      */
     @Override
     public LinkedList<NDWffTree> getNaturalDeductionProof() {
-        while (!this.findConclusion() && !this.findContradictions()) {
+        int cycles = 0;
+        while (!this.findConclusion() && !this.findContradictions() && cycles++ <= TIMEOUT) {
             for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
                 NDWffTree premise = this.PREMISES_LIST.get(i);
                 this.satisfy(premise.getWffTree(), premise);
             }
 
             this.satisfy(this.CONCLUSION_WFF.getWffTree(), this.CONCLUSION_WFF);
+        }
+
+        // The timeout is there to prevent completely insane proofs from never ending.
+        if (cycles > TIMEOUT) {
+            return null;
         }
 
         // Backtrack from the conclusion to mark all those nodes that were used in the proof.
@@ -95,6 +103,8 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
             satisfiedNDWffTree = this.satisfyExistential(_tree, _parent);
         } else if (_tree.isUniversal()) {
             satisfiedNDWffTree = this.satisfyUniversal(_tree, _parent);
+        } else {
+            satisfiedNDWffTree = this.satisfyDeMorganFOPL(_tree, _parent);
         }
 
         // If we couldn't find anything to deduce/reduce the proposition with,
@@ -150,30 +160,29 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
-     * @param _impNode
+     * @param _impTree
      * @param _parent
      * @return
      */
-    private NDWffTree satisfyImplication(WffTree _impNode, NDWffTree _parent) {
+    private NDWffTree satisfyImplication(WffTree _impTree, NDWffTree _parent) {
         // If the parent is not the conclusion then we can attempt to do other rules on it.
         if (!this.isConclusion(_parent) && _parent.getWffTree().isImp()) {
-            if (this.findModusPonens(_impNode, _parent)
-                    || this.findModusTollens(_impNode, _parent)
-                    || this.findHypotheticalSyllogism(_impNode, _parent)) {
-                return null;
-            }
+            boolean mt = this.findModusTollens(_impTree, _parent);
+            boolean mp = this.findModusPonens(_impTree, _parent);
+            boolean hs = this.findHypotheticalSyllogism(_impTree, _parent);
+            if (mt || mp || hs) return null;
         }
 
         // Otherwise, try to construct an implication node - see if both sides are satisfiable.
-        NDWffTree lhsNDWffTree = this.satisfy(_impNode.getChild(0), _parent);
-        NDWffTree rhsNDWffTree = this.satisfy(_impNode.getChild(1), _parent);
+        NDWffTree lhsNDWffTree = this.satisfy(_impTree.getChild(0), _parent);
+        NDWffTree rhsNDWffTree = this.satisfy(_impTree.getChild(1), _parent);
         if (lhsNDWffTree != null && rhsNDWffTree != null) {
             ImpNode impNode = new ImpNode();
-            impNode.addChild(_impNode.getChild(0));
-            impNode.addChild(_impNode.getChild(1));
+            impNode.addChild(_impTree.getChild(0));
+            impNode.addChild(_impTree.getChild(1));
             NDWffTree impNDWffTree = new NDWffTree(impNode, NDFlag.II, NDStep.II,
-                    this.getPremiseNDWffTree(_impNode.getChild(0)),
-                    this.getPremiseNDWffTree(_impNode.getChild(1)));
+                    this.getPremiseNDWffTree(_impTree.getChild(0)),
+                    this.getPremiseNDWffTree(_impTree.getChild(1)));
             this.addPremise(impNDWffTree);
             return impNDWffTree;
         }
@@ -183,20 +192,18 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     }
 
     /**
-     * @param _tree
+     * @param _conjTree
      * @param _parent
      * @return
      */
-    private NDWffTree satisfyConjunction(WffTree _tree, NDWffTree _parent) {
+    private NDWffTree satisfyConjunction(WffTree _conjTree, NDWffTree _parent) {
         if (!_parent.isAndEActive() && !_parent.isAndIActive() && !this.isConclusion(_parent)) {
-            if (_tree.stringEquals(_parent.getWffTree()) &&
-                    this.findSimplification(_tree, _parent)) {
-                return null;
-            }
+            boolean simp = this.findSimplification(_conjTree, _parent);
+            if (simp && _conjTree.stringEquals(_parent.getWffTree())) return null;
         }
 
-        NDWffTree lhs = this.satisfy(_tree.getChild(0), _parent);
-        NDWffTree rhs = this.satisfy(_tree.getChild(1), _parent);
+        NDWffTree lhs = this.satisfy(_conjTree.getChild(0), _parent);
+        NDWffTree rhs = this.satisfy(_conjTree.getChild(1), _parent);
         if (lhs != null && rhs != null) {
             AndNode andNode = new AndNode();
             andNode.addChild(lhs.getWffTree());
@@ -217,16 +224,14 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     private NDWffTree satisfyDisjunction(WffTree _disjTree, NDWffTree _parent) {
         // First try to perform DS if the root is a disjunction.
         if (!this.isConclusion(_parent) && _parent.getWffTree().isOr()) {
-            if (this.findDisjunctiveSyllogism(_disjTree, _parent)
-                    && _disjTree.stringEquals(_parent.getWffTree())) {
-                return null;
-            }
+            boolean ds = this.findDisjunctiveSyllogism(_disjTree, _parent);
+            if (ds && _disjTree.stringEquals(_parent.getWffTree())) return null;
         }
 
-        // Then try to create a conjunction if it's a goal and one of the two children are satisfied.
+        // Then try to create a disjunction if it's a goal and one of the two children are satisfied.
         NDWffTree lhsNDWffTree = this.satisfy(_disjTree.getChild(0), _parent);
         NDWffTree rhsNDWffTree = this.satisfy(_disjTree.getChild(1), _parent);
-        if (lhsNDWffTree != null && rhsNDWffTree != null) {
+        if (lhsNDWffTree != null || rhsNDWffTree != null) {
             // There's two conditions: we're either adding from the conclusion or from
             // another premise. If the parent is the conclusion, then we're adding from
             // that (obviously) and one of the nodes won't be retrievable via getPremise....
@@ -244,6 +249,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
                     rhsDisj = new NDWffTree(_disjTree.getChild(1), NDStep.OI);
                 }
             }
+
             NDWffTree orNDWffTree = new NDWffTree(orNode, NDFlag.OI, NDStep.OI, lhsDisj, rhsDisj);
             this.addPremise(orNDWffTree);
             return orNDWffTree;
@@ -259,8 +265,8 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     private NDWffTree satisfyBiconditional(WffTree _bicondTree, NDWffTree _parent) {
         // First check to see if we can break any biconditionals down.
         if (!this.isConclusion(_parent) && _parent.getWffTree().isBicond()) {
-            if (this.findBiconditionalElimination(_bicondTree, _parent)
-                    && _bicondTree.stringEquals(_parent.getWffTree())) return null;
+            boolean bce = this.findBiconditionalElimination(_bicondTree, _parent);
+            if (bce && _bicondTree.stringEquals(_parent.getWffTree())) return null;
         }
         // We first have a subgoal of X -> Y and Y -> X.
         ImpNode impLhs = new ImpNode();
@@ -319,11 +325,76 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      * @return
      */
     private NDWffTree satisfyUniversal(WffTree _univTree, NDWffTree _parent) {
-        // Try to eliminate the universal if it's not a conclusion. We need to apply the elimination to all constants... right?
+        // Try to eliminate the universal if it's not a conclusion.
         if (!_parent.isUnivActive() && !this.isConclusion(_parent)) {
+            this.addUniversalConstants(_parent, ((UniversalQuantifierNode) _parent.getWffTree()).getVariableSymbolChar());
             return null;
         }
 
+        // If we find a satisfiable NDWffTree, then we can add it.
+        NDWffTree child = this.satisfy(_univTree.getChild(0), _parent);
+        if (child != null) {
+            String v = ((UniversalQuantifierNode) _univTree).getVariableSymbol();
+            UniversalQuantifierNode universalQuantifierNode = new UniversalQuantifierNode(v);
+            universalQuantifierNode.addChild(_univTree.getChild(0));
+            NDWffTree universalNDWffTree = new NDWffTree(universalQuantifierNode, NDFlag.UN, NDStep.UI, child);
+            this.addPremise(universalNDWffTree);
+            return universalNDWffTree;
+        }
+
+        return null;
+    }
+
+    /**
+     *
+     * @param _binopTree
+     * @param _parent
+     * @return
+     */
+    private NDWffTree satisfyDeMorganFOPL(WffTree _binopTree, NDWffTree _parent) {
+        if (!_parent.isDEMActive() && !this.isConclusion(_parent)) {
+            // Four types: one is ~(X B Y) => (~X ~B ~Y)
+            WffTree deMorganNode = null;
+            if (_binopTree.isNegation() && (_binopTree.getChild(0).isOr() || _binopTree.getChild(0).isAnd() || _binopTree.getChild(0).isImp())) {
+                deMorganNode = BaseTruthTreeGenerator.getNegatedBinaryNode(_binopTree.getChild(0)); // B
+                deMorganNode.addChild(_binopTree.getChild(0).isImp() ? _binopTree.getChild(0).getChild(0)
+                        : BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0).getChild(0))); // LHS X
+                deMorganNode.addChild(BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0).getChild(1))); // RHS Y
+            }
+            // Other is (X B Y) => ~(~X ~B ~Y)
+            else if ((_binopTree.isOr() || _binopTree.isAnd() || _binopTree.isImp())) {
+                WffTree negBinaryNode = BaseTruthTreeGenerator.getNegatedBinaryNode(_binopTree); // B
+                negBinaryNode.addChild(BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0))); // LHS X
+                negBinaryNode.addChild(BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(1))); // RHS Y
+                deMorganNode = new NegNode();
+                deMorganNode.addChild(negBinaryNode);
+            }
+            // Other turns ~(x)W to (Ex)~W
+            else if (_binopTree.isNegation() && _binopTree.getChild(0).isUniversal()) {
+                String v = ((UniversalQuantifierNode) _binopTree.getChild(0)).getVariableSymbol();
+                ExistentialQuantifierNode existentialQuantifierNode = new ExistentialQuantifierNode(v);
+                NegNode neg = new NegNode();
+                neg.addChild(_binopTree.getChild(0).getChild(0));
+                existentialQuantifierNode.addChild(neg);
+                deMorganNode = existentialQuantifierNode;
+            }
+            // Last turns ~(Ex)W to (x)~W
+            else if (_binopTree.isNegation() && _binopTree.getChild(0).isExistential()) {
+                String v = ((ExistentialQuantifierNode) _binopTree.getChild(0)).getVariableSymbol();
+                UniversalQuantifierNode universalQuantifierNode = new UniversalQuantifierNode(v);
+                NegNode neg = new NegNode();
+                neg.addChild(_binopTree.getChild(0).getChild(0));
+                universalQuantifierNode.addChild(neg);
+                deMorganNode = universalQuantifierNode;
+            }
+            // If we found a node, then it'll be applied/inserted here.
+            if (deMorganNode != null) {
+                _parent.setFlags(NDFlag.DEM);
+                NDWffTree deMorganNDWffTree = new NDWffTree(deMorganNode, NDFlag.DEM, NDStep.DEM, _parent);
+                this.addPremise(deMorganNDWffTree);
+                return deMorganNDWffTree;
+            }
+        }
         return null;
     }
 
@@ -344,6 +415,24 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         this.replaceSymbol(_newRoot, _variableToReplace, constant, ReplaceType.CONSTANT);
         this.addPremise(new NDWffTree(_newRoot, NDFlag.EX, NDStep.EE, _existentialNDWffTree));
         this.CONSTANTS.add(constant);
+    }
+
+    /**
+     * @param _universalNDWffTree
+     * @param _variableToReplace
+     */
+    private void addUniversalConstants(NDWffTree _universalNDWffTree, char _variableToReplace) {
+        // Add a default constant if one is not available to the universal quantifier.
+        if (this.CONSTANTS.isEmpty()) {
+            return;
+        }
+
+        for (char c : this.CONSTANTS) {
+            // Create a copy and replace the selected variable.
+            WffTree _newRoot = _universalNDWffTree.getWffTree().getChild(0).copy();
+            this.replaceSymbol(_newRoot, _variableToReplace, c, ReplaceType.CONSTANT);
+            this.addPremise(new NDWffTree(_newRoot, NDStep.UE, _universalNDWffTree));
+        }
     }
 
     /**

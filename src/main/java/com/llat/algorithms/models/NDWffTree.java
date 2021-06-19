@@ -93,18 +93,17 @@ public class NDWffTree {
     public String toString() {
         if ((this.derivedParents == null || this.derivedParents.isEmpty())
                 && (this.derivationStep == NDStep.C || this.derivationStep == NDStep.P)) {
-            return String.format("%-30s%-30s", this.wffTree.getStringRep(), this.derivationStep);
+            return String.format("%-50s%-50s", this.wffTree.getStringRep(), this.derivationStep);
         } else {
             // It's a little ugly but it works.
-            StringBuilder sb = new StringBuilder(String.format("%-30s", this.wffTree.getStringRep()));
-            sb.append("Derived from [");
+            StringBuilder sb = new StringBuilder(String.format("%-50s", this.wffTree.getStringRep()));
+            sb.append(this.derivationStep);
+            sb.append(", ");
             for (int i = 0; i < this.derivedParents.size() - 1; i++) {
                 sb.append(this.derivedParents.get(i).getWffTree().getStringRep());
                 sb.append(", ");
             }
             sb.append(this.derivedParents.getLast().getWffTree().getStringRep());
-            sb.append("], ");
-            sb.append(this.derivationStep);
             return sb.toString();
         }
     }

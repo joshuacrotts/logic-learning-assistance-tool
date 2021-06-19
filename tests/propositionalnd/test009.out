@@ -1,7 +1,7 @@
-1: (P -> Q)                      P
-2: (Q -> R)                      P
-3: (Q -> S)                      P
-4: (S -> T)                      P
-5: (P -> S)                      Derived from [(Q -> S), (P -> Q)], HS
-6: (P -> T)                      Derived from [(P -> S), (S -> T)], HS
+1: (P -> Q)                                          Ass.
+2: (Q -> R)                                          Ass.
+3: (Q -> S)                                          Ass.
+4: (S -> T)                                          Ass.
+5: (P -> S)                                          HS, (Q -> S), (P -> Q)
+6: (P -> T)                                          HS, (P -> S), (S -> T)
 ∴ (P -> T)  ■

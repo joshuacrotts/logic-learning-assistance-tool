@@ -1,7 +1,7 @@
-1: (y)(~Vy -> By)                P
-2: (x)(Fxr -> ~Bx)               P
-3: Fir                           P
-4: ~Vi                           P
-5: (Fir -> ~Bi)                  Derived from [(x)(Fxr -> ~Bx)], UE
-6: ~Bi                           Derived from [(Fir -> ~Bi), Fir], MP
+1: (y)(~Vy -> By)                                    Ass.
+2: (x)(Fxr -> ~Bx)                                   Ass.
+3: Fir                                               Ass.
+4: ~Vi                                               Ass.
+5: (Fir -> ~Bi)                                      UE, (x)(Fxr -> ~Bx)
+6: ~Bi                                               MP, (Fir -> ~Bi), Fir
 ∴ ~Bi  ■

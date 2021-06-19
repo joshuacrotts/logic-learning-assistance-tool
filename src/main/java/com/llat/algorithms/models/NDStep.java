@@ -9,7 +9,7 @@ public enum NDStep {
     MT("MT", "Modus Tollens"),
     MP("MP", "Modus Ponens"),
     II("II", "Implication Introduction"),
-    P("P", "Premise"),
+    P("Ass.", "Assumption"),
     C("C", "Conclusion"),
     DS("DS", "Disjunctive Syllogism"),
     AE("&E", "Conjunction Elimination"),

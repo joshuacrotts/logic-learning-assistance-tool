@@ -1,11 +1,11 @@
-1: (x)(Rx | Cx)                  P
-2: (x)(Cx -> Sx)                 P
-3: ~Ra                           P
-4: (Ra | Ca)                     Derived from [(x)(Rx | Cx)], UE
-5: (Ca -> Sa)                    Derived from [(x)(Cx -> Sx)], UE
-6: Ca                            Derived from [(Ra | Ca), ~Ra], DS
-7: Sa                            Derived from [(Ca -> Sa), Ca], MP
-8: (~Ra & Sa)                    Derived from [~Ra, Sa], &I
-9: (∃x)(~Rx & Sx)                Derived from [(~Ra & Sa)], EI
-10: ((∃x)(~Rx & Sx) | Fbc)        Derived from [(∃x)(~Rx & Sx)], ∨I
+1: (x)(Rx | Cx)                                      Ass.
+2: (x)(Cx -> Sx)                                     Ass.
+3: ~Ra                                               Ass.
+4: (Ra | Ca)                                         UE, (x)(Rx | Cx)
+5: (Ca -> Sa)                                        UE, (x)(Cx -> Sx)
+6: Ca                                                DS, (Ra | Ca), ~Ra
+7: Sa                                                MP, (Ca -> Sa), Ca
+8: (~Ra & Sa)                                        &I, ~Ra, Sa
+9: (∃x)(~Rx & Sx)                                    ∃I, (~Ra & Sa)
+10: ((∃x)(~Rx & Sx) | Fbc)                            ∨I, (∃x)(~Rx & Sx), Fbc
 ∴ ((∃x)(~Rx & Sx) | Fbc)  ■

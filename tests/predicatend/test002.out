@@ -1,5 +1,5 @@
-1: ~Dga                          P
-2: Fgbcdefghij                   P
-3: (~Dga & Fgbcdefghij)          Derived from [~Dga, Fgbcdefghij], &I
-4: (∃x)(~Dxa & Fxbcdefghij)      Derived from [(~Dga & Fgbcdefghij)], ∃I
+1: ~Dga                                              Ass.
+2: Fgbcdefghij                                       Ass.
+3: (~Dga & Fgbcdefghij)                              &I, ~Dga, Fgbcdefghij
+4: (∃x)(~Dxa & Fxbcdefghij)                          ∃I, (~Dga & Fgbcdefghij)
 ∴ (∃x)(~Dxa & Fxbcdefghij)  ■

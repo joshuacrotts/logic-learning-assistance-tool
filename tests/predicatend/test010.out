@@ -1,7 +1,8 @@
-1: (x)(Rx | Cx)                  P
-2: (∃x)~Rx                       P
-3: ~Ra                           Derived from [(∃x)~Rx], EE
-4: (Ra | Ca)                     Derived from [(x)(Rx | Cx)], UE
-5: Ca                            Derived from [(Ra | Ca), ~Ra], DS
-6: (∃x)Cx                        Derived from [Ca], EI
+1: (x)(Rx | Cx)                                      Ass.
+2: (∃x)~Rx                                           Ass.
+3: ~Ra                                               ∃E, (∃x)~Rx
+4: (Ra | Ca)                                         UE, (x)(Rx | Cx)
+5: Ca                                                DS, (Ra | Ca), ~Ra
+6: (∃x)Cx                                            ∃I, Ca
 ∴ (∃x)Cx  ■
+

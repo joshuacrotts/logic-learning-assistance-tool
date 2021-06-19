@@ -1,7 +1,7 @@
-1: (M & (~N -> ~M))              P
-2: M                             Derived from [(M & (~N -> ~M))], &E
-3: (~N -> ~M)                    Derived from [(M & (~N -> ~M))], &E
-4: N                             Derived from [(~N -> ~M), M], MT
-5: (N & M)                       Derived from [N, M], &I
-6: ((N & M) | ~M)                Derived from [(N & M), ~M], ∨I
+1: (M & (~N -> ~M))                                  Ass.
+2: M                                                 &E, (M & (~N -> ~M))
+3: (~N -> ~M)                                        &E, (M & (~N -> ~M))
+4: N                                                 MT, (~N -> ~M), M
+5: (N & M)                                           &I, N, M
+6: ((N & M) | ~M)                                    ∨I, (N & M), ~M
 ∴ ((N & M) | ~M)  ■

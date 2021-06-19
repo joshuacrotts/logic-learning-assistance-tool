@@ -1,7 +1,7 @@
-1: ((P & Q) & R)                 P
-2: (S & T)                       P
-3: (P & Q)                       Derived from [((P & Q) & R)], &E
-4: S                             Derived from [(S & T)], &E
-5: Q                             Derived from [(P & Q)], &E
-6: (Q & S)                       Derived from [Q, S], &I
+1: ((P & Q) & R)                                     Ass.
+2: (S & T)                                           Ass.
+3: (P & Q)                                           &E, ((P & Q) & R)
+4: S                                                 &E, (S & T)
+5: Q                                                 &E, (P & Q)
+6: (Q & S)                                           &I, Q, S
 ∴ (Q & S)  ■

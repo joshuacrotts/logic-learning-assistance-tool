@@ -1,4 +1,4 @@
-1: (A -> B)                      P
-2: A                             P
-3: B                             Derived from [(A -> B), A], MP
+1: (A -> B)                                          Ass.
+2: A                                                 Ass.
+3: B                                                 MP, (A -> B), A
 ∴ B  ■

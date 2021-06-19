@@ -1,8 +1,8 @@
-1: ((A & B) -> (A & C))          P
-2: B                             P
-3: ~C                            P
-4: (~A -> C)                     P
-5: A                             Derived from [(~A -> C), ~C], MT
-6: (A & B)                       Derived from [A, B], &I
-7: (A & C)                       Derived from [((A & B) -> (A & C)), (A & B)], MP
+1: ((A & B) -> (A & C))                              Ass.
+2: B                                                 Ass.
+3: ~C                                                Ass.
+4: (~A -> C)                                         Ass.
+5: A                                                 MT, (~A -> C), ~C
+6: (A & B)                                           &I, A, B
+7: (A & C)                                           MP, ((A & B) -> (A & C)), (A & B)
 ∴ (A & C)  ■

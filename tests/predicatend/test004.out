@@ -1,10 +1,10 @@
-1: Aa                            P
-2: Ba                            P
-3: Cc                            P
-4: Dc                            P
-5: (Aa & Ba)                     Derived from [Aa, Ba], &I
-6: (∃x)(Ax & Bx)                 Derived from [(Aa & Ba)], ∃I
-7: (Cc & Dc)                     Derived from [Cc, Dc], &I
-8: (∃y)(Cy & Dy)                 Derived from [(Cc & Dc)], ∃I
-9: ((∃x)(Ax & Bx) & (∃y)(Cy & Dy))Derived from [(∃x)(Ax & Bx), (∃y)(Cy & Dy)], &I
+1: Aa                                                Ass.
+2: Ba                                                Ass.
+3: Cc                                                Ass.
+4: Dc                                                Ass.
+5: (Aa & Ba)                                         &I, Aa, Ba
+6: (∃x)(Ax & Bx)                                     ∃I, (Aa & Ba)
+7: (Cc & Dc)                                         &I, Cc, Dc
+8: (∃y)(Cy & Dy)                                     ∃I, (Cc & Dc)
+9: ((∃x)(Ax & Bx) & (∃y)(Cy & Dy))                   &I, (∃x)(Ax & Bx), (∃y)(Cy & Dy)
 ∴ ((∃x)(Ax & Bx) & (∃y)(Cy & Dy))  ■

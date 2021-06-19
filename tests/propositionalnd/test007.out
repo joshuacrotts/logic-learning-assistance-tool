@@ -1,6 +1,6 @@
-1: (A & B)                       P
-2: ~B                            P
-3: B                             Derived from [(A & B)], &E
-4: ⊥                             Derived from [~B, B], ⊥I
-5: Q                             Derived from [⊥], ⊥E
+1: (A & B)                                           Ass.
+2: ~B                                                Ass.
+3: B                                                 &E, (A & B)
+4: ⊥                                                 ⊥I, ~B, B
+5: Q                                                 ⊥E, ⊥
 ∴ Q  ■

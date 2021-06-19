@@ -1,10 +1,10 @@
-1: (~P -> ~Q)                    P
-2: ((C -> D) & E)                P
-3: (~E | C)                      P
-4: (Q -> ~D)                     P
-5: (C -> D)                      Derived from [((C -> D) & E)], &E
-6: E                             Derived from [((C -> D) & E)], &E
-7: C                             Derived from [(~E | C), E], DS
-8: D                             Derived from [(C -> D), C], MP
-9: ~Q                            Derived from [(Q -> ~D), D], MT
+1: (~P -> ~Q)                                        Ass.
+2: ((C -> D) & E)                                    Ass.
+3: (~E | C)                                          Ass.
+4: (Q -> ~D)                                         Ass.
+5: (C -> D)                                          &E, ((C -> D) & E)
+6: E                                                 &E, ((C -> D) & E)
+7: C                                                 DS, (~E | C), E
+8: D                                                 MP, (C -> D), C
+9: ~Q                                                MT, (Q -> ~D), D
 ∴ ~Q  ■

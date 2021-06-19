@@ -1,6 +1,6 @@
-1: (C -> (D & M))                P
-2: (~C -> ~H)                    P
-3: H                             P
-4: C                             Derived from [(~C -> ~H), H], MT
-5: (D & M)                       Derived from [(C -> (D & M)), C], MP
+1: (C -> (D & M))                                    Ass.
+2: (~C -> ~H)                                        Ass.
+3: H                                                 Ass.
+4: C                                                 MT, (~C -> ~H), H
+5: (D & M)                                           MP, (C -> (D & M)), C
 ∴ (D & M)  ■

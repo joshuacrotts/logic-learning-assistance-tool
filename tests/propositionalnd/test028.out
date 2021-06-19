@@ -1,8 +1,8 @@
-1: (P & (Q & R))                 P
-2: P                             Derived from [(P & (Q & R))], &E
-3: (Q & R)                       Derived from [(P & (Q & R))], &E
-4: Q                             Derived from [(Q & R)], &E
-5: R                             Derived from [(Q & R)], &E
-6: (R & P)                       Derived from [R, P], &I
-7: ((R & P) & Q)                 Derived from [(R & P), Q], &I
+1: (P & (Q & R))                                     Ass.
+2: P                                                 &E, (P & (Q & R))
+3: (Q & R)                                           &E, (P & (Q & R))
+4: Q                                                 &E, (Q & R)
+5: R                                                 &E, (Q & R)
+6: (R & P)                                           &I, R, P
+7: ((R & P) & Q)                                     &I, (R & P), Q
 ∴ ((R & P) & Q)  ■

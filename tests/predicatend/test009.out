@@ -1,8 +1,8 @@
-1: (z)(Mz <-> Nz)                P
-2: (Ma & Bb)                     P
-3: Ma                            Derived from [(Ma & Bb)], &E
-4: (Ma <-> Na)                   Derived from [(z)(Mz <-> Nz)], UE
-5: (Ma -> Na)                     Derived from [(Ma <-> Na)], ↔E
-6: Na                            Derived from [(Ma -> Na), Ma], MP
-7: (∃x)Nx                        Derived from [Na], EI
+1: (z)(Mz <-> Nz)                                    Ass.
+2: (Ma & Bb)                                         Ass.
+3: (Ma <-> Na)                                       UE, (z)(Mz <-> Nz)
+4: Ma                                                &E, (Ma & Bb)
+5: (Ma -> Na)                                        ↔E, (Ma <-> Na)
+6: Na                                                MP, (Ma -> Na), Ma
+7: (∃x)Nx                                            ∃I, Na
 ∴ (∃x)Nx  ■

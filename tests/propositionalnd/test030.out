@@ -1,10 +1,10 @@
-1: (~X -> (Y -> ~Z))             P
-2: (~M -> (~Z -> X))             P
-3: (~M & ~X)                     P
-4: ~M                            Derived from [(~M & ~X)], &E
-5: ~X                            Derived from [(~M & ~X)], &E
-6: (Y -> ~Z)                     Derived from [(~X -> (Y -> ~Z)), ~X], MP
-7: (~Z -> X)                     Derived from [(~M -> (~Z -> X)), ~M], MP
-8: (Y -> X)                      Derived from [(Y -> ~Z), (~Z -> X)], HS
-9: ~Y                            Derived from [(Y -> X), ~X], MT
+1: (~X -> (Y -> ~Z))                                 Ass.
+2: (~M -> (~Z -> X))                                 Ass.
+3: (~M & ~X)                                         Ass.
+4: ~M                                                &E, (~M & ~X)
+5: ~X                                                &E, (~M & ~X)
+6: (Y -> ~Z)                                         MP, (~X -> (Y -> ~Z)), ~X
+7: (~Z -> X)                                         MP, (~M -> (~Z -> X)), ~M
+8: (Y -> X)                                          HS, (Y -> ~Z), (~Z -> X)
+9: ~Y                                                MT, (Y -> X), ~X
 ∴ ~Y  ■

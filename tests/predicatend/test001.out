@@ -1,5 +1,5 @@
-1: Pac                           P
-2: Qbc                           P
-3: (Pac & Qbc)                   Derived from [Pac, Qbc], &I
-4: (∃x)(Pax & Qbx)               Derived from [(Pac & Qbc)], ∃I
+1: Pac                                               Ass.
+2: Qbc                                               Ass.
+3: (Pac & Qbc)                                       &I, Pac, Qbc
+4: (∃x)(Pax & Qbx)                                   ∃I, (Pac & Qbc)
 ∴ (∃x)(Pax & Qbx)  ■

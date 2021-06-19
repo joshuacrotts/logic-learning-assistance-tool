@@ -1,9 +1,9 @@
-1: (A -> (B -> (C -> (D -> E)))) P
-2: (~G & ~F)                     P
-3: (~F -> A)                     P
-4: (~F -> (B -> (C -> (D -> E))))Derived from [(A -> (B -> (C -> (D -> E)))), (~F -> A)], HS
-5: ~G                            Derived from [(~G & ~F)], &E
-6: ~F                            Derived from [(~G & ~F)], &E
-7: (B -> (C -> (D -> E)))        Derived from [(~F -> (B -> (C -> (D -> E)))), ~F], MP
-8: ((B -> (C -> (D -> E))) & ~G) Derived from [(B -> (C -> (D -> E))), ~G], &I
+1: (A -> (B -> (C -> (D -> E))))                     Ass.
+2: (~G & ~F)                                         Ass.
+3: (~F -> A)                                         Ass.
+4: (~F -> (B -> (C -> (D -> E))))                    HS, (A -> (B -> (C -> (D -> E)))), (~F -> A)
+5: ~G                                                &E, (~G & ~F)
+6: ~F                                                &E, (~G & ~F)
+7: (B -> (C -> (D -> E)))                            MP, (~F -> (B -> (C -> (D -> E)))), ~F
+8: ((B -> (C -> (D -> E))) & ~G)                     &I, (B -> (C -> (D -> E))), ~G
 ∴ ((B -> (C -> (D -> E))) & ~G)  ■
