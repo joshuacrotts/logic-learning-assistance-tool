@@ -25,7 +25,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.NoSuchFileException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * Basic parser tester. Has a main() so can be run from the command line, with
@@ -68,7 +68,7 @@ public class ParserTest {
      */
     public static void main(String[] argv) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        LinkedList<WffTree> resultList = LLATParserAdapter.getAbstractSyntaxTree(reader.readLine());
+        ArrayList<WffTree> resultList = LLATParserAdapter.getAbstractSyntaxTree(reader.readLine());
         if (resultList == null) {
             return;
         }
@@ -165,7 +165,7 @@ public class ParserTest {
                 ndValidator = new PredicateNaturalDeductionValidator(resultList);
             }
 
-            LinkedList<NDWffTree> ndArgs = ndValidator.getNaturalDeductionProof();
+            ArrayList<NDWffTree> ndArgs = ndValidator.getNaturalDeductionProof();
             if (ndArgs == null) {
                 System.err.println("Either the argument is invalid (check the above result) or it timed out!");
             } else {
@@ -173,7 +173,7 @@ public class ParserTest {
                     NDWffTree wff = ndArgs.get(i);
                     System.out.println((i + 1) + ": " + wff);
                 }
-                System.out.println("∴ " + ndArgs.getLast().getWffTree().getStringRep() + "  ■");
+                System.out.println("∴ " + ndArgs.get(ndArgs.size() - 1).getWffTree().getStringRep() + "  ■");
             }
 
             PDFPrinter ttp = new PDFTruthTreePrinter(validator.getTruthTree(), "latex-truth-tree.pdf");

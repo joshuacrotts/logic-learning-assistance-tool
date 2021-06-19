@@ -158,7 +158,7 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _variableToReplace
      * @param _leaves
      */
-    public void addExistentialConstant(TruthTree _existentialTruthTree, LinkedList<TruthTree> _leaves,
+    public void addExistentialConstant(TruthTree _existentialTruthTree, ArrayList<TruthTree> _leaves,
                                        PriorityQueue<TruthTree> _queue, char _variableToReplace) {
         // Find the next available constant to use.
         char constant = 'a';
@@ -189,7 +189,7 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _universalTruthTree
      * @param _leaves
      */
-    public void addUniversalConstant(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves,
+    public void addUniversalConstant(TruthTree _universalTruthTree, ArrayList<TruthTree> _leaves,
                                      PriorityQueue<TruthTree> _queue, char _variableToReplace) {
         // Add a default constant if one is not available to the universal quantifier.
         if (_universalTruthTree.AVAILABLE_CONSTANTS.isEmpty()) {
@@ -214,7 +214,7 @@ public class TruthTree implements Comparable<TruthTree> {
                         // Set the traversing child to the next node added, get the leaves of it
                         // and then recursively close the branches if any contradictions are found.
                         l = l.getCenter();
-                        LinkedList<TruthTree> ttl = BaseTruthTreeGenerator.getLeaves(_newRootTT);
+                        ArrayList<TruthTree> ttl = BaseTruthTreeGenerator.getLeaves(_newRootTT);
                         BaseTruthTreeGenerator.computeClosedBranches(ttl);
                     }
                 }
@@ -233,7 +233,7 @@ public class TruthTree implements Comparable<TruthTree> {
      * @param _leaves
      * @param _queue
      */
-    public void addIdentityConstant(TruthTree _identityTruthTree, LinkedList<TruthTree> _leaves,
+    public void addIdentityConstant(TruthTree _identityTruthTree, ArrayList<TruthTree> _leaves,
                                     PriorityQueue<TruthTree> _queue) {
         String constantOne = _identityTruthTree.getWff().getChild(0).getSymbol();
         String constantTwo = _identityTruthTree.getWff().getChild(1).getSymbol();
@@ -265,7 +265,7 @@ public class TruthTree implements Comparable<TruthTree> {
                         TruthTree _newRootTT = new TruthTree(newLeaf, l, _identityTruthTree);
 
                         // Compute the closed branches.
-                        LinkedList<TruthTree> ttl = BaseTruthTreeGenerator.getLeaves(_newRootTT);
+                        ArrayList<TruthTree> ttl = BaseTruthTreeGenerator.getLeaves(_newRootTT);
                         BaseTruthTreeGenerator.computeClosedBranches(ttl);
                         l.addCenter(_newRootTT);
                         _queue.add(_newRootTT);

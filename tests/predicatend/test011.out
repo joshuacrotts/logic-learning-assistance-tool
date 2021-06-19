@@ -3,7 +3,7 @@
 3: (∃x)(Px | Qx)                                     Ass.
 4: (x)(Px -> Kx)                                     Ass.
 5: (x)(Qx -> Kx)                                     Ass.
-6: (Pa -> Ka)                                        UE, (x)(Px -> Kx)
-7: Ka                                                MP, (Pa -> Ka), Pa
-8: (∃x)Kx                                            ∃I, Ka
+6: (Pa -> Ka)                                        UE, 4
+7: Ka                                                MP, 1, 6
+8: (∃x)Kx                                            ∃I, 7
 ∴ (∃x)Kx  ■

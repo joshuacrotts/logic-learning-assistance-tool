@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class LLATParserAdapter {
 
@@ -19,10 +19,10 @@ public class LLATParserAdapter {
      * and wants to create an AST, whether it be stdin or JavaFX.
      *
      * @param _wff - String of wff characters.
-     * @return LinkedList<WffTree> representing abstract syntax trees returned. If
+     * @return ArrayList<WffTree> representing abstract syntax trees returned. If
      * this list contains only one WffTree, then we can run most algorithms.
      */
-    public static LinkedList<WffTree> getAbstractSyntaxTree(String _wff) {
+    public static ArrayList<WffTree> getAbstractSyntaxTree(String _wff) {
         LLATErrorListener.reset();
         CharStream charStream = CharStreams.fromString(_wff);
         LLATParserListener parser = LLATParserAdapter.parseStream(charStream);

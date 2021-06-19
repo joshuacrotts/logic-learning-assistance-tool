@@ -1,7 +1,7 @@
 1: (P | Q)                                           Ass.
 2: ~Q                                                Ass.
 3: (~R -> ~P)                                        Ass.
-4: P                                                 DS, (P | Q), ~Q
-5: R                                                 MT, (~R -> ~P), P
-6: (~Q & R)                                          &I, ~Q, R
+4: P                                                 DS, 1, 2
+5: R                                                 MT, 3, 4
+6: (~Q & R)                                          &I, 2, 5
 ∴ (~Q & R)  ■

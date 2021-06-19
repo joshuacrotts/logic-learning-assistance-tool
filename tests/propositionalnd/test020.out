@@ -2,9 +2,9 @@
 2: ((C -> D) & E)                                    Ass.
 3: (~E | C)                                          Ass.
 4: (Q -> ~D)                                         Ass.
-5: (C -> D)                                          &E, ((C -> D) & E)
-6: E                                                 &E, ((C -> D) & E)
-7: C                                                 DS, (~E | C), E
-8: D                                                 MP, (C -> D), C
-9: ~Q                                                MT, (Q -> ~D), D
+5: (C -> D)                                          &E, 2
+6: E                                                 &E, 2
+7: C                                                 DS, 3, 6
+8: D                                                 MP, 5, 7
+9: ~Q                                                MT, 4, 8
 ∴ ~Q  ■

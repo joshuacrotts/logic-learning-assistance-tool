@@ -2,9 +2,9 @@
 2: Ba                                                Ass.
 3: Cc                                                Ass.
 4: Dc                                                Ass.
-5: (Aa & Ba)                                         &I, Aa, Ba
-6: (∃x)(Ax & Bx)                                     ∃I, (Aa & Ba)
-7: (Cc & Dc)                                         &I, Cc, Dc
-8: (∃y)(Cy & Dy)                                     ∃I, (Cc & Dc)
-9: ((∃x)(Ax & Bx) & (∃y)(Cy & Dy))                   &I, (∃x)(Ax & Bx), (∃y)(Cy & Dy)
+5: (Aa & Ba)                                         &I, 1, 2
+6: (∃x)(Ax & Bx)                                     ∃I, 5
+7: (Cc & Dc)                                         &I, 3, 4
+8: (∃y)(Cy & Dy)                                     ∃I, 7
+9: ((∃x)(Ax & Bx) & (∃y)(Cy & Dy))                   &I, 6, 8
 ∴ ((∃x)(Ax & Bx) & (∃y)(Cy & Dy))  ■

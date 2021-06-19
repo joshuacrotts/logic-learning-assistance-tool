@@ -133,7 +133,7 @@ public final class TruthTableGenerator {
 
     /**
      * Builds the truth table for the supplied tree. Each node
-     * has a LinkedList of truth values associated with it, and
+     * has a ArrayList of truth values associated with it, and
      * these are set as the tree is built. So, this function does
      * not return anything. Once this method is called, the tree
      * will need to be traversed again to find the truth values.
@@ -179,7 +179,7 @@ public final class TruthTableGenerator {
      * the atoms at the start of the truth table.
      */
     private void printHelper() {
-        LinkedList<WffTree> postorderTraversal = new LinkedList<>(this.postorder());
+        ArrayList<WffTree> postorderTraversal = new ArrayList<>(this.postorder());
         int maxWidth = postorderTraversal.get(postorderTraversal.size() - 1).getStringRep().length();
         for (WffTree tree : postorderTraversal) {
             System.out.printf("%-" + maxWidth + "s : ", tree.getStringRep());

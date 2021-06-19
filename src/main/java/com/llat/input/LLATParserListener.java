@@ -5,7 +5,7 @@ import com.llat.LLATParser;
 import com.llat.models.treenode.*;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -36,9 +36,9 @@ public class LLATParserListener extends LLATBaseListener {
     private final Stack<WffTree> treeRoots;
 
     /**
-     * LinkedList to return to the user of all WffTrees that were inputted.
+     * ArrayList to return to the user of all WffTrees that were inputted.
      */
-    private final LinkedList<WffTree> currentTrees;
+    private final ArrayList<WffTree> currentTrees;
 
     /**
      * Current root of the wff tree being constructed.
@@ -51,7 +51,7 @@ public class LLATParserListener extends LLATBaseListener {
         this.LLAT_PARSER = _llatParser;
         this.PARSE_TREE = new ParseTreeProperty<>();
         this.treeRoots = new Stack<>();
-        this.currentTrees = new LinkedList<>();
+        this.currentTrees = new ArrayList<>();
     }
 
     @Override
@@ -184,7 +184,7 @@ public class LLATParserListener extends LLATBaseListener {
 
         // Loop through the children and add them to the list.
         // Each parameter is either a constant or variable.
-        LinkedList<WffTree> parameters = new LinkedList<>();
+        ArrayList<WffTree> parameters = new ArrayList<>();
         for (int i = 1; i < ctx.children.size(); i++) {
             parameters.add(this.PARSE_TREE.get(ctx.getChild(i)));
         }
@@ -338,10 +338,10 @@ public class LLATParserListener extends LLATBaseListener {
      * Returns the list of WffTrees that were constructed during parsing. Multiple are
      * possible if a comma is used as the delimiter.
      *
-     * @return LinkedList of WffTrees. If there is only one, then only one WffTree should
+     * @return ArrayList of WffTrees. If there is only one, then only one WffTree should
      * be evaluated. Otherwise, use an algorithm for 2+.
      */
-    public LinkedList<WffTree> getSyntaxTrees() {
+    public ArrayList<WffTree> getSyntaxTrees() {
         return LLATErrorListener.sawError() ? null : this.currentTrees;
     }
 

@@ -5,7 +5,7 @@ import com.llat.models.treenode.WffTree;
 
 import java.io.*;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public final class TexTablePrinter extends TexPrinter {
 
@@ -67,7 +67,7 @@ public final class TexTablePrinter extends TexPrinter {
      */
     private String getTexTable(LinkedHashSet<WffTree> _set) {
         StringBuilder sb = new StringBuilder();
-        LinkedList<WffTree> list = new LinkedList<>(_set);
+        ArrayList<WffTree> list = new ArrayList<>(_set);
         int rows = list.get(0).getTruthValues().size();
 
         // Print the preamble stuff.

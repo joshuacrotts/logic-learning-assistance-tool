@@ -9,7 +9,7 @@ import com.llat.models.symbols.Universal;
 import com.llat.models.treenode.*;
 
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,14 +31,14 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      */
     private final HashSet<Character> CONCLUSION_CONSTANTS;
 
-    public PredicateNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
+    public PredicateNaturalDeductionValidator(ArrayList<WffTree> _wffTreeList) {
         super(_wffTreeList);
         // Get all constants and conclusion constants...
         this.CONSTANTS = new HashSet<>();
         this.CONCLUSION_CONSTANTS = new HashSet<>();
         for (int i = 0; i < _wffTreeList.size() - 1; i++)
             this.addAllConstantsToSet(_wffTreeList.get(i), this.CONSTANTS);
-        this.addAllConstantsToSet(_wffTreeList.getLast(), this.CONCLUSION_CONSTANTS);
+        this.addAllConstantsToSet(_wffTreeList.get(_wffTreeList.size() - 1), this.CONCLUSION_CONSTANTS);
     }
 
     /**
@@ -50,7 +50,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      * the conclusion.
      */
     @Override
-    public LinkedList<NDWffTree> getNaturalDeductionProof() {
+    public ArrayList<NDWffTree> getNaturalDeductionProof() {
         int cycles = 0;
         while (!this.findConclusion() && !this.findContradictions()
                 && cycles++ <= PredicateNaturalDeductionValidator.TIMEOUT) {
@@ -70,16 +70,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         this.activateLinks(this.CONCLUSION_WFF);
 
         // Add the premises that were actually used in the argument.
-        LinkedList<NDWffTree> args = new LinkedList<>();
-        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
-            if (ndWffTree.isActive()) {
-                args.add(ndWffTree);
-            }
-        }
-
-        // Finally, add the conclusion.
-        args.add(this.CONCLUSION_WFF);
-        return args;
+        return this.assignParentIndices();
     }
 
     /**

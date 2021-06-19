@@ -6,7 +6,8 @@ import com.llat.algorithms.models.NDWffTree;
 import com.llat.models.treenode.*;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -16,7 +17,7 @@ public abstract class BaseNaturalDeductionValidator {
     /**
      *
      */
-    protected final LinkedList<WffTree> ORIGINAL_WFFTREE_LIST;
+    protected final ArrayList<WffTree> ORIGINAL_WFFTREE_LIST;
 
     /**
      *
@@ -28,7 +29,7 @@ public abstract class BaseNaturalDeductionValidator {
      */
     protected final NDWffTree CONCLUSION_WFF;
 
-    public BaseNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
+    public BaseNaturalDeductionValidator(ArrayList<WffTree> _wffTreeList) {
         this.ORIGINAL_WFFTREE_LIST = _wffTreeList;
         this.PREMISES_LIST = new ArrayList<>();
         this.CONCLUSION_WFF = new NDWffTree(_wffTreeList.get(_wffTreeList.size() - 1).getChild(0), NDStep.C);
@@ -49,7 +50,7 @@ public abstract class BaseNaturalDeductionValidator {
      * @return list of NDWffTree "args". These serve as the premises, with the last element in the list being
      * the conclusion.
      */
-    public abstract LinkedList<NDWffTree> getNaturalDeductionProof();
+    public abstract ArrayList<NDWffTree> getNaturalDeductionProof();
 
     /**
      * Finds contradictions in the premises. A contradiction, like with truth trees, occurs when we have a wff w1, and
@@ -100,6 +101,7 @@ public abstract class BaseNaturalDeductionValidator {
     protected void addPremise(NDWffTree _ndWffTree) {
         // THIS NEEDS TO BE ADAPTED TO WORK WITH CONTRADICTIONS SINCE THOSE WILL FAIL!!!!!!!
         if (!this.PREMISES_LIST.contains(_ndWffTree) && !this.isRedundantTree(_ndWffTree)) {
+            //System.out.println("Adding " + _ndWffTree.getWffTree().getStringRep());
             this.PREMISES_LIST.add(_ndWffTree);
         }
     }
@@ -409,5 +411,47 @@ public abstract class BaseNaturalDeductionValidator {
     protected boolean isConclusion(NDWffTree _ndWffTree) {
         return this.CONCLUSION_WFF.getWffTree().stringEquals(_ndWffTree.getWffTree())
                 || this.CONCLUSION_WFF == _ndWffTree;
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected ArrayList<NDWffTree> assignParentIndices() {
+        ArrayList<NDWffTree> tempArguments = new ArrayList<>();
+        ArrayList<NDWffTree> arguments = new ArrayList<>();
+        // First assign the trees to a temporary list.
+        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
+            if (ndWffTree.isActive()) {
+                tempArguments.add(ndWffTree);
+            }
+        }
+
+        // Now assign the derived parent indices.
+        for (NDWffTree ndWffTree : tempArguments) {
+            ArrayList<Integer> indices = new ArrayList<>();
+            for (NDWffTree p : ndWffTree.getDerivedParents()) {
+                int idx = tempArguments.indexOf(p);
+                if (idx != -1) {
+                    indices.add(idx + 1);
+                }
+            }
+            Collections.sort(indices);
+            ndWffTree.setDerivedParentIndices(indices);
+            arguments.add(ndWffTree);
+        }
+
+        // Finally, add the conclusion.
+        ArrayList<Integer> indices = new ArrayList<>();
+        for (NDWffTree p : this.CONCLUSION_WFF.getDerivedParents()) {
+            int idx = tempArguments.indexOf(p);
+            if (idx != -1) {
+                indices.add(idx + 1);
+            }
+        }
+        Collections.sort(indices);
+        this.CONCLUSION_WFF.setDerivedParentIndices(indices);
+        arguments.add(this.CONCLUSION_WFF);
+        return arguments;
     }
 }

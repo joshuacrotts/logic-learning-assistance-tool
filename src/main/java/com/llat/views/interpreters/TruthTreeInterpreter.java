@@ -22,6 +22,7 @@ import org.abego.treelayout.util.DefaultConfiguration;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -308,14 +309,14 @@ public class TruthTreeInterpreter implements Listener {
         private static final double TOOLTIP_SHOW_DELAY = 0.2;
 
         /**
+         *
+         */
+        private final ArrayList<TruthTree> truthTrees;
+
+        /**
          * Pane to attach this TruthTreeGuiNode to and its border children (lines).
          */
         private final Pane PANE;
-
-        /**
-         *
-         */
-        private final LinkedList<TruthTree> truthTrees;
 
         /**
          *
@@ -333,7 +334,7 @@ public class TruthTreeInterpreter implements Listener {
         private double height;
 
         public TruthTreeGuiNode(TruthTree _tree, Pane _pane) {
-            this.truthTrees = new LinkedList<>();
+            this.truthTrees = new ArrayList<>();
             this.truthTrees.add(_tree);
             this.PANE = _pane;
             this.text = _tree.getWff().getStringRep() + "\n" + "";

@@ -3,7 +3,7 @@ package com.llat.algorithms;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.models.treenode.*;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 /**
@@ -38,10 +38,10 @@ public abstract class BaseTruthTreeGenerator {
      * nodes we have to add to when branching or stacking.
      *
      * @param _truthTree - TruthTree node to recursively search for leaves.
-     * @return LinkedList<TruthTree> of leaf nodes.
+     * @return ArrayList<TruthTree> of leaf nodes.
      */
-    public static LinkedList<TruthTree> getLeaves(TruthTree _truthTree) {
-        LinkedList<TruthTree> leaves = new LinkedList<>();
+    public static ArrayList<TruthTree> getLeaves(TruthTree _truthTree) {
+        ArrayList<TruthTree> leaves = new ArrayList<>();
         BaseTruthTreeGenerator.getLeavesHelper(_truthTree, leaves);
         return leaves;
     }
@@ -65,7 +65,7 @@ public abstract class BaseTruthTreeGenerator {
      *
      * @param _leaves - list of leaves to check for closure.
      */
-    public static void computeClosedBranches(LinkedList<TruthTree> _leaves) {
+    public static void computeClosedBranches(ArrayList<TruthTree> _leaves) {
         for (TruthTree leaf : _leaves) {
             if (!leaf.isClosed()) {
                 TruthTree currentLeaf = leaf;
@@ -114,7 +114,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _truthTree - TruthTree node to recursively search for leaves.
      * @param _leaves    - linked list of leaf nodes to add to.
      */
-    protected static void getLeavesHelper(TruthTree _truthTree, LinkedList<TruthTree> _leaves) {
+    protected static void getLeavesHelper(TruthTree _truthTree, ArrayList<TruthTree> _leaves) {
         // If both left and right nodes are null then it's a leaf by def.
         if (_truthTree.getLeft() == null && _truthTree.getRight() == null) {
             _leaves.add(_truthTree);
@@ -286,7 +286,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _leaves - list of leaves.
      * @param _queue  - priority queue of nodes left to process.
      */
-    protected void stackConjunction(TruthTree _conj, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void stackConjunction(TruthTree _conj, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_conj.getWff() instanceof AndNode)) {
             throw new IllegalArgumentException("Error: conjunction expects conjunction node but got " + _conj.getClass());
         }
@@ -316,7 +316,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _leaves - list of leaves.
      * @param _queue  - priority queue of nodes left to process.
      */
-    protected void branchDisjunction(TruthTree _disj, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void branchDisjunction(TruthTree _disj, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_disj.getWff() instanceof OrNode)) {
             throw new IllegalArgumentException("Error: disjunction expects disjunction node but got " + _disj.getClass());
         }
@@ -346,7 +346,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _leaves - list of leaves.
      * @param _queue  - priority queue of nodes left to process.
      */
-    protected void branchImplication(TruthTree _imp, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void branchImplication(TruthTree _imp, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_imp.getWff() instanceof ImpNode)) {
             throw new IllegalArgumentException("Error: implication expects implication node but got " + _imp.getClass());
         }
@@ -376,7 +376,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _leaves  - list of leaves.
      * @param _queue   - priority queue of nodes left to process.
      */
-    protected void stackNegationImplication(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void stackNegationImplication(TruthTree _negRoot, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_negRoot.getWff().getChild(0) instanceof ImpNode)) {
             throw new IllegalArgumentException("Error: negated implication child expects implication node but got " + _negRoot.getClass());
         }
@@ -405,7 +405,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _leaves  - list of leaf nodes.
      * @param _queue   - Priority queue to add the four constructed children to.
      */
-    protected void branchExclusiveOr(TruthTree _xorRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void branchExclusiveOr(TruthTree _xorRoot, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_xorRoot.getWff() instanceof ExclusiveOrNode)) {
             throw new IllegalArgumentException("Error: branch exclusive or expects exclusive or node but got " + _xorRoot.getClass());
         }
@@ -444,7 +444,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _leaves  - list of leaf nodes.
      * @param _queue   - Priority queue to add the four constructed children to.
      */
-    protected void branchNegationExclusiveOr(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void branchNegationExclusiveOr(TruthTree _negRoot, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_negRoot.getWff().getChild(0) instanceof ExclusiveOrNode)) {
             throw new IllegalArgumentException("Error: branch negation exclusive or expects exclusive or node but got " + _negRoot.getClass());
         }
@@ -480,7 +480,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _leaves - list of leaf nodes.
      * @param _queue  - Priority queue to add the four constructed children to.
      */
-    protected void branchBiconditional(TruthTree _bicond, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void branchBiconditional(TruthTree _bicond, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_bicond.getWff() instanceof BicondNode)) {
             throw new IllegalArgumentException("Error: branch biconditional expects biconditional node but got " + _bicond.getClass());
         }
@@ -517,7 +517,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _leaves  - list of leaf nodes.
      * @param _queue   - Priority queue to add the four constructed children to.
      */
-    protected void branchNegationBiconditional(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void branchNegationBiconditional(TruthTree _negRoot, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_negRoot.getWff().getChild(0) instanceof BicondNode)) {
             throw new IllegalArgumentException("Error: branch negation biconditional expects biconditional node but got " + _negRoot.getClass());
         }
@@ -562,7 +562,7 @@ public abstract class BaseTruthTreeGenerator {
      * @param _queue   - priority queue of nodes - each child created in this method
      *                 is added to this priority queue.
      */
-    protected void distributeNegation(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    protected void distributeNegation(TruthTree _negRoot, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         WffTree child = _negRoot.getWff().getChild(0);
         WffTree negatedAtom;
         TruthTree enqueuedTTNode;

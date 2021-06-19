@@ -2,7 +2,7 @@ package com.llat.models.treenode;
 
 import com.llat.tools.TexPrintable;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,12 +18,12 @@ public class WffTree implements Copyable, TexPrintable {
     /**
      *
      */
-    private final LinkedList<WffTree> children;
+    private final ArrayList<WffTree> children;
 
     /**
      *
      */
-    private final LinkedList<Boolean> truthValues;
+    private final ArrayList<Boolean> truthValues;
 
     /**
      *
@@ -38,8 +38,8 @@ public class WffTree implements Copyable, TexPrintable {
     public WffTree(String _symbol, NodeType _nodeType) {
         this.symbol = _symbol;
         this.NODE_TYPE = _nodeType;
-        this.children = new LinkedList<>();
-        this.truthValues = new LinkedList<>();
+        this.children = new ArrayList<>();
+        this.truthValues = new ArrayList<>();
     }
 
     public WffTree(NodeType _nodeType) {
@@ -337,11 +337,11 @@ public class WffTree implements Copyable, TexPrintable {
         return (this.flags & NodeFlag.PREDICATE) != 0;
     }
 
-    public LinkedList<WffTree> getChildren() {
+    public ArrayList<WffTree> getChildren() {
         return this.children;
     }
 
-    public LinkedList<Boolean> getTruthValues() {
+    public ArrayList<Boolean> getTruthValues() {
         return this.truthValues;
     }
 

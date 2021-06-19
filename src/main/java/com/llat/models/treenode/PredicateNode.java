@@ -2,7 +2,7 @@ package com.llat.models.treenode;
 
 import com.llat.algorithms.TexPrinter;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,9 +17,9 @@ public class PredicateNode extends WffTree {
     /**
      * WffTree children for this predicate node - each child should be a constant or variable node.
      */
-    private final LinkedList<WffTree> PARAMS;
+    private final ArrayList<WffTree> PARAMS;
 
-    public PredicateNode(String _predicateLetter, LinkedList<WffTree> _params) {
+    public PredicateNode(String _predicateLetter, ArrayList<WffTree> _params) {
         super(_predicateLetter, NodeType.PREDICATE);
         this.PREDICATE_LETTER = _predicateLetter;
         this.PARAMS = _params;
@@ -34,7 +34,7 @@ public class PredicateNode extends WffTree {
     public PredicateNode(String _predicateLetter) {
         super(_predicateLetter, NodeType.PREDICATE);
         this.PREDICATE_LETTER = _predicateLetter;
-        this.PARAMS = new LinkedList<>();
+        this.PARAMS = new ArrayList<>();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class PredicateNode extends WffTree {
         return this.PREDICATE_LETTER;
     }
 
-    public LinkedList<WffTree> getParameters() {
+    public ArrayList<WffTree> getParameters() {
         return this.PARAMS;
     }
 

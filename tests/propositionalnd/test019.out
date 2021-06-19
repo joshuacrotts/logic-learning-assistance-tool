@@ -2,7 +2,7 @@
 2: B                                                 Ass.
 3: ~C                                                Ass.
 4: (~A -> C)                                         Ass.
-5: A                                                 MT, (~A -> C), ~C
-6: (A & B)                                           &I, A, B
-7: (A & C)                                           MP, ((A & B) -> (A & C)), (A & B)
+5: A                                                 MT, 3, 4
+6: (A & B)                                           &I, 2, 5
+7: (A & C)                                           MP, 1, 6
 ∴ (A & C)  ■

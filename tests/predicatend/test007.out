@@ -2,6 +2,6 @@
 2: (x)(Fxr -> ~Bx)                                   Ass.
 3: Fir                                               Ass.
 4: ~Vi                                               Ass.
-5: (Fir -> ~Bi)                                      UE, (x)(Fxr -> ~Bx)
-6: ~Bi                                               MP, (Fir -> ~Bi), Fir
+5: (Fir -> ~Bi)                                      UE, 2
+6: ~Bi                                               MP, 3, 5
 ∴ ~Bi  ■

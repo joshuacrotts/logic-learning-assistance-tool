@@ -2,7 +2,7 @@
 2: (Hab -> (z)(Jz -> Kz))                            Ass.
 3: ((z)(Jz -> Kz) -> (∃y)Py)                         Ass.
 4: ((∃y)Py -> Bb)                                    Ass.
-5: (z)(Jz -> Kz)                                     MP, (Hab -> (z)(Jz -> Kz)), Hab
-6: (∃y)Py                                            MP, ((z)(Jz -> Kz) -> (∃y)Py), (z)(Jz -> Kz)
-7: Bb                                                MP, ((∃y)Py -> Bb), (∃y)Py
+5: (z)(Jz -> Kz)                                     MP, 1, 2
+6: (∃y)Py                                            MP, 3, 5
+7: Bb                                                MP, 4, 6
 ∴ Bb  ■

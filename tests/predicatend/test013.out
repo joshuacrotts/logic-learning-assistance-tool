@@ -1,11 +1,11 @@
 1: (x)(Rx | Cx)                                      Ass.
 2: (x)(Cx -> Sx)                                     Ass.
 3: ~Ra                                               Ass.
-4: (Ra | Ca)                                         UE, (x)(Rx | Cx)
-5: (Ca -> Sa)                                        UE, (x)(Cx -> Sx)
-6: Ca                                                DS, (Ra | Ca), ~Ra
-7: Sa                                                MP, (Ca -> Sa), Ca
-8: (~Ra & Sa)                                        &I, ~Ra, Sa
-9: (∃x)(~Rx & Sx)                                    ∃I, (~Ra & Sa)
-10: ((∃x)(~Rx & Sx) | Fbc)                            ∨I, (∃x)(~Rx & Sx), Fbc
+4: (Ra | Ca)                                         UE, 1
+5: (Ca -> Sa)                                        UE, 2
+6: Ca                                                DS, 3, 4
+7: Sa                                                MP, 5, 6
+8: (~Ra & Sa)                                        &I, 3, 7
+9: (∃x)(~Rx & Sx)                                    ∃I, 8
+10: ((∃x)(~Rx & Sx) | Fbc)                            ∨I, 9
 ∴ ((∃x)(~Rx & Sx) | Fbc)  ■

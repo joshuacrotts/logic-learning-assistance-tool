@@ -7,7 +7,7 @@ import com.llat.models.treenode.AndNode;
 import com.llat.models.treenode.NegNode;
 import com.llat.models.treenode.WffTree;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -25,7 +25,7 @@ public final class ArgumentTruthTreeValidator {
      */
     private BaseTruthTreeGenerator truthTreeGenerator;
 
-    public ArgumentTruthTreeValidator(LinkedList<WffTree> _wffTreeList) {
+    public ArgumentTruthTreeValidator(ArrayList<WffTree> _wffTreeList) {
         this.combinedTree = new WffTree();
         Stack<WffTree> nodes = new Stack<>();
         WffTree leaf = null;

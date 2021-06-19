@@ -2,6 +2,7 @@ package com.llat.algorithms.predicate;
 
 import com.llat.models.treenode.WffTree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 

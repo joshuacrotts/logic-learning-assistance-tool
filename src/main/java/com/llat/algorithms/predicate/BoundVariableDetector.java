@@ -4,7 +4,7 @@ import com.llat.models.treenode.QuantifierNode;
 import com.llat.models.treenode.VariableNode;
 import com.llat.models.treenode.WffTree;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public final class BoundVariableDetector {
@@ -25,8 +25,8 @@ public final class BoundVariableDetector {
     /**
      * @return
      */
-    public LinkedList<WffTree> getBoundVariables() {
-        LinkedList<WffTree> S = new LinkedList<>();
+    public ArrayList<WffTree> getBoundVariables() {
+        ArrayList<WffTree> S = new ArrayList<>();
         Stack<WffTree> L = new Stack<>();
         this.bound(this.wffTree, S, L);
         return S;
@@ -37,7 +37,7 @@ public final class BoundVariableDetector {
      * @param S
      * @param L
      */
-    private void bound(WffTree T, LinkedList<WffTree> S, Stack<WffTree> L) {
+    private void bound(WffTree T, ArrayList<WffTree> S, Stack<WffTree> L) {
         // Quantifiers are always the left-most child in a tree if they exist.
         if (T.isQuantifier()) {
             L.push(T);

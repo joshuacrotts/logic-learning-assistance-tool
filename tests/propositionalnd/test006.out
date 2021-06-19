@@ -1,6 +1,6 @@
 1: ((P & Q) | (R & S))                               Ass.
 2: ~(P & Q)                                          Ass.
 3: (T -> ~(R & S))                                   Ass.
-4: (R & S)                                           DS, ((P & Q) | (R & S)), ~(P & Q)
-5: ~T                                                MT, (T -> ~(R & S)), (R & S)
+4: (R & S)                                           DS, 1, 2
+5: ~T                                                MT, 3, 4
 ∴ ~T  ■

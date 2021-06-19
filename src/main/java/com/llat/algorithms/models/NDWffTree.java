@@ -3,7 +3,7 @@ package com.llat.algorithms.models;
 import com.llat.models.treenode.WffTree;
 
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,7 +13,9 @@ public class NDWffTree {
     /**
      *
      */
-    private LinkedList<NDWffTree> derivedParents;
+    private ArrayList<NDWffTree> derivedParents;
+
+    private ArrayList<Integer> derivedParentIndices;
 
     /**
      *
@@ -33,7 +35,8 @@ public class NDWffTree {
     public NDWffTree(WffTree _wffTree, int _flags, NDStep _derivationStep, NDWffTree... _derivedParents) {
         this.wffTree = _wffTree;
         this.derivationStep = _derivationStep;
-        this.derivedParents = new LinkedList<>();
+        this.derivedParents = new ArrayList<>();
+        this.derivedParentIndices = new ArrayList<>();
         this.flags = _flags;
 
         if (_derivedParents != null) {
@@ -65,12 +68,20 @@ public class NDWffTree {
                 || this.getWffTree().stringEquals(otherTree.getWffTree());
     }
 
-    public LinkedList<NDWffTree> getDerivedParents() {
+    public ArrayList<NDWffTree> getDerivedParents() {
         return this.derivedParents;
     }
 
-    public void setDerivedParents(LinkedList<NDWffTree> _derivedParents) {
+    public void setDerivedParents(ArrayList<NDWffTree> _derivedParents) {
         this.derivedParents = _derivedParents;
+    }
+
+    public ArrayList<Integer> getDerivedParentIndices() {
+        return this.derivedParentIndices;
+    }
+
+    public void setDerivedParentIndices(ArrayList<Integer> _derivedParentIndices) {
+        this.derivedParentIndices = _derivedParentIndices;
     }
 
     public WffTree getWffTree() {
@@ -99,11 +110,11 @@ public class NDWffTree {
             StringBuilder sb = new StringBuilder(String.format("%-50s", this.wffTree.getStringRep()));
             sb.append(this.derivationStep);
             sb.append(", ");
-            for (int i = 0; i < this.derivedParents.size() - 1; i++) {
-                sb.append(this.derivedParents.get(i).getWffTree().getStringRep());
+            for (int i = 0; i < this.derivedParentIndices.size() - 1; i++) {
+                sb.append(this.derivedParentIndices.get(i));
                 sb.append(", ");
             }
-            sb.append(this.derivedParents.getLast().getWffTree().getStringRep());
+            sb.append(this.derivedParentIndices.get(this.derivedParentIndices.size() - 1));
             return sb.toString();
         }
     }

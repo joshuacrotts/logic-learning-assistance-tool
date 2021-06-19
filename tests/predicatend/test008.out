@@ -2,7 +2,7 @@
 2: (x)~(Fxr & Bx)                                    Ass.
 3: Fir                                               Ass.
 4: ~Vi                                               Ass.
-5: ~(Fir & Bi)                                       UE, (x)~(Fxr & Bx)
-6: (~Fir | ~Bi)                                      DeM, ~(Fir & Bi)
-7: ~Bi                                               DS, (~Fir | ~Bi), Fir
+5: ~(Fir & Bi)                                       UE, 2
+6: (~Fir | ~Bi)                                      DeM, 5
+7: ~Bi                                               DS, 3, 6
 ∴ ~Bi  ■

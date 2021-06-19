@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public final class PDFTruthTablePrinter extends PDFPrinter {
 
@@ -80,7 +80,7 @@ public final class PDFTruthTablePrinter extends PDFPrinter {
      */
     private String getTexTable(LinkedHashSet<WffTree> _set) {
         StringBuilder sb = new StringBuilder();
-        LinkedList<WffTree> list = new LinkedList<>(_set);
+        ArrayList<WffTree> list = new ArrayList<>(_set);
         int rows = list.get(0).getTruthValues().size();
 
         // Print the preamble stuff.

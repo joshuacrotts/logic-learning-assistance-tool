@@ -10,7 +10,7 @@ import com.llat.models.interpreters.LogicSetupInterpreter;
 import com.llat.models.treenode.WffTree;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,7 +90,7 @@ public class LogicSetup {
     /**
      *
      */
-    private LinkedList<WffTree> wffTree;
+    private ArrayList<WffTree> wffTree;
 
     public LogicSetup() {
         this.logicSetupInterpreter = new LogicSetupInterpreter(this);
@@ -249,16 +249,16 @@ public class LogicSetup {
      * @param _root
      * @param _trees
      */
-    private void clearAndHighlight(WffTree _root, LinkedList<WffTree> _trees) {
+    private void clearAndHighlight(WffTree _root, ArrayList<WffTree> _trees) {
         for (WffTree t : _trees)
             t.setHighlighted(true);
     }
 
-    public LinkedList<WffTree> getWffTree() {
+    public ArrayList<WffTree> getWffTree() {
         return this.wffTree;
     }
 
-    public void setWffTree(LinkedList<WffTree> _wffTree) {
+    public void setWffTree(ArrayList<WffTree> _wffTree) {
         this.wffTree = _wffTree;
     }
 
@@ -428,13 +428,13 @@ public class LogicSetup {
      *
      */
     public static class LogicTrees implements LogicReturn {
-        private final LinkedList<WffTree> wffTrees;
+        private final ArrayList<WffTree> wffTrees;
 
-        public LogicTrees(LinkedList<WffTree> _wffTrees) {
+        public LogicTrees(ArrayList<WffTree> _wffTrees) {
             this.wffTrees = _wffTrees;
         }
 
-        public LinkedList<WffTree> getWffTrees() {
+        public ArrayList<WffTree> getWffTrees() {
             return this.wffTrees;
         }
     }

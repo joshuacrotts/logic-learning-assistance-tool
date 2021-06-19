@@ -1,12 +1,12 @@
 1: (z)(Zzss -> Cz)                                   Ass.
 2: (Zsss & Dst)                                      Ass.
 3: (y)(~Dyt | Ay)                                    Ass.
-4: (Zsss -> Cs)                                      UE, (z)(Zzss -> Cz)
-5: Zsss                                              &E, (Zsss & Dst)
-6: Dst                                               &E, (Zsss & Dst)
-7: (~Dst | As)                                       UE, (y)(~Dyt | Ay)
-8: Cs                                                MP, (Zsss -> Cs), Zsss
-9: As                                                DS, (~Dst | As), Dst
-10: (As & Cs)                                         &I, As, Cs
-11: (∃x)(Ax & Cx)                                     ∃I, (As & Cs)
+4: (Zsss -> Cs)                                      UE, 1
+5: Zsss                                              &E, 2
+6: Dst                                               &E, 2
+7: (~Dst | As)                                       UE, 3
+8: Cs                                                MP, 4, 5
+9: As                                                DS, 6, 7
+10: (As & Cs)                                         &I, 8, 9
+11: (∃x)(Ax & Cx)                                     ∃I, 10
 ∴ (∃x)(Ax & Cx)  ■

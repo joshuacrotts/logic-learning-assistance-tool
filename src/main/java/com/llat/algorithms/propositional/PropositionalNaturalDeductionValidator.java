@@ -8,7 +8,8 @@ import com.llat.algorithms.models.NDWffTree;
 import com.llat.algorithms.predicate.PredicateNaturalDeductionValidator;
 import com.llat.models.treenode.*;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -20,7 +21,7 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
      */
     private static final int TIMEOUT = 1000;
 
-    public PropositionalNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
+    public PropositionalNaturalDeductionValidator(ArrayList<WffTree> _wffTreeList) {
         super(_wffTreeList);
     }
 
@@ -33,7 +34,7 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
      * the conclusion.
      */
     @Override
-    public LinkedList<NDWffTree> getNaturalDeductionProof() {
+    public ArrayList<NDWffTree> getNaturalDeductionProof() {
         ArgumentTruthTreeValidator truthTreeValidator = new ArgumentTruthTreeValidator(this.ORIGINAL_WFFTREE_LIST);
         if (!truthTreeValidator.isValid()) { return null; }
 
@@ -58,16 +59,7 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
         this.activateLinks(this.CONCLUSION_WFF);
 
         // Add the premises that were actually used in the argument.
-        LinkedList<NDWffTree> args = new LinkedList<>();
-        for (NDWffTree ndWffTree : this.PREMISES_LIST) {
-            if (ndWffTree.isActive()) {
-                args.add(ndWffTree);
-            }
-        }
-
-        // Finally, add the conclusion.
-        args.add(this.CONCLUSION_WFF);
-        return args;
+        return this.assignParentIndices();
     }
 
 

@@ -1,4 +1,4 @@
 1: (A -> B)                                          Ass.
 2: A                                                 Ass.
-3: B                                                 MP, (A -> B), A
+3: B                                                 MP, 1, 2
 ∴ B  ■

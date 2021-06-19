@@ -5,7 +5,7 @@ import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.models.treenode.*;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -45,7 +45,7 @@ public class SemanticEntailmentDeterminer {
      */
     private final WffTree entailee;
 
-    public SemanticEntailmentDeterminer(LinkedList<WffTree> _wffTreeList/*WffTree _treeOne, WffTree _treeTwo*/) {
+    public SemanticEntailmentDeterminer(ArrayList<WffTree> _wffTreeList/*WffTree _treeOne, WffTree _treeTwo*/) {
         this.combinedTree = new WffTree();
         Stack<WffTree> nodes = new Stack<>();
         WffTree leaf = null;
@@ -70,12 +70,12 @@ public class SemanticEntailmentDeterminer {
 
         // Configure the entailer (the lhs of the entailment).
         this.entailer = new WffTree();
-        this.entailer.setFlags(_wffTreeList.getFirst().getFlags());
+        this.entailer.setFlags(_wffTreeList.get(0).getFlags());
         this.entailer.addChild(nodes.pop());
 
         // Configure the entailee (the rhs of the entailment).
         this.entailee = new WffTree();
-        this.entailee.setFlags(_wffTreeList.getFirst().getFlags());
+        this.entailee.setFlags(_wffTreeList.get(0).getFlags());
         this.entailee.addChild(_wffTreeList.get(_wffTreeList.size() - 1).getChild(0).copy());
 
         // Create ~(A -> B).
@@ -100,7 +100,7 @@ public class SemanticEntailmentDeterminer {
 
         // Add the OR node to the combined tree.
         this.combinedTree.addChild(orNode);
-        this.combinedTree.setFlags(_wffTreeList.getFirst().getFlags());
+        this.combinedTree.setFlags(_wffTreeList.get(0).getFlags());
 
         BaseTruthTreeGenerator treeGenerator;
         if (this.combinedTree.isPropositionalWff()) {

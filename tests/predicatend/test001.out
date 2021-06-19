@@ -1,5 +1,5 @@
 1: Pac                                               Ass.
 2: Qbc                                               Ass.
-3: (Pac & Qbc)                                       &I, Pac, Qbc
-4: (∃x)(Pax & Qbx)                                   ∃I, (Pac & Qbc)
+3: (Pac & Qbc)                                       &I, 1, 2
+4: (∃x)(Pax & Qbx)                                   ∃I, 3
 ∴ (∃x)(Pax & Qbx)  ■

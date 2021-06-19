@@ -12,7 +12,7 @@ import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.events.FormulaInputEvent;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class LLATParserInterpreter implements Listener {
 
@@ -23,7 +23,7 @@ public class LLATParserInterpreter implements Listener {
     @Override
     public void catchEvent(Event _event) {
         if (_event instanceof FormulaInputEvent) {
-            LinkedList<WffTree> linkedTree = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula());
+            ArrayList<WffTree> linkedTree = LLATParserAdapter.getAbstractSyntaxTree(((FormulaInputEvent) _event).getFormula());
             LLATErrorListener.getErrorIterator().forEachRemaining((message) -> {
                 EventBus.throwEvent(new SyntaxErrorEvent(message.toString()));
             });

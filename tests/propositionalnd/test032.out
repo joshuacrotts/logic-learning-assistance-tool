@@ -1,6 +1,6 @@
 1: (C -> (D & M))                                    Ass.
 2: (~C -> ~H)                                        Ass.
 3: H                                                 Ass.
-4: C                                                 MT, (~C -> ~H), H
-5: (D & M)                                           MP, (C -> (D & M)), C
+4: C                                                 MT, 2, 3
+5: (D & M)                                           MP, 1, 4
 ∴ (D & M)  ■

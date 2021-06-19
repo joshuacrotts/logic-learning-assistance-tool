@@ -9,7 +9,7 @@ import com.llat.models.treenode.UniversalQuantifierNode;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.EventBus;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 /**
@@ -30,9 +30,9 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
     @Override
     public void buildTreeHelper(TruthTree _node) {
         int iterations = 0;
-        // Initialize the min-heap and linkedlist of leaves.
+        // Initialize the min-heap and ArrayList of leaves.
         PriorityQueue<TruthTree> queue = new PriorityQueue<>();
-        LinkedList<TruthTree> leaves = new LinkedList<>();
+        ArrayList<TruthTree> leaves = new ArrayList<>();
 
         // Add the root to these structures and compute all constants in the root.
         leaves.add(_node);
@@ -97,7 +97,7 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
      * @param _leaves               - list of leaves.
      * @param _queue                - priority queue of nodes left to process.
      */
-    private void existentialDecomposition(TruthTree _existentialTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    private void existentialDecomposition(TruthTree _existentialTruthTree, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_existentialTruthTree.getWff() instanceof ExistentialQuantifierNode)) {
             throw new IllegalArgumentException("Error: existential quantifier node expects existential node but got " + _existentialTruthTree.getClass());
         }
@@ -124,7 +124,7 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
      * @param _leaves             - list of leaves.
      * @param _queue              - priority queue of nodes left to process.
      */
-    private void universalDecomposition(TruthTree _universalTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    private void universalDecomposition(TruthTree _universalTruthTree, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_universalTruthTree.getWff() instanceof UniversalQuantifierNode)) {
             throw new IllegalArgumentException("Error: universal quantifier node expects universal node but got " + _universalTruthTree.getClass());
         }
@@ -150,7 +150,7 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
      * @param _leaves            - linked list of leaf nodes.
      * @param _queue             - priority queue of truth tree nodes left to check.
      */
-    private void identityDecomposition(TruthTree _identityTruthTree, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    private void identityDecomposition(TruthTree _identityTruthTree, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         if (!(_identityTruthTree.getWff() instanceof IdentityNode)) {
             throw new IllegalArgumentException("Error: identity truth tree node expects identity node but got " + _identityTruthTree.getWff().getClass());
         }
@@ -176,7 +176,7 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
      * @param _queue   - priority queue of nodes - each child created in this method
      *                 is added to this priority queue.
      */
-    private void distributeNegationQuantifier(TruthTree _negRoot, LinkedList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
+    private void distributeNegationQuantifier(TruthTree _negRoot, ArrayList<TruthTree> _leaves, PriorityQueue<TruthTree> _queue) {
         WffTree negatedQuantifier = getFlippedNode(_negRoot.getWff().getChild(0));
         for (TruthTree tt : _leaves) {
             if (!tt.isClosed()) {
@@ -190,9 +190,9 @@ public final class PredicateTruthTreeGenerator extends BaseTruthTreeGenerator {
      * Recursively finds all constants and stores them in the constants set
      * in the TruthTree objects.
      *
-     * @param _leaves - LinkedList of leaves.
+     * @param _leaves - ArrayList of leaves.
      */
-    private void getAllConstants(LinkedList<TruthTree> _leaves) {
+    private void getAllConstants(ArrayList<TruthTree> _leaves) {
         for (TruthTree leaf : _leaves) {
             this.getAllConstantsHelper(leaf);
         }

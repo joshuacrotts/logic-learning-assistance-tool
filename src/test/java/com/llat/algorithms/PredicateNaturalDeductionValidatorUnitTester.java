@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -119,12 +119,12 @@ public class PredicateNaturalDeductionValidatorUnitTester {
         if (parser == null)
             throw new AssertionFailedError("Failed reading test input file " + inName);
         naturalDeductionValidator = new PredicateNaturalDeductionValidator(parser.getSyntaxTrees());
-        LinkedList<NDWffTree> ndArgs = naturalDeductionValidator.getNaturalDeductionProof();
+        ArrayList<NDWffTree> ndArgs = naturalDeductionValidator.getNaturalDeductionProof();
         for (int i = 0; i < ndArgs.size(); i++) {
             NDWffTree wff = ndArgs.get(i);
             System.out.println((i + 1) + ": " + wff);
         }
-        System.out.println("∴ " + ndArgs.getLast().getWffTree().getStringRep() + "\t\t■");
+        System.out.println("∴ " + ndArgs.get(ndArgs.size() - 1).getWffTree().getStringRep() + "\t\t■");
         System.setErr(origErr);
         System.setOut(origOut);
         byte[] actual = captureOut.toByteArray();

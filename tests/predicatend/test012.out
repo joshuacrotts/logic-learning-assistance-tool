@@ -2,7 +2,7 @@
 2: (∃x)Bx                                            Ass.
 3: Bd                                                Ass.
 4: Cd                                                Ass.
-5: (Cd -> ~Bd)                                       UE, (x)(Cx -> ~Bx)
-6: ~Cd                                               MT, (Cd -> ~Bd), Bd
-7: (∃x)~Cx                                           ∃I, ~Cd
+5: (Cd -> ~Bd)                                       UE, 1
+6: ~Cd                                               MT, 3, 5
+7: (∃x)~Cx                                           ∃I, 6
 ∴ (∃x)~Cx  ■

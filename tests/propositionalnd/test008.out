@@ -1,8 +1,8 @@
 1: (A -> (B & (C & D)))                              Ass.
 2: A                                                 Ass.
 3: ((C & D) -> E)                                    Ass.
-4: (B & (C & D))                                     MP, (A -> (B & (C & D))), A
-5: (C & D)                                           &E, (B & (C & D))
-6: E                                                 MP, ((C & D) -> E), (C & D)
-7: (A & E)                                           &I, A, E
+4: (B & (C & D))                                     MP, 1, 2
+5: (C & D)                                           &E, 4
+6: E                                                 MP, 3, 5
+7: (A & E)                                           &I, 2, 6
 ∴ (A & E)  ■

@@ -1,5 +1,5 @@
 1: ~Dga                                              Ass.
 2: Fgbcdefghij                                       Ass.
-3: (~Dga & Fgbcdefghij)                              &I, ~Dga, Fgbcdefghij
-4: (∃x)(~Dxa & Fxbcdefghij)                          ∃I, (~Dga & Fgbcdefghij)
+3: (~Dga & Fgbcdefghij)                              &I, 1, 2
+4: (∃x)(~Dxa & Fxbcdefghij)                          ∃I, 3
 ∴ (∃x)(~Dxa & Fxbcdefghij)  ■

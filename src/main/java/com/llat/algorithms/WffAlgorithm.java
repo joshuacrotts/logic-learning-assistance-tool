@@ -2,11 +2,11 @@ package com.llat.algorithms;
 
 import com.llat.models.treenode.WffTree;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public interface WffAlgorithm {
 
-    LinkedList<WffTree> getList(WffTree tree);
+    ArrayList<WffTree> getList(WffTree tree);
 
     WffTree get(WffTree tree);
 }

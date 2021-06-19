@@ -6,7 +6,7 @@ import com.llat.input.events.SyntaxErrorEvent;
 import com.llat.models.treenode.WffTree;
 import com.llat.tools.EventBus;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 /**
@@ -28,9 +28,9 @@ public final class PropositionalTruthTreeGenerator extends BaseTruthTreeGenerato
     public void buildTreeHelper(TruthTree _node) {
         int iterations = 0;
 
-        // Initialize the min-heap and linkedlist of leaves.
+        // Initialize the min-heap and ArrayList of leaves.
         PriorityQueue<TruthTree> queue = new PriorityQueue<>();
-        LinkedList<TruthTree> leaves = new LinkedList<>();
+        ArrayList<TruthTree> leaves = new ArrayList<>();
 
         // Add the root to these structures and compute all constants in the root.
         leaves.add(_node);
