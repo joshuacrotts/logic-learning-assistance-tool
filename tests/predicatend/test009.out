@@ -2,7 +2,8 @@
 2: (Ma & Bb)                                         Ass.
 3: (Ma <-> Na)                                       UE, (z)(Mz <-> Nz)
 4: Ma                                                &E, (Ma & Bb)
-5: (Ma -> Na)                                        ↔E, (Ma <-> Na)
-6: Na                                                MP, (Ma -> Na), Ma
-7: (∃x)Nx                                            ∃I, Na
+5: ((Ma -> Na) & (Na -> Ma))                         ↔E, (Ma <-> Na)
+6: (Ma -> Na)                                        &E, ((Ma -> Na) & (Na -> Ma))
+7: Na                                                MP, (Ma -> Na), Ma
+8: (∃x)Nx                                            ∃I, Na
 ∴ (∃x)Nx  ■

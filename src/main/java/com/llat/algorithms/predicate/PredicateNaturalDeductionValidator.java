@@ -58,12 +58,11 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
                 NDWffTree premise = this.PREMISES_LIST.get(i);
                 this.satisfy(premise.getWffTree(), premise);
             }
-
             this.satisfy(this.CONCLUSION_WFF.getWffTree(), this.CONCLUSION_WFF);
         }
 
         // The timeout is there to prevent completely insane proofs from never ending.
-        if (cycles > TIMEOUT) {
+        if (cycles > PredicateNaturalDeductionValidator.TIMEOUT) {
             return null;
         }
 
@@ -133,7 +132,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
         // Loop through each other premise.
         for (NDWffTree othNDWffTree : this.PREMISES_LIST) {
             if (_tree.getNodeType() == othNDWffTree.getWffTree().getNodeType()
-                && _tree.getSymbol().equals(othNDWffTree.getWffTree().getSymbol())) {
+                    && _tree.getSymbol().equals(othNDWffTree.getWffTree().getSymbol())) {
                 // If the two are negated, then we need to truncate it.
                 WffTree w1 = _tree.isNegation() ? _tree.getChild(0) : _tree;
                 WffTree w2 = othNDWffTree.getWffTree().isNegation() ? othNDWffTree.getWffTree().getChild(0)
@@ -198,7 +197,8 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      * @return
      */
     private NDWffTree satisfyConjunction(WffTree _conjTree, NDWffTree _parent) {
-        if (!_parent.isAndEActive() && !_parent.isAndIActive() && !this.isConclusion(_parent)) {
+        if (!_parent.isAndEActive() && !_parent.isAndIActive()
+                && _parent.getWffTree().isAnd() && !this.isConclusion(_parent)) {
             boolean simp = this.findSimplification(_conjTree, _parent);
             if (simp && _conjTree.stringEquals(_parent.getWffTree())) return null;
         }
@@ -369,6 +369,18 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
                 and.addChild(rhs);
                 neg.addChild(and);
                 deMorganNode = neg;
+            }
+            // "Unnegate" a conjunction with two implications to get the negated biconditional.
+            else if (_binopTree.isNegation() && _binopTree.getChild(0).isAnd()
+                    && _binopTree.getChild(0).getChild(0).isImp() && _binopTree.getChild(0).getChild(1).isImp()
+                    && _binopTree.getChild(0).getChild(0).getChild(0).stringEquals(_binopTree.getChild(0).getChild(1).getChild(1))
+                    && _binopTree.getChild(0).getChild(0).getChild(1).stringEquals(_binopTree.getChild(0).getChild(1).getChild(0))) {
+                NegNode negNode = new NegNode();
+                BicondNode bicondNode = new BicondNode();
+                bicondNode.addChild(_binopTree.getChild(0).getChild(0).getChild(0));
+                bicondNode.addChild(_binopTree.getChild(0).getChild(0).getChild(1));
+                negNode.addChild(bicondNode);
+                deMorganNode = negNode;
             }
             // Four types: one is ~(X B Y) => (~X ~B ~Y)
             else if (_binopTree.isNegation() && (_binopTree.getChild(0).isOr() || _binopTree.getChild(0).isAnd() || _binopTree.getChild(0).isImp())) {

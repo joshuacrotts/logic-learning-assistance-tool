@@ -5,6 +5,7 @@ import com.llat.algorithms.BaseNaturalDeductionValidator;
 import com.llat.algorithms.models.NDFlag;
 import com.llat.algorithms.models.NDStep;
 import com.llat.algorithms.models.NDWffTree;
+import com.llat.algorithms.predicate.PredicateNaturalDeductionValidator;
 import com.llat.models.treenode.*;
 
 import java.util.LinkedList;
@@ -13,6 +14,11 @@ import java.util.LinkedList;
  *
  */
 public final class PropositionalNaturalDeductionValidator extends BaseNaturalDeductionValidator {
+
+    /**
+     *
+     */
+    private static final int TIMEOUT = 1000;
 
     public PropositionalNaturalDeductionValidator(LinkedList<WffTree> _wffTreeList) {
         super(_wffTreeList);
@@ -31,15 +37,21 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
         ArgumentTruthTreeValidator truthTreeValidator = new ArgumentTruthTreeValidator(this.ORIGINAL_WFFTREE_LIST);
         if (!truthTreeValidator.isValid()) { return null; }
 
-        while (!this.findConclusion() && !this.findContradictions()) {
+        int cycles = 0;
+        while (!this.findConclusion() && !this.findContradictions()
+                && cycles++ <= PropositionalNaturalDeductionValidator.TIMEOUT) {
             for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
                 NDWffTree premise = this.PREMISES_LIST.get(i);
                 if (this.satisfy(premise.getWffTree(), premise)) {
                     premise.setFlags(NDFlag.SAT);
                 }
             }
-
             this.satisfy(this.CONCLUSION_WFF.getWffTree(), this.CONCLUSION_WFF);
+        }
+
+        // The timeout is there to prevent completely insane proofs from never ending.
+        if (cycles > PropositionalNaturalDeductionValidator.TIMEOUT) {
+            return null;
         }
 
         // Backtrack from the conclusion to mark all those nodes that were used in the proof.

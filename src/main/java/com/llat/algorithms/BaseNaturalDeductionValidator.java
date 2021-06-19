@@ -269,14 +269,16 @@ public abstract class BaseNaturalDeductionValidator {
     protected boolean findBiconditionalElimination(WffTree _bicondTree, NDWffTree _parent) {
         if (!_parent.isBCActive()) {
             _parent.setFlags(NDFlag.BC);
+            AndNode and = new AndNode();
             ImpNode impLhs = new ImpNode();
             ImpNode impRhs = new ImpNode();
             impLhs.addChild(_bicondTree.getChild(0));
             impLhs.addChild(_bicondTree.getChild(1));
             impRhs.addChild(_bicondTree.getChild(1));
             impRhs.addChild(_bicondTree.getChild(0));
-            this.addPremise(new NDWffTree(impLhs, NDStep.BCE, _parent));
-            this.addPremise(new NDWffTree(impRhs, NDStep.BCE, _parent));
+            and.addChild(impLhs);
+            and.addChild(impRhs);
+            this.addPremise(new NDWffTree(and, NDStep.BCE, _parent));
             return true;
         }
         return false;
@@ -304,6 +306,18 @@ public abstract class BaseNaturalDeductionValidator {
                 and.addChild(rhs);
                 neg.addChild(and);
                 deMorganNode = neg;
+            }
+            // "Unnegate" a conjunction with two implications to get the negated biconditional.
+            else if (_binopTree.isNegation() && _binopTree.getChild(0).isAnd()
+                    && _binopTree.getChild(0).getChild(0).isImp() && _binopTree.getChild(0).getChild(1).isImp()
+                    && _binopTree.getChild(0).getChild(0).getChild(0).stringEquals(_binopTree.getChild(0).getChild(1).getChild(1))
+                    && _binopTree.getChild(0).getChild(0).getChild(1).stringEquals(_binopTree.getChild(0).getChild(1).getChild(0))) {
+                NegNode negNode = new NegNode();
+                BicondNode bicondNode = new BicondNode();
+                bicondNode.addChild(_binopTree.getChild(0).getChild(0).getChild(0));
+                bicondNode.addChild(_binopTree.getChild(0).getChild(0).getChild(1));
+                negNode.addChild(bicondNode);
+                deMorganNode = negNode;
             }
             // Two types: one is ~(X B Y) => (~X ~B ~Y)
             else if (_binopTree.isNegation() && (_binopTree.getChild(0).isOr() || _binopTree.getChild(0).isAnd() || _binopTree.getChild(0).isImp())) {

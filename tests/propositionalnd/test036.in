@@ -1,4 +1,1 @@
-// Note that this one does not work. what we may need to do is
-// change the DeM finder to search on the conclusion as well, but
-// only accept it if it's a goal AND a conclusion (if it is a C)?
 ~((A->B) & (B->A)) => ~(A <-> B)
