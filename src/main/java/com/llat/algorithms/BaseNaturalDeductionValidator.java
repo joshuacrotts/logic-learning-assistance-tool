@@ -289,9 +289,24 @@ public abstract class BaseNaturalDeductionValidator {
      */
     protected boolean findDeMorganEquivalence(WffTree _binopTree, NDWffTree _parent) {
         if (!_parent.isDEMActive() && !this.isConclusion(_parent)) {
-            // Two types: one is ~(X B Y) => (~X ~B ~Y)
             WffTree deMorganNode = null;
-            if (_binopTree.isNegation() && (_binopTree.getChild(0).isOr() || _binopTree.getChild(0).isAnd() || _binopTree.getChild(0).isImp())) {
+            // Negate a biconditional to get ~(X <-> Y) => ~((X->Y) & (Y->X)).
+            if (_binopTree.isNegation() && _binopTree.getChild(0).isBicond()) {
+                NegNode neg = new NegNode();
+                AndNode and = new AndNode();
+                ImpNode lhs = new ImpNode();
+                ImpNode rhs = new ImpNode();
+                lhs.addChild(_binopTree.getChild(0).getChild(0));
+                lhs.addChild(_binopTree.getChild(0).getChild(1));
+                rhs.addChild(_binopTree.getChild(0).getChild(1));
+                rhs.addChild(_binopTree.getChild(0).getChild(0));
+                and.addChild(lhs);
+                and.addChild(rhs);
+                neg.addChild(and);
+                deMorganNode = neg;
+            }
+            // Two types: one is ~(X B Y) => (~X ~B ~Y)
+            else if (_binopTree.isNegation() && (_binopTree.getChild(0).isOr() || _binopTree.getChild(0).isAnd() || _binopTree.getChild(0).isImp())) {
                 deMorganNode = BaseTruthTreeGenerator.getNegatedBinaryNode(_binopTree.getChild(0)); // B
                 deMorganNode.addChild(_binopTree.getChild(0).isImp() ? _binopTree.getChild(0).getChild(0)
                         : BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0).getChild(0))); // LHS X

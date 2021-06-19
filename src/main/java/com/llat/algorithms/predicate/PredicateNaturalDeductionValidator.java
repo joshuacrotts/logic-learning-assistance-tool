@@ -354,9 +354,24 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
      */
     private NDWffTree satisfyDeMorganFOPL(WffTree _binopTree, NDWffTree _parent) {
         if (!_parent.isDEMActive() && !this.isConclusion(_parent)) {
-            // Four types: one is ~(X B Y) => (~X ~B ~Y)
             WffTree deMorganNode = null;
-            if (_binopTree.isNegation() && (_binopTree.getChild(0).isOr() || _binopTree.getChild(0).isAnd() || _binopTree.getChild(0).isImp())) {
+            // Negate a biconditional to get ~(X <-> Y) => ~((X->Y) & (Y->X)).
+            if (_binopTree.isNegation() && _binopTree.getChild(0).isBicond()) {
+                NegNode neg = new NegNode();
+                AndNode and = new AndNode();
+                ImpNode lhs = new ImpNode();
+                ImpNode rhs = new ImpNode();
+                lhs.addChild(_binopTree.getChild(0).getChild(0));
+                lhs.addChild(_binopTree.getChild(0).getChild(1));
+                rhs.addChild(_binopTree.getChild(0).getChild(1));
+                rhs.addChild(_binopTree.getChild(0).getChild(0));
+                and.addChild(lhs);
+                and.addChild(rhs);
+                neg.addChild(and);
+                deMorganNode = neg;
+            }
+            // Four types: one is ~(X B Y) => (~X ~B ~Y)
+            else if (_binopTree.isNegation() && (_binopTree.getChild(0).isOr() || _binopTree.getChild(0).isAnd() || _binopTree.getChild(0).isImp())) {
                 deMorganNode = BaseTruthTreeGenerator.getNegatedBinaryNode(_binopTree.getChild(0)); // B
                 deMorganNode.addChild(_binopTree.getChild(0).isImp() ? _binopTree.getChild(0).getChild(0)
                         : BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0).getChild(0))); // LHS X
@@ -365,7 +380,7 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
             // Other is (X B Y) => ~(~X ~B ~Y)
             else if ((_binopTree.isOr() || _binopTree.isAnd() || _binopTree.isImp())) {
                 WffTree negBinaryNode = BaseTruthTreeGenerator.getNegatedBinaryNode(_binopTree); // B
-                negBinaryNode.addChild(BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0))); // LHS X
+                negBinaryNode.addChild(_binopTree.isImp() ? _binopTree.getChild(0) : BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0))); // LHS X
                 negBinaryNode.addChild(BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(1))); // RHS Y
                 deMorganNode = new NegNode();
                 deMorganNode.addChild(negBinaryNode);

@@ -297,4 +297,24 @@ public class PropositionalNaturalDeductionValidatorUnitTester {
     public void test032() {
         goodFileTest("test032");
     }
+
+    @Test
+    public void test033() {
+        goodFileTest("test033");
+    }
+
+    @Test
+    public void test034() {
+        goodFileTest("test034");
+    }
+
+    @Test
+    public void test035() {
+        goodFileTest("test035");
+    }
+//
+//    @Test
+//    public void test036() {
+//        goodFileTest("test036");
+//    }
 }
