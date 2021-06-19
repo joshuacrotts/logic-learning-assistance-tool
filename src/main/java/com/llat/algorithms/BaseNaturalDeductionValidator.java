@@ -300,13 +300,13 @@ public abstract class BaseNaturalDeductionValidator {
             // Other is (X B Y) => ~(~X ~B ~Y)
             else if ((_binopTree.isOr() || _binopTree.isAnd() || _binopTree.isImp())) {
                 WffTree negBinaryNode = BaseTruthTreeGenerator.getNegatedBinaryNode(_binopTree); // B
-                negBinaryNode.addChild(BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0))); // LHS X
+                negBinaryNode.addChild(_binopTree.isImp() ? _binopTree.getChild(0) : BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(0))); // LHS X
                 negBinaryNode.addChild(BaseTruthTreeGenerator.getFlippedNode(_binopTree.getChild(1))); // RHS Y
                 deMorganNode = new NegNode();
                 deMorganNode.addChild(negBinaryNode);
             }
             // If we found a node, then it'll be applied/inserted here.
-            if (deMorganNode != null && isGoal(deMorganNode)) {
+            if (deMorganNode != null) {
                 _parent.setFlags(NDFlag.DEM);
                 this.addPremise(new NDWffTree(deMorganNode, NDFlag.DEM, NDStep.DEM, _parent));
                 return true;

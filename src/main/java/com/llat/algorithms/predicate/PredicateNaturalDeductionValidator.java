@@ -52,7 +52,8 @@ public final class PredicateNaturalDeductionValidator extends BaseNaturalDeducti
     @Override
     public LinkedList<NDWffTree> getNaturalDeductionProof() {
         int cycles = 0;
-        while (!this.findConclusion() && !this.findContradictions() && cycles++ <= TIMEOUT) {
+        while (!this.findConclusion() && !this.findContradictions()
+                && cycles++ <= PredicateNaturalDeductionValidator.TIMEOUT) {
             for (int i = 0; i < this.PREMISES_LIST.size(); i++) {
                 NDWffTree premise = this.PREMISES_LIST.get(i);
                 this.satisfy(premise.getWffTree(), premise);

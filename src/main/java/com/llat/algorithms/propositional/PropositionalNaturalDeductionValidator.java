@@ -140,6 +140,11 @@ public final class PropositionalNaturalDeductionValidator extends BaseNaturalDed
     }
 
     /**
+     * Creates or eliminates a conjunction node. The creation comes through searching for
+     * the two operands to see if they exist and if so, create the conjunction.
+     *
+     * Elimination is simply simplification - breaks the two operands down.
+     *
      * @param _conjTree
      * @param _parent
      * @return true if we can satisfy the conjunction goal, false otherwise.

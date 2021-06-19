@@ -2,6 +2,6 @@
 2: (Q -> R)                                          Ass.
 3: (Q -> S)                                          Ass.
 4: (S -> T)                                          Ass.
-5: (P -> S)                                          HS, (Q -> S), (P -> Q)
-6: (P -> T)                                          HS, (P -> S), (S -> T)
+5: (Q -> T)                                          HS, (S -> T), (Q -> S)
+6: (P -> T)                                          HS, (P -> Q), (Q -> T)
 ∴ (P -> T)  ■
