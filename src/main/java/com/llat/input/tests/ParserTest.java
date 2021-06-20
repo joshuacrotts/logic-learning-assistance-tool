@@ -154,6 +154,7 @@ public class ParserTest {
 
         // If we have at least two wffs, we can see if they form a valid or invalid argument.
         if (resultList.size() >= 2) {
+            // Argument validator (truth tree test).
             ArgumentTruthTreeValidator validator = new ArgumentTruthTreeValidator(resultList);
             System.out.println("Deductively valid: " + validator.isValid());
             BaseNaturalDeductionValidator ndValidator = null;
@@ -165,6 +166,7 @@ public class ParserTest {
                 ndValidator = new PredicateNaturalDeductionValidator(resultList);
             }
 
+            // Natural deduction prover.
             ArrayList<NDWffTree> ndArgs = ndValidator.getNaturalDeductionProof();
             if (ndArgs == null) {
                 System.err.println("Either the argument is invalid (check the above result) or it timed out!");
@@ -178,6 +180,9 @@ public class ParserTest {
 
             PDFPrinter ttp = new PDFTruthTreePrinter(validator.getTruthTree(), "latex-truth-tree.pdf");
             ttp.outputToFile();
+
+            PDFPrinter ndp = new PDFNaturalDeductionPrinter(ndValidator.getNaturalDeductionProof(), "latex-nd.pdf");
+            ndp.outputToFile();
         }
     }
 

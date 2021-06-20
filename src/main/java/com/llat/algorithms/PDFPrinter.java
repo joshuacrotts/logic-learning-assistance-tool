@@ -15,7 +15,7 @@ import java.nio.file.StandardCopyOption;
 public abstract class PDFPrinter {
 
     /**
-     * Truth tree to print to the output file.
+     * Tree to print to the output file.
      */
     private final WffTree WFF_TREE;
 

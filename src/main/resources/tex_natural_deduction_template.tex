@@ -1,0 +1,31 @@
+\documentclass[preview,class=scrartcl,fontsize=20pt]{standalone}
+\usepackage{logicproof}
+\usepackage{amssymb}
+\newcommand{\varlnot}{\mathord{\sim}}
+\newcommand{\varland}{\mathbin{\&}}
+\newcommand{\varliff}{\leftrightarrow}
+\newcommand{\dneg}{\varlnot\varlnot}
+\newcommand*\lif{\mathbin{\to}}% added thanks to egreg's suggestion
+\newcommand{\ltrue}{\mathrm{true}}
+\newlength\subproofhorizspaceright
+\setlength\subproofhorizspaceright{\subproofhorizspace}
+\makeatletter
+\renewcommand{\lp@stop@proof@line}{%
+  \whiledo{\value{lp@temp}>\value{lp@nested}}{%
+    \addtocounter{lp@temp}{-1}%
+    \lp@amper%
+    \hspace*{\subproofhorizspaceright}%
+  }%
+  \whiledo{\value{lp@temp}>0}{%
+    \addtocounter{lp@temp}{-1}%
+    \lp@amper%
+    \hspace*{\subproofhorizspaceright}%
+    \vline%
+  }%
+}
+\makeatother
+
+\begin{document}
+{
+\setlength\subproofhorizspace{2em}
+    \begin{logicproof}{1}
