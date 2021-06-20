@@ -1,8 +1,10 @@
 package com.llat.models;
 
 import com.llat.algorithms.*;
+import com.llat.algorithms.models.NDWffTree;
 import com.llat.algorithms.models.TruthTree;
 import com.llat.algorithms.predicate.*;
+import com.llat.algorithms.propositional.PropositionalNaturalDeductionValidator;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
 import com.llat.algorithms.propositional.RandomPropositionalFormulaGenerator;
 import com.llat.algorithms.propositional.TruthTableGenerator;
@@ -44,6 +46,7 @@ public class LogicSetup {
         this.add(AlgorithmType.LOGICALLY_CONTRARY_DETERMINER);
         this.add(AlgorithmType.LOGICALLY_EQUIVALENT_DETERMINER);
         this.add(AlgorithmType.LOGICALLY_IMPLIED_DETERMINER);
+        this.add(AlgorithmType.NATURAL_DEDUCTION);
     }};
     /**
      *
@@ -52,6 +55,7 @@ public class LogicSetup {
         this.add(AlgorithmType.GENERAL);
         this.add(AlgorithmType.ARGUMENT_TRUTH_TREE_VALIDATOR);
         this.add(AlgorithmType.SEMANTIC_ENTAILMENT_DETERMINER);
+        this.add(AlgorithmType.NATURAL_DEDUCTION);
     }};
     /**
      *
@@ -238,7 +242,15 @@ public class LogicSetup {
                 case RANDOM_PROPOSITIONAL_FORMULA:
                     RandomPropositionalFormulaGenerator randomPropositionalFormulaGenerator = new RandomPropositionalFormulaGenerator();
                     return new LogicFormula(randomPropositionalFormulaGenerator.genRandomPropositionalFormula());
-
+                case NATURAL_DEDUCTION:
+                    if (this.wffTree.get(0).isPredicate()) {
+                        PredicateNaturalDeductionValidator predicateNaturalDeductionValidator = new PredicateNaturalDeductionValidator(this.wffTree);
+                        return new LogicNDWffTrees(predicateNaturalDeductionValidator.getNaturalDeductionProof());
+                    }
+                    else {
+                        PropositionalNaturalDeductionValidator propositionalNaturalDeductionValidator = new PropositionalNaturalDeductionValidator(this.wffTree);
+                        return new LogicNDWffTrees(propositionalNaturalDeductionValidator.getNaturalDeductionProof());
+                    }
                 default:
                     return new LogicVoid();
             }
@@ -439,6 +451,22 @@ public class LogicSetup {
         }
     }
 
+    /**
+     *
+     */
+    public static class LogicNDWffTrees implements LogicReturn {
+        private ArrayList<WffTree> wffTrees;
+        public ArrayList<NDWffTree> ndWffTrees;
+
+        public LogicNDWffTrees (ArrayList<NDWffTree> _ndWffTrees) {
+            this.ndWffTrees = _ndWffTrees;
+        }
+
+        public ArrayList <NDWffTree> getNDWffTrees() {
+            return this.ndWffTrees;
+        }
+
+    }
     /**
      *
      */

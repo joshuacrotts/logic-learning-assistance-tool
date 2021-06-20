@@ -13,7 +13,7 @@ public class UpdateViewTruthTreeEvent implements Event {
     /**
      *
      */
-    private boolean isEmpty;
+    private boolean isEmpty = false;
 
     public UpdateViewTruthTreeEvent(TruthTree _truthTree) {
         this.truthTree = _truthTree;

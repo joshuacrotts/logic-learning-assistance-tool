@@ -37,12 +37,15 @@ public class CenterView {
         this.tabPane = new TabPane();
         this.tabPane.setId("centerTabPane");
         this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        this.tabPane.getTabs().addAll(new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getTruthTreeLabel()), new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getParseTreeLabel()), new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getTruthTableLabel()));
+        this.tabPane.getTabs().addAll(new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getTruthTreeLabel()),
+                                      new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getParseTreeLabel()),
+                                      new Tab(this.controller.getUiObject().getMainView().getMainViewLabels().getTruthTableLabel()),
+                                      new Tab("Natural Deduction"));
         this.tabPane.getTabs().get(0).setContent(new TruthTreeView(this.controller).getParentPane());
         this.tabPane.getTabs().get(1).setContent(new ParseTreeView(this.controller).getParentPane());
         this.tabPane.getTabs().get(2).setContent(new TruthTableView(this.controller).getParentPane());
+        this.tabPane.getTabs().get(3).setContent(new NaturalDeductionView(this.controller).getParentPane());
         // Adding children nodes to their parents nodes.
-        // this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.scrollPane);
         this.parentPane.getChildren().addAll(new AlgorithmSelectionView(this.controller).getParentPane(), this.tabPane);
         this.centerViewInterpreter = new CenterViewInterpreter(this.controller, this);
         this.parentPane.heightProperty().addListener((obs, oldVal, newVal) -> {

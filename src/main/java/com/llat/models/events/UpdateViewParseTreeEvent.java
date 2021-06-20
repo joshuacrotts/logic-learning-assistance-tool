@@ -13,7 +13,7 @@ public class UpdateViewParseTreeEvent implements Event {
     /**
      *
      */
-    private boolean isEmpty;
+    private boolean isEmpty = false;
 
     public UpdateViewParseTreeEvent(WffTree _wffTree) {
         this.wffTree = _wffTree;

@@ -2,6 +2,7 @@ package com.llat.models.interpreters;
 
 
 import com.llat.algorithms.*;
+import com.llat.algorithms.models.NDWffTree;
 import com.llat.algorithms.predicate.PredicateTruthTreeGenerator;
 import com.llat.algorithms.propositional.PDFTruthTablePrinter;
 import com.llat.algorithms.propositional.PropositionalTruthTreeGenerator;
@@ -16,6 +17,8 @@ import com.llat.tools.EventBus;
 import com.llat.tools.Listener;
 import com.llat.views.events.*;
 
+import java.util.ArrayList;
+
 public class LogicSetupInterpreter implements Listener {
 
     /**
@@ -23,6 +26,7 @@ public class LogicSetupInterpreter implements Listener {
      */
     private final LogicSetup logicSetup;
     private WffTree outputTree;
+    private ArrayList<NDWffTree> outputNDWffTree;
 
     public LogicSetupInterpreter(LogicSetup _logicSetup) {
         this.logicSetup = _logicSetup;
@@ -41,6 +45,7 @@ public class LogicSetupInterpreter implements Listener {
             UpdateViewTruthTreeEvent updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent();
             UpdateViewTruthTableEvent updateViewTruthTableEvent = new UpdateViewTruthTableEvent();
             RandomGeneratedFormulaEvent randomGeneratedFormulaEvent = new RandomGeneratedFormulaEvent();
+            UpdateNaturalDeductionEvent updateNaturalDeductionEvent = new UpdateNaturalDeductionEvent();
             if (!(logicReturn instanceof LogicSetup.LogicVoid)) {
                 switch (this.logicSetup.convertStringToAlgorithmType(((ApplyAlgorithmEvent) _event).getAlgorithmType())) {
                     case RANDOM_PREDICATE_FORMULA:
@@ -97,6 +102,9 @@ public class LogicSetupInterpreter implements Listener {
                         updateViewParseTreeEvent = new UpdateViewParseTreeEvent(this.outputTree);
                         updateViewTruthTreeEvent = new UpdateViewTruthTreeEvent(((LogicSetup.LogicTruthParseAndTruthTree) logicReturn).getTruthTree());
                         break;
+                    case NATURAL_DEDUCTION:
+                        this.outputNDWffTree = ((LogicSetup.LogicNDWffTrees) logicReturn).getNDWffTrees();
+                        updateNaturalDeductionEvent = new UpdateNaturalDeductionEvent(this.outputNDWffTree);
                 }
             }
 
@@ -105,6 +113,7 @@ public class LogicSetupInterpreter implements Listener {
             EventBus.throwEvent(updateViewParseTreeEvent);
             EventBus.throwEvent(updateViewTruthTreeEvent);
             EventBus.throwEvent(updateViewTruthTableEvent);
+            EventBus.throwEvent(updateNaturalDeductionEvent);
         } else if (_event instanceof ExportPDFParseTreeEvent) {
             PDFPrinter pdfParseTreePrinter = new PDFParseTreePrinter(this.outputTree, ((ExportPDFParseTreeEvent) _event).getFilePath());
             pdfParseTreePrinter.outputToFile();
